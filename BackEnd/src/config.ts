@@ -1,6 +1,6 @@
 export default {
     apiPath: process.env.API_PATH || '',
-    host: process.env.HOST_DB || 'localhost',
+    host: process.env.HOST_DB || '192.168.0.16',
     user: process.env.USER_DB || 'root',
     password: process.env.PASSWORD_DB || '',
     database: process.env.NAME_DB || 'AppKinsonDB',
