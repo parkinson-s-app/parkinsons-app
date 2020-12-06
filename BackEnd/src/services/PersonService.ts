@@ -14,7 +14,9 @@ export default class PersonService {
             PASSWORD: person.password
         }
         debug('savePerson person to save: %j', aux);
-        return await conn.query('INSERT INTO users SET ?',[aux]);
+        const res = await conn.query('INSERT INTO users SET ?',[aux]);
+        conn.end();
+        return res;
     }
 
     /**
@@ -26,6 +28,17 @@ export default class PersonService {
         debug('getPeople bd connected');
         const people = await conn.query('SELECT * FROM users');
         debug('getPeople response db: %j', people[0]);
+        conn.end();
         return people[0];
+    }
+
+    /**
+     * getPersonByEmail
+     */
+    public static async getPersonByEmail(email: string) {
+        debug('getPersonByEmail email: %s', email);
+        const conn = await connect();
+        const person =  await conn.query('SELECT * FROM users WHERE EMAIL = ?',[email]);
+        return person[0];
     }
 }
