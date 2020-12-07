@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 //import 'package:flutter_svg/flutter_svg.dart';
 
 class InputFieldRegister extends StatefulWidget {
+<<<<<<< HEAD
   @override
   InputFieldRegisterCustom createState() => InputFieldRegisterCustom();
 }
@@ -15,6 +16,25 @@ String selectUser = "Seleccione un usuario";
 TextEditingController emailController = new TextEditingController();
 
 class InputFieldRegisterCustom extends State<InputFieldRegister> {
+=======
+
+  @override
+    _InputFieldRegister createState() => _InputFieldRegister();
+  }
+
+  class _InputFieldRegister extends State<InputFieldRegister> {
+
+    bool _obscurePassword = true;
+    bool _obscureVerPassword = true;
+    String _password;
+
+    void _toggle(){
+      setState(() {
+        _obscurePassword = !_obscurePassword;
+    });
+
+  }
+>>>>>>> 20be14a6eab3669031c3145d4bebc7a0436fbaac
   @override
   Widget build(BuildContext context) {
     var currentValue = 'Paciente';
@@ -57,7 +77,7 @@ class InputFieldRegisterCustom extends State<InputFieldRegister> {
           child: TextField(
             controller: emailController,
             decoration: InputDecoration(
-                hintText: "Enter your email",
+                hintText: "Ingrese su correo eléctronico",
                 hintStyle: TextStyle(color: Colors.grey),
                 border: InputBorder.none),
           ),
@@ -66,23 +86,45 @@ class InputFieldRegisterCustom extends State<InputFieldRegister> {
           padding: EdgeInsets.all(10),
           decoration: BoxDecoration(
               border: Border(bottom: BorderSide(color: Colors.grey[200]))),
-          child: TextField(
-            decoration: InputDecoration(
-                hintText: "Enter your password",
-                hintStyle: TextStyle(color: Colors.grey),
-                border: InputBorder.none),
+          child: Row(
+            children: <Widget>[
+              Expanded(
+                flex: 10,
+                child: TextFormField(
+                  decoration: const InputDecoration(
+                    hintText: "Ingrese su contraseña",
+                  ),
+                  obscureText: _obscurePassword,
+                ),
+              ),
+              Expanded(
+                child: TextButton(
+                  onPressed: _toggle,
+                  child: new Icon(_obscurePassword ? Icons.remove_red_eye_sharp: Icons.remove_red_eye_outlined),
+                ),
+              ),
+            ],
           ),
         ),
         Container(
           padding: EdgeInsets.all(10),
           decoration: BoxDecoration(
               border: Border(bottom: BorderSide(color: Colors.grey[200]))),
-          child: TextField(
-            decoration: InputDecoration(
-                hintText: "Enter your password again",
-                hintStyle: TextStyle(color: Colors.grey),
-                border: InputBorder.none),
+          child: Row(
+            children: <Widget>[
+              Expanded(
+                child: TextFormField(
+                  decoration: const InputDecoration(
+                    hintText: "Vuelva a Ingresar su contraseña",
+                  ),
+                  obscureText: _obscureVerPassword,
+                ),
+              ),
+            ],
           ),
+        ),
+        Container(
+
         ),
       ],
     );
