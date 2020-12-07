@@ -12,7 +12,7 @@ class ButtonLogin extends StatelessWidget {
       margin: EdgeInsets.symmetric(horizontal: 40),
       child: RaisedButton(
         shape:
-        RoundedRectangleBorder(borderRadius: BorderRadius.circular(18.0)),
+            RoundedRectangleBorder(borderRadius: BorderRadius.circular(18.0)),
         //   side: BorderSide(color: Color.fromRGBO(0, 160, 227, 1))),
         onPressed: () {
           Navigator.push(context,

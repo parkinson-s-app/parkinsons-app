@@ -1,7 +1,12 @@
 import 'package:flutter/material.dart';
+import '../../../services/EndPoints.dart';
+import '../InputFieldRegister.dart';
+import '../InputFieldRegister.dart';
+import '../InputFieldRegister.dart';
+import '';
 
 class ButtonRegister extends StatelessWidget {
- /* addUsers(String username, String password) async {
+  /* addUsers(String username, String password) async {
     Map data2 = {'username': username, 'password': password};
     debugPrint(data2.toString());
     http.Response response =
@@ -19,10 +24,12 @@ class ButtonRegister extends StatelessWidget {
       margin: EdgeInsets.symmetric(horizontal: 50),
       child: RaisedButton(
         shape:
-        RoundedRectangleBorder(borderRadius: BorderRadius.circular(18.0)),
+            RoundedRectangleBorder(borderRadius: BorderRadius.circular(18.0)),
         //   side: BorderSide(color: Color.fromRGBO(0, 160, 227, 1))),
-        onPressed: () {
-         // addUsers('jorge', '1234');
+        onPressed: () async {
+          // addUsers('jorge', '1234');
+          debugPrint(await metod().send());
+          EndPoints().addUsers('jorge', '1234');
         },
         padding: EdgeInsets.symmetric(horizontal: 50),
         color: Color.fromRGBO(0, 160, 227, 1),

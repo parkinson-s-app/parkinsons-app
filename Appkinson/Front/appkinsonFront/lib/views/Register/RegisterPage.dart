@@ -6,6 +6,7 @@ class RegisterPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        resizeToAvoidBottomPadding: false,
         body: Container(
           width: double.infinity,
           decoration: BoxDecoration(
@@ -19,14 +20,14 @@ class RegisterPage extends StatelessWidget {
             HeaderRegister(),
             Expanded(
                 child: Container(
-                  decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.only(
-                        topLeft: Radius.circular(60),
-                        topRight: Radius.circular(60),
-                      )),
-                  child: InputWrapperRegister(),
-                ))
+              decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(60),
+                    topRight: Radius.circular(60),
+                  )),
+              child: InputWrapperRegister(),
+            ))
           ]),
         ));
   }
