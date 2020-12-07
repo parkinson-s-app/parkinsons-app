@@ -1,11 +1,11 @@
 import 'package:dropdownfield/dropdownfield.dart';
 import 'package:flutter/material.dart';
+import '../../model/User.dart';
 //import 'DropDownRegister.dart';
 //import 'DropDownRegister.dart';
 //import 'package:flutter_svg/flutter_svg.dart';
 
 class InputFieldRegister extends StatefulWidget {
-<<<<<<< HEAD
   @override
   InputFieldRegisterCustom createState() => InputFieldRegisterCustom();
 }
@@ -14,27 +14,19 @@ var lista = ['Paciente', 'Doctor', 'Cuidador'];
 final userSelected = TextEditingController();
 String selectUser = "Seleccione un usuario";
 TextEditingController emailController = new TextEditingController();
+TextEditingController password = new TextEditingController();
 
 class InputFieldRegisterCustom extends State<InputFieldRegister> {
-=======
+  bool _obscurePassword = true;
+  bool _obscureVerPassword = true;
+  String _password;
 
-  @override
-    _InputFieldRegister createState() => _InputFieldRegister();
-  }
-
-  class _InputFieldRegister extends State<InputFieldRegister> {
-
-    bool _obscurePassword = true;
-    bool _obscureVerPassword = true;
-    String _password;
-
-    void _toggle(){
-      setState(() {
-        _obscurePassword = !_obscurePassword;
+  void _toggle() {
+    setState(() {
+      _obscurePassword = !_obscurePassword;
     });
-
   }
->>>>>>> 20be14a6eab3669031c3145d4bebc7a0436fbaac
+
   @override
   Widget build(BuildContext context) {
     var currentValue = 'Paciente';
@@ -91,6 +83,7 @@ class InputFieldRegisterCustom extends State<InputFieldRegister> {
               Expanded(
                 flex: 10,
                 child: TextFormField(
+                  controller: password,
                   decoration: const InputDecoration(
                     hintText: "Ingrese su contraseña",
                   ),
@@ -100,7 +93,9 @@ class InputFieldRegisterCustom extends State<InputFieldRegister> {
               Expanded(
                 child: TextButton(
                   onPressed: _toggle,
-                  child: new Icon(_obscurePassword ? Icons.remove_red_eye_sharp: Icons.remove_red_eye_outlined),
+                  child: new Icon(_obscurePassword
+                      ? Icons.remove_red_eye_sharp
+                      : Icons.remove_red_eye_outlined),
                 ),
               ),
             ],
@@ -123,16 +118,17 @@ class InputFieldRegisterCustom extends State<InputFieldRegister> {
             ],
           ),
         ),
-        Container(
-
-        ),
+        Container(),
       ],
     );
   }
 }
 
 class metod {
-  Future<String> send() async {
-    return emailController.text;
+  Future<User> send() async {
+    var newUser =
+        new User(email: emailController.text, password: password.text);
+    debugPrint(newUser.password);
+    return newUser;
   }
 }

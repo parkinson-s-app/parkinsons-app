@@ -4,6 +4,7 @@ import { constants } from 'http2';
 import IPersonCredencialsDto from '../models/IPersonCredencialsDto';
 import IPersonDto from '../models/IPersonDto';
 import PersonService from '../services/PersonService';
+import * as bcrypt from "bcryptjs";
 
 const debug = debugLib('AppKinson:UserController');
 const UserController = Router();
@@ -15,7 +16,7 @@ UserController.post('/registro', async (req: Request, res: Response) => {
     debug('Registro response db: %j', response);
     if(response) {
         const status =  constants.HTTP_STATUS_OK;
-        res.status(status).send(response);
+        res.status(status).send('Guardado');
     } else {
         const status =  constants.HTTP_STATUS_INTERNAL_SERVER_ERROR;
         res.status(status).send('Error');
@@ -46,17 +47,17 @@ UserController.post('/login', async (req: Request, res: Response) => {
         status =  constants.HTTP_STATUS_NOT_FOUND;
         res.status(status).send({ message:'Invalid Email' });
     }
-    const isValid = compare(credentials.password, responseJSON[0].PASSWORD);
+    const isValid = await compare(credentials.password, responseJSON[0].PASSWORD);
     if (isValid) {
         status =  constants.HTTP_STATUS_OK;
-        res.status(status).send(responseJSON);
+        res.status(status).send('Good');
     } else {
         status =  constants.HTTP_STATUS_NOT_FOUND;
         res.status(status).send({ message:'Invalid Password' });
     }
 });
-
-function compare(password: string, passwordInDB: string) {
-    return password === passwordInDB;
+async function compare(password: string, passwordInDB: string) {
+    const isMatch = await bcrypt.compare(password, passwordInDB);
+    return isMatch;
 }
 export default UserController;

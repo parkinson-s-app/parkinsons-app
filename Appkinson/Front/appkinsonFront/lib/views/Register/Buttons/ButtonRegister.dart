@@ -3,7 +3,11 @@ import '../../../services/EndPoints.dart';
 import '../InputFieldRegister.dart';
 import '../InputFieldRegister.dart';
 import '../InputFieldRegister.dart';
-import '';
+import '../../../model/User.dart';
+import '../InputFieldRegister.dart';
+import '../InputFieldRegister.dart';
+import '../../Login/LoginPage.dart';
+import 'dart:async';
 
 class ButtonRegister extends StatelessWidget {
   /* addUsers(String username, String password) async {
@@ -28,8 +32,15 @@ class ButtonRegister extends StatelessWidget {
         //   side: BorderSide(color: Color.fromRGBO(0, 160, 227, 1))),
         onPressed: () async {
           // addUsers('jorge', '1234');
-          debugPrint(await metod().send());
-          EndPoints().addUsers('jorge', '1234');
+          var m = new metod();
+          var user = await m.send() as User;
+          debugPrint(user.email);
+          String save = await EndPoints().addUsers(user);
+          debugPrint(save);
+          if (save == 'Guardado') {
+            Navigator.push(context,
+                new MaterialPageRoute(builder: (context) => LoginPage()));
+          }
         },
         padding: EdgeInsets.symmetric(horizontal: 50),
         color: Color.fromRGBO(0, 160, 227, 1),

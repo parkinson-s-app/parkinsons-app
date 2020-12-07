@@ -1,6 +1,7 @@
 import { connect } from "../database";
 import debugLib from 'debug';
 import IPersonDto from "../models/IPersonDto";
+import * as bcrypt from "bcryptjs";
 
 const debug = debugLib('AppKinson:PersonService');
 
@@ -9,14 +10,18 @@ export default class PersonService {
     public static async savePerson(person: IPersonDto) {
         debug('savePerson person: %j', person);
         const conn = await connect();
+        const cript = await bcrypt.hash(person.password,10);
         const aux = {
             EMAIL: person.email,
-            PASSWORD: person.password
+            PASSWORD: cript
         }
         debug('savePerson person to save: %j', aux);
-        const res = await conn.query('INSERT INTO users SET ?',[aux]);
-        conn.end();
-        return res;
+        try {
+            const res = await conn.query('INSERT INTO users SET ?',[aux]);
+            return res;
+        } catch (e) {
+            debug('savePerson Catch Error: %s, %j', e.stack, e);
+        }
     }
 
     /**
@@ -28,7 +33,6 @@ export default class PersonService {
         debug('getPeople bd connected');
         const people = await conn.query('SELECT * FROM users');
         debug('getPeople response db: %j', people[0]);
-        conn.end();
         return people[0];
     }
 
