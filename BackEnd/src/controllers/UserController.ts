@@ -16,7 +16,7 @@ UserController.post('/registro', async (req: Request, res: Response) => {
     debug('Registro response db: %j', response);
     if(response) {
         const status =  constants.HTTP_STATUS_OK;
-        res.status(status).send(response);
+        res.status(status).send('Guardado todo ok mi pex');
     } else {
         const status =  constants.HTTP_STATUS_INTERNAL_SERVER_ERROR;
         res.status(status).send('Error');
