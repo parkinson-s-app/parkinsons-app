@@ -37,10 +37,10 @@ class ButtonRegister extends StatelessWidget {
           debugPrint(user.email);
           String save = await EndPoints().addUsers(user);
           debugPrint(save);
-          //if (save == 'Guardado') {
-          //Navigator.push(context,
-          //     new MaterialPageRoute(builder: (context) => LoginPage()));
-          // }
+          if (save == 'Guardado') {
+            Navigator.push(context,
+                new MaterialPageRoute(builder: (context) => LoginPage()));
+          }
         },
         padding: EdgeInsets.symmetric(horizontal: 50),
         color: Color.fromRGBO(0, 160, 227, 1),

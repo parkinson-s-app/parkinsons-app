@@ -23,8 +23,12 @@ class EndPoints {
     //data = json.decode(response.body);
   }
 
-  authUser(String username, String password) {
-    Map data2 = {'username': username, 'password': password};
+  Future<String> authUser(User authUser) async {
+    Map data2 = {'email': authUser.email, 'password': authUser.password};
+    http.Response response =
+        await http.post('http://192.168.0.16:8095/api/login', body: data2);
     debugPrint(data2.toString());
+    String i = response.body;
+    return i;
   }
 }
