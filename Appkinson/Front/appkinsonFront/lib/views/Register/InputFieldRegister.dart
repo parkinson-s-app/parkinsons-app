@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 //import 'package:flutter_svg/flutter_svg.dart';
 
 class InputFieldRegister extends StatefulWidget {
-<<<<<<< HEAD
   @override
   InputFieldRegisterCustom createState() => InputFieldRegisterCustom();
 }
@@ -16,13 +15,6 @@ String selectUser = "Seleccione un usuario";
 TextEditingController emailController = new TextEditingController();
 
 class InputFieldRegisterCustom extends State<InputFieldRegister> {
-=======
-
-  @override
-    _InputFieldRegister createState() => _InputFieldRegister();
-  }
-
-  class _InputFieldRegister extends State<InputFieldRegister> {
 
     bool _obscurePassword = true;
     bool _obscureVerPassword = true;
@@ -32,9 +24,8 @@ class InputFieldRegisterCustom extends State<InputFieldRegister> {
       setState(() {
         _obscurePassword = !_obscurePassword;
     });
-
   }
->>>>>>> 20be14a6eab3669031c3145d4bebc7a0436fbaac
+
   @override
   Widget build(BuildContext context) {
     var currentValue = 'Paciente';
