@@ -31,16 +31,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="31db714b-e910-47be-9d56-52caa0903605" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/../../../.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/../../../.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/android/local.properties" beforeDir="false" afterPath="$PROJECT_DIR$/android/local.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ios/Flutter/Generated.xcconfig" beforeDir="false" afterPath="$PROJECT_DIR$/ios/Flutter/Generated.xcconfig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ios/Flutter/flutter_export_environment.sh" beforeDir="false" afterPath="$PROJECT_DIR$/ios/Flutter/flutter_export_environment.sh" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ios/Runner.xcodeproj/project.pbxproj" beforeDir="false" afterPath="$PROJECT_DIR$/ios/Runner.xcodeproj/project.pbxproj" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../../BackEnd/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/../../../BackEnd/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../../BackEnd/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/../../../BackEnd/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../../BackEnd/src/config.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../../../BackEnd/src/config.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../../BackEnd/src/controllers/UserController.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../../../BackEnd/src/controllers/UserController.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../../BackEnd/src/services/PersonService.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../../../BackEnd/src/services/PersonService.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/markdown-navigator.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/markdown-navigator.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -98,6 +90,22 @@
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="WindowStateProjectService">
+    <state width="1638" height="275" key="GridCell.Tab.0.bottom" timestamp="1607313673152">
+      <screen x="0" y="0" width="1680" height="1050" />
+    </state>
+    <state width="1638" height="275" key="GridCell.Tab.0.bottom/0.0.1680.1050@0.0.1680.1050" timestamp="1607313673152" />
+    <state width="1638" height="275" key="GridCell.Tab.0.center" timestamp="1607313673038">
+      <screen x="0" y="0" width="1680" height="1050" />
+    </state>
+    <state width="1638" height="275" key="GridCell.Tab.0.center/0.0.1680.1050@0.0.1680.1050" timestamp="1607313673038" />
+    <state width="1638" height="275" key="GridCell.Tab.0.left" timestamp="1607313673023">
+      <screen x="0" y="0" width="1680" height="1050" />
+    </state>
+    <state width="1638" height="275" key="GridCell.Tab.0.left/0.0.1680.1050@0.0.1680.1050" timestamp="1607313673023" />
+    <state width="1638" height="275" key="GridCell.Tab.0.right" timestamp="1607313673073">
+      <screen x="0" y="0" width="1680" height="1050" />
+    </state>
+    <state width="1638" height="275" key="GridCell.Tab.0.right/0.0.1680.1050@0.0.1680.1050" timestamp="1607313673073" />
     <state x="341" y="164" key="SettingsEditor" timestamp="1607262527297">
       <screen x="0" y="0" width="1680" height="1050" />
     </state>
