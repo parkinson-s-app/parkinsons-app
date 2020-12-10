@@ -5,5 +5,5 @@ export default {
     password: process.env.PASSWORD_DB || '',
     database: process.env.NAME_DB || 'AppKinsonDB',
     connectionLimit: process.env.CON_LIMIT || 10,
-    port: process.env.PORT || '8095',
+    port: process.env.PORT || '8000',
 };

@@ -33,7 +33,7 @@ class ButtonRegister extends StatelessWidget {
         onPressed: () async {
           // addUsers('jorge', '1234');
           var m = new metod();
-          var user = await m.send() as User;
+          var user = await m.send();
           debugPrint(user.email);
           String save = await EndPoints().addUsers(user);
           debugPrint(save);

@@ -40,8 +40,10 @@ UserController.post('/login', async (req: Request, res: Response) => {
     debug('Login Body: %j', req.body);
     const credentials = req.body as IPersonCredencialsDto;
     const responseDB = await PersonService.getPersonByEmail(credentials.email);
+    debug('Login Body: %j', req.body);
     const responseJSON = JSON.parse(JSON.stringify(responseDB));
     debug('Login: responseDB ', responseJSON.length);
+    debug('User get response db: %j', responseDB);
     let status;
     if (responseJSON.length === 0 ) {
         status =  constants.HTTP_STATUS_NOT_FOUND;
@@ -50,7 +52,7 @@ UserController.post('/login', async (req: Request, res: Response) => {
     const isValid = await compare(credentials.password, responseJSON[0].PASSWORD);
     if (isValid) {
         status =  constants.HTTP_STATUS_OK;
-        res.status(status).send('Good');
+        res.status(status).send(responseJSON[0].TYPE);
     } else {
         status =  constants.HTTP_STATUS_NOT_FOUND;
         res.status(status).send({ message:'Invalid Password' });

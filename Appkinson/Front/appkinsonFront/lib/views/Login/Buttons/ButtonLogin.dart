@@ -33,9 +33,21 @@ class _FormButtonLogin extends State<ButtonLogin> {
           var m = new metod();
           var user = await m.send() as User;
           debugPrint(user.email);
-          String save = await EndPoints().authUser(user);
+          var save = await EndPoints().authUser(user);
           debugPrint(save);
-          if (save == 'Good') {
+          if (save == 'Cuidador') {
+            Navigator.push(context,
+                new MaterialPageRoute(builder: (context) => CarerHomePage()));
+          }
+          if (save == 'Paciente') {
+            Navigator.push(context,
+                new MaterialPageRoute(builder: (context) => PatientHomePage()));
+          }
+          if (save == 'Doctor') {
+            Navigator.push(context,
+                new MaterialPageRoute(builder: (context) => DoctorHomePage()));
+          }
+          if (save == 'Admin') {
             Navigator.push(context,
                 new MaterialPageRoute(builder: (context) => AdminHomePage()));
           }

@@ -13,7 +13,8 @@ export default class PersonService {
         const cript = await bcrypt.hash(person.password,10);
         const aux = {
             EMAIL: person.email,
-            PASSWORD: cript
+            PASSWORD: cript,
+            TYPE: person.type
         }
         debug('savePerson person to save: %j', aux);
         try {

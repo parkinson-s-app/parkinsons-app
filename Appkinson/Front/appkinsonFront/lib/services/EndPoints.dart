@@ -10,11 +10,11 @@ class EndPoints {
       'email': newUser.email,
       'password': newUser.password,
       'username': 'juan',
-      'type': 'doctor'
+      'type': newUser.type
     };
     debugPrint(data2.toString());
     http.Response response =
-        await http.post('http://192.168.0.16:8095/api/registro', body: data2);
+        await http.post('http://192.168.0.16:8000/api/registro', body: data2);
 
     //debugPrint(response.body);
     String i = response.body;
@@ -26,7 +26,7 @@ class EndPoints {
   Future<String> authUser(User authUser) async {
     Map data2 = {'email': authUser.email, 'password': authUser.password};
     http.Response response =
-        await http.post('http://192.168.0.16:8095/api/login', body: data2);
+        await http.post('http://192.168.0.16:8000/api/login', body: data2);
     debugPrint(data2.toString());
     String i = response.body;
     return i;
