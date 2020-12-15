@@ -27,7 +27,7 @@ class HomePage extends StatelessWidget {
         ),
         Center(
           child: Text(
-            "Appkinson",
+            "APPkinson",
             style: TextStyle(
                 color: Colors.blue[900], fontSize: 40, fontFamily: "Raleway"),
           ),

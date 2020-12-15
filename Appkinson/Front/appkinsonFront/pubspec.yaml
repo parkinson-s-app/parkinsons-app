@@ -25,6 +25,10 @@ dependencies:
     sdk: flutter
   flutter_svg: ^0.17.4
   dropdownfield: ^1.0.3
+  line_awesome_flutter: ^1.0.1
+  flutter_screenutil: ^1.0.2
+  animated_theme_switcher: ^1.0.5
+  foldable_sidebar: ^1.0.0
 
 
   # The following adds the Cupertino Icons font to your application.
@@ -69,6 +73,7 @@ flutter:
      - assets/images/pacientes.png
      - assets/images/ingenieria.png
      - assets/images/toolsBack.png
+     - assets/images/usuario(1).png
 
 
   #   - images/a_dot_ham.jpeg
