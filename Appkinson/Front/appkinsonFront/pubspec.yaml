@@ -29,6 +29,9 @@ dependencies:
   flutter_screenutil: ^1.0.2
   animated_theme_switcher: ^1.0.5
   foldable_sidebar: ^1.0.0
+  image_picker:
+  image_cropper: ^1.2.0
+  swipedetector: ^1.2.0
 
 
   # The following adds the Cupertino Icons font to your application.
@@ -74,6 +77,7 @@ flutter:
      - assets/images/ingenieria.png
      - assets/images/toolsBack.png
      - assets/images/usuario(1).png
+     - assets/images/user.png
 
 
   #   - images/a_dot_ham.jpeg

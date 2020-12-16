@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:appkinsonFront/views/profiles/Carer/CarerProfle.dart';
 import 'package:flutter/material.dart';
 
 //import '../../Register/RegisterPage.dart';
@@ -16,6 +17,8 @@ class ButtonGoProfile extends StatelessWidget {
             RoundedRectangleBorder(borderRadius: BorderRadius.circular(18.0)),
         //   side: BorderSide(color: Color.fromRGBO(0, 160, 227, 1))),
         onPressed: () {
+          Navigator.push(context,
+              new MaterialPageRoute(builder: (context) => MyHomePage3()));
           //Navigator.push(context,
           //  new MaterialPageRoute(builder: (context) => RegisterPage()));
         },
