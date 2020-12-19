@@ -1,3 +1,4 @@
+import 'package:appkinsonFront/views/Login/Buttons/ButtonLogin.dart';
 import 'package:flutter/cupertino.dart';
 
 import 'dart:io';
@@ -140,13 +141,13 @@ class PatientProfileScreenP extends State<PatientProfileScreen> {
           height: 20,
         ),
         Text(
-          'Camilo Hoyos',
+          currentUser['EMAIL'],
           style: kTitleTextStyle,
         ),
         SizedBox(
           height: 5,
         ),
-        Text('cami.Hoyos@gmail.com', style: kCaptionTextStyle),
+        Text(currentUser['EMAIL'], style: kCaptionTextStyle),
         SizedBox(),
       ],
     ));

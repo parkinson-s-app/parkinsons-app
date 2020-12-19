@@ -3,55 +3,65 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:rxdart/rxdart.dart';
 
-class NotificationPlugin{
+class NotificationPlugin {
   FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin;
-  final BehaviorSubject<ReceivedNotification> didReceivedLocalNotificationSubject =
+  final BehaviorSubject<ReceivedNotification>
+      didReceivedLocalNotificationSubject =
       BehaviorSubject<ReceivedNotification>();
   var initializationSettings;
 
-
-  NotificationPlugin._(){
+  NotificationPlugin._() {
     init();
   }
-  init() async{
+  init() async {
     flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
-    if(Platform.isIOS){
+    if (Platform.isIOS) {
       _requestIOSPermission();
     }
     initializePlatformSpecifics();
   }
-  initializePlatformSpecifics(){
-    var initializationSettingsAndroid = AndroidInitializationSettings('@mipmap/ic_launcher');
+
+  initializePlatformSpecifics() {
+    var initializationSettingsAndroid =
+        AndroidInitializationSettings('@mipmap/ic_launcher');
     var initializationSettingsIOS = IOSInitializationSettings(
       requestAlertPermission: true,
       requestBadgePermission: true,
       requestSoundPermission: true,
       onDidReceiveLocalNotification: (id, title, body, payload) async {
-        ReceivedNotification receivedNotification = ReceivedNotification(id: id, title: title, body: body, payload: payload);
+        ReceivedNotification receivedNotification = ReceivedNotification(
+            id: id, title: title, body: body, payload: payload);
         didReceivedLocalNotificationSubject.add(receivedNotification);
       },
     );
     initializationSettings = InitializationSettings(
-      initializationSettingsAndroid, initializationSettingsIOS);
+        initializationSettingsAndroid, initializationSettingsIOS);
   }
-  _requestIOSPermission(){
-    flutterLocalNotificationsPlugin.resolvePlatformSpecificImplementation<IOSFlutterLocalNotificationsPlugin>().requestPermissions(
-      alert: false,
-      badge: true,
-      sound: true,
-    );
+
+  _requestIOSPermission() {
+    flutterLocalNotificationsPlugin
+        .resolvePlatformSpecificImplementation<
+            IOSFlutterLocalNotificationsPlugin>()
+        .requestPermissions(
+          alert: false,
+          badge: true,
+          sound: true,
+        );
   }
-  setListenerForLowerVersions(Function onNotificationInLowerVersions){
+
+  setListenerForLowerVersions(Function onNotificationInLowerVersions) {
     didReceivedLocalNotificationSubject.listen((receiveNotification) {
       onNotificationInLowerVersions(receiveNotification);
     });
   }
+
   setOnNotificationClick(Function onNotificationClick) async {
     await flutterLocalNotificationsPlugin.initialize(initializationSettings,
-        onSelectNotification: (String payload) async{
-          onNotificationClick(payload);
-        });
+        onSelectNotification: (String payload) async {
+      onNotificationClick(payload);
+    });
   }
+
   Future<void> showNotification() async {
     var androidChannelSpecifics = AndroidNotificationDetails(
       'CHANNEL_ID',
@@ -65,7 +75,7 @@ class NotificationPlugin{
     );
     var iosChannelSpecifics = IOSNotificationDetails();
     var platformChannelSpecifics =
-    NotificationDetails(androidChannelSpecifics, iosChannelSpecifics);
+        NotificationDetails(androidChannelSpecifics, iosChannelSpecifics);
     await flutterLocalNotificationsPlugin.show(
       0,
       'SINTOMAS',
@@ -96,8 +106,8 @@ class NotificationPlugin{
       styleInformation: DefaultStyleInformation(true, true),
     );
     var iosChannelSpecifics = IOSNotificationDetails(
-     // sound: 'my_sound.aiff',
-    );
+        // sound: 'my_sound.aiff',
+        );
     var platformChannelSpecifics = NotificationDetails(
       androidChannelSpecifics,
       iosChannelSpecifics,
@@ -111,8 +121,9 @@ class NotificationPlugin{
       payload: 'Test Payload',
     );
   }
+
   Future<void> showDailyAtTime() async {
-    var time = Time(21, 3, 0);
+    var time = Time(2, 0, 0);
     var androidChannelSpecifics = AndroidNotificationDetails(
       'CHANNEL_ID 4',
       'CHANNEL_NAME 4',
@@ -122,7 +133,7 @@ class NotificationPlugin{
     );
     var iosChannelSpecifics = IOSNotificationDetails();
     var platformChannelSpecifics =
-    NotificationDetails(androidChannelSpecifics, iosChannelSpecifics);
+        NotificationDetails(androidChannelSpecifics, iosChannelSpecifics);
     await flutterLocalNotificationsPlugin.showDailyAtTime(
       0,
       'Test Title at ${time.hour}:${time.minute}.${time.second}',
@@ -132,6 +143,7 @@ class NotificationPlugin{
       payload: 'Test Payload',
     );
   }
+
   Future<void> showWeeklyAtDayTime() async {
     var time = Time(21, 0, 0);
     var androidChannelSpecifics = AndroidNotificationDetails(
@@ -143,7 +155,7 @@ class NotificationPlugin{
     );
     var iosChannelSpecifics = IOSNotificationDetails();
     var platformChannelSpecifics =
-    NotificationDetails(androidChannelSpecifics, iosChannelSpecifics);
+        NotificationDetails(androidChannelSpecifics, iosChannelSpecifics);
     await flutterLocalNotificationsPlugin.showWeeklyAtDayAndTime(
       0,
       'Test Title at ${time.hour}:${time.minute}.${time.second}',
@@ -154,15 +166,18 @@ class NotificationPlugin{
       payload: 'Test Payload',
     );
   }
+
   Future<void> cancelNotification() async {
     await flutterLocalNotificationsPlugin.cancel(0);
   }
+
   Future<void> cancelAllNotification() async {
     await flutterLocalNotificationsPlugin.cancelAll();
   }
 }
 
 NotificationPlugin notificationPlugin = NotificationPlugin._();
+
 class ReceivedNotification {
   final int id;
   final String title;

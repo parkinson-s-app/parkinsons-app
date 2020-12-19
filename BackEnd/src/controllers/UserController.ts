@@ -52,7 +52,7 @@ UserController.post('/login', async (req: Request, res: Response) => {
     const isValid = await compare(credentials.password, responseJSON[0].PASSWORD);
     if (isValid) {
         status =  constants.HTTP_STATUS_OK;
-        res.status(status).send(responseJSON[0].TYPE);
+        res.status(status).send(responseJSON[0]);
     } else {
         status =  constants.HTTP_STATUS_NOT_FOUND;
         res.status(status).send({ message:'Invalid Password' });

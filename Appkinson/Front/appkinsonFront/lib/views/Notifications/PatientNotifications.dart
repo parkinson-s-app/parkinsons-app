@@ -1,10 +1,9 @@
 import 'package:appkinsonFront/views/Notifications/NotificationPlugin.dart';
 import 'package:flutter/material.dart';
 
-class PatientNotifications extends StatefulWidget{
+class PatientNotifications extends StatefulWidget {
   @override
-  _PatientNotifications createState() =>
-       _PatientNotifications();
+  _PatientNotifications createState() => _PatientNotifications();
 }
 
 class _PatientNotifications extends State<PatientNotifications> {
@@ -36,8 +35,12 @@ class _PatientNotifications extends State<PatientNotifications> {
             onChanged: onChangeValueSymptoms,
             activeColor: Colors.amberAccent,
             secondary: new Icon(Icons.sick),
-            title: new Text('Sintomas', style: new TextStyle(fontSize: 20.0),),
-            subtitle: new Text('¡Recuerda registrar tus síntomas todos los días!'),
+            title: new Text(
+              'Sintomas',
+              style: new TextStyle(fontSize: 20.0),
+            ),
+            subtitle:
+                new Text('¡Recuerda registrar tus síntomas todos los días!'),
           ),
           SizedBox(
             height: 30,
@@ -47,8 +50,12 @@ class _PatientNotifications extends State<PatientNotifications> {
             onChanged: onChangeValueMedicine,
             activeColor: Colors.amberAccent,
             secondary: new Icon(Icons.medical_services),
-            title: new Text('Medicamentos', style: new TextStyle(fontSize: 20.0),),
-            subtitle: new Text('¡Recuerda tomarte los medicamentos todos los días!'),
+            title: new Text(
+              'Medicamentos',
+              style: new TextStyle(fontSize: 20.0),
+            ),
+            subtitle:
+                new Text('¡Recuerda tomarte los medicamentos todos los días!'),
           ),
           SizedBox(
             height: 30,
@@ -58,8 +65,12 @@ class _PatientNotifications extends State<PatientNotifications> {
             onChanged: onChangeValueCheerUp,
             activeColor: Colors.amberAccent,
             secondary: new Icon(Icons.emoji_emotions_sharp),
-            title: new Text('Estado de ánimo', style: new TextStyle(fontSize: 20.0),),
-            subtitle: new Text('¡Recuerda registrar tu estado de ánimo cada semana!'),
+            title: new Text(
+              'Estado de ánimo',
+              style: new TextStyle(fontSize: 20.0),
+            ),
+            subtitle:
+                new Text('¡Recuerda registrar tu estado de ánimo cada semana!'),
           ),
           SizedBox(
             height: 40,
@@ -70,35 +81,36 @@ class _PatientNotifications extends State<PatientNotifications> {
     );
   }
 
-  onNotificationInLowerVersions(ReceivedNotification receivedNotification) {
+  onNotificationInLowerVersions(ReceivedNotification receivedNotification) {}
+  onNotificationClick(String payload) {}
 
-  }
-  onNotificationClick(String payload) {
-  }
-
-  void onChangeValueSymptoms(bool value) async{
+  void onChangeValueSymptoms(bool value) async {
     setState(() {
       valueSymptoms = value;
     });
-    if(value ==  true){await notificationPlugin.showNotification();
+    if (value == true) {
+      await notificationPlugin.showNotification();
     }
     /*else{
       await notificationPlugin.cancelNotification();
     }*/
-}
-  void onChangeValueMedicine(bool value) async{
+  }
+
+  void onChangeValueMedicine(bool value) async {
     setState(() {
-      valueSymptoms = value;
+      valueMedicines = value;
     });
-    if(value ==  true){await notificationPlugin.showDailyAtTime();
+    if (value == true) {
+      await notificationPlugin.showDailyAtTime();
     }
   }
 
-  void onChangeValueCheerUp(bool value) async{
+  void onChangeValueCheerUp(bool value) async {
     setState(() {
-      valueSymptoms = value;
+      valueCheerUp = value;
     });
-    if(value ==  true){await notificationPlugin.showWeeklyAtDayTime();
+    if (value == true) {
+      await notificationPlugin.showWeeklyAtDayTime();
     }
   }
 }
