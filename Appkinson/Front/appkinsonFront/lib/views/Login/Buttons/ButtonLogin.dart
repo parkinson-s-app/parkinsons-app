@@ -13,6 +13,8 @@ import '../../HomeDifferentUsers/Carer/CarerHomePage.dart';
 import '../../HomeDifferentUsers/Doctor/DoctorHomePage.dart';
 import '../../../services/EndPoints.dart';
 
+Map currentUser;
+
 class ButtonLogin extends StatefulWidget {
   @override
   _FormButtonLogin createState() => _FormButtonLogin();
@@ -34,20 +36,22 @@ class _FormButtonLogin extends State<ButtonLogin> {
           var user = await m.send() as User;
           debugPrint(user.email);
           var save = await EndPoints().authUser(user);
-          debugPrint(save);
-          if (save == 'Cuidador') {
+          currentUser = json.decode(save);
+
+          debugPrint(currentUser['TYPE']);
+          if (currentUser['TYPE'] == 'Cuidador') {
             Navigator.push(context,
                 new MaterialPageRoute(builder: (context) => CarerHomePage()));
           }
-          if (save == 'Paciente') {
+          if (currentUser['TYPE'] == 'Paciente') {
             Navigator.push(context,
                 new MaterialPageRoute(builder: (context) => PatientHomePage()));
           }
-          if (save == 'Doctor') {
+          if (currentUser['TYPE'] == 'Doctor') {
             Navigator.push(context,
                 new MaterialPageRoute(builder: (context) => DoctorHomePage()));
           }
-          if (save == 'Admin') {
+          if (currentUser['TYPE'] == 'Admin') {
             Navigator.push(context,
                 new MaterialPageRoute(builder: (context) => AdminHomePage()));
           }
