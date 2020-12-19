@@ -1,16 +1,9 @@
 import 'package:flutter/material.dart';
 import 'Buttons/ButtonGoCalendar.dart';
-import 'Buttons/ButtonGoCalendar.dart';
-import 'Buttons/ButtonGoProfile.dart';
-import 'Buttons/ButtonGoProfile.dart';
 import 'Buttons/ButtonGoProfile.dart';
 import 'Buttons/ButtonGoReminder.dart';
-import 'Buttons/ButtonGoReminder.dart';
-import 'Buttons/ButtonGoSymptomBehaviorRegister.dart';
 import 'Buttons/ButtonGoSymptomBehaviorRegister.dart';
 import 'Buttons/ButtonGoToolBox.dart';
-import 'Buttons/ButtonGoToolBox.dart';
-import 'Buttons/ButtonGoWeeklyForm.dart';
 import 'Buttons/ButtonGoWeeklyForm.dart';
 
 class PatientHomePage extends StatelessWidget {

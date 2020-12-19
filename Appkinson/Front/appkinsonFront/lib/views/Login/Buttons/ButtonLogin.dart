@@ -1,16 +1,11 @@
-import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import '../../HomeDifferentUsers/Admin/AdminHomePage.dart';
 import '../../HomeDifferentUsers/Doctor/DoctorHomePage.dart';
 import '../../HomeDifferentUsers/Patient/PatientHomePage.dart';
 import "../InputFieldLogin.dart";
-import 'dart:async';
 import '../../../model/User.dart';
-import '../../HomeDifferentUsers/Patient/PatientHomePage.dart';
-import '../../HomeDifferentUsers/Admin/AdminHomePage.dart';
 import '../../HomeDifferentUsers/Carer/CarerHomePage.dart';
-import '../../HomeDifferentUsers/Doctor/DoctorHomePage.dart';
 import '../../../services/EndPoints.dart';
 
 class ButtonLogin extends StatefulWidget {
