@@ -46,4 +46,13 @@ export default class PersonService {
         const person =  await conn.query('SELECT * FROM users WHERE EMAIL = ?',[email]);
         return person[0];
     }
+    /**
+     * getPersonById
+     */
+    public static async getPersonById(id: number) {
+        debug('getPersonById email: %s', id);
+        const conn = await connect();
+        const person =  await conn.query('SELECT * FROM users WHERE ID = ?',[id]);
+        return person[0];
+    }
 }

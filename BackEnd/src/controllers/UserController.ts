@@ -4,10 +4,15 @@ import { constants } from 'http2';
 import IPersonCredencialsDto from '../models/IPersonCredencialsDto';
 import IPersonDto from '../models/IPersonDto';
 import PersonService from '../services/PersonService';
-import * as bcrypt from "bcryptjs";
+import * as bcrypt from 'bcryptjs';
+import * as jwt from 'jsonwebtoken';
+import IUserDto from '../models/IUserDto';
+import config from '../config';
+import { verifyToken } from '../utilities/AuthUtilities';
 
 const debug = debugLib('AppKinson:UserController');
 const UserController = Router();
+const secretKey = config.secretKey;
 
 UserController.post('/registro', async (req: Request, res: Response) => {
     debug('Registro Body: %j', req.body);
@@ -36,6 +41,21 @@ UserController.get('/users', async (req: Request, res: Response) => {
     }
 });
 
+UserController.get('/users/:id', verifyToken, async (req: Request, res: Response) => {
+    debug('Users GetByID');
+    const id = +req.params.id;
+    debug('Users GetById id: ', id);
+    const response = await PersonService.getPersonById(id);
+    debug('User get by id response db: %j', response);
+    if(response) {
+        const status =  constants.HTTP_STATUS_OK;
+        res.status(status).send(response);
+    } else {
+        const status =  constants.HTTP_STATUS_INTERNAL_SERVER_ERROR;
+        res.status(status).send('Error');
+    }
+});
+
 UserController.post('/login', async (req: Request, res: Response) => {
     debug('Login Body: %j', req.body);
     const credentials = req.body as IPersonCredencialsDto;
@@ -52,10 +72,30 @@ UserController.post('/login', async (req: Request, res: Response) => {
     const isValid = await compare(credentials.password, responseJSON[0].PASSWORD);
     if (isValid) {
         status =  constants.HTTP_STATUS_OK;
-        res.status(status).send(responseJSON[0]);
+        let user: IUserDto;
+        user = {
+            email: responseJSON[0].EMAIL,
+            type: responseJSON[0].TYPE,
+            id: responseJSON[0].ID
+        };
+        debug('Login Sucessful user %j', user);
+        jwt.sign(user, secretKey, { algorithm: 'HS512' }, (err, token) =>{
+            if( err ) {
+                debug('Login error %j', err);
+                status = constants.HTTP_STATUS_INTERNAL_SERVER_ERROR;
+                res.status(status).send({ status, error: err});
+            } else {
+                debug('Login send token');
+                res.json({
+                    token
+                })
+            }
+        });
+
+        // res.status(status).send(user);
     } else {
         status =  constants.HTTP_STATUS_NOT_FOUND;
-        res.status(status).send({ message:'Invalid Password' });
+        res.status(status).send({ person:'Invalid Password' });
     }
 });
 async function compare(password: string, passwordInDB: string) {
