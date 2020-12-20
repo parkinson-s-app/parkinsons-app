@@ -84,6 +84,7 @@ flutter:
      - assets/images/toolsBack.png
      - assets/images/usuario(1).png
      - assets/images/user.png
+     - assets/images/cerebroMovimiento.png
 
 
   #   - images/a_dot_ham.jpeg
@@ -106,6 +107,9 @@ flutter:
     - family: Raleway2
       fonts:
         - asset: assets/fonts/Raleway-Light.ttf
+    - family: RalewayBold
+      fonts:
+        - asset: assets/fonts/Raleway-Bold.ttf
   #       - asset: fonts/Schyler-Italic.ttf
   #         style: italic
   #   - family: Trajan Pro

@@ -55,14 +55,14 @@ class DoctorProfileScreenP extends State<DoctorProfileScreen> {
                 child: ListBody(
               children: <Widget>[
                 GestureDetector(
-                  child: Text("Galeria"),
+                  child: Text("Galería"),
                   onTap: () {
                     openGallery(context);
                   },
                 ),
                 Padding(padding: EdgeInsets.all(6.0)),
                 GestureDetector(
-                  child: Text("Camara"),
+                  child: Text("Cámara"),
                   onTap: () {
                     openCamera(context);
                   },

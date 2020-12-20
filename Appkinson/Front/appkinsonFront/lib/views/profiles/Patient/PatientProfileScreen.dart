@@ -1,4 +1,5 @@
 import 'package:appkinsonFront/views/Login/Buttons/ButtonLogin.dart';
+import 'package:appkinsonFront/views/profiles/Patient/profileEdition/ProfileEdition.dart';
 import 'package:flutter/cupertino.dart';
 
 import 'dart:io';
@@ -56,14 +57,14 @@ class PatientProfileScreenP extends State<PatientProfileScreen> {
                 child: ListBody(
               children: <Widget>[
                 GestureDetector(
-                  child: Text("Galeria"),
+                  child: Text("Galería"),
                   onTap: () {
                     openGallery(context);
                   },
                 ),
                 Padding(padding: EdgeInsets.all(6.0)),
                 GestureDetector(
-                  child: Text("Camara"),
+                  child: Text("Cámara"),
                   onTap: () {
                     openCamera(context);
                   },
@@ -141,13 +142,17 @@ class PatientProfileScreenP extends State<PatientProfileScreen> {
           height: 20,
         ),
         Text(
-          currentUser['EMAIL'],
+          //currentUser['EMAIL'],
+          "camilo",
           style: kTitleTextStyle,
         ),
         SizedBox(
           height: 5,
         ),
-        Text(currentUser['EMAIL'], style: kCaptionTextStyle),
+        Text(
+            //currentUser['EMAIL']
+            "h@gamil.com",
+            style: kCaptionTextStyle),
         SizedBox(),
       ],
     ));
@@ -222,7 +227,7 @@ class PatientProfileScreenP extends State<PatientProfileScreen> {
                   ),
                   ProfileListItem(
                     icon: LineAwesomeIcons.star,
-                    text: 'Calificanos',
+                    text: 'Califícanos',
                   ),
                   ProfileListItem(
                     icon: Icons.exit_to_app,
@@ -259,7 +264,14 @@ class ProfileListItem extends StatelessWidget {
           shape:
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)),
           color: Colors.grey[100],
-          onPressed: () {},
+          onPressed: () {
+            if (text == 'Editar') {
+              Navigator.push(
+                  context,
+                  new MaterialPageRoute(
+                      builder: (context) => ProfileEdition()));
+            }
+          },
           child: Row(
             children: <Widget>[
               Icon(this.icon, size: 25),

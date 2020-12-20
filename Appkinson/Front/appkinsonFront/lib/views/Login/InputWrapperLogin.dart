@@ -22,8 +22,8 @@ class InputWrapper extends StatelessWidget {
             height: 40,
           ),
           Text(
-            "Olvidaste tu contraseña?",
-            style: TextStyle(color: Colors.blueGrey[400], fontSize: 10),
+            "¿Olvidaste tu contraseña?",
+            style: TextStyle(color: Colors.blueGrey[400], fontSize: 12),
           ),
           SizedBox(
             height: 40,

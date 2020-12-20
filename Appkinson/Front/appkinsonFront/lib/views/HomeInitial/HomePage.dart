@@ -23,26 +23,38 @@ class HomePage extends StatelessWidget {
       ])),
       child: Column(children: <Widget>[
         SizedBox(
-          height: 150,
+          height: 140,
         ),
         Center(
           child: Text(
-            "APPkinson",
+            "AppKinson",
             style: TextStyle(
-                color: Colors.blue[900], fontSize: 40, fontFamily: "Raleway"),
+                color: Colors.indigo[900], fontSize: 40, fontFamily: "Raleway"),
           ),
+        ),
+        Center(
+          child: Text(
+            "Aplicación para la Enfermedad de Parkinson",
+            style: TextStyle(
+                color: Colors.indigo[900],
+                fontSize: 14,
+                fontFamily: "RalewayBold"),
+          ),
+        ),
+        SizedBox(
+          height: 20,
         ),
         Positioned(
             child: Image.asset(
-          "assets/images/cerebroAzul.png",
-          height: size.height * 0.25,
+          "assets/images/cerebroMovimiento.png",
+          height: size.height * 0.35,
         )),
         SizedBox(
-          height: 100,
+          height: 20,
         ),
         Center(
           child: Text(
-            "Bienvenido!",
+            "¡Bienvenido!",
             style: TextStyle(
                 color: Colors.white, fontSize: 30, fontFamily: "Raleway"),
           ),
