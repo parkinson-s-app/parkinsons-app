@@ -21,7 +21,7 @@ class ButtonLogin extends StatelessWidget {
         padding: EdgeInsets.symmetric(horizontal: 50),
         color: Colors.grey[100],
         textColor: Colors.blue,
-        child: Text("Iniciar Sesion ", style: TextStyle(fontSize: 15)),
+        child: Text("Iniciar Sesión ", style: TextStyle(fontSize: 15)),
       ),
     );
   }

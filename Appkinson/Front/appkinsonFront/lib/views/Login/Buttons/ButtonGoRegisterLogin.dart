@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 
 import '../../Register/RegisterPage.dart';
@@ -11,7 +10,7 @@ class ButtonGoRegisterLogin extends StatelessWidget {
       margin: EdgeInsets.symmetric(horizontal: 40),
       child: FlatButton(
         shape:
-        RoundedRectangleBorder(borderRadius: BorderRadius.circular(18.0)),
+            RoundedRectangleBorder(borderRadius: BorderRadius.circular(18.0)),
         //   side: BorderSide(color: Color.fromRGBO(0, 160, 227, 1))),
         onPressed: () {
           Navigator.push(context,
@@ -20,7 +19,7 @@ class ButtonGoRegisterLogin extends StatelessWidget {
         padding: EdgeInsets.symmetric(horizontal: 50),
         color: Colors.white,
         textColor: Colors.blue,
-        child: Text("No tienes una cuenta? ", style: TextStyle(fontSize: 10)),
+        child: Text("¿No tienes una cuenta? ", style: TextStyle(fontSize: 13)),
       ),
     );
   }

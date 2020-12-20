@@ -60,7 +60,7 @@ class InputFieldRegisterCustom extends State<InputFieldRegister> {
           ),
         ),
         SizedBox(
-          height: 40,
+          height: 20,
         ),
         Container(
           padding: EdgeInsets.all(10),

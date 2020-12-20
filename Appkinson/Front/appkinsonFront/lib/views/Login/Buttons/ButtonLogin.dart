@@ -1,3 +1,4 @@
+import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import '../../HomeDifferentUsers/Admin/AdminHomePage.dart';
@@ -9,6 +10,7 @@ import '../../HomeDifferentUsers/Carer/CarerHomePage.dart';
 import '../../../services/EndPoints.dart';
 
 Map currentUser;
+var token;
 
 class ButtonLogin extends StatefulWidget {
   @override
@@ -30,23 +32,47 @@ class _FormButtonLogin extends State<ButtonLogin> {
           var m = new metod();
           var user = await m.send() as User;
           debugPrint(user.email);
-          var save = await EndPoints().authUser(user);
-          currentUser = json.decode(save);
 
-          debugPrint(currentUser['TYPE']);
-          if (currentUser['TYPE'] == 'Cuidador') {
+          /*
+            parte del decodificado del token y 
+            ontención del payload. Posteriormente
+            obtención del tipo de usuario para 
+            dirijirlo a la pantalla correspondiente
+          */
+
+          token = await EndPoints().authUser(user);
+          var lista = token.split(".");
+          var payload = lista[1];
+
+          switch (payload.length % 4) {
+            case 1:
+              break; // this case can't be handled well, because 3 padding chars is illeagal.
+            case 2:
+              payload = payload + "==";
+              break;
+            case 3:
+              payload = payload + "=";
+              break;
+          }
+
+          var decoded = utf8.decode(base64.decode(payload));
+          currentUser = json.decode(decoded);
+          debugPrint(currentUser['type']);
+          debugPrint(decoded);
+
+          if (currentUser['type'] == 'Cuidador') {
             Navigator.push(context,
                 new MaterialPageRoute(builder: (context) => CarerHomePage()));
           }
-          if (currentUser['TYPE'] == 'Paciente') {
+          if (currentUser['type'] == 'Paciente') {
             Navigator.push(context,
                 new MaterialPageRoute(builder: (context) => PatientHomePage()));
           }
-          if (currentUser['TYPE'] == 'Doctor') {
+          if (currentUser['type'] == 'Doctor') {
             Navigator.push(context,
                 new MaterialPageRoute(builder: (context) => DoctorHomePage()));
           }
-          if (currentUser['TYPE'] == 'Admin') {
+          if (currentUser['type'] == 'Admin') {
             Navigator.push(context,
                 new MaterialPageRoute(builder: (context) => AdminHomePage()));
           }

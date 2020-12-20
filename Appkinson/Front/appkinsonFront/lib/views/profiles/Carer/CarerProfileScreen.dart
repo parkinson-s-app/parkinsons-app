@@ -55,14 +55,14 @@ class DoctorProfileScreenP extends State<CarerProfileScreen> {
                 child: ListBody(
               children: <Widget>[
                 GestureDetector(
-                  child: Text("Galeria"),
+                  child: Text("Galería"),
                   onTap: () {
                     openGallery(context);
                   },
                 ),
                 Padding(padding: EdgeInsets.all(6.0)),
                 GestureDetector(
-                  child: Text("Camara"),
+                  child: Text("Cámara"),
                   onTap: () {
                     openCamera(context);
                   },
@@ -221,7 +221,7 @@ class DoctorProfileScreenP extends State<CarerProfileScreen> {
                   ),
                   ProfileListItem(
                     icon: LineAwesomeIcons.star,
-                    text: 'Calificanos',
+                    text: 'Califícanos',
                   ),
                   ProfileListItem(
                     icon: Icons.exit_to_app,

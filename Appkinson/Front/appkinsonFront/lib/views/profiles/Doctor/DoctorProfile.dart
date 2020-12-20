@@ -1,6 +1,7 @@
 import 'dart:io';
 
 //import 'package:appkinsonFront/views/profiles/Patient/PatientProfileScreen.dart';
+import 'package:appkinsonFront/views/HomeDifferentUsers/Doctor/DoctorHomePage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/screenutil.dart';
 import 'package:image_picker/image_picker.dart';
@@ -137,7 +138,7 @@ class CustomDrawer extends StatelessWidget {
             },
             leading: Icon(Icons.person),
             title: Text(
-              "Your Profile",
+              "Tu Perfil",
             ),
           ),
           Divider(
@@ -149,7 +150,7 @@ class CustomDrawer extends StatelessWidget {
               debugPrint("Tapped settings");
             },
             leading: Icon(Icons.settings),
-            title: Text("Settings"),
+            title: Text("Ajustes"),
           ),
           Divider(
             height: 1,
@@ -158,9 +159,13 @@ class CustomDrawer extends StatelessWidget {
           ListTile(
             onTap: () {
               debugPrint("Tapped Payments");
+              Navigator.push(
+                  context,
+                  new MaterialPageRoute(
+                      builder: (context) => DoctorHomePage()));
             },
-            leading: Icon(Icons.payment),
-            title: Text("Payments"),
+            leading: Icon(Icons.home),
+            title: Text("Ir al Home"),
           ),
           Divider(
             height: 1,
@@ -171,7 +176,7 @@ class CustomDrawer extends StatelessWidget {
               debugPrint("Tapped Notifications");
             },
             leading: Icon(Icons.notifications),
-            title: Text("Notifications"),
+            title: Text("Notificaciones"),
           ),
           Divider(
             height: 1,
@@ -182,7 +187,7 @@ class CustomDrawer extends StatelessWidget {
               debugPrint("Tapped Log Out");
             },
             leading: Icon(Icons.exit_to_app),
-            title: Text("Log Out"),
+            title: Text("Cerrar Sesión"),
           ),
         ],
       ),
