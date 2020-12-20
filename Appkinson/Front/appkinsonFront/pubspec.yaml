@@ -26,6 +26,7 @@ dependencies:
   flutter_svg: ^0.17.4
   dropdownfield: ^1.0.3
   cupertino_icons: ^0.1.2
+  dio: ^3.0.9
 
   rxdart: ^0.24.1
   path_provider: ^1.6.11

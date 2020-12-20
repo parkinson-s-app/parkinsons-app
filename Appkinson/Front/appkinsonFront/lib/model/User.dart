@@ -9,5 +9,5 @@ class User {
   String type;
   File photo;
 
-  User({this.email, this.password, this.type});
+  User({this.email, this.password, this.type, this.name, this.photo});
 }

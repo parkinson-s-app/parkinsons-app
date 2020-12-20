@@ -1,3 +1,7 @@
+import 'dart:convert';
+
+import 'package:appkinsonFront/model/User.dart';
+import 'package:appkinsonFront/services/EndPoints.dart';
 import 'package:appkinsonFront/views/Login/Buttons/ButtonLogin.dart';
 import 'package:appkinsonFront/views/profiles/Patient/profileEdition/ProfileEdition.dart';
 import 'package:flutter/cupertino.dart';
@@ -65,8 +69,31 @@ class PatientProfileScreenP extends State<PatientProfileScreen> {
                 Padding(padding: EdgeInsets.all(6.0)),
                 GestureDetector(
                   child: Text("Cámara"),
-                  onTap: () {
+                  onTap: () async {
                     openCamera(context);
+                    var m = new metod3();
+                    var user = await m.send();
+                    debugPrint(user.name);
+                    var lista = token.split(".");
+                    var payload = lista[1];
+
+                    switch (payload.length % 4) {
+                      case 1:
+                        break; // this case can't be handled well, because 3 padding chars is illeagal.
+                      case 2:
+                        payload = payload + "==";
+                        break;
+                      case 3:
+                        payload = payload + "=";
+                        break;
+                    }
+
+                    var decoded = utf8.decode(base64.decode(payload));
+                    currentUser = json.decode(decoded);
+                    debugPrint(currentUser['id'].toString());
+                    String save = await EndPoints().modifyUsersPhoto(
+                        user, currentUser['id'].toString(), token);
+                    debugPrint('aqui' + save);
                   },
                 )
               ],
@@ -176,7 +203,7 @@ class PatientProfileScreenP extends State<PatientProfileScreen> {
                 )
               ],
             ),
-            onPressed: () {
+            onPressed: () async {
               Navigator.pop(context);
             },
             // padding: EdgeInsets.all(1),
@@ -293,5 +320,13 @@ class ProfileListItem extends StatelessWidget {
             ],
           ),
         ));
+  }
+}
+
+class metod3 {
+  Future<User> send() async {
+    var newUser = new User(photo: imageFile);
+    debugPrint(newUser.name);
+    return newUser;
   }
 }

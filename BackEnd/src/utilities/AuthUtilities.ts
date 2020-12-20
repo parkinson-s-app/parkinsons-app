@@ -10,6 +10,7 @@ const debug = debugLib('AppKinson:AuthUtilities');
 const secretKey = config.secretKey;
 export function verifyToken(req: Request, res: Response, next: any) {
     const bearerHeader = req.headers['authorization'];
+    debug('token: %s',bearerHeader );
     let status;
     if( bearerHeader !== undefined ) {
         const bearerToken = bearerHeader.split(' ')[1];
