@@ -79,7 +79,7 @@ export default class PersonService {
         debug('updatePerson id: %s', id);
         const conn = await connect();
         const user = await this.getPersonById(id) as any;
-        debug('updatePerson person to update: %j', user);
+        debug('updatePerson person to update: %j to %j', user, userUpdated);
         if( user && user[0] ) {
             const type = user[0].TYPE;
             debug('updatePerson person type: %s', type);
