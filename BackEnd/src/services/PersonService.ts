@@ -79,21 +79,72 @@ export default class PersonService {
         debug('updatePerson id: %s', id);
         const conn = await connect();
         const user = await this.getPersonById(id) as any;
-        if( user ) {
-            const type = user.TYPE;
+        debug('updatePerson person to update: %j', user);
+        if( user && user[0] ) {
+            const type = user[0].TYPE;
+            debug('updatePerson person type: %s', type);
             let person;
-            // if( type === 'Doctor') {
-            //     person =  await conn.query('UPDATE  ?',[id]);
-            // } else if( type === 'Paciente') {
-            //     person =  await conn.query('UPDATE  ?',[id]);
-            // } else if ( type === 'Cuidador') {
-            //     person =  await conn.query('UPDATE  ?',[id]);
-            // }
+            try {
+                if( type === 'Doctor') {
+                    debug('updatePerson person to update is a doctor');
+                    person =  await conn.query('UPDATE doctors SET ? WHERE ID_USER = ?',[userUpdated, id]);
+                } else if( type === 'Paciente') {
+                    debug('updatePerson person to update is a patient');
+                    person =  await conn.query('UPDATE patients SET ? WHERE ID_USER = ?',[userUpdated, id]);
+                } else if ( type === 'Cuidador') {
+                    debug('updatePerson person to update is a carer');
+                    person =  await conn.query('UPDATE carers SET ? WHERE ID_USER = ?',[userUpdated, id]);
+                }
+            } catch(e) {
+                debug('updatePerson Error Updating %s', e);
+            }
+            debug('updatePerson returning person %j', person);
             return person;
         } else  {
             return null;
         }
     } 
 
+    /**
+     * relatePatientToDoctor
+     */
+    public static async relatePatientToDoctor(idDoctor: number, idPatient: number) {
+        debug('relate Patient id patient: %s, id doctor: ', idPatient, idDoctor);
+        const conn = await connect();
+        try {
+            const queryData = { ID_DOCTOR: idDoctor, ID_PATIENT: idPatient};
+            const res = await conn.query('INSERT INTO patientxdoctor SET ?',[queryData]);
+            return res;
+        } catch (e) {
+            debug('relate Patient Error: %s', e);
 
+        }
+    }
+
+    /**
+     * getPatients
+     * SELECT ID_USER, ID_DOCTOR, NAME, EMAIL FROM patients LEFT JOIN patientxdoctor ON patients.ID_USER=patientxdoctor.ID_PATIENT LEFT JOIN users ON users.ID=patients.ID_USER WHERE ID_DOCTOR <> 2 OR ID_DOCTOR IS NULL
+     */
+    public static async getPatientsUnrelated(id: number) {
+        debug('Unrelated Patients, id doctor: ', id);
+        const conn = await connect();
+        try {
+            const query = `SELECT ID_USER, NAME, EMAIL FROM patients
+            LEFT JOIN patientxdoctor 
+            ON patients.ID_USER=patientxdoctor.ID_PATIENT
+            LEFT JOIN users 
+            ON users.ID=patients.ID_USER
+            WHERE ID_DOCTOR <> ? OR ID_DOCTOR IS NULL`;
+            const res = await conn.query(query,[id]);
+            debug('Unrelated Patients response query %s', res);
+            if(res) {
+                return res[0];
+            } else {
+                return null;
+            }
+        } catch (error) {
+            debug('Unrelated Patients error making query. Error: %s', error);
+            return null;
+        }
+    }
 }

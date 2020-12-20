@@ -1,7 +1,6 @@
 import debugLib from 'debug';
 import { Request, Response, Router } from 'express';
 import { constants } from 'http2';
-import IPersonCredencialsDto from '../models/IPersonCredencialsDto';
 import IPersonDto from '../models/IPersonDto';
 import PersonService from '../services/PersonService';
 import * as bcrypt from 'bcryptjs';
@@ -9,6 +8,8 @@ import * as jwt from 'jsonwebtoken';
 import IUserDto from '../models/IUserDto';
 import config from '../config';
 import { verifyToken } from '../utilities/AuthUtilities';
+import IPersonalDataDto from '../models/IPersonalDataDto';
+import multer from '../utilities/multer';
 
 const debug = debugLib('AppKinson:UserController');
 const UserController = Router();
@@ -58,7 +59,7 @@ UserController.get('/users/:id', verifyToken, async (req: Request, res: Response
 
 UserController.post('/login', async (req: Request, res: Response) => {
     debug('Login Body entry: %j', req.body);
-    const credentials = req.body as IPersonCredencialsDto;
+    const credentials = req.body as IPersonDto;
     const responseDB = await PersonService.getPersonByEmail(credentials.email);
     debug('Login Credentials: %j', credentials);
     const responseJSON = JSON.parse(JSON.stringify(responseDB));
@@ -105,20 +106,87 @@ async function compare(password: string, passwordInDB: string) {
     return isMatch;
 }
 
-UserController.put('/users/:id', verifyToken, async (req: Request, res: Response) => {
+UserController.post('/users/:id', multer.single('image'), verifyToken, async (req: Request, res: Response) => {
     debug('Users UpdateById');
     const id = +req.params.id;
-    const updatedUserData = req.body;
+    const updatedUserData = req.body as IPersonalDataDto;
     debug('Users Update user: %j, ID:', updatedUserData, id);
-    // const response = await PersonService.updatePerson(id, updatedUserData);
-    // debug('User UpdateById response db: %j', response);
-    // if(response) {
-    //     const status =  constants.HTTP_STATUS_OK;
-    //     res.status(status).send(response);
-    // } else {
-    //     const status =  constants.HTTP_STATUS_INTERNAL_SERVER_ERROR;
-    //     res.status(status).send('Error');
-    // }
-    res.status(200).send('Actualizado');
+    const response = await PersonService.updatePerson(id, updatedUserData);
+    debug('User UpdateById response db: %j', response);
+    if(response) {
+        const status =  constants.HTTP_STATUS_OK;
+        res.status(status).send(response);
+    } else {
+        const status =  constants.HTTP_STATUS_INTERNAL_SERVER_ERROR;
+        res.status(status).send('Error');
+    }
 });
+
+UserController.post('/relate/:idPatient', verifyToken, async (req: Request, res: Response) => {
+    const bearerHeader = req.headers['authorization'];
+    const idPatient = +req.params.idPatient;
+    let status;
+    if( bearerHeader !== undefined ) {
+        const id = getIdFromToken(bearerHeader);
+        if( !isNaN(id) ){     
+            try {
+                const response = await PersonService.relatePatientToDoctor(id, idPatient);
+                if(response) {
+                    status = constants.HTTP_STATUS_OK;
+                    res.status(status).send('Success');
+                } else {
+                    status = constants.HTTP_STATUS_INTERNAL_SERVER_ERROR;
+                    res.status(status).send('An Error had ocurred');
+                }
+            } catch (error) {
+                status = constants.HTTP_STATUS_INTERNAL_SERVER_ERROR;
+                const responseError = { status, error};
+                res.status(status).send(responseError);
+            }
+        } else {
+            debug('Relate Error getting id from token')
+            status = constants.HTTP_STATUS_BAD_REQUEST;
+            res.status(status).send('Bad request');
+        }
+    } else {
+        debug('Relate Error getting authorization header');
+        status = constants.HTTP_STATUS_BAD_REQUEST;
+        res.status(status).send('Bad request');
+    }
+});
+
+UserController.get('/doctor/patients/unrelated', verifyToken, async (req: Request, res: Response) => {
+    debug('Getting unrelated patients');
+    const bearerHeader = req.headers['authorization'];
+    let status;
+    if( bearerHeader !== undefined ) {
+        const id = getIdFromToken(bearerHeader);
+        if( !isNaN(id) ){
+            try {
+                const patients = await PersonService.getPatientsUnrelated(id);
+                debug('Getting unrelated result %j', patients);
+                status = constants.HTTP_STATUS_OK;
+                res.status(status).send(patients);
+            } catch (error) {
+                status = constants.HTTP_STATUS_INTERNAL_SERVER_ERROR;
+                const responseError = { status, error};
+                res.status(status).send(responseError);
+            }
+        }
+    } else {
+        debug('Unrelated Error getting authorization header');
+        status = constants.HTTP_STATUS_BAD_REQUEST;
+        res.status(status).send('Bad request');
+    }
+});
+
+function getIdFromToken(token: string) {
+    const dataInToken = token.split('.')[1];
+    debug('getIdFromToken data encoded: %s', dataInToken);
+    const decodedData = Buffer.from(dataInToken, 'base64').toString();
+    debug('getIdFromToken data decoded: %s',decodedData);
+    const dataInJSON = JSON.parse(decodedData);
+    debug('getIdFromToken data in JSON: %j',dataInJSON);
+    return +dataInJSON.id;
+}
 export default UserController;
