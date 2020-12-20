@@ -106,9 +106,11 @@ async function compare(password: string, passwordInDB: string) {
     return isMatch;
 }
 
-UserController.post('/users/:id', multer.single('image'), verifyToken, async (req: Request, res: Response) => {
+UserController.post('/users/:id', multer.single('photo'), verifyToken, async (req: Request, res: Response) => {
     debug('Users UpdateById');
     const id = +req.params.id;
+    const file= req.file.path;
+    debug('Users Update path: %j', file);
     const updatedUserData = req.body as IPersonalDataDto;
     debug('Users Update user: %j, ID:', updatedUserData, id);
     const response = await PersonService.updatePerson(id, updatedUserData);

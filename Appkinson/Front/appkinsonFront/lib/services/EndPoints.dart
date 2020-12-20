@@ -44,8 +44,8 @@ class EndPoints {
 
     Dio dio = new Dio();
     dio.options.headers["authorization"] = "Bearer " + decodedToken['token'];
-    Response response = await dio.put(this.endpointBack + '/api/users/$tokenId',
-        data: formData);
+    Response response = await dio
+        .post(this.endpointBack + '/api/users/$tokenId', data: formData);
     /*http.Response response = await http.put(
         this.endpointBack + '/api/users/' + tokenId,
         body: data2,
