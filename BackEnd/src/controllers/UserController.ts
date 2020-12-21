@@ -181,6 +181,32 @@ UserController.get('/doctor/patients/unrelated', verifyToken, async (req: Reques
     }
 });
 
+UserController.get('/doctor/patients/related', verifyToken, async (req: Request, res: Response) => {
+    debug('Getting related patients');
+    const bearerHeader = req.headers['authorization'];
+    let status;
+    if( bearerHeader !== undefined ) {
+        const id = getIdFromToken(bearerHeader);
+        if( !isNaN(id) ){
+            try {
+                const patients = await PersonService.getPatientsRelated(id);
+                debug('Getting related result %j', patients);
+                status = constants.HTTP_STATUS_OK;
+                res.status(status).send(patients);
+            } catch (error) {
+                status = constants.HTTP_STATUS_INTERNAL_SERVER_ERROR;
+                const responseError = { status, error};
+                res.status(status).send(responseError);
+            }
+        }
+    } else {
+        debug('Related Error getting authorization header');
+        status = constants.HTTP_STATUS_BAD_REQUEST;
+        res.status(status).send('Bad request');
+    }
+});
+
+
 function getIdFromToken(token: string) {
     const dataInToken = token.split('.')[1];
     debug('getIdFromToken data encoded: %s', dataInToken);
