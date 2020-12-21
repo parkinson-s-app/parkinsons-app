@@ -1,3 +1,5 @@
+import debug from 'debug';
+import e from 'express';
 import express, { Request, Response } from 'express';
 import logger from 'morgan';
 // import path from 'path';
@@ -24,8 +26,15 @@ app.use((_, res, next) => {
 app.use(fullApiPath, UserController);
 
 app.use((error: any, req: Request,res: Response, next: any) => {
+    if(error.message && error.statusCode){
     const msgRsErrorDto = DefaultResponseDto.getErrorFromMessage(JSON.stringify(error.message), error.statusCode);
     res.status(Number(msgRsErrorDto.status)).send(msgRsErrorDto);
+    } else{
+        console.log('hola');
+        console.log(error);
+        
+        res.status(500).send(error);
+    }
 });
 
 export default app;
