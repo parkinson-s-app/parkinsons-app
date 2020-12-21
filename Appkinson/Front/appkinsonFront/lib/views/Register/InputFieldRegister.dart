@@ -20,6 +20,7 @@ class InputFieldRegisterCustom extends State<InputFieldRegister> {
   bool _obscurePassword = true;
   bool _obscureVerPassword = true;
   String _password;
+  final validationKey = GlobalKey<FormState>();
 
   void _toggle() {
     setState(() {
@@ -31,8 +32,10 @@ class InputFieldRegisterCustom extends State<InputFieldRegister> {
   Widget build(BuildContext context) {
     var currentValue = 'Paciente';
     Size size = MediaQuery.of(context).size;
-    return Column(
-      children: <Widget>[
+    return Form(
+      key: validationKey,
+      child: Column(
+        children: <Widget>[
         Container(
           child: Row(
             children: <Widget>[
@@ -49,7 +52,7 @@ class InputFieldRegisterCustom extends State<InputFieldRegister> {
                 items: lista.map((String a) {
                   return DropdownMenuItem(value: a, child: Text(a));
                 }).toList(),
-                onChanged: (value) {
+                  onChanged: (value) {
                   setState(() {
                     selectUser = value;
                   });
@@ -66,12 +69,13 @@ class InputFieldRegisterCustom extends State<InputFieldRegister> {
           padding: EdgeInsets.all(10),
           decoration: BoxDecoration(
               border: Border(bottom: BorderSide(color: Colors.grey[200]))),
-          child: TextField(
+          child: TextFormField(
             controller: emailController,
             decoration: InputDecoration(
                 hintText: "Ingrese su correo eléctronico",
                 hintStyle: TextStyle(color: Colors.grey),
-                border: InputBorder.none),
+                border: InputBorder.none
+            ),
           ),
         ),
         Container(
@@ -109,10 +113,11 @@ class InputFieldRegisterCustom extends State<InputFieldRegister> {
             children: <Widget>[
               Expanded(
                 child: TextFormField(
+                  controller: password,
                   decoration: const InputDecoration(
                     hintText: "Vuelva a Ingresar su contraseña",
                   ),
-                  obscureText: _obscureVerPassword,
+                  obscureText: _obscurePassword,
                 ),
               ),
             ],
@@ -120,6 +125,7 @@ class InputFieldRegisterCustom extends State<InputFieldRegister> {
         ),
         Container(),
       ],
+      ),
     );
   }
 }
