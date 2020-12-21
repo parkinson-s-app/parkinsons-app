@@ -12,7 +12,7 @@ class User {
   User({this.email, this.password, this.type, this.name, this.photo});
 }
 
-final List<User> kUsers = <User>[
+List<User> kUsers = <User>[
   User(
       name: 'camilo',
       email: 'camilo@',
