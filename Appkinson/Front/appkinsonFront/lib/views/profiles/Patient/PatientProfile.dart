@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:appkinsonFront/views/HomeDifferentUsers/Patient/PatientHomePage.dart';
 import 'package:appkinsonFront/views/profiles/Patient/PatientProfileScreen.dart';
+import 'package:appkinsonFront/views/profiles/Patient/profileEdition/ProfileEdition.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/screenutil.dart';
 import 'package:image_picker/image_picker.dart';
@@ -123,7 +124,7 @@ class CustomDrawer extends StatelessWidget {
                   SizedBox(
                     height: 10,
                   ),
-                  Text("Usuario")
+                  Text(nameController.text)
                 ],
               )),
           Divider(

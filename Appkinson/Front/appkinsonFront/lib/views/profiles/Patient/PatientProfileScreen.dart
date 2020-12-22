@@ -170,7 +170,7 @@ class PatientProfileScreenP extends State<PatientProfileScreen> {
         ),
         Text(
           //currentUser['EMAIL'],
-          "camilo",
+          nameController.text,
           style: kTitleTextStyle,
         ),
         SizedBox(

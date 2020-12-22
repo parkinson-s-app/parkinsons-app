@@ -11,7 +11,7 @@ import 'package:path/path.dart';
 import 'package:http_parser/http_parser.dart';
 
 class EndPoints {
-  String endpointBack = 'http://192.168.20.25:8000';
+  String endpointBack = 'http://192.168.0.16:8000';
 
   Future<String> addUsers(User newUser) async {
     Map data2 = {
@@ -95,33 +95,45 @@ class EndPoints {
   Future<String> linkUser(String emailUser, var tokenID, var token) async {
     //Map data2 = {'email': authUser.email, 'password': authUser.password};
     var codeToken = json.decode(token);
-    http.Response lista =  await http.get(this.endpointBack + '/api/doctor/patients/unrelated', headers: {HttpHeaders.authorizationHeader : "Bearer " + codeToken['token']} );
+    http.Response lista = await http
+        .get(this.endpointBack + '/api/doctor/patients/unrelated', headers: {
+      HttpHeaders.authorizationHeader: "Bearer " + codeToken['token']
+    });
     //http.Response response =
     debugPrint(lista.body);
     String i = lista.body;
     String addedUser;
 
     var codeList = json.decode(i);
-    for(var a = 0; a < codeList.length; a++){
-      if(emailUser == codeList[a]['EMAIL'].toString()){
-        http.Response added = await http.post(this.endpointBack + '/api/relate/' + codeList[a]['ID_USER'].toString(), headers: {HttpHeaders.authorizationHeader : "Bearer " + codeToken['token']});
+    for (var a = 0; a < codeList.length; a++) {
+      if (emailUser == codeList[a]['EMAIL'].toString()) {
+        http.Response added = await http.post(
+            this.endpointBack +
+                '/api/relate/' +
+                codeList[a]['ID_USER'].toString(),
+            headers: {
+              HttpHeaders.authorizationHeader: "Bearer " + codeToken['token']
+            });
         debugPrint(added.body);
         addedUser = codeList[a]['EMAIL'];
       }
     }
-     return addedUser;
+    return addedUser;
   }
 
   Future<List<String>> linkedUser(var tokenID, var token) async {
     //Map data2 = {'email': authUser.email, 'password': authUser.password};
     var codeToken = json.decode(token);
-    http.Response lista =  await http.get(this.endpointBack + '/api/doctor/patients/related', headers: {HttpHeaders.authorizationHeader : "Bearer " + codeToken['token']} );
+    http.Response lista = await http
+        .get(this.endpointBack + '/api/doctor/patients/related', headers: {
+      HttpHeaders.authorizationHeader: "Bearer " + codeToken['token']
+    });
     //http.Response response =
     debugPrint(lista.body);
     String i = lista.body;
     var codeList = json.decode(i);
-   List<String> patients = [];
-    for(var a = 0; a < codeList.length; a++){
+    List<String> patients = [];
+    for (var a = 0; a < codeList.length; a++) {
       patients.add(codeList[a]['EMAIL']);
     }
     return patients;
