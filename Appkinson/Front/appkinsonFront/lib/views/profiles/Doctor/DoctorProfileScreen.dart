@@ -1,3 +1,4 @@
+import 'package:appkinsonFront/views/profiles/Doctor/profileEdition/ProfileEdition.dart';
 import 'package:flutter/cupertino.dart';
 
 import 'dart:io';
@@ -140,7 +141,7 @@ class DoctorProfileScreenP extends State<DoctorProfileScreen> {
           height: 20,
         ),
         Text(
-          'Camilo Hoyos',
+          nameControllerDoctor.text,
           style: kTitleTextStyle,
         ),
         SizedBox(
@@ -221,7 +222,7 @@ class DoctorProfileScreenP extends State<DoctorProfileScreen> {
                   ),
                   ProfileListItem(
                     icon: LineAwesomeIcons.star,
-                    text: 'Calificanos',
+                    text: 'Califícanos',
                   ),
                   ProfileListItem(
                     icon: Icons.exit_to_app,
@@ -258,7 +259,14 @@ class ProfileListItem extends StatelessWidget {
           shape:
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)),
           color: Colors.grey[100],
-          onPressed: () {},
+          onPressed: () {
+            if (text == 'Editar') {
+              Navigator.push(
+                  context,
+                  new MaterialPageRoute(
+                      builder: (context) => ProfileEdition()));
+            }
+          },
           child: Row(
             children: <Widget>[
               Icon(this.icon, size: 25),

@@ -38,7 +38,7 @@ class CarerHomePage extends StatelessWidget {
                       top: 70,
                       left: 200,
                       child: Text(
-                        "¿A Quién \nCuidaremos \nhoy?",
+                        "¿A quién \ncuidaremos \nhoy?",
                         style: TextStyle(
                             color: Colors.white,
                             fontSize: 30,
