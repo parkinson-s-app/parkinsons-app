@@ -1,10 +1,5 @@
-import 'package:flutter/material.dart';
-import 'views/HomeInitial/HomePage.dart';
-import 'views/Notifications/PatientNotifications.dart';
-import 'views/HomeInitial/HomePage.dart';
-import 'views/Login/LoginPage.dart';
-import 'package:flutter_local_notifications/flutter_local_notifications.dart';
-import 'views/SymptomsForm/symptomsForm.dart';
+import 'package:flutter/material.dart' show BuildContext, MaterialApp, StatelessWidget, Widget, runApp;
+import 'views/SymptomsForm/symptomsForm.dart' show symptomsForm;
 void main() {
   runApp(MyApp());
 }

@@ -104,6 +104,7 @@ export default class PersonService {
             return null;
         }
     }
+
     /**
      * relatePatientToDoctor
      */
@@ -116,7 +117,6 @@ export default class PersonService {
             return res;
         } catch (e) {
             debug('relate Patient Error: %s', e);
-
         }
     }
 
@@ -155,7 +155,9 @@ export default class PersonService {
         debug('Related Patients, id doctor: ', id);
         const conn = await connect();
         try {
-            const query = `SELECT ID_USER, NAME, EMAIL FROM patients
+            const query = `
+            SELECT ID_USER, NAME, EMAIL
+            FROM patients
             LEFT JOIN patientxdoctor 
             ON patients.ID_USER=patientxdoctor.ID_PATIENT
             LEFT JOIN users 
