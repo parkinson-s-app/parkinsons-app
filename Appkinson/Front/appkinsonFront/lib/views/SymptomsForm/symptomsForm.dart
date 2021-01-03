@@ -83,7 +83,7 @@ class _symptomsForm extends State<symptomsForm> {
               shape: StadiumBorder(),
               //onPressed: () => save(),
               color: Theme.of(context).primaryColor,
-              textColor: Colors.white,
+              textColor: Colors.white, onPressed: () {  },
             ),
           ],
         ),

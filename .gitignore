@@ -184,3 +184,7 @@ Appkinson/Front/appkinsonFront/android/local.properties
 Appkinson/Front/appkinsonFront/ios/Flutter/flutter_export_environment.sh
 Appkinson/Front/appkinsonFront/ios/Flutter/Generated.xcconfig
 Appkinson/Front/appkinsonFront/android/local.properties
+BackEnd/uploads
+
+*.properties
+Appkinson/Front/appkinsonFront/android/local.properties
