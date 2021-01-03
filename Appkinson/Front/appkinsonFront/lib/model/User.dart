@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'dart:io';
 
 class User {
@@ -17,12 +15,10 @@ List<User> kUsers = <User>[
       name: 'camilo',
       email: 'camilo@',
       password: 'contraseña',
-      type: 'Paciente'
-  ),
+      type: 'Paciente'),
   User(
       name: 'sebastian',
       email: 'sebastian@',
       password: 'contraseña',
-      type: 'Paciente'
-  ),
+      type: 'Paciente'),
 ];

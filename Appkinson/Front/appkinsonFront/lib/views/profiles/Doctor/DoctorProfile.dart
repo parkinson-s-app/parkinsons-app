@@ -1,11 +1,8 @@
-import 'dart:io';
-
 //import 'package:appkinsonFront/views/profiles/Patient/PatientProfileScreen.dart';
 import 'package:appkinsonFront/views/HomeDifferentUsers/Doctor/DoctorHomePage.dart';
 import 'package:appkinsonFront/views/profiles/Doctor/profileEdition/ProfileEdition.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/screenutil.dart';
-import 'package:image_picker/image_picker.dart';
 import 'package:line_awesome_flutter/line_awesome_flutter.dart';
 import 'package:foldable_sidebar/foldable_sidebar.dart';
 import 'package:swipedetector/swipedetector.dart';

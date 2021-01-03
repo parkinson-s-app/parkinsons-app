@@ -2,11 +2,8 @@ import 'dart:convert';
 
 import 'package:appkinsonFront/services/EndPoints.dart';
 import 'package:appkinsonFront/views/Login/Buttons/ButtonLogin.dart';
-import 'package:appkinsonFront/views/Notifications/NotificationPlugin.dart';
 import 'package:flutter/material.dart';
 import '../../model/User.dart';
-import '../Relations/user_data.dart';
-import 'Buttons/ButtonLinkPatient.dart';
 
 class DoctorPatients extends StatefulWidget {
   @override
@@ -14,8 +11,8 @@ class DoctorPatients extends StatefulWidget {
 }
 
 class DoctorPatientsCustom extends State<DoctorPatients> {
-
-  final TextEditingController addPatientController = new TextEditingController();
+  final TextEditingController addPatientController =
+      new TextEditingController();
   final GlobalKey<FormState> _keyDialogForm = new GlobalKey<FormState>();
   List<User> patients = [];
 
@@ -26,7 +23,7 @@ class DoctorPatientsCustom extends State<DoctorPatients> {
     addPatientController.text = 'Hello';
   }
 
-  getPatients() async{
+  getPatients() async {
     var lista = token.split(".");
     var payload = lista[1];
 
@@ -44,19 +41,19 @@ class DoctorPatientsCustom extends State<DoctorPatients> {
     var decoded = utf8.decode(base64.decode(payload));
     currentUser = json.decode(decoded);
     //Pedir lista de pacientes relacionados
-    var patientsAux = await EndPoints().linkedUser(currentUser['id'].toString(), token);
+    var patientsAux =
+        await EndPoints().linkedUser(currentUser['id'].toString(), token);
     List<User> _patients = [];
-    for(var a = 0; a < patientsAux.length; a++){
+    for (var a = 0; a < patientsAux.length; a++) {
       User u = new User();
       u.email = patientsAux[a];
-        _patients.add(u);
-        debugPrint("------");
-        debugPrint(u.email);
+      _patients.add(u);
+      debugPrint("------");
+      debugPrint(u.email);
     }
     setState(() {
-        patients = _patients;
-      }
-    );
+      patients = _patients;
+    });
   }
 
   @override
@@ -67,48 +64,46 @@ class DoctorPatientsCustom extends State<DoctorPatients> {
           title: Text('Pacientes'),
           actions: <Widget>[
             IconButton(
-                icon: Icon(Icons.search, color: Colors.white),
-                onPressed: (){},
+              icon: Icon(Icons.search, color: Colors.white),
+              onPressed: () {},
             )
           ],
         ),
         body: Container(
             child: Column(
-              children: <Widget>[
-                /*Expanded(
+          children: <Widget>[
+            /*Expanded(
                   child: PatientsList(patients),
                 ),*/
-                FlatButton(
-                  shape:
-                  RoundedRectangleBorder(borderRadius: new BorderRadius.circular(30.0)),
-                  //   side: BorderSide(color: Color.fromRGBO(0, 160, 227, 1))),
-                  onPressed: () {
-                    addUser();
-                    debugPrint(addPatientController.text);
-                  },
-                  padding: EdgeInsets.symmetric(horizontal: 50),
-                  color: Colors.blue,
-                  textColor: Colors.white,
-                  child: Text("Agregar Paciente", style: TextStyle(fontSize: 20)),
-                ),
-                ListView.builder(
-                  shrinkWrap: true,
-                  itemCount: patients.length,
-                  itemBuilder: (context, index){
-                    User patient = patients[index];
-                    return ListTile(
-                        title : Text(patient.email),
-                        //subtitle: Text(user.email),
-                        leading: CircleAvatar(
-                          child: Icon(Icons.account_circle_outlined),
-                        )
-                    );
-                  },
-                )
-              ],
+            FlatButton(
+              shape: RoundedRectangleBorder(
+                  borderRadius: new BorderRadius.circular(30.0)),
+              //   side: BorderSide(color: Color.fromRGBO(0, 160, 227, 1))),
+              onPressed: () {
+                addUser();
+                debugPrint(addPatientController.text);
+              },
+              padding: EdgeInsets.symmetric(horizontal: 50),
+              color: Colors.blue,
+              textColor: Colors.white,
+              child: Text("Agregar Paciente", style: TextStyle(fontSize: 20)),
+            ),
+            ListView.builder(
+              shrinkWrap: true,
+              itemCount: patients.length,
+              itemBuilder: (context, index) {
+                User patient = patients[index];
+                return ListTile(
+                    title: Text(patient.email),
+                    //subtitle: Text(user.email),
+                    leading: CircleAvatar(
+                      child: Icon(Icons.account_circle_outlined),
+                    ));
+              },
             )
-          ),
-        ),
+          ],
+        )),
+      ),
     );
   }
 
@@ -123,8 +118,8 @@ class DoctorPatientsCustom extends State<DoctorPatients> {
                 children: <Widget>[
                   TextFormField(
                     decoration: InputDecoration(
-                    hintText: "Ingrese el email del paciente a agregar",
-                    hintStyle: TextStyle(color: Colors.grey),
+                      hintText: "Ingrese el email del paciente a agregar",
+                      hintStyle: TextStyle(color: Colors.grey),
                     ),
                     textAlign: TextAlign.center,
                     onSaved: (val) {
@@ -158,7 +153,10 @@ class DoctorPatientsCustom extends State<DoctorPatients> {
                     var decoded = utf8.decode(base64.decode(payload));
                     currentUser = json.decode(decoded);
                     debugPrint(currentUser['id'].toString());
-                    var listaUsuarios = await EndPoints().linkUser(addPatientController.text, currentUser['id'].toString(), token);
+                    var listaUsuarios = await EndPoints().linkUser(
+                        addPatientController.text,
+                        currentUser['id'].toString(),
+                        token);
                     debugPrint(listaUsuarios.toString());
                     //getPatients();
                     Navigator.pop(context);
@@ -179,7 +177,6 @@ class DoctorPatientsCustom extends State<DoctorPatients> {
 }
 
 class PatientsList extends StatelessWidget {
-
   List<User> _patients;
 
   PatientsList(this._patients);
@@ -187,24 +184,22 @@ class PatientsList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListView(
-          padding: EdgeInsets.symmetric(vertical: 8.0),
-          children: _buildPatiensList(),
-      );
+      padding: EdgeInsets.symmetric(vertical: 8.0),
+      children: _buildPatiensList(),
+    );
   }
 
-  List<PatientsListItem> _buildPatiensList(){
+  List<PatientsListItem> _buildPatiensList() {
     return _patients.map((User) => PatientsListItem(User)).toList();
   }
 }
 
-class PatientsListItem extends ListTile{
-
-  PatientsListItem(User user) :
-      super(
-        title : Text(user.email),
-        //subtitle: Text(user.email),
-        leading: CircleAvatar(
-          child: Icon(Icons.account_circle_outlined),
-        )
-      );
+class PatientsListItem extends ListTile {
+  PatientsListItem(User user)
+      : super(
+            title: Text(user.email),
+            //subtitle: Text(user.email),
+            leading: CircleAvatar(
+              child: Icon(Icons.account_circle_outlined),
+            ));
 }

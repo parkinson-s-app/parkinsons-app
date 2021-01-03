@@ -5,7 +5,6 @@ import '../../HomeDifferentUsers/Admin/AdminHomePage.dart';
 import '../../HomeDifferentUsers/Doctor/DoctorHomePage.dart';
 import '../../HomeDifferentUsers/Patient/PatientHomePage.dart';
 import "../InputFieldLogin.dart";
-import '../../../model/User.dart';
 import '../../HomeDifferentUsers/Carer/CarerHomePage.dart';
 import '../../../services/EndPoints.dart';
 
@@ -30,7 +29,7 @@ class _FormButtonLogin extends State<ButtonLogin> {
         padding: EdgeInsets.symmetric(horizontal: 50),
         onPressed: () async {
           var m = new metod();
-          var user = await m.send() as User;
+          var user = await m.send();
           debugPrint(user.email);
 
           /*

@@ -13,83 +13,82 @@ class _symptomsForm extends State<symptomsForm> {
   int selectedStateRadio = 0;
   int selectedDyskinesiaRadio = 0;
 
-
   @override
   Widget build(BuildContext context) => Scaffold(
-    appBar: AppBar(
-      title: Text('Registro de síntomas'),
-    ),
-    body: Center(
-      child: Padding(
-        padding: EdgeInsets.all(32),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Text("¿Cuál es tu estado actual?"),
-            RadioListTile(
-              value: 1,
-              groupValue: selectedStateRadio,
-              title: Text("ON"),
-              onChanged: onChangedStateValue,
-            ),
-            RadioListTile(
-              value: 2,
-              groupValue: selectedStateRadio,
-              title: Text("OFF"),
-              onChanged: onChangedStateValue,
-            ),
-            Divider(
-              height: 20,
-            ),
-            Text("¿Presentó alguna disquinesia?"),
-            RadioListTile(
-              value: 3,
-              groupValue: selectedDyskinesiaRadio,
-              title: Text("Sí"),
-              onChanged: onChangedDyskinesiaValue,
-            ),
-            RadioListTile(
-              value: 4,
-              groupValue: selectedDyskinesiaRadio,
-              title: Text("No"),
-              onChanged: onChangedDyskinesiaValue,
-            ),
-            Expanded(
-              child: fileMedia == null
-                  ? Icon(Icons.play_circle_outline, size: 120)
-                  : (source == MediaSource.image
-                  ? Image.file(fileMedia)
-                  : VideoWidget(fileMedia)),
-            ),
-            const SizedBox(height: 24),
-            RaisedButton(
-              child: Text('Capturar video'),
-              shape: StadiumBorder(),
-              onPressed: () => capture(MediaSource.video),
-              color: Theme.of(context).primaryColor,
-              textColor: Colors.white,
-            ),
-            const SizedBox(height: 12),
-            RaisedButton(
-              child: Text('Eliminar video'),
-              shape: StadiumBorder(),
-              onPressed: () => delete(),
-              color: Theme.of(context).primaryColor,
-              textColor: Colors.white,
-            ),
-            const SizedBox(height: 12),
-            RaisedButton(
-              child: Text('Guardar registro'),
-              shape: StadiumBorder(),
-              //onPressed: () => save(),
-              color: Theme.of(context).primaryColor,
-              textColor: Colors.white, onPressed: () {  },
-            ),
-          ],
+        appBar: AppBar(
+          title: Text('Registro de síntomas'),
         ),
-      ),
-    ),
-  );
+        body: Center(
+          child: Padding(
+            padding: EdgeInsets.all(32),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                Text("¿Cuál es tu estado actual?"),
+                RadioListTile(
+                  value: 1,
+                  groupValue: selectedStateRadio,
+                  title: Text("ON"),
+                  onChanged: onChangedStateValue,
+                ),
+                RadioListTile(
+                  value: 2,
+                  groupValue: selectedStateRadio,
+                  title: Text("OFF"),
+                  onChanged: onChangedStateValue,
+                ),
+                Divider(
+                  height: 20,
+                ),
+                Text("¿Presentó alguna disquinesia?"),
+                RadioListTile(
+                  value: 3,
+                  groupValue: selectedDyskinesiaRadio,
+                  title: Text("Sí"),
+                  onChanged: onChangedDyskinesiaValue,
+                ),
+                RadioListTile(
+                  value: 4,
+                  groupValue: selectedDyskinesiaRadio,
+                  title: Text("No"),
+                  onChanged: onChangedDyskinesiaValue,
+                ),
+                Expanded(
+                  child: fileMedia == null
+                      ? Icon(Icons.play_circle_outline, size: 120)
+                      : (source == MediaSource.image
+                          ? Image.file(fileMedia)
+                          : VideoWidget(fileMedia)),
+                ),
+                const SizedBox(height: 24),
+                RaisedButton(
+                  child: Text('Capturar video'),
+                  shape: StadiumBorder(),
+                  onPressed: () => capture(MediaSource.video),
+                  color: Theme.of(context).primaryColor,
+                  textColor: Colors.white,
+                ),
+                const SizedBox(height: 12),
+                RaisedButton(
+                  child: Text('Eliminar video'),
+                  shape: StadiumBorder(),
+                  onPressed: () => delete(),
+                  color: Theme.of(context).primaryColor,
+                  textColor: Colors.white,
+                ),
+                const SizedBox(height: 12),
+                RaisedButton(
+                  child: Text('Guardar registro'),
+                  shape: StadiumBorder(),
+                  //onPressed: () => save(),
+                  color: Theme.of(context).primaryColor,
+                  textColor: Colors.white, onPressed: () {},
+                ),
+              ],
+            ),
+          ),
+        ),
+      );
 
   Future capture(MediaSource source) async {
     setState(() {
@@ -114,20 +113,21 @@ class _symptomsForm extends State<symptomsForm> {
       });
     }
   }
+
   Future delete() async {
     setState(() {
       this.fileMedia = null;
     });
   }
-  Future save() async{
 
-  }
+  Future save() async {}
 
   void onChangedStateValue(Object value) {
     setState(() {
       selectedStateRadio = value;
     });
   }
+
   void onChangedDyskinesiaValue(Object value) {
     setState(() {
       selectedDyskinesiaRadio = value;

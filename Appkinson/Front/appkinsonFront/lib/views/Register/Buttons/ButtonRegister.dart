@@ -1,13 +1,7 @@
 import 'package:flutter/material.dart';
 import '../../../services/EndPoints.dart';
 import '../InputFieldRegister.dart';
-import '../InputFieldRegister.dart';
-import '../InputFieldRegister.dart';
-import '../../../model/User.dart';
-import '../InputFieldRegister.dart';
-import '../InputFieldRegister.dart';
 import '../../Login/LoginPage.dart';
-import 'dart:async';
 
 class ButtonRegister extends StatelessWidget {
   /* addUsers(String username, String password) async {

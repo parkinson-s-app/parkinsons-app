@@ -22,13 +22,14 @@ class SourcePage extends StatelessWidget {
     );
   }
 }
+
 class CameraButtonWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) => ListTileWidget(
-    text: 'Cámara',
-    icon: Icons.camera_alt,
-    onClicked: () => pickCameraMedia(context),
-  );
+        text: 'Cámara',
+        icon: Icons.camera_alt,
+        onClicked: () => pickCameraMedia(context),
+      );
 
   Future pickCameraMedia(BuildContext context) async {
     final MediaSource source = ModalRoute.of(context).settings.arguments;
@@ -43,13 +44,14 @@ class CameraButtonWidget extends StatelessWidget {
     Navigator.of(context).pop(file);
   }
 }
+
 class GalleryButtonWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) => ListTileWidget(
-    text: 'Galeria',
-    icon: Icons.photo,
-    onClicked: () => pickGalleryMedia(context),
-  );
+        text: 'Galeria',
+        icon: Icons.photo,
+        onClicked: () => pickGalleryMedia(context),
+      );
 
   Future pickGalleryMedia(BuildContext context) async {
     final MediaSource source = ModalRoute.of(context).settings.arguments;
@@ -64,6 +66,7 @@ class GalleryButtonWidget extends StatelessWidget {
     Navigator.of(context).pop(file);
   }
 }
+
 class ListTileWidget extends StatelessWidget {
   final String text;
   final IconData icon;
@@ -78,15 +81,16 @@ class ListTileWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => ListTile(
-    contentPadding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-    title: Text(
-      text,
-      style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-    ),
-    leading: Icon(icon, size: 28, color: Colors.black),
-    onTap: onClicked,
-  );
+        contentPadding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+        title: Text(
+          text,
+          style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+        ),
+        leading: Icon(icon, size: 28, color: Colors.black),
+        onTap: onClicked,
+      );
 }
+
 class VideoWidget extends StatefulWidget {
   final File file;
 
@@ -135,42 +139,42 @@ class VideoWidgetState extends State<VideoWidget> {
 
   @override
   Widget build(BuildContext context) => AspectRatio(
-    aspectRatio: 16 / 9,
-    child: _controller.value.initialized ? videoPlayer() : Container(),
-  );
+        aspectRatio: 16 / 9,
+        child: _controller.value.initialized ? videoPlayer() : Container(),
+      );
 
   Widget videoPlayer() => Stack(
-    children: <Widget>[
-      video(),
-      Align(
-        alignment: Alignment.bottomCenter,
-        child: VideoProgressIndicator(
-          _controller,
-          allowScrubbing: true,
-          padding: EdgeInsets.all(16.0),
-        ),
-      ),
-      Center(child: videoStatusAnimation),
-    ],
-  );
+        children: <Widget>[
+          video(),
+          Align(
+            alignment: Alignment.bottomCenter,
+            child: VideoProgressIndicator(
+              _controller,
+              allowScrubbing: true,
+              padding: EdgeInsets.all(16.0),
+            ),
+          ),
+          Center(child: videoStatusAnimation),
+        ],
+      );
 
   Widget video() => GestureDetector(
-    child: VideoPlayer(_controller),
-    onTap: () {
-      if (!_controller.value.initialized) {
-        return;
-      }
-      if (_controller.value.isPlaying) {
-        videoStatusAnimation =
-            FadeAnimation(child: const Icon(Icons.pause, size: 100.0));
-        _controller.pause();
-      } else {
-        videoStatusAnimation =
-            FadeAnimation(child: const Icon(Icons.play_arrow, size: 100.0));
-        _controller.play();
-      }
-    },
-  );
+        child: VideoPlayer(_controller),
+        onTap: () {
+          if (!_controller.value.initialized) {
+            return;
+          }
+          if (_controller.value.isPlaying) {
+            videoStatusAnimation =
+                FadeAnimation(child: const Icon(Icons.pause, size: 100.0));
+            _controller.pause();
+          } else {
+            videoStatusAnimation =
+                FadeAnimation(child: const Icon(Icons.play_arrow, size: 100.0));
+            _controller.play();
+          }
+        },
+      );
 }
 
 class FadeAnimation extends StatefulWidget {
@@ -224,8 +228,8 @@ class _FadeAnimationState extends State<FadeAnimation>
   @override
   Widget build(BuildContext context) => animationController.isAnimating
       ? Opacity(
-    opacity: 1.0 - animationController.value,
-    child: widget.child,
-  )
+          opacity: 1.0 - animationController.value,
+          child: widget.child,
+        )
       : Container();
 }

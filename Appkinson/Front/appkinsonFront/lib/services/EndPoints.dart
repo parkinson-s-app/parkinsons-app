@@ -2,13 +2,10 @@ import 'dart:convert';
 //import 'dart:html';
 import 'dart:io';
 
-import 'package:appkinsonFront/views/Login/Buttons/ButtonLogin.dart';
 import 'package:flutter/material.dart';
 import '../model/User.dart';
 import 'package:http/http.dart' as http;
 import 'package:dio/dio.dart';
-import 'package:path/path.dart';
-import 'package:http_parser/http_parser.dart';
 
 class EndPoints {
   String endpointBack = 'http://192.168.0.16:8000';

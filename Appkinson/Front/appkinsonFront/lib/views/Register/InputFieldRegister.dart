@@ -1,4 +1,3 @@
-import 'package:dropdownfield/dropdownfield.dart';
 import 'package:flutter/material.dart';
 import '../../model/User.dart';
 //import 'DropDownRegister.dart';
@@ -36,95 +35,94 @@ class InputFieldRegisterCustom extends State<InputFieldRegister> {
       key: validationKey,
       child: Column(
         children: <Widget>[
-        Container(
-          child: Row(
-            children: <Widget>[
-              //SvgPicture.asset("assets/icons/usuarioAzul.svg"),
-              Positioned(
-                  child: Image.asset(
-                "assets/images/usuario.png",
-                height: size.height * 0.03,
-              )),
-              SizedBox(width: 20),
-              Expanded(
-                  child: DropdownButton(
-                isExpanded: true,
-                items: lista.map((String a) {
-                  return DropdownMenuItem(value: a, child: Text(a));
-                }).toList(),
+          Container(
+            child: Row(
+              children: <Widget>[
+                //SvgPicture.asset("assets/icons/usuarioAzul.svg"),
+                Positioned(
+                    child: Image.asset(
+                  "assets/images/usuario.png",
+                  height: size.height * 0.03,
+                )),
+                SizedBox(width: 20),
+                Expanded(
+                    child: DropdownButton(
+                  isExpanded: true,
+                  items: lista.map((String a) {
+                    return DropdownMenuItem(value: a, child: Text(a));
+                  }).toList(),
                   onChanged: (value) {
-                  setState(() {
-                    selectUser = value;
-                  });
-                },
-                hint: Text(selectUser),
-              )),
-            ],
-          ),
-        ),
-        SizedBox(
-          height: 20,
-        ),
-        Container(
-          padding: EdgeInsets.all(10),
-          decoration: BoxDecoration(
-              border: Border(bottom: BorderSide(color: Colors.grey[200]))),
-          child: TextFormField(
-            controller: emailController,
-            decoration: InputDecoration(
-                hintText: "Ingrese su correo eléctronico",
-                hintStyle: TextStyle(color: Colors.grey),
-                border: InputBorder.none
+                    setState(() {
+                      selectUser = value;
+                    });
+                  },
+                  hint: Text(selectUser),
+                )),
+              ],
             ),
           ),
-        ),
-        Container(
-          padding: EdgeInsets.all(10),
-          decoration: BoxDecoration(
-              border: Border(bottom: BorderSide(color: Colors.grey[200]))),
-          child: Row(
-            children: <Widget>[
-              Expanded(
-                flex: 10,
-                child: TextFormField(
-                  controller: password,
-                  decoration: const InputDecoration(
-                    hintText: "Ingrese su contraseña",
-                  ),
-                  obscureText: _obscurePassword,
-                ),
-              ),
-              Expanded(
-                child: TextButton(
-                  onPressed: _toggle,
-                  child: new Icon(_obscurePassword
-                      ? Icons.remove_red_eye_sharp
-                      : Icons.remove_red_eye_outlined),
-                ),
-              ),
-            ],
+          SizedBox(
+            height: 20,
           ),
-        ),
-        Container(
-          padding: EdgeInsets.all(10),
-          decoration: BoxDecoration(
-              border: Border(bottom: BorderSide(color: Colors.grey[200]))),
-          child: Row(
-            children: <Widget>[
-              Expanded(
-                child: TextFormField(
-                  controller: password,
-                  decoration: const InputDecoration(
-                    hintText: "Vuelva a Ingresar su contraseña",
-                  ),
-                  obscureText: _obscurePassword,
-                ),
-              ),
-            ],
+          Container(
+            padding: EdgeInsets.all(10),
+            decoration: BoxDecoration(
+                border: Border(bottom: BorderSide(color: Colors.grey[200]))),
+            child: TextFormField(
+              controller: emailController,
+              decoration: InputDecoration(
+                  hintText: "Ingrese su correo eléctronico",
+                  hintStyle: TextStyle(color: Colors.grey),
+                  border: InputBorder.none),
+            ),
           ),
-        ),
-        Container(),
-      ],
+          Container(
+            padding: EdgeInsets.all(10),
+            decoration: BoxDecoration(
+                border: Border(bottom: BorderSide(color: Colors.grey[200]))),
+            child: Row(
+              children: <Widget>[
+                Expanded(
+                  flex: 10,
+                  child: TextFormField(
+                    controller: password,
+                    decoration: const InputDecoration(
+                      hintText: "Ingrese su contraseña",
+                    ),
+                    obscureText: _obscurePassword,
+                  ),
+                ),
+                Expanded(
+                  child: TextButton(
+                    onPressed: _toggle,
+                    child: new Icon(_obscurePassword
+                        ? Icons.remove_red_eye_sharp
+                        : Icons.remove_red_eye_outlined),
+                  ),
+                ),
+              ],
+            ),
+          ),
+          Container(
+            padding: EdgeInsets.all(10),
+            decoration: BoxDecoration(
+                border: Border(bottom: BorderSide(color: Colors.grey[200]))),
+            child: Row(
+              children: <Widget>[
+                Expanded(
+                  child: TextFormField(
+                    controller: password,
+                    decoration: const InputDecoration(
+                      hintText: "Vuelva a Ingresar su contraseña",
+                    ),
+                    obscureText: _obscurePassword,
+                  ),
+                ),
+              ],
+            ),
+          ),
+          Container(),
+        ],
       ),
     );
   }

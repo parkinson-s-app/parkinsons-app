@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
 
 import '../../Register/RegisterPage.dart';
@@ -7,7 +5,7 @@ import '../../Register/RegisterPage.dart';
 class ButtonRegister extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    Size size = MediaQuery.of(context).size;
+    // Size size = MediaQuery.of(context).size;
     return Container(
       height: 50,
       margin: EdgeInsets.symmetric(horizontal: 40),
