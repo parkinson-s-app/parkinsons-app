@@ -81,7 +81,7 @@ class _symptomsFormQ13 extends State<symptomsFormQ13> {
                   height: 20,
                 ),
                 RadioListTile<SigningCharacter>(
-                  title: const Text('Tiende a caer hacia atrás y puede tener que intentarlo más de una vez, pero puede conseguirlo sin ayudavalue: SigningCharacter.Dificultad'),
+                  title: const Text('Tiende a caer hacia atrás y puede tener que intentarlo más de una vez, pero puede conseguirlo sin ayuda'),
                   value: SigningCharacter.Dificultad,
                   groupValue: _character,
                   onChanged: (SigningCharacter value){
