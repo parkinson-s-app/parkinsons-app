@@ -30,14 +30,8 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="08d39895-96e3-4c46-aa63-7e2ef03a5c34" name="Default Changelist" comment="Pantallas de listas paciente, para el doctor agragacion y visualizacion">
-      <change afterPath="$PROJECT_DIR$/Appkinson/Front/appkinsonFront/lib/views/SymptomsForm/symptomsFormQ.dart" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Appkinson/Front/appkinsonFront/lib/views/SymptomsForm/symptomsFormQ17.dart" afterDir="false" />
+    <list default="true" id="08d39895-96e3-4c46-aa63-7e2ef03a5c34" name="Default Changelist" comment="Formulario sintomas Beta, sin botón de guardado">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Appkinson/Front/appkinsonFront/android/local.properties" beforeDir="false" afterPath="$PROJECT_DIR$/Appkinson/Front/appkinsonFront/android/local.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Appkinson/Front/appkinsonFront/lib/main.dart" beforeDir="false" afterPath="$PROJECT_DIR$/Appkinson/Front/appkinsonFront/lib/main.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Appkinson/Front/appkinsonFront/lib/services/EndPoints.dart" beforeDir="false" afterPath="$PROJECT_DIR$/Appkinson/Front/appkinsonFront/lib/services/EndPoints.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Appkinson/Front/appkinsonFront/lib/views/SymptomsForm/symptomsForm.dart" beforeDir="false" afterPath="$PROJECT_DIR$/Appkinson/Front/appkinsonFront/lib/views/SymptomsForm/symptomsForm.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Appkinson/Front/appkinsonFront/lib/views/SymptomsForm/symptomsFormQ1.dart" beforeDir="false" afterPath="$PROJECT_DIR$/Appkinson/Front/appkinsonFront/lib/views/SymptomsForm/symptomsFormQ1.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Appkinson/Front/appkinsonFront/lib/views/SymptomsForm/symptomsFormQ10.dart" beforeDir="false" afterPath="$PROJECT_DIR$/Appkinson/Front/appkinsonFront/lib/views/SymptomsForm/symptomsFormQ10.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Appkinson/Front/appkinsonFront/lib/views/SymptomsForm/symptomsFormQ11.dart" beforeDir="false" afterPath="$PROJECT_DIR$/Appkinson/Front/appkinsonFront/lib/views/SymptomsForm/symptomsFormQ11.dart" afterDir="false" />
@@ -46,8 +40,8 @@
       <change beforePath="$PROJECT_DIR$/Appkinson/Front/appkinsonFront/lib/views/SymptomsForm/symptomsFormQ14.dart" beforeDir="false" afterPath="$PROJECT_DIR$/Appkinson/Front/appkinsonFront/lib/views/SymptomsForm/symptomsFormQ14.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Appkinson/Front/appkinsonFront/lib/views/SymptomsForm/symptomsFormQ15.dart" beforeDir="false" afterPath="$PROJECT_DIR$/Appkinson/Front/appkinsonFront/lib/views/SymptomsForm/symptomsFormQ15.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Appkinson/Front/appkinsonFront/lib/views/SymptomsForm/symptomsFormQ16.dart" beforeDir="false" afterPath="$PROJECT_DIR$/Appkinson/Front/appkinsonFront/lib/views/SymptomsForm/symptomsFormQ16.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Appkinson/Front/appkinsonFront/lib/views/SymptomsForm/symptomsFormQ17.dart" beforeDir="false" afterPath="$PROJECT_DIR$/Appkinson/Front/appkinsonFront/lib/views/SymptomsForm/symptomsFormQ17.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Appkinson/Front/appkinsonFront/lib/views/SymptomsForm/symptomsFormQ2.dart" beforeDir="false" afterPath="$PROJECT_DIR$/Appkinson/Front/appkinsonFront/lib/views/SymptomsForm/symptomsFormQ2.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Appkinson/Front/appkinsonFront/lib/views/SymptomsForm/symptomsFormQ29.dart" beforeDir="false" afterPath="$PROJECT_DIR$/Appkinson/Front/appkinsonFront/lib/views/SymptomsForm/symptomsFormQ29.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Appkinson/Front/appkinsonFront/lib/views/SymptomsForm/symptomsFormQ3.dart" beforeDir="false" afterPath="$PROJECT_DIR$/Appkinson/Front/appkinsonFront/lib/views/SymptomsForm/symptomsFormQ3.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Appkinson/Front/appkinsonFront/lib/views/SymptomsForm/symptomsFormQ4.dart" beforeDir="false" afterPath="$PROJECT_DIR$/Appkinson/Front/appkinsonFront/lib/views/SymptomsForm/symptomsFormQ4.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Appkinson/Front/appkinsonFront/lib/views/SymptomsForm/symptomsFormQ5.dart" beforeDir="false" afterPath="$PROJECT_DIR$/Appkinson/Front/appkinsonFront/lib/views/SymptomsForm/symptomsFormQ5.dart" afterDir="false" />
@@ -55,7 +49,6 @@
       <change beforePath="$PROJECT_DIR$/Appkinson/Front/appkinsonFront/lib/views/SymptomsForm/symptomsFormQ7.dart" beforeDir="false" afterPath="$PROJECT_DIR$/Appkinson/Front/appkinsonFront/lib/views/SymptomsForm/symptomsFormQ7.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Appkinson/Front/appkinsonFront/lib/views/SymptomsForm/symptomsFormQ8.dart" beforeDir="false" afterPath="$PROJECT_DIR$/Appkinson/Front/appkinsonFront/lib/views/SymptomsForm/symptomsFormQ8.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Appkinson/Front/appkinsonFront/lib/views/SymptomsForm/symptomsFormQ9.dart" beforeDir="false" afterPath="$PROJECT_DIR$/Appkinson/Front/appkinsonFront/lib/views/SymptomsForm/symptomsFormQ9.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BackEnd/src/controllers/UserController.ts" beforeDir="false" afterPath="$PROJECT_DIR$/BackEnd/src/controllers/UserController.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -157,22 +150,22 @@
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="499" y="159" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.0.1536.824@0.0.1536.824" timestamp="1609725622901" />
-    <state width="1491" height="218" key="GridCell.Tab.0.bottom" timestamp="1609733450833">
+    <state width="1491" height="218" key="GridCell.Tab.0.bottom" timestamp="1609734251499">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1491" height="218" key="GridCell.Tab.0.bottom/0.0.1536.824@0.0.1536.824" timestamp="1609733450833" />
-    <state width="1491" height="218" key="GridCell.Tab.0.center" timestamp="1609733450833">
+    <state width="1491" height="218" key="GridCell.Tab.0.bottom/0.0.1536.824@0.0.1536.824" timestamp="1609734251499" />
+    <state width="1491" height="218" key="GridCell.Tab.0.center" timestamp="1609734251499">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1491" height="218" key="GridCell.Tab.0.center/0.0.1536.824@0.0.1536.824" timestamp="1609733450833" />
-    <state width="1491" height="218" key="GridCell.Tab.0.left" timestamp="1609733450833">
+    <state width="1491" height="218" key="GridCell.Tab.0.center/0.0.1536.824@0.0.1536.824" timestamp="1609734251499" />
+    <state width="1491" height="218" key="GridCell.Tab.0.left" timestamp="1609734251499">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1491" height="218" key="GridCell.Tab.0.left/0.0.1536.824@0.0.1536.824" timestamp="1609733450833" />
-    <state width="1491" height="218" key="GridCell.Tab.0.right" timestamp="1609733450833">
+    <state width="1491" height="218" key="GridCell.Tab.0.left/0.0.1536.824@0.0.1536.824" timestamp="1609734251499" />
+    <state width="1491" height="218" key="GridCell.Tab.0.right" timestamp="1609734251499">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1491" height="218" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1609733450833" />
+    <state width="1491" height="218" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1609734251499" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

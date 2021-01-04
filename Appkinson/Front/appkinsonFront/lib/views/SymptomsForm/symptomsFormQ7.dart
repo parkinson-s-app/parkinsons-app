@@ -8,7 +8,7 @@ class symptomsFormQ7 extends StatefulWidget {
 }
 
 enum SigningCharacter {Ausente, Discreto, Moderada, Intensa, MuyIntensa}
-SigningCharacter _character = SigningCharacter.Ausente;
+SigningCharacter _character;
 int selectedStateRadioQ7 = 0;
 
 class _symptomsFormQ7 extends State<symptomsFormQ7> {

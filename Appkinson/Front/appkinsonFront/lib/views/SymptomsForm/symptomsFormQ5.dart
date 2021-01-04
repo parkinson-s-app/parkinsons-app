@@ -8,7 +8,7 @@ class symptomsFormQ5 extends StatefulWidget {
 }
 
 enum SigningCharacter {Ausente, Leve, ModeradoAccion, Moderado, Amplio}
-SigningCharacter _character = SigningCharacter.Ausente;
+SigningCharacter _character ;
 int selectedStateRadioQ5 = 0;
 
 class _symptomsFormQ5 extends State<symptomsFormQ5> {
@@ -68,7 +68,7 @@ class _symptomsFormQ5 extends State<symptomsFormQ5> {
                 ),
                 RadioListTile<SigningCharacter>(
                   title: const Text('Amplitud moderada, presente en la acción'),
-                  value: SigningCharacter.Moderado,
+                  value: SigningCharacter.ModeradoAccion,
                   groupValue: _character,
                   onChanged: (SigningCharacter value){
                     setState(() {
