@@ -27,6 +27,9 @@ dependencies:
   dropdownfield: ^1.0.3
   cupertino_icons: ^0.1.2
   dio: ^3.0.9
+  table_calendar: ^2.3.3
+  google_fonts:
+  font_awesome_flutter:
 
   rxdart: ^0.24.1
   path_provider: ^1.6.11
