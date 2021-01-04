@@ -9,16 +9,3 @@ class User {
 
   User({this.email, this.password, this.type, this.name, this.photo});
 }
-
-List<User> kUsers = <User>[
-  User(
-      name: 'camilo',
-      email: 'camilo@',
-      password: 'contraseña',
-      type: 'Paciente'),
-  User(
-      name: 'sebastian',
-      email: 'sebastian@',
-      password: 'contraseña',
-      type: 'Paciente'),
-];
