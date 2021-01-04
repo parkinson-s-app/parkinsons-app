@@ -143,6 +143,13 @@ class EndPoints {
 
     String fileName = form.video.path.split('/').last;
     var decodedToken = json.decode(token);
+    var video;
+
+    if(form.video != null){
+      video = await MultipartFile.fromFile(form.video.path, filename: fileName);
+    }else{
+      video = null;
+    }
 
     //http.Response response =
     Map<String, dynamic> formMap = {
@@ -163,7 +170,7 @@ class EndPoints {
       'q15': form.q15,
       'q16': form.q16,
       'date': form.date,
-      'video': await MultipartFile.fromFile(form.video.path, filename: fileName),
+      'video': video,
     };
 
     FormData formData = new FormData.fromMap(formMap);
