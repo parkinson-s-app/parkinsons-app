@@ -128,12 +128,12 @@ export default class PersonService {
         debug('Unrelated Patients, id doctor: ', id);
         const conn = await connect();
         try {
-            const query = `SELECT ID_USER, NAME, EMAIL FROM patients
-            LEFT JOIN patientxdoctor 
-            ON patients.ID_USER=patientxdoctor.ID_PATIENT
-            LEFT JOIN users 
-            ON users.ID=patients.ID_USER
-            WHERE ID_DOCTOR <> ? OR ID_DOCTOR IS NULL`;
+            const query = `SELECT *
+            FROM patients 
+            WHERE ID_USER NOT IN 
+            ( SELECT ID_PATIENT
+                FROM patientxdoctor 
+                WHERE ID_DOCTOR = ? )`;
             const res = await conn.query(query,[id]);
             debug('Unrelated Patients response query %s', res);
             if(res) {
