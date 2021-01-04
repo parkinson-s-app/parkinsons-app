@@ -1,9 +1,11 @@
+import 'package:appkinsonFront/views/SymptomsForm/symptomsFormQ.dart';
 import 'package:intl/intl.dart';
 import 'package:table_calendar/table_calendar.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
+DateTime tempDate;
 TimeOfDay _time = TimeOfDay.now();
 //TimeOfDay time = _time;
 
@@ -337,9 +339,11 @@ class _CalendarState extends State<CalendarScreen> {
               ":" +
               _time.minute.toString() +
               ":00";
-          DateTime tempDate = new DateFormat("yyyy-MM-dd hh:mm:ss").parse(date);
+          tempDate = new DateFormat("yyyy-MM-dd hh:mm:ss").parse(date);
           debugPrint(_calendarController.selectedDay.toString());
           debugPrint(tempDate.toString());
+          Navigator.push(context,
+              new MaterialPageRoute(builder: (context) => symptomsFormQ()));
           //debugPrint(date);
         },
         child: Icon(

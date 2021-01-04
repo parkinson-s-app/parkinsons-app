@@ -2,6 +2,7 @@ import 'dart:convert';
 //import 'dart:html';
 import 'dart:io';
 
+import 'package:appkinsonFront/model/SymptomsForm.dart';
 import 'package:appkinsonFront/views/Login/Buttons/ButtonLogin.dart';
 import 'package:flutter/material.dart';
 import '../model/User.dart';
@@ -11,7 +12,7 @@ import 'package:path/path.dart';
 import 'package:http_parser/http_parser.dart';
 
 class EndPoints {
-  String endpointBack = 'http://192.168.0.16:8000';
+  String endpointBack = 'http://192.168.20.25:8000';
 
   Future<String> addUsers(User newUser) async {
     Map data2 = {
@@ -138,4 +139,42 @@ class EndPoints {
     }
     return patients;
   }
+
+  Future<bool> registerSymptomsForm(SymptomsForm form, var tokenID, var token) async {
+    bool success = false;
+
+    String fileName = form.video.path.split('/').last;
+    var decodedToken = json.decode(token);
+
+    //http.Response response =
+    Map<String, dynamic> formMap = {
+      'q1': form.q1,
+      'q2': form.q2,
+      'q3': form.q3,
+      'q4': form.q4,
+      'q5': form.q5,
+      'q6': form.q6,
+      'q7': form.q7,
+      'q8': form.q8,
+      'q9': form.q9,
+      'q10': form.q10,
+      'q11': form.q11,
+      'q12': form.q12,
+      'q13': form.q13,
+      'q14': form.q14,
+      'q15': form.q15,
+      'q16': form.q16,
+      'date': form.date,
+      'video': await MultipartFile.fromFile(form.video.path, filename: fileName),
+    };
+
+    FormData formData = new FormData.fromMap(formMap);
+    Dio dio = new Dio();
+    dio.options.headers["authorization"] = "Bearer " + decodedToken['token'];
+    Response response = await dio
+        .post(this.endpointBack + '/api/users/$tokenID/symptomsForm', data: formData);
+
+    return success;
+  }
+
 }
