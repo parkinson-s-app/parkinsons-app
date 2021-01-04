@@ -2,12 +2,12 @@ import 'dart:io';
 import '../SymptomsForm/videoPluguin.dart';
 import 'package:flutter/material.dart';
 
-class symptomsForm extends StatefulWidget {
+class symptomsFormQ29 extends StatefulWidget {
   @override
-  _symptomsForm createState() => _symptomsForm();
+  _symptomsFormQ29 createState() => _symptomsFormQ29();
 }
 
-class _symptomsForm extends State<symptomsForm> {
+class _symptomsFormQ29 extends State<symptomsFormQ29> {
   File fileMedia;
   MediaSource source;
   int selectedStateRadio = 0;
@@ -16,44 +16,12 @@ class _symptomsForm extends State<symptomsForm> {
 
   @override
   Widget build(BuildContext context) => Scaffold(
-    appBar: AppBar(
-      title: Text('Registro de síntomas'),
-    ),
     body: Center(
       child: Padding(
         padding: EdgeInsets.all(32),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            Text("¿Cuál es tu estado actual?"),
-            RadioListTile(
-              value: 1,
-              groupValue: selectedStateRadio,
-              title: Text("ON"),
-              onChanged: onChangedStateValue,
-            ),
-            RadioListTile(
-              value: 2,
-              groupValue: selectedStateRadio,
-              title: Text("OFF"),
-              onChanged: onChangedStateValue,
-            ),
-            Divider(
-              height: 20,
-            ),
-            Text("¿Presentó alguna disquinesia?"),
-            RadioListTile(
-              value: 3,
-              groupValue: selectedDyskinesiaRadio,
-              title: Text("Sí"),
-              onChanged: onChangedDyskinesiaValue,
-            ),
-            RadioListTile(
-              value: 4,
-              groupValue: selectedDyskinesiaRadio,
-              title: Text("No"),
-              onChanged: onChangedDyskinesiaValue,
-            ),
             Expanded(
               child: fileMedia == null
                   ? Icon(Icons.play_circle_outline, size: 120)
@@ -83,7 +51,10 @@ class _symptomsForm extends State<symptomsForm> {
               shape: StadiumBorder(),
               //onPressed: () => save(),
               color: Theme.of(context).primaryColor,
-              textColor: Colors.white, onPressed: () {  },
+              textColor: Colors.white,
+              onPressed: () async{
+                //endpoint
+              },
             ),
           ],
         ),
