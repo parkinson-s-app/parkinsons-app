@@ -1,3 +1,4 @@
+import 'package:appkinsonFront/views/Calendar/CalendarScreen.dart';
 import 'package:flutter/material.dart';
 
 //import '../../Register/RegisterPage.dart';
@@ -14,8 +15,8 @@ class ButtonGoCalendar extends StatelessWidget {
             RoundedRectangleBorder(borderRadius: BorderRadius.circular(18.0)),
         //   side: BorderSide(color: Color.fromRGBO(0, 160, 227, 1))),
         onPressed: () {
-          //Navigator.push(context,
-          //  new MaterialPageRoute(builder: (context) => RegisterPage()));
+          Navigator.push(context,
+              new MaterialPageRoute(builder: (context) => CalendarScreen()));
         },
         padding: EdgeInsets.symmetric(horizontal: 10),
         color: Colors.grey[50],

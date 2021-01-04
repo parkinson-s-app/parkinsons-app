@@ -1,5 +1,5 @@
 import 'dart:io';
-import 'package:appkinsonFront/views/SymptomsForm/videoPluguin.dart';
+import '../SymptomsForm/videoPluguin.dart';
 import 'package:flutter/material.dart';
 
 class symptomsForm extends StatefulWidget {
