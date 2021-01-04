@@ -206,7 +206,7 @@ UserController.get('/doctor/patients/related', verifyToken, async (req: Request,
     }
 });
 
-UserController.post('/users/:id/symtomsForm', multer.single('video'), verifyToken, async (req: Request, res: Response) => {
+UserController.post('/users/:id/symptomsForm', multer.single('video'), verifyToken, async (req: Request, res: Response) => {
     debug('Users UpdateById');
     const id = +req.params.id;
     debug('Users Symptoms body: %j, ID: %s, file path: %s',req.body, id, req.file.path);

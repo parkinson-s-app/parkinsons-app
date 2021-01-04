@@ -76,25 +76,26 @@ class _symptomsFormQ29 extends State<symptomsFormQ29> {
               textColor: Colors.white,
               onPressed: () async{
                 SymptomsForm patientForm = new SymptomsForm();
-                patientForm.q1 = BringAnswer1().send() as int;
-                patientForm.q2 = BringAnswer2().send() as int;
-                patientForm.q3 = BringAnswer3().send() as int;
-                patientForm.q4 = BringAnswer4().send() as int;
-                patientForm.q5 = BringAnswer5().send() as int;
-                patientForm.q6 = BringAnswer6().send() as int;
-                patientForm.q7 = BringAnswer7().send() as int;
-                patientForm.q8 = BringAnswer8().send() as int;
-                patientForm.q9 = BringAnswer9().send() as int;
-                patientForm.q10 = BringAnswer10().send() as int;
-                patientForm.q11 = BringAnswer11().send() as int;
-                patientForm.q12 = BringAnswer12().send() as int;
-                patientForm.q13 = BringAnswer13().send() as int;
-                patientForm.q14 = BringAnswer14().send() as int;
-                patientForm.q15 = BringAnswer15().send() as int;
-                patientForm.q16 = BringAnswer16().send() as int;
+                patientForm.q1 = BringAnswer1().send();
+                patientForm.q2 = BringAnswer2().send() ;
+                patientForm.q3 = BringAnswer3().send() ;
+                patientForm.q4 = BringAnswer4().send() ;
+                patientForm.q5 = BringAnswer5().send() ;
+                patientForm.q6 = BringAnswer6().send() ;
+                patientForm.q7 = BringAnswer7().send() ;
+                patientForm.q8 = BringAnswer8().send() ;
+                patientForm.q9 = BringAnswer9().send() ;
+                patientForm.q10 = BringAnswer10().send() ;
+                patientForm.q11 = BringAnswer11().send() ;
+                patientForm.q12 = BringAnswer12().send() ;
+                patientForm.q13 = BringAnswer13().send() ;
+                patientForm.q14 = BringAnswer14().send() ;
+                patientForm.q15 = BringAnswer15().send() ;
+                patientForm.q16 = BringAnswer16().send() ;
                 patientForm.video = fileMedia;
                 patientForm.date = tempDate;
                 var savedDone = await EndPoints().registerSymptomsForm(patientForm, currentUser['id'].toString(), token);
+                Navigator.pop(context);
               },
             ),
           ],

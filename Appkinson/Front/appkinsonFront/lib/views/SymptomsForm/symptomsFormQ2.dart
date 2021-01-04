@@ -117,7 +117,7 @@ class _symptomsFormQ2 extends State<symptomsFormQ2> {
 }
 
 class BringAnswer2 {
-  Future<int> send() async {
+  int send()  {
     return selectedStateRadioQ2;
   }
 }

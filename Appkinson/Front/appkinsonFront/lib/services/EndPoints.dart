@@ -171,7 +171,7 @@ class EndPoints {
     dio.options.headers["authorization"] = "Bearer " + decodedToken['token'];
     Response response = await dio
         .post(this.endpointBack + '/api/users/$tokenID/symptomsForm', data: formData);
-
+    debugPrint("formulario enviado");
     return success;
   }
 
