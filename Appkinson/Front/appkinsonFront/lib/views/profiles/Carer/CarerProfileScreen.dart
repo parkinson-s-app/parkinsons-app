@@ -1,4 +1,6 @@
-import 'package:appkinsonFront/views/profiles/Carer/profileEdition/ProfileEdition.dart';
+import 'package:appkinsonFront/routes/RoutesCarer.dart';
+import 'package:appkinsonFront/routes/RoutesGeneral.dart';
+import 'package:appkinsonFront/views/profiles/Carer/profileEdition/ProfileEditionCarer.dart';
 import 'package:flutter/cupertino.dart';
 
 import 'dart:io';
@@ -34,7 +36,7 @@ class DoctorProfileScreenP extends State<CarerProfileScreen> {
     this.setState(() {
       imageFile = picture;
     });
-    Navigator.of(context).pop();
+    RoutesGeneral().toPop(context);
   }
 
   openCamera(BuildContext context) async {
@@ -42,7 +44,7 @@ class DoctorProfileScreenP extends State<CarerProfileScreen> {
     this.setState(() {
       imageFile = picture;
     });
-    Navigator.of(context).pop();
+    RoutesGeneral().toPop(context);
   }
 
   Future<void> showChoiceDialog(BuildContext context) {
@@ -171,7 +173,7 @@ class DoctorProfileScreenP extends State<CarerProfileScreen> {
               ],
             ),
             onPressed: () {
-              Navigator.pop(context);
+              RoutesGeneral().toPop(context);
             },
             // padding: EdgeInsets.all(1),
             shape: CircleBorder(),
@@ -260,10 +262,7 @@ class ProfileListItem extends StatelessWidget {
           color: Colors.grey[100],
           onPressed: () {
             if (text == 'Editar') {
-              Navigator.push(
-                  context,
-                  new MaterialPageRoute(
-                      builder: (context) => ProfileEdition()));
+              RoutesCarer().toCarerEditProfile(context);
             }
           },
           child: Row(

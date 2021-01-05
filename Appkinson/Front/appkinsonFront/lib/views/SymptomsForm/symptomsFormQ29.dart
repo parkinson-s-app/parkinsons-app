@@ -1,4 +1,6 @@
 import 'dart:io';
+import 'package:appkinsonFront/routes/RoutesGeneral.dart';
+
 import '../SymptomsForm/videoPluguin.dart';
 import 'package:flutter/material.dart';
 import '../../services/EndPoints.dart';
@@ -35,74 +37,75 @@ class _symptomsFormQ29 extends State<symptomsFormQ29> {
   int selectedStateRadio = 0;
   int selectedDyskinesiaRadio = 0;
 
-
   @override
   Widget build(BuildContext context) => Scaffold(
-    body: Center(
-      child: Padding(
-        padding: EdgeInsets.all(32),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Expanded(
-              child: fileMedia == null
-                  ? Icon(Icons.play_circle_outline, size: 240)
-                  : (source == MediaSource.image
-                  ? Image.file(fileMedia)
-                  : VideoWidget(fileMedia)),
+        body: Center(
+          child: Padding(
+            padding: EdgeInsets.all(32),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                Expanded(
+                  child: fileMedia == null
+                      ? Icon(Icons.play_circle_outline, size: 240)
+                      : (source == MediaSource.image
+                          ? Image.file(fileMedia)
+                          : VideoWidget(fileMedia)),
+                ),
+                const SizedBox(height: 24),
+                RaisedButton(
+                  child: Text('Capturar video'),
+                  shape: StadiumBorder(),
+                  onPressed: () => capture(MediaSource.video),
+                  color: Theme.of(context).primaryColor,
+                  textColor: Colors.white,
+                ),
+                const SizedBox(height: 12),
+                RaisedButton(
+                  child: Text('Eliminar video'),
+                  shape: StadiumBorder(),
+                  onPressed: () => delete(),
+                  color: Theme.of(context).primaryColor,
+                  textColor: Colors.white,
+                ),
+                const SizedBox(height: 12),
+                RaisedButton(
+                  child: Text('Guardar registro'),
+                  shape: StadiumBorder(),
+                  //onPressed: () => save(),
+                  color: Theme.of(context).primaryColor,
+                  textColor: Colors.white,
+                  onPressed: () async {
+                    SymptomsForm patientForm = new SymptomsForm();
+                    patientForm.q1 = BringAnswer1().send();
+                    patientForm.q2 = BringAnswer2().send();
+                    patientForm.q3 = BringAnswer3().send();
+                    patientForm.q4 = BringAnswer4().send();
+                    patientForm.q5 = BringAnswer5().send();
+                    patientForm.q6 = BringAnswer6().send();
+                    patientForm.q7 = BringAnswer7().send();
+                    patientForm.q8 = BringAnswer8().send();
+                    patientForm.q9 = BringAnswer9().send();
+                    patientForm.q10 = BringAnswer10().send();
+                    patientForm.q11 = BringAnswer11().send();
+                    patientForm.q12 = BringAnswer12().send();
+                    patientForm.q13 = BringAnswer13().send();
+                    patientForm.q14 = BringAnswer14().send();
+                    patientForm.q15 = BringAnswer15().send();
+                    patientForm.q16 = BringAnswer16().send();
+                    patientForm.video = fileMedia;
+                    patientForm.date = tempDate;
+                    var savedDone = await EndPoints().registerSymptomsForm(
+                        patientForm, currentUser['id'].toString(), token);
+
+                    RoutesGeneral().toPop(context);
+                  },
+                ),
+              ],
             ),
-            const SizedBox(height: 24),
-            RaisedButton(
-              child: Text('Capturar video'),
-              shape: StadiumBorder(),
-              onPressed: () => capture(MediaSource.video),
-              color: Theme.of(context).primaryColor,
-              textColor: Colors.white,
-            ),
-            const SizedBox(height: 12),
-            RaisedButton(
-              child: Text('Eliminar video'),
-              shape: StadiumBorder(),
-              onPressed: () => delete(),
-              color: Theme.of(context).primaryColor,
-              textColor: Colors.white,
-            ),
-            const SizedBox(height: 12),
-            RaisedButton(
-              child: Text('Guardar registro'),
-              shape: StadiumBorder(),
-              //onPressed: () => save(),
-              color: Theme.of(context).primaryColor,
-              textColor: Colors.white,
-              onPressed: () async{
-                SymptomsForm patientForm = new SymptomsForm();
-                patientForm.q1 = BringAnswer1().send();
-                patientForm.q2 = BringAnswer2().send() ;
-                patientForm.q3 = BringAnswer3().send() ;
-                patientForm.q4 = BringAnswer4().send() ;
-                patientForm.q5 = BringAnswer5().send() ;
-                patientForm.q6 = BringAnswer6().send() ;
-                patientForm.q7 = BringAnswer7().send() ;
-                patientForm.q8 = BringAnswer8().send() ;
-                patientForm.q9 = BringAnswer9().send() ;
-                patientForm.q10 = BringAnswer10().send() ;
-                patientForm.q11 = BringAnswer11().send() ;
-                patientForm.q12 = BringAnswer12().send() ;
-                patientForm.q13 = BringAnswer13().send() ;
-                patientForm.q14 = BringAnswer14().send() ;
-                patientForm.q15 = BringAnswer15().send() ;
-                patientForm.q16 = BringAnswer16().send() ;
-                patientForm.video = fileMedia;
-                patientForm.date = tempDate;
-                var savedDone = await EndPoints().registerSymptomsForm(patientForm, currentUser['id'].toString(), token);
-                Navigator.pop(context);
-              },
-            ),
-          ],
+          ),
         ),
-      ),
-    ),
-  );
+      );
 
   Future capture(MediaSource source) async {
     setState(() {
@@ -127,21 +130,21 @@ class _symptomsFormQ29 extends State<symptomsFormQ29> {
       });
     }
   }
+
   Future delete() async {
     setState(() {
       this.fileMedia = null;
     });
   }
 
-  Future save() async{
-
-  }
+  Future save() async {}
 
   void onChangedStateValue(Object value) {
     setState(() {
       selectedStateRadio = value;
     });
   }
+
   void onChangedDyskinesiaValue(Object value) {
     setState(() {
       selectedDyskinesiaRadio = value;

@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:appkinsonFront/routes/RoutesGeneral.dart';
 import 'package:appkinsonFront/services/EndPoints.dart';
 import 'package:appkinsonFront/views/Login/Buttons/ButtonLogin.dart';
 import 'package:flutter/material.dart';
@@ -159,7 +160,7 @@ class DoctorPatientsCustom extends State<DoctorPatients> {
                         token);
                     debugPrint(listaUsuarios.toString());
                     //getPatients();
-                    Navigator.pop(context);
+                    RoutesGeneral().toPop(context);
                   }
                 },
                 child: Text('Agregar'),
@@ -167,7 +168,7 @@ class DoctorPatientsCustom extends State<DoctorPatients> {
               ),
               FlatButton(
                   onPressed: () {
-                    Navigator.pop(context);
+                    RoutesGeneral().toPop(context);
                   },
                   child: Text('Cancelar')),
             ],

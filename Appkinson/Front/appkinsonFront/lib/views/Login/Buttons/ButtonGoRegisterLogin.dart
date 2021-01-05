@@ -1,3 +1,4 @@
+import 'package:appkinsonFront/routes/RoutesGeneral.dart';
 import 'package:flutter/material.dart';
 
 import '../../Register/RegisterPage.dart';
@@ -13,8 +14,7 @@ class ButtonGoRegisterLogin extends StatelessWidget {
             RoundedRectangleBorder(borderRadius: BorderRadius.circular(18.0)),
         //   side: BorderSide(color: Color.fromRGBO(0, 160, 227, 1))),
         onPressed: () {
-          Navigator.push(context,
-              new MaterialPageRoute(builder: (context) => RegisterPage()));
+          RoutesGeneral().toRegister(context);
         },
         padding: EdgeInsets.symmetric(horizontal: 50),
         color: Colors.white,

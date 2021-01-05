@@ -1,5 +1,9 @@
 import 'dart:convert';
 
+import 'package:appkinsonFront/routes/RoutesAdmin.dart';
+import 'package:appkinsonFront/routes/RoutesCarer.dart';
+import 'package:appkinsonFront/routes/RoutesDoctor.dart';
+import 'package:appkinsonFront/routes/RoutesPatient.dart';
 import 'package:flutter/material.dart';
 import '../../HomeDifferentUsers/Admin/AdminHomePage.dart';
 import '../../HomeDifferentUsers/Doctor/DoctorHomePage.dart';
@@ -60,20 +64,16 @@ class _FormButtonLogin extends State<ButtonLogin> {
           debugPrint(decoded);
 
           if (currentUser['type'] == 'Cuidador') {
-            Navigator.push(context,
-                new MaterialPageRoute(builder: (context) => CarerHomePage()));
+            RoutesCarer().toCarerHome(context);
           }
           if (currentUser['type'] == 'Paciente') {
-            Navigator.push(context,
-                new MaterialPageRoute(builder: (context) => PatientHomePage()));
+            RoutesPatient().toPatientHome(context);
           }
           if (currentUser['type'] == 'Doctor') {
-            Navigator.push(context,
-                new MaterialPageRoute(builder: (context) => DoctorHomePage()));
+            RoutesDoctor().toDoctorHome(context);
           }
           if (currentUser['type'] == 'Admin') {
-            Navigator.push(context,
-                new MaterialPageRoute(builder: (context) => AdminHomePage()));
+            RoutesAdmin().toAdminHome(context);
           }
         },
         color: Colors.blue,

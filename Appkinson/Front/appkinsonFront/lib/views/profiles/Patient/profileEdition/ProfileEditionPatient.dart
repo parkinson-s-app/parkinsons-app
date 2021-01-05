@@ -4,14 +4,14 @@ import 'package:appkinsonFront/services/EndPoints.dart';
 import 'package:appkinsonFront/views/Login/Buttons/ButtonLogin.dart';
 import 'package:flutter/material.dart';
 
-class ProfileEdition extends StatefulWidget {
+class ProfileEditionPatient extends StatefulWidget {
   @override
   __ProfileEdition createState() => __ProfileEdition();
 }
 
 TextEditingController nameController = new TextEditingController();
 
-class __ProfileEdition extends State<ProfileEdition> {
+class __ProfileEdition extends State<ProfileEditionPatient> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(

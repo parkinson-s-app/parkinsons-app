@@ -1,3 +1,4 @@
+import 'package:appkinsonFront/routes/RoutesGeneral.dart';
 import 'package:flutter/material.dart';
 
 class ButtonGoLogin extends StatelessWidget {
@@ -11,7 +12,7 @@ class ButtonGoLogin extends StatelessWidget {
             RoundedRectangleBorder(borderRadius: BorderRadius.circular(18.0)),
         //   side: BorderSide(color: Color.fromRGBO(0, 160, 227, 1))),
         onPressed: () {
-          Navigator.pop(context);
+          RoutesGeneral().toPop(context);
         },
         padding: EdgeInsets.symmetric(horizontal: 50),
         color: Colors.white,

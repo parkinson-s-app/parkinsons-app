@@ -1,31 +1,29 @@
+import 'package:appkinsonFront/views/HomeDifferentUsers/Doctor/DoctorHomePage.dart';
 import 'package:appkinsonFront/views/Login/LoginPage.dart';
 import 'package:appkinsonFront/views/Register/RegisterPage.dart';
+import 'package:appkinsonFront/views/Relations/DoctorPatients.dart';
+import 'package:appkinsonFront/views/profiles/Doctor/DoctorProfile.dart';
+import 'package:appkinsonFront/views/profiles/Doctor/profileEdition/ProfileEditionDoctor.dart';
 import 'package:flutter/material.dart';
 
 class RoutesDoctor {
-  toRegister(BuildContext context) {
+  toDoctorHome(BuildContext context) {
     Navigator.push(
-        context, new MaterialPageRoute(builder: (context) => RegisterPage()));
+        context, new MaterialPageRoute(builder: (context) => DoctorHomePage()));
   }
 
-  toLogin(BuildContext context) {
+  toDoctorProfile(BuildContext context) {
     Navigator.push(
-        context, new MaterialPageRoute(builder: (context) => LoginPage()));
+        context, new MaterialPageRoute(builder: (context) => MyHomePage2()));
   }
 
-  toPop(BuildContext context) {
-    Navigator.pop(context);
+  toPatientList(BuildContext context) {
+    Navigator.push(
+        context, new MaterialPageRoute(builder: (context) => DoctorPatients()));
   }
 
-  toNotifications(BuildContext context) {}
-
-  toLisPatientsOfDoctor(BuildContext context) {}
-
-  toLisPatientsOfCarer(BuildContext context) {}
-
-  toDoctorProfile(BuildContext context) {}
-
-  toCarerProfile(BuildContext context) {}
-
-  toPatientProfile(BuildContext context) {}
+  toDoctorEditProfile(BuildContext context) {
+    Navigator.push(context,
+        new MaterialPageRoute(builder: (context) => ProfileEditionDoctor()));
+  }
 }

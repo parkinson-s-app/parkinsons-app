@@ -1,6 +1,7 @@
 //import 'package:appkinsonFront/views/profiles/Patient/PatientProfileScreen.dart';
+import 'package:appkinsonFront/routes/RoutesCarer.dart';
 import 'package:appkinsonFront/views/HomeDifferentUsers/Carer/CarerHomePage.dart';
-import 'package:appkinsonFront/views/profiles/Carer/profileEdition/ProfileEdition.dart';
+import 'package:appkinsonFront/views/profiles/Carer/profileEdition/ProfileEditionCarer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/screenutil.dart';
 import 'package:line_awesome_flutter/line_awesome_flutter.dart';
@@ -157,8 +158,7 @@ class CustomDrawer extends StatelessWidget {
           ListTile(
             onTap: () {
               debugPrint("Tapped Payments");
-              Navigator.push(context,
-                  new MaterialPageRoute(builder: (context) => CarerHomePage()));
+              RoutesCarer().toCarerHome(context);
             },
             leading: Icon(Icons.home),
             title: Text("Ir al Home"),

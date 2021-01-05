@@ -1,3 +1,4 @@
+import 'package:appkinsonFront/routes/RoutesGeneral.dart';
 import 'package:flutter/material.dart';
 import '../../../services/EndPoints.dart';
 import '../InputFieldRegister.dart';
@@ -32,8 +33,7 @@ class ButtonRegister extends StatelessWidget {
           String save = await EndPoints().addUsers(user);
           debugPrint(save);
           if (save == 'Guardado') {
-            Navigator.push(context,
-                new MaterialPageRoute(builder: (context) => LoginPage()));
+            RoutesGeneral().toLogin(context);
           }
         },
         padding: EdgeInsets.symmetric(horizontal: 50),
