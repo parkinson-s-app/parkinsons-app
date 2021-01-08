@@ -10,7 +10,7 @@ import 'package:http/http.dart' as http;
 import 'package:dio/dio.dart';
 
 class EndPoints {
-  String endpointBack = 'http://192.168.20.25:8000';
+  String endpointBack = 'http://192.168.0.106:8000';
 
   Future<String> addUsers(User newUser) async {
     Map data2 = {
@@ -141,11 +141,11 @@ class EndPoints {
   Future<bool> registerSymptomsForm(SymptomsForm form, var tokenID, var token) async {
     bool success = false;
 
-    String fileName = form.video.path.split('/').last;
     var decodedToken = json.decode(token);
     var video;
 
     if(form.video != null){
+      String fileName = form.video.path.split('/').last;
       video = await MultipartFile.fromFile(form.video.path, filename: fileName);
     }else{
       video = null;
