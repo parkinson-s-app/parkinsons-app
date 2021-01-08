@@ -30,10 +30,7 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="08d39895-96e3-4c46-aa63-7e2ef03a5c34" name="Default Changelist" comment="Formulario sintomas Beta, sin botón de guardado">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Appkinson/Front/appkinsonFront/lib/views/SymptomsForm/symptomsFormQ13.dart" beforeDir="false" afterPath="$PROJECT_DIR$/Appkinson/Front/appkinsonFront/lib/views/SymptomsForm/symptomsFormQ13.dart" afterDir="false" />
-    </list>
+    <list default="true" id="08d39895-96e3-4c46-aa63-7e2ef03a5c34" name="Default Changelist" comment="Formulario sintomas Beta, sin botón de guardado" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
