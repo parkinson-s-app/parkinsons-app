@@ -120,6 +120,35 @@ class EndPoints {
     return addedUser;
   }
 
+  Future<String> linkUserCarer(String emailUser, var tokenID, var token) async {
+    //Map data2 = {'email': authUser.email, 'password': authUser.password};
+    var codeToken = json.decode(token);
+    http.Response lista = await http
+        .get(this.endpointBack + '/api/carer/patients/unrelated', headers: {
+      HttpHeaders.authorizationHeader: "Bearer " + codeToken['token']
+    });
+    //http.Response response =
+    debugPrint(lista.body);
+    String i = lista.body;
+    String addedUser;
+
+    var codeList = json.decode(i);
+    for (var a = 0; a < codeList.length; a++) {
+      if (emailUser == codeList[a]['EMAIL'].toString()) {
+        http.Response added = await http.post(
+            this.endpointBack +
+                '/api/relate/' +
+                codeList[a]['ID_USER'].toString(),
+            headers: {
+              HttpHeaders.authorizationHeader: "Bearer " + codeToken['token']
+            });
+        debugPrint(added.body);
+        addedUser = codeList[a]['EMAIL'];
+      }
+    }
+    return addedUser;
+  }
+
   Future<List<String>> linkedUser(var tokenID, var token) async {
     //Map data2 = {'email': authUser.email, 'password': authUser.password};
     var codeToken = json.decode(token);
@@ -138,12 +167,38 @@ class EndPoints {
     return patients;
   }
 
-  Future<bool> registerSymptomsForm(
-      SymptomsForm form, var tokenID, var token) async {
+  Future<List<String>> linkedUserCarer(var tokenID, var token) async {
+    //Map data2 = {'email': authUser.email, 'password': authUser.password};
+    var codeToken = json.decode(token);
+    http.Response lista = await http
+        .get(this.endpointBack + '/api/carer/patients/related', headers: {
+      HttpHeaders.authorizationHeader: "Bearer " + codeToken['token']
+    });
+    //http.Response response =
+    debugPrint(lista.body);
+    String i = lista.body;
+    var codeList = json.decode(i);
+    List<String> patients = [];
+    for (var a = 0; a < codeList.length; a++) {
+      patients.add(codeList[a]['EMAIL']);
+    }
+    return patients;
+  }
+ 
+
+  Future<bool> registerSymptomsForm(SymptomsForm form, var tokenID, var token) async {
+
     bool success = false;
 
     String fileName = form.video.path.split('/').last;
     var decodedToken = json.decode(token);
+    var video;
+
+    if(form.video != null){
+      video = await MultipartFile.fromFile(form.video.path, filename: fileName);
+    }else{
+      video = null;
+    }
 
     //http.Response response =
     Map<String, dynamic> formMap = {
@@ -164,8 +219,7 @@ class EndPoints {
       'q15': form.q15,
       'q16': form.q16,
       'date': form.date,
-      'video':
-          await MultipartFile.fromFile(form.video.path, filename: fileName),
+      'video': video,
     };
 
     FormData formData = new FormData.fromMap(formMap);
