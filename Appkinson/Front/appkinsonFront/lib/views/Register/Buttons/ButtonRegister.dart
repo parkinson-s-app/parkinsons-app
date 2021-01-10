@@ -2,18 +2,15 @@ import 'package:flutter/material.dart';
 import '../../../services/EndPoints.dart';
 import '../InputFieldRegister.dart';
 import '../../Login/LoginPage.dart';
+import 'dart:convert';
 
-class ButtonRegister extends StatelessWidget {
-  /* addUsers(String username, String password) async {
-    Map data2 = {'username': username, 'password': password};
-    debugPrint(data2.toString());
-    http.Response response =
-    await http.post('http://192.168.0.16:4000/api/addUsers', body: data2);
 
-    //debugPrint(response.body);
+class ButtonRegister extends StatefulWidget {
+  @override
+  ButtonRegisterCustom createState() => ButtonRegisterCustom();
+}
 
-    //data = json.decode(response.body);
-  }*/
+class ButtonRegisterCustom extends State<ButtonRegister> {
 
   @override
   Widget build(BuildContext context) {
@@ -26,15 +23,51 @@ class ButtonRegister extends StatelessWidget {
         //   side: BorderSide(color: Color.fromRGBO(0, 160, 227, 1))),
         onPressed: () async {
           // addUsers('jorge', '1234');
+         
           var m = new metod();
           var user = await m.send();
-          debugPrint(user.email);
-          String save = await EndPoints().addUsers(user);
-          debugPrint(save);
-          if (save == 'Guardado') {
-            Navigator.push(context,
-                new MaterialPageRoute(builder: (context) => LoginPage()));
+          var i=0;
+          var character='';
+          bool hasUppercase = false;
+          bool hasSpecialCharacters = false;
+          while(i<user.password.length){
+            character = user.password.toString().substring(i,i+1);
+            if (character == character.toUpperCase()) {
+              hasUppercase=true;
+            }
           }
+          if(user.password.toString().contains(new RegExp(r'[!@#$%^&*(),.?":{}|<>]'))){
+            hasSpecialCharacters = true;
+          }
+          if(user.email.toString().contains('@')){
+            if(/*mas de 8 char*/ user.password.toString().length > 8){
+              if(/*Mayuscula*/ hasUppercase == true){
+                if(/*Char extra*/ hasSpecialCharacters = true){
+                  String save = await EndPoints().addUsers(user);
+                  debugPrint(save);
+                  if (save == 'Guardado') {
+                    Navigator.push(context,
+                        new MaterialPageRoute(builder: (context) => LoginPage()));
+                  }
+                }else{
+                  //debe contener un caracter especial
+                  invalid(3);
+                }
+              }else{
+                //debe tener una mayuscula
+                invalid(2);
+              }
+            }else{
+              //muy corta
+              invalid(1);
+            }
+          }else{
+            // no es un correo valido
+            invalid(0);
+          }
+          debugPrint(user.email);
+          //if()
+
         },
         padding: EdgeInsets.symmetric(horizontal: 50),
         color: Color.fromRGBO(0, 160, 227, 1),
@@ -43,4 +76,56 @@ class ButtonRegister extends StatelessWidget {
       ),
     );
   }
+
+  invalid(int reason) {
+    String invalidReason = null;
+    if(reason == 0){
+      invalidReason = "El email no es un correo valido";
+    }
+    if(reason == 1){
+      invalidReason = "La contraseña debe tener mínimo 8 caracteres";
+    }
+    if(reason == 2){
+      invalidReason = "La contraseña debe contener mínimo una mayuscula";
+    }
+    if(reason == 3){
+      invalidReason = "La contraseña debe contener mínimo un caracter especial";
+    }
+
+    return showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: Form(
+              child: Column(
+                children: <Widget>[
+                  Expanded(
+                    flex: 1,
+                    child: Container(
+                      color: Colors.white60,
+                      padding: EdgeInsets.all(15.0),
+                      alignment: Alignment.center,
+                      child: Text(
+                        invalidReason,
+                        style: TextStyle(
+                          fontSize: 22.0,
+                          fontFamily: "Ralewaybold",
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            actions: <Widget>[
+              FlatButton(
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                  child: Text('Cerrar')),
+            ],
+          );
+        });
+  }
 }
+

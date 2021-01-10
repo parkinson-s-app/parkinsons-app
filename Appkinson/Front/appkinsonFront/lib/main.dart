@@ -4,7 +4,7 @@ import 'views/Notifications/PatientNotifications.dart';
 import 'views/HomeInitial/HomePage.dart';
 import 'views/Login/LoginPage.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
-import 'views/SymptomsForm/symptomsForm.dart';
+import 'views/SymptomsFormDoctor/symptomsForm.dart';
 import 'views/Calendar/CalendarScreen.dart';
 
 void main() {

@@ -1,4 +1,4 @@
-import 'package:appkinsonFront/views/SymptomsForm/symptomsFormQ.dart';
+import 'package:appkinsonFront/views/SymptomsFormDoctor/symptomsFormQ.dart';
 import 'package:intl/intl.dart';
 import 'package:table_calendar/table_calendar.dart';
 import 'package:flutter/material.dart';
