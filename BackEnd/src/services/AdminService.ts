@@ -1,7 +1,5 @@
 import { connect } from "../database";
 import debugLib from 'debug';
-import IPersonDto from "../models/IPersonDto";
-import * as bcrypt from "bcryptjs";
 
 const debug = debugLib('AppKinson:PersonService');
 
