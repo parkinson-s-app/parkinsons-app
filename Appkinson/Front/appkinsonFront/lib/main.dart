@@ -4,9 +4,7 @@ import 'views/Notifications/PatientNotifications.dart';
 import 'views/HomeInitial/HomePage.dart';
 import 'views/Login/LoginPage.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
-
 import 'views/Calendar/CalendarScreen.dart';
-
 import 'views/RelationRequest/relationRequest.dart';
 import 'views/Relations/DoctorPatients.dart';
 void main() {
