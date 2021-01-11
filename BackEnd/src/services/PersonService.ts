@@ -149,7 +149,6 @@ export default class PersonService {
 
     /**
      * getPatients
-     * SELECT ID_USER, ID_DOCTOR, NAME, EMAIL FROM patients LEFT JOIN patientxdoctor ON patients.ID_USER=patientxdoctor.ID_PATIENT LEFT JOIN users ON users.ID=patients.ID_USER WHERE ID_DOCTOR <> 2 OR ID_DOCTOR IS NULL
      */
     public static async getPatientsRelated(id: number) {
         debug('Related Patients, id doctor: ', id);
@@ -175,4 +174,43 @@ export default class PersonService {
             return null;
         }
     }
+    
+    public static async getRelationRequest(id: number) {
+        debug('Related Patients, id doctor: ', id);
+        const conn = await connect();
+        try {
+            const query = `
+            SELECT EMAIL, TYPE, ID, NAME FROM 
+            (                
+             (SELECT EMAIL, TYPE, ID, ID_PATIENT, NAME
+            FROM (requestlinkdoctortopatient 
+                  LEFT JOIN users 
+                  ON users.ID = requestlinkdoctortopatient.ID_DOCTOR
+                  LEFT JOIN doctors
+                  ON users.ID = doctors.ID_USER
+                 ) 
+            UNION ( 
+                SELECT EMAIL, TYPE, ID, ID_PATIENT, NAME 
+                FROM requestlinkcarertopatient 
+                LEFT JOIN users 
+                ON users.ID = requestlinkcarertopatient.ID_CARER
+                LEFT JOIN carers
+                ON users.ID = carers.ID_USER
+                )
+            )
+           ) as result
+           WHERE result.ID_PATIENT = ?`;
+            const res = await conn.query(query,[id]);
+            debug('Requests response query %s', res);
+            if(res) {
+                return res[0];
+            } else {
+                return null;
+            }
+        } catch (error) {
+            debug('Unrelated Patients error making query. Error: %s', error);
+            return null;
+        }
+    }
+
 }
