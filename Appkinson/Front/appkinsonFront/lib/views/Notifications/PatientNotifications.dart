@@ -7,10 +7,10 @@ class PatientNotifications extends StatefulWidget {
 }
 
 class _PatientNotifications extends State<PatientNotifications> {
-  bool valueSymptoms = false;
-  bool valueMedicines = false;
-  bool valueCheerUp = false;
-
+  bool valueSymptoms = true;
+  bool valueMedicines = true;
+  bool valueCheerUp = true;
+  bool valueMedicalAppointment = false;
   @override
   void initState() {
     super.initState();
@@ -40,7 +40,7 @@ class _PatientNotifications extends State<PatientNotifications> {
               style: new TextStyle(fontSize: 20.0),
             ),
             subtitle:
-                new Text('¡Recuerda registrar tus síntomas todos los días!'),
+            new Text('¡Recuerda registrar tus síntomas todos los días!'),
           ),
           SizedBox(
             height: 30,
@@ -55,7 +55,7 @@ class _PatientNotifications extends State<PatientNotifications> {
               style: new TextStyle(fontSize: 20.0),
             ),
             subtitle:
-                new Text('¡Recuerda tomarte los medicamentos todos los días!'),
+            new Text('¡Recuerda tomarte los medicamentos todos los días!'),
           ),
           SizedBox(
             height: 30,
@@ -70,10 +70,22 @@ class _PatientNotifications extends State<PatientNotifications> {
               style: new TextStyle(fontSize: 20.0),
             ),
             subtitle:
-                new Text('¡Recuerda registrar tu estado de ánimo cada semana!'),
+            new Text('¡Recuerda registrar tu estado de ánimo cada semana!'),
           ),
           SizedBox(
-            height: 40,
+            height: 30,
+          ),
+          new SwitchListTile(
+            value: valueMedicalAppointment,
+            onChanged: onChangeValueMedicalAppointment,
+            activeColor: Colors.amberAccent,
+            secondary: new Icon(Icons.accessibility_new),
+            title: new Text(
+              'Cita de control',
+              style: new TextStyle(fontSize: 20.0),
+            ),
+            subtitle:
+            new Text('¡Recuerda la cita médica para tu próximo control!'),
           ),
           //ButtonAddReminder();
         ],
@@ -83,6 +95,32 @@ class _PatientNotifications extends State<PatientNotifications> {
 
   onNotificationInLowerVersions(ReceivedNotification receivedNotification) {}
   onNotificationClick(String payload) {}
+
+  Widget buildSettingsMedicalAppointment(){
+    return AlertDialog(
+      scrollable: true,
+      title: Text('Configuración de tu cita'),
+      content: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Form(
+          child: Column(
+            children: <Widget>[
+              TextFormField(
+                decoration: InputDecoration(
+                  labelText: 'Fecha',
+                  icon: Icon(Icons.account_box),
+                ),
+              ),
+              TextFormField(
+                decoration: InputDecoration(
+                  labelText: 'Hora',
+                  icon: Icon(Icons.email),
+                ),
+              ),
+            ],
+          ),
+        ),),);
+  }
 
   void onChangeValueSymptoms(bool value) async {
     setState(() {
@@ -111,6 +149,17 @@ class _PatientNotifications extends State<PatientNotifications> {
     });
     if (value == true) {
       await notificationPlugin.showWeeklyAtDayTime();
+    }
+  }
+
+  void onChangeValueMedicalAppointment(bool value) async {
+    setState(() {
+      valueMedicalAppointment = value;
+    });
+    buildSettingsMedicalAppointment();
+    if (value == true) {
+      buildSettingsMedicalAppointment();
+      await notificationPlugin.scheduleNotification();
     }
   }
 }
