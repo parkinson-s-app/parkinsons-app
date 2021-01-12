@@ -1,13 +1,15 @@
 import 'dart:convert';
 import 'dart:async';
+import 'package:appkinsonFront/services/EndPoints.dart';
+import 'package:appkinsonFront/views/Login/Buttons/ButtonLogin.dart';
 import 'package:http/http.dart' as http;
 import 'package:workmanager/workmanager.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 
-const simplePeriodicTask = "notificationRelationRequets";
+const simplePeriodicTask = "notification Relation Requets";
 
-void showNotification( v, flp) async {
+void showNotification(v, flp) async {
   var android = AndroidNotificationDetails(
       'channel id', 'channel NAME', 'CHANNEL DESCRIPTION',
       priority: Priority.High, importance: Importance.Max);
@@ -17,10 +19,11 @@ void showNotification( v, flp) async {
       payload: 'VIS \n $v');
 }
 
-
-
 void callbackDispatcher() {
+  print('Entra!');
+  debugPrint('Entra!');
   Workmanager.executeTask((task, inputData) async {
+    debugPrint('Entra al exec!');
 
     FlutterLocalNotificationsPlugin flp = FlutterLocalNotificationsPlugin();
     var android = AndroidInitializationSettings('@mipmap/ic_launcher');
@@ -28,17 +31,25 @@ void callbackDispatcher() {
     var initSetttings = InitializationSettings(android, iOS);
     flp.initialize(initSetttings);
 
-    var response= await http.get('http://192.168.0.13:8000/api/patient/relationRequest');
+    var response = await EndPoints().getRelationRequest(token);
     print(response);
-    var convert = json.decode(response.body);
-    if(convert != null){
-    //  if (convert['status']  == true) {
+
+    var responseJSON = json.decode(response);
+    var resquests = json.decode(responseJSON);
+
+    // for (var a = 0; a < resquests.length; a++) {
+    //   patients.add(codeList[a]['EMAIL']);
+    // }
         showNotification('tienes notificaciones pendientes', flp);
-      //} else {
-        //print("no hay mensaje");
-      //}
-    }
+    // if (resquests != null && resquests.length > 0) {
+    //   if (resquests.length > 1) {
+    //     showNotification('tienes notificaciones pendientes', flp);
+    //   } else if (resquests.length == 1) {
+    //     showNotification('tienes una notificación pendientes', flp);
+    //   } else {
+    //     print("no hay mensaje");
+    //   }
+    // }
     return Future.value(true);
   });
 }
-

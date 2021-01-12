@@ -11,12 +11,14 @@ import 'package:workmanager/workmanager.dart';
 
 
 Future<void> main() async {
+
+  debugPrint('main!');
   WidgetsFlutterBinding.ensureInitialized();
   await Workmanager.initialize(callbackDispatcher, isInDebugMode: true); //to true if still in testing lev turn it to false whenever you are launching the app
   await Workmanager.registerPeriodicTask("5", simplePeriodicTask,
       existingWorkPolicy: ExistingWorkPolicy.replace,
-      frequency: Duration(minutes: 10),//when should it check the link
-      initialDelay: Duration(seconds: 5),//duration before showing the notification
+      frequency: Duration(minutes: 15),//when should it check the link
+      initialDelay: Duration(minutes: 1),//duration before showing the notification
       constraints: Constraints(
         networkType: NetworkType.connected,
       ));

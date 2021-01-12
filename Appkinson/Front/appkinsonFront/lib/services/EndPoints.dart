@@ -10,7 +10,7 @@ import 'package:http/http.dart' as http;
 import 'package:dio/dio.dart';
 
 class EndPoints {
-  String endpointBack = 'http://192.168.0.13:8000';
+  String endpointBack = 'http://192.168.0.106:8000';
 
   Future<String> addUsers(User newUser) async {
     Map data2 = {
@@ -178,7 +178,7 @@ class EndPoints {
     return success;
   }
 
-  Future<List<String>> getRelationRequest(var tokenID, var token) async {
+  Future<String> getRelationRequest(var token) async {
     //Map data2 = {'email': authUser.email, 'password': authUser.password};
     var codeToken = json.decode(token);
     http.Response lista = await http
@@ -187,12 +187,7 @@ class EndPoints {
     });
     //http.Response response =
     debugPrint(lista.body);
-    String responseBody = lista.body;
-    var bodyJSON = json.decode(responseBody);
-    List<String> RelationsRequest = [];
-    for (var a = 0; a < bodyJSON.length; a++) {
-      RelationsRequest.add(bodyJSON[a]['EMAIL']);
-    }
-    return RelationsRequest;
+    String relationsRequest = lista.body;
+    return relationsRequest;
   }
 }

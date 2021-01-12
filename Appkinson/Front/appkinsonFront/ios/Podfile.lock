@@ -1,6 +1,8 @@
 PODS:
   - animated_theme_switcher (0.0.1):
     - Flutter
+  - background_fetch (0.5.6):
+    - Flutter
   - Flutter (1.0.0)
   - flutter_local_notifications (0.0.1):
     - Flutter
@@ -17,6 +19,7 @@ PODS:
 
 DEPENDENCIES:
   - animated_theme_switcher (from `.symlinks/plugins/animated_theme_switcher/ios`)
+  - background_fetch (from `.symlinks/plugins/background_fetch/ios`)
   - Flutter (from `Flutter`)
   - flutter_local_notifications (from `.symlinks/plugins/flutter_local_notifications/ios`)
   - image_cropper (from `.symlinks/plugins/image_cropper/ios`)
@@ -31,6 +34,8 @@ SPEC REPOS:
 EXTERNAL SOURCES:
   animated_theme_switcher:
     :path: ".symlinks/plugins/animated_theme_switcher/ios"
+  background_fetch:
+    :path: ".symlinks/plugins/background_fetch/ios"
   Flutter:
     :path: Flutter
   flutter_local_notifications:
@@ -46,6 +51,7 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   animated_theme_switcher: d77026ff2a3c8c9d302c90a62983c5e5ca630dc8
+  background_fetch: 9e1c6c010f2bafe94108358405b7f2a08d6b5ab1
   Flutter: 0e3d915762c693b495b44d77113d4970485de6ec
   flutter_local_notifications: 9e4738ce2471c5af910d961a6b7eadcf57c50186
   image_cropper: c8f9b4157933c7bb965a66d1c5e6c8fd408c6eb4
