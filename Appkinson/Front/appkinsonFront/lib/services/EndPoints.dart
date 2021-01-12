@@ -10,7 +10,7 @@ import 'package:http/http.dart' as http;
 import 'package:dio/dio.dart';
 
 class EndPoints {
-  String endpointBack = 'http://192.168.0.106:8000';
+  String endpointBack = 'http://192.168.0.13:8000';
 
   Future<String> addUsers(User newUser) async {
     Map data2 = {
@@ -189,10 +189,10 @@ class EndPoints {
     debugPrint(lista.body);
     String responseBody = lista.body;
     var bodyJSON = json.decode(responseBody);
-    List<String> ReationsRequest = [];
+    List<String> RelationsRequest = [];
     for (var a = 0; a < bodyJSON.length; a++) {
-      ReationsRequest.add(bodyJSON[a]['EMAIL']);
+      RelationsRequest.add(bodyJSON[a]['EMAIL']);
     }
-    return ReationsRequest;
+    return RelationsRequest;
   }
 }
