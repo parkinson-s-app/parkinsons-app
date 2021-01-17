@@ -250,6 +250,30 @@ UserController.get('/patient/relationRequest', verifyToken, async (req: Request,
     }
 });
 
+UserController.get('/patients/relationRequest', verifyToken, async (req: Request, res: Response) => {
+    debug('Mock Getting requests of a patient');
+    const bearerHeader = req.headers['authorization'];
+    let status;
+    if( bearerHeader !== undefined ) {
+        const id = getIdFromToken(bearerHeader);
+        if( !isNaN(id) ){
+            // try {
+                const requests = 'OK';
+                status = constants.HTTP_STATUS_OK;
+                res.status(status).send(requests);
+            // } catch (error) {
+            //     status = constants.HTTP_STATUS_INTERNAL_SERVER_ERROR;
+            //     const responseError = { status, error};
+            //     res.status(status).send(responseError);
+            // }
+        }
+    } else {
+        debug('Mock Error getting authorization header');
+        status = constants.HTTP_STATUS_BAD_REQUEST;
+        res.status(status).send('Bad request');
+    }
+});
+
 function getIdFromToken(token: string) {
     const dataInToken = token.split('.')[1];
     debug('getIdFromToken data encoded: %s', dataInToken);
