@@ -1,30 +1,51 @@
+import 'dart:convert';
+
+import 'package:appkinsonFront/services/EndPoints.dart';
 import 'package:flutter/material.dart';
-import 'views/HomeInitial/HomePage.dart';
-import 'views/Notifications/PatientNotifications.dart';
-import 'views/HomeInitial/HomePage.dart';
-import 'views/Login/LoginPage.dart';
-import 'package:flutter_local_notifications/flutter_local_notifications.dart';
-import 'views/Calendar/CalendarScreen.dart';
-import 'views/RelationRequest/relationRequestPlugin.dart';
-import 'views/Relations/DoctorPatients.dart';
+import 'package:appkinsonFront/local_notifications.dart';
 import 'package:workmanager/workmanager.dart';
+import 'package:appkinsonFront/views/Login/Buttons/ButtonLogin.dart';
+import 'views/HomeInitial/HomePage.dart';
+import 'model/User.dart';
 
+List<User> patients = [];
 
-Future<void> main() async {
+void callbackDispatcher() {
+  Workmanager.executeTask((taskName, inputData) async {
+    //show the notification
+    LocalNotification.Initializer();
 
-  debugPrint('main!');
-  WidgetsFlutterBinding.ensureInitialized();
-  await Workmanager.initialize(callbackDispatcher, isInDebugMode: true); //to true if still in testing lev turn it to false whenever you are launching the app
-  await Workmanager.registerPeriodicTask("5", simplePeriodicTask,
-      existingWorkPolicy: ExistingWorkPolicy.replace,
-      frequency: Duration(minutes: 15),//when should it check the link
-      initialDelay: Duration(minutes: 1),//duration before showing the notification
-      constraints: Constraints(
-        networkType: NetworkType.connected,
-      ));
-  runApp(MyApp());
+    var response = await EndPoints().getRelationRequest(token);
+    print(response);
+
+    var responseJSON = json.decode(response);
+    var resquests = json.decode(responseJSON);
+    //for (var a = 0; a < resquests.length; a++) {
+    // patients.add(codeList[a]['EMAIL']);
+    // }
+    //   showNotification('tienes notificaciones pendientes', flp);
+    if (resquests != null && resquests.length > 0) {
+      if (resquests.length > 1) {
+        LocalNotification.ShowOneTimeNotification(DateTime.now());
+      } else if (resquests.length == 1) {
+        LocalNotification.ShowOneTimeNotification(DateTime.now());
+      } else {
+        print("no hay mensaje");
+      }
+    }
+    return Future.value(true);
+  });
 }
 
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Workmanager.initialize(callbackDispatcher);
+  await Workmanager.registerPeriodicTask("test_workertask", "test_workertask",
+      inputData: {"data1": "value1", "data2": "value2"},
+      frequency: Duration(minutes: 1),
+      initialDelay: Duration(minutes: 1));
+  runApp(MyApp());
+}
 
 class MyApp extends StatelessWidget {
   @override

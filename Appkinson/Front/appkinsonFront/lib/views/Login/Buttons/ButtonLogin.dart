@@ -1,5 +1,5 @@
 import 'dart:convert';
-
+import 'package:appkinsonFront/views/RelationRequest/relationRequestPlugin.dart';
 import 'package:appkinsonFront/routes/RoutesAdmin.dart';
 import 'package:appkinsonFront/routes/RoutesCarer.dart';
 import 'package:appkinsonFront/routes/RoutesDoctor.dart';
@@ -67,6 +67,7 @@ class _FormButtonLogin extends State<ButtonLogin> {
             RoutesCarer().toCarerHome(context);
           }
           if (currentUser['type'] == 'Paciente') {
+            getRelationsRequest();
             RoutesPatient().toPatientHome(context);
           }
           if (currentUser['type'] == 'Doctor') {

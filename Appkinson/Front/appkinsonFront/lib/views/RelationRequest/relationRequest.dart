@@ -1,8 +1,11 @@
+import 'dart:convert';
+import 'package:appkinsonFront/views/Login/Buttons/ButtonLogin.dart';
+import 'package:appkinsonFront/services/EndPoints.dart';
 import 'package:appkinsonFront/views/Notifications/NotificationPlugin.dart';
+import 'package:appkinsonFront/views/RelationRequest/relationRequestPlugin.dart';
 import 'package:flutter/material.dart';
 
-
-class relationRequest extends StatelessWidget {
+class RelationRequest extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
@@ -12,21 +15,16 @@ class relationRequest extends StatelessWidget {
             padding: const EdgeInsets.all(20.0),
             child: Text("Solicitudes de relación",),
           ),
-          RaisedButton(onPressed: pushNotification, child: Text("lanzar"), color: Colors.green,),
           Expanded(child:  ListView(
             padding: const EdgeInsets.all(20.0),
-            children: _getListings(),
+            children: getListRelationsRequest(),
           ),
           )
         ])
         )));
   }
 }
-Future pushNotification() async {
-  relationRequestCount +=1;
-  await notificationPlugin.scheduleNotification();
-}
-Widget buildRelationRrequestMessage(String solicitor, String type){
+Widget buildRelationRequestMessage(String solicitor, String type){
   return Container(
       width: 50.0,
       height: 100.0,
@@ -49,18 +47,11 @@ Widget buildRelationRrequestMessage(String solicitor, String type){
       )
   );
 }
-List _listings = new List();
-int relationRequestCount = 5;
-List<Widget> _getListings() {
-  int i = 0;
-  List listings = List<Widget>();
-  if(relationRequestCount != null){
-    for (i = 0; i < relationRequestCount; i++) {
-      listings.add(
-          buildRelationRrequestMessage("Carlos Andrés Parra", "Cuidador")
-      );
-      print(relationRequestCount);
-  }
-}
-  return listings;
+List<Widget> convertRelationsRequest(){
+
+   List<Widget> relationsRequest;
+   relationsRequest = getListRelationsRequest();
+   print("HEREEEEE");
+   print(relationsRequest.length);
+   return relationsRequest == null ? [] : relationsRequest;
 }
