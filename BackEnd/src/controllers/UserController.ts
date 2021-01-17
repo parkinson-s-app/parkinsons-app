@@ -225,6 +225,25 @@ UserController.post('/users/:id/symptomsForm', multer.single('video'), verifyTok
     res.status(200).send('ok perro');
 });
 
+UserController.post('/users/:id/symptomsFormPatient', multer.single('video'), verifyToken, async (req: Request, res: Response) => {
+    debug('Patients form by Id');
+    const id = +req.params.id;
+    debug('Patients Symptoms body: %j, ID: %s, file path: %s',req.body, id, req.file.path);
+    // let updatedUserData = req.body as IPersonalDataDto;
+    // updatedUserData.PHOTOPATH = req.file.path;
+    // debug('Users Update user: %j, ID:', updatedUserData, id);
+    // const response = await PersonService.updatePerson(id, updatedUserData);
+    // debug('User UpdateById response db: %j', response);
+    // if(response) {
+    //     const status =  constants.HTTP_STATUS_OK;
+    //     res.status(status).send(response);
+    // } else {
+    //     const status =  constants.HTTP_STATUS_INTERNAL_SERVER_ERROR;
+    //     res.status(status).send('Error');
+    // }
+    res.status(200).send('ok perro');
+});
+
 UserController.get('/patient/relationRequest', verifyToken, async (req: Request, res: Response) => {
     debug('Getting requests of a patient');
     const bearerHeader = req.headers['authorization'];

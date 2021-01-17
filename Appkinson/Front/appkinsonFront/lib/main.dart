@@ -15,24 +15,24 @@ void callbackDispatcher() {
     //show the notification
     LocalNotification.Initializer();
 
-    var response = await EndPoints().getRelationRequest(token);
-    print(response);
+    // var response = await EndPoints().getRelationRequest(token);
+    // print(response);
 
-    var responseJSON = json.decode(response);
-    var resquests = json.decode(responseJSON);
+    // var responseJSON = json.decode(response);
+    // var resquests = json.decode(responseJSON);
     //for (var a = 0; a < resquests.length; a++) {
     // patients.add(codeList[a]['EMAIL']);
     // }
     //   showNotification('tienes notificaciones pendientes', flp);
-    if (resquests != null && resquests.length > 0) {
-      if (resquests.length > 1) {
-        LocalNotification.ShowOneTimeNotification(DateTime.now());
-      } else if (resquests.length == 1) {
-        LocalNotification.ShowOneTimeNotification(DateTime.now());
-      } else {
-        print("no hay mensaje");
-      }
-    }
+    // if (resquests != null && resquests.length > 0) {
+    //   if (resquests.length > 1) {
+    LocalNotification.ShowOneTimeNotification(DateTime.now());
+    //   } else if (resquests.length == 1) {
+    //     LocalNotification.ShowOneTimeNotification(DateTime.now());
+    //   } else {
+    //     print("no hay mensaje");
+    //   }
+    // }
     return Future.value(true);
   });
 }
@@ -50,7 +50,6 @@ void main() async {
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-
     //return new MaterialApp(
     //  debugShowCheckedModeBanner: false, home: CalendarScreen());
     return new MaterialApp(debugShowCheckedModeBanner: false, home: HomePage());
