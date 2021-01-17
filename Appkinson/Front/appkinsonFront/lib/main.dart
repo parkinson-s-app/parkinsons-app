@@ -1,5 +1,4 @@
 import 'dart:convert';
-
 import 'package:appkinsonFront/services/EndPoints.dart';
 import 'package:flutter/material.dart';
 import 'package:appkinsonFront/local_notifications.dart';
@@ -12,27 +11,8 @@ List<User> patients = [];
 
 void callbackDispatcher() {
   Workmanager.executeTask((taskName, inputData) async {
-    //show the notification
     LocalNotification.Initializer();
-
-    var response = await EndPoints().getRelationRequest(token);
-    print(response);
-
-    var responseJSON = json.decode(response);
-    var resquests = json.decode(responseJSON);
-    //for (var a = 0; a < resquests.length; a++) {
-    // patients.add(codeList[a]['EMAIL']);
-    // }
-    //   showNotification('tienes notificaciones pendientes', flp);
-    if (resquests != null && resquests.length > 0) {
-      if (resquests.length > 1) {
-        LocalNotification.ShowOneTimeNotification(DateTime.now());
-      } else if (resquests.length == 1) {
-        LocalNotification.ShowOneTimeNotification(DateTime.now());
-      } else {
-        print("no hay mensaje");
-      }
-    }
+    LocalNotification.ShowOneTimeNotification(DateTime.now());
     return Future.value(true);
   });
 }
@@ -42,7 +22,7 @@ void main() async {
   await Workmanager.initialize(callbackDispatcher);
   await Workmanager.registerPeriodicTask("test_workertask", "test_workertask",
       inputData: {"data1": "value1", "data2": "value2"},
-      frequency: Duration(minutes: 1),
+      frequency: Duration(minutes: 15),
       initialDelay: Duration(minutes: 1));
   runApp(MyApp());
 }

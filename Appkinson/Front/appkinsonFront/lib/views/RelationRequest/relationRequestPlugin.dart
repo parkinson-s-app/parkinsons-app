@@ -10,6 +10,8 @@ import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 
 const simplePeriodicTask = "notification Relation Requets";
 final List<Widget> listings = List<Widget>();
+var response;
+
 void showNotification(v, flp) async {
   var android = AndroidNotificationDetails(
       'channel id', 'channel NAME', 'CHANNEL DESCRIPTION',
@@ -54,7 +56,7 @@ void callbackDispatcher() {
   });
 }
 Future<List<Widget>> getRelationsRequest() async {
-  var response = await EndPoints().getRelationRequest(token);
+  response = await EndPoints().getRelationRequest(token);
   var responseJSON = json.decode(response);
   for (int a = 0; a < responseJSON.length; a++) {
     listings.add(buildRelationRequestMessage(
@@ -63,4 +65,7 @@ Future<List<Widget>> getRelationsRequest() async {
 }
 List<Widget> getListRelationsRequest(){
   return listings;
+}
+String getJson(){
+  return response;
 }

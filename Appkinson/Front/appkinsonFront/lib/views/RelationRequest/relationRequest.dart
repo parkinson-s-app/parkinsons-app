@@ -33,12 +33,12 @@ Widget buildRelationRequestMessage(String solicitor, String type){
           Text(solicitor + " quiere ser tu " + type),
           Positioned(
             top: 20,
-            child: RaisedButton(onPressed: null, child: Text("Aceptar"), color: Colors.green,),
+            child: RaisedButton(onPressed: sendAfirmativeResponse, child: Text("Aceptar"), color: Colors.green,),
           ),
           Positioned(
             top: 20,
             right: 60,
-            child: RaisedButton(onPressed: null, child: Text("Cancelar"), color: Colors.redAccent),
+            child: RaisedButton(onPressed: sendNegativeResponse, child: Text("Cancelar"), color: Colors.redAccent),
           ),
           SizedBox(
             height: 40,
@@ -47,11 +47,14 @@ Widget buildRelationRequestMessage(String solicitor, String type){
       )
   );
 }
-List<Widget> convertRelationsRequest(){
 
-   List<Widget> relationsRequest;
-   relationsRequest = getListRelationsRequest();
-   print("HEREEEEE");
-   print(relationsRequest.length);
-   return relationsRequest == null ? [] : relationsRequest;
+void sendAfirmativeResponse() async {
+  var response = getJson();
+  var responseJSON = json.decode(response);
+  await EndPoints().sendResponseRelation('ACCEPT', responseJSON[0]['TYPE'], responseJSON[0]['ID']);
+}
+void sendNegativeResponse() async {
+  var response = getJson();
+  var responseJSON = json.decode(response);
+  await EndPoints().sendResponseRelation('DENIED', responseJSON[0]['TYPE'], responseJSON[0]['ID']);
 }

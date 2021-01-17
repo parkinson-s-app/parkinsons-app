@@ -91,6 +91,14 @@ class EndPoints {
     return i;
   }
 
+  Future<String> sendResponseRelation(String answer, String type, String requesterId) async {
+    Map data2 = {'Answer': answer, 'RequesterType': type, 'RequesterId': requesterId};
+    http.Response response = await http.post(this.endpointBack + '/api/relation/response', body: data2);
+    debugPrint(data2.toString());
+    String i = response.body;
+    return i;
+  }
+
   Future<String> linkUser(String emailUser, var tokenID, var token) async {
     //Map data2 = {'email': authUser.email, 'password': authUser.password};
     var codeToken = json.decode(token);

@@ -32,8 +32,8 @@ class PatientHomePage extends StatelessWidget {
               child: Stack(
                 children: <Widget>[
                   Positioned(
-                    top: 20,
-                    right: 60,
+                    top: 250,
+                    left: 255,
                     child: ButtonGoRelationsRequest(),
                   ),
                   Image.asset(
