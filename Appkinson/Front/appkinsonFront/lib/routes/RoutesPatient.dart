@@ -3,8 +3,8 @@ import 'package:appkinsonFront/views/HomeDifferentUsers/Patient/PatientHomePage.
 import 'package:appkinsonFront/views/Login/LoginPage.dart';
 import 'package:appkinsonFront/views/Notifications/PatientNotifications.dart';
 import 'package:appkinsonFront/views/Register/RegisterPage.dart';
+import 'package:appkinsonFront/views/SymptomsFormDoctor/symptomsFormQ.dart';
 import 'package:appkinsonFront/views/RelationRequest/relationRequest.dart';
-import 'package:appkinsonFront/views/SymptomsForm/symptomsFormQ.dart';
 import 'package:appkinsonFront/views/profiles/Patient/PatientProfile.dart';
 import 'package:appkinsonFront/views/profiles/Patient/profileEdition/ProfileEditionPatient.dart';
 import 'package:flutter/material.dart';
