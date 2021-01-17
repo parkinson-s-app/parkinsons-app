@@ -4,6 +4,7 @@ import 'package:appkinsonFront/views/Login/LoginPage.dart';
 import 'package:appkinsonFront/views/Notifications/PatientNotifications.dart';
 import 'package:appkinsonFront/views/Register/RegisterPage.dart';
 import 'package:appkinsonFront/views/SymptomsFormDoctor/symptomsFormQ.dart';
+import 'package:appkinsonFront/views/RelationRequest/relationRequest.dart';
 import 'package:appkinsonFront/views/profiles/Patient/PatientProfile.dart';
 import 'package:appkinsonFront/views/profiles/Patient/profileEdition/ProfileEditionPatient.dart';
 import 'package:flutter/material.dart';
@@ -22,6 +23,11 @@ class RoutesPatient {
   toNotifications(BuildContext context) {
     Navigator.push(context,
         new MaterialPageRoute(builder: (context) => PatientNotifications()));
+  }
+
+  toRelationsRequest(BuildContext context) {
+    Navigator.push(context,
+        new MaterialPageRoute(builder: (context) => RelationRequest()));
   }
 
   toPatientProfile(BuildContext context) {

@@ -133,35 +133,12 @@ class DoctorPatientsCustom extends State<DoctorPatients> {
             ),
             actions: <Widget>[
               FlatButton(
-                onPressed: () async {
-                  if (_keyDialogForm.currentState.validate()) {
-                    _keyDialogForm.currentState.save();
-                    debugPrint(addPatientController.text);
-                    var lista = token.split(".");
-                    var payload = lista[1];
 
-                    switch (payload.length % 4) {
-                      case 1:
-                        break; // this case can't be handled well, because 3 padding chars is illeagal.
-                      case 2:
-                        payload = payload + "==";
-                        break;
-                      case 3:
-                        payload = payload + "=";
-                        break;
-                    }
-
-                    var decoded = utf8.decode(base64.decode(payload));
-                    currentUser = json.decode(decoded);
-                    debugPrint(currentUser['id'].toString());
-                    var listaUsuarios = await EndPoints().linkUser(
-                        addPatientController.text,
-                        currentUser['id'].toString(),
-                        token);
-                    debugPrint(listaUsuarios.toString());
-                    //getPatients();
-                    RoutesGeneral().toPop(context);
-                  }
+                onPressed: () {
+                  showDialog(
+                    context: context,
+                    builder: (BuildContext context) => _buildPopupDialog(context),
+                  );
                 },
                 child: Text('Agregar'),
                 color: Colors.blue,
@@ -174,6 +151,58 @@ class DoctorPatientsCustom extends State<DoctorPatients> {
             ],
           );
         });
+  }
+  Widget _buildPopupDialog(BuildContext context) {
+    return new AlertDialog(
+      title: const Text('Solicitud de relación'),
+      content: new Column(
+        mainAxisSize: MainAxisSize.min,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          Text("¡Hola! Para poder ver a tu paciente, es necesario mandarle la solicitud de relación ¿Deseas continuar? "),
+        ],
+      ),
+      actions: <Widget>[
+        new FlatButton(
+          onPressed: () async {
+            if (_keyDialogForm.currentState.validate()) {
+              _keyDialogForm.currentState.save();
+              debugPrint(addPatientController.text);
+              var lista = token.split(".");
+              var payload = lista[1];
+
+              switch (payload.length % 4) {
+                case 1:
+                  break; // this case can't be handled well, because 3 padding chars is illeagal.
+                case 2:
+                  payload = payload + "==";
+                  break;
+                case 3:
+                  payload = payload + "=";
+                  break;
+              }
+
+              var decoded = utf8.decode(base64.decode(payload));
+              currentUser = json.decode(decoded);
+              debugPrint(currentUser['id'].toString());
+              var listaUsuarios = await EndPoints().linkUser(addPatientController.text, currentUser['id'].toString(), token);
+              debugPrint(listaUsuarios.toString());
+              //getPatients();
+              Navigator.pop(context);
+            }
+          },
+          textColor: Theme.of(context).primaryColor,
+          child: const Text('¡Sí!'),
+        ),
+        new FlatButton(
+          onPressed: () {
+            Navigator.of(context).pop();
+          },
+          textColor: Theme.of(context).primaryColor,
+          child: const Text('Cancelar'),
+        ),
+      ],
+    );
   }
 }
 

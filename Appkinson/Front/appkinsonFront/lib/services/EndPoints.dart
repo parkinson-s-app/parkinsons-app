@@ -239,4 +239,17 @@ class EndPoints {
     debugPrint("formulario enviado");
     return success;
   }
+
+  Future<String> getRelationRequest(var token) async {
+    //Map data2 = {'email': authUser.email, 'password': authUser.password};
+    var codeToken = json.decode(token);
+    http.Response lista = await http
+        .get(this.endpointBack + '/api/patient/relationRequest', headers: {
+      HttpHeaders.authorizationHeader: "Bearer " + codeToken['token']
+    });
+    //http.Response response =
+    debugPrint(lista.body);
+    String relationsRequest = lista.body;
+    return relationsRequest;
+  }
 }
