@@ -35,6 +35,7 @@ class _FormButtonLogin extends State<ButtonLogin> {
           var m = new metod();
           var user = await m.send();
           debugPrint(user.email);
+          debugPrint("------");
 
           /*
             parte del decodificado del token y 
@@ -44,6 +45,7 @@ class _FormButtonLogin extends State<ButtonLogin> {
           */
 
           token = await EndPoints().authUser(user);
+          debugPrint(token);
           var lista = token.split(".");
           var payload = lista[1];
 

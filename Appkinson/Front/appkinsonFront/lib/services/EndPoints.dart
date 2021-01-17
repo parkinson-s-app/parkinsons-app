@@ -10,7 +10,7 @@ import 'package:http/http.dart' as http;
 import 'package:dio/dio.dart';
 
 class EndPoints {
-  String endpointBack = 'http://192.168.0.16:8000';
+  String endpointBack = 'http://192.168.20.25:8000';
 
   Future<String> addUsers(User newUser) async {
     Map data2 = {
@@ -83,12 +83,20 @@ class EndPoints {
   }
 
   Future<String> authUser(User authUser) async {
+    debugPrint("entro");
     Map data2 = {'email': authUser.email, 'password': authUser.password};
-    http.Response response =
-        await http.post(this.endpointBack + '/api/login', body: data2);
-    debugPrint(data2.toString());
-    String i = response.body;
-    return i;
+    http.Response response = await http.post(this.endpointBack + '/api/login', body: data2);
+    //debugPrint(data2.toString());
+    debugPrint("-----");
+    debugPrint(response.body);
+    if(response.statusCode == 200){
+      String i = response.body;
+      return i;
+    }else{
+      debugPrint(response.body.toString());
+      String i = response.body;
+      return i;
+    }
   }
 
   Future<String> linkUser(String emailUser, var tokenID, var token) async {

@@ -5,12 +5,12 @@ import 'package:appkinsonFront/views/Login/Buttons/ButtonLogin.dart';
 import 'package:flutter/material.dart';
 import '../../model/User.dart';
 
-class DoctorPatients extends StatefulWidget {
+class CarerPatients extends StatefulWidget {
   @override
-  DoctorPatientsCustom createState() => DoctorPatientsCustom();
+  CarerPatientsCustom createState() => CarerPatientsCustom();
 }
 
-class DoctorPatientsCustom extends State<DoctorPatients> {
+class CarerPatientsCustom extends State<CarerPatients> {
   final TextEditingController addPatientController =
   new TextEditingController();
   final GlobalKey<FormState> _keyDialogForm = new GlobalKey<FormState>();
