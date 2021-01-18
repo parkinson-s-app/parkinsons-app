@@ -129,7 +129,7 @@ export default class PersonService {
         const conn = await connect();
         try {
             const query = `SELECT *
-            FROM patients 
+            FROM patients LEFT JOIN users ON users.ID=patients.ID_USER
             WHERE ID_USER NOT IN 
             ( SELECT ID_PATIENT
                 FROM patientxdoctor 

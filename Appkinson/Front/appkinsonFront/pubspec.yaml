@@ -94,6 +94,7 @@ flutter:
      - assets/images/usuario(1).png
      - assets/images/user.png
      - assets/images/cerebroMovimiento.png
+     - assets/images/relationRequest.png
 
 
   #   - images/a_dot_ham.jpeg

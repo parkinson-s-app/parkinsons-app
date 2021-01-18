@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'Buttons/ButtonGoCalendar.dart';
 import 'Buttons/ButtonGoProfile.dart';
+import 'Buttons/ButtonGoRelationsRequest.dart';
 import 'Buttons/ButtonGoReminder.dart';
 import 'Buttons/ButtonGoSymptomBehaviorRegister.dart';
 import 'Buttons/ButtonGoToolBox.dart';
@@ -30,6 +31,11 @@ class PatientHomePage extends StatelessWidget {
             child: Expanded(
               child: Stack(
                 children: <Widget>[
+                  Positioned(
+                    top: 250,
+                    left: 255,
+                    child: ButtonGoRelationsRequest(),
+                  ),
                   Image.asset(
                     "assets/images/coronadr.png",
                     width: 150,
@@ -46,7 +52,7 @@ class PatientHomePage extends StatelessWidget {
                             color: Colors.white,
                             fontSize: 30,
                             fontFamily: "Raleway2"),
-                      ))
+                      )),
                 ],
               ),
             ),

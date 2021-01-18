@@ -1,7 +1,8 @@
 import 'package:appkinsonFront/routes/RoutesGeneral.dart';
 import 'package:appkinsonFront/routes/RoutesPatient.dart';
-import 'package:appkinsonFront/views/SymptomsForm/symptomsFormQ.dart';
+//import 'package:appkinsonFront/views/SymptomsForm/symptomsFormQ.dart';
 import 'package:flutter_screenutil/screenutil.dart';
+import 'package:appkinsonFront/views/SymptomsFormDoctor/symptomsFormQ.dart';
 import 'package:intl/intl.dart';
 import 'package:line_awesome_flutter/line_awesome_flutter.dart';
 import 'package:table_calendar/table_calendar.dart';

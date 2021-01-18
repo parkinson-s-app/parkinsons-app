@@ -47,16 +47,16 @@ class InputFieldRegisterCustom extends State<InputFieldRegister> {
                 SizedBox(width: 20),
                 Expanded(
                     child: DropdownButton(
-                  isExpanded: true,
-                  items: lista.map((String a) {
-                    return DropdownMenuItem(value: a, child: Text(a));
-                  }).toList(),
-                  onChanged: (value) {
-                    setState(() {
-                      selectUser = value;
-                    });
-                  },
-                  hint: Text(selectUser),
+                      isExpanded: true,
+                      items: lista.map((String a) {
+                        return DropdownMenuItem(value: a, child: Text(a));
+                      }).toList(),
+                      onChanged: (value) {
+                        setState(() {
+                          selectUser = value;
+                        });
+                      },
+                      hint: Text(selectUser),
                 )),
               ],
             ),
