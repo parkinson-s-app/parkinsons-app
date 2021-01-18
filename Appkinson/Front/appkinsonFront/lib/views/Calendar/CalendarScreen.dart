@@ -1,6 +1,9 @@
+import 'package:appkinsonFront/routes/RoutesGeneral.dart';
 import 'package:appkinsonFront/routes/RoutesPatient.dart';
 import 'package:appkinsonFront/views/SymptomsForm/symptomsFormQ.dart';
+import 'package:flutter_screenutil/screenutil.dart';
 import 'package:intl/intl.dart';
+import 'package:line_awesome_flutter/line_awesome_flutter.dart';
 import 'package:table_calendar/table_calendar.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -126,10 +129,30 @@ class _CalendarState extends State<CalendarScreen> {
       body: ListView(
         children: <Widget>[
           Container(
-            padding: EdgeInsets.all(15),
+            padding: EdgeInsets.all(5),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
+                FlatButton(
+                  color: Colors.white,
+                  child: Stack(
+                    children: <Widget>[
+                      Align(
+                        alignment: Alignment.center,
+                        child: Icon(
+                          LineAwesomeIcons.arrow_left,
+                          color: Colors.indigo,
+                          size: 40,
+                        ),
+                      )
+                    ],
+                  ),
+                  onPressed: () async {
+                    RoutesGeneral().toPop(context);
+                  },
+                  // padding: EdgeInsets.all(1),
+                  shape: CircleBorder(),
+                ),
                 Text(
                   "Calendario",
                   style: TextStyle(
@@ -166,7 +189,7 @@ class _CalendarState extends State<CalendarScreen> {
           debugPrint(_calendarController.selectedDay.toString());
           debugPrint(tempDate.toString());
 
-          RoutesPatient().toSymptomsForm(context);
+          RoutesPatient().toSymptomsFormPatient(context);
         },
         child: Icon(
           Icons.add,

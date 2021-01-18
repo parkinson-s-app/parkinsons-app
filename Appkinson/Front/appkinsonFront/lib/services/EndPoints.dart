@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:appkinsonFront/model/SymptomsForm.dart';
+import 'package:appkinsonFront/model/SymptomsFormPatientM.dart';
 import 'package:appkinsonFront/views/Login/Buttons/ButtonLogin.dart';
 import 'package:flutter/material.dart';
 import '../model/User.dart';
@@ -10,7 +11,7 @@ import 'package:http/http.dart' as http;
 import 'package:dio/dio.dart';
 
 class EndPoints {
-  String endpointBack = 'http://192.168.0.106:8000';
+  String endpointBack = 'http://192.168.0.22:8000';
 
   Future<String> addUsers(User newUser) async {
     Map data2 = {
@@ -190,4 +191,7 @@ class EndPoints {
     String relationsRequest = lista.body;
     return relationsRequest;
   }
+
+  Future<bool> registerSymptomsFormPatient(
+      SymptomsFormPatientM form, var tokenID, var token) {}
 }
