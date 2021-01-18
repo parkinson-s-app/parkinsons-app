@@ -262,10 +262,15 @@ class PatientsListItem extends ListTile {
 
   PatientsListItem(User user) :
         super(
-          title: Text(user.email),
+          //title: Text(user.email),
+          title: Text("quemado@hotmail.com"),
           //subtitle: Text(user.email),
           leading: CircleAvatar(
-            child: Icon(Icons.account_circle_outlined),
+            //child: Icon(Icons.account_circle_outlined),
+            child: FlatButton(
+              onPressed: () {},
+                child: const Text('Ver reporte'),
+            ),
           )
       );
 }

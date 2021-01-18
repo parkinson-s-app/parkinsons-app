@@ -31,17 +31,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="31db714b-e910-47be-9d56-52caa0903605" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/assets/images/relations.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/local_notifications.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/local_notifications.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/main.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/main.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/local.properties" beforeDir="false" afterPath="$PROJECT_DIR$/android/local.properties" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/services/EndPoints.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/services/EndPoints.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/views/HomeDifferentUsers/Patient/Buttons/ButtonGoRelationsRequest.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/views/HomeDifferentUsers/Patient/Buttons/ButtonGoRelationsRequest.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/views/HomeDifferentUsers/Patient/PatientHomePage.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/views/HomeDifferentUsers/Patient/PatientHomePage.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/views/RelationRequest/relationRequest.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/views/RelationRequest/relationRequest.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/views/RelationRequest/relationRequestPlugin.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/views/RelationRequest/relationRequestPlugin.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/views/Relations/DoctorPatients.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/views/Relations/DoctorPatients.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pubspec.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/pubspec.yaml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -126,35 +119,35 @@
       <screen x="0" y="0" width="1366" height="728" />
     </state>
     <state x="556" y="128" key="FileChooserDialogImpl/0.0.1366.728@0.0.1366.728" timestamp="1609280460264" />
-    <state width="1323" height="194" key="GridCell.Tab.0.bottom" timestamp="1610917991144">
+    <state width="1323" height="108" key="GridCell.Tab.0.bottom" timestamp="1610934237933">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state width="1323" height="194" key="GridCell.Tab.0.bottom/0.0.1366.728@0.0.1366.728" timestamp="1610917991144" />
+    <state width="1323" height="108" key="GridCell.Tab.0.bottom/0.0.1366.728@0.0.1366.728" timestamp="1610934237933" />
     <state width="1638" height="275" key="GridCell.Tab.0.bottom/0.0.1680.1050@0.0.1680.1050" timestamp="1607313673152" />
-    <state width="1323" height="194" key="GridCell.Tab.0.center" timestamp="1610917991144">
+    <state width="1323" height="108" key="GridCell.Tab.0.center" timestamp="1610934237933">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state width="1323" height="194" key="GridCell.Tab.0.center/0.0.1366.728@0.0.1366.728" timestamp="1610917991144" />
+    <state width="1323" height="108" key="GridCell.Tab.0.center/0.0.1366.728@0.0.1366.728" timestamp="1610934237933" />
     <state width="1638" height="275" key="GridCell.Tab.0.center/0.0.1680.1050@0.0.1680.1050" timestamp="1607313673038" />
-    <state width="1323" height="194" key="GridCell.Tab.0.left" timestamp="1610917991144">
+    <state width="1323" height="108" key="GridCell.Tab.0.left" timestamp="1610934237855">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state width="1323" height="194" key="GridCell.Tab.0.left/0.0.1366.728@0.0.1366.728" timestamp="1610917991144" />
+    <state width="1323" height="108" key="GridCell.Tab.0.left/0.0.1366.728@0.0.1366.728" timestamp="1610934237855" />
     <state width="1638" height="275" key="GridCell.Tab.0.left/0.0.1680.1050@0.0.1680.1050" timestamp="1607313673023" />
-    <state width="1323" height="194" key="GridCell.Tab.0.right" timestamp="1610917991144">
+    <state width="1323" height="108" key="GridCell.Tab.0.right" timestamp="1610934237933">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state width="1323" height="194" key="GridCell.Tab.0.right/0.0.1366.728@0.0.1366.728" timestamp="1610917991144" />
+    <state width="1323" height="108" key="GridCell.Tab.0.right/0.0.1366.728@0.0.1366.728" timestamp="1610934237933" />
     <state width="1638" height="275" key="GridCell.Tab.0.right/0.0.1680.1050@0.0.1680.1050" timestamp="1607313673073" />
     <state x="277" y="18" key="SettingsEditor" timestamp="1609280462783">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
     <state x="277" y="18" key="SettingsEditor/0.0.1366.728@0.0.1366.728" timestamp="1609280462783" />
     <state x="341" y="164" key="SettingsEditor/0.0.1680.1050@0.0.1680.1050" timestamp="1607262527297" />
-    <state x="339" y="162" key="run.anything.popup" timestamp="1610918689548">
+    <state x="339" y="162" key="run.anything.popup" timestamp="1610922461036">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state x="339" y="162" key="run.anything.popup/0.0.1366.728@0.0.1366.728" timestamp="1610918689548" />
+    <state x="339" y="162" key="run.anything.popup/0.0.1366.728@0.0.1366.728" timestamp="1610922461036" />
     <state x="411" y="162" width="545" height="469" key="search.everywhere.popup" timestamp="1610889896952">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
