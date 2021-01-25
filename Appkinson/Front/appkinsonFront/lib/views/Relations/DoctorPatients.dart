@@ -185,6 +185,7 @@ class DoctorPatientsCustom extends State<DoctorPatients> {
           );
         });
   }
+
   Widget _buildPopupDialog(BuildContext context) {
     return new AlertDialog(
       title: const Text('Solicitud de relación'),

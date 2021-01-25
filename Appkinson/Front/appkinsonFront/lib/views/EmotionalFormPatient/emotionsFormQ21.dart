@@ -6,6 +6,9 @@ class emotionsFormQ21 extends StatefulWidget {
   _emotionsFormQ21 createState() => _emotionsFormQ21();
 }
 
+enum SigningCharacter {Si, No}
+SigningCharacter _character;
+int selectedStateRadioQ21 = 0;
 
 class _emotionsFormQ21 extends State<emotionsFormQ21> {
 
@@ -30,16 +33,56 @@ class _emotionsFormQ21 extends State<emotionsFormQ21> {
             ),
           ),
           Expanded(
-            flex: 3,
+            flex: 2,
             child: Column(
-              children: <Widget>[
-                //Opciones de si y no
-              ],
+                children: <Widget>[
+                  Divider(
+                    height: 80,
+                  ),
+                  RadioListTile<SigningCharacter>(
+                    title: const Text(
+                      'Si',
+                      style: TextStyle(
+                        fontSize: 40.0,
+                      ),
+                    ),
+                    value: SigningCharacter.Si,
+                    groupValue: _character,
+                    onChanged: (SigningCharacter value){
+                      setState(() {
+                        _character = value;
+                        selectedStateRadioQ21 = 1;
+                      });
+                    },
+                  ),
+                  Divider(
+                    height: 100,
+                  ),
+                  RadioListTile<SigningCharacter>(
+                    title: const Text(
+                      'No',
+                      style: TextStyle(
+                        fontSize: 40.0,
+                      ),
+                    ),
+                    value: SigningCharacter.No,
+                    groupValue: _character,
+                    onChanged: (SigningCharacter value){
+                      setState(() {
+                        _character = value;
+                        selectedStateRadioQ21 = 2;
+                      });
+                    },
+                  ),
+                  Divider(
+                    height: 80,
+                  ),
+                ]
             ),
-          ),
-          /*Expanded(
+
+            /*Expanded(
             flex: 1,
-          ),*/
+          */),
         ],
       ),
     );
@@ -48,7 +91,6 @@ class _emotionsFormQ21 extends State<emotionsFormQ21> {
 
 class BringAnswer21 {
   int send() {
-    return 0;
-    //return selectedStateRadioQ21;
+    return selectedStateRadioQ21;
   }
 }

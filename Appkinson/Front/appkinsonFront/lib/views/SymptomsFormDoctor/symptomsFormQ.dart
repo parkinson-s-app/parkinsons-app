@@ -29,7 +29,7 @@ class symptomsFormQ extends StatefulWidget {
 class _symptomsFormQ extends State<symptomsFormQ> {
 
   final controller=PageController(
-    initialPage: 1,
+    initialPage: 0,
   );
 
   int _current=0;

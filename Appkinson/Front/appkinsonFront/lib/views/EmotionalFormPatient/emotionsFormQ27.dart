@@ -6,6 +6,9 @@ class emotionsFormQ27 extends StatefulWidget {
   _emotionsFormQ27 createState() => _emotionsFormQ27();
 }
 
+enum SigningCharacter {Si, No}
+SigningCharacter _character;
+int selectedStateRadioQ27 = 0;
 
 class _emotionsFormQ27 extends State<emotionsFormQ27> {
 
@@ -30,16 +33,56 @@ class _emotionsFormQ27 extends State<emotionsFormQ27> {
             ),
           ),
           Expanded(
-            flex: 3,
+            flex: 2,
             child: Column(
-              children: <Widget>[
-                //Opciones de si y no
-              ],
+                children: <Widget>[
+                  Divider(
+                    height: 80,
+                  ),
+                  RadioListTile<SigningCharacter>(
+                    title: const Text(
+                      'Si',
+                      style: TextStyle(
+                        fontSize: 40.0,
+                      ),
+                    ),
+                    value: SigningCharacter.Si,
+                    groupValue: _character,
+                    onChanged: (SigningCharacter value){
+                      setState(() {
+                        _character = value;
+                        selectedStateRadioQ27 = 1;
+                      });
+                    },
+                  ),
+                  Divider(
+                    height: 100,
+                  ),
+                  RadioListTile<SigningCharacter>(
+                    title: const Text(
+                      'No',
+                      style: TextStyle(
+                        fontSize: 40.0,
+                      ),
+                    ),
+                    value: SigningCharacter.No,
+                    groupValue: _character,
+                    onChanged: (SigningCharacter value){
+                      setState(() {
+                        _character = value;
+                        selectedStateRadioQ27 = 2;
+                      });
+                    },
+                  ),
+                  Divider(
+                    height: 80,
+                  ),
+                ]
             ),
-          ),
-          /*Expanded(
+
+            /*Expanded(
             flex: 1,
-          ),*/
+          */),
         ],
       ),
     );

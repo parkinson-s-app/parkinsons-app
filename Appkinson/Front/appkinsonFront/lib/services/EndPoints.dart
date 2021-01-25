@@ -12,7 +12,11 @@ import 'package:http/http.dart' as http;
 import 'package:dio/dio.dart';
 
 class EndPoints {
+<<<<<<< Updated upstream
   String endpointBack = 'http://192.168.0.22:8000';
+=======
+  String endpointBack = 'http://192.168.20.25:8000';
+>>>>>>> Stashed changes
 
   Future<String> addUsers(User newUser) async {
     Map data2 = {

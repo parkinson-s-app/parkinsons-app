@@ -69,6 +69,7 @@ class _FormButtonLogin extends State<ButtonLogin> {
             RoutesCarer().toCarerHome(context);
           }
           if (currentUser['type'] == 'Paciente') {
+            debugPrint("paciente");
             getRelationsRequest();
             RoutesPatient().toPatientHome(context);
           }

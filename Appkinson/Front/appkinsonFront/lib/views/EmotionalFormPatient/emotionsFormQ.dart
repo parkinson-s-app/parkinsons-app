@@ -41,7 +41,7 @@ class emotionsFormQ extends StatefulWidget {
 class _emotionsFormQ extends State<emotionsFormQ> {
 
   final controller=PageController(
-    initialPage: 1,
+    initialPage: 0,
   );
 
   int _current=0;
@@ -54,7 +54,7 @@ class _emotionsFormQ extends State<emotionsFormQ> {
       appBar:AppBar(
         centerTitle: true,
         title: Text(
-          "¿Ha tenido alguno de los siguientes problemas durante el mes pasado?",
+          "Formulario emocional",
         ),
         backgroundColor: Colors.blue,
         actions: <Widget>[
@@ -67,7 +67,6 @@ class _emotionsFormQ extends State<emotionsFormQ> {
         controller: controller,
         scrollDirection: Axis.vertical,
         children: [
-          /*
           emotionsFormQ1(),
           emotionsFormQ2(),
           emotionsFormQ3(),
@@ -98,7 +97,7 @@ class _emotionsFormQ extends State<emotionsFormQ> {
           emotionsFormQ28(),
           emotionsFormQ29(),
           emotionsFormQ30(),
-          */
+
         ],
       ),
     );
