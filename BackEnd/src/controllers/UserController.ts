@@ -10,6 +10,7 @@ import config from '../config';
 import { verifyToken } from '../utilities/AuthUtilities';
 import IPersonalDataDto from '../models/IPersonalDataDto';
 import multer from '../utilities/multer';
+import ISymptomsFormDto from '../models/ISymptomsFormDto';
 
 const debug = debugLib('AppKinson:UserController');
 const UserController = Router();
@@ -210,7 +211,7 @@ UserController.post('/users/:id/symptomsForm', multer.single('video'), verifyTok
     debug('Users UpdateById');
     const id = +req.params.id;
     debug('Users Symptoms body: %j, ID: %s, file path: %s',req.body, id, req.file.path);
-    // let updatedUserData = req.body as IPersonalDataDto;
+    let symptomsFormData = req.body as ISymptomsFormDto;
     // updatedUserData.PHOTOPATH = req.file.path;
     // debug('Users Update user: %j, ID:', updatedUserData, id);
     // const response = await PersonService.updatePerson(id, updatedUserData);
@@ -229,19 +230,23 @@ UserController.post('/users/:id/symptomsFormPatient', multer.single('video'), ve
     debug('Patients form by Id');
     const id = +req.params.id;
     debug('Patients Symptoms body: %j, ID: %s, file path: %s',req.body, id, req.file.path);
-    // let updatedUserData = req.body as IPersonalDataDto;
-    // updatedUserData.PHOTOPATH = req.file.path;
-    // debug('Users Update user: %j, ID:', updatedUserData, id);
-    // const response = await PersonService.updatePerson(id, updatedUserData);
-    // debug('User UpdateById response db: %j', response);
-    // if(response) {
-    //     const status =  constants.HTTP_STATUS_OK;
-    //     res.status(status).send(response);
-    // } else {
-    //     const status =  constants.HTTP_STATUS_INTERNAL_SERVER_ERROR;
-    //     res.status(status).send('Error');
-    // }
-    res.status(200).send('ok perro');
+    let symptomsFormData = req.body as ISymptomsFormDto;
+    let status;
+    if(req.file && req.file.path ){
+        symptomsFormData.pathvideo = req.file.path;
+        debug('Patients Symptoms json: %j', symptomsFormData);
+    }
+    try {
+        const response = PersonService.saveSymptomsForm(id, symptomsFormData);
+        debug('Patient symptoms save result %j', response);
+        status = constants.HTTP_STATUS_OK;
+        res.status(status).send('OK');
+    } catch (error) {
+        debug('Patient symptoms saving failed');
+        status = constants.HTTP_STATUS_INTERNAL_SERVER_ERROR;
+        const responseError = { status, error};
+        res.status(status).send(responseError);
+    }
 });
 
 UserController.get('/patient/relationRequest', verifyToken, async (req: Request, res: Response) => {
