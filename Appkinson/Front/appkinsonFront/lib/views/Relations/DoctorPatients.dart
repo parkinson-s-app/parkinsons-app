@@ -18,12 +18,16 @@ class DoctorPatientsCustom extends State<DoctorPatients> {
   final TextEditingController addPatientController = new TextEditingController();
   final GlobalKey<FormState> _keyDialogForm = new GlobalKey<FormState>();
   List<User> patients = [];
+
   @override
   void initState() {
     super.initState();
+    getPatients();
+    addPatientController.text = 'Hello';
   }
 
   getPatients() async{
+
     var lista = token.split(".");
     var payload = lista[1];
 
@@ -41,9 +45,10 @@ class DoctorPatientsCustom extends State<DoctorPatients> {
     var decoded = utf8.decode(base64.decode(payload));
     currentUser = json.decode(decoded);
     //Pedir lista de pacientes relacionados
+    debugPrint("pidiendo pacientes");
     var patientsAux = await EndPoints().linkedUser(currentUser['id'].toString(), token);
+    debugPrint("pacientes pedidos");
     List<User> _patients = [];
-    getPatients();
     for(var a = 0; a < patientsAux.length; a++){
       User u = new User();
       u.email = patientsAux[a];
@@ -51,10 +56,10 @@ class DoctorPatientsCustom extends State<DoctorPatients> {
       debugPrint("------");
       debugPrint(u.email);
     }
-    User usuarioAux;
+    /*User usuarioAux;
     usuarioAux.name = "Usuario Auxiliar";
     usuarioAux.email ="h@h.com";
-    _patients.add(usuarioAux);
+    _patients.add(usuarioAux);*/
     setState(() {
       patients = _patients;
     }

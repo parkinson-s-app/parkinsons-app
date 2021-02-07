@@ -2,6 +2,7 @@ import { connect } from "../database";
 import debugLib from 'debug';
 import IPersonDto from "../models/IPersonDto";
 import * as bcrypt from "bcryptjs";
+import ISymptomsFormDto from "../models/ISymptomsFormDto";
 
 const debug = debugLib('AppKinson:PersonService');
 
@@ -210,6 +211,19 @@ export default class PersonService {
         } catch (error) {
             debug('Unrelated Patients error making query. Error: %s', error);
             return null;
+        }
+    }
+
+    public static async saveSymptomsForm(id: number, symptomsFormData: ISymptomsFormDto) {
+        const conn = await connect();
+        debug('saveSymptoms to person: %j, id: %s', symptomsFormData, id);
+        try {
+            const res = await conn.query('INSERT INTO symptomsformpatient SET ?',[symptomsFormData]);
+            debug('savePerson saved and returned: %j', res);
+            return res;
+        } catch (e) {
+            debug('saveSymptoms Catch Error: %s, %j', e.stack, e);
+            // throw Error
         }
     }
 
