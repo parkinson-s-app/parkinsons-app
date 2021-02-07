@@ -1,3 +1,4 @@
+import 'package:appkinsonFront/views/Calendar/CalendarScreenView2.dart';
 import 'package:appkinsonFront/views/SymptomsFormPatient/SymptomsFormPatient.dart';
 import 'package:appkinsonFront/views/Calendar/CalendarScreen.dart';
 import 'package:appkinsonFront/views/HomeDifferentUsers/Patient/PatientHomePage.dart';
@@ -17,8 +18,8 @@ class RoutesPatient {
   }
 
   toCalendar(BuildContext context) {
-    Navigator.push(
-        context, new MaterialPageRoute(builder: (context) => CalendarScreen()));
+    Navigator.push(context,
+        new MaterialPageRoute(builder: (context) => CalendarScreenView2()));
   }
 
   toNotifications(BuildContext context) {

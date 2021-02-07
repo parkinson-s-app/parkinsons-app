@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:appkinsonFront/views/Calendar/CalendarScreenView2.dart';
 import 'package:appkinsonFront/views/SymptomsFormPatient/SymptomsFormPatientQ1.dart';
 import 'package:appkinsonFront/views/SymptomsFormPatient/SymptomsFormPatientQ2.dart';
 import 'package:appkinsonFront/views/SymptomsFormPatient/SymptomsFormPatientQ2ON.dart';
@@ -66,6 +67,7 @@ class _symptomsFormQ29 extends State<SymptomsFormPatientQ5ON> {
                   onPressed: () async {
                     SymptomsFormPatientM patientForm =
                         new SymptomsFormPatientM();
+
                     patientForm.q1 = BringAnswerPatient1().send();
                     patientForm.q2 = BringAnswerPatient2().send();
                     patientForm.q3 = BringAnswer2On().send();
@@ -73,10 +75,29 @@ class _symptomsFormQ29 extends State<SymptomsFormPatientQ5ON> {
                     patientForm.q5 = BringAnswerPatientQ4().send();
 
                     patientForm.video = fileMedia;
-                    patientForm.date = tempDate;
+                    patientForm.formDate = tempDate;
                     var savedDone = await EndPoints()
                         .registerSymptomsFormPatient(
                             patientForm, currentUser['id'].toString(), token);
+
+                    //void _getDataSource() {
+                    //meetings = <Meeting>[];
+
+                    //final DateTime today = DateTime.now();
+                    int hora = dateChoosed.hour;
+                    final DateTime startTime = DateTime(dateChoosed.year,
+                        dateChoosed.month, dateChoosed.day, hora, 0, 0);
+                    final DateTime endTime =
+                        startTime.add(const Duration(hours: 1));
+                    Meeting m = new Meeting('on', startTime, endTime,
+                        const Color(0xFF0F8644), false);
+                    debugPrint(m.eventName);
+                    //setState(() {
+                    meetings.add(m);
+                    //});
+
+                    //return meetings;
+                    //}
 
                     RoutesPatient().toCalendar(context);
                   },

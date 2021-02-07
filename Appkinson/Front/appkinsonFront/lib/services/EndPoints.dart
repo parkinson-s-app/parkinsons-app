@@ -12,8 +12,7 @@ import 'package:http/http.dart' as http;
 import 'package:dio/dio.dart';
 
 class EndPoints {
-
-  String endpointBack = 'http://192.168.20.25:8000';
+  String endpointBack = 'http://192.168.0.22:8000';
 
   Future<String> addUsers(User newUser) async {
     Map data2 = {
@@ -271,5 +270,37 @@ class EndPoints {
   }
 
   Future<bool> registerSymptomsFormPatient(
-      SymptomsFormPatientM form, var tokenID, var token) {}
+      SymptomsFormPatientM form, var tokenID, var token) async {
+    bool success = false;
+
+    String fileName = form.video.path.split('/').last;
+    var decodedToken = json.decode(token);
+    var video;
+
+    if (form.video != null) {
+      video = await MultipartFile.fromFile(form.video.path, filename: fileName);
+    } else {
+      video = null;
+    }
+
+    //http.Response response =
+    Map<String, dynamic> formMap = {
+      'q1': form.q1,
+      'q2': form.q2,
+      'q3': form.q3,
+      'q4': form.q4,
+      'q5': form.q5,
+      'formDate': form.formDate,
+      'video': video,
+    };
+
+    FormData formData = new FormData.fromMap(formMap);
+    Dio dio = new Dio();
+    dio.options.headers["authorization"] = "Bearer " + decodedToken['token'];
+    Response response = await dio.post(
+        this.endpointBack + '/api/users/$tokenID/symptomsFormPatient',
+        data: formData);
+    debugPrint("formulario enviado");
+    return success;
+  }
 }

@@ -46,6 +46,8 @@ dependencies:
   image_cropper: ^1.2.0
   swipedetector: ^1.2.0
   video_player: ^0.10.12+4
+  syncfusion_flutter_calendar: ^18.4.41
+  syncfusion_flutter_charts: ^18.4.41
 
 
 
