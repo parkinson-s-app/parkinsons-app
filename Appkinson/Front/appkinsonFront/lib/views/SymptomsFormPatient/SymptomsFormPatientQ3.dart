@@ -1,10 +1,10 @@
 import 'dart:io';
-import 'package:appkinsonFront/views/SymptomsForm/videoPluguin.dart';
+import 'package:appkinsonFront/views/SymptomsFormDoctor/videoPluguin.dart';
 import 'package:flutter/material.dart';
 
-class SymptomsFormPatientQ4 extends StatefulWidget {
+class SymptomsFormPatientQ3 extends StatefulWidget {
   @override
-  _symptomsFormPatientQ4 createState() => _symptomsFormPatientQ4();
+  _symptomsFormPatientQ3 createState() => _symptomsFormPatientQ3();
 }
 
 enum SigningCharacter {
@@ -17,7 +17,7 @@ enum SigningCharacter {
 SigningCharacter _character = SigningCharacter.Normal;
 String selectedStateRadioQ1 = null;
 
-class _symptomsFormPatientQ4 extends State<SymptomsFormPatientQ4> {
+class _symptomsFormPatientQ3 extends State<SymptomsFormPatientQ3> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -30,7 +30,7 @@ class _symptomsFormPatientQ4 extends State<SymptomsFormPatientQ4> {
               padding: EdgeInsets.all(15.0),
               alignment: Alignment.center,
               child: Text(
-                "TIENE DISQUINESIAS...",
+                "CREE QUE EL MEDICAMENTO TIENE EFECTO?",
                 style: TextStyle(
                   fontSize: 22.0,
                   fontFamily: "Ralewaybold",
@@ -43,14 +43,14 @@ class _symptomsFormPatientQ4 extends State<SymptomsFormPatientQ4> {
             child: Column(
               children: <Widget>[
                 RadioListTile<SigningCharacter>(
-                  title: const Text('Severas'),
+                  title: const Text('SI'),
                   value: SigningCharacter.Normal,
                   groupValue: _character,
                   onChanged: (SigningCharacter value) {
-                    debugPrint(BringAnswerPatientQ4().send().toString());
+                    debugPrint(BringAnswerPatientQ3().send().toString());
                     setState(() {
                       _character = value;
-                      selectedStateRadioQ1 = 'Severas';
+                      selectedStateRadioQ1 = 'SI';
                     });
                   },
                 ),
@@ -58,29 +58,14 @@ class _symptomsFormPatientQ4 extends State<SymptomsFormPatientQ4> {
                   height: 20,
                 ),
                 RadioListTile<SigningCharacter>(
-                  title: const Text('Leves'),
+                  title: const Text('NO'),
                   value: SigningCharacter.PerdidaDeExpresion,
                   groupValue: _character,
                   onChanged: (SigningCharacter value) {
-                    debugPrint(BringAnswerPatientQ4().send().toString());
+                    debugPrint(BringAnswerPatientQ3().send().toString());
                     setState(() {
                       _character = value;
-                      selectedStateRadioQ1 = 'Leves';
-                    });
-                  },
-                ),
-                Divider(
-                  height: 20,
-                ),
-                RadioListTile<SigningCharacter>(
-                  title: const Text('Indistinguible'),
-                  value: SigningCharacter.Monotono,
-                  groupValue: _character,
-                  onChanged: (SigningCharacter value) {
-                    debugPrint(BringAnswerPatientQ4().send().toString());
-                    setState(() {
-                      _character = value;
-                      selectedStateRadioQ1 = 'Indistinguible';
+                      selectedStateRadioQ1 = 'NO';
                     });
                   },
                 ),
@@ -96,7 +81,7 @@ class _symptomsFormPatientQ4 extends State<SymptomsFormPatientQ4> {
   }
 }
 
-class BringAnswerPatientQ4 {
+class BringAnswerPatientQ3 {
   String send() {
     return selectedStateRadioQ1;
   }

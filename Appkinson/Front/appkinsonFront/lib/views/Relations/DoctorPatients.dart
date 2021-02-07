@@ -21,7 +21,6 @@ class DoctorPatientsCustom extends State<DoctorPatients> {
   @override
   void initState() {
     super.initState();
-    addPatientController.text = 'Hello';
   }
 
   getPatients() async{

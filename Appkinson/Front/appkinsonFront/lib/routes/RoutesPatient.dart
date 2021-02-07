@@ -1,4 +1,4 @@
-import 'package:appkinsonFront/SymptomsFormPatient/SymptomsFormPatient.dart';
+import 'package:appkinsonFront/views/SymptomsFormPatient/SymptomsFormPatient.dart';
 import 'package:appkinsonFront/views/Calendar/CalendarScreen.dart';
 import 'package:appkinsonFront/views/HomeDifferentUsers/Patient/PatientHomePage.dart';
 import 'package:appkinsonFront/views/Login/LoginPage.dart';

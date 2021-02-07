@@ -1,10 +1,10 @@
 import 'dart:io';
-import 'package:appkinsonFront/views/SymptomsForm/videoPluguin.dart';
+import 'package:appkinsonFront/views/SymptomsFormDoctor/videoPluguin.dart';
 import 'package:flutter/material.dart';
 
-class SymptomsFormPatientQ2OFF extends StatefulWidget {
+class SymptomsFormPatientQ2ON extends StatefulWidget {
   @override
-  _symptomsFormPatientQ2OFF createState() => _symptomsFormPatientQ2OFF();
+  _symptomsFormPatientQ2ON createState() => _symptomsFormPatientQ2ON();
 }
 
 enum SigningCharacter {
@@ -17,7 +17,7 @@ enum SigningCharacter {
 SigningCharacter _character = SigningCharacter.Normal;
 String selectedStateRadioQ1 = null;
 
-class _symptomsFormPatientQ2OFF extends State<SymptomsFormPatientQ2OFF> {
+class _symptomsFormPatientQ2ON extends State<SymptomsFormPatientQ2ON> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -43,13 +43,13 @@ class _symptomsFormPatientQ2OFF extends State<SymptomsFormPatientQ2OFF> {
             child: Column(
               children: <Widget>[
                 RadioListTile<SigningCharacter>(
-                  title: const Text('MAL'),
+                  title: const Text('BIEN'),
                   value: SigningCharacter.Normal,
                   groupValue: _character,
                   onChanged: (SigningCharacter value) {
                     setState(() {
                       _character = value;
-                      selectedStateRadioQ1 = 'MAL';
+                      selectedStateRadioQ1 = 'BIEN';
                     });
                   },
                 ),
@@ -57,13 +57,13 @@ class _symptomsFormPatientQ2OFF extends State<SymptomsFormPatientQ2OFF> {
                   height: 20,
                 ),
                 RadioListTile<SigningCharacter>(
-                  title: const Text('MUY MAL'),
+                  title: const Text('BIEN CON EFECTOS'),
                   value: SigningCharacter.PerdidaDeExpresion,
                   groupValue: _character,
                   onChanged: (SigningCharacter value) {
                     setState(() {
                       _character = value;
-                      selectedStateRadioQ1 = 'MUY MAL';
+                      selectedStateRadioQ1 = 'BIEN CON EFECTOS';
                     });
                   },
                 ),
@@ -79,7 +79,7 @@ class _symptomsFormPatientQ2OFF extends State<SymptomsFormPatientQ2OFF> {
   }
 }
 
-class BringAnswer2Off {
+class BringAnswer2On {
   String send() {
     return selectedStateRadioQ1;
   }

@@ -1,10 +1,10 @@
 import 'dart:io';
-import 'package:appkinsonFront/views/SymptomsForm/videoPluguin.dart';
+import 'package:appkinsonFront/views/SymptomsFormDoctor/videoPluguin.dart';
 import 'package:flutter/material.dart';
 
-class SymptomsFormPatientQ3 extends StatefulWidget {
+class SymptomsFormPatientQ1 extends StatefulWidget {
   @override
-  _symptomsFormPatientQ3 createState() => _symptomsFormPatientQ3();
+  _symptomsFormPatientQ1 createState() => _symptomsFormPatientQ1();
 }
 
 enum SigningCharacter {
@@ -17,7 +17,7 @@ enum SigningCharacter {
 SigningCharacter _character = SigningCharacter.Normal;
 String selectedStateRadioQ1 = null;
 
-class _symptomsFormPatientQ3 extends State<SymptomsFormPatientQ3> {
+class _symptomsFormPatientQ1 extends State<SymptomsFormPatientQ1> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -30,7 +30,7 @@ class _symptomsFormPatientQ3 extends State<SymptomsFormPatientQ3> {
               padding: EdgeInsets.all(15.0),
               alignment: Alignment.center,
               child: Text(
-                "CREE QUE EL MEDICAMENTO TIENE EFECTO?",
+                "HA TOMADO EL MEDICAMENTO?",
                 style: TextStyle(
                   fontSize: 22.0,
                   fontFamily: "Ralewaybold",
@@ -47,7 +47,6 @@ class _symptomsFormPatientQ3 extends State<SymptomsFormPatientQ3> {
                   value: SigningCharacter.Normal,
                   groupValue: _character,
                   onChanged: (SigningCharacter value) {
-                    debugPrint(BringAnswerPatientQ3().send().toString());
                     setState(() {
                       _character = value;
                       selectedStateRadioQ1 = 'SI';
@@ -62,7 +61,6 @@ class _symptomsFormPatientQ3 extends State<SymptomsFormPatientQ3> {
                   value: SigningCharacter.PerdidaDeExpresion,
                   groupValue: _character,
                   onChanged: (SigningCharacter value) {
-                    debugPrint(BringAnswerPatientQ3().send().toString());
                     setState(() {
                       _character = value;
                       selectedStateRadioQ1 = 'NO';
@@ -81,7 +79,7 @@ class _symptomsFormPatientQ3 extends State<SymptomsFormPatientQ3> {
   }
 }
 
-class BringAnswerPatientQ3 {
+class BringAnswerPatient1 {
   String send() {
     return selectedStateRadioQ1;
   }

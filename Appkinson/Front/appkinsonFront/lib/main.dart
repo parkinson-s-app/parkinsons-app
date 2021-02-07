@@ -1,7 +1,7 @@
 import 'dart:convert';
 import 'package:appkinsonFront/services/EndPoints.dart';
 import 'package:flutter/material.dart';
-import 'SymptomsFormPatient/SymptomsFormPatient.dart';
+import 'views/SymptomsFormPatient/SymptomsFormPatient.dart';
 import 'package:appkinsonFront/local_notifications.dart';
 import 'package:workmanager/workmanager.dart';
 import 'package:appkinsonFront/views/Login/Buttons/ButtonLogin.dart';

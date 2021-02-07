@@ -1,12 +1,12 @@
 import 'dart:io';
 import 'dart:ui';
-import 'package:appkinsonFront/SymptomsFormPatient/SymptomsFormPatientQ2OFF.dart';
-import 'package:appkinsonFront/SymptomsFormPatient/SymptomsFormPatientQ2ON.dart';
-import 'package:appkinsonFront/SymptomsFormPatient/SymptomsFormPatientQ3.dart';
-import 'package:appkinsonFront/SymptomsFormPatient/SymptomsFormPatientQ4.dart';
-import 'package:appkinsonFront/SymptomsFormPatient/SymptomsFormPatientQ5OFF.dart';
-import 'package:appkinsonFront/views/SymptomsForm/symptomsFormQ2.dart';
-import 'package:appkinsonFront/views/SymptomsForm/videoPluguin.dart';
+import 'package:appkinsonFront/views/SymptomsFormPatient/SymptomsFormPatientQ2OFF.dart';
+import 'package:appkinsonFront/views/SymptomsFormPatient/SymptomsFormPatientQ2ON.dart';
+import 'package:appkinsonFront/views/SymptomsFormPatient/SymptomsFormPatientQ3.dart';
+import 'package:appkinsonFront/views/SymptomsFormPatient/SymptomsFormPatientQ4.dart';
+import 'package:appkinsonFront/views/SymptomsFormPatient/SymptomsFormPatientQ5OFF.dart';
+import 'package:appkinsonFront/views/SymptomsFormPatient/SymptomsFormPatientQ2.dart';
+import 'package:appkinsonFront/views/SymptomsFormDoctor/videoPluguin.dart';
 import 'package:flutter/material.dart';
 
 import 'SymptomsFormPatientQ1.dart';
