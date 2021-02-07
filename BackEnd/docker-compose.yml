@@ -1,0 +1,22 @@
+version: "3"
+
+services: 
+    backend:
+            container_name: appkison_back
+            restart: always
+            build: .
+            ports:
+                - "8000:8000"
+            links: 
+                - database
+            volumes: 
+                - .:/app
+    database:
+            container_name: database
+            image: mysql:5.6
+            ports: 
+                - "3307:3306"
+            environment: 
+                - 'MYSQL_ROOT_PASSWORD=$MYSQL_ROOT_PASSWORD'
+            volumes:
+                - ./src/db/script.sql:/docker-entrypoint-initdb.d/script.sql

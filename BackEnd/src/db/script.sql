@@ -1,4 +1,4 @@
-DROP DATABASE AppKinsonDB;
+-- DROP DATABASE AppKinsonDB;
 
 CREATE DATABASE AppKinsonDB;
 
