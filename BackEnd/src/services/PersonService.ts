@@ -236,7 +236,7 @@ export default class PersonService {
         try {
             const res = await conn.query('SELECT * FROM symptomsformpatient WHERE ID_PATIENT = ?',[id]);
             debug('Symptoms found: %j', res);
-            return res;
+            return res[0];
         } catch (e) {
             debug('Getting Symptoms Catch Error: %s, %j', e.stack, e);
             // throw Error
