@@ -28,7 +28,6 @@ class _Calendar extends State<CalendarScreenView2> {
     ));
   }
 
-  /*
   List<Meeting> _getDataSource() {
     meetings = <Meeting>[];
 
@@ -41,7 +40,6 @@ class _Calendar extends State<CalendarScreenView2> {
 
     return meetings;
   }
-  */
 }
 
 class MeetingDataSource extends CalendarDataSource {

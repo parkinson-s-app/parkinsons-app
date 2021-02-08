@@ -75,7 +75,9 @@ class _symptomsFormQ29 extends State<SymptomsFormPatientQ5ON> {
                     patientForm.q5 = BringAnswerPatientQ4().send();
 
                     patientForm.video = fileMedia;
-                    patientForm.formDate = tempDate;
+                    patientForm.formDate = dateChoosed;
+
+                    debugPrint('enviado');
                     var savedDone = await EndPoints()
                         .registerSymptomsFormPatient(
                             patientForm, currentUser['id'].toString(), token);

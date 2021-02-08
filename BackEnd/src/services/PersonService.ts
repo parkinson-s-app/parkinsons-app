@@ -216,6 +216,7 @@ export default class PersonService {
 
     public static async saveSymptomsForm(id: number, symptomsFormData: ISymptomsFormDto) {
         const conn = await connect();
+        symptomsFormData.id_patient=id;
         debug('saveSymptoms to person: %j, id: %s', symptomsFormData, id);
         try {
             const res = await conn.query('INSERT INTO symptomsformpatient SET ?',[symptomsFormData]);

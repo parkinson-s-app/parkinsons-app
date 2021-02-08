@@ -269,7 +269,7 @@ class EndPoints {
     return relationsRequest;
   }
 
-  Future<bool> registerSymptomsFormPatient(
+  Future<String> registerSymptomsFormPatient(
       SymptomsFormPatientM form, var tokenID, var token) async {
     bool success = false;
 
@@ -300,7 +300,20 @@ class EndPoints {
     Response response = await dio.post(
         this.endpointBack + '/api/users/$tokenID/symptomsFormPatient',
         data: formData);
-    debugPrint("formulario enviado");
-    return success;
+    debugPrint(response.statusMessage);
+    return response.statusMessage;
+  }
+
+  Future<String> getSymptomsFormPatient(var token) async {
+    //Map data2 = {'email': authUser.email, 'password': authUser.password};
+    var codeToken = json.decode(token);
+    http.Response lista = await http
+        .get(this.endpointBack + '/api/patient/relationRequest', headers: {
+      HttpHeaders.authorizationHeader: "Bearer " + codeToken['token']
+    });
+    //http.Response response =
+    debugPrint(lista.body);
+    String relationsRequest = lista.body;
+    return relationsRequest;
   }
 }

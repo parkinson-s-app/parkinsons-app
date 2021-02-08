@@ -237,8 +237,8 @@ UserController.post('/users/:id/symptomsFormPatient', multer.single('video'), ve
         debug('Patients Symptoms json: %j', symptomsFormData);
     }
     try {
-        const response = PersonService.saveSymptomsForm(id, symptomsFormData);
-        debug('Patient symptoms save result %j', response);
+        const response = await PersonService.saveSymptomsForm(id, symptomsFormData);
+        debug('Patient symptoms save result %j, succesful', response);
         status = constants.HTTP_STATUS_OK;
         res.status(status).send('OK');
     } catch (error) {
