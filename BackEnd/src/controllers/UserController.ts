@@ -298,6 +298,34 @@ UserController.get('/patients/relationRequest', verifyToken, async (req: Request
     }
 });
 
+UserController.get('/patients/:id/symptomsForm', verifyToken, async (req: Request, res: Response) => {
+    debug('Getting symptoms form');
+    const bearerHeader = req.headers['authorization'];
+    const id = +req.params.id;
+    debug('Patients form by Id, id: %s', id);
+    let status;
+    if( bearerHeader !== undefined ) {
+        const idSender = getIdFromToken(bearerHeader);
+        if( !isNaN(idSender) ){
+            
+            try {
+                const requests = await PersonService.getSymptomsForm(id);
+                debug('Getting symptoms form result %j', requests);
+                status = constants.HTTP_STATUS_OK;
+                res.status(status).send(requests);
+            } catch (error) {
+                status = constants.HTTP_STATUS_INTERNAL_SERVER_ERROR;
+                const responseError = { status, error};
+                res.status(status).send(responseError);
+            }
+        }
+    } else {
+        debug('Mock Error getting authorization header');
+        status = constants.HTTP_STATUS_BAD_REQUEST;
+        res.status(status).send('Bad request');
+    }
+});
+
 function getIdFromToken(token: string) {
     const dataInToken = token.split('.')[1];
     debug('getIdFromToken data encoded: %s', dataInToken);
