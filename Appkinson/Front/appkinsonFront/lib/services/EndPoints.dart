@@ -174,7 +174,7 @@ class EndPoints {
     return addedUser;
   }
 
-  Future<List<String>> linkedUser(var tokenID, var token) async {
+  Future<String> linkedUser(var tokenID, var token) async {
     //Map data2 = {'email': authUser.email, 'password': authUser.password};
     var codeToken = json.decode(token);
     http.Response lista = await http
@@ -189,7 +189,7 @@ class EndPoints {
     for (var a = 0; a < codeList.length; a++) {
       patients.add(codeList[a]['EMAIL']);
     }
-    return patients;
+    return i;
   }
 
   Future<List<String>> linkedUserCarer(var tokenID, var token) async {
@@ -295,6 +295,7 @@ class EndPoints {
     };
 
     FormData formData = new FormData.fromMap(formMap);
+
     Dio dio = new Dio();
     dio.options.headers["authorization"] = "Bearer " + decodedToken['token'];
     Response response = await dio.post(
@@ -304,13 +305,14 @@ class EndPoints {
     return response.statusMessage;
   }
 
-  Future<String> getSymptomsFormPatient(var token) async {
+  Future<String> getSymptomsFormPatient(var token, var tokenID) async {
     //Map data2 = {'email': authUser.email, 'password': authUser.password};
     var codeToken = json.decode(token);
-    http.Response lista = await http
-        .get(this.endpointBack + '/api/patient/relationRequest', headers: {
-      HttpHeaders.authorizationHeader: "Bearer " + codeToken['token']
-    });
+    http.Response lista = await http.get(
+        this.endpointBack + '/api/patients/$tokenID/symptomsFormPatient',
+        headers: {
+          HttpHeaders.authorizationHeader: "Bearer " + codeToken['token']
+        });
     //http.Response response =
     debugPrint(lista.body);
     String relationsRequest = lista.body;

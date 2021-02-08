@@ -298,7 +298,7 @@ UserController.get('/patients/relationRequest', verifyToken, async (req: Request
     }
 });
 
-UserController.get('/patients/:id/symptomsForm', verifyToken, async (req: Request, res: Response) => {
+UserController.get('/patients/:id/symptomsFormPatient', verifyToken, async (req: Request, res: Response) => {
     debug('Getting symptoms form');
     const bearerHeader = req.headers['authorization'];
     const id = +req.params.id;
