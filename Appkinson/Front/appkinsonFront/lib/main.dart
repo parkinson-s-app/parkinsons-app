@@ -58,11 +58,10 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     //return new MaterialApp(
     //  debugShowCheckedModeBanner: false, home: CalendarScreen());
-    //return new MaterialApp(debugShowCheckedModeBanner: false, home: HomePage());
+    return new MaterialApp(debugShowCheckedModeBanner: false, home: HomePage());
 
     //return new MaterialApp(debugShowCheckedModeBanner: false, home: relationRequest());
-    return new MaterialApp(
-        debugShowCheckedModeBanner: false, home: ReportScreen());
+    //return new MaterialApp(debugShowCheckedModeBanner: false, home: ReportScreen());
 
     // return new MaterialApp(
     //     debugShowCheckedModeBanner: false, home: SymptomsFormPatient());

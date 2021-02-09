@@ -30,7 +30,7 @@ class _symptomsFormPatientQ2OFF extends State<SymptomsFormPatientQ2OFF> {
               padding: EdgeInsets.all(15.0),
               alignment: Alignment.center,
               child: Text(
-                "COMO SE SIENTE?",
+                "CÓMO SE SIENTE?",
                 style: TextStyle(
                   fontSize: 22.0,
                   fontFamily: "Ralewaybold",
