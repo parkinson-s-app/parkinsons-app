@@ -1,4 +1,4 @@
-import 'dart:io' show File, Platform;
+import 'dart:io' show Platform;
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:rxdart/rxdart.dart';
@@ -124,7 +124,7 @@ class NotificationPlugin {
   }
 
   Future<void> showDailyAtTime() async {
-    var time = Time(18, 22, 0);
+    var time = Time(12, 41, 0);
     var androidChannelSpecifics = AndroidNotificationDetails(
       'CHANNEL_ID 4',
       'CHANNEL_NAME 4',
@@ -146,7 +146,7 @@ class NotificationPlugin {
   }
 
   Future<void> showWeeklyAtDayTime() async {
-    var time = Time(21, 0, 0);
+    var time = Time(12, 43, 0);
     var androidChannelSpecifics = AndroidNotificationDetails(
       'CHANNEL_ID 5',
       'CHANNEL_NAME 5',
@@ -161,7 +161,7 @@ class NotificationPlugin {
       0,
       'Test Title at ${time.hour}:${time.minute}.${time.second}',
       'Test', //null
-      Day.Saturday,
+      Day.Monday,
       time,
       platformChannelSpecifics,
       payload: 'Test Payload',

@@ -214,11 +214,11 @@ class EndPoints {
       SymptomsForm form, var tokenID, var token) async {
     bool success = false;
 
-    String fileName = form.video.path.split('/').last;
     var decodedToken = json.decode(token);
     var video;
 
     if (form.video != null) {
+      String fileName = form.video.path.split('/').last;
       video = await MultipartFile.fromFile(form.video.path, filename: fileName);
     } else {
       video = null;
