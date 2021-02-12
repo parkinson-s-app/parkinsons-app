@@ -1,5 +1,3 @@
-import 'dart:io';
-import 'package:appkinsonFront/views/SymptomsFormDoctor/videoPluguin.dart';
 import 'package:flutter/material.dart';
 
 class symptomsFormQ3 extends StatefulWidget {
@@ -7,14 +5,13 @@ class symptomsFormQ3 extends StatefulWidget {
   _symptomsFormQ3 createState() => _symptomsFormQ3();
 }
 
-enum SigningCharacter {Ausente, Infrecuente, Persistente, Mayoria, Presente}
+enum SigningCharacter { Ausente, Infrecuente, Persistente, Mayoria, Presente }
 SigningCharacter _character;
 int selectedStateRadioQ3 = 0;
 
 class _symptomsFormQ3 extends State<symptomsFormQ3> {
-
   @override
-  Widget build(BuildContext context){
+  Widget build(BuildContext context) {
     return Scaffold(
       body: Column(
         children: <Widget>[
@@ -42,7 +39,7 @@ class _symptomsFormQ3 extends State<symptomsFormQ3> {
                   title: const Text('Ausente'),
                   value: SigningCharacter.Ausente,
                   groupValue: _character,
-                  onChanged: (SigningCharacter value){
+                  onChanged: (SigningCharacter value) {
                     setState(() {
                       _character = value;
                       selectedStateRadioQ3 = 0;
@@ -56,7 +53,7 @@ class _symptomsFormQ3 extends State<symptomsFormQ3> {
                   title: const Text('Poca frecuencia'),
                   value: SigningCharacter.Infrecuente,
                   groupValue: _character,
-                  onChanged: (SigningCharacter value){
+                  onChanged: (SigningCharacter value) {
                     setState(() {
                       _character = value;
                       selectedStateRadioQ3 = 1;
@@ -70,7 +67,7 @@ class _symptomsFormQ3 extends State<symptomsFormQ3> {
                   title: const Text('Persistente'),
                   value: SigningCharacter.Persistente,
                   groupValue: _character,
-                  onChanged: (SigningCharacter value){
+                  onChanged: (SigningCharacter value) {
                     setState(() {
                       _character = value;
                       selectedStateRadioQ3 = 2;
@@ -81,10 +78,11 @@ class _symptomsFormQ3 extends State<symptomsFormQ3> {
                   height: 20,
                 ),
                 RadioListTile<SigningCharacter>(
-                  title: const Text('Presente la mayor parte del tiempo, temblor moderado'),
+                  title: const Text(
+                      'Presente la mayor parte del tiempo, temblor moderado'),
                   value: SigningCharacter.Mayoria,
                   groupValue: _character,
-                  onChanged: (SigningCharacter value){
+                  onChanged: (SigningCharacter value) {
                     setState(() {
                       _character = value;
                       selectedStateRadioQ3 = 3;
@@ -95,10 +93,11 @@ class _symptomsFormQ3 extends State<symptomsFormQ3> {
                   height: 20,
                 ),
                 RadioListTile<SigningCharacter>(
-                  title: const Text('Presente la mayor parte del tiempo, temblor severo'),
+                  title: const Text(
+                      'Presente la mayor parte del tiempo, temblor severo'),
                   value: SigningCharacter.Presente,
                   groupValue: _character,
-                  onChanged: (SigningCharacter value){
+                  onChanged: (SigningCharacter value) {
                     setState(() {
                       _character = value;
                       selectedStateRadioQ3 = 4;
@@ -118,7 +117,7 @@ class _symptomsFormQ3 extends State<symptomsFormQ3> {
 }
 
 class BringAnswer3 {
-  int send()  {
+  int send() {
     return selectedStateRadioQ3;
   }
 }

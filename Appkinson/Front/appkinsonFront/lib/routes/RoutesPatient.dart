@@ -1,10 +1,9 @@
 import 'package:appkinsonFront/views/Calendar/CalendarScreenView2.dart';
 import 'package:appkinsonFront/views/SymptomsFormPatient/SymptomsFormPatient.dart';
-import 'package:appkinsonFront/views/Calendar/CalendarScreen.dart';
+
 import 'package:appkinsonFront/views/HomeDifferentUsers/Patient/PatientHomePage.dart';
-import 'package:appkinsonFront/views/Login/LoginPage.dart';
+
 import 'package:appkinsonFront/views/Notifications/PatientNotifications.dart';
-import 'package:appkinsonFront/views/Register/RegisterPage.dart';
 import 'package:appkinsonFront/views/SymptomsFormDoctor/symptomsFormQ.dart';
 import 'package:appkinsonFront/views/RelationRequest/relationRequest.dart';
 import 'package:appkinsonFront/views/profiles/Patient/PatientProfile.dart';

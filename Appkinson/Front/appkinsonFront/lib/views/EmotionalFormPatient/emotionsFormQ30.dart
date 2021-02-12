@@ -1,4 +1,3 @@
-import 'dart:io';
 import 'package:appkinsonFront/routes/RoutesGeneral.dart';
 import 'package:flutter/material.dart';
 import '../../model/EmotionsForm.dart';
@@ -37,14 +36,13 @@ class emotionsFormQ30 extends StatefulWidget {
   _emotionsFormQ30 createState() => _emotionsFormQ30();
 }
 
-enum SigningCharacter {Si, No}
+enum SigningCharacter { Si, No }
 SigningCharacter _character;
 int selectedStateRadioQ30 = 0;
 
 class _emotionsFormQ30 extends State<emotionsFormQ30> {
-
   @override
-  Widget build(BuildContext context){
+  Widget build(BuildContext context) {
     return Scaffold(
       body: Column(
         children: <Widget>[
@@ -65,101 +63,100 @@ class _emotionsFormQ30 extends State<emotionsFormQ30> {
           ),
           Expanded(
             flex: 2,
-            child: Column(
-                children: <Widget>[
-                  Divider(
-                    height: 80,
+            child: Column(children: <Widget>[
+              Divider(
+                height: 80,
+              ),
+              RadioListTile<SigningCharacter>(
+                title: const Text(
+                  'Si',
+                  style: TextStyle(
+                    fontSize: 40.0,
                   ),
-                  RadioListTile<SigningCharacter>(
-                    title: const Text(
-                      'Si',
-                      style: TextStyle(
-                        fontSize: 40.0,
-                      ),
-                    ),
-                    value: SigningCharacter.Si,
-                    groupValue: _character,
-                    onChanged: (SigningCharacter value){
-                      setState(() {
-                        _character = value;
-                        selectedStateRadioQ30 = 1;
-                      });
-                    },
+                ),
+                value: SigningCharacter.Si,
+                groupValue: _character,
+                onChanged: (SigningCharacter value) {
+                  setState(() {
+                    _character = value;
+                    selectedStateRadioQ30 = 1;
+                  });
+                },
+              ),
+              Divider(
+                height: 100,
+              ),
+              RadioListTile<SigningCharacter>(
+                title: const Text(
+                  'No',
+                  style: TextStyle(
+                    fontSize: 40.0,
                   ),
-                  Divider(
-                    height: 100,
-                  ),
-                  RadioListTile<SigningCharacter>(
-                    title: const Text(
-                      'No',
-                      style: TextStyle(
-                        fontSize: 40.0,
-                      ),
-                    ),
-                    value: SigningCharacter.No,
-                    groupValue: _character,
-                    onChanged: (SigningCharacter value){
-                      setState(() {
-                        _character = value;
-                        selectedStateRadioQ30 = 2;
-                      });
-                    },
-                  ),
-                  Divider(
-                    height: 50,
-                  ),
-                  RaisedButton(
-                    child: Text("Guardar registro", style: TextStyle(fontSize: 20)),
-                    shape: StadiumBorder(),
-                    padding: EdgeInsets.symmetric(horizontal: 50),
-                    //onPressed: () => save(),
-                    color: Theme.of(context).primaryColor,
-                    textColor: Colors.white,
-                    onPressed: () async {
-                      EmotionsForm patientForm = new EmotionsForm();
-                      patientForm.q1 = BringAnswer1().send();
-                      patientForm.q2 = BringAnswer2().send();
-                      patientForm.q3 = BringAnswer3().send();
-                      patientForm.q4 = BringAnswer4().send();
-                      patientForm.q5 = BringAnswer5().send();
-                      patientForm.q6 = BringAnswer6().send();
-                      patientForm.q7 = BringAnswer7().send();
-                      patientForm.q8 = BringAnswer8().send();
-                      patientForm.q9 = BringAnswer9().send();
-                      patientForm.q10 = BringAnswer10().send();
-                      patientForm.q11 = BringAnswer11().send();
-                      patientForm.q12 = BringAnswer12().send();
-                      patientForm.q13 = BringAnswer13().send();
-                      patientForm.q14 = BringAnswer14().send();
-                      patientForm.q15 = BringAnswer15().send();
-                      patientForm.q16 = BringAnswer16().send();
-                      patientForm.q17 = BringAnswer17().send();
-                      patientForm.q18 = BringAnswer18().send();
-                      patientForm.q19 = BringAnswer19().send();
-                      patientForm.q20 = BringAnswer20().send();
-                      patientForm.q21 = BringAnswer21().send();
-                      patientForm.q22 = BringAnswer22().send();
-                      patientForm.q23 = BringAnswer23().send();
-                      patientForm.q24 = BringAnswer24().send();
-                      patientForm.q25 = BringAnswer25().send();
-                      patientForm.q26 = BringAnswer26().send();
-                      patientForm.q27 = BringAnswer27().send();
-                      patientForm.q28 = BringAnswer28().send();
-                      patientForm.q29 = BringAnswer29().send();
-                      patientForm.q30 = BringAnswer30().send();
-                      patientForm.date = null;
-                      /*var savedDone = await EndPoints().registerSymptomsForm(
+                ),
+                value: SigningCharacter.No,
+                groupValue: _character,
+                onChanged: (SigningCharacter value) {
+                  setState(() {
+                    _character = value;
+                    selectedStateRadioQ30 = 2;
+                  });
+                },
+              ),
+              Divider(
+                height: 50,
+              ),
+              RaisedButton(
+                child: Text("Guardar registro", style: TextStyle(fontSize: 20)),
+                shape: StadiumBorder(),
+                padding: EdgeInsets.symmetric(horizontal: 50),
+                //onPressed: () => save(),
+                color: Theme.of(context).primaryColor,
+                textColor: Colors.white,
+                onPressed: () async {
+                  EmotionsForm patientForm = new EmotionsForm();
+                  patientForm.q1 = BringAnswer1().send();
+                  patientForm.q2 = BringAnswer2().send();
+                  patientForm.q3 = BringAnswer3().send();
+                  patientForm.q4 = BringAnswer4().send();
+                  patientForm.q5 = BringAnswer5().send();
+                  patientForm.q6 = BringAnswer6().send();
+                  patientForm.q7 = BringAnswer7().send();
+                  patientForm.q8 = BringAnswer8().send();
+                  patientForm.q9 = BringAnswer9().send();
+                  patientForm.q10 = BringAnswer10().send();
+                  patientForm.q11 = BringAnswer11().send();
+                  patientForm.q12 = BringAnswer12().send();
+                  patientForm.q13 = BringAnswer13().send();
+                  patientForm.q14 = BringAnswer14().send();
+                  patientForm.q15 = BringAnswer15().send();
+                  patientForm.q16 = BringAnswer16().send();
+                  patientForm.q17 = BringAnswer17().send();
+                  patientForm.q18 = BringAnswer18().send();
+                  patientForm.q19 = BringAnswer19().send();
+                  patientForm.q20 = BringAnswer20().send();
+                  patientForm.q21 = BringAnswer21().send();
+                  patientForm.q22 = BringAnswer22().send();
+                  patientForm.q23 = BringAnswer23().send();
+                  patientForm.q24 = BringAnswer24().send();
+                  patientForm.q25 = BringAnswer25().send();
+                  patientForm.q26 = BringAnswer26().send();
+                  patientForm.q27 = BringAnswer27().send();
+                  patientForm.q28 = BringAnswer28().send();
+                  patientForm.q29 = BringAnswer29().send();
+                  patientForm.q30 = BringAnswer30().send();
+                  patientForm.date = null;
+                  /*var savedDone = await EndPoints().registerSymptomsForm(
                           patientForm, currentUser['id'].toString(), token);*/
 
-                      RoutesGeneral().toPop(context);
-                    },
-                  ),
-                ]
-            ),
+                  RoutesGeneral().toPop(context);
+                },
+              ),
+            ]),
 
             /*Expanded(
             flex: 1,
-          */),
+          */
+          ),
         ],
       ),
     );

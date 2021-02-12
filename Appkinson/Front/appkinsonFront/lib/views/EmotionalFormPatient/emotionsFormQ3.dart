@@ -1,4 +1,3 @@
-import 'dart:io';
 import 'package:flutter/material.dart';
 
 class emotionsFormQ3 extends StatefulWidget {
@@ -6,14 +5,13 @@ class emotionsFormQ3 extends StatefulWidget {
   _emotionsFormQ3 createState() => _emotionsFormQ3();
 }
 
-enum SigningCharacter {Si, No}
+enum SigningCharacter { Si, No }
 SigningCharacter _character;
 int selectedStateRadioQ3 = 0;
 
 class _emotionsFormQ3 extends State<emotionsFormQ3> {
-
   @override
-  Widget build(BuildContext context){
+  Widget build(BuildContext context) {
     return Scaffold(
       body: Column(
         children: <Widget>[
@@ -34,55 +32,54 @@ class _emotionsFormQ3 extends State<emotionsFormQ3> {
           ),
           Expanded(
             flex: 2,
-            child: Column(
-                children: <Widget>[
-                  Divider(
-                    height: 80,
+            child: Column(children: <Widget>[
+              Divider(
+                height: 80,
+              ),
+              RadioListTile<SigningCharacter>(
+                title: const Text(
+                  'Si',
+                  style: TextStyle(
+                    fontSize: 40.0,
                   ),
-                  RadioListTile<SigningCharacter>(
-                    title: const Text(
-                      'Si',
-                      style: TextStyle(
-                        fontSize: 40.0,
-                      ),
-                    ),
-                    value: SigningCharacter.Si,
-                    groupValue: _character,
-                    onChanged: (SigningCharacter value){
-                      setState(() {
-                        _character = value;
-                        selectedStateRadioQ3 = 1;
-                      });
-                    },
+                ),
+                value: SigningCharacter.Si,
+                groupValue: _character,
+                onChanged: (SigningCharacter value) {
+                  setState(() {
+                    _character = value;
+                    selectedStateRadioQ3 = 1;
+                  });
+                },
+              ),
+              Divider(
+                height: 100,
+              ),
+              RadioListTile<SigningCharacter>(
+                title: const Text(
+                  'No',
+                  style: TextStyle(
+                    fontSize: 40.0,
                   ),
-                  Divider(
-                    height: 100,
-                  ),
-                  RadioListTile<SigningCharacter>(
-                    title: const Text(
-                      'No',
-                      style: TextStyle(
-                        fontSize: 40.0,
-                      ),
-                    ),
-                    value: SigningCharacter.No,
-                    groupValue: _character,
-                    onChanged: (SigningCharacter value){
-                      setState(() {
-                        _character = value;
-                        selectedStateRadioQ3 = 2;
-                      });
-                    },
-                  ),
-                  Divider(
-                    height: 80,
-                  ),
-                ]
-            ),
+                ),
+                value: SigningCharacter.No,
+                groupValue: _character,
+                onChanged: (SigningCharacter value) {
+                  setState(() {
+                    _character = value;
+                    selectedStateRadioQ3 = 2;
+                  });
+                },
+              ),
+              Divider(
+                height: 80,
+              ),
+            ]),
 
             /*Expanded(
             flex: 1,
-          */),
+          */
+          ),
         ],
       ),
     );

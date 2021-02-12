@@ -1,15 +1,12 @@
 import 'dart:convert';
+import 'package:appkinsonFront/utils/Utils.dart';
 import 'package:appkinsonFront/views/RelationRequest/relationRequestPlugin.dart';
 import 'package:appkinsonFront/routes/RoutesAdmin.dart';
 import 'package:appkinsonFront/routes/RoutesCarer.dart';
 import 'package:appkinsonFront/routes/RoutesDoctor.dart';
 import 'package:appkinsonFront/routes/RoutesPatient.dart';
 import 'package:flutter/material.dart';
-import '../../HomeDifferentUsers/Admin/AdminHomePage.dart';
-import '../../HomeDifferentUsers/Doctor/DoctorHomePage.dart';
-import '../../HomeDifferentUsers/Patient/PatientHomePage.dart';
 import "../InputFieldLogin.dart";
-import '../../HomeDifferentUsers/Carer/CarerHomePage.dart';
 import '../../../services/EndPoints.dart';
 
 Map currentUser;
@@ -45,6 +42,9 @@ class _FormButtonLogin extends State<ButtonLogin> {
           */
 
           token = await EndPoints().authUser(user);
+
+          currentUser = Utils().tokenDecoder(token);
+          /*
           debugPrint(token);
           var lista = token.split(".");
           var payload = lista[1];
@@ -62,15 +62,16 @@ class _FormButtonLogin extends State<ButtonLogin> {
 
           var decoded = utf8.decode(base64.decode(payload));
           currentUser = json.decode(decoded);
-          debugPrint(currentUser['type']);
-          debugPrint(decoded);
+          */
+          //debugPrint(currentUser['type']);
+          // debugPrint(decoded);
 
           if (currentUser['type'] == 'Cuidador') {
             RoutesCarer().toCarerHome(context);
           }
           if (currentUser['type'] == 'Paciente') {
             debugPrint("paciente");
-            getRelationsRequest();
+            //getRelationsRequest();
             RoutesPatient().toPatientHome(context);
           }
           if (currentUser['type'] == 'Doctor') {

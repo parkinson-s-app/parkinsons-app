@@ -3,7 +3,6 @@ import 'dart:async';
 import 'package:appkinsonFront/services/EndPoints.dart';
 import 'package:appkinsonFront/views/RelationRequest/relationRequest.dart';
 import 'package:appkinsonFront/views/Login/Buttons/ButtonLogin.dart';
-import 'package:http/http.dart' as http;
 import 'package:workmanager/workmanager.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
@@ -34,27 +33,29 @@ void callbackDispatcher() {
     var initSetttings = InitializationSettings(android, iOS);
     flp.initialize(initSetttings);
 
-    var response = await EndPoints().getRelationRequest(token);
+    //var response = await EndPoints().getRelationRequest(token);
     print(response);
 
     var responseJSON = json.decode(response);
     var resquests = json.decode(responseJSON);
-      //for (var a = 0; a < resquests.length; a++) {
-      // patients.add(codeList[a]['EMAIL']);
-     // }
-     //   showNotification('tienes notificaciones pendientes', flp);
-     if (resquests != null && resquests.length > 0) {
-       if (resquests.length > 1) {
-         showNotification('tienes notificaciones pendientes', flp);
-       } else if (resquests.length == 1) {
-         showNotification('tienes una notificación pendientes', flp);
-       } else {
-         print("no hay mensaje");
-       }
-     }
+    //for (var a = 0; a < resquests.length; a++) {
+    // patients.add(codeList[a]['EMAIL']);
+    // }
+    //   showNotification('tienes notificaciones pendientes', flp);
+    if (resquests != null && resquests.length > 0) {
+      if (resquests.length > 1) {
+        showNotification('tienes notificaciones pendientes', flp);
+      } else if (resquests.length == 1) {
+        showNotification('tienes una notificación pendientes', flp);
+      } else {
+        print("no hay mensaje");
+      }
+    }
     return Future.value(true);
   });
 }
+
+/*
 Future<List<Widget>> getRelationsRequest() async {
   response = await EndPoints().getRelationRequest(token);
   var responseJSON = json.decode(response);
@@ -63,9 +64,12 @@ Future<List<Widget>> getRelationsRequest() async {
         responseJSON[a]['EMAIL'], responseJSON[a]['TYPE']));
   }
 }
-List<Widget> getListRelationsRequest(){
+*/
+
+List<Widget> getListRelationsRequest() {
   return listings;
 }
-String getJson(){
+
+String getJson() {
   return response;
 }
