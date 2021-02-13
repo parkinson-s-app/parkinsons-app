@@ -41,17 +41,22 @@ class PatientProfileScreenP extends State<PatientProfileScreen> {
     this.setState(() {
       imageFile = picture;
     });
+    var newUser = new User(photo: imageFile);
+    String save = await EndPoints()
+        .modifyUsersPhoto(newUser, currentUser['id'].toString(), token);
     RoutesGeneral().toPop(context);
   }
 
   openCamera(BuildContext context) async {
     var picture = await ImagePicker.pickImage(source: ImageSource.camera);
-    var newUser = new User(photo: imageFile);
-    String save = await EndPoints()
-        .modifyUsersPhoto(newUser, currentUser['id'].toString(), token);
+
     this.setState(() {
       imageFile = picture;
     });
+
+    var newUser = new User(photo: imageFile);
+    String save = await EndPoints()
+        .modifyUsersPhoto(newUser, currentUser['id'].toString(), token);
     RoutesGeneral().toPop(context);
   }
 
