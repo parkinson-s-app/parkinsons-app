@@ -111,7 +111,10 @@ UserController.post('/users/:id', multer.single('photo'), verifyToken, async (re
     debug('Users UpdateById');
     const id = +req.params.id;
     let updatedUserData = req.body as IPersonalDataDto;
-    updatedUserData.PHOTOPATH = req.file.path;
+    if(req.file){
+        updatedUserData.PHOTOPATH = req.file.path;
+    }
+    
     debug('Users Update user: %j, ID:', updatedUserData, id);
     const response = await PersonService.updatePerson(id, updatedUserData);
     debug('User UpdateById response db: %j', response);

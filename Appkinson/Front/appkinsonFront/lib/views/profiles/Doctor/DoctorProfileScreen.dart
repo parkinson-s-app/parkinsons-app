@@ -1,11 +1,11 @@
+import 'package:appkinsonFront/model/User.dart';
 import 'package:appkinsonFront/routes/RoutesDoctor.dart';
 import 'package:appkinsonFront/routes/RoutesGeneral.dart';
-
+import 'package:appkinsonFront/services/EndPoints.dart';
+import 'package:appkinsonFront/views/Login/Buttons/ButtonLogin.dart';
 import 'package:appkinsonFront/views/profiles/Doctor/profileEdition/ProfileEditionDoctor.dart';
 import 'package:flutter/cupertino.dart';
-
 import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/screenutil.dart';
 import 'package:image_picker/image_picker.dart';
@@ -37,6 +37,9 @@ class DoctorProfileScreenP extends State<DoctorProfileScreen> {
     this.setState(() {
       imageFile = picture;
     });
+    var newUser = new User(photo: imageFile);
+    String save = await EndPoints()
+        .modifyUsersPhoto(newUser, currentUser['id'].toString(), token);
     RoutesGeneral().toPop(context);
   }
 
@@ -45,6 +48,9 @@ class DoctorProfileScreenP extends State<DoctorProfileScreen> {
     this.setState(() {
       imageFile = picture;
     });
+    var newUser = new User(photo: imageFile);
+    String save = await EndPoints()
+        .modifyUsersPhoto(newUser, currentUser['id'].toString(), token);
     RoutesGeneral().toPop(context);
   }
 

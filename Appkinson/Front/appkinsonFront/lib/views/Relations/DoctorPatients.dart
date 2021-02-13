@@ -4,11 +4,8 @@ import 'package:appkinsonFront/routes/RoutesPatient.dart';
 import 'package:appkinsonFront/services/EndPoints.dart';
 import 'package:appkinsonFront/views/Calendar/CalendarScreenView2.dart';
 import 'package:appkinsonFront/views/Login/Buttons/ButtonLogin.dart';
-import 'package:appkinsonFront/views/Notifications/NotificationPlugin.dart';
 import 'package:flutter/material.dart';
 import '../../model/User.dart';
-import '../Relations/user_data.dart';
-import 'Buttons/ButtonLinkPatient.dart';
 
 class DoctorPatients extends StatefulWidget {
   @override
@@ -31,6 +28,7 @@ class DoctorPatientsCustom extends State<DoctorPatients> {
   }
 
   getPatients() async {
+    /*
     var lista = token.split(".");
     var payload = lista[1];
 
@@ -47,6 +45,7 @@ class DoctorPatientsCustom extends State<DoctorPatients> {
 
     var decoded = utf8.decode(base64.decode(payload));
     currentUser = json.decode(decoded);
+    */
     List<User> _patients = [];
     //Pedir lista de pacientes relacionados
     debugPrint("pidiendo pacientes");
@@ -131,6 +130,7 @@ class DoctorPatientsCustom extends State<DoctorPatients> {
                       String m = await EndPoints()
                           .getSymptomsFormPatient(token, selectId);
                       //final DateTime today = DateTime.now();
+
                       var codeList = json.decode(m);
                       //List<String> patients = [];
                       for (var a = 0; a < codeList.length; a++) {
@@ -199,6 +199,8 @@ class DoctorPatientsCustom extends State<DoctorPatients> {
                   if (_keyDialogForm.currentState.validate()) {
                     _keyDialogForm.currentState.save();
                     debugPrint(addPatientController.text);
+
+                    /*
                     var lista = token.split(".");
                     var payload = lista[1];
 
@@ -215,6 +217,8 @@ class DoctorPatientsCustom extends State<DoctorPatients> {
 
                     var decoded = utf8.decode(base64.decode(payload));
                     currentUser = json.decode(decoded);
+                    */
+
                     debugPrint(currentUser['id'].toString());
                     var listaUsuarios = await EndPoints().linkUser(
                         addPatientController.text,

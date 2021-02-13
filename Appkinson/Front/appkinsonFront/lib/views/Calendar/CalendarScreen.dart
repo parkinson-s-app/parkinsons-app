@@ -1,14 +1,11 @@
 import 'package:appkinsonFront/routes/RoutesGeneral.dart';
 import 'package:appkinsonFront/routes/RoutesPatient.dart';
-//import 'package:appkinsonFront/views/SymptomsForm/symptomsFormQ.dart';
-import 'package:flutter_screenutil/screenutil.dart';
-import 'package:appkinsonFront/views/SymptomsFormDoctor/symptomsFormQ.dart';
+
 import 'package:intl/intl.dart';
 import 'package:line_awesome_flutter/line_awesome_flutter.dart';
 import 'package:table_calendar/table_calendar.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 DateTime tempDate;
 TimeOfDay _time = TimeOfDay.now();

@@ -36,6 +36,7 @@ class __ProfileEdition extends State<ProfileEditionPatient> {
           onPressed: () async {
             var m = new metod2();
             var user = await m.send();
+            /*
             debugPrint(user.name);
             var lista = token.split(".");
             var payload = lista[1];
@@ -54,6 +55,7 @@ class __ProfileEdition extends State<ProfileEditionPatient> {
             var decoded = utf8.decode(base64.decode(payload));
             currentUser = json.decode(decoded);
             debugPrint(currentUser['id'].toString());
+            */
             String save = await EndPoints()
                 .modifyUsers(user, currentUser['id'].toString(), token);
             debugPrint(save);

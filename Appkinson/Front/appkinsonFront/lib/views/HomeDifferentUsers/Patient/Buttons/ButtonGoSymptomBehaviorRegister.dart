@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 
-//import '../../Register/RegisterPage.dart';
-
 class ButtonGoSymptomBehaviorRegister extends StatelessWidget {
   @override
   Widget build(BuildContext context) {

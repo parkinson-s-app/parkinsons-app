@@ -1,5 +1,3 @@
-import 'dart:io';
-import 'dart:ui';
 import 'package:flutter/material.dart';
 
 import '../EmotionalFormPatient/emotionsFormQ1.dart';
@@ -39,19 +37,17 @@ class emotionsFormQ extends StatefulWidget {
 }
 
 class _emotionsFormQ extends State<emotionsFormQ> {
-
-  final controller=PageController(
+  final controller = PageController(
     initialPage: 0,
   );
 
-  int _current=0;
-
+  int _current = 0;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      appBar:AppBar(
+      appBar: AppBar(
         centerTitle: true,
         title: Text(
           "Formulario emocional",
@@ -97,7 +93,6 @@ class _emotionsFormQ extends State<emotionsFormQ> {
           emotionsFormQ28(),
           emotionsFormQ29(),
           emotionsFormQ30(),
-
         ],
       ),
     );

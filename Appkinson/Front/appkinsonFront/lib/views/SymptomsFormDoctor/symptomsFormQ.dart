@@ -1,6 +1,3 @@
-import 'dart:io';
-import 'dart:ui';
-import 'package:appkinsonFront/views/SymptomsFormDoctor/videoPluguin.dart';
 import 'package:flutter/material.dart';
 import '../SymptomsFormDoctor/symptomsFormQ1.dart';
 import '../SymptomsFormDoctor/symptomsFormQ2.dart';
@@ -18,7 +15,6 @@ import '../SymptomsFormDoctor/symptomsFormQ13.dart';
 import '../SymptomsFormDoctor/symptomsFormQ14.dart';
 import '../SymptomsFormDoctor/symptomsFormQ15.dart';
 import '../SymptomsFormDoctor/symptomsFormQ16.dart';
-import '../SymptomsFormDoctor/symptomsFormQ17.dart';
 import '../SymptomsFormDoctor/symptomsFormQ29.dart';
 
 class symptomsFormQ extends StatefulWidget {
@@ -27,22 +23,20 @@ class symptomsFormQ extends StatefulWidget {
 }
 
 class _symptomsFormQ extends State<symptomsFormQ> {
-
-  final controller=PageController(
+  final controller = PageController(
     initialPage: 0,
   );
 
-  int _current=0;
-
+  int _current = 0;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      appBar:AppBar(
+      appBar: AppBar(
         centerTitle: true,
         title: Text(
-            "Formulario de sintomas",
+          "Formulario de sintomas",
         ),
         backgroundColor: Colors.blue,
         actions: <Widget>[

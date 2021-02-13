@@ -1,5 +1,8 @@
+import 'package:appkinsonFront/model/User.dart';
 import 'package:appkinsonFront/routes/RoutesCarer.dart';
 import 'package:appkinsonFront/routes/RoutesGeneral.dart';
+import 'package:appkinsonFront/services/EndPoints.dart';
+import 'package:appkinsonFront/views/Login/Buttons/ButtonLogin.dart';
 import 'package:appkinsonFront/views/profiles/Carer/profileEdition/ProfileEditionCarer.dart';
 import 'package:flutter/cupertino.dart';
 
@@ -36,6 +39,9 @@ class DoctorProfileScreenP extends State<CarerProfileScreen> {
     this.setState(() {
       imageFile = picture;
     });
+    var newUser = new User(photo: imageFile);
+    String save = await EndPoints()
+        .modifyUsersPhoto(newUser, currentUser['id'].toString(), token);
     RoutesGeneral().toPop(context);
   }
 
@@ -44,6 +50,9 @@ class DoctorProfileScreenP extends State<CarerProfileScreen> {
     this.setState(() {
       imageFile = picture;
     });
+    var newUser = new User(photo: imageFile);
+    String save = await EndPoints()
+        .modifyUsersPhoto(newUser, currentUser['id'].toString(), token);
     RoutesGeneral().toPop(context);
   }
 
