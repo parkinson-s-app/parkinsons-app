@@ -16,7 +16,7 @@ class Utils {
         payload = payload + "==";
         break;
       case 3:
-        payload = payload + "==";
+        payload = payload + "=";
         break;
     }
 

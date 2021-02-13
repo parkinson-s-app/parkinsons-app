@@ -46,6 +46,9 @@ class PatientProfileScreenP extends State<PatientProfileScreen> {
 
   openCamera(BuildContext context) async {
     var picture = await ImagePicker.pickImage(source: ImageSource.camera);
+    var newUser = new User(photo: imageFile);
+    String save = await EndPoints()
+        .modifyUsersPhoto(newUser, currentUser['id'].toString(), token);
     this.setState(() {
       imageFile = picture;
     });
@@ -73,7 +76,9 @@ class PatientProfileScreenP extends State<PatientProfileScreen> {
                   onTap: () async {
                     openCamera(context);
                     var m = new metod3();
-                    var user = await m.send();
+                    //var user =  m.send();
+                    var newUser = new User(photo: imageFile);
+                    /*
                     debugPrint(user.name);
                     var lista = token.split(".");
                     var payload = lista[1];
@@ -92,9 +97,13 @@ class PatientProfileScreenP extends State<PatientProfileScreen> {
                     var decoded = utf8.decode(base64.decode(payload));
                     currentUser = json.decode(decoded);
                     debugPrint(currentUser['id'].toString());
+                    */
+                    debugPrint('aqui');
+                    /*
                     String save = await EndPoints().modifyUsersPhoto(
-                        user, currentUser['id'].toString(), token);
-                    debugPrint('aqui' + save);
+                        newUser, currentUser['id'].toString(), token);
+                        */
+                    //debugPrint('aqui' + save);
                   },
                 )
               ],

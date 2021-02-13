@@ -44,6 +44,7 @@ class _FormButtonLogin extends State<ButtonLogin> {
           token = await EndPoints().authUser(user);
 
           currentUser = Utils().tokenDecoder(token);
+
           /*
           debugPrint(token);
           var lista = token.split(".");
