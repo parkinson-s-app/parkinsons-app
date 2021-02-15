@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:syncfusion_flutter_calendar/calendar.dart';
 
 DateTime dateChoosed;
-
+int count = 0;
 class CalendarScreenView2 extends StatefulWidget {
   @override
   _Calendar createState() => _Calendar();
@@ -15,16 +15,28 @@ class CalendarScreenView2 extends StatefulWidget {
 List<Meeting> meetings = new List<Meeting>();
 
 class _Calendar extends State<CalendarScreenView2> {
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         body: SfCalendar(
-      view: CalendarView.week,
-      onTap: (calendarTapDetails) {
+      view: CalendarView.day,
+      /*onTap: (calendarTapDetails) {
         dateChoosed = calendarTapDetails.date;
         RoutesPatient().toSymptomsFormPatient(context);
+      },*/
+      onTap: (calendarTapDetails){
+        dateChoosed = calendarTapDetails.date;
+        setState(() {
+         // print(dateChoosed.hour);
+          print(dateChoosed.hour);
+         count++;
+         if(count == 3){
+           count = 0;
+         }
+        });
       },
-      dataSource: MeetingDataSource(meetings),
+      dataSource: MeetingDataSource(_getDataSource()),
       monthViewSettings: MonthViewSettings(
           appointmentDisplayMode: MonthAppointmentDisplayMode.appointment),
     ));
@@ -32,17 +44,27 @@ class _Calendar extends State<CalendarScreenView2> {
 
   List<Meeting> _getDataSource() {
     meetings = <Meeting>[];
-
-    //final DateTime today = DateTime.now();
-    final DateTime startTime =
-        DateTime(dateChoosed.year, dateChoosed.month, dateChoosed.day, 9, 0, 0);
-    final DateTime endTime = startTime.add(const Duration(hours: 1));
-    meetings
-        .add(Meeting('on', startTime, endTime, const Color(0xFF0F8644), false));
-
+    final DateTime today = DateTime.now();
+    DateTime startTime;
+    DateTime endTime;
+    if(dateChoosed != null ){
+      startTime = DateTime(today.year, today.month, today.day, dateChoosed.hour, 0, 0);
+      endTime = startTime.add(const Duration(hours: 1));
+      print("AQUI2");
+      print(dateChoosed.hour);
+      if(count ==1){
+        meetings.add(Meeting(
+            'ON', startTime, endTime, Colors.green, false));
+      }
+      if(count == 2){
+        meetings.add(Meeting(
+            'OFF', startTime, endTime, Colors.red, false));
+      }
+    }
     return meetings;
   }
 }
+
 
 class MeetingDataSource extends CalendarDataSource {
   /// Creates a meeting data source, which used to set the appointment

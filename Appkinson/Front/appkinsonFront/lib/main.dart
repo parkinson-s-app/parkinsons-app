@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:appkinsonFront/services/EndPoints.dart';
+import 'package:appkinsonFront/views/Calendar/CalendarScreenView2.dart';
 import 'package:appkinsonFront/views/DataAnalisis/ReportScreen.dart';
 import 'package:flutter/material.dart';
 import 'views/SymptomsFormPatient/SymptomsFormPatient.dart';
@@ -58,7 +59,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     //return new MaterialApp(
     //  debugShowCheckedModeBanner: false, home: CalendarScreen());
-    return new MaterialApp(debugShowCheckedModeBanner: false, home: HomePage());
+    return new MaterialApp(debugShowCheckedModeBanner: false, home: CalendarScreenView2());
 
     //return new MaterialApp(debugShowCheckedModeBanner: false, home: relationRequest());
     //return new MaterialApp(debugShowCheckedModeBanner: false, home: ReportScreen());
