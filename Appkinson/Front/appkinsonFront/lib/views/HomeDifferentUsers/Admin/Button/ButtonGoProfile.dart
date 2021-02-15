@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 
-//import '../../Register/RegisterPage.dart';
-
 class ButtonGoCheckUsers extends StatelessWidget {
   @override
   Widget build(BuildContext context) {

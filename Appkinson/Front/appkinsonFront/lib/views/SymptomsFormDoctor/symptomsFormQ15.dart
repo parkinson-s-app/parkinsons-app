@@ -1,5 +1,3 @@
-import 'dart:io';
-import 'package:appkinsonFront/views/SymptomsFormDoctor/videoPluguin.dart';
 import 'package:flutter/material.dart';
 
 class symptomsFormQ15 extends StatefulWidget {
@@ -7,14 +5,13 @@ class symptomsFormQ15 extends StatefulWidget {
   _symptomsFormQ15 createState() => _symptomsFormQ15();
 }
 
-enum SigningCharacter {Normal, Lento, Dificultad, Grave, Impedimento}
+enum SigningCharacter { Normal, Lento, Dificultad, Grave, Impedimento }
 SigningCharacter _character;
 int selectedStateRadioQ15 = 0;
 
 class _symptomsFormQ15 extends State<symptomsFormQ15> {
-
   @override
-  Widget build(BuildContext context){
+  Widget build(BuildContext context) {
     return Scaffold(
       body: Column(
         children: <Widget>[
@@ -42,7 +39,7 @@ class _symptomsFormQ15 extends State<symptomsFormQ15> {
                   title: const Text('Normal'),
                   value: SigningCharacter.Normal,
                   groupValue: _character,
-                  onChanged: (SigningCharacter value){
+                  onChanged: (SigningCharacter value) {
                     setState(() {
                       _character = value;
                       selectedStateRadioQ15 = 0;
@@ -53,10 +50,11 @@ class _symptomsFormQ15 extends State<symptomsFormQ15> {
                   height: 20,
                 ),
                 RadioListTile<SigningCharacter>(
-                  title: const Text('Camina lentamente, puede arrastrar los pies, con pasos cortos'),
+                  title: const Text(
+                      'Camina lentamente, puede arrastrar los pies, con pasos cortos'),
                   value: SigningCharacter.Lento,
                   groupValue: _character,
-                  onChanged: (SigningCharacter value){
+                  onChanged: (SigningCharacter value) {
                     setState(() {
                       _character = value;
                       selectedStateRadioQ15 = 1;
@@ -67,10 +65,11 @@ class _symptomsFormQ15 extends State<symptomsFormQ15> {
                   height: 20,
                 ),
                 RadioListTile<SigningCharacter>(
-                  title: const Text('Camina con dificultad, pero no requiere ayuda o muy escasa'),
+                  title: const Text(
+                      'Camina con dificultad, pero no requiere ayuda o muy escasa'),
                   value: SigningCharacter.Dificultad,
                   groupValue: _character,
-                  onChanged: (SigningCharacter value){
+                  onChanged: (SigningCharacter value) {
                     setState(() {
                       _character = value;
                       selectedStateRadioQ15 = 2;
@@ -81,10 +80,11 @@ class _symptomsFormQ15 extends State<symptomsFormQ15> {
                   height: 20,
                 ),
                 RadioListTile<SigningCharacter>(
-                  title: const Text('Trastornos graves de la marcha que requieren ayuda.'),
+                  title: const Text(
+                      'Trastornos graves de la marcha que requieren ayuda.'),
                   value: SigningCharacter.Grave,
                   groupValue: _character,
-                  onChanged: (SigningCharacter value){
+                  onChanged: (SigningCharacter value) {
                     setState(() {
                       _character = value;
                       selectedStateRadioQ15 = 3;
@@ -98,7 +98,7 @@ class _symptomsFormQ15 extends State<symptomsFormQ15> {
                   title: const Text('No puede caminar, incluso con ayuda.'),
                   value: SigningCharacter.Impedimento,
                   groupValue: _character,
-                  onChanged: (SigningCharacter value){
+                  onChanged: (SigningCharacter value) {
                     setState(() {
                       _character = value;
                       selectedStateRadioQ15 = 4;
@@ -118,7 +118,7 @@ class _symptomsFormQ15 extends State<symptomsFormQ15> {
 }
 
 class BringAnswer15 {
-  int send()  {
+  int send() {
     return selectedStateRadioQ15;
   }
 }

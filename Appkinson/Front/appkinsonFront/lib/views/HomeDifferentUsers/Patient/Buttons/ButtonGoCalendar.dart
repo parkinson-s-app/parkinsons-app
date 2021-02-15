@@ -1,8 +1,6 @@
 import 'dart:convert';
 
-import 'package:appkinsonFront/model/SymptomsFormPatientM.dart';
 import 'package:appkinsonFront/services/EndPoints.dart';
-import 'package:appkinsonFront/views/Calendar/CalendarScreen.dart';
 import 'package:appkinsonFront/views/Calendar/CalendarScreenView2.dart';
 import 'package:appkinsonFront/views/Login/Buttons/ButtonLogin.dart';
 import 'package:flutter/material.dart';

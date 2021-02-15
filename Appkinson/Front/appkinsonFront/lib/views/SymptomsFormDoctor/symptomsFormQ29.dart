@@ -21,8 +21,6 @@ import '../SymptomsFormDoctor/symptomsFormQ13.dart';
 import '../SymptomsFormDoctor/symptomsFormQ14.dart';
 import '../SymptomsFormDoctor/symptomsFormQ15.dart';
 import '../SymptomsFormDoctor/symptomsFormQ16.dart';
-import '../SymptomsFormDoctor/symptomsFormQ17.dart';
-import '../SymptomsFormDoctor/symptomsFormQ29.dart';
 import '../Calendar/CalendarScreen.dart';
 
 class symptomsFormQ29 extends StatefulWidget {

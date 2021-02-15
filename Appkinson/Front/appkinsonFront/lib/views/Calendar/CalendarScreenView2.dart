@@ -1,7 +1,4 @@
-import 'package:appkinsonFront/model/SymptomsForm.dart';
-import 'package:appkinsonFront/model/SymptomsFormPatientM.dart';
 import 'package:appkinsonFront/routes/RoutesPatient.dart';
-import 'package:appkinsonFront/views/SymptomsFormPatient/SymptomsFormPatientQ5ON.dart';
 import 'package:flutter/material.dart';
 import 'package:syncfusion_flutter_calendar/calendar.dart';
 
