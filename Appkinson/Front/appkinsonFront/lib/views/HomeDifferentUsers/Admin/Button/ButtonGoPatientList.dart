@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 
-//import '../../Register/RegisterPage.dart';
-
 class ButtonGoModifiToolBox extends StatelessWidget {
   @override
   Widget build(BuildContext context) {

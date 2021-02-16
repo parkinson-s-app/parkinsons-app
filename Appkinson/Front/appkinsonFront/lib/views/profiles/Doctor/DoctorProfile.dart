@@ -1,6 +1,5 @@
 //import 'package:appkinsonFront/views/profiles/Patient/PatientProfileScreen.dart';
 import 'package:appkinsonFront/routes/RoutesDoctor.dart';
-import 'package:appkinsonFront/views/HomeDifferentUsers/Doctor/DoctorHomePage.dart';
 import 'package:appkinsonFront/views/profiles/Doctor/profileEdition/ProfileEditionDoctor.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/screenutil.dart';

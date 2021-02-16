@@ -1,5 +1,4 @@
 import 'package:appkinsonFront/routes/RoutesPatient.dart';
-import 'package:appkinsonFront/views/HomeDifferentUsers/Patient/PatientHomePage.dart';
 import 'package:appkinsonFront/views/profiles/Patient/PatientProfileScreen.dart';
 import 'package:appkinsonFront/views/profiles/Patient/profileEdition/ProfileEditionPatient.dart';
 import 'package:flutter/material.dart';

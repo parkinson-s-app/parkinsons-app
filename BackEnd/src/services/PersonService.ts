@@ -7,7 +7,7 @@ import ISymptomsFormDto from "../models/ISymptomsFormDto";
 const debug = debugLib('AppKinson:PersonService');
 
 export default class PersonService {
-
+    
     public static async savePerson(person: IPersonDto) {
         debug('savePerson person: %j', person);
         const conn = await connect();
@@ -216,6 +216,7 @@ export default class PersonService {
 
     public static async saveSymptomsForm(id: number, symptomsFormData: ISymptomsFormDto) {
         const conn = await connect();
+        symptomsFormData.id_patient=id;
         debug('saveSymptoms to person: %j, id: %s', symptomsFormData, id);
         try {
             const res = await conn.query('INSERT INTO symptomsformpatient SET ?',[symptomsFormData]);
@@ -223,6 +224,22 @@ export default class PersonService {
             return res;
         } catch (e) {
             debug('saveSymptoms Catch Error: %s, %j', e.stack, e);
+            // throw Error
+        }
+    }
+    /**
+     * obtener los formularios de un paciente con el id
+     * @param id 
+     */
+    public static async getSymptomsForm(id: number) {
+        const conn = await connect();
+        debug('Symptoms of person: id: %s', id);
+        try {
+            const res = await conn.query('SELECT * FROM symptomsformpatient WHERE ID_PATIENT = ?',[id]);
+            debug('Symptoms found: %j', res);
+            return res[0];
+        } catch (e) {
+            debug('Getting Symptoms Catch Error: %s, %j', e.stack, e);
             // throw Error
         }
     }

@@ -1,6 +1,5 @@
 import 'package:appkinsonFront/views/HomeDifferentUsers/Doctor/DoctorHomePage.dart';
-import 'package:appkinsonFront/views/Login/LoginPage.dart';
-import 'package:appkinsonFront/views/Register/RegisterPage.dart';
+
 import 'package:appkinsonFront/views/Relations/DoctorPatients.dart';
 import 'package:appkinsonFront/views/profiles/Doctor/DoctorProfile.dart';
 import 'package:appkinsonFront/views/profiles/Doctor/profileEdition/ProfileEditionDoctor.dart';

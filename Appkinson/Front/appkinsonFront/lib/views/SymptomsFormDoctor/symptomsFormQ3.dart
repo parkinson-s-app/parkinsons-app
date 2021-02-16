@@ -1,5 +1,3 @@
-import 'dart:io';
-import 'package:appkinsonFront/views/SymptomsFormDoctor/videoPluguin.dart';
 import 'package:flutter/material.dart';
 
 class symptomsFormQ3 extends StatefulWidget {
@@ -7,14 +5,13 @@ class symptomsFormQ3 extends StatefulWidget {
   _symptomsFormQ3 createState() => _symptomsFormQ3();
 }
 
-enum SigningCharacter {Ausente, Infrecuente, Persistente, Mayoria, Presente}
+enum SigningCharacter { Ausente, Infrecuente, Persistente, Mayoria, Presente }
 SigningCharacter _character;
 int selectedStateRadioQ3 = 0;
 
 class _symptomsFormQ3 extends State<symptomsFormQ3> {
-
   @override
-  Widget build(BuildContext context){
+  Widget build(BuildContext context) {
     return Scaffold(
       body: Column(
         children: <Widget>[
@@ -42,7 +39,7 @@ class _symptomsFormQ3 extends State<symptomsFormQ3> {
                   title: const Text('0: Normal   Sin rigidez. '),
                   value: SigningCharacter.Ausente,
                   groupValue: _character,
-                  onChanged: (SigningCharacter value){
+                  onChanged: (SigningCharacter value) {
                     setState(() {
                       _character = value;
                       selectedStateRadioQ3 = 0;
@@ -56,7 +53,7 @@ class _symptomsFormQ3 extends State<symptomsFormQ3> {
                   title: const Text('1: Mínimo   Rigidez solo detectable con maniobra de activación.'),
                   value: SigningCharacter.Infrecuente,
                   groupValue: _character,
-                  onChanged: (SigningCharacter value){
+                  onChanged: (SigningCharacter value) {
                     setState(() {
                       _character = value;
                       selectedStateRadioQ3 = 1;
@@ -70,7 +67,7 @@ class _symptomsFormQ3 extends State<symptomsFormQ3> {
                   title: const Text('2: Leve   La rigidez se detecta sin maniobra de activación, pero se consigue fácilmente el rango completo de movimiento.'),
                   value: SigningCharacter.Persistente,
                   groupValue: _character,
-                  onChanged: (SigningCharacter value){
+                  onChanged: (SigningCharacter value) {
                     setState(() {
                       _character = value;
                       selectedStateRadioQ3 = 2;
@@ -84,7 +81,7 @@ class _symptomsFormQ3 extends State<symptomsFormQ3> {
                   title: const Text('3: Moderado   La rigidez se detecta sin maniobra de activación; se consigue el rango de movimiento completo con esfuerzo.'),
                   value: SigningCharacter.Mayoria,
                   groupValue: _character,
-                  onChanged: (SigningCharacter value){
+                  onChanged: (SigningCharacter value) {
                     setState(() {
                       _character = value;
                       selectedStateRadioQ3 = 3;
@@ -98,7 +95,7 @@ class _symptomsFormQ3 extends State<symptomsFormQ3> {
                   title: const Text('4:   Grave La rigidez se detecta sin maniobra de activación y no se consigue el rango completo de movimiento.'),
                   value: SigningCharacter.Presente,
                   groupValue: _character,
-                  onChanged: (SigningCharacter value){
+                  onChanged: (SigningCharacter value) {
                     setState(() {
                       _character = value;
                       selectedStateRadioQ3 = 4;
@@ -118,7 +115,7 @@ class _symptomsFormQ3 extends State<symptomsFormQ3> {
 }
 
 class BringAnswer3 {
-  int send()  {
+  int send() {
     return selectedStateRadioQ3;
   }
 }

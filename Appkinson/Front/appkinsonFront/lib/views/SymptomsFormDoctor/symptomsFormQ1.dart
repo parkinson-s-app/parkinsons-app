@@ -1,5 +1,3 @@
-import 'dart:io';
-import 'package:appkinsonFront/views/SymptomsFormDoctor/videoPluguin.dart';
 import 'package:flutter/material.dart';
 
 class symptomsFormQ1 extends StatefulWidget {
@@ -7,14 +5,19 @@ class symptomsFormQ1 extends StatefulWidget {
   _symptomsFormQ1 createState() => _symptomsFormQ1();
 }
 
-enum SigningCharacter {Normal, PerdidaDeExpresion, Monotono, Alterado, Ininteligible}
+enum SigningCharacter {
+  Normal,
+  PerdidaDeExpresion,
+  Monotono,
+  Alterado,
+  Ininteligible
+}
 SigningCharacter _character;
 int selectedStateRadioQ1 = 0;
 
 class _symptomsFormQ1 extends State<symptomsFormQ1> {
-
   @override
-  Widget build(BuildContext context){
+  Widget build(BuildContext context) {
     return Scaffold(
       body: Column(
         children: <Widget>[
@@ -41,7 +44,7 @@ class _symptomsFormQ1 extends State<symptomsFormQ1> {
                   title: const Text('0: Normal   Sin problemas de lenguaje.'),
                   value: SigningCharacter.Normal,
                   groupValue: _character,
-                  onChanged: (SigningCharacter value){
+                  onChanged: (SigningCharacter value) {
                     setState(() {
                       _character = value;
                       selectedStateRadioQ1 = 0;
@@ -55,7 +58,7 @@ class _symptomsFormQ1 extends State<symptomsFormQ1> {
                   title: const Text('1: Mínimo   Pérdida de modulación, dicción, o volumen, pero todas las palabras se entienden fácilmente. '),
                   value: SigningCharacter.PerdidaDeExpresion,
                   groupValue: _character,
-                  onChanged: (SigningCharacter value){
+                  onChanged: (SigningCharacter value) {
                     setState(() {
                       _character = value;
                       selectedStateRadioQ1 = 1;
@@ -69,7 +72,7 @@ class _symptomsFormQ1 extends State<symptomsFormQ1> {
                   title: const Text('2: Leve   Pérdida de modulación, dicción, o volumen, con algunas palabras poco claras, pero se pueden entender las frases en conjunto'),
                   value: SigningCharacter.Monotono,
                   groupValue: _character,
-                  onChanged: (SigningCharacter value){
+                  onChanged: (SigningCharacter value) {
                     setState(() {
                       _character = value;
                       selectedStateRadioQ1 = 2;
@@ -83,7 +86,7 @@ class _symptomsFormQ1 extends State<symptomsFormQ1> {
                   title: const Text('3: Moderado   El lenguaje es difícil de entender hasta tal punto que algunas, pero no todas las frases, se entienden mal. '),
                   value: SigningCharacter.Alterado,
                   groupValue: _character,
-                  onChanged: (SigningCharacter value){
+                  onChanged: (SigningCharacter value) {
                     setState(() {
                       _character = value;
                       selectedStateRadioQ1 = 3;
@@ -97,7 +100,7 @@ class _symptomsFormQ1 extends State<symptomsFormQ1> {
                   title: const Text('4: Grave   La mayor parte del lenguaje es difícil de entender o ininteligible'),
                   value: SigningCharacter.Ininteligible,
                   groupValue: _character,
-                  onChanged: (SigningCharacter value){
+                  onChanged: (SigningCharacter value) {
                     setState(() {
                       _character = value;
                       selectedStateRadioQ1 = 4;

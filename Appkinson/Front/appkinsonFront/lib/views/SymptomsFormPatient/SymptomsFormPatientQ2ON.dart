@@ -1,5 +1,3 @@
-import 'dart:io';
-import 'package:appkinsonFront/views/SymptomsFormDoctor/videoPluguin.dart';
 import 'package:flutter/material.dart';
 
 class SymptomsFormPatientQ2ON extends StatefulWidget {
@@ -30,7 +28,7 @@ class _symptomsFormPatientQ2ON extends State<SymptomsFormPatientQ2ON> {
               padding: EdgeInsets.all(15.0),
               alignment: Alignment.center,
               child: Text(
-                "COMO SE SIENTE?",
+                "CÓMO SE SIENTE?",
                 style: TextStyle(
                   fontSize: 22.0,
                   fontFamily: "Ralewaybold",

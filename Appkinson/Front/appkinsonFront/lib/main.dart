@@ -15,6 +15,7 @@ import 'views/SymptomsFormDoctor/symptomsForm.dart';
 import 'views/Calendar/CalendarScreen.dart';
 import 'model/User.dart';
 
+/*
 List<User> patients = [];
 
 void callbackDispatcher() {
@@ -42,14 +43,17 @@ void callbackDispatcher() {
     return Future.value(true);
   });
 }
+*/
 
 void main() async {
+  /*
   WidgetsFlutterBinding.ensureInitialized();
   await Workmanager.initialize(callbackDispatcher);
   await Workmanager.registerPeriodicTask("test_workertask", "test_workertask",
       inputData: {"data1": "value1", "data2": "value2"},
       frequency: Duration(minutes: 15),
       initialDelay: Duration(minutes: 1));
+      */
   runApp(MyApp());
 }
 
@@ -61,8 +65,7 @@ class MyApp extends StatelessWidget {
     return new MaterialApp(debugShowCheckedModeBanner: false, home: HomePage());
 
     //return new MaterialApp(debugShowCheckedModeBanner: false, home: relationRequest());
-    return new MaterialApp(
-        debugShowCheckedModeBanner: false, home: ReportScreen());
+    //return new MaterialApp(debugShowCheckedModeBanner: false, home: ReportScreen());
 
     // return new MaterialApp(
     //     debugShowCheckedModeBanner: false, home: SymptomsFormPatient());

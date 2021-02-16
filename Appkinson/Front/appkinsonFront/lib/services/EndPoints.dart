@@ -1,19 +1,16 @@
 import 'dart:async';
 import 'dart:convert';
-//import 'dart:html';
 import 'dart:io';
 
+import 'package:appkinsonFront/constants/Constant.dart';
 import 'package:appkinsonFront/model/SymptomsForm.dart';
 import 'package:appkinsonFront/model/SymptomsFormPatientM.dart';
-import 'package:appkinsonFront/views/Login/Buttons/ButtonLogin.dart';
 import 'package:flutter/material.dart';
 import '../model/User.dart';
 import 'package:http/http.dart' as http;
 import 'package:dio/dio.dart';
 
 class EndPoints {
-  String endpointBack = 'http://192.168.0.22:8000';
-
   Future<String> addUsers(User newUser) async {
     Map data2 = {
       'email': newUser.email,
@@ -23,7 +20,7 @@ class EndPoints {
     };
     debugPrint(data2.toString());
     http.Response response =
-        await http.post(this.endpointBack + '/api/registro', body: data2);
+        await http.post(endpointBack + addUserUrl, body: data2);
 
     //debugPrint(response.body);
     String i = response.body;
@@ -44,9 +41,9 @@ class EndPoints {
     });
 
     Dio dio = new Dio();
-    dio.options.headers["authorization"] = "Bearer " + decodedToken['token'];
-    Response response = await dio
-        .post(this.endpointBack + '/api/users/$tokenId', data: formData);
+    dio.options.headers["authorization"] = jwtkey + decodedToken['token'];
+    Response response =
+        await dio.post(endpointBack + '/api/users/$tokenId', data: formData);
     /*http.Response response = await http.put(
         this.endpointBack + '/api/users/' + tokenId,
         body: data2,
@@ -71,11 +68,11 @@ class EndPoints {
       //'image': newUser.photo
     };
     debugPrint('hola');
-    http.Response response = await http.put(
-        this.endpointBack + '/api/users/' + tokenId,
+    http.Response response = await http.post(
+        endpointBack + modifyNameOfUserURL + tokenId,
         body: data2,
         headers: {
-          HttpHeaders.authorizationHeader: "Bearer " + decodedToken['token']
+          HttpHeaders.authorizationHeader: jwtkey + decodedToken['token']
         });
 
     //debugPrint(response.body);
@@ -88,7 +85,7 @@ class EndPoints {
     debugPrint("entro");
     Map data2 = {'email': authUser.email, 'password': authUser.password};
     http.Response response =
-        await http.post(this.endpointBack + '/api/login', body: data2);
+        await http.post(endpointBack + authURL, body: data2);
     //debugPrint(data2.toString());
     debugPrint("-----");
     debugPrint(response.body);
@@ -109,8 +106,8 @@ class EndPoints {
       'RequesterType': type,
       'RequesterId': requesterId
     };
-    http.Response response = await http
-        .post(this.endpointBack + '/api/relation/response', body: data2);
+    http.Response response =
+        await http.post(endpointBack + '/api/relation/response', body: data2);
     debugPrint(data2.toString());
     String i = response.body;
     return i;
@@ -119,10 +116,10 @@ class EndPoints {
   Future<String> linkUser(String emailUser, var tokenID, var token) async {
     //Map data2 = {'email': authUser.email, 'password': authUser.password};
     var codeToken = json.decode(token);
-    http.Response lista = await http
-        .get(this.endpointBack + '/api/doctor/patients/unrelated', headers: {
-      HttpHeaders.authorizationHeader: "Bearer " + codeToken['token']
-    });
+    http.Response lista = await http.get(endpointBack + linkUserUnrelatedURL,
+        headers: {
+          HttpHeaders.authorizationHeader: jwtkey + codeToken['token']
+        });
     //http.Response response =
     debugPrint(lista.body);
     String i = lista.body;
@@ -132,9 +129,7 @@ class EndPoints {
     for (var a = 0; a < codeList.length; a++) {
       if (emailUser == codeList[a]['EMAIL'].toString()) {
         http.Response added = await http.post(
-            this.endpointBack +
-                '/api/relate/' +
-                codeList[a]['ID_USER'].toString(),
+            endpointBack + linkUserURL + codeList[a]['ID_USER'].toString(),
             headers: {
               HttpHeaders.authorizationHeader: "Bearer " + codeToken['token']
             });
@@ -149,7 +144,7 @@ class EndPoints {
     //Map data2 = {'email': authUser.email, 'password': authUser.password};
     var codeToken = json.decode(token);
     http.Response lista = await http
-        .get(this.endpointBack + '/api/carer/patients/unrelated', headers: {
+        .get(endpointBack + '/api/carer/patients/unrelated', headers: {
       HttpHeaders.authorizationHeader: "Bearer " + codeToken['token']
     });
     //http.Response response =
@@ -161,9 +156,7 @@ class EndPoints {
     for (var a = 0; a < codeList.length; a++) {
       if (emailUser == codeList[a]['EMAIL'].toString()) {
         http.Response added = await http.post(
-            this.endpointBack +
-                '/api/relate/' +
-                codeList[a]['ID_USER'].toString(),
+            endpointBack + '/api/relate/' + codeList[a]['ID_USER'].toString(),
             headers: {
               HttpHeaders.authorizationHeader: "Bearer " + codeToken['token']
             });
@@ -174,13 +167,13 @@ class EndPoints {
     return addedUser;
   }
 
-  Future<List<String>> linkedUser(var tokenID, var token) async {
+  Future<String> linkedUser(var tokenID, var token) async {
     //Map data2 = {'email': authUser.email, 'password': authUser.password};
     var codeToken = json.decode(token);
-    http.Response lista = await http
-        .get(this.endpointBack + '/api/doctor/patients/related', headers: {
-      HttpHeaders.authorizationHeader: "Bearer " + codeToken['token']
-    });
+    http.Response lista = await http.get(endpointBack + linkUserRelatedURL,
+        headers: {
+          HttpHeaders.authorizationHeader: jwtkey + codeToken['token']
+        });
     //http.Response response =
     debugPrint(lista.body);
     String i = lista.body;
@@ -189,15 +182,15 @@ class EndPoints {
     for (var a = 0; a < codeList.length; a++) {
       patients.add(codeList[a]['EMAIL']);
     }
-    return patients;
+    return i;
   }
 
   Future<List<String>> linkedUserCarer(var tokenID, var token) async {
     //Map data2 = {'email': authUser.email, 'password': authUser.password};
     var codeToken = json.decode(token);
     http.Response lista = await http
-        .get(this.endpointBack + '/api/carer/patients/related', headers: {
-      HttpHeaders.authorizationHeader: "Bearer " + codeToken['token']
+        .get(endpointBack + '/api/carer/patients/related', headers: {
+      HttpHeaders.authorizationHeader: jwtkey + codeToken['token']
     });
     //http.Response response =
     debugPrint(lista.body);
@@ -250,28 +243,30 @@ class EndPoints {
 
     FormData formData = new FormData.fromMap(formMap);
     Dio dio = new Dio();
-    dio.options.headers["authorization"] = "Bearer " + decodedToken['token'];
+    dio.options.headers["authorization"] = jwtkey + decodedToken['token'];
     Response response = await dio.post(
-        this.endpointBack + '/api/users/$tokenID/symptomsForm',
+        endpointBack + '/api/users/$tokenID/symptomsForm',
         data: formData);
     debugPrint("formulario enviado");
     return success;
   }
 
+/*
   Future<String> getRelationRequest(var token) async {
     //Map data2 = {'email': authUser.email, 'password': authUser.password};
     var codeToken = json.decode(token);
     http.Response lista = await http
-        .get(this.endpointBack + '/api/patient/relationRequest', headers: {
-      HttpHeaders.authorizationHeader: "Bearer " + codeToken['token']
+        .get(endpointBack + '/api/patient/relationRequest', headers: {
+      HttpHeaders.authorizationHeader: jwtkey + codeToken['token']
     });
     //http.Response response =
     debugPrint(lista.body);
     String relationsRequest = lista.body;
     return relationsRequest;
   }
+  */
 
-  Future<bool> registerSymptomsFormPatient(
+  Future<String> registerSymptomsFormPatient(
       SymptomsFormPatientM form, var tokenID, var token) async {
     bool success = false;
 
@@ -297,12 +292,27 @@ class EndPoints {
     };
 
     FormData formData = new FormData.fromMap(formMap);
+
     Dio dio = new Dio();
-    dio.options.headers["authorization"] = "Bearer " + decodedToken['token'];
+    dio.options.headers["authorization"] = jwtkey + decodedToken['token'];
     Response response = await dio.post(
-        this.endpointBack + '/api/users/$tokenID/symptomsFormPatient',
+        endpointBack + '/api/users/$tokenID/symptomsFormPatient',
         data: formData);
-    debugPrint("formulario enviado");
-    return success;
+    debugPrint(response.statusMessage);
+    return response.statusMessage;
+  }
+
+  Future<String> getSymptomsFormPatient(var token, var tokenID) async {
+    //Map data2 = {'email': authUser.email, 'password': authUser.password};
+    var codeToken = json.decode(token);
+    http.Response lista = await http.get(
+        endpointBack + '/api/patients/$tokenID/symptomsFormPatient',
+        headers: {
+          HttpHeaders.authorizationHeader: "Bearer " + codeToken['token']
+        });
+    //http.Response response =
+    debugPrint(lista.body);
+    String relationsRequest = lista.body;
+    return relationsRequest;
   }
 }

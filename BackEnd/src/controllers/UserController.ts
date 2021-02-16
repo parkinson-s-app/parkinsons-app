@@ -111,7 +111,10 @@ UserController.post('/users/:id', multer.single('photo'), verifyToken, async (re
     debug('Users UpdateById');
     const id = +req.params.id;
     let updatedUserData = req.body as IPersonalDataDto;
-    updatedUserData.PHOTOPATH = req.file.path;
+    if(req.file){
+        updatedUserData.PHOTOPATH = req.file.path;
+    }
+    
     debug('Users Update user: %j, ID:', updatedUserData, id);
     const response = await PersonService.updatePerson(id, updatedUserData);
     debug('User UpdateById response db: %j', response);
@@ -237,8 +240,8 @@ UserController.post('/users/:id/symptomsFormPatient', multer.single('video'), ve
         debug('Patients Symptoms json: %j', symptomsFormData);
     }
     try {
-        const response = PersonService.saveSymptomsForm(id, symptomsFormData);
-        debug('Patient symptoms save result %j', response);
+        const response = await PersonService.saveSymptomsForm(id, symptomsFormData);
+        debug('Patient symptoms save result %j, succesful', response);
         status = constants.HTTP_STATUS_OK;
         res.status(status).send('OK');
     } catch (error) {
@@ -290,6 +293,34 @@ UserController.get('/patients/relationRequest', verifyToken, async (req: Request
             //     const responseError = { status, error};
             //     res.status(status).send(responseError);
             // }
+        }
+    } else {
+        debug('Mock Error getting authorization header');
+        status = constants.HTTP_STATUS_BAD_REQUEST;
+        res.status(status).send('Bad request');
+    }
+});
+
+UserController.get('/patients/:id/symptomsFormPatient', verifyToken, async (req: Request, res: Response) => {
+    debug('Getting symptoms form');
+    const bearerHeader = req.headers['authorization'];
+    const id = +req.params.id;
+    debug('Patients form by Id, id: %s', id);
+    let status;
+    if( bearerHeader !== undefined ) {
+        const idSender = getIdFromToken(bearerHeader);
+        if( !isNaN(idSender) ){
+            
+            try {
+                const requests = await PersonService.getSymptomsForm(id);
+                debug('Getting symptoms form result %j', requests);
+                status = constants.HTTP_STATUS_OK;
+                res.status(status).send(requests);
+            } catch (error) {
+                status = constants.HTTP_STATUS_INTERNAL_SERVER_ERROR;
+                const responseError = { status, error};
+                res.status(status).send(responseError);
+            }
         }
     } else {
         debug('Mock Error getting authorization header');

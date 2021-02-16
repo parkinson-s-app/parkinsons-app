@@ -1,15 +1,12 @@
-import 'dart:io';
-import 'dart:ui';
 import 'package:appkinsonFront/views/SymptomsFormPatient/SymptomsFormPatientQ2OFF.dart';
 import 'package:appkinsonFront/views/SymptomsFormPatient/SymptomsFormPatientQ2ON.dart';
 import 'package:appkinsonFront/views/SymptomsFormPatient/SymptomsFormPatientQ3.dart';
 import 'package:appkinsonFront/views/SymptomsFormPatient/SymptomsFormPatientQ4.dart';
 import 'package:appkinsonFront/views/SymptomsFormPatient/SymptomsFormPatientQ5OFF.dart';
 import 'package:appkinsonFront/views/SymptomsFormPatient/SymptomsFormPatientQ2.dart';
-import 'package:appkinsonFront/views/SymptomsFormDoctor/videoPluguin.dart';
+
 import 'package:flutter/material.dart';
 
-import 'SymptomsFormPatientQ1.dart';
 import 'SymptomsFormPatientQ2.dart';
 
 class SymptomsFormPatient3 extends StatefulWidget {
@@ -41,7 +38,7 @@ class _symptomsForm3 extends State<SymptomsFormPatient3> {
       appBar: AppBar(
         centerTitle: true,
         title: Text(
-          "Formulario de sintomas",
+          "Formulario de síntomas",
         ),
         backgroundColor: Colors.blue,
         actions: <Widget>[

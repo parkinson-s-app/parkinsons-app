@@ -1,5 +1,4 @@
 import 'package:appkinsonFront/routes/RoutesPatient.dart';
-import 'package:appkinsonFront/views/SymptomsFormPatient/SymptomsFormPatientQ5ON.dart';
 import 'package:flutter/material.dart';
 import 'package:syncfusion_flutter_calendar/calendar.dart';
 
@@ -28,7 +27,6 @@ class _Calendar extends State<CalendarScreenView2> {
     ));
   }
 
-  /*
   List<Meeting> _getDataSource() {
     meetings = <Meeting>[];
 
@@ -41,7 +39,6 @@ class _Calendar extends State<CalendarScreenView2> {
 
     return meetings;
   }
-  */
 }
 
 class MeetingDataSource extends CalendarDataSource {

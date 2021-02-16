@@ -1,5 +1,3 @@
-import 'dart:io';
-import 'package:appkinsonFront/views/SymptomsFormDoctor/videoPluguin.dart';
 import 'package:flutter/material.dart';
 
 class symptomsFormQ5 extends StatefulWidget {
@@ -7,14 +5,13 @@ class symptomsFormQ5 extends StatefulWidget {
   _symptomsFormQ5 createState() => _symptomsFormQ5();
 }
 
-enum SigningCharacter {Ausente, Leve, ModeradoAccion, Moderado, Amplio}
-SigningCharacter _character ;
+enum SigningCharacter { Ausente, Leve, ModeradoAccion, Moderado, Amplio }
+SigningCharacter _character;
 int selectedStateRadioQ5 = 0;
 
 class _symptomsFormQ5 extends State<symptomsFormQ5> {
-
   @override
-  Widget build(BuildContext context){
+  Widget build(BuildContext context) {
     return Scaffold(
       body: Column(
         children: <Widget>[
@@ -42,7 +39,7 @@ class _symptomsFormQ5 extends State<symptomsFormQ5> {
                   title: const Text('0: Normal   Sin problemas. '),
                   value: SigningCharacter.Ausente,
                   groupValue: _character,
-                  onChanged: (SigningCharacter value){
+                  onChanged: (SigningCharacter value) {
                     setState(() {
                       _character = value;
                       selectedStateRadioQ5 = 0;
@@ -56,7 +53,7 @@ class _symptomsFormQ5 extends State<symptomsFormQ5> {
                   title: const Text('1: Mínimo   Cualquiera de lo siguiente: a) el ritmo regular se rompe con una o dos interrupciones o titubeos en el movimiento; b) mínimo enlentecimiento; c) la amplitud disminuye cerca del final de la tarea. '),
                   value: SigningCharacter.Leve,
                   groupValue: _character,
-                  onChanged: (SigningCharacter value){
+                  onChanged: (SigningCharacter value) {
                     setState(() {
                       _character = value;
                       selectedStateRadioQ5 = 1;
@@ -70,7 +67,7 @@ class _symptomsFormQ5 extends State<symptomsFormQ5> {
                   title: const Text('2: Leve   Cualquiera de los siguientes: a) de 3 a 5 interrupciones durante los movimientos; b) enlentecimiento leve; c) la amplitud disminuye hacia la mitad de la tarea.'),
                   value: SigningCharacter.ModeradoAccion,
                   groupValue: _character,
-                  onChanged: (SigningCharacter value){
+                  onChanged: (SigningCharacter value) {
                     setState(() {
                       _character = value;
                       selectedStateRadioQ5 = 2;
@@ -84,7 +81,7 @@ class _symptomsFormQ5 extends State<symptomsFormQ5> {
                   title: const Text('3: Moderado   Cualquiera de los siguientes: a) más de 5 interrupciones durante el movimiento o al menos una interrupción prolongada (congelación) durante el movimiento en curso; b) moderado enlentecimiento; c) la amplitud disminuye después de la primera secuencia de “abrir y cerrar”.'),
                   value: SigningCharacter.Moderado,
                   groupValue: _character,
-                  onChanged: (SigningCharacter value){
+                  onChanged: (SigningCharacter value) {
                     setState(() {
                       _character = value;
                       selectedStateRadioQ5 = 3;
@@ -98,7 +95,7 @@ class _symptomsFormQ5 extends State<symptomsFormQ5> {
                   title: const Text('4: Grave   No puede o casi no puede ejecutar la tarea debido a enlentecimiento, interrupciones o decrementos'),
                   value: SigningCharacter.Amplio,
                   groupValue: _character,
-                  onChanged: (SigningCharacter value){
+                  onChanged: (SigningCharacter value) {
                     setState(() {
                       _character = value;
                       selectedStateRadioQ5 = 4;
@@ -118,7 +115,7 @@ class _symptomsFormQ5 extends State<symptomsFormQ5> {
 }
 
 class BringAnswer5 {
-  int send()  {
+  int send() {
     return selectedStateRadioQ5;
   }
 }
