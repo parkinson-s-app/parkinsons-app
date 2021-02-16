@@ -227,6 +227,7 @@ class EndPoints {
       'q3': form.q3,
       'q4': form.q4,
       'q5': form.q5,
+      /*
       'q6': form.q6,
       'q7': form.q7,
       'q8': form.q8,
@@ -238,6 +239,7 @@ class EndPoints {
       'q14': form.q14,
       'q15': form.q15,
       'q16': form.q16,
+      */
       'date': form.date,
       'video': video,
     };

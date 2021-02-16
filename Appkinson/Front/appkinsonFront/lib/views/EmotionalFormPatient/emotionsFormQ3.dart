@@ -22,7 +22,7 @@ class _emotionsFormQ3 extends State<emotionsFormQ3> {
               padding: EdgeInsets.all(15.0),
               alignment: Alignment.center,
               child: Text(
-                "Dificultad para tragar comida o bebidas, o tendencia a atragantarse ",
+                "Dificultad para pasar o deglutir comida o bebidas, o tendencia a atorarse ",
                 style: TextStyle(
                   fontSize: 22.0,
                   fontFamily: "Ralewaybold",

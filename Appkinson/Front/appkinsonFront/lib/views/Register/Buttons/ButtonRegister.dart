@@ -53,23 +53,24 @@ class ButtonRegisterCustom extends State<ButtonRegister> {
             hasSpecialCharacters = true;
           }
 
-          debugPrint("Validando condiciones");
-          if (user.email.toString().contains('@')) {
-            debugPrint("correo valido");
-            if (/*mas de 8 char*/ user.password.toString().length > 8) {
-              debugPrint("longitud valida");
-              if (/*Mayuscula*/ hasUppercase == true) {
-                debugPrint("Tiene mayuscula");
-                if (/*Char extra*/ hasSpecialCharacters = true) {
-                  debugPrint("contiene caracter especial");
-                  String save = await EndPoints().addUsers(user);
-                  debugPrint(save);
-                  if (save == 'Guardado') {
-                    //RoutesGeneral().toLogin(context);
-                    Navigator.push(
-                        context,
-                        new MaterialPageRoute(
-                            builder: (context) => LoginPage()));
+            debugPrint("Validando condiciones");
+            if (user.email.toString().contains('@')) {
+              debugPrint("correo valido");
+              if (/*mas de 8 char*/ user.password.toString().length > 7) {
+                debugPrint("longitud valida");
+                if (/*Mayuscula*/ hasUppercase == true) {
+                  debugPrint("Tiene mayuscula");
+                  if (/*Char extra*/ hasSpecialCharacters = true) {
+                    debugPrint("contiene caracter especial");
+                    String save = await EndPoints().addUsers(user);
+                    debugPrint(save);
+                    if (save == 'Guardado') {
+                      //RoutesGeneral().toLogin(context);
+                      Navigator.push(context, new MaterialPageRoute( builder: (context) => LoginPage()));
+                    }
+                  } else {
+                    //debe contener un caracter especial
+                    invalid(3,context);
                   }
                 } else {
                   //debe contener un caracter especial

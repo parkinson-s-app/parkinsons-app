@@ -22,7 +22,7 @@ class _emotionsFormQ5 extends State<emotionsFormQ5> {
               padding: EdgeInsets.all(15.0),
               alignment: Alignment.center,
               child: Text(
-                "Estreñimiento (hacer de vientre menos de 3 veces a la semana) o tener que hacer esfuerzos para hacer de vientre",
+                "Estreñimiento (hacer del cuerpo de 3 veces a la semana) o tener que hacer esfuerzos para hacer de vientre",
                 style: TextStyle(
                   fontSize: 22.0,
                   fontFamily: "Ralewaybold",

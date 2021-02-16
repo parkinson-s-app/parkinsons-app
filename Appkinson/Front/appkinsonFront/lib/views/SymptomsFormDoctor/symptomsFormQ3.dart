@@ -22,7 +22,7 @@ class _symptomsFormQ3 extends State<symptomsFormQ3> {
               padding: EdgeInsets.all(15.0),
               alignment: Alignment.center,
               child: Text(
-                "TEMBLOR DE REPOSO EN MIEMBROS SUPERIORES",
+                "RIGIDEZ",
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   fontSize: 22.0,
@@ -36,7 +36,7 @@ class _symptomsFormQ3 extends State<symptomsFormQ3> {
             child: Column(
               children: <Widget>[
                 RadioListTile<SigningCharacter>(
-                  title: const Text('Ausente'),
+                  title: const Text('0: Normal   Sin rigidez. '),
                   value: SigningCharacter.Ausente,
                   groupValue: _character,
                   onChanged: (SigningCharacter value) {
@@ -50,7 +50,7 @@ class _symptomsFormQ3 extends State<symptomsFormQ3> {
                   height: 20,
                 ),
                 RadioListTile<SigningCharacter>(
-                  title: const Text('Poca frecuencia'),
+                  title: const Text('1: Mínimo   Rigidez solo detectable con maniobra de activación.'),
                   value: SigningCharacter.Infrecuente,
                   groupValue: _character,
                   onChanged: (SigningCharacter value) {
@@ -64,7 +64,7 @@ class _symptomsFormQ3 extends State<symptomsFormQ3> {
                   height: 20,
                 ),
                 RadioListTile<SigningCharacter>(
-                  title: const Text('Persistente'),
+                  title: const Text('2: Leve   La rigidez se detecta sin maniobra de activación, pero se consigue fácilmente el rango completo de movimiento.'),
                   value: SigningCharacter.Persistente,
                   groupValue: _character,
                   onChanged: (SigningCharacter value) {
@@ -78,8 +78,7 @@ class _symptomsFormQ3 extends State<symptomsFormQ3> {
                   height: 20,
                 ),
                 RadioListTile<SigningCharacter>(
-                  title: const Text(
-                      'Presente la mayor parte del tiempo, temblor moderado'),
+                  title: const Text('3: Moderado   La rigidez se detecta sin maniobra de activación; se consigue el rango de movimiento completo con esfuerzo.'),
                   value: SigningCharacter.Mayoria,
                   groupValue: _character,
                   onChanged: (SigningCharacter value) {
@@ -93,8 +92,7 @@ class _symptomsFormQ3 extends State<symptomsFormQ3> {
                   height: 20,
                 ),
                 RadioListTile<SigningCharacter>(
-                  title: const Text(
-                      'Presente la mayor parte del tiempo, temblor severo'),
+                  title: const Text('4:   Grave La rigidez se detecta sin maniobra de activación y no se consigue el rango completo de movimiento.'),
                   value: SigningCharacter.Presente,
                   groupValue: _character,
                   onChanged: (SigningCharacter value) {

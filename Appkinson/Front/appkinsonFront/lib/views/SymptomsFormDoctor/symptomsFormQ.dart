@@ -54,6 +54,7 @@ class _symptomsFormQ extends State<symptomsFormQ> {
           symptomsFormQ3(),
           symptomsFormQ4(),
           symptomsFormQ5(),
+          /*
           symptomsFormQ6(),
           symptomsFormQ7(),
           symptomsFormQ8(),
@@ -65,7 +66,7 @@ class _symptomsFormQ extends State<symptomsFormQ> {
           symptomsFormQ14(),
           symptomsFormQ15(),
           symptomsFormQ16(),
-          /*symptomsFormQ17(),
+          symptomsFormQ17(),
           symptomsFormQ18(),
           symptomsFormQ19(),
           symptomsFormQ20(),

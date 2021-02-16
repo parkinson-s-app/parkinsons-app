@@ -22,7 +22,7 @@ class _emotionsFormQ4 extends State<emotionsFormQ4> {
               padding: EdgeInsets.all(15.0),
               alignment: Alignment.center,
               child: Text(
-                "Vómitos o nauseas",
+                "Vómitos o náuseas",
                 style: TextStyle(
                   fontSize: 22.0,
                   fontFamily: "Ralewaybold",
