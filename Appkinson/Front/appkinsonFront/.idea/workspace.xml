@@ -30,28 +30,7 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="31db714b-e910-47be-9d56-52caa0903605" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/assets/images/burned.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/images/distance.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/images/ejercicio.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/images/food.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/images/heart.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/images/logostep.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/images/news.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/images/parkinson.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/images/step.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/views/ToolBox/AboutExcercises/Buttons/ButtonGoAboutExcercises.dart" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/views/ToolBox/AboutFood/Buttons/ButtonGoAboutFood.dart" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/views/ToolBox/AboutNews/Buttons/ButtonGoAboutNews.dart" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/views/ToolBox/AboutParkinson/Buttons/ButtonGoAboutParkinson.dart" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/views/ToolBox/ToolBoxInitial.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/android/app/src/main/java/io/flutter/plugins/GeneratedPluginRegistrant.java" beforeDir="false" afterPath="$PROJECT_DIR$/android/app/src/main/java/io/flutter/plugins/GeneratedPluginRegistrant.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ios/Runner/GeneratedPluginRegistrant.m" beforeDir="false" afterPath="$PROJECT_DIR$/ios/Runner/GeneratedPluginRegistrant.m" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/main.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/main.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pubspec.lock" beforeDir="false" afterPath="$PROJECT_DIR$/pubspec.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pubspec.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/pubspec.yaml" afterDir="false" />
-    </list>
+    <list default="true" id="31db714b-e910-47be-9d56-52caa0903605" name="Default Changelist" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -141,30 +120,30 @@
     </state>
     <state x="556" y="128" key="FileChooserDialogImpl/0.0.1366.728@0.0.1366.728" timestamp="1609280460264" />
     <state x="824" y="212" width="424" height="491" key="FileChooserDialogImpl/72.27.1848.1053@72.27.1848.1053" timestamp="1613166379246" />
-    <state width="1802" height="275" key="GridCell.Tab.0.bottom" timestamp="1613138070847">
+    <state width="1802" height="275" key="GridCell.Tab.0.bottom" timestamp="1613435184689">
       <screen x="72" y="27" width="1848" height="1053" />
     </state>
     <state width="1323" height="108" key="GridCell.Tab.0.bottom/0.0.1366.728@0.0.1366.728" timestamp="1610934237933" />
     <state width="1638" height="275" key="GridCell.Tab.0.bottom/0.0.1680.1050@0.0.1680.1050" timestamp="1607313673152" />
-    <state width="1802" height="275" key="GridCell.Tab.0.bottom/72.27.1848.1053@72.27.1848.1053" timestamp="1613138070847" />
-    <state width="1802" height="275" key="GridCell.Tab.0.center" timestamp="1613138070847">
+    <state width="1802" height="275" key="GridCell.Tab.0.bottom/72.27.1848.1053@72.27.1848.1053" timestamp="1613435184689" />
+    <state width="1802" height="275" key="GridCell.Tab.0.center" timestamp="1613435184689">
       <screen x="72" y="27" width="1848" height="1053" />
     </state>
     <state width="1323" height="108" key="GridCell.Tab.0.center/0.0.1366.728@0.0.1366.728" timestamp="1610934237933" />
     <state width="1638" height="275" key="GridCell.Tab.0.center/0.0.1680.1050@0.0.1680.1050" timestamp="1607313673038" />
-    <state width="1802" height="275" key="GridCell.Tab.0.center/72.27.1848.1053@72.27.1848.1053" timestamp="1613138070847" />
-    <state width="1802" height="275" key="GridCell.Tab.0.left" timestamp="1613138070847">
+    <state width="1802" height="275" key="GridCell.Tab.0.center/72.27.1848.1053@72.27.1848.1053" timestamp="1613435184689" />
+    <state width="1802" height="275" key="GridCell.Tab.0.left" timestamp="1613435184689">
       <screen x="72" y="27" width="1848" height="1053" />
     </state>
     <state width="1323" height="108" key="GridCell.Tab.0.left/0.0.1366.728@0.0.1366.728" timestamp="1610934237855" />
     <state width="1638" height="275" key="GridCell.Tab.0.left/0.0.1680.1050@0.0.1680.1050" timestamp="1607313673023" />
-    <state width="1802" height="275" key="GridCell.Tab.0.left/72.27.1848.1053@72.27.1848.1053" timestamp="1613138070847" />
-    <state width="1802" height="275" key="GridCell.Tab.0.right" timestamp="1613138070847">
+    <state width="1802" height="275" key="GridCell.Tab.0.left/72.27.1848.1053@72.27.1848.1053" timestamp="1613435184689" />
+    <state width="1802" height="275" key="GridCell.Tab.0.right" timestamp="1613435184689">
       <screen x="72" y="27" width="1848" height="1053" />
     </state>
     <state width="1323" height="108" key="GridCell.Tab.0.right/0.0.1366.728@0.0.1366.728" timestamp="1610934237933" />
     <state width="1638" height="275" key="GridCell.Tab.0.right/0.0.1680.1050@0.0.1680.1050" timestamp="1607313673073" />
-    <state width="1802" height="275" key="GridCell.Tab.0.right/72.27.1848.1053@72.27.1848.1053" timestamp="1613138070847" />
+    <state width="1802" height="275" key="GridCell.Tab.0.right/72.27.1848.1053@72.27.1848.1053" timestamp="1613435184689" />
     <state x="277" y="18" key="SettingsEditor" timestamp="1609280462783">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
