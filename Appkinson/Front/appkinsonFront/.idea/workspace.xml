@@ -30,9 +30,7 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="31db714b-e910-47be-9d56-52caa0903605" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/lib/views/ToolBox/ToolBoxInitial.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/views/ToolBox/ToolBoxInitial.dart" afterDir="false" />
-    </list>
+    <list default="true" id="31db714b-e910-47be-9d56-52caa0903605" name="Default Changelist" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />

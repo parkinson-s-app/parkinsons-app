@@ -24,7 +24,7 @@ class _toolbox extends State<toolbox> {
   String _stepCountValue = '0';
   StreamSubscription<int> _subscription;
 
-  double numero_pasos;
+  double numero_pasos; //numero pasos
   double _convert;
   double _kmx;
   double burnedx;
@@ -34,6 +34,7 @@ class _toolbox extends State<toolbox> {
   @override
   void initState() {
     super.initState();
+    //initPlatformState();
     setUpPedometer();
   }
 
@@ -45,17 +46,18 @@ class _toolbox extends State<toolbox> {
   }
 
   void _onData(int stepCountValue) async {
+    // print(stepCountValue); //impresion numero pasos por consola
     setState(() {
       _stepCountValue = "$stepCountValue";
       // print(_stepCountValue);
     });
 
-    var dist = stepCountValue;
-    double y = (dist + .0);
+    var dist = stepCountValue; //pasamos el entero a una variable llamada dist
+    double y = (dist + .0); //lo convertimos a double una forma de varias
 
     setState(() {
       numero_pasos =
-          y;
+          y; //lo pasamos a un estado para ser capturado ya convertido a double
     });
 
     var long3 = (numero_pasos);
@@ -93,25 +95,29 @@ class _toolbox extends State<toolbox> {
   //function to determine the distance run in kilometers using number of steps
   void getDistanceRun(double numero_pasos) {
     var distance = ((numero_pasos * 78) / 100000);
-    distance = num.parse(distance.toStringAsFixed(2));
+    distance = num.parse(distance.toStringAsFixed(2)); //dos decimales
     var distancekmx = distance * 34;
     distancekmx = num.parse(distancekmx.toStringAsFixed(2));
     //print(distance.runtimeType);
     setState(() {
       _km = "$distance";
+      //print(_km);
     });
     setState(() {
       _kmx = num.parse(distancekmx.toStringAsFixed(2));
     });
   }
 
+  //function to determine the calories burned in kilometers using number of steps
   void getBurnedRun() {
     setState(() {
       var calories = _kmx; //dos decimales
       _calories = "$calories";
-
+      //print(_calories);
     });
   }
+
+  //fin codigo pedometer
 
   @override
   Widget build(BuildContext context) {
