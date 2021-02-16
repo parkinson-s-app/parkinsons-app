@@ -24,7 +24,7 @@ class _emotionsFormQ1 extends State<emotionsFormQ1> {
               padding: EdgeInsets.all(15.0),
               alignment: Alignment.center,
               child: Text(
-                "Babeo durante el día",
+                "Salivación durante el día",
                 style: TextStyle(
                   fontSize: 22.0,
                   fontFamily: "Ralewaybold",

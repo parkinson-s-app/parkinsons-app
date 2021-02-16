@@ -59,7 +59,7 @@ class ButtonRegisterCustom extends State<ButtonRegister> {
             debugPrint("Validando condiciones");
             if (user.email.toString().contains('@')) {
               debugPrint("correo valido");
-              if (/*mas de 8 char*/ user.password.toString().length > 8) {
+              if (/*mas de 8 char*/ user.password.toString().length > 7) {
                 debugPrint("longitud valida");
                 if (/*Mayuscula*/ hasUppercase == true) {
                   debugPrint("Tiene mayuscula");

@@ -38,7 +38,7 @@ class _symptomsFormQ1 extends State<symptomsFormQ1> {
             child: Column(
               children: <Widget>[
                 RadioListTile<SigningCharacter>(
-                  title: const Text('Normal'),
+                  title: const Text('0: Normal   Sin problemas de lenguaje.'),
                   value: SigningCharacter.Normal,
                   groupValue: _character,
                   onChanged: (SigningCharacter value){
@@ -52,7 +52,7 @@ class _symptomsFormQ1 extends State<symptomsFormQ1> {
                   height: 20,
                 ),
                 RadioListTile<SigningCharacter>(
-                  title: const Text('Pérdida discreta de expresión'),
+                  title: const Text('1: Mínimo   Pérdida de modulación, dicción, o volumen, pero todas las palabras se entienden fácilmente. '),
                   value: SigningCharacter.PerdidaDeExpresion,
                   groupValue: _character,
                   onChanged: (SigningCharacter value){
@@ -66,7 +66,7 @@ class _symptomsFormQ1 extends State<symptomsFormQ1> {
                   height: 20,
                 ),
                 RadioListTile<SigningCharacter>(
-                  title: const Text('Monótono, farfullado, pero comprensible'),
+                  title: const Text('2: Leve   Pérdida de modulación, dicción, o volumen, con algunas palabras poco claras, pero se pueden entender las frases en conjunto'),
                   value: SigningCharacter.Monotono,
                   groupValue: _character,
                   onChanged: (SigningCharacter value){
@@ -80,7 +80,7 @@ class _symptomsFormQ1 extends State<symptomsFormQ1> {
                   height: 20,
                 ),
                 RadioListTile<SigningCharacter>(
-                  title: const Text('Difícil de comprender'),
+                  title: const Text('3: Moderado   El lenguaje es difícil de entender hasta tal punto que algunas, pero no todas las frases, se entienden mal. '),
                   value: SigningCharacter.Alterado,
                   groupValue: _character,
                   onChanged: (SigningCharacter value){
@@ -94,7 +94,7 @@ class _symptomsFormQ1 extends State<symptomsFormQ1> {
                   height: 20,
                 ),
                 RadioListTile<SigningCharacter>(
-                  title: const Text('Ininteligible'),
+                  title: const Text('4: Grave   La mayor parte del lenguaje es difícil de entender o ininteligible'),
                   value: SigningCharacter.Ininteligible,
                   groupValue: _character,
                   onChanged: (SigningCharacter value){
