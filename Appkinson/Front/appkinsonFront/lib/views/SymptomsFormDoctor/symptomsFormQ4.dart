@@ -94,9 +94,12 @@ class _symptomsFormQ4 extends State<symptomsFormQ4> {
                 RadioListTile<SigningCharacter>(
                   title: const Text('4: Grave   No puede o apenas puede realizar la tarea debido a enlentecimiento, interrupciones o decrementos.'),
                   value: SigningCharacter.Presente,
-                      selectedStateRadioQ4 = 4;
-                    });
-                  },
+                    onChanged: (SigningCharacter value) {
+                      setState(() {
+                        _character = value;
+                        selectedStateRadioQ4 = 4;
+                      });
+                    },
                 ),
               ],
             ),
