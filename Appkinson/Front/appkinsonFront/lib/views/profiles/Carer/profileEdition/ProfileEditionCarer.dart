@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:appkinsonFront/model/User.dart';
 import 'package:appkinsonFront/services/EndPoints.dart';
+import 'package:appkinsonFront/views/profiles/Carer/CarerProfileScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:appkinsonFront/views/Login/Buttons/ButtonLogin.dart';
 
@@ -35,6 +36,10 @@ class __ProfileEdition extends State<ProfileEditionCarer> {
         onPressed: () async {
           var m = new metod2();
           var user = await m.send();
+
+          setState(() {
+            name = nameControllerCarer.text;
+          });
           /*
           debugPrint(user.name);
           var lista = token.split(".");

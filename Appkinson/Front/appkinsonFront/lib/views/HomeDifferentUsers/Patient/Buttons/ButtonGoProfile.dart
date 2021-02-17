@@ -14,7 +14,9 @@ class ButtonGoProfile extends StatelessWidget {
         shape:
             RoundedRectangleBorder(borderRadius: BorderRadius.circular(18.0)),
         //   side: BorderSide(color: Color.fromRGBO(0, 160, 227, 1))),
-        onPressed: () {
+        onPressed: () async {
+          //var patient = await EndPoints()
+          //  .getCarer(user, currentUser['id'].toString(), token);
           RoutesPatient().toPatientProfile(context);
         },
         padding: EdgeInsets.symmetric(horizontal: 10),

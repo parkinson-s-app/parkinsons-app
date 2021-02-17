@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:appkinsonFront/services/EndPoints.dart';
+import 'package:appkinsonFront/views/AboutUs/helpSupport.dart';
 import 'package:appkinsonFront/views/DataAnalisis/ReportScreen.dart';
 import 'package:flutter/material.dart';
 import 'views/SymptomsFormPatient/SymptomsFormPatient.dart';

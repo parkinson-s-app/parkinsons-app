@@ -221,18 +221,6 @@ class DoctorProfileScreenP extends State<DoctorProfileScreen> {
                     text: 'Ayuda & soporte',
                   ),
                   ProfileListItem(
-                    icon: LineAwesomeIcons.question,
-                    text: 'Acerca de nosotros',
-                  ),
-                  ProfileListItem(
-                    icon: LineAwesomeIcons.comment,
-                    text: 'Comentarios',
-                  ),
-                  ProfileListItem(
-                    icon: LineAwesomeIcons.star,
-                    text: 'Califícanos',
-                  ),
-                  ProfileListItem(
                     icon: Icons.exit_to_app,
                     text: 'Cerrar Sesión',
                   ),
@@ -270,6 +258,9 @@ class ProfileListItem extends StatelessWidget {
           onPressed: () {
             if (text == 'Editar') {
               RoutesDoctor().toDoctorEditProfile(context);
+            }
+            if (text == 'Ayuda & soporte') {
+              RoutesGeneral().toAboutUs(context);
             }
           },
           child: Row(

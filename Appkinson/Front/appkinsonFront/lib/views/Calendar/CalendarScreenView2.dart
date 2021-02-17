@@ -10,16 +10,27 @@ class CalendarScreenView2 extends StatefulWidget {
 }
 
 List<Meeting> meetings = new List<Meeting>();
+var conta = 0;
+int hora = 0;
 
 class _Calendar extends State<CalendarScreenView2> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         body: SfCalendar(
-      view: CalendarView.week,
+      view: CalendarView.day,
+      headerHeight: 100,
       onTap: (calendarTapDetails) {
+        //dateChoosed = calendarTapDetails.date;
         dateChoosed = calendarTapDetails.date;
-        RoutesPatient().toSymptomsFormPatient(context);
+        meetings = _getDataSource();
+        setState(() {
+          if (conta == 5) {
+            conta = 0;
+          }
+          conta++;
+        });
+        // RoutesPatient().toSymptomsFormPatient(context);
       },
       dataSource: MeetingDataSource(meetings),
       monthViewSettings: MonthViewSettings(
@@ -31,11 +42,27 @@ class _Calendar extends State<CalendarScreenView2> {
     meetings = <Meeting>[];
 
     //final DateTime today = DateTime.now();
-    final DateTime startTime =
-        DateTime(dateChoosed.year, dateChoosed.month, dateChoosed.day, 9, 0, 0);
+    hora = dateChoosed.hour;
+    print(conta);
+    final DateTime startTime = DateTime(
+        dateChoosed.year, dateChoosed.month, dateChoosed.day, hora, 0, 0);
     final DateTime endTime = startTime.add(const Duration(hours: 1));
-    meetings
-        .add(Meeting('on', startTime, endTime, const Color(0xFF0F8644), false));
+
+    if (conta == 1) {
+      meetings.add(
+          Meeting('on', startTime, endTime, const Color(0xFF0F8644), false));
+    }
+    if (conta == 2) {
+      meetings.add(
+          Meeting('on Bueno', startTime, endTime, Colors.green[900], false));
+    }
+    if (conta == 3) {
+      meetings.add(Meeting('off', startTime, endTime, Colors.red[400], false));
+    }
+    if (conta == 4) {
+      meetings
+          .add(Meeting('off Malo', startTime, endTime, Colors.red[900], false));
+    }
 
     return meetings;
   }
