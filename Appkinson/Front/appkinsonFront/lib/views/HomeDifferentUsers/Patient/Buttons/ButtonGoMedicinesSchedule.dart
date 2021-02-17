@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class ButtonGoSymptomBehaviorRegister extends StatelessWidget {
+class ButtonGoMedicinesSchedule extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -16,7 +16,7 @@ class ButtonGoSymptomBehaviorRegister extends StatelessWidget {
         color: Colors.grey[50],
         //textColor: Colors.white,
         child: Image.asset(
-          "assets/images/formulario.png",
+          "assets/images/medicines.png",
           height: size.height * 0.08,
         ),
         // Text("Registrarse ", style:  TextStyle(fontSize: 15)),
