@@ -12,8 +12,6 @@ import 'package:dio/dio.dart';
 
 class EndPoints {
 
-  String endpointBack = 'http://192.168.0.12:8000';
-
   Future<String> addUsers(User newUser) async {
     Map data2 = {
       'email': newUser.email,
@@ -22,6 +20,7 @@ class EndPoints {
       'type': newUser.type
     };
     debugPrint(data2.toString());
+    debugPrint(endpointBack + addUserUrl);
     http.Response response =
         await http.post(endpointBack + addUserUrl, body: data2);
 
@@ -92,14 +91,8 @@ class EndPoints {
     //debugPrint(data2.toString());
     debugPrint("-----");
     debugPrint(response.body);
-    if (response.statusCode == 200) {
-      String i = response.body;
-      return i;
-    } else {
-      debugPrint(response.body.toString());
-      String i = response.body;
-      return i;
-    }
+    String body = response.body;
+    return body;
   }
 
   Future<String> sendResponseRelation(

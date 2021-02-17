@@ -39,8 +39,6 @@ class ButtonRegisterCustom extends State<ButtonRegister> {
           bool hasUppercase = false;
           bool hasSpecialCharacters = false;
           debugPrint(user.password.length.toString());
-
-
             debugPrint("Validando condiciones");
             if (user.email.toString().contains('@')) {
               debugPrint("correo valido");
