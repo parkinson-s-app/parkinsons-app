@@ -11,6 +11,7 @@ final userSelected = TextEditingController();
 String selectUser = "Seleccione un usuario";
 TextEditingController emailController = new TextEditingController();
 TextEditingController password = new TextEditingController();
+TextEditingController passwordv = new TextEditingController();
 
 class InputFieldRegisterCustom extends State<InputFieldRegister> {
   bool _obscurePassword = true;
@@ -108,7 +109,7 @@ class InputFieldRegisterCustom extends State<InputFieldRegister> {
               children: <Widget>[
                 Expanded(
                   child: TextFormField(
-                    controller: password,
+                    controller: passwordv,
                     decoration: const InputDecoration(
                       hintText: "Vuelva a Ingresar su contraseña",
                     ),
@@ -131,5 +132,12 @@ class metod {
         email: emailController.text, password: password.text, type: selectUser);
     debugPrint(newUser.password);
     return newUser;
+  }
+}
+
+class passwordVerify {
+  Future<String> send() async {
+    String verify = passwordv.text;
+    return verify;
   }
 }

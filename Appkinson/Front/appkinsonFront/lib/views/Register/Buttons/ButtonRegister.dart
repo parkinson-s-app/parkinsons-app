@@ -26,6 +26,7 @@ class ButtonRegisterCustom extends State<ButtonRegister> {
           // addUsers('jorge', '1234');
 
           var m = new metod();
+          var passwordv = new passwordVerify();
           var user = await m.send();
           debugPrint(user.email);
           /*String save = await EndPoints().addUsers(user);
@@ -43,13 +44,20 @@ class ButtonRegisterCustom extends State<ButtonRegister> {
             if (user.email.toString().contains('@')) {
               debugPrint("correo valido");
               if (/*mas de 8 char*/ user.password.toString().length > 7) {
-                debugPrint("longitud valida");
+                if(passwordv.toString().compareTo(user.password.toString()) == 0){
+                  debugPrint("longitud valida");
                     String save = await EndPoints().addUsers(user);
                     debugPrint(save);
                     if (save == 'Guardado') {
                       //RoutesGeneral().toLogin(context);
                       Navigator.push(context, new MaterialPageRoute( builder: (context) => LoginPage()));
+                    }else if(save == 'Existe'){
+                      //register
+                      invalid(2,context);
                     }
+                }else{
+                  invalid(3,context);
+                }    
             } else {
               //muy corta
               invalid(1, context);
@@ -72,6 +80,12 @@ invalid(int reason, context) {
   }
   if (reason == 1) {
     invalidReason = "La contraseña debe tener mínimo 8 caracteres";
+  }
+  if (reason == 2) {
+    invalidReason = "Este usuario ya existe";
+  }
+  if (reason == 2) {
+    invalidReason = "Las contraseñas no coinciden";
   }
   showDialog(
     context: context,
