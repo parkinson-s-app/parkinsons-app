@@ -98,4 +98,20 @@ export default class CarerService {
             return null;
         }
     }
+
+    /**
+     * getCarerById
+     */
+    public static async getCarerById(id : number) {
+        debug('getCarerById id: %s', id);
+        const conn = await connect();
+        const person =  await conn.query(
+            `SELECT EMAIL, NAME, PHOTOPATH  
+            FROM doctors
+            LEFT JOIN users
+            ON users.ID = doctors.ID_USER
+            WHERE users.ID = ? `,[id]);
+        debug('result search carer by id: %j', person[0]);
+        return person[0];
+    }
 }

@@ -3,6 +3,7 @@ import { Request, Response, Router } from 'express';
 import { constants } from 'http2';
 import IPersonDto from '../models/IPersonDto';
 import PersonService from '../services/PersonService';
+import PatientService from '../services/PatientService';
 import * as bcrypt from 'bcryptjs';
 import * as jwt from 'jsonwebtoken';
 import IUserDto from '../models/IUserDto';
@@ -11,6 +12,8 @@ import { verifyToken } from '../utilities/AuthUtilities';
 import IPersonalDataDto from '../models/IPersonalDataDto';
 import multer from '../utilities/multer';
 import ISymptomsFormDto from '../models/ISymptomsFormDto';
+import DoctorService from '../services/DoctorService';
+import CarerService from '../services/CarerService';
 
 const debug = debugLib('AppKinson:UserController');
 const UserController = Router();
@@ -90,7 +93,7 @@ UserController.post('/login', async (req: Request, res: Response) => {
                     debug('Login send token');
                     res.json({
                         token
-                    })
+                    });
                 }
             });
 
@@ -252,6 +255,45 @@ UserController.get('/patients/:id/symptomsFormPatient', verifyToken, async (req:
     }
 });
 
+UserController.get('/me', verifyToken, async (req: Request, res: Response) => {
+    debug('Getting info about user');
+    const bearerHeader = req.headers['authorization'];
+    let status;
+    if( bearerHeader !== undefined ) {
+        const idSender = getIdFromToken(bearerHeader);
+        const type = getTypeFromToken(bearerHeader);
+        debug('Getting info about user by Id, id: %s', idSender);
+        if( !isNaN(idSender) ){
+            try {
+                let responseDB;
+                if(type === 'Doctor') {
+                    responseDB = await DoctorService.getDoctorById(idSender);
+                } else if(type === 'Paciente') {
+                    responseDB = await PatientService.getPatientById(idSender);
+                } else if(type === 'Cuidador') {
+                    responseDB = await CarerService.getCarerById(idSender);
+                } else {
+                    status = constants.HTTP_STATUS_BAD_REQUEST;
+                    responseDB = 'Error, Token inválido';
+                }
+                debug('Getting info about user result %j', responseDB);
+                if(!status) {
+                    status = constants.HTTP_STATUS_OK;
+                }
+                res.status(status).send(responseDB);
+            } catch (error) {
+                status = constants.HTTP_STATUS_INTERNAL_SERVER_ERROR;
+                const responseError = { status, error};
+                res.status(status).send(responseError);
+            }
+        }
+    } else {
+        debug('Getting info about use Error getting authorization header');
+        status = constants.HTTP_STATUS_BAD_REQUEST;
+        res.status(status).send('Bad request');
+    }
+});
+
 function getIdFromToken(token: string) {
     const dataInToken = token.split('.')[1];
     debug('getIdFromToken data encoded: %s', dataInToken);
@@ -260,5 +302,15 @@ function getIdFromToken(token: string) {
     const dataInJSON = JSON.parse(decodedData);
     debug('getIdFromToken data in JSON: %j',dataInJSON);
     return +dataInJSON.id;
+}
+
+function getTypeFromToken(token: string) {
+    const dataInToken = token.split('.')[1];
+    debug('getTypeFromToken data encoded: %s', dataInToken);
+    const decodedData = Buffer.from(dataInToken, 'base64').toString();
+    debug('getTypeFromToken data decoded: %s',decodedData);
+    const dataInJSON = JSON.parse(decodedData);
+    debug('getTypeFromToken data in JSON: %j',dataInJSON);
+    return dataInJSON.type;
 }
 export default UserController;
