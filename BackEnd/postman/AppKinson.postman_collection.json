@@ -1,0 +1,1289 @@
+{
+	"info": {
+		"_postman_id": "62bdf605-7228-4147-a25d-9410da27a8df",
+		"name": "AppKinson",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Back Sebas",
+			"item": [
+				{
+					"name": "crear usuarios",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"username\": \"La loka de Sebas\",\n    \"password\": \"Es severa locota\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://192.168.1.51:4000/api/addUsers",
+							"protocol": "http",
+							"host": [
+								"192",
+								"168",
+								"1",
+								"51"
+							],
+							"port": "4000",
+							"path": [
+								"api",
+								"addUsers"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "crear usuarios Copy",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://192.168.1.51:4000/api/getAllUsers",
+							"protocol": "http",
+							"host": [
+								"192",
+								"168",
+								"1",
+								"51"
+							],
+							"port": "4000",
+							"path": [
+								"api",
+								"getAllUsers"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "AppKinson",
+			"item": [
+				{
+					"name": "Patient",
+					"item": [
+						{
+							"name": "Answer request Relate patient to carer",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"type": "text",
+										"value": "Bearer eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImRvY3RvckBtYWlsLmNvbSIsInR5cGUiOiJEb2N0b3IiLCJpZCI6MiwiaWF0IjoxNjA4NTAzMTc5fQ.cmVfTU3aOigGixAgdNtSCLLuyPc5TUnT1sUCgI2ltPejV8FB3Kfb1h8m0w399v6CkS5izrCL_PZ92lZeBa22hQ"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"Answer\": \"ACCEPT\",\n    \"RequesterType\": \"DOCTOR\",\n    \"RequesterId\": 8\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://{{host}}/api/patient/answerRequest",
+									"protocol": "http",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"api",
+										"patient",
+										"answerRequest"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Emotional Form",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"type": "text",
+										"value": "Bearer eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImRvY3RvckBtYWlsLmNvbSIsInR5cGUiOiJEb2N0b3IiLCJpZCI6MiwiaWF0IjoxNjA4NTAzMTc5fQ.cmVfTU3aOigGixAgdNtSCLLuyPc5TUnT1sUCgI2ltPejV8FB3Kfb1h8m0w399v6CkS5izrCL_PZ92lZeBa22hQ",
+										"disabled": true
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"q1\": 1,\n    \"q2\": 1,\n    \"q3\": 1,\n    \"q4\": 1,\n    \"q5\": 1,\n    \"q6\": 1,\n    \"q7\": 1,\n    \"q8\": 1,\n    \"q9\": 1,\n    \"q10\": 1,\n    \"q11\": 1,\n    \"q12\": 1,\n    \"q13\": 1,\n    \"q14\": 1,\n    \"q15\": 1,\n    \"q16\": 1,\n    \"q17\": 1,\n    \"q18\": 1,\n    \"q19\": 1,\n    \"q20\": 1,\n    \"q21\": 1,\n    \"q22\": 1,\n    \"q23\": 1,\n    \"q24\": 1,\n    \"q25\": 1,\n    \"q26\": 1,\n    \"q27\": 1,\n    \"q28\": 1,\n    \"q29\": 1,\n    \"q30\": 1,\n    \"date\": \"2021-02-07 21:16:18.976918\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://{{host}}/api/patient/:id/emotionalFormPatient",
+									"protocol": "http",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"api",
+										"patient",
+										":id",
+										"emotionalFormPatient"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "1"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Uploading video",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"type": "text",
+										"value": "Bearer eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImRvY3RvckBtYWlsLmNvbSIsInR5cGUiOiJEb2N0b3IiLCJpZCI6MiwiaWF0IjoxNjA4NTAzMTc5fQ.cmVfTU3aOigGixAgdNtSCLLuyPc5TUnT1sUCgI2ltPejV8FB3Kfb1h8m0w399v6CkS5izrCL_PZ92lZeBa22hQ",
+										"disabled": true
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/x-www-form-urlencoded",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "video",
+											"type": "file",
+											"src": []
+										},
+										{
+											"key": "q1",
+											"value": "haha",
+											"type": "text"
+										},
+										{
+											"key": "q2",
+											"value": "hdhd",
+											"type": "text"
+										},
+										{
+											"key": "q3",
+											"value": "sd",
+											"type": "text"
+										},
+										{
+											"key": "q4",
+											"value": "sa",
+											"type": "text"
+										},
+										{
+											"key": "q5",
+											"value": "fd",
+											"type": "text"
+										},
+										{
+											"key": "formdate",
+											"value": "2021-02-07 21:16:17.976917",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "http://{{host}}/api/users/symptomsFormPatient",
+									"protocol": "http",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"api",
+										"users",
+										"symptomsFormPatient"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Carer Request relate patient",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"type": "text",
+										"value": "Bearer eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImRvY3RvckBtYWlsLmNvbSIsInR5cGUiOiJEb2N0b3IiLCJpZCI6MiwiaWF0IjoxNjA4NTAzMTc5fQ.cmVfTU3aOigGixAgdNtSCLLuyPc5TUnT1sUCgI2ltPejV8FB3Kfb1h8m0w399v6CkS5izrCL_PZ92lZeBa22hQ",
+										"disabled": true
+									}
+								],
+								"url": {
+									"raw": "http://localhost:8000/api/patient/request/carer",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8000",
+									"path": [
+										"api",
+										"patient",
+										"request",
+										"carer"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Requests relate patient",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"type": "text",
+										"value": "Bearer eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImRvY3RvckBtYWlsLmNvbSIsInR5cGUiOiJEb2N0b3IiLCJpZCI6MiwiaWF0IjoxNjA4NTAzMTc5fQ.cmVfTU3aOigGixAgdNtSCLLuyPc5TUnT1sUCgI2ltPejV8FB3Kfb1h8m0w399v6CkS5izrCL_PZ92lZeBa22hQ"
+									}
+								],
+								"url": {
+									"raw": "http://localhost:8000/api/patient/relationRequest",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8000",
+									"path": [
+										"api",
+										"patient",
+										"relationRequest"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Doctor Request relate patient",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"type": "text",
+										"value": "Bearer eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImRvY3RvckBtYWlsLmNvbSIsInR5cGUiOiJEb2N0b3IiLCJpZCI6MiwiaWF0IjoxNjA4NTAzMTc5fQ.cmVfTU3aOigGixAgdNtSCLLuyPc5TUnT1sUCgI2ltPejV8FB3Kfb1h8m0w399v6CkS5izrCL_PZ92lZeBa22hQ",
+										"disabled": true
+									}
+								],
+								"url": {
+									"raw": "http://localhost:8000/api/patient/request/doctor",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8000",
+									"path": [
+										"api",
+										"patient",
+										"request",
+										"doctor"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "login",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"const responseJson = pm.response.json();",
+											"pm.globals.set(\"token\", responseJson.token);"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"email\": \"paciente@mail.com\",\n    \"password\": \"1234\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8000/api/login",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8000",
+									"path": [
+										"api",
+										"login"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Doctor",
+					"item": [
+						{
+							"name": "Doctor Relate patient",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"type": "text",
+										"value": "Bearer eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImRvY3RvckBtYWlsLmNvbSIsInR5cGUiOiJEb2N0b3IiLCJpZCI6MiwiaWF0IjoxNjA4NTAzMTc5fQ.cmVfTU3aOigGixAgdNtSCLLuyPc5TUnT1sUCgI2ltPejV8FB3Kfb1h8m0w399v6CkS5izrCL_PZ92lZeBa22hQ"
+									}
+								],
+								"url": {
+									"raw": "http://localhost:8000/api/doctor/patients/related",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8000",
+									"path": [
+										"api",
+										"doctor",
+										"patients",
+										"related"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Doctor Unrelate patient",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"type": "text",
+										"value": "Bearer eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImRvY3RvckBtYWlsLmNvbSIsInR5cGUiOiJEb2N0b3IiLCJpZCI6MiwiaWF0IjoxNjA4NTAzMTc5fQ.cmVfTU3aOigGixAgdNtSCLLuyPc5TUnT1sUCgI2ltPejV8FB3Kfb1h8m0w399v6CkS5izrCL_PZ92lZeBa22hQ",
+										"disabled": true
+									}
+								],
+								"url": {
+									"raw": "http://localhost:8000/api/doctor/patients/unrelated",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8000",
+									"path": [
+										"api",
+										"doctor",
+										"patients",
+										"unrelated"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Request Relate patient to doctor",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"type": "text",
+										"value": "Bearer eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImRvY3RvckBtYWlsLmNvbSIsInR5cGUiOiJEb2N0b3IiLCJpZCI6MiwiaWF0IjoxNjA4NTAzMTc5fQ.cmVfTU3aOigGixAgdNtSCLLuyPc5TUnT1sUCgI2ltPejV8FB3Kfb1h8m0w399v6CkS5izrCL_PZ92lZeBa22hQ"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8000/api/doctor/relate/3",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8000",
+									"path": [
+										"api",
+										"doctor",
+										"relate",
+										"3"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Request Relate patient to doctor by email",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"type": "text",
+										"value": "Bearer eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImRvY3RvckBtYWlsLmNvbSIsInR5cGUiOiJEb2N0b3IiLCJpZCI6MiwiaWF0IjoxNjA4NTAzMTc5fQ.cmVfTU3aOigGixAgdNtSCLLuyPc5TUnT1sUCgI2ltPejV8FB3Kfb1h8m0w399v6CkS5izrCL_PZ92lZeBa22hQ"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"Email\": \"paciente@mail.com\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8000/api/doctor/relate",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8000",
+									"path": [
+										"api",
+										"doctor",
+										"relate"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "login",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"const responseJson = pm.response.json();",
+											"pm.globals.set(\"token\", responseJson.token);"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"email\": \"medico@mail.com\",\n    \"password\": \"1234\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8000/api/login",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8000",
+									"path": [
+										"api",
+										"login"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Carer",
+					"item": [
+						{
+							"name": "Carer Relate patient",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"type": "text",
+										"value": "Bearer eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImRvY3RvckBtYWlsLmNvbSIsInR5cGUiOiJEb2N0b3IiLCJpZCI6MiwiaWF0IjoxNjA4NTAzMTc5fQ.cmVfTU3aOigGixAgdNtSCLLuyPc5TUnT1sUCgI2ltPejV8FB3Kfb1h8m0w399v6CkS5izrCL_PZ92lZeBa22hQ"
+									}
+								],
+								"url": {
+									"raw": "http://localhost:8000/api/doctor/patients/related",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8000",
+									"path": [
+										"api",
+										"doctor",
+										"patients",
+										"related"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Carer Unrelate patient",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"type": "text",
+										"value": "Bearer eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImRvY3RvckBtYWlsLmNvbSIsInR5cGUiOiJEb2N0b3IiLCJpZCI6MiwiaWF0IjoxNjA4NTAzMTc5fQ.cmVfTU3aOigGixAgdNtSCLLuyPc5TUnT1sUCgI2ltPejV8FB3Kfb1h8m0w399v6CkS5izrCL_PZ92lZeBa22hQ",
+										"disabled": true
+									}
+								],
+								"url": {
+									"raw": "http://localhost:8000/api/carer/patients/unrelated",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8000",
+									"path": [
+										"api",
+										"carer",
+										"patients",
+										"unrelated"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Request Relate patient to carer",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"type": "text",
+										"value": "Bearer eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImRvY3RvckBtYWlsLmNvbSIsInR5cGUiOiJEb2N0b3IiLCJpZCI6MiwiaWF0IjoxNjA4NTAzMTc5fQ.cmVfTU3aOigGixAgdNtSCLLuyPc5TUnT1sUCgI2ltPejV8FB3Kfb1h8m0w399v6CkS5izrCL_PZ92lZeBa22hQ"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"NAME\": \"Hey que pasa2\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8000/api/carer/relate/3",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8000",
+									"path": [
+										"api",
+										"carer",
+										"relate",
+										"3"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Request Relate patient to carer by email Copy",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"type": "text",
+										"value": "Bearer eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImRvY3RvckBtYWlsLmNvbSIsInR5cGUiOiJEb2N0b3IiLCJpZCI6MiwiaWF0IjoxNjA4NTAzMTc5fQ.cmVfTU3aOigGixAgdNtSCLLuyPc5TUnT1sUCgI2ltPejV8FB3Kfb1h8m0w399v6CkS5izrCL_PZ92lZeBa22hQ"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"Email\": \"paciente2@mail.com\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8000/api/carer/relate",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8000",
+									"path": [
+										"api",
+										"carer",
+										"relate"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "login",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"const responseJson = pm.response.json();",
+											"pm.globals.set(\"token\", responseJson.token);"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"email\": \"cuidador@mail.com\",\n    \"password\": \"1234\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8000/api/login",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8000",
+									"path": [
+										"api",
+										"login"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "User",
+					"item": [
+						{
+							"name": "registro",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"email\": \"paciente@mail.com\",\n    \"password\": \"1234\",\n    \"type\": \"Paciente\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://{{host}}/api/registro",
+									"protocol": "http",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"api",
+										"registro"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "login",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"const responseJson = pm.response.json();",
+											"pm.globals.set(\"token\", responseJson.token);"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"email\": \"paciente@mail.com\",\n    \"password\": \"1234\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://{{host}}/api/login",
+									"protocol": "http",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"api",
+										"login"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "users",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://{{host}}/api/users",
+									"protocol": "http",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"api",
+										"users"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update user",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImRvY3RvcjZAbWFpbC5jb20iLCJ0eXBlIjoiRG9jdG9yIiwiaWQiOjcsImlhdCI6MTYwODQ4MDE2MH0.gUxqwMCC9mKVcdNmA16HrvvBS5aidZYpLJb7oK0kOYpcGbjd7KVNY9GvOuHJUGrDIKJY51OWWeGlpxUhb6muzg",
+										"type": "text",
+										"disabled": true
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"NAME\": \"Hey que pasa2\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8000/api/users/5",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8000",
+									"path": [
+										"api",
+										"users",
+										"5"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "user by Id",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "jwt malformed",
+										"type": "text",
+										"disabled": true
+									},
+									{
+										"key": "Authorization",
+										"value": "Bearer eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ8.eyJlbWFpbCI6ImxleWRlckBnbWFpbC5jb20iLCJ0eXBlIjoiRG9jdG9yIiwiaWQiOjEsImlhdCI6MTYwODQwNzgzOX0.jMZvxJ4J4v6TW-Duy75IvABebC9GErh8oIAD-F6s1P5FZ2yAoFrav6CrQi7Lu1_2SNOZV2c7mT1YL03eNsaTVA",
+										"type": "text",
+										"disabled": true
+									}
+								],
+								"url": {
+									"raw": "http://{{host}}/api/users/1",
+									"protocol": "http",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"api",
+										"users",
+										"1"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "me",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "jwt malformed",
+										"type": "text",
+										"disabled": true
+									},
+									{
+										"key": "Authorization",
+										"value": "Bearer eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ8.eyJlbWFpbCI6ImxleWRlckBnbWFpbC5jb20iLCJ0eXBlIjoiRG9jdG9yIiwiaWQiOjEsImlhdCI6MTYwODQwNzgzOX0.jMZvxJ4J4v6TW-Duy75IvABebC9GErh8oIAD-F6s1P5FZ2yAoFrav6CrQi7Lu1_2SNOZV2c7mT1YL03eNsaTVA",
+										"type": "text",
+										"disabled": true
+									}
+								],
+								"url": {
+									"raw": "http://{{host}}/api/users/me",
+									"protocol": "http",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"api",
+										"users",
+										"me"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "download file",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "jwt malformed",
+										"type": "text",
+										"disabled": true
+									},
+									{
+										"key": "Authorization",
+										"value": "Bearer eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ8.eyJlbWFpbCI6ImxleWRlckBnbWFpbC5jb20iLCJ0eXBlIjoiRG9jdG9yIiwiaWQiOjEsImlhdCI6MTYwODQwNzgzOX0.jMZvxJ4J4v6TW-Duy75IvABebC9GErh8oIAD-F6s1P5FZ2yAoFrav6CrQi7Lu1_2SNOZV2c7mT1YL03eNsaTVA",
+										"type": "text",
+										"disabled": true
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://{{host}}/api/download?path=uploads/prueba.txt",
+									"protocol": "http",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"api",
+										"download"
+									],
+									"query": [
+										{
+											"key": "path",
+											"value": "uploads/prueba.txt"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Admin",
+					"item": [
+						{
+							"name": "login",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"const responseJson = pm.response.json();",
+											"pm.globals.set(\"token\", responseJson.token);"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"email\": \"admin@mail.com\",\n    \"password\": \"1234\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8000/api/login",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8000",
+									"path": [
+										"api",
+										"login"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "registro",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"email\": \"admin@mail.com\",\n    \"password\": \"1234\",\n    \"type\": \"Paciente\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8000/api/registro",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8000",
+									"path": [
+										"api",
+										"registro"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete user by ID",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8000/api/admin/user/6",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8000",
+									"path": [
+										"api",
+										"admin",
+										"user",
+										"6"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "test aws",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://ec2-3-137-219-111.us-east-2.compute.amazonaws.com:9000",
+							"protocol": "http",
+							"host": [
+								"ec2-3-137-219-111",
+								"us-east-2",
+								"compute",
+								"amazonaws",
+								"com"
+							],
+							"port": "9000"
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}

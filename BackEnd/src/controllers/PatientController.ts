@@ -2,6 +2,7 @@ import debugLib from 'debug';
 import { Request, Response, Router } from 'express';
 import { constants } from 'http2';
 import IAnswerRequestDto from '../models/IAnswerRequestDto';
+import IEmotionalFormDto from '../models/IEmotionalFormDto';
 import CarerService from '../services/CarerService';
 import PatientService from '../services/PatientService';
 import { getIdFromToken, verifyToken } from '../utilities/AuthUtilities';
@@ -129,4 +130,24 @@ PatientController.post('/carer/relate/:idPatient', verifyToken, async (req: Requ
     }
 });
 
+
+PatientController.post('/patient/:id/emotionalFormPatient', verifyToken, async (req: Request, res: Response) => {
+    debug('Patients emotional form by Id');
+    const id = +req.params.id;
+    debug('Patients emotional body: %j, ID: %s',req.body, id);
+    const emotionalFormData: IEmotionalFormDto = req.body;
+    let status;
+    debug('Patients emotional json: %j', emotionalFormData);
+    try {
+        const response = await PatientService.saveEmotionalForm(id, emotionalFormData);
+        debug('Patient emotional save result %j, succesful', response);
+        status = constants.HTTP_STATUS_OK;
+        res.status(status).send('OK');
+    } catch (error) {
+        debug('Patient emotional form saving failed, error: %j', error);
+        status = constants.HTTP_STATUS_INTERNAL_SERVER_ERROR;
+        const responseError = { status, error: "An error has ocurred"};
+        res.status(status).send(responseError);
+    }
+});
 export default PatientController;

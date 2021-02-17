@@ -14,22 +14,38 @@ import multer from '../utilities/multer';
 import ISymptomsFormDto from '../models/ISymptomsFormDto';
 import DoctorService from '../services/DoctorService';
 import CarerService from '../services/CarerService';
+import fs from 'fs';
 
 const debug = debugLib('AppKinson:UserController');
 const UserController = Router();
 const secretKey = config.secretKey;
 
 UserController.post('/registro', async (req: Request, res: Response) => {
-    debug('Registro Body: %j', req.body);
+    debug('Register Body: %j', req.body);
     const person = req.body as IPersonDto;
-    const response = await PersonService.savePerson(person);
-    debug('Registro response db: %j', response);
-    if(response) {
-        const status =  constants.HTTP_STATUS_OK;
-        res.status(status).send('Guardado');
-    } else {
-        const status =  constants.HTTP_STATUS_INTERNAL_SERVER_ERROR;
-        res.status(status).send('Error');
+    let status;
+    try {
+        const response = await PersonService.savePerson(person);
+        debug('Register response db: %j', response);
+        if(response) {
+            status =  constants.HTTP_STATUS_OK;
+            res.status(status).send('Guardado');
+        } else {
+            const status =  constants.HTTP_STATUS_INTERNAL_SERVER_ERROR;
+            res.status(status).send('Error');
+        }
+    }  catch (error) {
+        debug('Register failed, error: %j', error);
+        const errorString: string = error.message;
+        let responseError;
+        if(errorString.includes('Duplicate entry')) {
+            responseError = "Existe";
+            status = constants.HTTP_STATUS_BAD_REQUEST;
+        } else {
+            responseError = { status, error: "An error has ocurred"};
+            status = constants.HTTP_STATUS_INTERNAL_SERVER_ERROR;
+        }
+        res.status(status).send(responseError);
     }
 });
 
@@ -37,21 +53,6 @@ UserController.get('/users', async (req: Request, res: Response) => {
     debug('Users Get');
     const response = await PersonService.getPeople();
     debug('User get response db: %j', response);
-    if(response) {
-        const status =  constants.HTTP_STATUS_OK;
-        res.status(status).send(response);
-    } else {
-        const status =  constants.HTTP_STATUS_INTERNAL_SERVER_ERROR;
-        res.status(status).send('Error');
-    }
-});
-
-UserController.get('/users/:id', verifyToken, async (req: Request, res: Response) => {
-    debug('Users GetByID');
-    const id = +req.params.id;
-    debug('Users GetById id: ', id);
-    const response = await PersonService.getPersonById(id);
-    debug('User get by id response db: %j', response);
     if(response) {
         const status =  constants.HTTP_STATUS_OK;
         res.status(status).send(response);
@@ -252,7 +253,7 @@ UserController.get('/patients/:id/symptomsFormPatient', verifyToken, async (req:
     }
 });
 
-UserController.get('/me', verifyToken, async (req: Request, res: Response) => {
+UserController.get('/users/me', verifyToken, async (req: Request, res: Response) => {
     debug('Getting info about user');
     const bearerHeader = req.headers['authorization'];
     let status;
@@ -278,6 +279,61 @@ UserController.get('/me', verifyToken, async (req: Request, res: Response) => {
                     status = constants.HTTP_STATUS_OK;
                 }
                 res.status(status).send(responseDB);
+            } catch (error) {
+                status = constants.HTTP_STATUS_INTERNAL_SERVER_ERROR;
+                const responseError = { status, error};
+                res.status(status).send(responseError);
+            }
+        }
+    } else {
+        debug('Getting info about use Error getting authorization header');
+        status = constants.HTTP_STATUS_BAD_REQUEST;
+        res.status(status).send('Bad request');
+    }
+});
+
+
+UserController.get('/users/:id', verifyToken, async (req: Request, res: Response) => {
+    debug('Users GetByID');
+    const id = +req.params.id;
+    debug('Users GetById id: ', id);
+    const response = await PersonService.getPersonById(id);
+    debug('User get by id response db: %j', response);
+    if(response) {
+        const status =  constants.HTTP_STATUS_OK;
+        res.status(status).send(response);
+    } else {
+        const status =  constants.HTTP_STATUS_INTERNAL_SERVER_ERROR;
+        res.status(status).send('Error');
+    }
+});
+
+
+UserController.get('/download', verifyToken, async (req: Request, res: Response) => {
+    debug('Download file %j', req.query.path);
+    const bearerHeader = req.headers['authorization'];
+    let status;
+    if( bearerHeader !== undefined ) {
+        const idSender = getIdFromToken(bearerHeader);
+        const path = req.query.path as string;
+        /**
+         * data = new FormData();
+         */
+        debug('Download file, id: %s, file path: %s', idSender, path);
+        if( !isNaN(idSender) ){
+            try {
+                if(path) {
+                    res.download(path);
+                } else {
+                    /*
+                   let data = new FormData();
+                    data.append('name', req.body.name)
+                    data.append('phone', req.body.phone)
+                    data.append('email', req.body.email)
+                    data.append('resume', fs.createReadStream(path))*/
+                    res.send('bad');
+                }
+
             } catch (error) {
                 status = constants.HTTP_STATUS_INTERNAL_SERVER_ERROR;
                 const responseError = { status, error};
