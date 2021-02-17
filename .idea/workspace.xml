@@ -31,26 +31,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="08d39895-96e3-4c46-aa63-7e2ef03a5c34" name="Default Changelist" comment="Formulario sintomas Beta, sin botón de guardado">
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Dart_Packages.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Dart_Packages.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Appkinson/Front/appkinsonFront/android/local.properties" beforeDir="false" afterPath="$PROJECT_DIR$/Appkinson/Front/appkinsonFront/android/local.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Appkinson/Front/appkinsonFront/lib/model/SymptomsForm.dart" beforeDir="false" afterPath="$PROJECT_DIR$/Appkinson/Front/appkinsonFront/lib/model/SymptomsForm.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Appkinson/Front/appkinsonFront/lib/services/EndPoints.dart" beforeDir="false" afterPath="$PROJECT_DIR$/Appkinson/Front/appkinsonFront/lib/services/EndPoints.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Appkinson/Front/appkinsonFront/lib/views/EmotionalFormPatient/emotionsFormQ1.dart" beforeDir="false" afterPath="$PROJECT_DIR$/Appkinson/Front/appkinsonFront/lib/views/EmotionalFormPatient/emotionsFormQ1.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Appkinson/Front/appkinsonFront/lib/views/EmotionalFormPatient/emotionsFormQ18.dart" beforeDir="false" afterPath="$PROJECT_DIR$/Appkinson/Front/appkinsonFront/lib/views/EmotionalFormPatient/emotionsFormQ18.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Appkinson/Front/appkinsonFront/lib/views/EmotionalFormPatient/emotionsFormQ20.dart" beforeDir="false" afterPath="$PROJECT_DIR$/Appkinson/Front/appkinsonFront/lib/views/EmotionalFormPatient/emotionsFormQ20.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Appkinson/Front/appkinsonFront/lib/views/EmotionalFormPatient/emotionsFormQ3.dart" beforeDir="false" afterPath="$PROJECT_DIR$/Appkinson/Front/appkinsonFront/lib/views/EmotionalFormPatient/emotionsFormQ3.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Appkinson/Front/appkinsonFront/lib/views/EmotionalFormPatient/emotionsFormQ4.dart" beforeDir="false" afterPath="$PROJECT_DIR$/Appkinson/Front/appkinsonFront/lib/views/EmotionalFormPatient/emotionsFormQ4.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Appkinson/Front/appkinsonFront/lib/views/EmotionalFormPatient/emotionsFormQ5.dart" beforeDir="false" afterPath="$PROJECT_DIR$/Appkinson/Front/appkinsonFront/lib/views/EmotionalFormPatient/emotionsFormQ5.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Appkinson/Front/appkinsonFront/lib/views/EmotionalFormPatient/emotionsFormQ7.dart" beforeDir="false" afterPath="$PROJECT_DIR$/Appkinson/Front/appkinsonFront/lib/views/EmotionalFormPatient/emotionsFormQ7.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Appkinson/Front/appkinsonFront/lib/views/Register/Buttons/ButtonRegister.dart" beforeDir="false" afterPath="$PROJECT_DIR$/Appkinson/Front/appkinsonFront/lib/views/Register/Buttons/ButtonRegister.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Appkinson/Front/appkinsonFront/lib/views/SymptomsFormDoctor/symptomsFormQ.dart" beforeDir="false" afterPath="$PROJECT_DIR$/Appkinson/Front/appkinsonFront/lib/views/SymptomsFormDoctor/symptomsFormQ.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Appkinson/Front/appkinsonFront/lib/views/SymptomsFormDoctor/symptomsFormQ1.dart" beforeDir="false" afterPath="$PROJECT_DIR$/Appkinson/Front/appkinsonFront/lib/views/SymptomsFormDoctor/symptomsFormQ1.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Appkinson/Front/appkinsonFront/lib/views/SymptomsFormDoctor/symptomsFormQ2.dart" beforeDir="false" afterPath="$PROJECT_DIR$/Appkinson/Front/appkinsonFront/lib/views/SymptomsFormDoctor/symptomsFormQ2.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Appkinson/Front/appkinsonFront/lib/views/SymptomsFormDoctor/symptomsFormQ29.dart" beforeDir="false" afterPath="$PROJECT_DIR$/Appkinson/Front/appkinsonFront/lib/views/SymptomsFormDoctor/symptomsFormQ29.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Appkinson/Front/appkinsonFront/lib/views/SymptomsFormDoctor/symptomsFormQ3.dart" beforeDir="false" afterPath="$PROJECT_DIR$/Appkinson/Front/appkinsonFront/lib/views/SymptomsFormDoctor/symptomsFormQ3.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Appkinson/Front/appkinsonFront/lib/views/SymptomsFormDoctor/symptomsFormQ4.dart" beforeDir="false" afterPath="$PROJECT_DIR$/Appkinson/Front/appkinsonFront/lib/views/SymptomsFormDoctor/symptomsFormQ4.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Appkinson/Front/appkinsonFront/lib/views/SymptomsFormDoctor/symptomsFormQ5.dart" beforeDir="false" afterPath="$PROJECT_DIR$/Appkinson/Front/appkinsonFront/lib/views/SymptomsFormDoctor/symptomsFormQ5.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Appkinson/Front/appkinsonFront/lib/constants/Constant.dart" beforeDir="false" afterPath="$PROJECT_DIR$/Appkinson/Front/appkinsonFront/lib/constants/Constant.dart" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

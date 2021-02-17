@@ -93,6 +93,9 @@ class _symptomsFormQ2 extends State<symptomsFormQ2> {
                 RadioListTile<SigningCharacter>(
                   title: const Text('4: Grave   “Cara de máscara” (amimia) con apertura de labios la mayor parte del tiempo cuando la boca está en reposo.'),
                   value: SigningCharacter.Fija,
+                  onChanged: (SigningCharacter value) {
+                    setState(() {
+                      _character = value;
                       selectedStateRadioQ2 = 4;
                     });
                   },
