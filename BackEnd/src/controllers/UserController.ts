@@ -90,7 +90,7 @@ UserController.post('/login', async (req: Request, res: Response) => {
                     debug('Login send token');
                     res.json({
                         token
-                    })
+                    });
                 }
             });
 
@@ -124,94 +124,17 @@ UserController.post('/users/:id', multer.single('photo'), verifyToken, async (re
     }
 });
 
-UserController.post('/relate/:idPatient', verifyToken, async (req: Request, res: Response) => {
-    const bearerHeader = req.headers['authorization'];
-    const idPatient = +req.params.idPatient;
-    let status;
-    if( bearerHeader !== undefined ) {
-        const id = getIdFromToken(bearerHeader);
-        if( !isNaN(id) ){     
-            try {
-                const response = await PersonService.relatePatientToDoctor(id, idPatient);
-                if(response) {
-                    status = constants.HTTP_STATUS_OK;
-                    res.status(status).send('Success');
-                } else {
-                    status = constants.HTTP_STATUS_INTERNAL_SERVER_ERROR;
-                    res.status(status).send('An Error had ocurred');
-                }
-            } catch (error) {
-                status = constants.HTTP_STATUS_INTERNAL_SERVER_ERROR;
-                const responseError = { status, error};
-                res.status(status).send(responseError);
-            }
-        } else {
-            debug('Relate Error getting id from token')
-            status = constants.HTTP_STATUS_BAD_REQUEST;
-            res.status(status).send('Bad request');
-        }
-    } else {
-        debug('Relate Error getting authorization header');
-        status = constants.HTTP_STATUS_BAD_REQUEST;
-        res.status(status).send('Bad request');
-    }
-});
-
-UserController.get('/doctor/patients/unrelated', verifyToken, async (req: Request, res: Response) => {
-    debug('Getting unrelated patients');
-    const bearerHeader = req.headers['authorization'];
-    let status;
-    if( bearerHeader !== undefined ) {
-        const id = getIdFromToken(bearerHeader);
-        if( !isNaN(id) ){
-            try {
-                const patients = await PersonService.getPatientsUnrelated(id);
-                debug('Getting unrelated result %j', patients);
-                status = constants.HTTP_STATUS_OK;
-                res.status(status).send(patients);
-            } catch (error) {
-                status = constants.HTTP_STATUS_INTERNAL_SERVER_ERROR;
-                const responseError = { status, error};
-                res.status(status).send(responseError);
-            }
-        }
-    } else {
-        debug('Unrelated Error getting authorization header');
-        status = constants.HTTP_STATUS_BAD_REQUEST;
-        res.status(status).send('Bad request');
-    }
-});
-
-UserController.get('/doctor/patients/related', verifyToken, async (req: Request, res: Response) => {
-    debug('Getting related patients');
-    const bearerHeader = req.headers['authorization'];
-    let status;
-    if( bearerHeader !== undefined ) {
-        const id = getIdFromToken(bearerHeader);
-        if( !isNaN(id) ){
-            try {
-                const patients = await PersonService.getPatientsRelated(id);
-                debug('Getting related result %j', patients);
-                status = constants.HTTP_STATUS_OK;
-                res.status(status).send(patients);
-            } catch (error) {
-                status = constants.HTTP_STATUS_INTERNAL_SERVER_ERROR;
-                const responseError = { status, error};
-                res.status(status).send(responseError);
-            }
-        }
-    } else {
-        debug('Related Error getting authorization header');
-        status = constants.HTTP_STATUS_BAD_REQUEST;
-        res.status(status).send('Bad request');
-    }
-});
-
 UserController.post('/users/:id/symptomsForm', multer.single('video'), verifyToken, async (req: Request, res: Response) => {
     debug('Users UpdateById');
     const id = +req.params.id;
     debug('Users Symptoms body: %j, ID: %s, file path: %s',req.body, id, req.file.path);
     let symptomsFormData = req.body as ISymptomsFormDto;
+    if (req.file) {
+        debug('Users Symptoms body: %j, ID: %s, file path: %s',req.body, id, req.file.path);
+    } else {
+        debug('Users Symptoms body: %j, ID: %s, without file',req.body, id);
+    }
+    // let updatedUserData = req.body as IPersonalDataDto;
     // updatedUserData.PHOTOPATH = req.file.path;
     // debug('Users Update user: %j, ID:', updatedUserData, id);
     // const response = await PersonService.updatePerson(id, updatedUserData);

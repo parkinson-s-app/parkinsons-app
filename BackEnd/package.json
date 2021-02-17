@@ -9,7 +9,10 @@
     "dev": "nodemon --watch src -e ts,js --exec npm start",
     "test": "echo \"Error: no test specified\" && exit 1",
     "lint": "tslint -c tslint.json -p tsconfig.json",
-    "lint:fix": "npm run lint -- --fix"
+    "lint:fix": "npm run lint -- --fix",
+    "docker": "docker build -t back .",
+    "docker:d": "docker run -d -p 8000:8000 back",
+    "docker:it": "docker run -it -p 8000:8000 back"
   },
   "keywords": [],
   "author": "",
