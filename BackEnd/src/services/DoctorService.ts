@@ -99,4 +99,20 @@ export default class DoctorService {
             return null;
         }
     }
+
+    /**
+     * getDoctorById
+     */
+    public static async getDoctorById(id : number) {
+        debug('getDoctorById id: %s', id);
+        const conn = await connect();
+        const person =  await conn.query(
+            `SELECT EMAIL, NAME, PHOTOPATH  
+            FROM doctors
+            LEFT JOIN users
+            ON users.ID = doctors.ID_USER
+            WHERE users.ID = ? `,[id]);
+        debug('result search dctor by id: %j', person[0]);
+        return person[0];
+    }
 }

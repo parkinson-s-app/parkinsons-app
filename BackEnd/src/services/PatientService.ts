@@ -62,4 +62,19 @@ export default class PatientService {
         debug('result search patient by email: %j', person[0]);
         return person[0];
     }
+    /**
+     * getPatientById
+     */
+    public static async getPatientById(id : number) {
+        debug('getPatientById id: %s', id);
+        const conn = await connect();
+        const person =  await conn.query(
+            `SELECT EMAIL, NAME, PHOTOPATH 
+            FROM patients
+            LEFT JOIN users
+            ON users.ID = patients.ID_USER
+            WHERE users.ID = ? `,[id]);
+        debug('result search patient by id: %j', person[0]);
+        return person[0];
+    }
 }
