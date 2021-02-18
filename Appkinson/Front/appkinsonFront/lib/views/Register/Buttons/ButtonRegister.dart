@@ -26,7 +26,6 @@ class ButtonRegisterCustom extends State<ButtonRegister> {
           // addUsers('jorge', '1234');
 
           var m = new metod();
-          var passwordv = new passwordVerify();
           var user = await m.send();
           debugPrint(user.email);
           /*String save = await EndPoints().addUsers(user);
@@ -44,7 +43,7 @@ class ButtonRegisterCustom extends State<ButtonRegister> {
             if (user.email.toString().contains('@')) {
               debugPrint("correo valido");
               if (/*mas de 8 char*/ user.password.toString().length > 7) {
-                if(passwordv.toString().compareTo(user.password.toString()) == 0){
+                if(user.passwordVerify.toString() == user.password.toString()){
                   debugPrint("longitud valida");
                     String save = await EndPoints().addUsers(user);
                     debugPrint(save);
@@ -56,6 +55,9 @@ class ButtonRegisterCustom extends State<ButtonRegister> {
                       invalid(2,context);
                     }
                 }else{
+                  debugPrint("----------");
+                  debugPrint(user.passwordVerify.toString());
+                  debugPrint(user.password.toString());
                   invalid(3,context);
                 }    
             } else {
@@ -84,7 +86,7 @@ invalid(int reason, context) {
   if (reason == 2) {
     invalidReason = "Este usuario ya existe";
   }
-  if (reason == 2) {
+  if (reason == 3) {
     invalidReason = "Las contraseñas no coinciden";
   }
   showDialog(
