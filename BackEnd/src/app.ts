@@ -10,6 +10,7 @@ import DefaultResponseDto from './models/DefaultResponseDto';
 import CarerController from './controllers/CarerController';
 import PatientController from './controllers/PatientController';
 import AdminController from './controllers/AdminController';
+import path from 'path';
 
 const app = express();
 const apiPath = config.apiPath;
