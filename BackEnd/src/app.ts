@@ -42,5 +42,7 @@ app.use((error: any, req: Request,res: Response, next: any) => {
         res.status(500).send(error);
     }
 });
+// storage
+app.use('/uploads', express.static(path.resolve('uploads')));
 
 export default app;
