@@ -25,7 +25,7 @@ class _Calendar extends State<CalendarScreenView2> {
         dateChoosed = calendarTapDetails.date;
         meetings = _getDataSource();
         setState(() {
-          if (conta == 5) {
+          if (conta == 8) {
             conta = 0;
           }
           conta++;
@@ -52,14 +52,14 @@ class _Calendar extends State<CalendarScreenView2> {
       meetings.add(
           Meeting('on', startTime, endTime, const Color(0xFF0F8644), false));
     }
-    if (conta == 2) {
+    if (conta == 3) {
       meetings.add(
           Meeting('on Bueno', startTime, endTime, Colors.green[900], false));
     }
-    if (conta == 3) {
+    if (conta == 5) {
       meetings.add(Meeting('off', startTime, endTime, Colors.red[400], false));
     }
-    if (conta == 4) {
+    if (conta == 7) {
       meetings
           .add(Meeting('off Malo', startTime, endTime, Colors.red[900], false));
     }
