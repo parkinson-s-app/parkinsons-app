@@ -4,6 +4,7 @@ import IAnswerRequestDto from "../models/IAnswerRequestDto";
 import { PersonType } from "../utilities/GenericTypes";
 import CarerService from "./CarerService";
 import DoctorService from "./DoctorService";
+import IEmotionalFormDto from "../models/IEmotionalFormDto";
 
 const debug = debugLib('AppKinson:PatientService');
 
@@ -76,5 +77,23 @@ export default class PatientService {
             WHERE users.ID = ? `,[id]);
         debug('result search patient by id: %j', person[0]);
         return person[0];
+    }
+    /**
+     * 
+     * @param id 
+     * @param emotionalFormData 
+     */
+    public static async saveEmotionalForm(id: number, emotionalFormData: IEmotionalFormDto) {
+        const conn = await connect();
+        emotionalFormData.id_patient=id;
+        debug('saveEmotionalForm to person: %j, id: %s', emotionalFormData, id);
+        try {
+            const res = await conn.query('INSERT INTO emotionalformpatient SET ?',[emotionalFormData]);
+            debug('saveEmotionalForm saved and returned: %j', res);
+            return res;
+        }  catch (error) {
+            debug('saveEmotionalForm Error: %j', error);
+            throw error;
+        }
     }
 }

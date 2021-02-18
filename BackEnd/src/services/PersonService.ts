@@ -38,7 +38,7 @@ export default class PersonService {
             return res;
         } catch (e) {
             debug('savePerson Catch Error: %s, %j', e.stack, e);
-            // throw Error
+            throw e;
         }
     }
 
