@@ -14,6 +14,7 @@ import 'package:line_awesome_flutter/line_awesome_flutter.dart';
 const bla = Colors.white;
 const kSpacingUnit = 10;
 File imageFile;
+var nameDoctor;
 
 final kTitleTextStyle = TextStyle(
   fontFamily: "Raleway",
@@ -149,7 +150,8 @@ class DoctorProfileScreenP extends State<DoctorProfileScreen> {
           height: 20,
         ),
         Text(
-          nameControllerDoctor.text,
+          ///nameControllerDoctor.text,
+          nameDoctor,
           style: kTitleTextStyle,
         ),
         SizedBox(

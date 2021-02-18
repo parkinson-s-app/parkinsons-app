@@ -38,7 +38,7 @@ class __ProfileEdition extends State<ProfileEditionCarer> {
           var user = await m.send();
 
           setState(() {
-            name = nameControllerCarer.text;
+            nameCarer = nameControllerCarer.text;
           });
           /*
           debugPrint(user.name);
@@ -64,6 +64,10 @@ class __ProfileEdition extends State<ProfileEditionCarer> {
           String save = await EndPoints()
               .modifyUsers(user, currentUser['id'].toString(), token);
           debugPrint(save);
+
+          setState(() {
+            nameCarer = nameControllerCarer.text;
+          });
 
           if (save == 'Actualizado') {
             Navigator.pop(context);

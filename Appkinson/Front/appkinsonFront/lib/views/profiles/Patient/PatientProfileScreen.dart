@@ -18,6 +18,7 @@ import 'package:line_awesome_flutter/line_awesome_flutter.dart';
 const bla = Colors.white;
 const kSpacingUnit = 10;
 File imageFile;
+String namePatient = 'cero';
 
 final kTitleTextStyle = TextStyle(
   fontFamily: "Raleway",
@@ -185,7 +186,8 @@ class PatientProfileScreenP extends State<PatientProfileScreen> {
         ),
         Text(
           //currentUser['EMAIL'],
-          nameController.text,
+          //nameController.text,
+          namePatient,
           style: kTitleTextStyle,
         ),
         SizedBox(

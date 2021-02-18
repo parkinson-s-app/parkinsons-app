@@ -6,6 +6,7 @@ import 'package:appkinsonFront/constants/Constant.dart';
 import 'package:appkinsonFront/model/SymptomsForm.dart';
 import 'package:appkinsonFront/model/SymptomsFormPatientM.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_downloader/flutter_downloader.dart';
 import '../model/User.dart';
 import 'package:http/http.dart' as http;
 import 'package:dio/dio.dart';
@@ -312,5 +313,44 @@ class EndPoints {
     debugPrint(lista.body);
     String relationsRequest = lista.body;
     return relationsRequest;
+  }
+
+  Future<String> getUserName(var token) async {
+    debugPrint("entro");
+    var codeToken = json.decode(token);
+    http.Response response = await http.get(endpointBack + getNameUSer,
+        headers: {
+          HttpHeaders.authorizationHeader: jwtkey + codeToken['token']
+        });
+    //debugPrint(data2.toString());
+    debugPrint("-----");
+    debugPrint(response.body);
+
+    String res = response.body;
+    return res;
+  }
+
+  Future<String> getPhotoUser(var token, var path) async {
+    debugPrint("entro");
+    var codeToken = json.decode(token);
+    http.Response response = await http
+        .get(endpointBack + getPhotoUserURL + '?path=' + path, headers: {
+      HttpHeaders.authorizationHeader: jwtkey + codeToken['token'],
+      //HttpHeaders.hostHeader: path
+    });
+    //debugPrint(data2.toString());
+    debugPrint("-----");
+    debugPrint(response.body);
+    final taskId = await FlutterDownloader.enqueue(
+      url: 'your download link',
+      savedDir: 'the path of directory where you want to save downloaded files',
+      showNotification:
+          true, // show download progress in status bar (for Android)
+      openFileFromNotification:
+          true, // click on notification to open downloaded file (for Android)
+    );
+
+    String res = response.body;
+    return res;
   }
 }
