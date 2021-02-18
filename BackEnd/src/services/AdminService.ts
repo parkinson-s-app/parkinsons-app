@@ -11,6 +11,7 @@ export default class AdminService {
             const conn = await connect();
             const res = await conn.query('DELETE FROM users WHERE ID = ?',[id]);
             debug('deletePerson saved and returned: %j', res);
+            conn.end();
             if( res && res[0] ) {
                 const deleted = res[0] as any;
                 debug('Registro success id inserted: %s', deleted);

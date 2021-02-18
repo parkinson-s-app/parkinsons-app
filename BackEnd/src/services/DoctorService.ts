@@ -19,11 +19,15 @@ export default class DoctorService {
             if(answer === 'ACCEPT') {
                 const res = await conn.query('INSERT INTO patientxdoctor SET ?',[queryData]);
                 debug('result adding row in patientxdoctor: %j', res);
+                conn.end();
                 return res;
+            } else {
+                conn.end();
+                debug('answer was REJECTED result deleting row from requestlinkdoctortopatient: %j', resDeletion);
+                return resDeletion;
             }
-            debug('answer was REJECTED result deleting row from requestlinkdoctortopatient: %j', resDeletion);
-            return resDeletion;
         } catch (e) {
+            conn.end();
             debug('relate Patient Error: %j', e);
             throw e;
         }
@@ -38,9 +42,12 @@ export default class DoctorService {
         try {
             const queryData = { ID_DOCTOR: idDoctor, ID_PATIENT: idPatient};
             const res = await conn.query('INSERT INTO requestlinkdoctortopatient SET ?',[queryData]);
+            conn.end();
             return res;
         } catch (e) {
+            conn.end();
             debug('request relate Patient to Carer Error: %s', e);
+            throw e;
         }
     }
 
@@ -60,12 +67,14 @@ export default class DoctorService {
                 WHERE ID_DOCTOR = ? )`;
             const res = await conn.query(query,[id]);
             debug('Unrelated Patients response query %s', res);
+            conn.end();
             if(res) {
                 return res[0];
             } else {
                 return null;
             }
         } catch (error) {
+            conn.end();
             debug('Unrelated Patients error making query. Error: %s', error);
             return null;
         }
@@ -89,12 +98,14 @@ export default class DoctorService {
             WHERE ID_DOCTOR = ?`;
             const res = await conn.query(query,[id]);
             debug('Related Patients response query %s', res);
+            conn.end();
             if(res) {
                 return res[0];
             } else {
                 return null;
             }
         } catch (error) {
+            conn.end();
             debug('Unrelated Patients error making query. Error: %s', error);
             return null;
         }
@@ -113,6 +124,7 @@ export default class DoctorService {
             ON users.ID = doctors.ID_USER
             WHERE users.ID = ? `,[id]);
         debug('result search dctor by id: %j', person[0]);
+        conn.end();
         return person[0];
     }
 }
