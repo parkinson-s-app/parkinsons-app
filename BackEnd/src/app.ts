@@ -10,6 +10,7 @@ import DefaultResponseDto from './models/DefaultResponseDto';
 import CarerController from './controllers/CarerController';
 import PatientController from './controllers/PatientController';
 import AdminController from './controllers/AdminController';
+import path from 'path';
 
 const app = express();
 const apiPath = config.apiPath;
@@ -42,5 +43,7 @@ app.use((error: any, req: Request,res: Response, next: any) => {
         res.status(500).send(error);
     }
 });
+// storage
+app.use('/uploads', express.static(path.resolve('uploads')));
 
 export default app;
