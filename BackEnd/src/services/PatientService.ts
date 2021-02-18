@@ -14,6 +14,7 @@ export default class PatientService {
         debug('Getting requests doctor of id patient: %s', id);
         const conn = await connect();
         const requests = await conn.query('SELECT * FROM requestlinkdoctortopatient WHERE ID_PATIENT = ?',[id]);
+        conn.end();
         return requests[0];
     }
 
@@ -21,6 +22,7 @@ export default class PatientService {
         debug('Getting requests carer of id patient: %s', id);
         const conn = await connect();
         const requests = await conn.query('SELECT * FROM requestlinkcarertopatient WHERE ID_PATIENT = ?',[id]);
+        conn.end();
         return requests[0];
     }
 
@@ -61,6 +63,7 @@ export default class PatientService {
             ON users.ID = patients.ID_USER
             WHERE users.EMAIL = ? `,[email]);
         debug('result search patient by email: %j', person[0]);
+        conn.end();
         return person[0];
     }
     /**
@@ -76,6 +79,7 @@ export default class PatientService {
             ON users.ID = patients.ID_USER
             WHERE users.ID = ? `,[id]);
         debug('result search patient by id: %j', person[0]);
+        conn.end();
         return person[0];
     }
     /**
@@ -90,8 +94,10 @@ export default class PatientService {
         try {
             const res = await conn.query('INSERT INTO emotionalformpatient SET ?',[emotionalFormData]);
             debug('saveEmotionalForm saved and returned: %j', res);
+            conn.end();
             return res;
         }  catch (error) {
+            conn.end();
             debug('saveEmotionalForm Error: %j', error);
             throw error;
         }

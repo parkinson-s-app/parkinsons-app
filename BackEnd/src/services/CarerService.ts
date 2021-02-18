@@ -22,9 +22,12 @@ export default class CarerService {
                 return res;
             }
             debug('answer was REJECTED result deleting row from requestlinkcarertopatient: %j', resDeletion);
+            conn.end();
             return resDeletion;
         } catch (e) {
+            conn.end();
             debug('relate Patient to Carer Error: %s', e);
+            throw e;
         }
     }
 
@@ -37,9 +40,12 @@ export default class CarerService {
         try {
             const queryData = { ID_CARER: idCarer, ID_PATIENT: idPatient};
             const res = await conn.query('INSERT INTO requestlinkcarertopatient SET ?',[queryData]);
+            conn.end();
             return res;
         } catch (e) {
+            conn.end();
             debug('request relate Patient to Carer Error: %s', e);
+            throw e;
         }
     }
 
@@ -59,12 +65,14 @@ export default class CarerService {
                 WHERE ID_CARER = ? )`;
             const res = await conn.query(query,[id]);
             debug('Unrelated Patients response query %s', res);
+            conn.end();
             if(res) {
                 return res[0];
             } else {
                 return null;
             }
         } catch (error) {
+            conn.end();
             debug('Unrelated Patients error making query. Error: %s', error);
             return null;
         }
@@ -88,12 +96,14 @@ export default class CarerService {
             WHERE ID_CARER = ?`;
             const res = await conn.query(query,[id]);
             debug('Related Patients response query %s', res);
+            conn.end();
             if(res) {
                 return res[0];
             } else {
                 return null;
             }
         } catch (error) {
+            conn.end();
             debug('Unrelated Patients error making query. Error: %s', error);
             return null;
         }
@@ -111,6 +121,7 @@ export default class CarerService {
             LEFT JOIN users
             ON users.ID = doctors.ID_USER
             WHERE users.ID = ? `,[id]);
+        conn.end();
         debug('result search carer by id: %j', person[0]);
         return person[0];
     }
