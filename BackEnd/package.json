@@ -12,7 +12,10 @@
     "lint:fix": "npm run lint -- --fix",
     "docker": "docker build -t back .",
     "docker:d": "docker run -d -p 8000:8000 back",
-    "docker:it": "docker run -it -p 8000:8000 back"
+    "docker:it": "docker run -it -p 8000:8000 back",
+    "docker-compose-up": "docker-compose up",
+    "docker-compose-build": "docker-compose build",
+    "restartdb": "sudo rm -r src/db/data"
   },
   "keywords": [],
   "author": "",

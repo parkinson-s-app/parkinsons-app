@@ -11,6 +11,7 @@ import CarerController from './controllers/CarerController';
 import PatientController from './controllers/PatientController';
 import AdminController from './controllers/AdminController';
 import path from 'path';
+import { verifyToken } from './utilities/AuthUtilities';
 
 const app = express();
 const apiPath = config.apiPath;
@@ -44,6 +45,6 @@ app.use((error: any, req: Request,res: Response, next: any) => {
     }
 });
 // storage
-app.use('/uploads', express.static(path.resolve('uploads')));
+app.use('/uploads',[verifyToken ,express.static(path.resolve('uploads/'))]);
 
 export default app;
