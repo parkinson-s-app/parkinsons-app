@@ -88,7 +88,6 @@ class _emotionsFormQ27 extends State<emotionsFormQ27> {
 
 class BringAnswer27 {
   int send() {
-    return 0;
-    //return selectedStateRadioQ27;
+    return selectedStateRadioQ27;
   }
 }

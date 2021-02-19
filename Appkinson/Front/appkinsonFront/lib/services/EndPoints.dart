@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:appkinsonFront/constants/Constant.dart';
+import 'package:appkinsonFront/model/EmotionsForm.dart';
 import 'package:appkinsonFront/model/SymptomsForm.dart';
 import 'package:appkinsonFront/model/SymptomsFormPatientM.dart';
 import 'package:flutter/material.dart';
@@ -247,6 +248,59 @@ class EndPoints {
     return success;
   }
 
+Future<bool> registerEmotionsForm(
+      EmotionsForm form, var tokenID, var token) async {
+    bool success = false;
+
+    var decodedToken = json.decode(token);
+
+    //http.Response response =
+    Map<String, dynamic> formMap = {
+      'q1': form.q1,
+      'q2': form.q2,
+      'q3': form.q3,
+      'q4': form.q4,
+      'q5': form.q5,
+      'q6': form.q6,
+      'q7': form.q7,
+      'q8': form.q8,
+      'q9': form.q9,
+      'q10': form.q10,
+      'q11': form.q11,
+      'q12': form.q12,
+      'q13': form.q13,
+      'q14': form.q14,
+      'q15': form.q15,
+      'q16': form.q16,
+      'q17': form.q17,
+      'q18': form.q18,
+      'q19': form.q19,
+      'q20': form.q20,
+      'q21': form.q21,
+      'q22': form.q22,
+      'q23': form.q23,
+      'q24': form.q24,
+      'q25': form.q25,
+      'q26': form.q26,
+      'q27': form.q27,
+      'q28': form.q28,
+      'q29': form.q29,
+      'q30': form.q30,
+      'date': form.date.toString(),
+    };
+    var jsonBody =  jsonEncode(formMap);
+    var codeToken = json.decode(token);
+    debugPrint(jsonBody);
+    http.Response lista = await http.post(endpointBack + '/api/patient/$tokenID/emotionalFormPatient', headers: {
+      HttpHeaders.authorizationHeader: jwtkey + codeToken['token'], 'Content-Type': 'application/json; charset=UTF-8'
+    },body: jsonBody);
+    
+    debugPrint(lista.body);
+    if(lista.body == "OK"){
+      success = true;
+    }
+    return success;
+  }
 /*
   Future<String> getRelationRequest(var token) async {
     //Map data2 = {'email': authUser.email, 'password': authUser.password};
