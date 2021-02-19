@@ -17,7 +17,7 @@ import 'package:line_awesome_flutter/line_awesome_flutter.dart';
 
 const bla = Colors.white;
 const kSpacingUnit = 10;
-File imageFile;
+File imageFilePatient;
 String namePatient = 'cero';
 
 final kTitleTextStyle = TextStyle(
@@ -40,9 +40,9 @@ class PatientProfileScreenP extends State<PatientProfileScreen> {
   openGallery(BuildContext context) async {
     var picture = await ImagePicker.pickImage(source: ImageSource.gallery);
     this.setState(() {
-      imageFile = picture;
+      imageFilePatient = picture;
     });
-    var newUser = new User(photo: imageFile);
+    var newUser = new User(photo: imageFilePatient);
     String save = await EndPoints()
         .modifyUsersPhoto(newUser, currentUser['id'].toString(), token);
     RoutesGeneral().toPop(context);
@@ -52,10 +52,10 @@ class PatientProfileScreenP extends State<PatientProfileScreen> {
     var picture = await ImagePicker.pickImage(source: ImageSource.camera);
 
     this.setState(() {
-      imageFile = picture;
+      imageFilePatient = picture;
     });
 
-    var newUser = new User(photo: imageFile);
+    var newUser = new User(photo: imageFilePatient);
     String save = await EndPoints()
         .modifyUsersPhoto(newUser, currentUser['id'].toString(), token);
     RoutesGeneral().toPop(context);
@@ -83,7 +83,7 @@ class PatientProfileScreenP extends State<PatientProfileScreen> {
                     openCamera(context);
                     var m = new metod3();
                     //var user =  m.send();
-                    var newUser = new User(photo: imageFile);
+                    var newUser = new User(photo: imageFilePatient);
                     /*
                     debugPrint(user.name);
                     var lista = token.split(".");
@@ -119,11 +119,11 @@ class PatientProfileScreenP extends State<PatientProfileScreen> {
   }
 
   Widget decideImageView() {
-    if (imageFile == null) {
+    if (imageFilePatient == null) {
       return Icon(LineAwesomeIcons.question);
     } else {
       return Image.file(
-        imageFile,
+        imageFilePatient,
         fit: BoxFit.cover,
         height: 100,
         width: 100,
@@ -330,7 +330,7 @@ class ProfileListItem extends StatelessWidget {
 
 class metod3 {
   Future<User> send() async {
-    var newUser = new User(photo: imageFile);
+    var newUser = new User(photo: imageFilePatient);
     debugPrint(newUser.name);
     return newUser;
   }

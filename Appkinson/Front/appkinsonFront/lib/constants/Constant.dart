@@ -6,6 +6,6 @@ const linkUserURL = '/api/relate/';
 const linkUserRelatedURL = '/api/doctor/patients/related';
 const modifyNameOfUserURL = '/api/users/';
 const getNameUSer = '/api/users/me';
-const getPhotoUserURL = '/api/download';
+const getPhotoUserURL = '/uploads/photo/';
 //String endpointBack = 'http://18.191.132.173:9001';
 String endpointBack = 'http://192.168.0.16:8001';

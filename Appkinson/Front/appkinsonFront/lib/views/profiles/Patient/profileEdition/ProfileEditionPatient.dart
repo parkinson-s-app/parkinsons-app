@@ -37,6 +37,12 @@ class __ProfileEdition extends State<ProfileEditionPatient> {
           onPressed: () async {
             var m = new metod2();
             var user = await m.send();
+
+            /*
+            setState(() {
+            nameCarer = nameControllerCarer.text;
+          });
+          */
             /*
             debugPrint(user.name);
             var lista = token.split(".");

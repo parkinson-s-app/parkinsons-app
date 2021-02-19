@@ -1,15 +1,21 @@
 import 'dart:async';
 import 'dart:convert';
+//import 'dart:html';
 import 'dart:io';
+import 'dart:typed_data';
 
 import 'package:appkinsonFront/constants/Constant.dart';
 import 'package:appkinsonFront/model/SymptomsForm.dart';
 import 'package:appkinsonFront/model/SymptomsFormPatientM.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_downloader/flutter_downloader.dart';
+import 'package:path_provider/path_provider.dart';
+import 'package:permission_handler/permission_handler.dart';
 import '../model/User.dart';
 import 'package:http/http.dart' as http;
+import 'package:path/path.dart' as p;
 import 'package:dio/dio.dart';
+import 'package:network_to_file_image/network_to_file_image.dart';
 
 class EndPoints {
   Future<String> addUsers(User newUser) async {
@@ -325,32 +331,78 @@ class EndPoints {
     //debugPrint(data2.toString());
     debugPrint("-----");
     debugPrint(response.body);
-
     String res = response.body;
     return res;
   }
 
-  Future<String> getPhotoUser(var token, var path) async {
+  Future<File> getPhotoUser(var token, var path) async {
     debugPrint("entro");
     var codeToken = json.decode(token);
-    http.Response response = await http
-        .get(endpointBack + getPhotoUserURL + '?path=' + path, headers: {
+
+    /*
+    WidgetsFlutterBinding.ensureInitialized();
+    await FlutterDownloader.initialize(
+        debug: true // optional: set false to disable printing logs to console
+        );
+      */
+
+    http.Response response =
+        await http.get(endpointBack + "/" + path, headers: {
       HttpHeaders.authorizationHeader: jwtkey + codeToken['token'],
       //HttpHeaders.hostHeader: path
     });
-    //debugPrint(data2.toString());
-    debugPrint("-----");
-    debugPrint(response.body);
-    final taskId = await FlutterDownloader.enqueue(
-      url: 'your download link',
-      savedDir: 'the path of directory where you want to save downloaded files',
-      showNotification:
-          true, // show download progress in status bar (for Android)
-      openFileFromNotification:
-          true, // click on notification to open downloaded file (for Android)
+
+    /*
+    var s;
+
+    FadeInImage.memoryNetwork(
+      image: 'http://192.168.0.16:8001/uploads/photo/' + path
+      //HttpHeaders.hostHeader: path
+      ,
+      placeholder: s,
     );
 
-    String res = response.body;
-    return res;
+    print('holo' + s.toString());
+
+    //FileUploadInputElement();
+    //debugPrint(data2.toString());
+    debugPrint("-----");
+    debugPrint(response.headers.toString());
+    */
+    final documentDirectory = await getApplicationDocumentsDirectory();
+
+    final file = File(p.join(documentDirectory.path, 'imagetest.png'));
+
+    file.writeAsBytesSync(response.bodyBytes);
+    /*
+    Uint8List n = await http
+        .readBytes(await http.get(endpointBack + "/" + path, headers: {
+      HttpHeaders.authorizationHeader: jwtkey + codeToken['token'],
+      //HttpHeaders.hostHeader: path
+    }));
+    */
+
+    //File m = File.fromRawPath(response.bodyBytes);
+    //print(m.absolute.toString());
+
+    //debugPrint(response.bodyBytes.toString());
+
+    /*
+    final status = await Permission.storage.request();
+    if (status.isGranted) {
+      final externalDir = await getExternalStorageDirectory();
+      final taskId = await FlutterDownloader.enqueue(
+        url: 'http://192.168.0.16:8001/uploads/photo/' + path,
+        savedDir: externalDir.path,
+        //headers: jwtkey + codeToken['token'],
+        showNotification:
+            true, // show download progress in status bar (for Android)
+        openFileFromNotification:
+            true, // click on notification to open downloaded file (for Android)
+      );
+    }*/
+
+    //String res = response.body;
+    return file;
   }
 }

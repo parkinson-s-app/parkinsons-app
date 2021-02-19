@@ -83,7 +83,7 @@ class CustomDrawer extends StatelessWidget {
   const CustomDrawer({Key key, this.closeDrawer}) : super(key: key);
 
   Widget decideImage() {
-    if (imageFile == null) {
+    if (imageFilePatient == null) {
       return Image.asset(
         "assets/images/user.png",
         width: 100,
@@ -91,7 +91,7 @@ class CustomDrawer extends StatelessWidget {
       );
     } else {
       return Image.file(
-        imageFile,
+        imageFilePatient,
         fit: BoxFit.cover,
         height: 100,
         width: 100,
