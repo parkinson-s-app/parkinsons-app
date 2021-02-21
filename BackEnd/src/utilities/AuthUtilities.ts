@@ -5,6 +5,7 @@ import debugLib from 'debug';
 import { Request, Response } from 'express';
 import { constants } from "http2";
 import config from '../config';
+import * as bcrypt from 'bcryptjs';
 
 const debug = debugLib('AppKinson:AuthUtilities');
 const secretKey = config.secretKey;
@@ -49,4 +50,9 @@ export function getTypeFromToken(token: string) {
     const dataInJSON = JSON.parse(decodedData);
     debug('getTypeFromToken data in JSON: %j',dataInJSON);
     return dataInJSON.type;
+}
+
+export async function compare(password: string, passwordInDB: string) {
+    const isMatch = await bcrypt.compare(password, passwordInDB);
+    return isMatch;
 }

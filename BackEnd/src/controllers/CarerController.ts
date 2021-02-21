@@ -130,6 +130,7 @@ CarerController.post('/carer/relate', verifyToken, async (req: Request, res: Res
                     res.status(status).send('An Error had ocurred');
                 }
             } catch (error) {
+                debug('Relate patient to carer failed. Error: %j', error);
                 status = constants.HTTP_STATUS_INTERNAL_SERVER_ERROR;
                 const responseError = { status, error};
                 res.status(status).send(responseError);

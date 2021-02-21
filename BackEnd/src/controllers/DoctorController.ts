@@ -130,6 +130,7 @@ DoctorController.post('/doctor/relate', verifyToken, async (req: Request, res: R
                     res.status(status).send('An Error had ocurred');
                 }
             } catch (error) {
+                debug('relate patient to doctor failed. Error: %j', error);
                 status = constants.HTTP_STATUS_INTERNAL_SERVER_ERROR;
                 const responseError = { status, error};
                 res.status(status).send(responseError);
