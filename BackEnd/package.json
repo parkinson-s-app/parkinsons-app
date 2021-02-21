@@ -13,8 +13,9 @@
     "docker": "docker build -t back .",
     "docker:d": "docker run -d -p 8000:8000 back",
     "docker:it": "docker run -it -p 8000:8000 back",
-    "docker-compose-up": "docker-compose up",
-    "docker-compose-build": "docker-compose build",
+    "docker-up": "docker-compose up",
+    "docker-build": "docker-compose build",
+    "docker-down": "docker-compose down -v",
     "restartdb": "sudo rm -r src/db/data"
   },
   "keywords": [],

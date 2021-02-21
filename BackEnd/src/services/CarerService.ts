@@ -1,5 +1,6 @@
 import { connect } from "../database";
 import debugLib from 'debug';
+import { Pool } from "mysql2/promise";
 
 const debug = debugLib('AppKinson:CarerService');
 
@@ -9,8 +10,9 @@ export default class CarerService {
      */
     public static async relatePatientToCarer(idCarer: number, idPatient: number, answer: string) {
         debug('relate Patient id patient: %s, id carer: %s', idPatient, idCarer);
-        const conn = await connect();
+        let conn: Pool | undefined;
         try {
+            conn = await connect();
             const queryData = { ID_CARER: idCarer, ID_PATIENT: idPatient};
             const resDeletion = await conn.query(
                 'DELETE FROM requestlinkcarertopatient WHERE ID_CARER  = ? AND ID_PATIENT = ?',
@@ -25,7 +27,9 @@ export default class CarerService {
             conn.end();
             return resDeletion;
         } catch (e) {
-            conn.end();
+            if(conn) {
+                conn.end();
+            }
             debug('relate Patient to Carer Error: %s', e);
             throw e;
         }
@@ -36,14 +40,17 @@ export default class CarerService {
      */
     public static async requestRelatePatientToCarer(idCarer: number, idPatient: number) {
         debug('request relate Patient id patient: %s, id carer: ', idPatient, idCarer);
-        const conn = await connect();
+        let conn: Pool | undefined;
         try {
+            conn = await connect();
             const queryData = { ID_CARER: idCarer, ID_PATIENT: idPatient};
             const res = await conn.query('INSERT INTO requestlinkcarertopatient SET ?',[queryData]);
             conn.end();
             return res;
         } catch (e) {
-            conn.end();
+            if(conn) {
+                conn.end();
+            }
             debug('request relate Patient to Carer Error: %s', e);
             throw e;
         }
@@ -55,8 +62,9 @@ export default class CarerService {
      */
     public static async getPatientsUnrelated(id: number) {
         debug('Unrelated Patients, id carer: ', id);
-        const conn = await connect();
+        let conn: Pool | undefined;
         try {
+            conn = await connect();
             const query = `SELECT *
             FROM patients 
             WHERE ID_USER NOT IN 
@@ -72,9 +80,11 @@ export default class CarerService {
                 return null;
             }
         } catch (error) {
-            conn.end();
+            if(conn) {
+                conn.end();
+            }
             debug('Unrelated Patients error making query. Error: %s', error);
-            return null;
+            throw error;
         }
     }
 
@@ -84,8 +94,9 @@ export default class CarerService {
      */
     public static async getPatientsRelated(id: number) {
         debug('Related Patients, id carer: ', id);
-        const conn = await connect();
+        let conn: Pool | undefined;
         try {
+            conn = await connect();
             const query = `
             SELECT ID_USER, NAME, EMAIL
             FROM patients
@@ -103,9 +114,11 @@ export default class CarerService {
                 return null;
             }
         } catch (error) {
-            conn.end();
+            if(conn) {
+                conn.end();
+            }
             debug('Unrelated Patients error making query. Error: %s', error);
-            return null;
+            throw error;
         }
     }
 
@@ -114,15 +127,24 @@ export default class CarerService {
      */
     public static async getCarerById(id : number) {
         debug('getCarerById id: %s', id);
-        const conn = await connect();
-        const person =  await conn.query(
-            `SELECT EMAIL, NAME, PHOTOPATH  
-            FROM doctors
-            LEFT JOIN users
-            ON users.ID = doctors.ID_USER
-            WHERE users.ID = ? `,[id]);
-        conn.end();
-        debug('result search carer by id: %j', person[0]);
-        return person[0];
+        let conn: Pool | undefined;
+        try {
+            conn = await connect();
+            const person =  await conn.query(
+                `SELECT EMAIL, NAME, PHOTOPATH  
+                FROM doctors
+                LEFT JOIN users
+                ON users.ID = doctors.ID_USER
+                WHERE users.ID = ? `,[id]);
+            conn.end();
+            debug('result search carer by id: %j', person[0]);
+            return person[0];
+        } catch (error) {
+            if(conn) {
+                conn.end();
+            }
+            debug('GetCarerByID failed. Error: %s', error);
+            throw error;
+        }
     }
 }

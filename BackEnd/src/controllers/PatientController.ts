@@ -103,7 +103,7 @@ PatientController.post('/carer/relate/:idPatient', verifyToken, async (req: Requ
     let status;
     if( bearerHeader !== undefined ) {
         const id = getIdFromToken(bearerHeader);
-        if( !isNaN(id) ){     
+        if( !isNaN(id) ){    
             try {
                 const response = await CarerService.requestRelatePatientToCarer(id, idPatient);
                 if(response) {
@@ -130,7 +130,6 @@ PatientController.post('/carer/relate/:idPatient', verifyToken, async (req: Requ
     }
 });
 
-
 PatientController.post('/patient/:id/emotionalFormPatient', verifyToken, async (req: Request, res: Response) => {
     debug('Patients emotional form by Id');
     const id = +req.params.id;
@@ -145,6 +144,23 @@ PatientController.post('/patient/:id/emotionalFormPatient', verifyToken, async (
         res.status(status).send('OK');
     } catch (error) {
         debug('Patient emotional form saving failed, error: %j', error);
+        status = constants.HTTP_STATUS_INTERNAL_SERVER_ERROR;
+        const responseError = { status, error: "An error has ocurred"};
+        res.status(status).send(responseError);
+    }
+});
+
+PatientController.get('/patient/:id/emotionalFormPatient', verifyToken, async (req: Request, res: Response) => {
+    const id = +req.params.id;
+    debug('Patients getting emotional form by Id: %s', id);
+    let status;
+    try {
+        const response = await PatientService.getEmotionalFormsById(id);
+        debug('Patient getting emotional result %j, succesful', response);
+        status = constants.HTTP_STATUS_OK;
+        res.status(status).send('OK');
+    } catch (error) {
+        debug('Patient getting emotional form failed, error: %j', error);
         status = constants.HTTP_STATUS_INTERNAL_SERVER_ERROR;
         const responseError = { status, error: "An error has ocurred"};
         res.status(status).send(responseError);
