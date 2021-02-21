@@ -154,7 +154,7 @@ export default class PatientService {
             const res = await conn.query('SELECT * FROM emotionalformpatient WHERE ID_PATIENT=?',[id]);
             debug('getEmotionalForms saved and returned: %j', res);
             conn.end();
-            return res;
+            return res[0];
         }  catch (error) {
             if(conn) {
                 conn.end();

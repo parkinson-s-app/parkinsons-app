@@ -15,7 +15,7 @@
     "docker:it": "docker run -it -p 8000:8000 back",
     "docker-up": "docker-compose up",
     "docker-build": "docker-compose build",
-    "docker-down": "docker-compose down -v",
+    "docker-down": "docker-compose down -v && npm run restartdb",
     "restartdb": "sudo rm -r src/db/data"
   },
   "keywords": [],

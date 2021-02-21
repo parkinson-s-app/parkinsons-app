@@ -69,11 +69,11 @@ UserController.get('/users', async (req: Request, res: Response) => {
 });
 
 UserController.post('/login', async (req: Request, res: Response) => {
-    debug('Login Body entry: %j', req.body);
+    debug('Login user entry: %j', req.body.email);
     const credentials = req.body as IPersonDto;
     try {
         const responseDB = await PersonService.getPersonByEmail(credentials.email);
-        debug('Login Credentials: %j', credentials);
+        debug('Login Credentials: %j', credentials.email);
         const responseJSON = JSON.parse(JSON.stringify(responseDB));
         debug('Login: responseDB ', responseJSON.length);
         debug('User get response db: %j', responseDB);

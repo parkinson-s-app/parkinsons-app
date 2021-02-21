@@ -158,7 +158,7 @@ PatientController.get('/patient/:id/emotionalFormPatient', verifyToken, async (r
         const response = await PatientService.getEmotionalFormsById(id);
         debug('Patient getting emotional result %j, succesful', response);
         status = constants.HTTP_STATUS_OK;
-        res.status(status).send('OK');
+        res.status(status).send(response);
     } catch (error) {
         debug('Patient getting emotional form failed, error: %j', error);
         status = constants.HTTP_STATUS_INTERNAL_SERVER_ERROR;
