@@ -21,7 +21,7 @@ void showNotification(v, flp) async {
       payload: 'VIS \n $v');
 }
 
-void callbackDispatcher() {
+/*void callbackDispatcher() {
   print('Entra!');
   debugPrint('Entra!');
   Workmanager.executeTask((task, inputData) async {
@@ -53,9 +53,9 @@ void callbackDispatcher() {
     }
     return Future.value(true);
   });
-}
+}*/
 
-/*
+
 Future<List<Widget>> getRelationsRequest() async {
   response = await EndPoints().getRelationRequest(token);
   var responseJSON = json.decode(response);
@@ -64,7 +64,7 @@ Future<List<Widget>> getRelationsRequest() async {
         responseJSON[a]['EMAIL'], responseJSON[a]['TYPE']));
   }
 }
-*/
+
 
 List<Widget> getListRelationsRequest() {
   return listings;

@@ -3,6 +3,7 @@ import 'package:appkinsonFront/services/EndPoints.dart';
 import 'package:appkinsonFront/views/Calendar/CalendarScreenView2.dart';
 import 'package:appkinsonFront/views/DataAnalisis/ReportScreen.dart';
 import 'package:appkinsonFront/views/Medicines/medicines.dart';
+import 'package:appkinsonFront/views/RelationRequest/relationsRequets.dart';
 import 'package:appkinsonFront/views/ToolBox/ToolBoxInitial.dart';
 import 'package:flutter/material.dart';
 import 'views/SymptomsFormPatient/SymptomsFormPatient.dart';

@@ -247,7 +247,7 @@ class EndPoints {
     return success;
   }
 
-/*
+
   Future<String> getRelationRequest(var token) async {
     //Map data2 = {'email': authUser.email, 'password': authUser.password};
     var codeToken = json.decode(token);
@@ -260,7 +260,7 @@ class EndPoints {
     String relationsRequest = lista.body;
     return relationsRequest;
   }
-  */
+
 
   Future<String> registerSymptomsFormPatient(
       SymptomsFormPatientM form, var tokenID, var token) async {
@@ -311,4 +311,5 @@ class EndPoints {
     String relationsRequest = lista.body;
     return relationsRequest;
   }
+
 }

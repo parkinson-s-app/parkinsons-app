@@ -1,4 +1,5 @@
 import 'package:appkinsonFront/views/Calendar/CalendarScreenView2.dart';
+import 'package:appkinsonFront/views/RelationRequest/relationsRequets.dart';
 import 'package:appkinsonFront/views/SymptomsFormPatient/SymptomsFormPatient.dart';
 
 import 'package:appkinsonFront/views/HomeDifferentUsers/Patient/PatientHomePage.dart';
