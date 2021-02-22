@@ -16,7 +16,8 @@
     "docker-up": "docker-compose up",
     "docker-build": "docker-compose build",
     "docker-down": "docker-compose down -v && npm run restartdb",
-    "restartdb": "sudo rm -r src/db/data"
+    "restartdb": "sudo rm -r src/db/data",
+    "rund": "export DEBUG=AppKinson:* && nohup node ./build/bin/www.js >> output.txt 2>&1 &"
   },
   "keywords": [],
   "author": "",
