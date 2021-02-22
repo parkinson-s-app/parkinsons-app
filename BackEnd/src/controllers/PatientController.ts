@@ -155,7 +155,9 @@ PatientController.get('/patient/:id/emotionalFormPatient', verifyToken, async (r
     debug('Patients getting emotional form by Id: %s', id);
     let status;
     try {
-        const response = await PatientService.getEmotionalFormsById(id);
+        const initialDate: string = (req.query.start) ? req.query.start as string : '';
+        const endDate = (req.query.end) ? req.query.end as string : '';
+        const response = await PatientService.getEmotionalFormsById(id, initialDate, endDate);
         debug('Patient getting emotional result %j, succesful', response);
         status = constants.HTTP_STATUS_OK;
         res.status(status).send(response);

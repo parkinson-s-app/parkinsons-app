@@ -146,12 +146,15 @@ export default class PatientService {
      * 
      * @param id 
      */
-    public static async getEmotionalFormsById(id: number) {
+    public static async getEmotionalFormsById(id: number, start: string, end: string) {
         let conn: Pool | undefined;
         try {
             conn = await connect();
+            const dateStart = new Date(start);
+            const dateEnd = new Date(end);
+            const query = 'SELECT * FROM emotionalformpatient WHERE ID_PATIENT=? and ( date BETWEEN ? AND ?)';
             debug('getEmotionalForms to patient id: %s', id);
-            const res = await conn.query('SELECT * FROM emotionalformpatient WHERE ID_PATIENT=?',[id]);
+            const res = await conn.query(query,[id, dateStart, dateEnd]);
             debug('getEmotionalForms saved and returned: %j', res);
             conn.end();
             return res[0];
