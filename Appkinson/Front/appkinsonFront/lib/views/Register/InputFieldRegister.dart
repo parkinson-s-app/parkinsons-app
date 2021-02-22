@@ -129,15 +129,8 @@ class InputFieldRegisterCustom extends State<InputFieldRegister> {
 class metod {
   Future<User> send() async {
     var newUser = new User(
-        email: emailController.text, password: password.text, type: selectUser);
+        email: emailController.text, password: password.text, passwordVerify: passwordv.text, type: selectUser);
     debugPrint(newUser.password);
     return newUser;
-  }
-}
-
-class passwordVerify {
-  Future<String> send() async {
-    String verify = passwordv.text;
-    return verify;
   }
 }
