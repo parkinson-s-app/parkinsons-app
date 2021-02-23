@@ -302,7 +302,7 @@ Future<bool> registerEmotionsForm(
 
   /*Future<List<RelationRequest>> getRelationRequest(var token) async {
 
-    debugPrint("entraget");
+    debugPrint("entraget");*/
   Future<bool> getEmotionsForm(var tokenID, var token, DateTime start, DateTime end) async {
     bool success = false;
     var codeToken = json.decode(token);
@@ -321,7 +321,7 @@ Future<bool> registerEmotionsForm(
     });
     
     return success;
-  }*/
+  }
 
   Future<List<RelationRequest>> getRelationRequest(var token) async {
     //Map data2 = {'email': authUser.email, 'password': authUser.password};
