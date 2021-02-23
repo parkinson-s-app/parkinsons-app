@@ -54,14 +54,16 @@ export default class PatientService {
                 if(!Number.isNaN(idCarer)) {
                     return await CarerService.relatePatientToCarer(idCarer, idPatient, answer.Answer);
                 } else {
-                    return 'Error parsing Id Carer';
+                    debug('Error parsing Id Carer. Id: %s', answer.RequesterId);
+                    return null;
                 }
             } else if(answer.RequesterType === PersonType.DOCTOR) {
                 const idDoctor = Number(answer.RequesterId);
                 if(!Number.isNaN(idDoctor)) {
                     return await DoctorService.relatePatientToDoctor(idDoctor, idPatient, answer.Answer)
                 } else {
-                    return 'Error parsing Id Doctor';
+                    debug('Error parsing Id Doctor. Id: %s', answer.RequesterId);
+                    return null;
                 }
             } else {
                 debug('Error requester type not valid. Type: %s', answer.RequesterType);
