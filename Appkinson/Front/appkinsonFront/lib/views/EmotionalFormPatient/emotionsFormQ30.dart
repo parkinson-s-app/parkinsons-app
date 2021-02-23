@@ -149,6 +149,8 @@ class _emotionsFormQ30 extends State<emotionsFormQ30> {
                   patientForm.date = new DateTime.now();
                   debugPrint("formulario llenado");
                   var savedEmotional = await EndPoints().registerEmotionsForm(patientForm, currentUser['id'].toString(), token);
+
+                  var savedEmotional2 = await EndPoints().getEmotionsForm( currentUser['id'].toString(), token, new DateTime.utc(2021, 02, 20) , patientForm.date);
                   debugPrint("formulario enviado");
                   RoutesGeneral().toPop(context);
                 },
