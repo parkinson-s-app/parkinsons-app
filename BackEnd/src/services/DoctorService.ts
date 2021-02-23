@@ -15,19 +15,22 @@ export default class DoctorService {
         try {
             conn = await connect();
             const queryData = { ID_DOCTOR: idDoctor, ID_PATIENT: idPatient};
+            let res;
+            if(answer === 'ACCEPT') {
+                res = await conn.query('INSERT INTO patientxdoctor SET ?',[queryData]);
+                debug('result adding row in patientxdoctor: %j', res);
+            } else {
+                debug('answer was REJECTED ');
+            }
             const resDeletion = await conn.query(
                 'DELETE FROM requestlinkdoctortopatient WHERE ID_DOCTOR = ? AND ID_PATIENT = ?',
                 [queryData.ID_DOCTOR, queryData.ID_PATIENT]);
-            if(answer === 'ACCEPT') {
-                const res = await conn.query('INSERT INTO patientxdoctor SET ?',[queryData]);
-                debug('result adding row in patientxdoctor: %j', res);
-                conn.end();
-                return res;
-            } else {
-                conn.end();
-                debug('answer was REJECTED result deleting row from requestlinkdoctortopatient: %j', resDeletion);
-                return resDeletion;
+            if(resDeletion) {
+                debug('Deletion from request table success, Response: %j', resDeletion);
             }
+            conn.end();
+            return resDeletion;
+        
         } catch (e) {
             if(conn) {
                 conn.end();
