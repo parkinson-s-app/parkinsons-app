@@ -10,6 +10,8 @@ class CalendarScreenView2 extends StatefulWidget {
 }
 
 List<Meeting> meetings = new List<Meeting>();
+var conta = 0;
+int hora = 0;
 
 class _Calendar extends State<CalendarScreenView2> {
 
@@ -18,20 +20,18 @@ class _Calendar extends State<CalendarScreenView2> {
     return Scaffold(
         body: SfCalendar(
       view: CalendarView.day,
-      /*onTap: (calendarTapDetails) {
+      headerHeight: 100,
+      onTap: (calendarTapDetails) {
+        //dateChoosed = calendarTapDetails.date;
         dateChoosed = calendarTapDetails.date;
-        RoutesPatient().toSymptomsFormPatient(context);
-      },*/
-      onTap: (calendarTapDetails){
-        dateChoosed = calendarTapDetails.date;
+        meetings = _getDataSource();
         setState(() {
-         // print(dateChoosed.hour);
-          print(dateChoosed.hour);
-         count++;
-         if(count == 3){
-           count = 0;
-         }
+          if (conta == 8) {
+            conta = 0;
+          }
+          conta++;
         });
+        // RoutesPatient().toSymptomsFormPatient(context);
       },
       dataSource: MeetingDataSource(_getDataSource()),
       monthViewSettings: MonthViewSettings(
@@ -41,23 +41,30 @@ class _Calendar extends State<CalendarScreenView2> {
 
   List<Meeting> _getDataSource() {
     meetings = <Meeting>[];
-    final DateTime today = DateTime.now();
-    DateTime startTime;
-    DateTime endTime;
-    if(dateChoosed != null ){
-      startTime = DateTime(today.year, today.month, today.day, dateChoosed.hour, 0, 0);
-      endTime = startTime.add(const Duration(hours: 1));
-      print("AQUI2");
-      print(dateChoosed.hour);
-      if(count ==1){
-        meetings.add(Meeting(
-            'ON', startTime, endTime, Colors.green, false));
-      }
-      if(count == 2){
-        meetings.add(Meeting(
-            'OFF', startTime, endTime, Colors.red, false));
-      }
+
+    //final DateTime today = DateTime.now();
+    hora = dateChoosed.hour;
+    print(conta);
+    final DateTime startTime = DateTime(
+        dateChoosed.year, dateChoosed.month, dateChoosed.day, hora, 0, 0);
+    final DateTime endTime = startTime.add(const Duration(hours: 1));
+
+    if (conta == 1) {
+      meetings.add(
+          Meeting('on', startTime, endTime, const Color(0xFF0F8644), false));
     }
+    if (conta == 3) {
+      meetings.add(
+          Meeting('on Bueno', startTime, endTime, Colors.green[900], false));
+    }
+    if (conta == 5) {
+      meetings.add(Meeting('off', startTime, endTime, Colors.red[400], false));
+    }
+    if (conta == 7) {
+      meetings
+          .add(Meeting('off Malo', startTime, endTime, Colors.red[900], false));
+    }
+
     return meetings;
   }
 }

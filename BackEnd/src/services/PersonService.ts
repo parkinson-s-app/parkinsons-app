@@ -34,11 +34,13 @@ export default class PersonService {
                 } else if( userSave.TYPE === 'Cuidador' ) {
                     await conn.query('INSERT INTO carers SET ?', [idPerson]);
                 }
+                conn.end();
             }
             return res;
         } catch (e) {
             debug('savePerson Catch Error: %s, %j', e.stack, e);
-            // throw Error
+            conn.end();
+            throw e;
         }
     }
 
@@ -51,6 +53,7 @@ export default class PersonService {
         debug('getPeople bd connected');
         const people = await conn.query('SELECT * FROM users');
         debug('getPeople response db: %j', people[0]);
+        conn.end();
         return people[0];
     }
 
@@ -61,6 +64,7 @@ export default class PersonService {
         debug('getPersonByEmail email: %s', email);
         const conn = await connect();
         const person =  await conn.query('SELECT * FROM users WHERE EMAIL = ?',[email]);
+        conn.end();
         return person[0];
     }
     /**
@@ -70,6 +74,7 @@ export default class PersonService {
         debug('getPersonById id: %s', id);
         const conn = await connect();
         const person =  await conn.query('SELECT * FROM users WHERE ID = ?',[id]);
+        conn.end();
         return person[0];
     }
 
@@ -96,12 +101,16 @@ export default class PersonService {
                     debug('updatePerson person to update is a carer');
                     person =  await conn.query('UPDATE carers SET ? WHERE ID_USER = ?',[userUpdated, id]);
                 }
+                conn.end();
             } catch(e) {
+                conn.end();
                 debug('updatePerson Error Updating %s', e);
+                throw e;
             }
             debug('updatePerson returning person %j', person);
             return person;
         } else  {
+            conn.end();
             return null;
         }
     }
@@ -115,9 +124,12 @@ export default class PersonService {
         try {
             const queryData = { ID_DOCTOR: idDoctor, ID_PATIENT: idPatient};
             const res = await conn.query('INSERT INTO patientxdoctor SET ?',[queryData]);
+            conn.end();
             return res;
         } catch (e) {
+            conn.end();
             debug('relate Patient Error: %s', e);
+            throw e;
         }
     }
 
@@ -137,12 +149,14 @@ export default class PersonService {
                 WHERE ID_DOCTOR = ? )`;
             const res = await conn.query(query,[id]);
             debug('Unrelated Patients response query %s', res);
+            conn.end();
             if(res) {
                 return res[0];
             } else {
                 return null;
             }
         } catch (error) {
+            conn.end();
             debug('Unrelated Patients error making query. Error: %s', error);
             return null;
         }
@@ -165,12 +179,14 @@ export default class PersonService {
             WHERE ID_DOCTOR = ?`;
             const res = await conn.query(query,[id]);
             debug('Related Patients response query %s', res);
+            conn.end();
             if(res) {
                 return res[0];
             } else {
                 return null;
             }
         } catch (error) {
+            conn.end();
             debug('Unrelated Patients error making query. Error: %s', error);
             return null;
         }
@@ -203,12 +219,14 @@ export default class PersonService {
            WHERE result.ID_PATIENT = ?`;
             const res = await conn.query(query,[id]);
             debug('Requests response query %s', res);
+            conn.end();
             if(res) {
                 return res[0];
             } else {
                 return null;
             }
         } catch (error) {
+            conn.end();
             debug('Unrelated Patients error making query. Error: %s', error);
             return null;
         }
@@ -221,10 +239,11 @@ export default class PersonService {
         try {
             const res = await conn.query('INSERT INTO symptomsformpatient SET ?',[symptomsFormData]);
             debug('savePerson saved and returned: %j', res);
+            conn.end();
             return res;
         } catch (e) {
             debug('saveSymptoms Catch Error: %s, %j', e.stack, e);
-            // throw Error
+            throw e;
         }
     }
     /**
@@ -237,10 +256,12 @@ export default class PersonService {
         try {
             const res = await conn.query('SELECT * FROM symptomsformpatient WHERE ID_PATIENT = ?',[id]);
             debug('Symptoms found: %j', res);
+            conn.end();
             return res[0];
         } catch (e) {
+            conn.end();
             debug('Getting Symptoms Catch Error: %s, %j', e.stack, e);
-            // throw Error
+            throw e;
         }
     }
 

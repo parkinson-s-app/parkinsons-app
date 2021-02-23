@@ -5,7 +5,12 @@ import logger from 'morgan';
 // import path from 'path';
 import config from './config';
 import UserController from './controllers/UserController';
+import DoctorController from './controllers/DoctorController';
 import DefaultResponseDto from './models/DefaultResponseDto';
+import CarerController from './controllers/CarerController';
+import PatientController from './controllers/PatientController';
+import AdminController from './controllers/AdminController';
+import path from 'path';
 
 const app = express();
 const apiPath = config.apiPath;
@@ -24,17 +29,22 @@ app.use((_, res, next) => {
 });
 // add the controllers you need here
 app.use(fullApiPath, UserController);
+app.use(fullApiPath, DoctorController);
+app.use(fullApiPath, CarerController);
+app.use(fullApiPath, PatientController);
+app.use(fullApiPath, AdminController);
 
 app.use((error: any, req: Request,res: Response, next: any) => {
     if(error.message && error.statusCode){
     const msgRsErrorDto = DefaultResponseDto.getErrorFromMessage(JSON.stringify(error.message), error.statusCode);
     res.status(Number(msgRsErrorDto.status)).send(msgRsErrorDto);
     } else{
-        console.log('hola');
         console.log(error);
-        
         res.status(500).send(error);
     }
 });
+// storage
+app.use('/uploads/photo', express.static(path.resolve('uploads/photo')));
+app.use('/uploads/video', express.static(path.resolve('uploads/video')));
 
 export default app;

@@ -139,7 +139,7 @@ class _PatientNotifications extends State<PatientNotifications> {
       valueMedicines = value;
     });
     if (value == true) {
-      await notificationPlugin.scheduleNotification();
+      await notificationPlugin.showDailyAtTime();
     }
   }
 

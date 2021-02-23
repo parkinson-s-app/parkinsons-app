@@ -3,6 +3,7 @@ import { Request, Response, Router } from 'express';
 import { constants } from 'http2';
 import IPersonDto from '../models/IPersonDto';
 import PersonService from '../services/PersonService';
+import PatientService from '../services/PatientService';
 import * as bcrypt from 'bcryptjs';
 import * as jwt from 'jsonwebtoken';
 import IUserDto from '../models/IUserDto';
@@ -11,22 +12,40 @@ import { verifyToken } from '../utilities/AuthUtilities';
 import IPersonalDataDto from '../models/IPersonalDataDto';
 import multer from '../utilities/multer';
 import ISymptomsFormDto from '../models/ISymptomsFormDto';
+import DoctorService from '../services/DoctorService';
+import CarerService from '../services/CarerService';
+import fs from 'fs';
 
 const debug = debugLib('AppKinson:UserController');
 const UserController = Router();
 const secretKey = config.secretKey;
 
 UserController.post('/registro', async (req: Request, res: Response) => {
-    debug('Registro Body: %j', req.body);
+    debug('Register Body: %j', req.body);
     const person = req.body as IPersonDto;
-    const response = await PersonService.savePerson(person);
-    debug('Registro response db: %j', response);
-    if(response) {
-        const status =  constants.HTTP_STATUS_OK;
-        res.status(status).send('Guardado');
-    } else {
-        const status =  constants.HTTP_STATUS_INTERNAL_SERVER_ERROR;
-        res.status(status).send('Error');
+    let status;
+    try {
+        const response = await PersonService.savePerson(person);
+        debug('Register response db: %j', response);
+        if(response) {
+            status =  constants.HTTP_STATUS_OK;
+            res.status(status).send('Guardado');
+        } else {
+            const status =  constants.HTTP_STATUS_INTERNAL_SERVER_ERROR;
+            res.status(status).send('Error');
+        }
+    }  catch (error) {
+        debug('Register failed, error: %j', error);
+        const errorString: string = error.message;
+        let responseError;
+        if(errorString.includes('Duplicate entry')) {
+            responseError = "Existe";
+            status = constants.HTTP_STATUS_BAD_REQUEST;
+        } else {
+            responseError = { status, error: "An error has ocurred"};
+            status = constants.HTTP_STATUS_INTERNAL_SERVER_ERROR;
+        }
+        res.status(status).send(responseError);
     }
 });
 
@@ -34,21 +53,6 @@ UserController.get('/users', async (req: Request, res: Response) => {
     debug('Users Get');
     const response = await PersonService.getPeople();
     debug('User get response db: %j', response);
-    if(response) {
-        const status =  constants.HTTP_STATUS_OK;
-        res.status(status).send(response);
-    } else {
-        const status =  constants.HTTP_STATUS_INTERNAL_SERVER_ERROR;
-        res.status(status).send('Error');
-    }
-});
-
-UserController.get('/users/:id', verifyToken, async (req: Request, res: Response) => {
-    debug('Users GetByID');
-    const id = +req.params.id;
-    debug('Users GetById id: ', id);
-    const response = await PersonService.getPersonById(id);
-    debug('User get by id response db: %j', response);
     if(response) {
         const status =  constants.HTTP_STATUS_OK;
         res.status(status).send(response);
@@ -90,7 +94,7 @@ UserController.post('/login', async (req: Request, res: Response) => {
                     debug('Login send token');
                     res.json({
                         token
-                    })
+                    });
                 }
             });
 
@@ -127,94 +131,17 @@ UserController.post('/users/:id', multer.single('photo'), verifyToken, async (re
     }
 });
 
-UserController.post('/relate/:idPatient', verifyToken, async (req: Request, res: Response) => {
-    const bearerHeader = req.headers['authorization'];
-    const idPatient = +req.params.idPatient;
-    let status;
-    if( bearerHeader !== undefined ) {
-        const id = getIdFromToken(bearerHeader);
-        if( !isNaN(id) ){     
-            try {
-                const response = await PersonService.relatePatientToDoctor(id, idPatient);
-                if(response) {
-                    status = constants.HTTP_STATUS_OK;
-                    res.status(status).send('Success');
-                } else {
-                    status = constants.HTTP_STATUS_INTERNAL_SERVER_ERROR;
-                    res.status(status).send('An Error had ocurred');
-                }
-            } catch (error) {
-                status = constants.HTTP_STATUS_INTERNAL_SERVER_ERROR;
-                const responseError = { status, error};
-                res.status(status).send(responseError);
-            }
-        } else {
-            debug('Relate Error getting id from token')
-            status = constants.HTTP_STATUS_BAD_REQUEST;
-            res.status(status).send('Bad request');
-        }
-    } else {
-        debug('Relate Error getting authorization header');
-        status = constants.HTTP_STATUS_BAD_REQUEST;
-        res.status(status).send('Bad request');
-    }
-});
-
-UserController.get('/doctor/patients/unrelated', verifyToken, async (req: Request, res: Response) => {
-    debug('Getting unrelated patients');
-    const bearerHeader = req.headers['authorization'];
-    let status;
-    if( bearerHeader !== undefined ) {
-        const id = getIdFromToken(bearerHeader);
-        if( !isNaN(id) ){
-            try {
-                const patients = await PersonService.getPatientsUnrelated(id);
-                debug('Getting unrelated result %j', patients);
-                status = constants.HTTP_STATUS_OK;
-                res.status(status).send(patients);
-            } catch (error) {
-                status = constants.HTTP_STATUS_INTERNAL_SERVER_ERROR;
-                const responseError = { status, error};
-                res.status(status).send(responseError);
-            }
-        }
-    } else {
-        debug('Unrelated Error getting authorization header');
-        status = constants.HTTP_STATUS_BAD_REQUEST;
-        res.status(status).send('Bad request');
-    }
-});
-
-UserController.get('/doctor/patients/related', verifyToken, async (req: Request, res: Response) => {
-    debug('Getting related patients');
-    const bearerHeader = req.headers['authorization'];
-    let status;
-    if( bearerHeader !== undefined ) {
-        const id = getIdFromToken(bearerHeader);
-        if( !isNaN(id) ){
-            try {
-                const patients = await PersonService.getPatientsRelated(id);
-                debug('Getting related result %j', patients);
-                status = constants.HTTP_STATUS_OK;
-                res.status(status).send(patients);
-            } catch (error) {
-                status = constants.HTTP_STATUS_INTERNAL_SERVER_ERROR;
-                const responseError = { status, error};
-                res.status(status).send(responseError);
-            }
-        }
-    } else {
-        debug('Related Error getting authorization header');
-        status = constants.HTTP_STATUS_BAD_REQUEST;
-        res.status(status).send('Bad request');
-    }
-});
-
 UserController.post('/users/:id/symptomsForm', multer.single('video'), verifyToken, async (req: Request, res: Response) => {
     debug('Users UpdateById');
     const id = +req.params.id;
     debug('Users Symptoms body: %j, ID: %s, file path: %s',req.body, id, req.file.path);
     let symptomsFormData = req.body as ISymptomsFormDto;
+    if (req.file) {
+        debug('Users Symptoms body: %j, ID: %s, file path: %s',req.body, id, req.file.path);
+    } else {
+        debug('Users Symptoms body: %j, ID: %s, without file',req.body, id);
+    }
+    // let updatedUserData = req.body as IPersonalDataDto;
     // updatedUserData.PHOTOPATH = req.file.path;
     // debug('Users Update user: %j, ID:', updatedUserData, id);
     // const response = await PersonService.updatePerson(id, updatedUserData);
@@ -329,6 +256,100 @@ UserController.get('/patients/:id/symptomsFormPatient', verifyToken, async (req:
     }
 });
 
+UserController.get('/users/me', verifyToken, async (req: Request, res: Response) => {
+    debug('Getting info about user');
+    const bearerHeader = req.headers['authorization'];
+    let status;
+    if( bearerHeader !== undefined ) {
+        const idSender = getIdFromToken(bearerHeader);
+        const type = getTypeFromToken(bearerHeader);
+        debug('Getting info about user by Id, id: %s', idSender);
+        if( !isNaN(idSender) ){
+            try {
+                let responseDB;
+                if(type === 'Doctor') {
+                    responseDB = await DoctorService.getDoctorById(idSender);
+                } else if(type === 'Paciente') {
+                    responseDB = await PatientService.getPatientById(idSender);
+                } else if(type === 'Cuidador') {
+                    responseDB = await CarerService.getCarerById(idSender);
+                } else {
+                    status = constants.HTTP_STATUS_BAD_REQUEST;
+                    responseDB = 'Error, Token inválido';
+                }
+                debug('Getting info about user result %j', responseDB);
+                if(!status) {
+                    status = constants.HTTP_STATUS_OK;
+                }
+                res.status(status).send(responseDB);
+            } catch (error) {
+                status = constants.HTTP_STATUS_INTERNAL_SERVER_ERROR;
+                const responseError = { status, error};
+                res.status(status).send(responseError);
+            }
+        }
+    } else {
+        debug('Getting info about use Error getting authorization header');
+        status = constants.HTTP_STATUS_BAD_REQUEST;
+        res.status(status).send('Bad request');
+    }
+});
+
+
+UserController.get('/users/:id', verifyToken, async (req: Request, res: Response) => {
+    debug('Users GetByID');
+    const id = +req.params.id;
+    debug('Users GetById id: ', id);
+    const response = await PersonService.getPersonById(id);
+    debug('User get by id response db: %j', response);
+    if(response) {
+        const status =  constants.HTTP_STATUS_OK;
+        res.status(status).send(response);
+    } else {
+        const status =  constants.HTTP_STATUS_INTERNAL_SERVER_ERROR;
+        res.status(status).send('Error');
+    }
+});
+
+
+UserController.get('/download', verifyToken, async (req: Request, res: Response) => {
+    debug('Download file %j', req.query.path);
+    const bearerHeader = req.headers['authorization'];
+    let status;
+    if( bearerHeader !== undefined ) {
+        const idSender = getIdFromToken(bearerHeader);
+        const path = req.query.path as string;
+        /**
+         * data = new FormData();
+         */
+        debug('Download file, id: %s, file path: %s', idSender, path);
+        if( !isNaN(idSender) ){
+            try {
+                if(path) {
+                    res.download(path);
+                } else {
+                    /*
+                   let data = new FormData();
+                    data.append('name', req.body.name)
+                    data.append('phone', req.body.phone)
+                    data.append('email', req.body.email)
+                    data.append('resume', fs.createReadStream(path))*/
+                    res.send('bad');
+                }
+
+            } catch (error) {
+                status = constants.HTTP_STATUS_INTERNAL_SERVER_ERROR;
+                const responseError = { status, error};
+                res.status(status).send(responseError);
+            }
+        }
+    } else {
+        debug('Getting info about use Error getting authorization header');
+        status = constants.HTTP_STATUS_BAD_REQUEST;
+        res.status(status).send('Bad request');
+    }
+});
+
 function getIdFromToken(token: string) {
     const dataInToken = token.split('.')[1];
     debug('getIdFromToken data encoded: %s', dataInToken);
@@ -337,5 +358,15 @@ function getIdFromToken(token: string) {
     const dataInJSON = JSON.parse(decodedData);
     debug('getIdFromToken data in JSON: %j',dataInJSON);
     return +dataInJSON.id;
+}
+
+function getTypeFromToken(token: string) {
+    const dataInToken = token.split('.')[1];
+    debug('getTypeFromToken data encoded: %s', dataInToken);
+    const decodedData = Buffer.from(dataInToken, 'base64').toString();
+    debug('getTypeFromToken data decoded: %s',decodedData);
+    const dataInJSON = JSON.parse(decodedData);
+    debug('getTypeFromToken data in JSON: %j',dataInJSON);
+    return dataInJSON.type;
 }
 export default UserController;

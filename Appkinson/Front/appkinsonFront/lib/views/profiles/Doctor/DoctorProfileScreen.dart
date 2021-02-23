@@ -15,6 +15,7 @@ import 'package:line_awesome_flutter/line_awesome_flutter.dart';
 const bla = Colors.white;
 const kSpacingUnit = 10;
 File imageFile;
+var nameDoctor;
 
 final kTitleTextStyle = TextStyle(
   fontFamily: "Raleway",
@@ -150,7 +151,8 @@ class DoctorProfileScreenP extends State<DoctorProfileScreen> {
           height: 20,
         ),
         Text(
-          nameControllerDoctor.text,
+          ///nameControllerDoctor.text,
+          nameDoctor,
           style: kTitleTextStyle,
         ),
         SizedBox(
@@ -222,18 +224,6 @@ class DoctorProfileScreenP extends State<DoctorProfileScreen> {
                     text: 'Ayuda & soporte',
                   ),
                   ProfileListItem(
-                    icon: LineAwesomeIcons.question,
-                    text: 'Acerca de nosotros',
-                  ),
-                  ProfileListItem(
-                    icon: LineAwesomeIcons.comment,
-                    text: 'Comentarios',
-                  ),
-                  ProfileListItem(
-                    icon: LineAwesomeIcons.star,
-                    text: 'Califícanos',
-                  ),
-                  ProfileListItem(
                     icon: Icons.exit_to_app,
                     text: 'Cerrar Sesión',
                   ),
@@ -271,6 +261,9 @@ class ProfileListItem extends StatelessWidget {
           onPressed: () {
             if (text == 'Editar') {
               RoutesDoctor().toDoctorEditProfile(context);
+            }
+            if (text == 'Ayuda & soporte') {
+              RoutesGeneral().toAboutUs(context);
             }
           },
           child: Row(
