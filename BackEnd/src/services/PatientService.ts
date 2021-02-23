@@ -50,6 +50,7 @@ export default class PatientService {
         try {
             if( answer.RequesterType === PersonType.CARER ) {
                 const idCarer = Number(answer.RequesterId);
+
                 if(!Number.isNaN(idCarer)) {
                     return await CarerService.relatePatientToCarer(idCarer, idPatient, answer.Answer);
                 } else {
@@ -62,6 +63,9 @@ export default class PatientService {
                 } else {
                     return 'Error parsing Id Doctor';
                 }
+            } else {
+                debug('Error requester type not valid. Type: %s', answer.RequesterType);
+                return null;
             }
         } catch (error) {
             debug('answer request failed. Error: %j', error);
