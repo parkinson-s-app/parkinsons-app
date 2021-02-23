@@ -220,12 +220,12 @@ class DoctorPatientsCustom extends State<DoctorPatients> {
                     */
 
                     debugPrint(currentUser['id'].toString());
-                    var listaUsuarios = await EndPoints().linkUser(
+                    var response = await EndPoints().linkUser(
                         addPatientController.text,
-                        currentUser['id'].toString(),
+                        currentUser['type'].toString(),
                         token);
                     getPatients();
-                    debugPrint(listaUsuarios.toString());
+                    debugPrint(response.toString());
                     //getPatients();
                     Navigator.pop(context);
                   }

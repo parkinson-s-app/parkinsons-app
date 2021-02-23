@@ -1,6 +1,5 @@
 import 'dart:convert';
 import 'package:appkinsonFront/utils/Utils.dart';
-import 'package:appkinsonFront/views/RelationRequest/relationRequestPlugin.dart';
 import 'package:appkinsonFront/routes/RoutesAdmin.dart';
 import 'package:appkinsonFront/routes/RoutesCarer.dart';
 import 'package:appkinsonFront/routes/RoutesDoctor.dart';

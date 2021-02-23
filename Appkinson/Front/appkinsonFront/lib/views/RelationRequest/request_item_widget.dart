@@ -35,7 +35,7 @@ class RequestItemWidget extends StatelessWidget {
             trailing: IconButton(
               alignment: Alignment.bottomLeft,
               icon: Icon(Icons.delete, color: Colors.red, size: 32),
-              onPressed: onClicked,
+              onPressed: onClicked2,
             ),
             subtitle: RaisedButton(
               child: Text("Aceptar solicitud", style: TextStyle(fontSize: 15),),

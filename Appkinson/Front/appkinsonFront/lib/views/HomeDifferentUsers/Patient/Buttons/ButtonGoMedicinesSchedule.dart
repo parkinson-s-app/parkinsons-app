@@ -1,3 +1,4 @@
+import 'package:appkinsonFront/routes/RoutesPatient.dart';
 import 'package:flutter/material.dart';
 
 class ButtonGoMedicinesSchedule extends StatelessWidget {
@@ -11,7 +12,7 @@ class ButtonGoMedicinesSchedule extends StatelessWidget {
         shape:
             RoundedRectangleBorder(borderRadius: BorderRadius.circular(18.0)),
         //   side: BorderSide(color: Color.fromRGBO(0, 160, 227, 1))),
-        onPressed: () {},
+        onPressed: () { RoutesPatient().toScheduleMedicines(context);},
         padding: EdgeInsets.symmetric(horizontal: 10),
         color: Colors.grey[50],
         //textColor: Colors.white,

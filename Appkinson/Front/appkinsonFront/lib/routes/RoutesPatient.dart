@@ -1,4 +1,5 @@
 import 'package:appkinsonFront/views/Calendar/CalendarScreenView2.dart';
+import 'package:appkinsonFront/views/Medicines/medicines.dart';
 import 'package:appkinsonFront/views/RelationRequest/relationsRequets.dart';
 import 'package:appkinsonFront/views/SymptomsFormPatient/SymptomsFormPatient.dart';
 
@@ -6,7 +7,6 @@ import 'package:appkinsonFront/views/HomeDifferentUsers/Patient/PatientHomePage.
 
 import 'package:appkinsonFront/views/Notifications/PatientNotifications.dart';
 import 'package:appkinsonFront/views/SymptomsFormDoctor/symptomsFormQ.dart';
-import 'package:appkinsonFront/views/RelationRequest/relationRequest.dart';
 import 'package:appkinsonFront/views/profiles/Patient/PatientProfile.dart';
 import 'package:appkinsonFront/views/profiles/Patient/profileEdition/ProfileEditionPatient.dart';
 import 'package:flutter/material.dart';
@@ -21,6 +21,10 @@ class RoutesPatient {
     Navigator.push(context,
         new MaterialPageRoute(builder: (context) => CalendarScreenView2()));
   }
+  toScheduleMedicines(BuildContext context) {
+    Navigator.push(context,
+        new MaterialPageRoute(builder: (context) => Medicines()));
+  }
 
   toNotifications(BuildContext context) {
     Navigator.push(context,
@@ -29,7 +33,7 @@ class RoutesPatient {
 
   toRelationsRequest(BuildContext context) {
     Navigator.push(context,
-        new MaterialPageRoute(builder: (context) => RelationRequest()));
+        new MaterialPageRoute(builder: (context) => RelationsRequest()));
   }
 
   toPatientProfile(BuildContext context) {

@@ -1,20 +1,22 @@
-import 'package:appkinsonFront/views/RelationRequest/dataRequest.dart';
-import 'package:appkinsonFront/views/RelationRequest/relationRequestPlugin.dart';
+import 'package:appkinsonFront/routes/RoutesGeneral.dart';
+import 'package:appkinsonFront/routes/RoutesPatient.dart';
 import 'package:appkinsonFront/views/RelationRequest/request.dart';
 import 'package:appkinsonFront/views/RelationRequest/request_item_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:appkinsonFront/services/EndPoints.dart';
+import 'package:appkinsonFront/views/Login/Buttons/ButtonLogin.dart';
 
 
 class RelationsRequest extends StatefulWidget {
   @override
   _RelationsRequestState createState() => _RelationsRequestState();
 }
-
-class _RelationsRequestState extends State<RelationsRequest> {
+ var items;
+  class _RelationsRequestState extends State<RelationsRequest> {
   final key = GlobalKey<AnimatedListState>();
   //final items = List.from(Data.relations);
-  final items = getListRelationsRequest();
+  
   //List<AlarmInfo> items;
   DateTime _alarmTime;
   String _alarmTimeString;
@@ -30,8 +32,7 @@ class _RelationsRequestState extends State<RelationsRequest> {
                 icon: Icon(Icons.settings),
                 color: Colors.black45,
                 onPressed: () {
-                  //onSaveAlarm();
-                  //deleteAlarm(alarm.id);
+                  RoutesPatient().toNotifications(context);
                 }),
           ],
         ),
@@ -68,14 +69,19 @@ class _RelationsRequestState extends State<RelationsRequest> {
   }*/
 
   void removeItem(int index) {
+    RelationRequest rq = items[index];
+    EndPoints().sendResponseRelation('ACCEPT', rq.sender, rq.id.toString(), token);
     final item = items.removeAt(index);
-
+    
     key.currentState.removeItem(
       index,
       (context, animation) => buildItem(item, index, animation),
     );
   }
   void removeItem2(int index) {
+    debugPrint("Entra");
+    RelationRequest rq = items[index];
+    EndPoints().sendResponseRelation('DENIED', rq.sender, rq.id.toString(), token);
     final item = items.removeAt(index);
 
     key.currentState.removeItem(

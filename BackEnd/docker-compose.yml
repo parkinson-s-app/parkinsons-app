@@ -12,7 +12,7 @@ services:
             volumes: 
                 - .:/app
             environment: 
-                - 'PASSWORD_DB=$MYSQL_ROOT_PASSWORD'
+                - 'PASSWORD_DB=pass'
                 - HOST_DB=database
                 - USER_DB=root
                 - PORT=8000
@@ -25,7 +25,7 @@ services:
             ports: 
                 - "3307:3306"
             environment: 
-                - 'MYSQL_ROOT_PASSWORD=$MYSQL_ROOT_PASSWORD'
+                - 'MYSQL_ROOT_PASSWORD=pass'
                 - MYSQL_USER=root
             volumes:
                 - ./src/db/scripts:/docker-entrypoint-initdb.d
