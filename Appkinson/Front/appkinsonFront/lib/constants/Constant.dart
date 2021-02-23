@@ -5,4 +5,5 @@ const linkUserUnrelatedURL = '/api/doctor/patients/unrelated';
 const linkUserURL = '/api/relate/';
 const linkUserRelatedURL = '/api/doctor/patients/related';
 const modifyNameOfUserURL = '/api/users/';
-String endpointBack = 'http://ec2-18-219-146-31.us-east-2.compute.amazonaws.com:9000';
+String endpointBack = 'http://3.141.41.145:9000';
+String pagePath = '3.141.41.145:9000';

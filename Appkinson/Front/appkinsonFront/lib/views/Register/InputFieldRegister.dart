@@ -10,6 +10,7 @@ var lista = ['Paciente', 'Doctor', 'Cuidador'];
 final userSelected = TextEditingController();
 String selectUser = "Seleccione un usuario";
 TextEditingController emailController = new TextEditingController();
+TextEditingController nameController = new TextEditingController();
 TextEditingController password = new TextEditingController();
 TextEditingController passwordv = new TextEditingController();
 
@@ -59,9 +60,6 @@ class InputFieldRegisterCustom extends State<InputFieldRegister> {
               ],
             ),
           ),
-          SizedBox(
-            height: 20,
-          ),
           Container(
             padding: EdgeInsets.all(10),
             decoration: BoxDecoration(
@@ -70,6 +68,18 @@ class InputFieldRegisterCustom extends State<InputFieldRegister> {
               controller: emailController,
               decoration: InputDecoration(
                   hintText: "Ingrese su correo eléctronico",
+                  hintStyle: TextStyle(color: Colors.grey),
+                  border: InputBorder.none),
+            ),
+          ),
+          Container(
+            padding: EdgeInsets.all(10),
+            decoration: BoxDecoration(
+                border: Border(bottom: BorderSide(color: Colors.grey[200]))),
+            child: TextFormField(
+              controller: nameController,
+              decoration: InputDecoration(
+                  hintText: "Ingrese su nombre",
                   hintStyle: TextStyle(color: Colors.grey),
                   border: InputBorder.none),
             ),
@@ -119,7 +129,6 @@ class InputFieldRegisterCustom extends State<InputFieldRegister> {
               ],
             ),
           ),
-          Container(),
         ],
       ),
     );
@@ -129,7 +138,7 @@ class InputFieldRegisterCustom extends State<InputFieldRegister> {
 class metod {
   Future<User> send() async {
     var newUser = new User(
-        email: emailController.text, password: password.text, passwordVerify: passwordv.text, type: selectUser);
+        email: emailController.text, name: nameController.text, password: password.text, passwordVerify: passwordv.text, type: selectUser);
     debugPrint(newUser.password);
     return newUser;
   }

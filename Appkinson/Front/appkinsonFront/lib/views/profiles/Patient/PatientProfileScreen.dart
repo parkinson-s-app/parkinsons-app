@@ -5,6 +5,7 @@ import 'package:appkinsonFront/routes/RoutesGeneral.dart';
 import 'package:appkinsonFront/routes/RoutesPatient.dart';
 import 'package:appkinsonFront/services/EndPoints.dart';
 import 'package:appkinsonFront/views/Login/Buttons/ButtonLogin.dart';
+import 'package:appkinsonFront/views/Login/InputFieldLogin.dart';
 import 'package:appkinsonFront/views/profiles/Patient/profileEdition/ProfileEditionPatient.dart';
 import 'package:flutter/cupertino.dart';
 
@@ -193,7 +194,8 @@ class PatientProfileScreenP extends State<PatientProfileScreen> {
         ),
         Text(
             //currentUser['EMAIL']
-            "h@gamil.com",
+            //"h@gamil.com",
+            emailController.text,
             style: kCaptionTextStyle),
         SizedBox(),
       ],

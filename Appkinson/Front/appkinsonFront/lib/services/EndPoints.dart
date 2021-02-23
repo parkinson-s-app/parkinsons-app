@@ -17,13 +17,12 @@ class EndPoints {
     Map data2 = {
       'email': newUser.email,
       'password': newUser.password,
-      'username': 'juan',
+      'name': newUser.name,
       'type': newUser.type
     };
     debugPrint(data2.toString());
     debugPrint(endpointBack + addUserUrl);
-    http.Response response =
-        await http.post(endpointBack + addUserUrl, body: data2);
+    http.Response response = await http.post(endpointBack + addUserUrl, body: data2);
 
     //debugPrint(response.body);
     String i = response.body;
@@ -301,6 +300,27 @@ Future<bool> registerEmotionsForm(
     }
     return success;
   }
+
+  Future<bool> getEmotionsForm(var tokenID, var token, DateTime start, DateTime end) async {
+    bool success = false;
+    var codeToken = json.decode(token);
+    var queryParameters = {
+      'start': start.toString(),
+      'end': end.toString(),
+    };
+    debugPrint("bandera");
+    var uri = Uri.http(pagePath, '/api/patient/$tokenID/emotionalFormPatient', queryParameters);
+    debugPrint("bandera2");
+    debugPrint(uri.toString());
+    debugPrint("---");
+    http.Response lista = await http
+        .get(uri, headers: {
+      HttpHeaders.authorizationHeader: jwtkey + codeToken['token']
+    });
+    
+    return success;
+  }
+
 /*
   Future<String> getRelationRequest(var token) async {
     //Map data2 = {'email': authUser.email, 'password': authUser.password};
