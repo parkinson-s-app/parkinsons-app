@@ -25,9 +25,14 @@ export default class PersonService {
             debug('savePerson saved and returned: %j', res);
             if( res && res[0] ) {
                 const inserted = res[0] as any;
-                const idInserted = inserted.insertId
+                const idInserted = inserted.insertId;
                 debug('Registro success id inserted: %s:%s', idInserted);
-                const idPerson = {ID_USER: idInserted};
+                let idPerson;
+                if(person.name) {
+                    idPerson = {ID_USER: idInserted, NAME: person.name};
+                } else {
+                    idPerson = {ID_USER: idInserted};
+                }
                 debug('Registro data to insert in type tables %j', idPerson);
                 if( userSave.TYPE === 'Paciente' ) {
                     await conn.query('INSERT INTO patients SET ?', [idPerson]);

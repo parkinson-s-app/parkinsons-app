@@ -4,4 +4,5 @@ export default interface IPersonDto {
     email: string;
     password: string;
     type?: string;
+    name?: string;
 }
