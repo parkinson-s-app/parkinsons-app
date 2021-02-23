@@ -26,11 +26,13 @@ export default class PersonService {
             if( res && res[0] ) {
                 const inserted = res[0] as any;
                 const idInserted = inserted.insertId;
-                debug('Registro success id inserted: %s:%s', idInserted);
+                debug('Registro success id inserted: %s', idInserted);
                 let idPerson;
                 if(person.name) {
+                    debug('Insert with name, name: %s', person.name);
                     idPerson = {ID_USER: idInserted, NAME: person.name};
                 } else {
+                    debug('Insert without name, name: %s', person.name);
                     idPerson = {ID_USER: idInserted};
                 }
                 debug('Registro data to insert in type tables %j', idPerson);
