@@ -425,6 +425,7 @@ class EndPoints {
   Future<File> getPhotoUser(var token, var path) async {
     debugPrint("entro");
     var codeToken = json.decode(token);
+    http.Response response;
 
     /*
     WidgetsFlutterBinding.ensureInitialized();
@@ -433,11 +434,12 @@ class EndPoints {
         );
       */
 
-    http.Response response =
-        await http.get(endpointBack + "/" + path, headers: {
-      HttpHeaders.authorizationHeader: jwtkey + codeToken['token'],
-      //HttpHeaders.hostHeader: path
-    });
+    if (path != null) {
+      response = await http.get(endpointBack + "/" + path, headers: {
+        HttpHeaders.authorizationHeader: jwtkey + codeToken['token'],
+        //HttpHeaders.hostHeader: path
+      });
+    }
 
     /*
     var s;
@@ -460,7 +462,9 @@ class EndPoints {
 
     final file = File(p.join(documentDirectory.path, 'imagetest.png'));
 
-    file.writeAsBytesSync(response.bodyBytes);
+    if (path != null) {
+      file.writeAsBytesSync(response.bodyBytes);
+    }
     /*
     Uint8List n = await http
         .readBytes(await http.get(endpointBack + "/" + path, headers: {

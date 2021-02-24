@@ -46,14 +46,16 @@
 @import path_provider;
 #endif
 
-#if __has_include(<permission_handler/PermissionHandlerPlugin.h>)
-#import <permission_handler/PermissionHandlerPlugin.h>
-#else
-@import permission_handler;
 #if __has_include(<pedometer/PedometerPlugin.h>)
 #import <pedometer/PedometerPlugin.h>
 #else
 @import pedometer;
+#endif
+
+#if __has_include(<permission_handler/PermissionHandlerPlugin.h>)
+#import <permission_handler/PermissionHandlerPlugin.h>
+#else
+@import permission_handler;
 #endif
 
 #if __has_include(<video_player/FLTVideoPlayerPlugin.h>)
@@ -72,8 +74,8 @@
   [FLTImageCropperPlugin registerWithRegistrar:[registry registrarForPlugin:@"FLTImageCropperPlugin"]];
   [FLTImagePickerPlugin registerWithRegistrar:[registry registrarForPlugin:@"FLTImagePickerPlugin"]];
   [FLTPathProviderPlugin registerWithRegistrar:[registry registrarForPlugin:@"FLTPathProviderPlugin"]];
-  [PermissionHandlerPlugin registerWithRegistrar:[registry registrarForPlugin:@"PermissionHandlerPlugin"]];
   [PedometerPlugin registerWithRegistrar:[registry registrarForPlugin:@"PedometerPlugin"]];
+  [PermissionHandlerPlugin registerWithRegistrar:[registry registrarForPlugin:@"PermissionHandlerPlugin"]];
   [FLTVideoPlayerPlugin registerWithRegistrar:[registry registrarForPlugin:@"FLTVideoPlayerPlugin"]];
 }
 

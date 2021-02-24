@@ -119,7 +119,7 @@ class DoctorPatientsCustom extends State<DoctorPatients> {
                     onTap: () async {
                       String selectId;
                       meetings = <Meeting>[];
-                      //SymptomsFormPatien tM m= await EndPoints().getSymptomsFormPatient(token,currentUser['id'].toString());\
+                      //SymptomsFormPatientM m= await EndPoints().getSymptomsFormPatient(token,currentUser['id'].toString());\
                       for (var a = 0; a < codeListPatients.length; a++) {
                         //patients.add(codeList[a]['EMAIL']);
 
