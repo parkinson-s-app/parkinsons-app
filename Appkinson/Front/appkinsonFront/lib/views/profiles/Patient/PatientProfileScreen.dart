@@ -187,8 +187,8 @@ class PatientProfileScreenP extends State<PatientProfileScreen> {
         ),
         Text(
           //currentUser['EMAIL'],
-          //nameController.text,
-          namePatient,
+          nameController.text,
+          //namePatient,
           style: kTitleTextStyle,
         ),
         SizedBox(

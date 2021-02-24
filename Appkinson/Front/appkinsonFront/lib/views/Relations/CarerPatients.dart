@@ -77,19 +77,6 @@ class CarerPatientsCustom extends State<CarerPatients> {
             /*Expanded(
                   child: PatientsList(patients),
                 ),*/
-            FlatButton(
-              shape: RoundedRectangleBorder(
-                  borderRadius: new BorderRadius.circular(30.0)),
-              //   side: BorderSide(color: Color.fromRGBO(0, 160, 227, 1))),
-              onPressed: () {
-                addUser();
-                debugPrint(addPatientController.text);
-              },
-              padding: EdgeInsets.symmetric(horizontal: 50),
-              color: Colors.blue,
-              textColor: Colors.white,
-              child: Text("Agregar Paciente", style: TextStyle(fontSize: 20)),
-            ),
             ListView.builder(
               shrinkWrap: true,
               itemCount: patients.length,
@@ -105,6 +92,20 @@ class CarerPatientsCustom extends State<CarerPatients> {
             )
           ],
         )),
+        floatingActionButton:FloatingActionButton(
+              shape: RoundedRectangleBorder(
+                  borderRadius: new BorderRadius.circular(30.0)),
+              //   side: BorderSide(color: Color.fromRGBO(0, 160, 227, 1))),
+              backgroundColor: Colors.blue[800],
+                  child: Icon(
+                  Icons.add,
+                  color: Colors.white,
+                ),
+              onPressed: () {
+                addUser();
+                debugPrint(addPatientController.text);
+              },            
+            ),
       ),
     );
   }

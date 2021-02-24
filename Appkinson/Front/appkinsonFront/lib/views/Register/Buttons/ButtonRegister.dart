@@ -49,6 +49,9 @@ class ButtonRegisterCustom extends State<ButtonRegister> {
                     debugPrint(save);
                     if (save == 'Guardado') {
                       //RoutesGeneral().toLogin(context);
+                      //probar
+                      //emailController = null;
+
                       Navigator.push(context, new MaterialPageRoute( builder: (context) => LoginPage()));
                     }else if(save == 'Existe'){
                       //register
