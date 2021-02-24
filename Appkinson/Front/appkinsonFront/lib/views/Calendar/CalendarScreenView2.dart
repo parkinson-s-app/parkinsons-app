@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:syncfusion_flutter_calendar/calendar.dart';
 
 DateTime dateChoosed;
+int count = 0;
 
 class CalendarScreenView2 extends StatefulWidget {
   @override
@@ -32,7 +33,7 @@ class _Calendar extends State<CalendarScreenView2> {
         });
         // RoutesPatient().toSymptomsFormPatient(context);
       },
-      dataSource: MeetingDataSource(meetings),
+      dataSource: MeetingDataSource(_getDataSource()),
       monthViewSettings: MonthViewSettings(
           appointmentDisplayMode: MonthAppointmentDisplayMode.appointment),
     ));

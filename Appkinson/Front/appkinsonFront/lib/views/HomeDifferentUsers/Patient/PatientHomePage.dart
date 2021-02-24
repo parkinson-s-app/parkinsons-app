@@ -3,7 +3,7 @@ import 'Buttons/ButtonGoCalendar.dart';
 import 'Buttons/ButtonGoProfile.dart';
 import 'Buttons/ButtonGoRelationsRequest.dart';
 import 'Buttons/ButtonGoReminder.dart';
-import 'Buttons/ButtonGoSymptomBehaviorRegister.dart';
+import 'Buttons/ButtonGoMedicinesSchedule.dart';
 import 'Buttons/ButtonGoToolBox.dart';
 import 'Buttons/ButtonGoWeeklyForm.dart';
 
@@ -80,9 +80,9 @@ class PatientHomePage extends StatelessWidget {
                   ),
                   Column(
                     children: <Widget>[
-                      ButtonGoSymptomBehaviorRegister(),
+                    ButtonGoMedicinesSchedule(),
                       Text(
-                        "Síntomas",
+                        "Medicinas",
                         style: TextStyle(
                             color: Colors.blue[900],
                             fontSize: 20,

@@ -39,46 +39,27 @@ class ButtonRegisterCustom extends State<ButtonRegister> {
           bool hasUppercase = false;
           bool hasSpecialCharacters = false;
           debugPrint(user.password.length.toString());
-          while (i < user.password.length) {
-            character = user.password.toString().substring(i, i + 1);
-            if (character == character.toUpperCase()) {
-              hasUppercase = true;
-            }
-            i++;
-          }
-          debugPrint("verificando caracteres especiales");
-          if (user.password
-              .toString()
-              .contains(new RegExp(r'[!@#$%^&*(),.?":{}|<>]'))) {
-            hasSpecialCharacters = true;
-          }
-
-          debugPrint("Validando condiciones");
-          if (user.email.toString().contains('@')) {
-            debugPrint("correo valido");
-            if (/*mas de 8 char*/ user.password.toString().length > 8) {
-              debugPrint("longitud valida");
-              if (/*Mayuscula*/ hasUppercase == true) {
-                debugPrint("Tiene mayuscula");
-                if (/*Char extra*/ hasSpecialCharacters = true) {
-                  debugPrint("contiene caracter especial");
-                  String save = await EndPoints().addUsers(user);
-                  debugPrint(save);
-                  if (save == 'Guardado') {
-                    //RoutesGeneral().toLogin(context);
-                    Navigator.push(
-                        context,
-                        new MaterialPageRoute(
-                            builder: (context) => LoginPage()));
-                  }
-                } else {
-                  //debe contener un caracter especial
-                  invalid(3, context);
-                }
-              } else {
-                //debe tener una mayuscula
-                invalid(2, context);
-              }
+            debugPrint("Validando condiciones");
+            if (user.email.toString().contains('@')) {
+              debugPrint("correo valido");
+              if (/*mas de 8 char*/ user.password.toString().length > 7) {
+                if(user.passwordVerify.toString() == user.password.toString()){
+                  debugPrint("longitud valida");
+                    String save = await EndPoints().addUsers(user);
+                    debugPrint(save);
+                    if (save == 'Guardado') {
+                      //RoutesGeneral().toLogin(context);
+                      Navigator.push(context, new MaterialPageRoute( builder: (context) => LoginPage()));
+                    }else if(save == 'Existe'){
+                      //register
+                      invalid(2,context);
+                    }
+                }else{
+                  debugPrint("----------");
+                  debugPrint(user.passwordVerify.toString());
+                  debugPrint(user.password.toString());
+                  invalid(3,context);
+                }    
             } else {
               //muy corta
               invalid(1, context);
@@ -87,8 +68,6 @@ class ButtonRegisterCustom extends State<ButtonRegister> {
             // no es un correo valido
             invalid(0, context);
           }
-          //if()
-          // }
         },
       ),
     );
@@ -105,10 +84,10 @@ invalid(int reason, context) {
     invalidReason = "La contraseña debe tener mínimo 8 caracteres";
   }
   if (reason == 2) {
-    invalidReason = "La contraseña debe contener mínimo una mayuscula";
+    invalidReason = "Este usuario ya existe";
   }
   if (reason == 3) {
-    invalidReason = "La contraseña debe contener mínimo un caracter especial";
+    invalidReason = "Las contraseñas no coinciden";
   }
   showDialog(
     context: context,

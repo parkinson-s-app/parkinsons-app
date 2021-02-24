@@ -5,8 +5,10 @@ import 'dart:io';
 import 'dart:typed_data';
 
 import 'package:appkinsonFront/constants/Constant.dart';
+import 'package:appkinsonFront/model/EmotionsForm.dart';
 import 'package:appkinsonFront/model/SymptomsForm.dart';
 import 'package:appkinsonFront/model/SymptomsFormPatientM.dart';
+import 'package:appkinsonFront/views/RelationRequest/request.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_downloader/flutter_downloader.dart';
 import 'package:path_provider/path_provider.dart';
@@ -22,10 +24,11 @@ class EndPoints {
     Map data2 = {
       'email': newUser.email,
       'password': newUser.password,
-      'username': 'juan',
+      'name': newUser.name,
       'type': newUser.type
     };
     debugPrint(data2.toString());
+    debugPrint(endpointBack + addUserUrl);
     http.Response response =
         await http.post(endpointBack + addUserUrl, body: data2);
 
@@ -96,55 +99,47 @@ class EndPoints {
     //debugPrint(data2.toString());
     debugPrint("-----");
     debugPrint(response.body);
-    if (response.statusCode == 200) {
-      String i = response.body;
-      return i;
-    } else {
-      debugPrint(response.body.toString());
-      String i = response.body;
-      return i;
-    }
+    String body = response.body;
+    return body;
   }
 
   Future<String> sendResponseRelation(
-      String answer, String type, String requesterId) async {
+      String answer, String type, String requesterId, var token) async {
     Map data2 = {
       'Answer': answer,
       'RequesterType': type,
       'RequesterId': requesterId
     };
-    http.Response response =
-        await http.post(endpointBack + '/api/relation/response', body: data2);
+    var codeToken = json.decode(token);
+    http.Response response = await http.post(
+        endpointBack + '/api/patient/answerRequest',
+        body: data2,
+        headers: {
+          HttpHeaders.authorizationHeader: jwtkey + codeToken['token']
+        });
     debugPrint(data2.toString());
     String i = response.body;
     return i;
   }
 
-  Future<String> linkUser(String emailUser, var tokenID, var token) async {
+  Future<String> linkUser(String emailUser, var token_type, var token) async {
+    Map data2 = {'Email': emailUser};
     //Map data2 = {'email': authUser.email, 'password': authUser.password};
     var codeToken = json.decode(token);
-    http.Response lista = await http.get(endpointBack + linkUserUnrelatedURL,
-        headers: {
-          HttpHeaders.authorizationHeader: jwtkey + codeToken['token']
-        });
-    //http.Response response =
-    debugPrint(lista.body);
-    String i = lista.body;
-    String addedUser;
+    String type = "";
 
-    var codeList = json.decode(i);
-    for (var a = 0; a < codeList.length; a++) {
-      if (emailUser == codeList[a]['EMAIL'].toString()) {
-        http.Response added = await http.post(
-            endpointBack + linkUserURL + codeList[a]['ID_USER'].toString(),
-            headers: {
-              HttpHeaders.authorizationHeader: "Bearer " + codeToken['token']
-            });
-        debugPrint(added.body);
-        addedUser = codeList[a]['EMAIL'];
-      }
+    if (token_type == 'Cuidador') {
+      type = "/api/carer/relate";
+    } else if (token_type == 'Doctor') {
+      type = "/api/doctor/relate";
     }
-    return addedUser;
+    http.Response added = await http.post(endpointBack + type,
+        body: data2,
+        headers: {
+          HttpHeaders.authorizationHeader: "Bearer " + codeToken['token']
+        });
+
+    return added.body.toString();
   }
 
   Future<String> linkUserCarer(String emailUser, var tokenID, var token) async {
@@ -231,6 +226,7 @@ class EndPoints {
       'q3': form.q3,
       'q4': form.q4,
       'q5': form.q5,
+      /*
       'q6': form.q6,
       'q7': form.q7,
       'q8': form.q8,
@@ -242,6 +238,7 @@ class EndPoints {
       'q14': form.q14,
       'q15': form.q15,
       'q16': form.q16,
+      */
       'date': form.date,
       'video': video,
     };
@@ -256,8 +253,89 @@ class EndPoints {
     return success;
   }
 
-/*
-  Future<String> getRelationRequest(var token) async {
+  Future<bool> registerEmotionsForm(
+      EmotionsForm form, var tokenID, var token) async {
+    bool success = false;
+
+    var decodedToken = json.decode(token);
+
+    //http.Response response =
+    Map<String, dynamic> formMap = {
+      'q1': form.q1,
+      'q2': form.q2,
+      'q3': form.q3,
+      'q4': form.q4,
+      'q5': form.q5,
+      'q6': form.q6,
+      'q7': form.q7,
+      'q8': form.q8,
+      'q9': form.q9,
+      'q10': form.q10,
+      'q11': form.q11,
+      'q12': form.q12,
+      'q13': form.q13,
+      'q14': form.q14,
+      'q15': form.q15,
+      'q16': form.q16,
+      'q17': form.q17,
+      'q18': form.q18,
+      'q19': form.q19,
+      'q20': form.q20,
+      'q21': form.q21,
+      'q22': form.q22,
+      'q23': form.q23,
+      'q24': form.q24,
+      'q25': form.q25,
+      'q26': form.q26,
+      'q27': form.q27,
+      'q28': form.q28,
+      'q29': form.q29,
+      'q30': form.q30,
+      'date': form.date.toString(),
+    };
+    var jsonBody = jsonEncode(formMap);
+    var codeToken = json.decode(token);
+    debugPrint(jsonBody);
+    http.Response lista = await http.post(
+        endpointBack + '/api/patient/$tokenID/emotionalFormPatient',
+        headers: {
+          HttpHeaders.authorizationHeader: jwtkey + codeToken['token'],
+          'Content-Type': 'application/json; charset=UTF-8'
+        },
+        body: jsonBody);
+
+    debugPrint(lista.body);
+    if (lista.body == "OK") {
+      success = true;
+    }
+    return success;
+  }
+
+  /*Future<List<RelationRequest>> getRelationRequest(var token) async {
+
+    debugPrint("entraget");*/
+  Future<bool> getEmotionsForm(
+      var tokenID, var token, DateTime start, DateTime end) async {
+    bool success = false;
+    var codeToken = json.decode(token);
+    var queryParameters = {
+      'start': start.toString(),
+      'end': end.toString(),
+    };
+    debugPrint("bandera");
+    var uri = Uri.http(pagePath, '/api/patient/$tokenID/emotionalFormPatient',
+        queryParameters);
+    debugPrint("bandera2");
+    debugPrint(uri.toString());
+    debugPrint("---");
+    http.Response lista = await http.get(uri, headers: {
+      HttpHeaders.authorizationHeader: jwtkey + codeToken['token']
+    });
+
+    return success;
+  }
+
+  Future<List<RelationRequest>> getRelationRequest(var token) async {
     //Map data2 = {'email': authUser.email, 'password': authUser.password};
     var codeToken = json.decode(token);
     http.Response lista = await http
@@ -266,10 +344,19 @@ class EndPoints {
     });
     //http.Response response =
     debugPrint(lista.body);
-    String relationsRequest = lista.body;
-    return relationsRequest;
+    String i = lista.body;
+    var codeList = json.decode(i);
+    List<RelationRequest> relations = [];
+    for (var a = 0; a < codeList.length; a++) {
+      RelationRequest requester = new RelationRequest();
+      requester.id = codeList[a]['ID'];
+      requester.message =
+          codeList[a]['EMAIL'] + " quiere ser tu " + codeList[a]['TYPE'];
+      requester.sender = codeList[a]['TYPE'];
+      relations.add(requester);
+    }
+    return relations;
   }
-  */
 
   Future<String> registerSymptomsFormPatient(
       SymptomsFormPatientM form, var tokenID, var token) async {

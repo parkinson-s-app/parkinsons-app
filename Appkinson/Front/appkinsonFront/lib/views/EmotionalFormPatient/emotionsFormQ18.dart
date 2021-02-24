@@ -22,7 +22,7 @@ class _emotionsFormQ18 extends State<emotionsFormQ18> {
               padding: EdgeInsets.all(15.0),
               alignment: Alignment.center,
               child: Text(
-                "Pérdida o aumento del interés por el sexo",
+                "Pérdida o aumento del interés por tener relaciones sexuales",
                 style: TextStyle(
                   fontSize: 22.0,
                   fontFamily: "Ralewaybold",

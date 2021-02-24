@@ -1,6 +1,8 @@
 import 'package:appkinsonFront/routes/RoutesGeneral.dart';
 import 'package:flutter/material.dart';
 import '../../model/EmotionsForm.dart';
+import '../../services/EndPoints.dart';
+import '../Login/Buttons/ButtonLogin.dart';
 import 'emotionsFormQ1.dart';
 import 'emotionsFormQ2.dart';
 import 'emotionsFormQ3.dart';
@@ -144,10 +146,12 @@ class _emotionsFormQ30 extends State<emotionsFormQ30> {
                   patientForm.q28 = BringAnswer28().send();
                   patientForm.q29 = BringAnswer29().send();
                   patientForm.q30 = BringAnswer30().send();
-                  patientForm.date = null;
-                  /*var savedDone = await EndPoints().registerSymptomsForm(
-                          patientForm, currentUser['id'].toString(), token);*/
+                  patientForm.date = new DateTime.now();
+                  debugPrint("formulario llenado");
+                  var savedEmotional = await EndPoints().registerEmotionsForm(patientForm, currentUser['id'].toString(), token);
 
+                  var savedEmotional2 = await EndPoints().getEmotionsForm( currentUser['id'].toString(), token, new DateTime.utc(2021, 02, 20) , patientForm.date);
+                  debugPrint("formulario enviado");
                   RoutesGeneral().toPop(context);
                 },
               ),

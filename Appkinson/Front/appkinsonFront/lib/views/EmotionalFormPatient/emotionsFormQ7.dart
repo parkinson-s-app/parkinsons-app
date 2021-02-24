@@ -22,7 +22,7 @@ class _emotionsFormQ7 extends State<emotionsFormQ7> {
               padding: EdgeInsets.all(15.0),
               alignment: Alignment.center,
               child: Text(
-                "Sensación de no haber vaciado por completo el vientre después de ir al servicio",
+                "Sensación de no haber vaciado por completo el vientre después de ir al baño",
                 style: TextStyle(
                   fontSize: 22.0,
                   fontFamily: "Ralewaybold",

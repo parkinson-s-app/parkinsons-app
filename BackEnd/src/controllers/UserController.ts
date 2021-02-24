@@ -4,11 +4,10 @@ import { constants } from 'http2';
 import IPersonDto from '../models/IPersonDto';
 import PersonService from '../services/PersonService';
 import PatientService from '../services/PatientService';
-import * as bcrypt from 'bcryptjs';
 import * as jwt from 'jsonwebtoken';
 import IUserDto from '../models/IUserDto';
 import config from '../config';
-import { verifyToken } from '../utilities/AuthUtilities';
+import { compare, verifyToken } from '../utilities/AuthUtilities';
 import IPersonalDataDto from '../models/IPersonalDataDto';
 import multer from '../utilities/multer';
 import ISymptomsFormDto from '../models/ISymptomsFormDto';
@@ -42,8 +41,8 @@ UserController.post('/registro', async (req: Request, res: Response) => {
             responseError = "Existe";
             status = constants.HTTP_STATUS_BAD_REQUEST;
         } else {
-            responseError = { status, error: "An error has ocurred"};
             status = constants.HTTP_STATUS_INTERNAL_SERVER_ERROR;
+            responseError = { status, error: "An error has ocurred"};
         }
         res.status(status).send(responseError);
     }
@@ -51,109 +50,96 @@ UserController.post('/registro', async (req: Request, res: Response) => {
 
 UserController.get('/users', async (req: Request, res: Response) => {
     debug('Users Get');
-    const response = await PersonService.getPeople();
-    debug('User get response db: %j', response);
-    if(response) {
-        const status =  constants.HTTP_STATUS_OK;
-        res.status(status).send(response);
-    } else {
+    try {
+        const response = await PersonService.getPeople();
+        debug('User get response db: %j', response);
+        if(response) {
+            const status =  constants.HTTP_STATUS_OK;
+            res.status(status).send(response);
+        } else {
+            const status =  constants.HTTP_STATUS_INTERNAL_SERVER_ERROR;
+            res.status(status).send('Error');
+        }
+    } catch (error) {
+        debug("getting users failed. Error: %j", error);
         const status =  constants.HTTP_STATUS_INTERNAL_SERVER_ERROR;
-        res.status(status).send('Error');
+        const responseError = { status, error: "An error has ocurred"};
+        res.status(status).send(responseError);
     }
 });
 
 UserController.post('/login', async (req: Request, res: Response) => {
-    debug('Login Body entry: %j', req.body);
+    debug('Login user entry: %j', req.body.email);
     const credentials = req.body as IPersonDto;
-    const responseDB = await PersonService.getPersonByEmail(credentials.email);
-    debug('Login Credentials: %j', credentials);
-    const responseJSON = JSON.parse(JSON.stringify(responseDB));
-    debug('Login: responseDB ', responseJSON.length);
-    debug('User get response db: %j', responseDB);
-    let status;
-    if (responseJSON.length === 0 ) {
-        status =  constants.HTTP_STATUS_NOT_FOUND;
-        res.status(status).send({ message:'Invalid Email' });
-    } else {
-        const isValid = await compare(credentials.password, responseJSON[0].PASSWORD);
-        if (isValid) {
-            status =  constants.HTTP_STATUS_OK;
-            let user: IUserDto;
-            user = {
-                email: responseJSON[0].EMAIL,
-                type: responseJSON[0].TYPE,
-                id: responseJSON[0].ID
-            };
-            debug('Login Sucessful user %j', user);
-            jwt.sign(user, secretKey, { algorithm: 'HS512' }, (err, token) =>{
-                if( err ) {
-                    debug('Login error %j', err);
-                    status = constants.HTTP_STATUS_INTERNAL_SERVER_ERROR;
-                    res.status(status).send({ status, error: err});
-                } else {
-                    debug('Login send token');
-                    res.json({
-                        token
-                    });
-                }
-            });
-
-            // res.status(status).send(user);
-        } else {
+    try {
+        const responseDB = await PersonService.getPersonByEmail(credentials.email);
+        debug('Login Credentials: %j', credentials.email);
+        const responseJSON = JSON.parse(JSON.stringify(responseDB));
+        debug('Login: responseDB ', responseJSON.length);
+        debug('User get response db: %j', responseDB);
+        let status;
+        if (responseJSON.length === 0 ) {
             status =  constants.HTTP_STATUS_NOT_FOUND;
-            res.status(status).send({ person:'Invalid Password' });
+            res.status(status).send({ message:'Invalid Email' });
+        } else {
+            const isValid = await compare(credentials.password, responseJSON[0].PASSWORD);
+            if (isValid) {
+                status =  constants.HTTP_STATUS_OK;
+                let user: IUserDto;
+                user = {
+                    email: responseJSON[0].EMAIL,
+                    type: responseJSON[0].TYPE,
+                    id: responseJSON[0].ID
+                };
+                debug('Login Sucessful user %j', user);
+                jwt.sign(user, secretKey, { algorithm: 'HS512' }, (err, token) =>{
+                    if( err ) {
+                        debug('Login error %j', err);
+                        status = constants.HTTP_STATUS_INTERNAL_SERVER_ERROR;
+                        res.status(status).send({ status, error: err});
+                    } else {
+                        debug('Login send token');
+                        res.json({
+                            token
+                        });
+                    }
+                });
+            } else {
+                status =  constants.HTTP_STATUS_NOT_FOUND;
+                res.status(status).send({ person:'Invalid Password' });
+            }
         }
+    } catch (error) {
+        debug("Login failed. Error: %j", error);
+        const status =  constants.HTTP_STATUS_INTERNAL_SERVER_ERROR;
+        const responseError = { status, error: "An error has ocurred"};
+        res.status(status).send(responseError);
     }
 });
-
-async function compare(password: string, passwordInDB: string) {
-    const isMatch = await bcrypt.compare(password, passwordInDB);
-    return isMatch;
-}
 
 UserController.post('/users/:id', multer.single('photo'), verifyToken, async (req: Request, res: Response) => {
     debug('Users UpdateById');
     const id = +req.params.id;
     let updatedUserData = req.body as IPersonalDataDto;
-    if(req.file){
+    try {
         updatedUserData.PHOTOPATH = req.file.path;
+        debug('Users Update user: %j, ID:', updatedUserData, id);
+        const response = await PersonService.updatePerson(id, updatedUserData);
+        debug('User UpdateById response db: %j', response);
+        let status;
+        if(response) {
+            status =  constants.HTTP_STATUS_OK;
+            res.status(status).send(response);
+        } else {
+            status =  constants.HTTP_STATUS_INTERNAL_SERVER_ERROR;
+            res.status(status).send('Error');
+        }
+    } catch (error) {
+        debug('Patient symptoms saving failed');
+        const status = constants.HTTP_STATUS_INTERNAL_SERVER_ERROR;
+        const responseError = { status, error: "An error has ocurred"};
+        res.status(status).send(responseError);
     }
-    
-    debug('Users Update user: %j, ID:', updatedUserData, id);
-    const response = await PersonService.updatePerson(id, updatedUserData);
-    debug('User UpdateById response db: %j', response);
-    if(response) {
-        const status =  constants.HTTP_STATUS_OK;
-        res.status(status).send(response);
-    } else {
-        const status =  constants.HTTP_STATUS_INTERNAL_SERVER_ERROR;
-        res.status(status).send('Error');
-    }
-});
-
-UserController.post('/users/:id/symptomsForm', multer.single('video'), verifyToken, async (req: Request, res: Response) => {
-    debug('Users UpdateById');
-    const id = +req.params.id;
-    debug('Users Symptoms body: %j, ID: %s, file path: %s',req.body, id, req.file.path);
-    let symptomsFormData = req.body as ISymptomsFormDto;
-    if (req.file) {
-        debug('Users Symptoms body: %j, ID: %s, file path: %s',req.body, id, req.file.path);
-    } else {
-        debug('Users Symptoms body: %j, ID: %s, without file',req.body, id);
-    }
-    // let updatedUserData = req.body as IPersonalDataDto;
-    // updatedUserData.PHOTOPATH = req.file.path;
-    // debug('Users Update user: %j, ID:', updatedUserData, id);
-    // const response = await PersonService.updatePerson(id, updatedUserData);
-    // debug('User UpdateById response db: %j', response);
-    // if(response) {
-    //     const status =  constants.HTTP_STATUS_OK;
-    //     res.status(status).send(response);
-    // } else {
-    //     const status =  constants.HTTP_STATUS_INTERNAL_SERVER_ERROR;
-    //     res.status(status).send('Error');
-    // }
-    res.status(200).send('ok perro');
 });
 
 UserController.post('/users/:id/symptomsFormPatient', multer.single('video'), verifyToken, async (req: Request, res: Response) => {
@@ -172,7 +158,7 @@ UserController.post('/users/:id/symptomsFormPatient', multer.single('video'), ve
         status = constants.HTTP_STATUS_OK;
         res.status(status).send('OK');
     } catch (error) {
-        debug('Patient symptoms saving failed');
+        debug('Patient symptoms saving failed. Error: %j', error);
         status = constants.HTTP_STATUS_INTERNAL_SERVER_ERROR;
         const responseError = { status, error};
         res.status(status).send(responseError);
@@ -237,13 +223,13 @@ UserController.get('/patients/:id/symptomsFormPatient', verifyToken, async (req:
     if( bearerHeader !== undefined ) {
         const idSender = getIdFromToken(bearerHeader);
         if( !isNaN(idSender) ){
-            
             try {
                 const requests = await PersonService.getSymptomsForm(id);
                 debug('Getting symptoms form result %j', requests);
                 status = constants.HTTP_STATUS_OK;
                 res.status(status).send(requests);
             } catch (error) {
+                debug("Get symptoms form failed. Error: %j", error);
                 status = constants.HTTP_STATUS_INTERNAL_SERVER_ERROR;
                 const responseError = { status, error};
                 res.status(status).send(responseError);
@@ -300,14 +286,21 @@ UserController.get('/users/:id', verifyToken, async (req: Request, res: Response
     debug('Users GetByID');
     const id = +req.params.id;
     debug('Users GetById id: ', id);
-    const response = await PersonService.getPersonById(id);
-    debug('User get by id response db: %j', response);
-    if(response) {
-        const status =  constants.HTTP_STATUS_OK;
-        res.status(status).send(response);
-    } else {
-        const status =  constants.HTTP_STATUS_INTERNAL_SERVER_ERROR;
-        res.status(status).send('Error');
+    try {
+        const response = await PersonService.getPersonById(id);
+        debug('User get by id response db: %j', response);
+        if(response) {
+            const status =  constants.HTTP_STATUS_OK;
+            res.status(status).send(response);
+        } else {
+            const status =  constants.HTTP_STATUS_INTERNAL_SERVER_ERROR;
+            res.status(status).send('Error');
+        }
+    } catch (error) {
+        debug('Get user by Id failed. Error: %j', error);
+        const status = constants.HTTP_STATUS_INTERNAL_SERVER_ERROR;
+        const responseError = { status, error: "An error has ocurred"};
+        res.status(status).send(responseError);
     }
 });
 
