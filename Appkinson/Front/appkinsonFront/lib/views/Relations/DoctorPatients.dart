@@ -49,8 +49,8 @@ class DoctorPatientsCustom extends State<DoctorPatients> {
     List<User> _patients = [];
     //Pedir lista de pacientes relacionados
     debugPrint("pidiendo pacientes");
-    var patientsAux =
-        await EndPoints().linkedUser(currentUser['id'].toString(), token);
+    var patientsAux = await EndPoints().linkedUser(
+        currentUser['id'].toString(), token, currentUser['type'].toString());
     debugPrint("pacientes pedidos");
     codeListPatients = json.decode(patientsAux);
     //List<User> patients = [];

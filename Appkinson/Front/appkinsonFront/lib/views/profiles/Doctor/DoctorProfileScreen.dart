@@ -14,8 +14,8 @@ import 'package:line_awesome_flutter/line_awesome_flutter.dart';
 
 const bla = Colors.white;
 const kSpacingUnit = 10;
-File imageFile;
-var nameDoctor;
+File imageFileDoctor;
+var nameDoctor = '';
 
 final kTitleTextStyle = TextStyle(
   fontFamily: "Raleway",
@@ -37,9 +37,9 @@ class DoctorProfileScreenP extends State<DoctorProfileScreen> {
   openGallery(BuildContext context) async {
     var picture = await ImagePicker.pickImage(source: ImageSource.gallery);
     this.setState(() {
-      imageFile = picture;
+      imageFileDoctor = picture;
     });
-    var newUser = new User(photo: imageFile);
+    var newUser = new User(photo: imageFileDoctor);
     String save = await EndPoints()
         .modifyUsersPhoto(newUser, currentUser['id'].toString(), token);
     RoutesGeneral().toPop(context);
@@ -48,9 +48,9 @@ class DoctorProfileScreenP extends State<DoctorProfileScreen> {
   openCamera(BuildContext context) async {
     var picture = await ImagePicker.pickImage(source: ImageSource.camera);
     this.setState(() {
-      imageFile = picture;
+      imageFileDoctor = picture;
     });
-    var newUser = new User(photo: imageFile);
+    var newUser = new User(photo: imageFileDoctor);
     String save = await EndPoints()
         .modifyUsersPhoto(newUser, currentUser['id'].toString(), token);
     RoutesGeneral().toPop(context);
@@ -85,11 +85,11 @@ class DoctorProfileScreenP extends State<DoctorProfileScreen> {
   }
 
   Widget decideImageView() {
-    if (imageFile == null) {
+    if (imageFileDoctor == null) {
       return Icon(LineAwesomeIcons.question);
     } else {
       return Image.file(
-        imageFile,
+        imageFileDoctor,
         fit: BoxFit.cover,
         height: 100,
         width: 100,

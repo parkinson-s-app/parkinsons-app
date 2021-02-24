@@ -169,13 +169,18 @@ class EndPoints {
     return addedUser;
   }
 
-  Future<String> linkedUser(var tokenID, var token) async {
+  Future<String> linkedUser(var tokenID, var token, var token_type) async {
     //Map data2 = {'email': authUser.email, 'password': authUser.password};
     var codeToken = json.decode(token);
-    http.Response lista = await http.get(endpointBack + linkUserRelatedURL,
-        headers: {
-          HttpHeaders.authorizationHeader: jwtkey + codeToken['token']
-        });
+    String type = "";
+    if (token_type == 'Cuidador') {
+      type = "/api/carer/patients/related";
+    } else if (token_type == 'Doctor') {
+      type = "/api/doctor/patients/related";
+    }
+    http.Response lista = await http.get(endpointBack + type, headers: {
+      HttpHeaders.authorizationHeader: jwtkey + codeToken['token']
+    });
     //http.Response response =
     debugPrint(lista.body);
     String i = lista.body;

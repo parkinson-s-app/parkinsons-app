@@ -36,7 +36,8 @@ class ButtonGoCalendar extends StatelessWidget {
             if (codeList[a]['Q2'] == 'ON') {
               meetings.add(Meeting(
                   'on', startTime, endTime, const Color(0xFF0F8644), false));
-            } else {
+            }
+            if (codeList[a]['Q2'] == 'OFF') {
               meetings
                   .add(Meeting('off', startTime, endTime, Colors.red, false));
             }

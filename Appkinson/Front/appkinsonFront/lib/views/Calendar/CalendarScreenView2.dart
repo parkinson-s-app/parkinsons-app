@@ -33,7 +33,7 @@ class _Calendar extends State<CalendarScreenView2> {
         });
         // RoutesPatient().toSymptomsFormPatient(context);
       },
-      dataSource: MeetingDataSource(_getDataSource()),
+      dataSource: MeetingDataSource(meetings),
       monthViewSettings: MonthViewSettings(
           appointmentDisplayMode: MonthAppointmentDisplayMode.appointment),
     ));
@@ -43,7 +43,10 @@ class _Calendar extends State<CalendarScreenView2> {
     meetings = <Meeting>[];
 
     //final DateTime today = DateTime.now();
-    hora = dateChoosed.hour;
+    if (dateChoosed.hour != null) {
+      hora = dateChoosed.hour;
+    }
+
     print(conta);
     final DateTime startTime = DateTime(
         dateChoosed.year, dateChoosed.month, dateChoosed.day, hora, 0, 0);

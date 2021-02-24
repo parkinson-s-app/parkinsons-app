@@ -1,9 +1,19 @@
+import 'dart:convert';
+
 import 'package:appkinsonFront/routes/RoutesDoctor.dart';
+import 'package:appkinsonFront/services/EndPoints.dart';
+import 'package:appkinsonFront/views/Login/Buttons/ButtonLogin.dart';
+import 'package:appkinsonFront/views/profiles/Doctor/DoctorProfileScreen.dart';
 import 'package:flutter/material.dart';
 
 //import '../../Register/RegisterPage.dart';
 
-class ButtonGoProfile extends StatelessWidget {
+class ButtonGoProfile extends StatefulWidget {
+  @override
+  _ButtonGoProfileState createState() => _ButtonGoProfileState();
+}
+
+class _ButtonGoProfileState extends State<ButtonGoProfile> {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -17,6 +27,17 @@ class ButtonGoProfile extends StatelessWidget {
         onPressed: () async {
           // var doctor = await EndPoints()
           // .getCarer(user, currentUser['id'].toString(), token);
+          var patient = await EndPoints().getUserName(token);
+
+          var codeList = json.decode(patient);
+          //namePatient
+          print('hey' + codeList[0]['NAME']);
+          nameDoctor = codeList[0]['NAME'];
+          var res =
+              await EndPoints().getPhotoUser(token, codeList[0]['PHOTOPATH']);
+          this.setState(() {
+            imageFileDoctor = res;
+          });
           RoutesDoctor().toDoctorProfile(context);
         },
         padding: EdgeInsets.symmetric(horizontal: 10),
