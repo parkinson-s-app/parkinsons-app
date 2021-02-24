@@ -75,7 +75,7 @@ class _FormButtonLogin extends State<ButtonLogin> {
           */
           //debugPrint(currentUser['type']);
           // debugPrint(decoded);
-
+          
           if (currentUser['type'] == 'Cuidador') {
             RoutesCarer().toCarerHome(context);
           }

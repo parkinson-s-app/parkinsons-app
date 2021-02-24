@@ -69,7 +69,14 @@ class MyApp extends StatelessWidget {
     //return new MaterialApp(
     //  debugShowCheckedModeBanner: false, home: CalendarScreen());
     //return new MaterialApp(debugShowCheckedModeBanner: false, home: toolbox());
-    return new MaterialApp(debugShowCheckedModeBanner: false, home: HomePage());
+    return new MaterialApp(
+      initialRoute: '/',
+      routes: {
+        '/': (context) => HomePage(),
+      },
+      debugShowCheckedModeBanner: false, 
+      //home: HomePage()
+      );
     //return new MaterialApp(debugShowCheckedModeBanner: false, home: CalendarScreenView2());
     //return new MaterialApp(debugShowCheckedModeBanner: false, home: ReportScreen());
 
