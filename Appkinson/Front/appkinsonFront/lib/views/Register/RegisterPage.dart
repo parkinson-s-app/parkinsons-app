@@ -15,7 +15,7 @@ class RegisterPage extends StatelessWidget {
                   colors: [Colors.yellow[200], Colors.blue, Colors.blue[700]])),
           child: Column(children: <Widget>[
             SizedBox(
-              height: 80,
+              height: 30,
             ),
             HeaderRegister(),
             Expanded(

@@ -19,9 +19,9 @@ class Header extends StatelessWidget {
           ),
           Center(
             child: Text(
-              "Appkinson",
+              "AppKinson",
               style:
-              TextStyle(color: Colors.white, fontSize: 10, fontFamily: ''),
+                  TextStyle(color: Colors.white, fontSize: 15, fontFamily: ''),
             ),
           )
         ],

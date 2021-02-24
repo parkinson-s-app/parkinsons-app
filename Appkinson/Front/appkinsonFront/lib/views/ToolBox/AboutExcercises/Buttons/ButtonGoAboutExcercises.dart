@@ -1,10 +1,10 @@
-import 'dart:convert';
 
 import 'package:flutter/material.dart';
 
+
 //import '../../Register/RegisterPage.dart';
 
-class ButtonGoSymptomBehaviorRegister extends StatelessWidget {
+class ButtonGoAboutExcercises extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -13,17 +13,16 @@ class ButtonGoSymptomBehaviorRegister extends StatelessWidget {
       margin: EdgeInsets.symmetric(horizontal: 20),
       child: FlatButton(
         shape:
-            RoundedRectangleBorder(borderRadius: BorderRadius.circular(18.0)),
+        RoundedRectangleBorder(borderRadius: BorderRadius.circular(18.0)),
         //   side: BorderSide(color: Color.fromRGBO(0, 160, 227, 1))),
         onPressed: () {
-          //Navigator.push(context,
-          //  new MaterialPageRoute(builder: (context) => RegisterPage()));
+          //RoutesPatient().toCalendar(context);
         },
         padding: EdgeInsets.symmetric(horizontal: 10),
         color: Colors.grey[50],
         //textColor: Colors.white,
         child: Image.asset(
-          "assets/images/formulario.png",
+          "assets/images/ejercicio.png",
           height: size.height * 0.08,
         ),
         // Text("Registrarse ", style:  TextStyle(fontSize: 15)),

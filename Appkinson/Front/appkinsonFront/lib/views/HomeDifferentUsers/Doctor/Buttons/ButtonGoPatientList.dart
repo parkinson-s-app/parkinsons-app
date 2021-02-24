@@ -1,8 +1,5 @@
-import 'dart:convert';
-
+import 'package:appkinsonFront/routes/RoutesDoctor.dart';
 import 'package:flutter/material.dart';
-
-//import '../../Register/RegisterPage.dart';
 
 class ButtonGoPatientList extends StatelessWidget {
   @override
@@ -16,8 +13,7 @@ class ButtonGoPatientList extends StatelessWidget {
             RoundedRectangleBorder(borderRadius: BorderRadius.circular(18.0)),
         //   side: BorderSide(color: Color.fromRGBO(0, 160, 227, 1))),
         onPressed: () {
-          //Navigator.push(context,
-          //  new MaterialPageRoute(builder: (context) => RegisterPage()));
+          RoutesDoctor().toPatientList(context);
         },
         padding: EdgeInsets.symmetric(horizontal: 30),
         color: Colors.grey[50],

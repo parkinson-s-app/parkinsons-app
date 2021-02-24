@@ -1,16 +1,10 @@
 import 'package:flutter/material.dart';
 import 'Buttons/ButtonGoCalendar.dart';
-import 'Buttons/ButtonGoCalendar.dart';
 import 'Buttons/ButtonGoProfile.dart';
-import 'Buttons/ButtonGoProfile.dart';
-import 'Buttons/ButtonGoProfile.dart';
+import 'Buttons/ButtonGoRelationsRequest.dart';
 import 'Buttons/ButtonGoReminder.dart';
-import 'Buttons/ButtonGoReminder.dart';
-import 'Buttons/ButtonGoSymptomBehaviorRegister.dart';
-import 'Buttons/ButtonGoSymptomBehaviorRegister.dart';
+import 'Buttons/ButtonGoMedicinesSchedule.dart';
 import 'Buttons/ButtonGoToolBox.dart';
-import 'Buttons/ButtonGoToolBox.dart';
-import 'Buttons/ButtonGoWeeklyForm.dart';
 import 'Buttons/ButtonGoWeeklyForm.dart';
 
 class PatientHomePage extends StatelessWidget {
@@ -37,6 +31,11 @@ class PatientHomePage extends StatelessWidget {
             child: Expanded(
               child: Stack(
                 children: <Widget>[
+                  Positioned(
+                    top: 250,
+                    left: 255,
+                    child: ButtonGoRelationsRequest(),
+                  ),
                   Image.asset(
                     "assets/images/coronadr.png",
                     width: 150,
@@ -48,12 +47,12 @@ class PatientHomePage extends StatelessWidget {
                       top: 70,
                       left: 200,
                       child: Text(
-                        "Qué \nharemos \nhoy?",
+                        "¿Qué \nharemos \nhoy?",
                         style: TextStyle(
                             color: Colors.white,
                             fontSize: 30,
-                            fontFamily: "Raleway"),
-                      ))
+                            fontFamily: "Raleway2"),
+                      )),
                 ],
               ),
             ),
@@ -81,9 +80,9 @@ class PatientHomePage extends StatelessWidget {
                   ),
                   Column(
                     children: <Widget>[
-                      ButtonGoSymptomBehaviorRegister(),
+                    ButtonGoMedicinesSchedule(),
                       Text(
-                        "Síntomas",
+                        "Medicinas",
                         style: TextStyle(
                             color: Colors.blue[900],
                             fontSize: 20,

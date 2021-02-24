@@ -16,6 +16,7 @@ publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 # Read more about iOS versioning at
 # https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html
 version: 1.0.0+1
+platform: ios, '10.0'
 
 environment:
   sdk: ">=2.7.0 <3.0.0"
@@ -25,12 +26,38 @@ dependencies:
     sdk: flutter
   flutter_svg: ^0.17.4
   dropdownfield: ^1.0.3
+  cupertino_icons: ^0.1.2
+  dio: ^3.0.9
+  table_calendar: ^2.3.3
+  google_fonts:
+  font_awesome_flutter:
+
+  rxdart: ^0.24.1
+  path_provider: ^1.6.11
+  http: ^0.12.1
+  flutter_local_notifications: ^1.4.4+1
+  workmanager: ^0.2.2
+  background_fetch: ^0.5.5
+  line_awesome_flutter: ^1.0.1
+  flutter_screenutil: ^1.0.2
+  animated_theme_switcher: ^1.0.5
+  foldable_sidebar: ^1.0.0
+  image_picker: ^0.6.7+11
+  image_cropper: ^1.2.0
+  swipedetector: ^1.2.0
+  video_player: ^0.10.12+4
+  syncfusion_flutter_calendar: ^18.4.41
+  syncfusion_flutter_charts: ^18.4.41
+  decimal: ^0.3.3
+  pedometer: ^0.0.5
+  percent_indicator: ^1.0.14
+  flutter_launcher_icons: ^0.7.0
 
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
-  cupertino_icons: ^1.0.0
-  http: any
+
+
 
   flutter_localizations:
     sdk: flutter
@@ -69,6 +96,20 @@ flutter:
      - assets/images/pacientes.png
      - assets/images/ingenieria.png
      - assets/images/toolsBack.png
+     - assets/images/usuario(1).png
+     - assets/images/user.png
+     - assets/images/cerebroMovimiento.png
+     - assets/images/relationRequest.png
+     - assets/images/burned.png
+     - assets/images/distance.png
+     - assets/images/step.png
+     - assets/images/ejercicio.png
+     - assets/images/food.png
+     - assets/images/heart.png
+     - assets/images/logostep.png
+     - assets/images/news.png
+     - assets/images/parkinson.png
+     - assets/images/medicines.png
 
 
   #   - images/a_dot_ham.jpeg
@@ -91,6 +132,9 @@ flutter:
     - family: Raleway2
       fonts:
         - asset: assets/fonts/Raleway-Light.ttf
+    - family: RalewayBold
+      fonts:
+        - asset: assets/fonts/Raleway-Bold.ttf
   #       - asset: fonts/Schyler-Italic.ttf
   #         style: italic
   #   - family: Trajan Pro

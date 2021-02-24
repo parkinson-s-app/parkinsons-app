@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'Buttons/ButtonGoPatientList.dart';
 import 'Buttons/ButtonGoProfile.dart';
-//import 'Buttons/ButtonGoToolBox.dart';
 
 class DoctorHomePage extends StatelessWidget {
   @override
@@ -38,11 +37,11 @@ class DoctorHomePage extends StatelessWidget {
                       top: 70,
                       left: 200,
                       child: Text(
-                        "A Quién \nCuidaremos \nhoy?",
+                        "¿A quién \ncuidaremos \nhoy?",
                         style: TextStyle(
                             color: Colors.white,
                             fontSize: 30,
-                            fontFamily: "Raleway"),
+                            fontFamily: "Raleway2"),
                       ))
                 ],
               ),
