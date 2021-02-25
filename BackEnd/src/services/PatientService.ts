@@ -193,36 +193,13 @@ export default class PatientService {
         }
     }
 
-    public static async saveMedicineAlarms(id: number, medicineAlarms: IMedicineAlarm[]) {
+    public static async saveMedicineAlarms(id: number, medicineAlarms: IMedicineAlarm) {
         let conn: Pool | undefined;
         try {
             debug('saveMedicineAlarms get into');
             conn = await connect();
-            debug('saveMedicineAlarms connected to db');
-            let data = [];
             debug('saveMedicineAlarms medicine alarms to save: %j', medicineAlarms);
-            for (const medicineAlarm of medicineAlarms) {
-                let medArray = [];
-                debug('saveMedicineAlarms in for id: %s', id);
-                medArray.push(id);
-                debug('saveMedicineAlarms in for id alarm: %s', medicineAlarm.id);
-                medArray.push(medicineAlarm.id);
-                debug('saveMedicineAlarms in for title alarm: %s', medicineAlarm.title);
-                medArray.push(medicineAlarm.title);
-                debug('saveMedicineAlarms in for date alarm: %s', medicineAlarm.alarmDateTime);
-                medArray.push(medicineAlarm.alarmDateTime);
-                debug('saveMedicineAlarms in for pending alarm: %s', medicineAlarm.isPending);
-                if(medicineAlarm.isPending === 'true'){
-                    medArray.push(true);
-                } else {
-                    medArray.push(false);
-                }
-                data.push(medArray);
-            }
-            debug('saveMedicineAlarms to patient: %j, id: %s and as array: %j', medicineAlarms, id, data);
-            const query = `INSERT INTO medicinealarmpatient 
-                (ID_PATIENT, id, title, alarmDateTime, isPending) VALUES ?`;
-            const res = await conn.query(query,[data]);
+            const res = await conn.query('INSERT INTO medicinealarmpatient SET ?',[medicineAlarms]);
             debug('saveMedicineAlarms saved and returned: %j', res);
             conn.end();
             return res;
