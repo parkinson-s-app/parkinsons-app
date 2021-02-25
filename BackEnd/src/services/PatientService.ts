@@ -181,7 +181,7 @@ export default class PatientService {
             const query = 'SELECT * FROM medicinealarmpatient WHERE ID_PATIENT=?';
             debug('getMedicineAlarmsById to patient id: %s', id);
             const res = await conn.query(query,[id]);
-            debug('getMedicineAlarmsById executed and returned: %j', res);
+            debug('getMedicineAlarmsById executed and returned: %j', res[0]);
             conn.end();
             return res[0];
         }  catch (error) {
@@ -196,8 +196,11 @@ export default class PatientService {
     public static async saveMedicineAlarms(id: number, medicineAlarms: IMedicineAlarm[]) {
         let conn: Pool | undefined;
         try {
+            debug('saveMedicineAlarms get into');
             conn = await connect();
+            debug('saveMedicineAlarms connected to db');
             let data = [];
+            debug('saveMedicineAlarms medicine alarms to save: %j', medicineAlarms);
             for (const medicineAlarm of medicineAlarms) {
                 let medArray = [];
                 medArray.push(id);
