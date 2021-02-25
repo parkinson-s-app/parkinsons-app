@@ -168,4 +168,42 @@ PatientController.get('/patient/:id/emotionalFormPatient', verifyToken, async (r
         res.status(status).send(responseError);
     }
 });
+
+PatientController.post('/patient/:id/medicineAlarm', verifyToken, async (req: Request, res: Response) => {
+    debug('Patients save Medicine alarms by Id');
+    const id = +req.params.id;
+    debug('Patients save Medicine alarms body: %j, ID: %s',req.body, id);
+    const medicineAlarms: IEmotionalFormDto [] = req.body;
+    let status;
+    debug('Patients save Medicine alarms json: %j', medicineAlarms);
+    try {
+        const response = await PatientService.saveMedicineAlarms(id, medicineAlarms);
+        debug('Patients save Medicine alarms result %j, succesful', response);
+        status = constants.HTTP_STATUS_OK;
+        res.status(status).send('OK');
+    } catch (error) {
+        debug('Patients Medicine alarms saving failed, error: %j', error);
+        status = constants.HTTP_STATUS_INTERNAL_SERVER_ERROR;
+        const responseError = { status, error: "An error has ocurred"};
+        res.status(status).send(responseError);
+    }
+});
+
+PatientController.get('/patient/:id/medicineAlarm', verifyToken, async (req: Request, res: Response) => {
+    const id = +req.params.id;
+    debug('Patients getting medicine Alarms by Id: %s', id);
+    let status;
+    try {
+        const response = await PatientService.getMedicineAlarmsById(id);
+        debug('Patient getting medicine Alarms result %j, succesful', response);
+        status = constants.HTTP_STATUS_OK;
+        res.status(status).send(response);
+    } catch (error) {
+        debug('Patient getting medicine Alarms failed, error: %j', error);
+        status = constants.HTTP_STATUS_INTERNAL_SERVER_ERROR;
+        const responseError = { status, error: "An error has ocurred"};
+        res.status(status).send(responseError);
+    }
+});
+
 export default PatientController;

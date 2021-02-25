@@ -172,4 +172,43 @@ export default class PatientService {
             throw error;
         }
     }
+
+    public static async getMedicineAlarmsById(id: number) {
+        let conn: Pool | undefined;
+        try {
+            conn = await connect();
+            const query = 'SELECT * FROM medicinealarmpatient WHERE ID_PATIENT=?';
+            debug('getMedicineAlarmsById to patient id: %s', id);
+            const res = await conn.query(query,[id]);
+            debug('getMedicineAlarmsById executed and returned: %j', res);
+            conn.end();
+            return res[0];
+        }  catch (error) {
+            if(conn) {
+                conn.end();
+            }
+            debug('getMedicineAlarmsById Error: %j', error);
+            throw error;
+        }
+    }
+    public static async saveMedicineAlarms(id: number, medicineAlarms: IEmotionalFormDto[]) {
+        let conn: Pool | undefined;
+        try {
+            conn = await connect();
+            for (const medicineAlarm of medicineAlarms) {
+                medicineAlarm.id_patient= id;
+            }
+            debug('saveMedicineAlarms to patient: %j, id: %s', medicineAlarms, id);
+            const res = await conn.query('INSERT INTO medicinealarmpatient SET ?',[medicineAlarms]);
+            debug('saveMedicineAlarms saved and returned: %j', res);
+            conn.end();
+            return res;
+        }  catch (error) {
+            if(conn) {
+                conn.end();
+            }
+            debug('saveMedicineAlarms Error: %j', error);
+            throw error;
+        }
+    }
 }
