@@ -203,11 +203,20 @@ export default class PatientService {
             debug('saveMedicineAlarms medicine alarms to save: %j', medicineAlarms);
             for (const medicineAlarm of medicineAlarms) {
                 let medArray = [];
+                debug('saveMedicineAlarms in for id: %s', id);
                 medArray.push(id);
+                debug('saveMedicineAlarms in for id alarm: %s', medicineAlarm.id);
                 medArray.push(medicineAlarm.id);
+                debug('saveMedicineAlarms in for title alarm: %s', medicineAlarm.title);
                 medArray.push(medicineAlarm.title);
+                debug('saveMedicineAlarms in for date alarm: %s', medicineAlarm.alarmDateTime);
                 medArray.push(medicineAlarm.alarmDateTime);
-                medArray.push(medicineAlarm.isPending);
+                debug('saveMedicineAlarms in for pending alarm: %s', medicineAlarm.isPending);
+                if(medicineAlarm.isPending === 'true'){
+                    medArray.push(true);
+                } else {
+                    medArray.push(false);
+                }
                 data.push(medArray);
             }
             debug('saveMedicineAlarms to patient: %j, id: %s and as array: %j', medicineAlarms, id, data);
