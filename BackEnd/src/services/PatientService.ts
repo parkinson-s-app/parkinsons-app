@@ -6,6 +6,7 @@ import CarerService from "./CarerService";
 import DoctorService from "./DoctorService";
 import IEmotionalFormDto from "../models/IEmotionalFormDto";
 import { Pool } from "mysql2/promise";
+import IMedicineAlarm from "../models/IMedicineAlarm";
 
 const debug = debugLib('AppKinson:PatientService');
 
@@ -191,15 +192,25 @@ export default class PatientService {
             throw error;
         }
     }
-    public static async saveMedicineAlarms(id: number, medicineAlarms: IEmotionalFormDto[]) {
+
+    public static async saveMedicineAlarms(id: number, medicineAlarms: IMedicineAlarm[]) {
         let conn: Pool | undefined;
         try {
             conn = await connect();
+            let data = [];
             for (const medicineAlarm of medicineAlarms) {
-                medicineAlarm.id_patient= id;
+                let medArray = [];
+                medArray.push(id);
+                medArray.push(medicineAlarm.id);
+                medArray.push(medicineAlarm.title);
+                medArray.push(medicineAlarm.alarmDateTime);
+                medArray.push(medicineAlarm.isPending);
+                data.push(medArray);
             }
-            debug('saveMedicineAlarms to patient: %j, id: %s', medicineAlarms, id);
-            const res = await conn.query('INSERT INTO medicinealarmpatient SET ?',[medicineAlarms]);
+            debug('saveMedicineAlarms to patient: %j, id: %s and as array: %j', medicineAlarms, id, data);
+            const query = `INSERT INTO medicinealarmpatient 
+                (ID_PATIENT, id, title, alarmDateTime, isPending) VALUES ?`;
+            const res = await conn.query(query,[data]);
             debug('saveMedicineAlarms saved and returned: %j', res);
             conn.end();
             return res;
