@@ -176,6 +176,11 @@ PatientController.post('/patient/:id/medicineAlarm', verifyToken, async (req: Re
     debug('Patients save Medicine alarms body: %j, ID: %s',req.body, id);
     const medicineAlarms: IMedicineAlarm = req.body;
     let status;
+    if(req.body.isPending === 'true') {
+        medicineAlarms.isPending = true;
+    } else {
+        medicineAlarms.isPending = false;
+    }
     debug('Patients save Medicine alarms json: %j', medicineAlarms);
     try {
         const response = await PatientService.saveMedicineAlarms(id, medicineAlarms);
