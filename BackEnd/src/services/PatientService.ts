@@ -198,6 +198,7 @@ export default class PatientService {
         try {
             debug('saveMedicineAlarms get into');
             conn = await connect();
+            medicineAlarms.ID_PATIENT = id;
             debug('saveMedicineAlarms medicine alarms to save: %j', medicineAlarms);
             const res = await conn.query('INSERT INTO medicinealarmpatient SET ?',[medicineAlarms]);
             debug('saveMedicineAlarms saved and returned: %j', res);
