@@ -230,4 +230,5 @@ PatientController.post('/patient/:idPatient/medicineAlarm/delete/:id', verifyTok
         res.status(status).send(responseError);
     }
 });
+
 export default PatientController;

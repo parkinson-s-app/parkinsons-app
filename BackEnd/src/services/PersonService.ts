@@ -227,7 +227,7 @@ export default class PersonService {
         try {
             conn = await connect();
             const res = await conn.query('SELECT * FROM symptomsformpatient WHERE ID_PATIENT = ?',[id]);
-            debug('Symptoms found: %j', res);
+            debug('Symptoms found: %j', res[0]);
             conn.end();
             return res[0];
         } catch (e) {
