@@ -2,6 +2,6 @@ export default interface IMedicineAlarm {
     ID_PATIENT: number;
     id: string;
     title: string;
-    alarmDateTime: Date;
+    alarmDateTime: string;
     isPending: boolean;
 }

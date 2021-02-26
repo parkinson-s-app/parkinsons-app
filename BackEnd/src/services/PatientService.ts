@@ -212,4 +212,26 @@ export default class PatientService {
             throw error;
         }
     }
+
+
+    public static async deleteMedicineAlarms(id: string, idPatient: number) {
+        let conn: Pool | undefined;
+        try {
+            debug('deleteMedicineAlarms get into');
+            conn = await connect();
+            debug('deleteMedicineAlarms medicine alarm id: %s, id patient: %s', id, idPatient);
+            const resDeletion = await conn.query(
+                'DELETE FROM medicinealarmpatient WHERE ID_PATIENT  = ? AND id = ?',
+                [idPatient, id]);
+            debug('deleteMedicineAlarms saved and returned: %j', resDeletion);
+            conn.end();
+            return resDeletion;
+        }  catch (error) {
+            if(conn) {
+                conn.end();
+            }
+            debug('deleteMedicineAlarms Error: %j', error);
+            throw error;
+        }
+    }
 }

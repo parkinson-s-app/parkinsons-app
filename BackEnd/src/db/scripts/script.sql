@@ -127,7 +127,7 @@ CREATE TABLE medicinealarmpatient (
     ID_PATIENT INT(11) NOT NULL,
     id VARCHAR(50) NOT NULL,
     title VARCHAR(50) NOT NULL,
-    alarmDateTime DATETIME NOT NULL,
+    alarmDateTime TIME NOT NULL,
     isPending BOOLEAN,
     FOREIGN KEY (ID_PATIENT) REFERENCES patients(ID_USER) ON DELETE CASCADE,
     PRIMARY KEY (ID_PATIENT,id)

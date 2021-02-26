@@ -212,4 +212,22 @@ PatientController.get('/patient/:id/medicineAlarm', verifyToken, async (req: Req
     }
 });
 
+PatientController.post('/patient/:idPatient/medicineAlarm/delete/:id', verifyToken, async (req: Request, res: Response) => {
+    debug('Patients delete Medicine alarms by Id');
+    const id = req.params.id;
+    const idPatient = +req.params.idPatient;
+    debug('Patients delete Medicine alarms patient: %s, ID: %s',idPatient, id);
+    let status;
+    try {
+        const response = await PatientService.deleteMedicineAlarms(id, idPatient);
+        debug('Patients delete Medicine alarms result %j, succesful', response);
+        status = constants.HTTP_STATUS_OK;
+        res.status(status).send('OK');
+    } catch (error) {
+        debug('Patients Medicine alarms deleting failed, error: %j', error);
+        status = constants.HTTP_STATUS_INTERNAL_SERVER_ERROR;
+        const responseError = { status, error: "An error has ocurred"};
+        res.status(status).send(responseError);
+    }
+});
 export default PatientController;
