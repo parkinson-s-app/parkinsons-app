@@ -381,9 +381,6 @@ class EndPoints {
     Map<String, dynamic> formMap = {
       'q1': form.q1,
       'q2': form.q2,
-      'q3': form.q3,
-      'q4': form.q4,
-      'q5': form.q5,
       'formDate': form.formDate,
       'video': video,
     };

@@ -141,12 +141,21 @@ class DoctorPatientsCustom extends State<DoctorPatients> {
                             dateBd.month, dateBd.day, dateBd.hour, 0, 0);
                         final DateTime endTime =
                             startTime.add(const Duration(hours: 1));
-                        if (codeList[a]['Q2'] == 'ON') {
-                          meetings.add(Meeting('on', startTime, endTime,
-                              const Color(0xFF0F8644), false));
-                        } else {
+                        if (codeList[a]['Q1'] == 'on') {
+                          meetings.add(Meeting(
+                              'on', startTime, endTime, Colors.green, false));
+                        }
+                        if (codeList[a]['Q1'] == 'off') {
                           meetings.add(Meeting(
                               'off', startTime, endTime, Colors.red, false));
+                        }
+                        if (codeList[a]['Q1'] == 'on bueno') {
+                          meetings.add(Meeting('on bueno', startTime, endTime,
+                              Colors.green[700], false));
+                        }
+                        if (codeList[a]['Q1'] == 'off malo') {
+                          meetings.add(Meeting('off malo', startTime, endTime,
+                              Colors.red[800], false));
                         }
                       }
                       RoutesPatient().toCalendar(context);

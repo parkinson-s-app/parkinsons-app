@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:appkinsonFront/routes/RoutesGeneral.dart';
 import 'package:appkinsonFront/views/Calendar/CalendarScreenView2.dart';
 import 'package:appkinsonFront/views/SymptomsFormPatient/SymptomsFormPatientQ1.dart';
 import 'package:appkinsonFront/views/SymptomsFormPatient/SymptomsFormPatientQ2.dart';
@@ -20,8 +21,9 @@ class SymptomsFormPatientQ5ON extends StatefulWidget {
   _symptomsFormQ29 createState() => _symptomsFormQ29();
 }
 
+File fileMedia;
+
 class _symptomsFormQ29 extends State<SymptomsFormPatientQ5ON> {
-  File fileMedia;
   MediaSource source;
   int selectedStateRadio = 0;
   int selectedDyskinesiaRadio = 0;
@@ -59,20 +61,21 @@ class _symptomsFormQ29 extends State<SymptomsFormPatientQ5ON> {
                 ),
                 const SizedBox(height: 12),
                 RaisedButton(
-                  child: Text('Guardar registro'),
+                  child: Text('volver'),
                   shape: StadiumBorder(),
                   //onPressed: () => save(),
                   color: Theme.of(context).primaryColor,
                   textColor: Colors.white,
                   onPressed: () async {
+                    /*
                     SymptomsFormPatientM patientForm =
                         new SymptomsFormPatientM();
 
                     patientForm.q1 = BringAnswerPatient1().send();
                     patientForm.q2 = BringAnswerPatient2().send();
-                    patientForm.q3 = BringAnswer2On().send();
-                    patientForm.q4 = BringAnswerPatientQ3().send();
-                    patientForm.q5 = BringAnswerPatientQ4().send();
+                    //patientForm.q3 = BringAnswer2On().send();
+                    //patientForm.q4 = BringAnswerPatientQ3().send();
+                    //patientForm.q5 = BringAnswerPatientQ4().send();
 
                     patientForm.video = fileMedia;
                     patientForm.formDate = dateChoosed;
@@ -96,12 +99,14 @@ class _symptomsFormQ29 extends State<SymptomsFormPatientQ5ON> {
                     debugPrint(m.eventName);
                     //setState(() {
                     meetings.add(m);
+                    */
                     //});
 
                     //return meetings;
                     //}
 
-                    RoutesPatient().toCalendar(context);
+                    // RoutesPatient().toCalendar(context);
+                    RoutesGeneral().toPop(context);
                   },
                 ),
               ],
@@ -113,7 +118,7 @@ class _symptomsFormQ29 extends State<SymptomsFormPatientQ5ON> {
   Future capture(MediaSource source) async {
     setState(() {
       this.source = source;
-      this.fileMedia = null;
+      fileMedia = null;
     });
 
     final result = await Navigator.of(context).push(
@@ -136,7 +141,7 @@ class _symptomsFormQ29 extends State<SymptomsFormPatientQ5ON> {
 
   Future delete() async {
     setState(() {
-      this.fileMedia = null;
+      fileMedia = null;
     });
   }
 

@@ -69,9 +69,9 @@ class _symptomsFormQ29 extends State<SymptomsFormPatientQ5OFF> {
 
                     patientForm.q1 = BringAnswerPatient1().send();
                     patientForm.q2 = BringAnswerPatient2().send();
-                    patientForm.q3 = BringAnswer2Off().send();
-                    patientForm.q4 = BringAnswerPatientQ3().send();
-                    patientForm.q5 = BringAnswerPatientQ4().send();
+                    //patientForm.q3 = BringAnswer2Off().send();
+                    //patientForm.q4 = BringAnswerPatientQ3().send();
+                    //patientForm.q5 = BringAnswerPatientQ4().send();
                     patientForm.video = fileMedia;
                     patientForm.formDate = dateChoosed;
 
