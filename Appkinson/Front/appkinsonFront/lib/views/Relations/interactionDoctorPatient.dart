@@ -1,13 +1,9 @@
+import 'package:appkinsonFront/views/Relations/Buttons/ButtonGoCalendarFromDoctor.dart';
+import 'package:appkinsonFront/views/Relations/Buttons/ButtonGoMedicinesFromDoctor.dart';
+import 'package:appkinsonFront/views/Relations/Buttons/ButtonGoReporter.dart';
 import 'package:flutter/material.dart';
-import 'Buttons/ButtonGoCalendar.dart';
-import 'Buttons/ButtonGoProfile.dart';
-import 'Buttons/ButtonGoRelationsRequest.dart';
-import 'Buttons/ButtonGoReminder.dart';
-import 'Buttons/ButtonGoMedicinesSchedule.dart';
-import 'Buttons/ButtonGoToolBox.dart';
-import 'Buttons/ButtonGoWeeklyForm.dart';
 
-class PatientHomePage extends StatelessWidget {
+class InteractionDoctorPatient extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -31,11 +27,6 @@ class PatientHomePage extends StatelessWidget {
             child: Expanded(
               child: Stack(
                 children: <Widget>[
-                  Positioned(
-                    top: 250,
-                    left: 255,
-                    child: ButtonGoRelationsRequest(),
-                  ),
                   Image.asset(
                     "assets/images/coronadr.png",
                     width: 150,
@@ -47,7 +38,7 @@ class PatientHomePage extends StatelessWidget {
                       top: 70,
                       left: 200,
                       child: Text(
-                        "¿Qué \nharemos \nhoy?",
+                        "¡Revisemos!",
                         style: TextStyle(
                             color: Colors.white,
                             fontSize: 30,
@@ -68,7 +59,7 @@ class PatientHomePage extends StatelessWidget {
                 children: <Widget>[
                   Column(
                     children: <Widget>[
-                      ButtonGoCalendar(),
+                    ButtonGoCalendarFromDoctor(),
                       Text(
                         "Calendario",
                         style: TextStyle(
@@ -80,9 +71,9 @@ class PatientHomePage extends StatelessWidget {
                   ),
                   Column(
                     children: <Widget>[
-                    ButtonGoMedicinesSchedule(),
+                    ButtonGoReporter(),
                       Text(
-                        "Medicinas",
+                        "Reporte",
                         style: TextStyle(
                             color: Colors.blue[900],
                             fontSize: 20,
@@ -90,60 +81,11 @@ class PatientHomePage extends StatelessWidget {
                       )
                     ],
                   ),
-                  Column(
+                 Column(
                     children: <Widget>[
-                      ButtonGoReminder(),
+                      ButtonGoMedicinesFromDoctor(),
                       Text(
                         "Recordatorio",
-                        style: TextStyle(
-                            color: Colors.blue[900],
-                            fontSize: 20,
-                            fontFamily: "Raleway2"),
-                      )
-                    ],
-                  ),
-                ],
-              )
-            ],
-          ),
-        ),
-        SizedBox(
-          height: 60,
-        ),
-        Container(
-          child: Column(
-            children: <Widget>[
-              Row(
-                children: <Widget>[
-                  Column(
-                    children: <Widget>[
-                      ButtonGoProfile(),
-                      Text(
-                        "Perfil",
-                        style: TextStyle(
-                            color: Colors.blue[900],
-                            fontSize: 20,
-                            fontFamily: "Raleway2"),
-                      )
-                    ],
-                  ),
-                  Column(
-                    children: <Widget>[
-                      ButtonGoToolBox(),
-                      Text(
-                        "ToolBox",
-                        style: TextStyle(
-                            color: Colors.blue[900],
-                            fontSize: 20,
-                            fontFamily: "Raleway2"),
-                      )
-                    ],
-                  ),
-                  Column(
-                    children: <Widget>[
-                      ButtonGoWeeklyForm(),
-                      Text(
-                        "Sentimientos",
                         style: TextStyle(
                             color: Colors.blue[900],
                             fontSize: 20,

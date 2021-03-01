@@ -6,6 +6,7 @@ import 'package:appkinsonFront/constants/Constant.dart';
 import 'package:appkinsonFront/model/EmotionsForm.dart';
 import 'package:appkinsonFront/model/SymptomsForm.dart';
 import 'package:appkinsonFront/model/SymptomsFormPatientM.dart';
+import 'package:appkinsonFront/views/Medicines/alarm.dart';
 import 'package:appkinsonFront/views/RelationRequest/request.dart';
 import 'package:flutter/material.dart';
 import '../model/User.dart';
@@ -322,6 +323,63 @@ Future<bool> registerEmotionsForm(
     
     return success;
   }
+
+  //Recibir alarmas
+  Future<List<AlarmInfo>> getMedicinesAlarms(var tokenID, var token) async {
+   
+    var codeToken = json.decode(token);
+    http.Response lista = await http
+        .get(endpointBack + '/api/patient/$tokenID/medicineAlarm', headers: {
+      HttpHeaders.authorizationHeader: jwtkey + codeToken['token']
+    });
+     String i = lista.body;
+     debugPrint(i.toString());
+     var codeList = json.decode(i);
+     List<AlarmInfo> alarms = [];
+     for (var a = 0; a < codeList.length; a++) {     
+     AlarmInfo alarm = new AlarmInfo();
+     //alarm.id = codeList[a]['id'];
+     alarm.title = codeList[a]['title'];
+     
+     alarms.add(alarm);
+    }
+    return alarms;
+  }
+  
+  //Enviar alarmas
+   Future<String> sendAlarm(String id, String title, String alarmTime, String isPending, var token, var tokenID) async {
+
+    Map data2 = {
+        "id": id,
+        "title": title,
+        "alarmDateTime": alarmTime,
+        "isPending": isPending
+    };
+    //var dataToSend = [data2]; 
+    //var dataJson = json.encode(dataToSend);
+    //debugPrint(dataJson.toString());
+    var codeToken = json.decode(token);
+    http.Response response =
+        await http.post(endpointBack + '/api/patient/$tokenID/medicineAlarm', body: data2,  headers: {
+          HttpHeaders.authorizationHeader: jwtkey + codeToken['token']
+        });
+    debugPrint(data2.toString());
+    String i = response.body;
+    return i;
+  }
+
+  Future<String> deleteAlarm(String id, var token, var tokenID) async {
+
+    var codeToken = json.decode(token);
+    http.Response response =
+        await http.post(endpointBack + '/api/patient/$tokenID/medicineAlarm/delete/$id',  headers: {
+          HttpHeaders.authorizationHeader: jwtkey + codeToken['token']
+        });
+ 
+    String i = response.body;
+    return i;
+  }
+  
 
   Future<List<RelationRequest>> getRelationRequest(var token) async {
     //Map data2 = {'email': authUser.email, 'password': authUser.password};

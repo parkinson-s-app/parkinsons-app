@@ -23,6 +23,7 @@ public final class GeneratedPluginRegistrant {
     flutterEngine.getPlugins().add(new io.flutter.plugins.imagepicker.ImagePickerPlugin());
     flutterEngine.getPlugins().add(new io.flutter.plugins.pathprovider.PathProviderPlugin());
       cachet.plugins.pedometer.PedometerPlugin.registerWith(shimPluginRegistry.registrarFor("cachet.plugins.pedometer.PedometerPlugin"));
+    flutterEngine.getPlugins().add(new com.tekartik.sqflite.SqflitePlugin());
     flutterEngine.getPlugins().add(new io.flutter.plugins.videoplayer.VideoPlayerPlugin());
     flutterEngine.getPlugins().add(new be.tramckrijte.workmanager.WorkmanagerPlugin());
   }
