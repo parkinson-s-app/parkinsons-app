@@ -148,8 +148,15 @@ class _MedicinesState extends State<Medicines> {
   void insertItem(int index, AlarmInfo item) {
     //alarm.title = "Hola";
    // alarm.title = _alarmTimeString;
+    DateTime scheduleAlarmDateTime;
+    if (_alarmTime.isAfter(DateTime.now()))
+      scheduleAlarmDateTime = _alarmTime;
+    else
+      scheduleAlarmDateTime = _alarmTime.add(Duration(days: 1));
+
+    //scheduleAlarm(scheduleAlarmDateTime, item);
     id = id+1;
-    EndPoints().sendAlarm(item.id.toString(), item.title, item.title , 'true' , token, currentUser['id'].toString());
+    EndPoints().sendAlarm(item.id.toString(), item.title, scheduleAlarmDateTime.toString() , 'true' , token, currentUser['id'].toString());
     item.title = _alarmTimeString;
     items.insert(index, item);
     key.currentState.insertItem(index);
