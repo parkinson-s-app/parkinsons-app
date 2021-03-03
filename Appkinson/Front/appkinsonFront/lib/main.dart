@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'package:appkinsonFront/services/EndPoints.dart';
 import 'package:appkinsonFront/views/Calendar/CalendarScreenView2.dart';
 import 'package:appkinsonFront/views/DataAnalisis/ReportScreen.dart';
+import 'package:appkinsonFront/views/Game/countDownGame.dart';
 import 'package:appkinsonFront/views/Medicines/medicines.dart';
 import 'package:appkinsonFront/views/RelationRequest/relationsRequets.dart';
 import 'package:appkinsonFront/views/Relations/interactionDoctorPatient.dart';
@@ -81,7 +82,7 @@ class MyApp extends StatelessWidget {
     //return new MaterialApp(
     //  debugShowCheckedModeBanner: false, home: CalendarScreen());
     //return new MaterialApp(debugShowCheckedModeBanner: false, home: toolbox());
-      return new MaterialApp(debugShowCheckedModeBanner: false, home: HomePage());
+      return new MaterialApp(debugShowCheckedModeBanner: false, home: CountDownTimer());
     //return new MaterialApp(debugShowCheckedModeBanner: false, home: relationRequest());
     //return new MaterialApp(debugShowCheckedModeBanner: false, home: ReportScreen());
     // return new MaterialApp(
