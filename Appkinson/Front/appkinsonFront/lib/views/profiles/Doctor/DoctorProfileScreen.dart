@@ -1,11 +1,12 @@
+import 'package:appkinsonFront/model/User.dart';
 import 'package:appkinsonFront/routes/RoutesDoctor.dart';
 import 'package:appkinsonFront/routes/RoutesGeneral.dart';
-
+import 'package:appkinsonFront/services/EndPoints.dart';
+import 'package:appkinsonFront/views/Login/Buttons/ButtonLogin.dart';
+import 'package:appkinsonFront/views/Login/InputFieldLogin.dart';
 import 'package:appkinsonFront/views/profiles/Doctor/profileEdition/ProfileEditionDoctor.dart';
 import 'package:flutter/cupertino.dart';
-
 import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/screenutil.dart';
 import 'package:image_picker/image_picker.dart';
@@ -13,7 +14,8 @@ import 'package:line_awesome_flutter/line_awesome_flutter.dart';
 
 const bla = Colors.white;
 const kSpacingUnit = 10;
-File imageFile;
+File imageFileDoctor;
+var nameDoctor = '';
 
 final kTitleTextStyle = TextStyle(
   fontFamily: "Raleway",
@@ -35,16 +37,22 @@ class DoctorProfileScreenP extends State<DoctorProfileScreen> {
   openGallery(BuildContext context) async {
     var picture = await ImagePicker.pickImage(source: ImageSource.gallery);
     this.setState(() {
-      imageFile = picture;
+      imageFileDoctor = picture;
     });
+    var newUser = new User(photo: imageFileDoctor);
+    String save = await EndPoints()
+        .modifyUsersPhoto(newUser, currentUser['id'].toString(), token);
     RoutesGeneral().toPop(context);
   }
 
   openCamera(BuildContext context) async {
     var picture = await ImagePicker.pickImage(source: ImageSource.camera);
     this.setState(() {
-      imageFile = picture;
+      imageFileDoctor = picture;
     });
+    var newUser = new User(photo: imageFileDoctor);
+    String save = await EndPoints()
+        .modifyUsersPhoto(newUser, currentUser['id'].toString(), token);
     RoutesGeneral().toPop(context);
   }
 
@@ -77,11 +85,11 @@ class DoctorProfileScreenP extends State<DoctorProfileScreen> {
   }
 
   Widget decideImageView() {
-    if (imageFile == null) {
+    if (imageFileDoctor == null) {
       return Icon(LineAwesomeIcons.question);
     } else {
       return Image.file(
-        imageFile,
+        imageFileDoctor,
         fit: BoxFit.cover,
         height: 100,
         width: 100,
@@ -143,13 +151,14 @@ class DoctorProfileScreenP extends State<DoctorProfileScreen> {
           height: 20,
         ),
         Text(
-          nameControllerDoctor.text,
+          ///nameControllerDoctor.text,
+          nameDoctor,
           style: kTitleTextStyle,
         ),
         SizedBox(
           height: 5,
         ),
-        Text('cami.Hoyos@gmail.com', style: kCaptionTextStyle),
+        Text(emailController.text, style: kCaptionTextStyle),
         SizedBox(),
       ],
     ));
@@ -215,18 +224,6 @@ class DoctorProfileScreenP extends State<DoctorProfileScreen> {
                     text: 'Ayuda & soporte',
                   ),
                   ProfileListItem(
-                    icon: LineAwesomeIcons.question,
-                    text: 'Acerca de nosotros',
-                  ),
-                  ProfileListItem(
-                    icon: LineAwesomeIcons.comment,
-                    text: 'Comentarios',
-                  ),
-                  ProfileListItem(
-                    icon: LineAwesomeIcons.star,
-                    text: 'Califícanos',
-                  ),
-                  ProfileListItem(
                     icon: Icons.exit_to_app,
                     text: 'Cerrar Sesión',
                   ),
@@ -264,6 +261,9 @@ class ProfileListItem extends StatelessWidget {
           onPressed: () {
             if (text == 'Editar') {
               RoutesDoctor().toDoctorEditProfile(context);
+            }
+            if (text == 'Ayuda & soporte') {
+              RoutesGeneral().toAboutUs(context);
             }
           },
           child: Row(

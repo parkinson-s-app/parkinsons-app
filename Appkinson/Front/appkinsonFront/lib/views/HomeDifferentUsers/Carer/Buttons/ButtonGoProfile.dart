@@ -1,5 +1,4 @@
 import 'package:appkinsonFront/routes/RoutesCarer.dart';
-import 'package:appkinsonFront/views/profiles/Carer/CarerProfle.dart';
 import 'package:flutter/material.dart';
 
 //import '../../Register/RegisterPage.dart';
@@ -15,7 +14,9 @@ class ButtonGoProfile extends StatelessWidget {
         shape:
             RoundedRectangleBorder(borderRadius: BorderRadius.circular(18.0)),
         //   side: BorderSide(color: Color.fromRGBO(0, 160, 227, 1))),
-        onPressed: () {
+        onPressed: () async {
+          // var carer = await EndPoints()
+          // .getCarer(user, currentUser['id'].toString(), token);
           RoutesCarer().toCarerProfile(context);
         },
         padding: EdgeInsets.symmetric(horizontal: 10),

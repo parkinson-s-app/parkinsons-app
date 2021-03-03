@@ -1,8 +1,6 @@
 import 'package:appkinsonFront/routes/RoutesGeneral.dart';
 import 'package:flutter/material.dart';
 
-import '../../Login/LoginPage.dart';
-
 class ButtonLogin extends StatelessWidget {
   @override
   Widget build(BuildContext context) {

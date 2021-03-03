@@ -4,11 +4,8 @@ import 'package:appkinsonFront/routes/RoutesPatient.dart';
 import 'package:appkinsonFront/services/EndPoints.dart';
 import 'package:appkinsonFront/views/Calendar/CalendarScreenView2.dart';
 import 'package:appkinsonFront/views/Login/Buttons/ButtonLogin.dart';
-import 'package:appkinsonFront/views/Notifications/NotificationPlugin.dart';
 import 'package:flutter/material.dart';
 import '../../model/User.dart';
-import '../Relations/user_data.dart';
-import 'Buttons/ButtonLinkPatient.dart';
 
 class DoctorPatients extends StatefulWidget {
   @override
@@ -31,6 +28,7 @@ class DoctorPatientsCustom extends State<DoctorPatients> {
   }
 
   getPatients() async {
+    /*
     var lista = token.split(".");
     var payload = lista[1];
 
@@ -47,11 +45,12 @@ class DoctorPatientsCustom extends State<DoctorPatients> {
 
     var decoded = utf8.decode(base64.decode(payload));
     currentUser = json.decode(decoded);
+    */
     List<User> _patients = [];
     //Pedir lista de pacientes relacionados
     debugPrint("pidiendo pacientes");
-    var patientsAux =
-        await EndPoints().linkedUser(currentUser['id'].toString(), token);
+    var patientsAux = await EndPoints().linkedUser(
+        currentUser['id'].toString(), token, currentUser['type'].toString());
     debugPrint("pacientes pedidos");
     codeListPatients = json.decode(patientsAux);
     //List<User> patients = [];
@@ -131,6 +130,7 @@ class DoctorPatientsCustom extends State<DoctorPatients> {
                       String m = await EndPoints()
                           .getSymptomsFormPatient(token, selectId);
                       //final DateTime today = DateTime.now();
+
                       var codeList = json.decode(m);
                       //List<String> patients = [];
                       for (var a = 0; a < codeList.length; a++) {
@@ -141,12 +141,21 @@ class DoctorPatientsCustom extends State<DoctorPatients> {
                             dateBd.month, dateBd.day, dateBd.hour, 0, 0);
                         final DateTime endTime =
                             startTime.add(const Duration(hours: 1));
-                        if (codeList[a]['Q2'] == 'ON') {
-                          meetings.add(Meeting('on', startTime, endTime,
-                              const Color(0xFF0F8644), false));
-                        } else {
+                        if (codeList[a]['Q1'] == 'on') {
+                          meetings.add(Meeting(
+                              'on', startTime, endTime, Colors.green, false));
+                        }
+                        if (codeList[a]['Q1'] == 'off') {
                           meetings.add(Meeting(
                               'off', startTime, endTime, Colors.red, false));
+                        }
+                        if (codeList[a]['Q1'] == 'on bueno') {
+                          meetings.add(Meeting('on bueno', startTime, endTime,
+                              Colors.green[700], false));
+                        }
+                        if (codeList[a]['Q1'] == 'off malo') {
+                          meetings.add(Meeting('off malo', startTime, endTime,
+                              Colors.red[800], false));
                         }
                       }
                       RoutesPatient().toCalendar(context);
@@ -199,6 +208,8 @@ class DoctorPatientsCustom extends State<DoctorPatients> {
                   if (_keyDialogForm.currentState.validate()) {
                     _keyDialogForm.currentState.save();
                     debugPrint(addPatientController.text);
+
+                    /*
                     var lista = token.split(".");
                     var payload = lista[1];
 
@@ -215,13 +226,15 @@ class DoctorPatientsCustom extends State<DoctorPatients> {
 
                     var decoded = utf8.decode(base64.decode(payload));
                     currentUser = json.decode(decoded);
+                    */
+
                     debugPrint(currentUser['id'].toString());
-                    var listaUsuarios = await EndPoints().linkUser(
+                    var response = await EndPoints().linkUser(
                         addPatientController.text,
-                        currentUser['id'].toString(),
+                        currentUser['type'].toString(),
                         token);
                     getPatients();
-                    debugPrint(listaUsuarios.toString());
+                    debugPrint(response.toString());
                     //getPatients();
                     Navigator.pop(context);
                   }

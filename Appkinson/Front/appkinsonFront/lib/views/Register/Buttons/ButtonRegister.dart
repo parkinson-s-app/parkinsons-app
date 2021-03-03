@@ -1,10 +1,7 @@
-import 'package:appkinsonFront/routes/RoutesGeneral.dart';
 import 'package:flutter/material.dart';
 import '../../../services/EndPoints.dart';
 import '../InputFieldRegister.dart';
 import '../../Login/LoginPage.dart';
-import 'dart:convert';
-
 
 class ButtonRegister extends StatefulWidget {
   @override
@@ -12,7 +9,6 @@ class ButtonRegister extends StatefulWidget {
 }
 
 class ButtonRegisterCustom extends State<ButtonRegister> {
-
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -21,14 +17,13 @@ class ButtonRegisterCustom extends State<ButtonRegister> {
       child: RaisedButton(
         shape:
             RoundedRectangleBorder(borderRadius: BorderRadius.circular(18.0)),
-            padding: EdgeInsets.symmetric(horizontal: 50),
-            color: Color.fromRGBO(0, 160, 227, 1),
-            textColor: Colors.white,
-            child: Text("Registrarse", style: TextStyle(fontSize: 15)),
+        padding: EdgeInsets.symmetric(horizontal: 50),
+        color: Color.fromRGBO(0, 160, 227, 1),
+        textColor: Colors.white,
+        child: Text("Registrarse", style: TextStyle(fontSize: 15)),
         //   side: BorderSide(color: Color.fromRGBO(0, 160, 227, 1))),
         onPressed: () async {
           // addUsers('jorge', '1234');
-
 
           var m = new metod();
           var user = await m.send();
@@ -39,88 +34,71 @@ class ButtonRegisterCustom extends State<ButtonRegister> {
           debugPrint("Validando");
           //if (save == 'Guardado') {
 
-            var i = 0;
-            var character = '';
-            bool hasUppercase = false;
-            bool hasSpecialCharacters = false;
-            debugPrint(user.password.length.toString());
-            while (i < user.password.length) {
-              character = user.password.toString().substring(i, i + 1);
-              if (character == character.toUpperCase()) {
-                hasUppercase = true;
-              }
-              i++;
-            }
-            debugPrint("verificando caracteres especiales");
-            if (user.password.toString().contains(new RegExp(r'[!@#$%^&*(),.?":{}|<>]'))) {
-              hasSpecialCharacters = true;
-            }
-
+          var i = 0;
+          var character = '';
+          bool hasUppercase = false;
+          bool hasSpecialCharacters = false;
+          debugPrint(user.password.length.toString());
             debugPrint("Validando condiciones");
             if (user.email.toString().contains('@')) {
               debugPrint("correo valido");
-              if (/*mas de 8 char*/ user.password.toString().length > 8) {
-                debugPrint("longitud valida");
-                if (/*Mayuscula*/ hasUppercase == true) {
-                  debugPrint("Tiene mayuscula");
-                  if (/*Char extra*/ hasSpecialCharacters = true) {
-                    debugPrint("contiene caracter especial");
+              if (/*mas de 8 char*/ user.password.toString().length > 7) {
+                if(user.passwordVerify.toString() == user.password.toString()){
+                  debugPrint("longitud valida");
                     String save = await EndPoints().addUsers(user);
                     debugPrint(save);
                     if (save == 'Guardado') {
                       //RoutesGeneral().toLogin(context);
                       Navigator.push(context, new MaterialPageRoute( builder: (context) => LoginPage()));
+                    }else if(save == 'Existe'){
+                      //register
+                      invalid(2,context);
                     }
-                  } else {
-                    //debe contener un caracter especial
-                    invalid(3,context);
-                  }
-                } else {
-                  //debe tener una mayuscula
-                  invalid(2,context);
-                }
-              } else {
-                //muy corta
-                invalid(1,context);
-              }
+                }else{
+                  debugPrint("----------");
+                  debugPrint(user.passwordVerify.toString());
+                  debugPrint(user.password.toString());
+                  invalid(3,context);
+                }    
             } else {
-              // no es un correo valido
-              invalid(0,context);
+              //muy corta
+              invalid(1, context);
             }
-            //if()
-         // }
+          } else {
+            // no es un correo valido
+            invalid(0, context);
+          }
         },
       ),
     );
   }
-
 }
 
 invalid(int reason, context) {
   debugPrint("invalidez");
   String invalidReason = null;
-  if(reason == 0){
+  if (reason == 0) {
     invalidReason = "El email no es un correo valido";
   }
-  if(reason == 1){
+  if (reason == 1) {
     invalidReason = "La contraseña debe tener mínimo 8 caracteres";
   }
-  if(reason == 2){
-    invalidReason = "La contraseña debe contener mínimo una mayuscula";
+  if (reason == 2) {
+    invalidReason = "Este usuario ya existe";
   }
-  if(reason == 3){
-    invalidReason = "La contraseña debe contener mínimo un caracter especial";
+  if (reason == 3) {
+    invalidReason = "Las contraseñas no coinciden";
   }
   showDialog(
     context: context,
-    builder: (BuildContext context) => _buildPopupDialog(context, invalidReason),
+    builder: (BuildContext context) =>
+        _buildPopupDialog(context, invalidReason),
   );
 }
 
-
 Widget _buildPopupDialog(BuildContext context, String invalidReason) {
   return new AlertDialog(
-    title: Text (invalidReason),
+    title: Text(invalidReason),
     actions: <Widget>[
       new FlatButton(
         onPressed: () {

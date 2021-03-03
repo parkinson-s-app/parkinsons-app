@@ -31,6 +31,10 @@ dependencies:
   table_calendar: ^2.3.3
   google_fonts:
   font_awesome_flutter:
+  flutter_downloader: ^1.5.2
+  permission_handler: ^5.0.1
+  network_to_file_image: ^2.3.8
+
 
   rxdart: ^0.24.1
   path_provider: ^1.6.11
@@ -48,7 +52,10 @@ dependencies:
   video_player: ^0.10.12+4
   syncfusion_flutter_calendar: ^18.4.41
   syncfusion_flutter_charts: ^18.4.41
-
+  decimal: ^0.3.3
+  pedometer: ^0.0.5
+  percent_indicator: ^1.0.14
+  flutter_launcher_icons: ^0.7.0
 
 
   # The following adds the Cupertino Icons font to your application.
@@ -97,6 +104,16 @@ flutter:
      - assets/images/user.png
      - assets/images/cerebroMovimiento.png
      - assets/images/relationRequest.png
+     - assets/images/burned.png
+     - assets/images/distance.png
+     - assets/images/step.png
+     - assets/images/ejercicio.png
+     - assets/images/food.png
+     - assets/images/heart.png
+     - assets/images/logostep.png
+     - assets/images/news.png
+     - assets/images/parkinson.png
+     - assets/images/medicines.png
 
 
   #   - images/a_dot_ham.jpeg

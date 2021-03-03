@@ -1,8 +1,6 @@
 import 'package:appkinsonFront/routes/RoutesDoctor.dart';
 import 'package:flutter/material.dart';
 
-import '../../../Relations/DoctorPatients.dart';
-
 class ButtonGoPatientList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {

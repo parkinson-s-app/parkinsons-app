@@ -3,6 +3,7 @@ import 'package:appkinsonFront/model/User.dart';
 import 'package:appkinsonFront/routes/RoutesGeneral.dart';
 import 'package:appkinsonFront/services/EndPoints.dart';
 import 'package:appkinsonFront/views/Login/Buttons/ButtonLogin.dart';
+import 'package:appkinsonFront/views/profiles/Doctor/DoctorProfileScreen.dart';
 import 'package:flutter/material.dart';
 
 class ProfileEditionDoctor extends StatefulWidget {
@@ -37,6 +38,7 @@ class __ProfileEdition extends State<ProfileEditionDoctor> {
           var m = new metod2();
           var user = await m.send();
           debugPrint(user.name);
+          /*
           var lista = token.split(".");
           var payload = lista[1];
 
@@ -54,9 +56,15 @@ class __ProfileEdition extends State<ProfileEditionDoctor> {
           var decoded = utf8.decode(base64.decode(payload));
           currentUser = json.decode(decoded);
           debugPrint(currentUser['id'].toString());
+          */
           String save = await EndPoints()
               .modifyUsers(user, currentUser['id'].toString(), token);
+
           debugPrint(save);
+
+          setState(() {
+            nameDoctor = nameControllerDoctor.text;
+          });
 
           if (save == 'Actualizado') {
             RoutesGeneral().toPop(context);

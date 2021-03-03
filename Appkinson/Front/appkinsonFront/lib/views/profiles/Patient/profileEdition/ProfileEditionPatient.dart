@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'package:appkinsonFront/model/User.dart';
 import 'package:appkinsonFront/services/EndPoints.dart';
 import 'package:appkinsonFront/views/Login/Buttons/ButtonLogin.dart';
+import 'package:appkinsonFront/views/profiles/Patient/PatientProfileScreen.dart';
 import 'package:flutter/material.dart';
 
 class ProfileEditionPatient extends StatefulWidget {
@@ -36,6 +37,13 @@ class __ProfileEdition extends State<ProfileEditionPatient> {
           onPressed: () async {
             var m = new metod2();
             var user = await m.send();
+
+            /*
+            setState(() {
+            nameCarer = nameControllerCarer.text;
+          });
+          */
+            /*
             debugPrint(user.name);
             var lista = token.split(".");
             var payload = lista[1];
@@ -54,9 +62,13 @@ class __ProfileEdition extends State<ProfileEditionPatient> {
             var decoded = utf8.decode(base64.decode(payload));
             currentUser = json.decode(decoded);
             debugPrint(currentUser['id'].toString());
+            */
             String save = await EndPoints()
                 .modifyUsers(user, currentUser['id'].toString(), token);
             debugPrint(save);
+            setState(() {
+              namePatient = nameController.text;
+            });
 
             if (save == 'Actualizado') {
               Navigator.pop(context);

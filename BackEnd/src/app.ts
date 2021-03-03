@@ -45,6 +45,8 @@ app.use((error: any, req: Request,res: Response, next: any) => {
     }
 });
 // storage
+//app.use('/uploads/photo', express.static(path.resolve('uploads/photo')));
+//app.use('/uploads/video', express.static(path.resolve('uploads/video')));
 app.use('/uploads',[verifyToken ,express.static(path.resolve('uploads/'))]);
 
 export default app;

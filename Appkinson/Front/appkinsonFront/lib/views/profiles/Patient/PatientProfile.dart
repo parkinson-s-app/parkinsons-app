@@ -1,5 +1,4 @@
 import 'package:appkinsonFront/routes/RoutesPatient.dart';
-import 'package:appkinsonFront/views/HomeDifferentUsers/Patient/PatientHomePage.dart';
 import 'package:appkinsonFront/views/profiles/Patient/PatientProfileScreen.dart';
 import 'package:appkinsonFront/views/profiles/Patient/profileEdition/ProfileEditionPatient.dart';
 import 'package:flutter/material.dart';
@@ -84,7 +83,7 @@ class CustomDrawer extends StatelessWidget {
   const CustomDrawer({Key key, this.closeDrawer}) : super(key: key);
 
   Widget decideImage() {
-    if (imageFile == null) {
+    if (imageFilePatient == null) {
       return Image.asset(
         "assets/images/user.png",
         width: 100,
@@ -92,7 +91,7 @@ class CustomDrawer extends StatelessWidget {
       );
     } else {
       return Image.file(
-        imageFile,
+        imageFilePatient,
         fit: BoxFit.cover,
         height: 100,
         width: 100,

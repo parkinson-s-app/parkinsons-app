@@ -1,5 +1,3 @@
-import 'dart:io';
-import 'package:appkinsonFront/views/SymptomsFormDoctor/videoPluguin.dart';
 import 'package:flutter/material.dart';
 
 class symptomsFormQ13 extends StatefulWidget {
@@ -7,14 +5,13 @@ class symptomsFormQ13 extends StatefulWidget {
   _symptomsFormQ13 createState() => _symptomsFormQ13();
 }
 
-enum SigningCharacter {Normal, Lento, Impulso, Dificultad, Incapaz}
+enum SigningCharacter { Normal, Lento, Impulso, Dificultad, Incapaz }
 SigningCharacter _character;
 int selectedStateRadioQ13 = 0;
 
 class _symptomsFormQ13 extends State<symptomsFormQ13> {
-
   @override
-  Widget build(BuildContext context){
+  Widget build(BuildContext context) {
     return Scaffold(
       body: Column(
         children: <Widget>[
@@ -42,7 +39,7 @@ class _symptomsFormQ13 extends State<symptomsFormQ13> {
                   title: const Text('Normal'),
                   value: SigningCharacter.Normal,
                   groupValue: _character,
-                  onChanged: (SigningCharacter value){
+                  onChanged: (SigningCharacter value) {
                     setState(() {
                       _character = value;
                       selectedStateRadioQ13 = 0;
@@ -53,10 +50,11 @@ class _symptomsFormQ13 extends State<symptomsFormQ13> {
                   height: 20,
                 ),
                 RadioListTile<SigningCharacter>(
-                  title: const Text('Lento, o puede necesitar más de un intento'),
+                  title:
+                      const Text('Lento, o puede necesitar más de un intento'),
                   value: SigningCharacter.Lento,
                   groupValue: _character,
-                  onChanged: (SigningCharacter value){
+                  onChanged: (SigningCharacter value) {
                     setState(() {
                       _character = value;
                       selectedStateRadioQ13 = 1;
@@ -67,10 +65,11 @@ class _symptomsFormQ13 extends State<symptomsFormQ13> {
                   height: 20,
                 ),
                 RadioListTile<SigningCharacter>(
-                  title: const Text('Tiene que impulsarse con los brazos de la silla'),
+                  title: const Text(
+                      'Tiene que impulsarse con los brazos de la silla'),
                   value: SigningCharacter.Impulso,
                   groupValue: _character,
-                  onChanged: (SigningCharacter value){
+                  onChanged: (SigningCharacter value) {
                     setState(() {
                       _character = value;
                       selectedStateRadioQ13 = 2;
@@ -81,10 +80,11 @@ class _symptomsFormQ13 extends State<symptomsFormQ13> {
                   height: 20,
                 ),
                 RadioListTile<SigningCharacter>(
-                  title: const Text('Tiende a caer hacia atrás y puede tener que intentarlo más de una vez, pero puede conseguirlo sin ayuda'),
+                  title: const Text(
+                      'Tiende a caer hacia atrás y puede tener que intentarlo más de una vez, pero puede conseguirlo sin ayuda'),
                   value: SigningCharacter.Dificultad,
                   groupValue: _character,
-                  onChanged: (SigningCharacter value){
+                  onChanged: (SigningCharacter value) {
                     setState(() {
                       _character = value;
                       selectedStateRadioQ13 = 3;
@@ -98,7 +98,7 @@ class _symptomsFormQ13 extends State<symptomsFormQ13> {
                   title: const Text('Incapaz de levantarse sin ayuda'),
                   value: SigningCharacter.Incapaz,
                   groupValue: _character,
-                  onChanged: (SigningCharacter value){
+                  onChanged: (SigningCharacter value) {
                     setState(() {
                       _character = value;
                       selectedStateRadioQ13 = 4;
@@ -118,7 +118,7 @@ class _symptomsFormQ13 extends State<symptomsFormQ13> {
 }
 
 class BringAnswer13 {
-  int send()  {
+  int send() {
     return selectedStateRadioQ13;
   }
 }

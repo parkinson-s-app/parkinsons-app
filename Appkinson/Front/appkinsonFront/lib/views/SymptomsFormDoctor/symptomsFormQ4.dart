@@ -1,5 +1,3 @@
-import 'dart:io';
-import 'package:appkinsonFront/views/SymptomsFormDoctor/videoPluguin.dart';
 import 'package:flutter/material.dart';
 
 class symptomsFormQ4 extends StatefulWidget {
@@ -7,14 +5,13 @@ class symptomsFormQ4 extends StatefulWidget {
   _symptomsFormQ4 createState() => _symptomsFormQ4();
 }
 
-enum SigningCharacter {Ausente, Infrecuente, Persistente, Mayoria, Presente}
-SigningCharacter _character ;
+enum SigningCharacter { Ausente, Infrecuente, Persistente, Mayoria, Presente }
+SigningCharacter _character;
 int selectedStateRadioQ4 = 0;
 
 class _symptomsFormQ4 extends State<symptomsFormQ4> {
-
   @override
-  Widget build(BuildContext context){
+  Widget build(BuildContext context) {
     return Scaffold(
       body: Column(
         children: <Widget>[
@@ -25,7 +22,7 @@ class _symptomsFormQ4 extends State<symptomsFormQ4> {
               padding: EdgeInsets.all(15.0),
               alignment: Alignment.center,
               child: Text(
-                "TEMBLOR DE REPOSO EN MIEMBROS INFERIORES",
+                " GOLPETEO DE DEDOS (FINGER TAPPING)",
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   fontSize: 22.0,
@@ -39,10 +36,10 @@ class _symptomsFormQ4 extends State<symptomsFormQ4> {
             child: Column(
               children: <Widget>[
                 RadioListTile<SigningCharacter>(
-                  title: const Text('Ausente'),
+                  title: const Text('0: Normal   Sin problemas. '),
                   value: SigningCharacter.Ausente,
                   groupValue: _character,
-                  onChanged: (SigningCharacter value){
+                  onChanged: (SigningCharacter value) {
                     setState(() {
                       _character = value;
                       selectedStateRadioQ4 = 0;
@@ -53,10 +50,11 @@ class _symptomsFormQ4 extends State<symptomsFormQ4> {
                   height: 20,
                 ),
                 RadioListTile<SigningCharacter>(
-                  title: const Text('Poca frecuencia'),
+                  title: const Text(
+                      '1: Mínimo   Cualquiera de los siguientes: a) el ritmo regular se rompe con una o dos interrupciones o titubeos en el movimiento de golpeteo; b) mínimo enlentecimiento; c) la amplitud disminuye cerca del final de los 10 golpeteos.'),
                   value: SigningCharacter.Infrecuente,
                   groupValue: _character,
-                  onChanged: (SigningCharacter value){
+                  onChanged: (SigningCharacter value) {
                     setState(() {
                       _character = value;
                       selectedStateRadioQ4 = 1;
@@ -67,10 +65,11 @@ class _symptomsFormQ4 extends State<symptomsFormQ4> {
                   height: 20,
                 ),
                 RadioListTile<SigningCharacter>(
-                  title: const Text('Persistente'),
+                  title: const Text(
+                      '2: Leve   Cualquiera de los siguientes: a) de 3 a 5 interrupciones durante el golpeteo; b) enlentecimiento leve; c) la amplitud disminuye hacia la mitad de la secuencia de 10 golpeteos. '),
                   value: SigningCharacter.Persistente,
                   groupValue: _character,
-                  onChanged: (SigningCharacter value){
+                  onChanged: (SigningCharacter value) {
                     setState(() {
                       _character = value;
                       selectedStateRadioQ4 = 2;
@@ -81,10 +80,11 @@ class _symptomsFormQ4 extends State<symptomsFormQ4> {
                   height: 20,
                 ),
                 RadioListTile<SigningCharacter>(
-                  title: const Text('Presente la mayor parte del tiempo, temblor moderado'),
+                  title: const Text(
+                      '3: Moderado   Cualquiera de los siguientes: a) más de 5 interrupciones durante el golpeteo o al menos una interrupción más prolongada (congelación) durante el movimiento en curso; b) enlentecimiento moderado; c) la amplitud disminuye después del primer golpeteo.'),
                   value: SigningCharacter.Mayoria,
                   groupValue: _character,
-                  onChanged: (SigningCharacter value){
+                  onChanged: (SigningCharacter value) {
                     setState(() {
                       _character = value;
                       selectedStateRadioQ4 = 3;
@@ -95,10 +95,11 @@ class _symptomsFormQ4 extends State<symptomsFormQ4> {
                   height: 20,
                 ),
                 RadioListTile<SigningCharacter>(
-                  title: const Text('Presente la mayor parte del tiempo, temblor severo'),
+                  title: const Text(
+                      '4: Grave   No puede o apenas puede realizar la tarea debido a enlentecimiento, interrupciones o decrementos.'),
                   value: SigningCharacter.Presente,
                   groupValue: _character,
-                  onChanged: (SigningCharacter value){
+                  onChanged: (SigningCharacter value) {
                     setState(() {
                       _character = value;
                       selectedStateRadioQ4 = 4;
@@ -118,7 +119,7 @@ class _symptomsFormQ4 extends State<symptomsFormQ4> {
 }
 
 class BringAnswer4 {
-  int send()  {
+  int send() {
     return selectedStateRadioQ4;
   }
 }

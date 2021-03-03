@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:appkinsonFront/model/User.dart';
 import 'package:appkinsonFront/services/EndPoints.dart';
+import 'package:appkinsonFront/views/profiles/Carer/CarerProfileScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:appkinsonFront/views/Login/Buttons/ButtonLogin.dart';
 
@@ -35,6 +36,11 @@ class __ProfileEdition extends State<ProfileEditionCarer> {
         onPressed: () async {
           var m = new metod2();
           var user = await m.send();
+
+          setState(() {
+            nameCarer = nameControllerCarer.text;
+          });
+          /*
           debugPrint(user.name);
           var lista = token.split(".");
           var payload = lista[1];
@@ -53,9 +59,15 @@ class __ProfileEdition extends State<ProfileEditionCarer> {
           var decoded = utf8.decode(base64.decode(payload));
           currentUser = json.decode(decoded);
           debugPrint(currentUser['id'].toString());
+
+          */
           String save = await EndPoints()
               .modifyUsers(user, currentUser['id'].toString(), token);
           debugPrint(save);
+
+          setState(() {
+            nameCarer = nameControllerCarer.text;
+          });
 
           if (save == 'Actualizado') {
             Navigator.pop(context);

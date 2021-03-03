@@ -1,6 +1,11 @@
 import 'dart:convert';
 import 'package:appkinsonFront/services/EndPoints.dart';
+import 'package:appkinsonFront/views/AboutUs/helpSupport.dart';
+import 'package:appkinsonFront/views/Calendar/CalendarScreenView2.dart';
 import 'package:appkinsonFront/views/DataAnalisis/ReportScreen.dart';
+import 'package:appkinsonFront/views/Medicines/medicines.dart';
+import 'package:appkinsonFront/views/RelationRequest/relationsRequets.dart';
+import 'package:appkinsonFront/views/ToolBox/ToolBoxInitial.dart';
 import 'package:flutter/material.dart';
 import 'views/SymptomsFormPatient/SymptomsFormPatient.dart';
 import 'package:appkinsonFront/local_notifications.dart';
@@ -15,6 +20,7 @@ import 'views/SymptomsFormDoctor/symptomsForm.dart';
 import 'views/Calendar/CalendarScreen.dart';
 import 'model/User.dart';
 
+/*
 List<User> patients = [];
 
 void callbackDispatcher() {
@@ -42,14 +48,17 @@ void callbackDispatcher() {
     return Future.value(true);
   });
 }
+*/
 
 void main() async {
+  /*
   WidgetsFlutterBinding.ensureInitialized();
   await Workmanager.initialize(callbackDispatcher);
   await Workmanager.registerPeriodicTask("test_workertask", "test_workertask",
       inputData: {"data1": "value1", "data2": "value2"},
       frequency: Duration(minutes: 15),
       initialDelay: Duration(minutes: 1));
+      */
   runApp(MyApp());
 }
 
@@ -58,9 +67,9 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     //return new MaterialApp(
     //  debugShowCheckedModeBanner: false, home: CalendarScreen());
+    //return new MaterialApp(debugShowCheckedModeBanner: false, home: toolbox());
     return new MaterialApp(debugShowCheckedModeBanner: false, home: HomePage());
-
-    //return new MaterialApp(debugShowCheckedModeBanner: false, home: relationRequest());
+    //return new MaterialApp(debugShowCheckedModeBanner: false, home: CalendarScreenView2());
     //return new MaterialApp(debugShowCheckedModeBanner: false, home: ReportScreen());
 
     // return new MaterialApp(

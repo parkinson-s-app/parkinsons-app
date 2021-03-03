@@ -1,5 +1,3 @@
-import 'dart:io';
-import 'package:appkinsonFront/views/SymptomsFormDoctor/videoPluguin.dart';
 import 'package:flutter/material.dart';
 
 class symptomsFormQ14 extends StatefulWidget {
@@ -7,14 +5,19 @@ class symptomsFormQ14 extends StatefulWidget {
   _symptomsFormQ14 createState() => _symptomsFormQ14();
 }
 
-enum SigningCharacter {Normal, PocoEncorvada, ModeradoEncorvada, MuyEncorvada, Extrema}
+enum SigningCharacter {
+  Normal,
+  PocoEncorvada,
+  ModeradoEncorvada,
+  MuyEncorvada,
+  Extrema
+}
 SigningCharacter _character;
 int selectedStateRadioQ14 = 0;
 
 class _symptomsFormQ14 extends State<symptomsFormQ14> {
-
   @override
-  Widget build(BuildContext context){
+  Widget build(BuildContext context) {
     return Scaffold(
       body: Column(
         children: <Widget>[
@@ -42,7 +45,7 @@ class _symptomsFormQ14 extends State<symptomsFormQ14> {
                   title: const Text('Erecta normal'),
                   value: SigningCharacter.Normal,
                   groupValue: _character,
-                  onChanged: (SigningCharacter value){
+                  onChanged: (SigningCharacter value) {
                     setState(() {
                       _character = value;
                       selectedStateRadioQ14 = 0;
@@ -53,10 +56,11 @@ class _symptomsFormQ14 extends State<symptomsFormQ14> {
                   height: 20,
                 ),
                 RadioListTile<SigningCharacter>(
-                  title: const Text('Postura no muy erecta, discretamente encorvada; podría ser normal en una persona mayor'),
+                  title: const Text(
+                      'Postura no muy erecta, discretamente encorvada; podría ser normal en una persona mayor'),
                   value: SigningCharacter.PocoEncorvada,
                   groupValue: _character,
-                  onChanged: (SigningCharacter value){
+                  onChanged: (SigningCharacter value) {
                     setState(() {
                       _character = value;
                       selectedStateRadioQ14 = 1;
@@ -67,10 +71,11 @@ class _symptomsFormQ14 extends State<symptomsFormQ14> {
                   height: 20,
                 ),
                 RadioListTile<SigningCharacter>(
-                  title: const Text('Postura moderadamente encorvada, claramente anormal. Puede inclinarse discretamente a un lado'),
+                  title: const Text(
+                      'Postura moderadamente encorvada, claramente anormal. Puede inclinarse discretamente a un lado'),
                   value: SigningCharacter.ModeradoEncorvada,
                   groupValue: _character,
-                  onChanged: (SigningCharacter value){
+                  onChanged: (SigningCharacter value) {
                     setState(() {
                       _character = value;
                       selectedStateRadioQ14 = 2;
@@ -84,7 +89,7 @@ class _symptomsFormQ14 extends State<symptomsFormQ14> {
                   title: const Text('Postura muy encorvada'),
                   value: SigningCharacter.MuyEncorvada,
                   groupValue: _character,
-                  onChanged: (SigningCharacter value){
+                  onChanged: (SigningCharacter value) {
                     setState(() {
                       _character = value;
                       selectedStateRadioQ14 = 3;
@@ -95,10 +100,11 @@ class _symptomsFormQ14 extends State<symptomsFormQ14> {
                   height: 20,
                 ),
                 RadioListTile<SigningCharacter>(
-                  title: const Text('Flexión marcada con alteración postural extrema'),
+                  title: const Text(
+                      'Flexión marcada con alteración postural extrema'),
                   value: SigningCharacter.Extrema,
                   groupValue: _character,
-                  onChanged: (SigningCharacter value){
+                  onChanged: (SigningCharacter value) {
                     setState(() {
                       _character = value;
                       selectedStateRadioQ14 = 4;
@@ -118,7 +124,7 @@ class _symptomsFormQ14 extends State<symptomsFormQ14> {
 }
 
 class BringAnswer14 {
-  int send()  {
+  int send() {
     return selectedStateRadioQ14;
   }
 }

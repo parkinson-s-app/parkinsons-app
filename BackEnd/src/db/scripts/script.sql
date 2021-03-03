@@ -58,6 +58,7 @@ CREATE TABLE patientxcarer(
     PRIMARY KEY (ID_CARER,ID_PATIENT)
 );
 
+
 CREATE TABLE requestlinkcarertopatient(
     ID_CARER INT(11) NOT NULL,
     ID_PATIENT INT(11) NOT NULL,
@@ -75,7 +76,6 @@ CREATE TABLE symptomsformpatient (
     FOREIGN KEY (ID_PATIENT) REFERENCES patients(ID_USER) ON DELETE CASCADE,
     PRIMARY KEY (ID_PATIENT,formdate)
 );
-
 CREATE TABLE patientxsymptomsform(
     ID_PATIENT INT(11) NOT NULL,
     DATE_FORM DATETIME,

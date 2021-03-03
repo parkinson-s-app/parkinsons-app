@@ -1,8 +1,5 @@
 import 'package:flutter/material.dart';
 import '../../model/User.dart';
-//import 'DropDownRegister.dart';
-//import 'DropDownRegister.dart';
-//import 'package:flutter_svg/flutter_svg.dart';
 
 class InputFieldRegister extends StatefulWidget {
   @override
@@ -13,7 +10,9 @@ var lista = ['Paciente', 'Doctor', 'Cuidador'];
 final userSelected = TextEditingController();
 String selectUser = "Seleccione un usuario";
 TextEditingController emailController = new TextEditingController();
+TextEditingController nameController = new TextEditingController();
 TextEditingController password = new TextEditingController();
+TextEditingController passwordv = new TextEditingController();
 
 class InputFieldRegisterCustom extends State<InputFieldRegister> {
   bool _obscurePassword = true;
@@ -47,22 +46,19 @@ class InputFieldRegisterCustom extends State<InputFieldRegister> {
                 SizedBox(width: 20),
                 Expanded(
                     child: DropdownButton(
-                      isExpanded: true,
-                      items: lista.map((String a) {
-                        return DropdownMenuItem(value: a, child: Text(a));
-                      }).toList(),
-                      onChanged: (value) {
-                        setState(() {
-                          selectUser = value;
-                        });
-                      },
-                      hint: Text(selectUser),
+                  isExpanded: true,
+                  items: lista.map((String a) {
+                    return DropdownMenuItem(value: a, child: Text(a));
+                  }).toList(),
+                  onChanged: (value) {
+                    setState(() {
+                      selectUser = value;
+                    });
+                  },
+                  hint: Text(selectUser),
                 )),
               ],
             ),
-          ),
-          SizedBox(
-            height: 20,
           ),
           Container(
             padding: EdgeInsets.all(10),
@@ -72,6 +68,18 @@ class InputFieldRegisterCustom extends State<InputFieldRegister> {
               controller: emailController,
               decoration: InputDecoration(
                   hintText: "Ingrese su correo eléctronico",
+                  hintStyle: TextStyle(color: Colors.grey),
+                  border: InputBorder.none),
+            ),
+          ),
+          Container(
+            padding: EdgeInsets.all(10),
+            decoration: BoxDecoration(
+                border: Border(bottom: BorderSide(color: Colors.grey[200]))),
+            child: TextFormField(
+              controller: nameController,
+              decoration: InputDecoration(
+                  hintText: "Ingrese su nombre",
                   hintStyle: TextStyle(color: Colors.grey),
                   border: InputBorder.none),
             ),
@@ -111,7 +119,7 @@ class InputFieldRegisterCustom extends State<InputFieldRegister> {
               children: <Widget>[
                 Expanded(
                   child: TextFormField(
-                    controller: password,
+                    controller: passwordv,
                     decoration: const InputDecoration(
                       hintText: "Vuelva a Ingresar su contraseña",
                     ),
@@ -121,7 +129,6 @@ class InputFieldRegisterCustom extends State<InputFieldRegister> {
               ],
             ),
           ),
-          Container(),
         ],
       ),
     );
@@ -131,7 +138,7 @@ class InputFieldRegisterCustom extends State<InputFieldRegister> {
 class metod {
   Future<User> send() async {
     var newUser = new User(
-        email: emailController.text, password: password.text, type: selectUser);
+        email: emailController.text, name: nameController.text, password: password.text, passwordVerify: passwordv.text, type: selectUser);
     debugPrint(newUser.password);
     return newUser;
   }

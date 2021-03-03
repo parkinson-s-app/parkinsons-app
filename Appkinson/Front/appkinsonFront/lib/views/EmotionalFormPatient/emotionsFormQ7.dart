@@ -1,4 +1,3 @@
-import 'dart:io';
 import 'package:flutter/material.dart';
 
 class emotionsFormQ7 extends StatefulWidget {
@@ -6,14 +5,13 @@ class emotionsFormQ7 extends StatefulWidget {
   _emotionsFormQ7 createState() => _emotionsFormQ7();
 }
 
-enum SigningCharacter {Si, No}
+enum SigningCharacter { Si, No }
 SigningCharacter _character;
 int selectedStateRadioQ7 = 0;
 
 class _emotionsFormQ7 extends State<emotionsFormQ7> {
-
   @override
-  Widget build(BuildContext context){
+  Widget build(BuildContext context) {
     return Scaffold(
       body: Column(
         children: <Widget>[
@@ -24,7 +22,7 @@ class _emotionsFormQ7 extends State<emotionsFormQ7> {
               padding: EdgeInsets.all(15.0),
               alignment: Alignment.center,
               child: Text(
-                "Sensación de no haber vaciado por completo el vientre después de ir al servicio",
+                "Sensación de no haber vaciado por completo el vientre después de ir al baño",
                 style: TextStyle(
                   fontSize: 22.0,
                   fontFamily: "Ralewaybold",
@@ -34,55 +32,54 @@ class _emotionsFormQ7 extends State<emotionsFormQ7> {
           ),
           Expanded(
             flex: 2,
-            child: Column(
-                children: <Widget>[
-                  Divider(
-                    height: 80,
+            child: Column(children: <Widget>[
+              Divider(
+                height: 80,
+              ),
+              RadioListTile<SigningCharacter>(
+                title: const Text(
+                  'Si',
+                  style: TextStyle(
+                    fontSize: 40.0,
                   ),
-                  RadioListTile<SigningCharacter>(
-                    title: const Text(
-                      'Si',
-                      style: TextStyle(
-                        fontSize: 40.0,
-                      ),
-                    ),
-                    value: SigningCharacter.Si,
-                    groupValue: _character,
-                    onChanged: (SigningCharacter value){
-                      setState(() {
-                        _character = value;
-                        selectedStateRadioQ7 = 1;
-                      });
-                    },
+                ),
+                value: SigningCharacter.Si,
+                groupValue: _character,
+                onChanged: (SigningCharacter value) {
+                  setState(() {
+                    _character = value;
+                    selectedStateRadioQ7 = 1;
+                  });
+                },
+              ),
+              Divider(
+                height: 100,
+              ),
+              RadioListTile<SigningCharacter>(
+                title: const Text(
+                  'No',
+                  style: TextStyle(
+                    fontSize: 40.0,
                   ),
-                  Divider(
-                    height: 100,
-                  ),
-                  RadioListTile<SigningCharacter>(
-                    title: const Text(
-                      'No',
-                      style: TextStyle(
-                        fontSize: 40.0,
-                      ),
-                    ),
-                    value: SigningCharacter.No,
-                    groupValue: _character,
-                    onChanged: (SigningCharacter value){
-                      setState(() {
-                        _character = value;
-                        selectedStateRadioQ7 = 2;
-                      });
-                    },
-                  ),
-                  Divider(
-                    height: 80,
-                  ),
-                ]
-            ),
+                ),
+                value: SigningCharacter.No,
+                groupValue: _character,
+                onChanged: (SigningCharacter value) {
+                  setState(() {
+                    _character = value;
+                    selectedStateRadioQ7 = 2;
+                  });
+                },
+              ),
+              Divider(
+                height: 80,
+              ),
+            ]),
 
             /*Expanded(
             flex: 1,
-          */),
+          */
+          ),
         ],
       ),
     );

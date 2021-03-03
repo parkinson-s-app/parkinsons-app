@@ -21,8 +21,6 @@ import '../SymptomsFormDoctor/symptomsFormQ13.dart';
 import '../SymptomsFormDoctor/symptomsFormQ14.dart';
 import '../SymptomsFormDoctor/symptomsFormQ15.dart';
 import '../SymptomsFormDoctor/symptomsFormQ16.dart';
-import '../SymptomsFormDoctor/symptomsFormQ17.dart';
-import '../SymptomsFormDoctor/symptomsFormQ29.dart';
 import '../Calendar/CalendarScreen.dart';
 
 class symptomsFormQ29 extends StatefulWidget {
@@ -81,6 +79,7 @@ class _symptomsFormQ29 extends State<symptomsFormQ29> {
                     patientForm.q3 = BringAnswer3().send();
                     patientForm.q4 = BringAnswer4().send();
                     patientForm.q5 = BringAnswer5().send();
+                    /*
                     patientForm.q6 = BringAnswer6().send();
                     patientForm.q7 = BringAnswer7().send();
                     patientForm.q8 = BringAnswer8().send();
@@ -92,6 +91,7 @@ class _symptomsFormQ29 extends State<symptomsFormQ29> {
                     patientForm.q14 = BringAnswer14().send();
                     patientForm.q15 = BringAnswer15().send();
                     patientForm.q16 = BringAnswer16().send();
+                    */
                     patientForm.video = fileMedia;
                     patientForm.date = tempDate;
                     var savedDone = await EndPoints().registerSymptomsForm(

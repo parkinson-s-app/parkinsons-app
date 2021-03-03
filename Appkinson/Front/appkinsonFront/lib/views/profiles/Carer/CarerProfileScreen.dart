@@ -1,5 +1,8 @@
+import 'package:appkinsonFront/model/User.dart';
 import 'package:appkinsonFront/routes/RoutesCarer.dart';
 import 'package:appkinsonFront/routes/RoutesGeneral.dart';
+import 'package:appkinsonFront/services/EndPoints.dart';
+import 'package:appkinsonFront/views/Login/Buttons/ButtonLogin.dart';
 import 'package:appkinsonFront/views/profiles/Carer/profileEdition/ProfileEditionCarer.dart';
 import 'package:flutter/cupertino.dart';
 
@@ -13,6 +16,7 @@ import 'package:line_awesome_flutter/line_awesome_flutter.dart';
 const bla = Colors.white;
 const kSpacingUnit = 10;
 File imageFile;
+var nameCarer;
 
 final kTitleTextStyle = TextStyle(
   fontFamily: "Raleway",
@@ -36,6 +40,9 @@ class DoctorProfileScreenP extends State<CarerProfileScreen> {
     this.setState(() {
       imageFile = picture;
     });
+    var newUser = new User(photo: imageFile);
+    String save = await EndPoints()
+        .modifyUsersPhoto(newUser, currentUser['id'].toString(), token);
     RoutesGeneral().toPop(context);
   }
 
@@ -44,6 +51,9 @@ class DoctorProfileScreenP extends State<CarerProfileScreen> {
     this.setState(() {
       imageFile = picture;
     });
+    var newUser = new User(photo: imageFile);
+    String save = await EndPoints()
+        .modifyUsersPhoto(newUser, currentUser['id'].toString(), token);
     RoutesGeneral().toPop(context);
   }
 
@@ -142,7 +152,7 @@ class DoctorProfileScreenP extends State<CarerProfileScreen> {
           height: 20,
         ),
         Text(
-          nameControllerCarer.text,
+          nameCarer,
           style: kTitleTextStyle,
         ),
         SizedBox(
@@ -214,18 +224,6 @@ class DoctorProfileScreenP extends State<CarerProfileScreen> {
                     text: 'Ayuda & soporte',
                   ),
                   ProfileListItem(
-                    icon: LineAwesomeIcons.question,
-                    text: 'Acerca de nosotros',
-                  ),
-                  ProfileListItem(
-                    icon: LineAwesomeIcons.comment,
-                    text: 'Comentarios',
-                  ),
-                  ProfileListItem(
-                    icon: LineAwesomeIcons.star,
-                    text: 'Califícanos',
-                  ),
-                  ProfileListItem(
                     icon: Icons.exit_to_app,
                     text: 'Cerrar Sesión',
                   ),
@@ -261,6 +259,12 @@ class ProfileListItem extends StatelessWidget {
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)),
           color: Colors.grey[100],
           onPressed: () {
+            if (text == 'Editar') {
+              RoutesCarer().toCarerEditProfile(context);
+            }
+            if (text == 'Ayuda & soporte') {
+              RoutesGeneral().toAboutUs(context);
+            }
             if (text == 'Editar') {
               RoutesCarer().toCarerEditProfile(context);
             }

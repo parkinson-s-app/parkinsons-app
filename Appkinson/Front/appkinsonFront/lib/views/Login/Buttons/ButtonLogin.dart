@@ -1,15 +1,11 @@
 import 'dart:convert';
-import 'package:appkinsonFront/views/RelationRequest/relationRequestPlugin.dart';
+import 'package:appkinsonFront/utils/Utils.dart';
 import 'package:appkinsonFront/routes/RoutesAdmin.dart';
 import 'package:appkinsonFront/routes/RoutesCarer.dart';
 import 'package:appkinsonFront/routes/RoutesDoctor.dart';
 import 'package:appkinsonFront/routes/RoutesPatient.dart';
 import 'package:flutter/material.dart';
-import '../../HomeDifferentUsers/Admin/AdminHomePage.dart';
-import '../../HomeDifferentUsers/Doctor/DoctorHomePage.dart';
-import '../../HomeDifferentUsers/Patient/PatientHomePage.dart';
 import "../InputFieldLogin.dart";
-import '../../HomeDifferentUsers/Carer/CarerHomePage.dart';
 import '../../../services/EndPoints.dart';
 
 Map currentUser;
@@ -35,6 +31,7 @@ class _FormButtonLogin extends State<ButtonLogin> {
           var m = new metod();
           var user = await m.send();
           debugPrint(user.email);
+          debugPrint(user.password);
           debugPrint("------");
 
           /*
@@ -45,6 +42,19 @@ class _FormButtonLogin extends State<ButtonLogin> {
           */
 
           token = await EndPoints().authUser(user);
+          
+          debugPrint(token);
+          Map responseJson = json.decode(token);
+          if(responseJson["person"] != null){
+            debugPrint("contraseña invalida");
+            invalid(0, context);
+          }else if(responseJson["message"] != null){
+            debugPrint("correo invalido");
+            invalid(1, context);
+          }else{
+
+          currentUser = Utils().tokenDecoder(token);
+          /*
           debugPrint(token);
           var lista = token.split(".");
           var payload = lista[1];
@@ -62,15 +72,16 @@ class _FormButtonLogin extends State<ButtonLogin> {
 
           var decoded = utf8.decode(base64.decode(payload));
           currentUser = json.decode(decoded);
-          debugPrint(currentUser['type']);
-          debugPrint(decoded);
+          */
+          //debugPrint(currentUser['type']);
+          // debugPrint(decoded);
 
           if (currentUser['type'] == 'Cuidador') {
             RoutesCarer().toCarerHome(context);
           }
           if (currentUser['type'] == 'Paciente') {
             debugPrint("paciente");
-            getRelationsRequest();
+            //getRelationsRequest();
             RoutesPatient().toPatientHome(context);
           }
           if (currentUser['type'] == 'Doctor') {
@@ -79,6 +90,8 @@ class _FormButtonLogin extends State<ButtonLogin> {
           if (currentUser['type'] == 'Admin') {
             RoutesAdmin().toAdminHome(context);
           }
+
+          }
         },
         color: Colors.blue,
         textColor: Colors.white,
@@ -86,4 +99,35 @@ class _FormButtonLogin extends State<ButtonLogin> {
       ),
     );
   }
+}
+
+invalid(int reason, context) {
+  debugPrint("invalidez");
+  String invalidReason;
+  if (reason == 0) {
+    invalidReason = "Contraseña invalida";
+  }
+  if (reason == 1) {
+    invalidReason = "Email incorrecto";
+  }
+  showDialog(
+    context: context,
+    builder: (BuildContext context) =>
+        _buildPopupDialog(context, invalidReason),
+  );
+}
+
+Widget _buildPopupDialog(BuildContext context, String invalidReason) {
+  return new AlertDialog(
+    title: Text(invalidReason),
+    actions: <Widget>[
+      new FlatButton(
+        onPressed: () {
+          Navigator.of(context).pop();
+        },
+        textColor: Theme.of(context).primaryColor,
+        child: const Text('Cancelar'),
+      ),
+    ],
+  );
 }
