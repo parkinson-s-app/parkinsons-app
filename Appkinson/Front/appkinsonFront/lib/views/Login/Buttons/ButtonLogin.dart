@@ -126,7 +126,7 @@ Widget _buildPopupDialog(BuildContext context, String invalidReason) {
           Navigator.of(context).pop();
         },
         textColor: Theme.of(context).primaryColor,
-        child: const Text('Cancelar'),
+        child: const Text('Cerrar'),
       ),
     ],
   );

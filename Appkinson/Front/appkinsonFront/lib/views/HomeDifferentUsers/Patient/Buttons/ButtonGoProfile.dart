@@ -1,6 +1,5 @@
 import 'dart:convert';
 import 'dart:io';
-
 import 'package:appkinsonFront/routes/RoutesPatient.dart';
 import 'package:appkinsonFront/services/EndPoints.dart';
 import 'package:appkinsonFront/views/Login/Buttons/ButtonLogin.dart';
@@ -39,8 +38,6 @@ class _ButtonGoProfileState extends State<ButtonGoProfile> {
             imageFilePatient = res;
           });
           
-          
-
           print(imageFilePatient.uri.toFilePath());
           RoutesPatient().toPatientProfile(context);
         },
