@@ -7,6 +7,15 @@ class User {
   String passwordVerify;
   String type;
   File photo;
-
-  User({this.email, this.password, this.passwordVerify, this.type, this.name, this.photo});
+  int id;
+  User(
+      {this.email,
+      this.password,
+      this.passwordVerify,
+      this.type,
+      this.name,
+      this.photo,
+      this.id});
 }
+
+//calendar-> calendar screen showTimePicker() relojito

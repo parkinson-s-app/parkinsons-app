@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:appkinsonFront/routes/RoutesDoctor.dart';
 import 'package:appkinsonFront/routes/RoutesPatient.dart';
 import 'package:appkinsonFront/services/EndPoints.dart';
 import 'package:appkinsonFront/views/Calendar/CalendarScreenView2.dart';
@@ -56,9 +57,10 @@ class DoctorPatientsCustom extends State<DoctorPatients> {
     //List<User> patients = [];
     for (var a = 0; a < codeListPatients.length; a++) {
       //patients.add(codeList[a]['EMAIL']);
-      User u = new User();
-      u.email = codeListPatients[a]['EMAIL'];
-      _patients.add(u);
+      User patient = new User();
+      patient.email = codeListPatients[a]['EMAIL'];
+      patient.id = codeListPatients[a]['ID_USER'];
+      _patients.add(patient);
     }
     /*
     for (var a = 0; a < patientsAux.length; a++) {
@@ -120,17 +122,18 @@ class DoctorPatientsCustom extends State<DoctorPatients> {
                       String selectId;
                       meetings = <Meeting>[];
                       //SymptomsFormPatientM m= await EndPoints().getSymptomsFormPatient(token,currentUser['id'].toString());\
-                      for (var a = 0; a < codeListPatients.length; a++) {
+                      selectId = patient.id.toString();
+                      /* for (var a = 0; a < codeListPatients.length; a++) {
                         //patients.add(codeList[a]['EMAIL']);
 
                         if (codeListPatients[a]['EMAIL'] == patient.email) {
                           selectId = codeListPatients[a]['ID_USER'].toString();
                         }
-                      }
+                      } */
                       String m = await EndPoints()
                           .getSymptomsFormPatient(token, selectId);
                       //final DateTime today = DateTime.now();
-
+                      /*
                       var codeList = json.decode(m);
                       //List<String> patients = [];
                       for (var a = 0; a < codeList.length; a++) {
@@ -157,8 +160,10 @@ class DoctorPatientsCustom extends State<DoctorPatients> {
                           meetings.add(Meeting('off malo', startTime, endTime,
                               Colors.red[800], false));
                         }
-                      }
-                      RoutesPatient().toCalendar(context);
+                      } 
+                      RoutesPatient().toCalendar(context);*/
+                      print(patients[index]);
+                      RoutesDoctor().toPatientAlarmAndMedicine(context, patient.id);
                     },
                     title: Text(patient.email),
                     //subtitle: Text(user.email),

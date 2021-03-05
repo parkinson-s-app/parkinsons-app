@@ -1,3 +1,4 @@
+import 'package:appkinsonFront/views/AlarmsAndMedicine/AlarmAndMedicinePage.dart';
 import 'package:appkinsonFront/views/HomeDifferentUsers/Doctor/DoctorHomePage.dart';
 
 import 'package:appkinsonFront/views/Relations/DoctorPatients.dart';
@@ -24,5 +25,14 @@ class RoutesDoctor {
   toDoctorEditProfile(BuildContext context) {
     Navigator.push(context,
         new MaterialPageRoute(builder: (context) => ProfileEditionDoctor()));
+  }
+
+  toPatientAlarmAndMedicine(BuildContext context, int idPatient) {
+    Navigator.push(
+        context,
+        new MaterialPageRoute(
+            builder: (context) => AlarmAndMedicinePage(
+                  idPatient: idPatient,
+                )));
   }
 }
