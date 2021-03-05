@@ -147,4 +147,30 @@ DoctorController.post('/doctor/relate', verifyToken, async (req: Request, res: R
     }
 });
 
+
+DoctorController.get('/doctor/medicines', verifyToken, async (req: Request, res: Response) => {
+    debug('Getting list medicines');
+    const bearerHeader = req.headers['authorization'];
+    let status;
+    if( bearerHeader !== undefined ) {
+        const id = getIdFromToken(bearerHeader);
+        if( !isNaN(id) ){
+            try {
+                const medicines = await DoctorService.getMedicines();
+                debug('Getting list medicines result %j', medicines);
+                status = constants.HTTP_STATUS_OK;
+                res.status(status).send(medicines);
+            } catch (error) {
+                status = constants.HTTP_STATUS_INTERNAL_SERVER_ERROR;
+                const responseError = { status, error};
+                res.status(status).send(responseError);
+            }
+        }
+    } else {
+        debug('Getting list medicines. Error getting authorization header');
+        status = constants.HTTP_STATUS_BAD_REQUEST;
+        res.status(status).send('Bad request');
+    }
+});
+
 export default DoctorController;

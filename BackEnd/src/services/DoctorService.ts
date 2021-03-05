@@ -5,7 +5,7 @@ import { Pool } from "mysql2/promise";
 const debug = debugLib('AppKinson:DoctorService');
 
 export default class DoctorService {
-
+    
     /**
      * relatePatientToDoctor
      */
@@ -62,8 +62,7 @@ export default class DoctorService {
     }
 
     /**
-     * getPatients
-     * SELECT ID_USER, ID_DOCTOR, NAME, EMAIL FROM patients LEFT JOIN patientxdoctor ON patients.ID_USER=patientxdoctor.ID_PATIENT LEFT JOIN users ON users.ID=patients.ID_USER WHERE ID_DOCTOR <> 2 OR ID_DOCTOR IS NULL
+     * 
      */
     public static async getPatientsUnrelated(id: number) {
         debug('Unrelated Patients, id doctor: ', id);
@@ -152,4 +151,27 @@ export default class DoctorService {
             throw error;
         }
     }
+    /**
+     * 
+     */
+    public static async getMedicines() {
+        debug('Get medicines');
+        let conn: Pool | undefined;
+        try {
+            conn = await connect();
+            const medicines =  await conn.query(
+                `SELECT ID, NAME  
+                FROM medicine`);
+            debug('result get medicines: %j', medicines[0]);
+            conn.end();
+            return medicines[0];
+        } catch (error) {
+            if(conn) {
+                conn.end();
+            }
+            debug('Getting doctor by id failed. Error: %s', error);
+            throw error;
+        }
+    }
+
 }
