@@ -1,10 +1,12 @@
 import { connect } from "../database";
 import debugLib from 'debug';
 import { Pool } from "mysql2/promise";
+import IMedicine from "../models/IMedicine";
 
 const debug = debugLib('AppKinson:DoctorService');
 
 export default class DoctorService {
+    
     
     /**
      * relatePatientToDoctor
@@ -171,6 +173,32 @@ export default class DoctorService {
             }
             debug('Getting doctor by id failed. Error: %s', error);
             throw error;
+        }
+    }
+
+    public static async setMedicineToPatient(medicine: IMedicine) {
+        debug('set medicine to Patient. Id patient: %s', medicine.ID_PATIENT);
+        let conn: Pool | undefined;
+        try {
+            conn = await connect();
+            const queryData = { 
+                ID_PATIENT: medicine.ID_PATIENT,
+                periodicityQuantity: medicine.periodicityQuantity,
+                title: medicine.title,
+                alarmTime: medicine.alarmTime,
+                idMedicine: medicine.idMedicine,
+                dose: medicine.dose,
+                periodicityType: medicine.periodicityType
+            }; 
+            const res = await conn.query('INSERT INTO alarmandmedicinepatient SET ?',[queryData]);
+            conn.end();
+            return res;
+        } catch (e) {
+            if(conn) {
+                conn.end();
+            }
+            debug('request relate Patient to Carer Error: %s', e);
+            throw e;
         }
     }
 

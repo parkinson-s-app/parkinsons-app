@@ -137,3 +137,18 @@ CREATE TABLE medicine (
     PRIMARY KEY (ID)
 );
 
+insert into medicine(NAME) values('levodopa'), ('medicina2'),('medicina3');
+
+
+CREATE TABLE alarmandmedicinepatient (
+    ID_PATIENT INT NOT NULL,
+    periodicityQuantity INT NOT NULL,
+    title VARCHAR(50),
+    alarmTime TIME NOT NULL,
+    idMedicine INT NOT NULL,
+    dose VARCHAR(50),
+    periodicityType VARCHAR(50),
+    FOREIGN KEY (ID_PATIENT) REFERENCES patients(ID_USER) ON DELETE CASCADE,
+    FOREIGN KEY (idMedicine) REFERENCES medicine(ID) ON DELETE CASCADE,
+    PRIMARY KEY (ID_PATIENT,idMedicine)
+);

@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:appkinsonFront/services/EndPoints.dart';
 import 'package:appkinsonFront/views/AboutUs/helpSupport.dart';
+import 'package:appkinsonFront/views/AlarmsAndMedicine/AlarmAndMedicinePage.dart';
 import 'package:appkinsonFront/views/Calendar/CalendarScreenView2.dart';
 import 'package:appkinsonFront/views/DataAnalisis/ReportScreen.dart';
 import 'package:appkinsonFront/views/Medicines/medicines.dart';
@@ -69,6 +70,7 @@ class MyApp extends StatelessWidget {
     //  debugShowCheckedModeBanner: false, home: CalendarScreen());
     //return new MaterialApp(debugShowCheckedModeBanner: false, home: toolbox());
     return new MaterialApp(debugShowCheckedModeBanner: false, home: HomePage());
+    // return new MaterialApp(debugShowCheckedModeBanner: false, home: AlarmAndMedicinePage( idPatient: 0,));
     //return new MaterialApp(debugShowCheckedModeBanner: false, home: CalendarScreenView2());
     //return new MaterialApp(debugShowCheckedModeBanner: false, home: ReportScreen());
 

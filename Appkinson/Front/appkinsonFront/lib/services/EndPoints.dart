@@ -498,4 +498,19 @@ class EndPoints {
     //String res = response.body;
     return file;
   }
+
+  Future<String> getMedicines(var token) async {
+    //Map data2 = {'email': authUser.email, 'password': authUser.password};
+    var codeToken = json.decode(token);
+    http.Response response = await http.get(
+        endpointBack + '/api/doctor/medicines',
+        headers: {
+          HttpHeaders.authorizationHeader: "Bearer " + codeToken['token']
+        });
+    //http.Response response =
+    
+    String medicines = response.body;
+    debugPrint('medicines: $medicines');
+    return medicines;
+  }
 }
