@@ -4,11 +4,12 @@ import 'package:appkinsonFront/services/EndPoints.dart';
 import 'package:appkinsonFront/views/Calendar/CalendarScreenView2.dart';
 import 'package:appkinsonFront/views/Login/Buttons/ButtonLogin.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 class AlarmAndMedicine {
   String title; // levodopa
   String quantity; // 1 or 2 dose 1
-  int periodicityQuantity; // 8 
+  int periodicityQuantity; // 8
   String periodicityType; // hour or day
   String idMedicine;
   TimeOfDay alarmTime;
@@ -51,6 +52,15 @@ class ListAlarmsAndMedicine extends State<ListAlarmsAndMedicinePatient> {
   final int idPatient;
   String medicineSelected = "0";
 
+  String title; // levodopa
+  TextEditingController periodicityQuantity = new TextEditingController(); // 8
+  TextEditingController quantity = new TextEditingController(); // 1 or 2 dose 1
+  String periodicityType = 'Hora(s)'; // hour or day
+  // String idMedicine;
+  // TimeOfDay alarmTime;
+  TextEditingController dose = new TextEditingController(); //mg pastilla
+  int id;
+
   ListAlarmsAndMedicine(this.idPatient);
   // TODO fill medicines from db and alarms
   @override
@@ -67,9 +77,75 @@ class ListAlarmsAndMedicine extends State<ListAlarmsAndMedicinePatient> {
             style: TextStyle(
                 color: Colors.indigo, fontSize: 18, fontFamily: "Raleway2"),
           ),
-          relojito(size, context),
+          relojito(size, context)
         ],
-      )
+      ),
+      new TextField(
+        decoration: new InputDecoration(labelText: "Dosis", hintText: '2'),
+        keyboardType: TextInputType.number,
+        inputFormatters: <TextInputFormatter>[
+          FilteringTextInputFormatter.digitsOnly
+        ], // Only numbers can be entered
+        controller: quantity,
+      ),
+      new TextField(
+        decoration:
+            new InputDecoration(labelText: "Tipo de Dosis", hintText: 'mg'),
+        keyboardType: TextInputType.text, // Only numbers can be entered
+        controller: dose,
+      ),
+      Row(
+        children: [
+          Text(
+            "Tipo de periocidad",
+            style: TextStyle(
+                color: Colors.indigo, fontSize: 18, fontFamily: "Raleway2"),
+          ),
+          new DropdownButton<String>(
+            value: periodicityType,
+            items: <String>['Hora(s)', 'Dia(s)'].map((String value) {
+              return new DropdownMenuItem<String>(
+                value: value,
+                child: new Text(value),
+              );
+            }).toList(),
+            onChanged: (selected) {
+              setState(() {
+                periodicityType = selected;
+              });
+            },
+          ),
+        ],
+      ),
+      new TextField(
+        decoration:
+            new InputDecoration(labelText: "Periodicidad", hintText: '1'),
+        keyboardType: TextInputType.number,
+        inputFormatters: <TextInputFormatter>[
+          FilteringTextInputFormatter.digitsOnly
+        ], // Only numbers can be entered
+        controller: periodicityQuantity,
+      ),
+      Container(
+          //height: 50,
+          //margin: EdgeInsets.symmetric(horizontal: 50),
+          child: RaisedButton(
+        shape:
+            RoundedRectangleBorder(borderRadius: BorderRadius.circular(18.0)),
+        //   side: BorderSide(color: Color.fromRGBO(0, 160, 227, 1))),
+        padding: EdgeInsets.symmetric(horizontal: 50),
+        onPressed: () async {
+          print('medicine: $medicineSelected');
+          print('Hora: ${_time.hour}:${_time.minute}');
+          print('Dosis: text ${quantity.text} !');
+          print('Tipo period. $periodicityType');
+          print('periodicidad  ${periodicityQuantity.text}');
+          print('Tipo de dosis ${dose.text}');
+        },
+        color: Colors.blue,
+        textColor: Colors.white,
+        child: Text("Guardar", style: TextStyle(fontSize: 15)),
+      )),
     ]));
     //}
     //return Scaffold();
@@ -126,7 +202,7 @@ class ListAlarmsAndMedicine extends State<ListAlarmsAndMedicinePatient> {
           value: medicine.idMedicine.toString(),
           child: Text(medicine.name),
         );
-      })  .toList(),
+      }).toList(),
     );
   }
 
