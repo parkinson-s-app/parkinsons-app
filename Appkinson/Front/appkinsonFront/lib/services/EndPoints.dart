@@ -2,22 +2,20 @@ import 'dart:async';
 import 'dart:convert';
 //import 'dart:html';
 import 'dart:io';
-import 'dart:typed_data';
 
 import 'package:appkinsonFront/constants/Constant.dart';
 import 'package:appkinsonFront/model/EmotionsForm.dart';
 import 'package:appkinsonFront/model/SymptomsForm.dart';
 import 'package:appkinsonFront/model/SymptomsFormPatientM.dart';
+import 'package:appkinsonFront/views/AlarmsAndMedicine/AlarmAndMedicinePage.dart';
+import 'package:appkinsonFront/views/Login/Buttons/ButtonLogin.dart';
 import 'package:appkinsonFront/views/RelationRequest/request.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_downloader/flutter_downloader.dart';
 import 'package:path_provider/path_provider.dart';
-import 'package:permission_handler/permission_handler.dart';
 import '../model/User.dart';
 import 'package:http/http.dart' as http;
 import 'package:path/path.dart' as p;
 import 'package:dio/dio.dart';
-import 'package:network_to_file_image/network_to_file_image.dart';
 
 class EndPoints {
   Future<String> addUsers(User newUser) async {
@@ -502,15 +500,44 @@ class EndPoints {
   Future<String> getMedicines(var token) async {
     //Map data2 = {'email': authUser.email, 'password': authUser.password};
     var codeToken = json.decode(token);
-    http.Response response = await http.get(
-        endpointBack + '/api/doctor/medicines',
-        headers: {
-          HttpHeaders.authorizationHeader: "Bearer " + codeToken['token']
-        });
+    http.Response response = await http
+        .get(endpointBack + '/api/doctor/medicines', headers: {
+      HttpHeaders.authorizationHeader: "Bearer " + codeToken['token']
+    });
     //http.Response response =
-    
+
     String medicines = response.body;
     debugPrint('medicines: $medicines');
     return medicines;
+  }
+
+  Future<String> saveAlarmsAndMedicines(
+      AlarmAndMedicine alarmAndMedicine, int idPatient) async {
+    print('entra');
+    Map<String, dynamic> alarmAndMedicineToSave = {
+      'periodicityQuantity': alarmAndMedicine.periodicityQuantity,
+      'alarmTime':
+          '${alarmAndMedicine.alarmTime.hour}:${alarmAndMedicine.alarmTime.minute}',
+      'idMedicine': alarmAndMedicine.idMedicine,
+      'dose': alarmAndMedicine.dose,
+      'periodicityType': alarmAndMedicine.periodicityType
+    };
+
+    print('entra2');
+    var codeToken = json.decode(token);
+    print('entra3 ${jsonEncode(alarmAndMedicineToSave).toString()}');
+    String idPatientString = idPatient.toString();
+    print(' id: $idPatientString');
+    http.Response response =
+        await http.post('$endpointBack/api/doctor/medicine/$idPatientString',
+            headers: {
+              HttpHeaders.authorizationHeader: jwtkey + codeToken['token'],
+              'Content-Type': 'application/json; charset=UTF-8'
+            },
+            body: jsonEncode(alarmAndMedicineToSave));
+    debugPrint(alarmAndMedicineToSave.toString());
+    print('response ${response.body}');
+    String responseBody = response.body;
+    return responseBody;
   }
 }

@@ -185,7 +185,9 @@ DoctorController.post('/doctor/medicine/:idPatient', verifyToken, async (req: Re
         if( !isNaN(id) ){     
             try {
                 const medicine = req.body as IMedicine;
+                debug('body %j', req.body);
                 medicine.ID_PATIENT = idPatient;
+                debug('medicine to save %j', medicine);
                 const response = await DoctorService.setMedicineToPatient(medicine);
                 if(response) {
                     status = constants.HTTP_STATUS_OK;

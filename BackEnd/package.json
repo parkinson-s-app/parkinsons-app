@@ -17,7 +17,9 @@
     "docker-build": "docker-compose build",
     "docker-down": "docker-compose down -v && npm run restartdb",
     "restartdb": "sudo rm -r src/db/data",
-    "rund": "rm output.txt && export DEBUG=AppKinson:* && nohup node ./build/bin/www.js >> output.txt 2>&1 &"
+    "deleteOut": "test -f output.txt && rm output.txt || echo \"doesnt exists\"",
+    "rund": "export DEBUG=AppKinson:* && nohup node ./build/bin/www.js >> output.txt 2>&1 &",
+    "rundocker": "export DEBUG=AppKinson:* && node ./build/bin/www.js >> ./output.txt 2>&1 "
   },
   "keywords": [],
   "author": "",

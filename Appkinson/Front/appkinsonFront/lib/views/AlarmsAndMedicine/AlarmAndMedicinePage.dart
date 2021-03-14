@@ -1,7 +1,6 @@
 import 'dart:convert';
 
 import 'package:appkinsonFront/services/EndPoints.dart';
-import 'package:appkinsonFront/views/Calendar/CalendarScreenView2.dart';
 import 'package:appkinsonFront/views/Login/Buttons/ButtonLogin.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -139,8 +138,22 @@ class ListAlarmsAndMedicine extends State<ListAlarmsAndMedicinePatient> {
           print('Hora: ${_time.hour}:${_time.minute}');
           print('Dosis: text ${quantity.text} !');
           print('Tipo period. $periodicityType');
-          print('periodicidad  ${periodicityQuantity.text}');
+          print('periodicidad  !${periodicityQuantity.text}!');
           print('Tipo de dosis ${dose.text}');
+          String per = periodicityQuantity.text;
+          int periodiciyNumb = int.tryParse(per) ?? -1;
+          print('num: $periodiciyNumb!');
+          print('aca1');
+          AlarmAndMedicine alarmAndMedicine = new AlarmAndMedicine();
+          alarmAndMedicine.alarmTime = _time;
+          alarmAndMedicine.dose = dose.text;
+          alarmAndMedicine.idMedicine = medicineSelected;
+          alarmAndMedicine.periodicityQuantity = periodiciyNumb;
+          alarmAndMedicine.quantity = quantity.text;
+          alarmAndMedicine.periodicityType = periodicityType;
+          String res = await EndPoints()
+              .saveAlarmsAndMedicines(alarmAndMedicine, idPatient);
+          print('response save medicine: $res');
         },
         color: Colors.blue,
         textColor: Colors.white,
