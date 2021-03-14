@@ -4,8 +4,10 @@ import 'package:appkinsonFront/views/AboutUs/helpSupport.dart';
 import 'package:appkinsonFront/views/AlarmsAndMedicine/AlarmAndMedicinePage.dart';
 import 'package:appkinsonFront/views/Calendar/CalendarScreenView2.dart';
 import 'package:appkinsonFront/views/DataAnalisis/ReportScreen.dart';
+import 'package:appkinsonFront/views/Game/countDownGame.dart';
 import 'package:appkinsonFront/views/Medicines/medicines.dart';
 import 'package:appkinsonFront/views/RelationRequest/relationsRequets.dart';
+import 'package:appkinsonFront/views/Relations/interactionDoctorPatient.dart';
 import 'package:appkinsonFront/views/ToolBox/ToolBoxInitial.dart';
 import 'package:flutter/material.dart';
 import 'views/SymptomsFormPatient/SymptomsFormPatient.dart';
@@ -21,6 +23,8 @@ import 'views/SymptomsFormDoctor/symptomsForm.dart';
 import 'views/Calendar/CalendarScreen.dart';
 import 'model/User.dart';
 
+final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
+    FlutterLocalNotificationsPlugin();
 /*
 List<User> patients = [];
 
@@ -52,14 +56,25 @@ void callbackDispatcher() {
 */
 
 void main() async {
-  /*
   WidgetsFlutterBinding.ensureInitialized();
-  await Workmanager.initialize(callbackDispatcher);
-  await Workmanager.registerPeriodicTask("test_workertask", "test_workertask",
-      inputData: {"data1": "value1", "data2": "value2"},
-      frequency: Duration(minutes: 15),
-      initialDelay: Duration(minutes: 1));
-      */
+
+  var initializationSettingsAndroid =
+      AndroidInitializationSettings('@mipmap/ic_launcher');
+  var initializationSettingsIOS = IOSInitializationSettings(
+      requestAlertPermission: true,
+      requestBadgePermission: true,
+      requestSoundPermission: true,
+      onDidReceiveLocalNotification:
+          (int id, String title, String body, String payload) async {});
+  var initializationSettings = InitializationSettings(
+      initializationSettingsAndroid, initializationSettingsIOS);
+  await flutterLocalNotificationsPlugin.initialize(initializationSettings,
+      onSelectNotification: (String payload) async {
+    if (payload != null) {
+      debugPrint('notification payload: ' + payload);
+    }
+  });
+
   runApp(MyApp());
 }
 
@@ -72,8 +87,9 @@ class MyApp extends StatelessWidget {
     return new MaterialApp(debugShowCheckedModeBanner: false, home: HomePage());
     // return new MaterialApp(debugShowCheckedModeBanner: false, home: AlarmAndMedicinePage( idPatient: 0,));
     //return new MaterialApp(debugShowCheckedModeBanner: false, home: CalendarScreenView2());
+    //  return new MaterialApp(debugShowCheckedModeBanner: false, home: CountDownTimer());
+    //return new MaterialApp(debugShowCheckedModeBanner: false, home: relationRequest());
     //return new MaterialApp(debugShowCheckedModeBanner: false, home: ReportScreen());
-
     // return new MaterialApp(
     //     debugShowCheckedModeBanner: false, home: SymptomsFormPatient());
   }
