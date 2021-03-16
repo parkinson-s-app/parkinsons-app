@@ -48,6 +48,7 @@ class DoctorPatientsCustom extends State<DoctorPatients> {
     currentUser = json.decode(decoded);
     */
     List<User> _patients = [];
+    User patient;
     //Pedir lista de pacientes relacionados
     debugPrint("pidiendo pacientes");
     var patientsAux = await EndPoints().linkedUser(
@@ -57,7 +58,7 @@ class DoctorPatientsCustom extends State<DoctorPatients> {
     //List<User> patients = [];
     for (var a = 0; a < codeListPatients.length; a++) {
       //patients.add(codeList[a]['EMAIL']);
-      User patient = new User();
+      patient = new User();
       patient.email = codeListPatients[a]['EMAIL'];
       patient.id = codeListPatients[a]['ID_USER'];
       _patients.add(patient);
@@ -163,7 +164,8 @@ class DoctorPatientsCustom extends State<DoctorPatients> {
                       } 
                       RoutesPatient().toCalendar(context);*/
                       print(patients[index]);
-                      RoutesDoctor().toPatientAlarmAndMedicine(context, patient.id);
+                      //RoutesDoctor().toPatientAlarmAndMedicine(context, patient.id);
+                      RoutesDoctor().toInteractionDoctorPatient(context, patient.id);
                     },
                     title: Text(patient.email),
                     //subtitle: Text(user.email),

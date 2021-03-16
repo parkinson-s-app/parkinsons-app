@@ -21,9 +21,13 @@ class RoutesPatient {
     Navigator.push(context,
         new MaterialPageRoute(builder: (context) => CalendarScreenView2()));
   }
-  toScheduleMedicines(BuildContext context) {
-    Navigator.push(context,
-        new MaterialPageRoute(builder: (context) => Medicines()));
+  toScheduleMedicines(BuildContext context, int idPatient) {
+    Navigator.push(
+        context,
+        new MaterialPageRoute(
+            builder: (context) => Medicines(
+              idPatient: idPatient,
+            )));
   }
 
   toNotifications(BuildContext context) {

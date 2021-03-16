@@ -1,4 +1,6 @@
+import 'package:appkinsonFront/routes/RoutesDoctor.dart';
 import 'package:appkinsonFront/services/EndPoints.dart';
+import 'package:appkinsonFront/views/AlarmsAndMedicine/AlarmAndMedicinePage.dart';
 import 'package:appkinsonFront/views/Login/Buttons/ButtonLogin.dart';
 import 'package:appkinsonFront/views/Medicines/alarm.dart';
 import 'package:appkinsonFront/views/Medicines/alarm_item_widget.dart';
@@ -9,16 +11,21 @@ import 'package:appkinsonFront/main.dart';
 
 
 class Medicines extends StatefulWidget {
+  final int idPatient;
+
+  const Medicines({Key key, this.idPatient}) : super(key: key);
+
   _MedicinesState createState() => _MedicinesState();
 }
 var items;
 var id = 0;
 class _MedicinesState extends State<Medicines> {
   final key = GlobalKey<AnimatedListState>();
- 
+
   //List<AlarmInfo> items;
   DateTime _alarmTime;
   String _alarmTimeString;
+
   //AlarmInfo alarm;
 
   @override
@@ -66,8 +73,9 @@ class _MedicinesState extends State<Medicines> {
         child: Icon(Icons.add, size: 50, color: Colors.lightGreen,),
         color: Colors.white,
         onPressed: () {
+          RoutesDoctor().toPatientAlarmAndMedicine(context);
          // insertItem(items.length , Data.alarmas.first);
-          _alarmTimeString =
+         /* _alarmTimeString =
               DateFormat('HH:mm').format(DateTime.now());
           showModalBottomSheet(
             useRootNavigator: true,
@@ -141,23 +149,23 @@ class _MedicinesState extends State<Medicines> {
                 },
               );
             },
-          );
+          );*/
         },
       );
   
-  void insertItem(int index, AlarmInfo item) {
+  void insertItem(int index, AlarmAndMedicine item) {
     //alarm.title = "Hola";
    // alarm.title = _alarmTimeString;
-    DateTime scheduleAlarmDateTime;
-    if (_alarmTime.isAfter(DateTime.now()))
-      scheduleAlarmDateTime = _alarmTime;
-    else
-      scheduleAlarmDateTime = _alarmTime.add(Duration(days: 1));
+   // DateTime scheduleAlarmDateTime;
+   // if (_alarmTime.isAfter(DateTime.now()))
+   //   scheduleAlarmDateTime = _alarmTime;
+   // else
+   //   scheduleAlarmDateTime = _alarmTime.add(Duration(days: 1));
 
     //scheduleAlarm(scheduleAlarmDateTime, item);
-    id = id+1;
-    EndPoints().sendAlarm(item.id.toString(), item.title, scheduleAlarmDateTime.toString() , 'true' , token, currentUser['id'].toString());
-    item.title = _alarmTimeString;
+   // id = id+1;
+   // EndPoints().sendAlarm(item.id.toString(), item.title, scheduleAlarmDateTime.toString() , 'true' , token, currentUser['id'].toString());
+   // item.title = _alarmTimeString;
     items.insert(index, item);
     key.currentState.insertItem(index);
     Navigator.pop(context);

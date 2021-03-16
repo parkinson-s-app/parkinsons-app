@@ -19,6 +19,17 @@ class AlarmAndMedicine {
    * dosis como mg o ml son un dropdown o un input text?
    * 
    */
+  AlarmAndMedicine(
+      {this.title,
+        this.quantity,
+        this.periodicityQuantity,
+        this.periodicityType,
+        this.idMedicine,
+        this.alarmTime,
+        this.dose,
+        this.id,
+      });
+
 }
 
 class AlarmAndMedicinePage extends StatelessWidget {
@@ -151,6 +162,7 @@ class ListAlarmsAndMedicine extends State<ListAlarmsAndMedicinePatient> {
           alarmAndMedicine.periodicityQuantity = periodiciyNumb;
           alarmAndMedicine.quantity = quantity.text;
           alarmAndMedicine.periodicityType = periodicityType;
+          //Aquí se agrega a la lista
           String res = await EndPoints()
               .saveAlarmsAndMedicines(alarmAndMedicine, idPatient);
           print('response save medicine: $res');

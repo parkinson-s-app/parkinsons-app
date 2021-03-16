@@ -4,6 +4,13 @@ import 'package:appkinsonFront/views/Relations/Buttons/ButtonGoReporter.dart';
 import 'package:flutter/material.dart';
 
 class InteractionDoctorPatient extends StatelessWidget {
+
+  final int idPatient;
+
+  const InteractionDoctorPatient({Key key, this.idPatient}) : super(key: key);
+
+
+
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -83,9 +90,9 @@ class InteractionDoctorPatient extends StatelessWidget {
                   ),
                  Column(
                     children: <Widget>[
-                      ButtonGoMedicinesFromDoctor(),
+                      ButtonGoMedicinesFromDoctor(idPatient: this.idPatient,),
                       Text(
-                        "Recordatorio",
+                        "Medicamentos",
                         style: TextStyle(
                             color: Colors.blue[900],
                             fontSize: 20,
