@@ -149,7 +149,7 @@ UserController.post('/users/:id', multer.single('photo'), verifyToken, async (re
 UserController.post('/users/:id/symptomsFormPatient', multer.single('video'), verifyToken, async (req: Request, res: Response) => {
     debug('Patients form by Id');
     const id = +req.params.id;
-    debug('Patients Symptoms body: %j, ID: %s, file path: %s',req.body, id, req.file.path);
+    debug('Patients Symptoms body: %j, ID: %s',req.body, id);
     let symptomsFormData = req.body as ISymptomsFormDto;
     let status;
     if(req.file && req.file.path ){

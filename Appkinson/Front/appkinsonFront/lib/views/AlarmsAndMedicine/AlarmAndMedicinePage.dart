@@ -17,6 +17,7 @@ class AlarmAndMedicine {
   /**
    * preguntas: todos los dias las dosis?
    * dosis como mg o ml son un dropdown o un input text?
+   * preguntar si el cuidador puede cambiar cosas del medicamento y por qué es necesario(contra no tendremos informacion segura)
    * 
    */
   AlarmAndMedicine({
