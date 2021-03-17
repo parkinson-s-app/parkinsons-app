@@ -178,7 +178,21 @@ export default class PatientService {
         let conn: Pool | undefined;
         try {
             conn = await connect();
-            const query = 'SELECT * FROM medicinealarmpatient WHERE ID_PATIENT=?';
+            const query = `
+            SELECT 
+                am.title as Title,
+                m.NAME as Medicine,
+                m.ID as IdMedicine,
+                am.dose as Dose,
+                am.periodicityQuantity as PeriodicityQuantity,
+                am.periodicityType as PeriodicityType,
+                am.alarmTime as AlarmTime
+            FROM 
+                alarmandmedicinepatient am
+                INNER JOIN
+                medicine m
+                ON m.ID = am.idMedicine
+            WHERE ID_PATIENT=?`;
             debug('getMedicineAlarmsById to patient id: %s', id);
             const res = await conn.query(query,[id]);
             debug('getMedicineAlarmsById executed and returned: %j', res[0]);
