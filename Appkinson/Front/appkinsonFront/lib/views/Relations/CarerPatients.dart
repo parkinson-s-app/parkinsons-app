@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:appkinsonFront/routes/RoutesCarer.dart';
 import 'package:appkinsonFront/services/EndPoints.dart';
 import 'package:appkinsonFront/views/Login/Buttons/ButtonLogin.dart';
 import 'package:flutter/material.dart';
@@ -96,6 +97,11 @@ class CarerPatientsCustom extends State<CarerPatients> {
               itemBuilder: (context, index) {
                 User patient = patients[index];
                 return ListTile(
+                    onTap: (){
+                      String selectId;
+                      selectId = patient.id.toString();
+                      RoutesCarer().toInteractionCarerPatient(context, patient.id);
+                    },
                     title: Text(patient.email),
                     //subtitle: Text(user.email),
                     leading: CircleAvatar(
