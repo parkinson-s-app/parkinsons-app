@@ -19,17 +19,16 @@ class AlarmAndMedicine {
    * dosis como mg o ml son un dropdown o un input text?
    * 
    */
-  AlarmAndMedicine(
-      {this.title,
-        this.quantity,
-        this.periodicityQuantity,
-        this.periodicityType,
-        this.idMedicine,
-        this.alarmTime,
-        this.dose,
-        this.id,
-      });
-
+  AlarmAndMedicine({
+    this.title,
+    this.quantity,
+    this.periodicityQuantity,
+    this.periodicityType,
+    this.idMedicine,
+    this.alarmTime,
+    this.dose,
+    this.id,
+  });
 }
 
 class AlarmAndMedicinePage extends StatelessWidget {

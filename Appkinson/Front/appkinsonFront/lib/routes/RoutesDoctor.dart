@@ -14,7 +14,7 @@ class RoutesDoctor {
   }
 
   toInteractionDoctorPatient(BuildContext context, int idPatient) {
-
+    print('patient pantalla intermedia ${idPatient.toString()}');
   Navigator.push(
           context,
           new MaterialPageRoute(
@@ -38,12 +38,13 @@ class RoutesDoctor {
         new MaterialPageRoute(builder: (context) => ProfileEditionDoctor()));
   }
 
-  toPatientAlarmAndMedicine(BuildContext context/*, int idPatient*/) {
+  toPatientAlarmAndMedicine(BuildContext context, int idPatient) {
+    print('otro idpat ${idPatient.toString()}');
     Navigator.push(
         context,
         new MaterialPageRoute(
             builder: (context) => AlarmAndMedicinePage(
-                 // idPatient: idPatient,
+                  idPatient: idPatient,
                 )));
   }
 }

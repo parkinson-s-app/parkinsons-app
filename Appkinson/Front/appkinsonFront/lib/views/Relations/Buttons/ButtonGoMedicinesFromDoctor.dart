@@ -11,8 +11,6 @@ import 'package:flutter/material.dart';
 import '../DoctorPatients.dart';
 
 class ButtonGoMedicinesFromDoctor extends StatelessWidget {
-
-
   final int idPatient;
 
   ButtonGoMedicinesFromDoctor({@required this.idPatient});
@@ -28,10 +26,12 @@ class ButtonGoMedicinesFromDoctor extends StatelessWidget {
             RoundedRectangleBorder(borderRadius: BorderRadius.circular(18.0)),
         //   side: BorderSide(color: Color.fromRGBO(0, 160, 227, 1))),
         onPressed: () async {
-          items = await EndPoints().getMedicinesAlarms( currentUser['id'].toString(), token);
-           RoutesPatient().toScheduleMedicines(context, idPatient);
-         //  RoutesDoctor().toPatientAlarmAndMedicine(context, idPatient);
-           },
+          print('patient bboton ${idPatient.toString()}');
+          items = await EndPoints()
+              .getMedicinesAlarms(currentUser['id'].toString(), token);
+          RoutesPatient().toScheduleMedicines(context, idPatient);
+          //  RoutesDoctor().toPatientAlarmAndMedicine(context, idPatient);
+        },
         padding: EdgeInsets.symmetric(horizontal: 10),
         color: Colors.grey[50],
         //textColor: Colors.white,

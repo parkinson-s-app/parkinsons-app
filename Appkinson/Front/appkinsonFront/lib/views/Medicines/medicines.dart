@@ -13,15 +13,16 @@ import 'package:appkinsonFront/main.dart';
 class Medicines extends StatefulWidget {
   final int idPatient;
 
-  const Medicines({Key key, this.idPatient}) : super(key: key);
+  Medicines({Key key, this.idPatient}) : super(key: key);
 
-  _MedicinesState createState() => _MedicinesState();
+  _MedicinesState createState() => _MedicinesState(this.idPatient);
 }
 var items;
 var id = 0;
 class _MedicinesState extends State<Medicines> {
   final key = GlobalKey<AnimatedListState>();
-
+  final int idPatient;
+  _MedicinesState(this.idPatient);
   //List<AlarmInfo> items;
   DateTime _alarmTime;
   String _alarmTimeString;
@@ -55,7 +56,7 @@ class _MedicinesState extends State<Medicines> {
             ),
             Container(
               padding: EdgeInsets.all(5),
-              child: buildInsertButton(),
+              child: buildInsertButton(this.idPatient),
             ),
           ],
         ),
@@ -69,11 +70,12 @@ class _MedicinesState extends State<Medicines> {
       );
 
 
-  Widget buildInsertButton() => RaisedButton(
+  Widget buildInsertButton(int idPatient) => RaisedButton(
         child: Icon(Icons.add, size: 50, color: Colors.lightGreen,),
         color: Colors.white,
         onPressed: () {
-          RoutesDoctor().toPatientAlarmAndMedicine(context);
+          print('otro idp ${idPatient.toString()}');
+          RoutesDoctor().toPatientAlarmAndMedicine(context, idPatient);
          // insertItem(items.length , Data.alarmas.first);
          /* _alarmTimeString =
               DateFormat('HH:mm').format(DateTime.now());

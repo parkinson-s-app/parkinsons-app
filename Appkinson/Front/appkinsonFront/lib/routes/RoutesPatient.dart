@@ -22,6 +22,7 @@ class RoutesPatient {
         new MaterialPageRoute(builder: (context) => CalendarScreenView2()));
   }
   toScheduleMedicines(BuildContext context, int idPatient) {
+     print('patient boton2 ${idPatient.toString()}');
     Navigator.push(
         context,
         new MaterialPageRoute(

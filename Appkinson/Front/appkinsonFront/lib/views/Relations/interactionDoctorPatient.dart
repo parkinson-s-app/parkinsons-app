@@ -8,11 +8,12 @@ class InteractionDoctorPatient extends StatelessWidget {
   final int idPatient;
 
   const InteractionDoctorPatient({Key key, this.idPatient}) : super(key: key);
-
+  
 
 
   @override
   Widget build(BuildContext context) {
+     print('patient pantalla intermedia ${idPatient.toString()}');
     Size size = MediaQuery.of(context).size;
     return Scaffold(
         body: Column(

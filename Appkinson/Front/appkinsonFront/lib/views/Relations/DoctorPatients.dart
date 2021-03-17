@@ -165,7 +165,9 @@ class DoctorPatientsCustom extends State<DoctorPatients> {
                       RoutesPatient().toCalendar(context);*/
                       print(patients[index]);
                       //RoutesDoctor().toPatientAlarmAndMedicine(context, patient.id);
-                      RoutesDoctor().toInteractionDoctorPatient(context, patient.id);
+                      print('patient list ${patient.id.toString()}');
+                      RoutesDoctor()
+                          .toInteractionDoctorPatient(context, patient.id);
                     },
                     title: Text(patient.email),
                     //subtitle: Text(user.email),
