@@ -3,6 +3,7 @@ import { Request, Response, Router } from 'express';
 import { constants } from 'http2';
 import { getTypeFromToken, verifyToken } from '../utilities/AuthUtilities';
 import AdminService from '../services/AdminService';
+import IToolboxItemDto from '../models/IToolboxItemDto';
 
 const debug = debugLib('AppKinson:AdminController');
 const AdminController = Router();
@@ -53,6 +54,25 @@ AdminController.delete('/admin/user/:id', verifyToken, async (req: Request, res:
         // si la petición no tiene la autenticación, se indica que no está
         // autorizado para la operación
         res.status(status).send('Unauthorized');
+    }
+});
+
+
+AdminController.post('/admin/toolbox/item', verifyToken, async (req: Request, res: Response) => {
+    debug('Add toolbox item');
+    debug('Body: %j, ID: %s',req.body);
+    let toolboxItem = req.body as IToolboxItemDto;
+    let status;
+    try {
+        const response = await AdminService.saveToolboxItem(toolboxItem);
+        debug('save toolbox item result %j, succesful', response);
+        status = constants.HTTP_STATUS_OK;
+        res.status(status).send({ message:'Saved' });
+    } catch (error) {
+        debug('Patient symptoms saving failed. Error: %j', error);
+        status = constants.HTTP_STATUS_INTERNAL_SERVER_ERROR;
+        const responseError = { status, error};
+        res.status(status).send(responseError);
     }
 });
 

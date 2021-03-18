@@ -1,6 +1,7 @@
 import { connect } from "../database";
 import debugLib from 'debug';
 import { Pool } from "mysql2/promise";
+import IToolboxItemDto from "../models/IToolboxItemDto";
 
 const debug = debugLib('AppKinson:PersonService');
 
@@ -26,6 +27,30 @@ export default class AdminService {
             }
             debug('deletePerson Catch Error: %s, %j', e.stack, e);
             throw Error(e);
+        }
+    }
+
+    public static async saveToolboxItem(toolboxItem: IToolboxItemDto) {
+        debug('save toolbox item: %j', toolboxItem);
+        let conn: Pool | undefined;
+        try {
+            conn = await connect();
+            const queryData = { 
+                ID: toolboxItem.ID, 
+                Title: toolboxItem.Title,
+                Description: toolboxItem.Description,
+                URL: toolboxItem.URL,
+                Type: toolboxItem.Type
+            };
+            const res = await conn.query('INSERT INTO toolboxitems SET ?',[queryData]);
+            conn.end();
+            return res;
+        } catch (e) {
+            if(conn) {
+                conn.end();
+            }
+            debug('save toolbox item Error: %s', e);
+            throw e;
         }
     }
 }

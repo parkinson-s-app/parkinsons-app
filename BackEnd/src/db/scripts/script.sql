@@ -152,3 +152,12 @@ CREATE TABLE alarmandmedicinepatient (
     FOREIGN KEY (idMedicine) REFERENCES medicine(ID) ON DELETE CASCADE,
     PRIMARY KEY (ID_PATIENT,idMedicine)
 );
+
+CREATE TABLE toolboxitems (
+    ID INT AUTO_INCREMENT,
+    Title VARCHAR(100) NOT NULL,
+    Description VARCHAR(1000) NOT NULL,
+    URL VARCHAR(2000) NOT NULL,
+    Type VARCHAR(20) NOT NULL,
+    PRIMARY KEY (ID)
+);
