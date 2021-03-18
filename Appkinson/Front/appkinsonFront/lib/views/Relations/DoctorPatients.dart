@@ -1,8 +1,10 @@
 import 'dart:convert';
 
+import 'package:appkinsonFront/routes/RoutesDoctor.dart';
 import 'package:appkinsonFront/routes/RoutesPatient.dart';
 import 'package:appkinsonFront/services/EndPoints.dart';
-import 'package:appkinsonFront/views/Calendar/CalendarScreenView2.dart';
+//import 'package:appkinsonFront/views/Calendar/CalendarScreenView2.dart';
+import 'package:appkinsonFront/views/Calendar/CalendarScreenView2Doctor.dart';
 import 'package:appkinsonFront/views/Login/Buttons/ButtonLogin.dart';
 import 'package:flutter/material.dart';
 import '../../model/User.dart';
@@ -130,6 +132,7 @@ class DoctorPatientsCustom extends State<DoctorPatients> {
                       String m = await EndPoints()
                           .getSymptomsFormPatient(token, selectId);
                       //final DateTime today = DateTime.now();
+                      listPacientes = m;
 
                       var codeList = json.decode(m);
                       //List<String> patients = [];
@@ -158,7 +161,7 @@ class DoctorPatientsCustom extends State<DoctorPatients> {
                               Colors.red[800], false));
                         }
                       }
-                      RoutesPatient().toCalendar(context);
+                      RoutesDoctor().toCalendarDoctor(context);
                     },
                     title: Text(patient.email),
                     //subtitle: Text(user.email),

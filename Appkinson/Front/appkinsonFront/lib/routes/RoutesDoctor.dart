@@ -1,3 +1,4 @@
+import 'package:appkinsonFront/views/Calendar/CalendarScreenView2Doctor.dart';
 import 'package:appkinsonFront/views/HomeDifferentUsers/Doctor/DoctorHomePage.dart';
 
 import 'package:appkinsonFront/views/Relations/DoctorPatients.dart';
@@ -9,6 +10,13 @@ class RoutesDoctor {
   toDoctorHome(BuildContext context) {
     Navigator.push(
         context, new MaterialPageRoute(builder: (context) => DoctorHomePage()));
+  }
+
+  toCalendarDoctor(BuildContext context) {
+    Navigator.push(
+        context,
+        new MaterialPageRoute(
+            builder: (context) => CalendarScreenView2Doctor()));
   }
 
   toDoctorProfile(BuildContext context) {

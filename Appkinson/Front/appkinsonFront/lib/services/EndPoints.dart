@@ -367,11 +367,11 @@ class EndPoints {
       SymptomsFormPatientM form, var tokenID, var token) async {
     bool success = false;
 
-    String fileName = form.video.path.split('/').last;
     var decodedToken = json.decode(token);
     var video;
 
     if (form.video != null) {
+      String fileName = form.video.path.split('/').last;
       video = await MultipartFile.fromFile(form.video.path, filename: fileName);
     } else {
       video = null;
@@ -425,6 +425,81 @@ class EndPoints {
   }
 
   Future<File> getPhotoUser(var token, var path) async {
+    debugPrint("entro");
+    var codeToken = json.decode(token);
+    http.Response response;
+
+    /*
+    WidgetsFlutterBinding.ensureInitialized();
+    await FlutterDownloader.initialize(
+        debug: true // optional: set false to disable printing logs to console
+        );
+      */
+
+    if (path != null) {
+      response = await http.get(endpointBack + "/" + path, headers: {
+        HttpHeaders.authorizationHeader: jwtkey + codeToken['token'],
+        //HttpHeaders.hostHeader: path
+      });
+    }
+
+    /*
+    var s;
+
+    FadeInImage.memoryNetwork(
+      image: 'http://192.168.0.16:8001/uploads/photo/' + path
+      //HttpHeaders.hostHeader: path
+      ,
+      placeholder: s,
+    );
+
+    print('holo' + s.toString());
+
+    //FileUploadInputElement();
+    //debugPrint(data2.toString());
+    debugPrint("-----");
+    debugPrint(response.headers.toString());
+    */
+    final documentDirectory = await getApplicationDocumentsDirectory();
+
+    final file = File(p.join(documentDirectory.path, 'imagetest.png'));
+
+    if (path != null) {
+      file.writeAsBytesSync(response.bodyBytes);
+    }
+    /*
+    Uint8List n = await http
+        .readBytes(await http.get(endpointBack + "/" + path, headers: {
+      HttpHeaders.authorizationHeader: jwtkey + codeToken['token'],
+      //HttpHeaders.hostHeader: path
+    }));
+    */
+
+    //File m = File.fromRawPath(response.bodyBytes);
+    //print(m.absolute.toString());
+
+    //debugPrint(response.bodyBytes.toString());
+
+    /*
+    final status = await Permission.storage.request();
+    if (status.isGranted) {
+      final externalDir = await getExternalStorageDirectory();
+      final taskId = await FlutterDownloader.enqueue(
+        url: 'http://192.168.0.16:8001/uploads/photo/' + path,
+        savedDir: externalDir.path,
+        //headers: jwtkey + codeToken['token'],
+        showNotification:
+            true, // show download progress in status bar (for Android)
+        openFileFromNotification:
+            true, // click on notification to open downloaded file (for Android)
+      );
+    }*/
+
+    //String res = response.body;
+    return file;
+  }
+
+  Future<File> getVideoUser(var token, var path) async {
     debugPrint("entro");
     var codeToken = json.decode(token);
     http.Response response;
