@@ -347,6 +347,23 @@ UserController.get('/download', verifyToken, async (req: Request, res: Response)
     }
 });
 
+
+UserController.get('/users/toolbox/items', verifyToken, async (req: Request, res: Response) => {
+    debug('getting toolbox items');
+    let status;
+    try {
+        const response = await PersonService.getToolboxItems();
+        debug('Patient getting medicine Alarms result %j, succesful', response);
+        status = constants.HTTP_STATUS_OK;
+        res.status(status).send(response);
+    } catch (error) {
+        debug('Patient getting medicine Alarms failed, error: %j', error);
+        status = constants.HTTP_STATUS_INTERNAL_SERVER_ERROR;
+        const responseError = { status, error: "An error has ocurred"};
+        res.status(status).send(responseError);
+    }
+});
+
 function getIdFromToken(token: string) {
     const dataInToken = token.split('.')[1];
     debug('getIdFromToken data encoded: %s', dataInToken);

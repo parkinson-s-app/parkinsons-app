@@ -3,7 +3,7 @@ import debugLib from 'debug';
 import { Pool } from "mysql2/promise";
 import IToolboxItemDto from "../models/IToolboxItemDto";
 
-const debug = debugLib('AppKinson:PersonService');
+const debug = debugLib('AppKinson:AdminService');
 
 export default class AdminService {
 

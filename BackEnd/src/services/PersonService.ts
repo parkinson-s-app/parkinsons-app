@@ -239,4 +239,34 @@ export default class PersonService {
         }
     }
 
+
+    public static async getToolboxItems() {
+        debug('getting toolbox items ');
+        let conn: Pool | undefined;
+        try {
+            conn = await connect();
+            const query = 
+                `SELECT
+                    ID,
+                    Title,
+                    Description,
+                    URL,
+                    Type
+                FROM toolboxitems;`;
+            const res = await conn.query(query);
+            debug('getting toolbox items response query %s', res);
+            conn.end();
+            if(res) {
+                return res[0];
+            } else {
+                return null;
+            }
+        } catch (error) {
+            if(conn) {
+                conn.end();
+            }
+            debug('getting toolbox items error making query. Error: %s', error);
+            throw error;
+        }
+    }
 }
