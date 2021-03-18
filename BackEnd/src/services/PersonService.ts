@@ -254,7 +254,7 @@ export default class PersonService {
                     Type
                 FROM toolboxitems;`;
             const res = await conn.query(query);
-            debug('getting toolbox items response query %s', res);
+            debug('getting toolbox items response query %s', res[0]);
             conn.end();
             if(res) {
                 return res[0];

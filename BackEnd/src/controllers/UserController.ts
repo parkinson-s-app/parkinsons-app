@@ -353,7 +353,7 @@ UserController.get('/users/toolbox/items', verifyToken, async (req: Request, res
     let status;
     try {
         const response = await PersonService.getToolboxItems();
-        debug('Patient getting medicine Alarms result %j, succesful', response);
+        debug('Patient getting toolbox items. Items: %j', response);
         status = constants.HTTP_STATUS_OK;
         res.status(status).send(response);
     } catch (error) {
