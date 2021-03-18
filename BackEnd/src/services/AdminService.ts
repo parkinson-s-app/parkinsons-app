@@ -35,8 +35,7 @@ export default class AdminService {
         let conn: Pool | undefined;
         try {
             conn = await connect();
-            const queryData = { 
-                ID: toolboxItem.ID, 
+            const queryData = {  
                 Title: toolboxItem.Title,
                 Description: toolboxItem.Description,
                 URL: toolboxItem.URL,
