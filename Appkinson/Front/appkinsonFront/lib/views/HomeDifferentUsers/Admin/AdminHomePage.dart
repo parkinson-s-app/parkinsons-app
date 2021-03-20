@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'Button/ButtonGoPatientList.dart';
-import 'Button/ButtonGoProfile.dart';
+import 'Button/ButtonGoModifiToolBox.dart';
+import 'Button/ButtonGoCheckUsers.dart';
 
 class AdminHomePage extends StatelessWidget {
   @override

@@ -1,11 +1,19 @@
 
+import 'package:appkinsonFront/routes/RoutesGeneral.dart';
+import 'package:appkinsonFront/services/EndPoints.dart';
+import 'package:appkinsonFront/views/Administrator/FormAddItem.dart';
+import 'package:appkinsonFront/views/Login/Buttons/ButtonLogin.dart';
 import 'package:flutter/material.dart';
+
+import '../ExcercisesList.dart';
 
 
 //import '../../Register/RegisterPage.dart';
 
 class ButtonGoAboutExcercises extends StatelessWidget {
   @override
+
+  var itemsByType;
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return Container(
@@ -15,8 +23,19 @@ class ButtonGoAboutExcercises extends StatelessWidget {
         shape:
         RoundedRectangleBorder(borderRadius: BorderRadius.circular(18.0)),
         //   side: BorderSide(color: Color.fromRGBO(0, 160, 227, 1))),
-        onPressed: () {
-          //RoutesPatient().toCalendar(context);
+
+        onPressed: () async {
+          ItemToolbox itemToolbox = new ItemToolbox();
+          itemsByType = await EndPoints().getItemsToolbox(currentUser['id'].toString(), token);
+          for(int i = 0; i<itemsByType.length(); i++){
+            itemToolbox = itemsByType[i];
+            if(itemToolbox.type == 'EJERCICIO'){
+              //items.add(itemToolbox);
+              print("Entra");
+            }
+          }
+          //RoutesGeneral().toListExcercises(context);
+         // RoutesAdmin().toListItems(context);
         },
         padding: EdgeInsets.symmetric(horizontal: 10),
         color: Colors.grey[50],

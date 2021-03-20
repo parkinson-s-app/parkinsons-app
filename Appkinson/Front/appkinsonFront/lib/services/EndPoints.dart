@@ -7,6 +7,7 @@ import 'package:appkinsonFront/constants/Constant.dart';
 import 'package:appkinsonFront/model/EmotionsForm.dart';
 import 'package:appkinsonFront/model/SymptomsForm.dart';
 import 'package:appkinsonFront/model/SymptomsFormPatientM.dart';
+import 'package:appkinsonFront/views/Administrator/FormAddItem.dart';
 import 'package:appkinsonFront/views/AlarmsAndMedicine/AlarmAndMedicinePage.dart';
 import 'package:appkinsonFront/views/Login/Buttons/ButtonLogin.dart';
 import 'package:appkinsonFront/views/Medicines/alarm.dart';
@@ -120,6 +121,51 @@ class EndPoints {
     String i = response.body;
     return i;
   }
+
+  //Envíar ítems desde el administrador
+  Future<String> sendItemToolbox(String titulo, String descripcion, String enlace, String tipo, var token) async {
+    Map data2 = {
+      'Title': titulo,
+      'Description': descripcion,
+      'URL': enlace,
+      'Type': tipo
+    };
+    var codeToken = json.decode(token);
+    http.Response response = await http.post(
+        endpointBack + '/api/admin/toolbox/item',
+        body: data2,
+        headers: {
+        HttpHeaders.authorizationHeader: jwtkey + codeToken['token']
+        });
+    debugPrint(data2.toString());
+    String i = response.body;
+    return i;
+  }
+
+  //Recibir items para el toolbox
+  Future<List<ItemToolbox>> getItemsToolbox(var tokenID, var token) async {
+
+    var codeToken = json.decode(token);
+    http.Response lista = await http
+        .get(endpointBack + '/api/users/toolbox/items', headers: {
+      HttpHeaders.authorizationHeader: jwtkey + codeToken['token']
+    });
+    String i = lista.body;
+    debugPrint(i.toString());
+    var codeList = json.decode(i);
+    List<ItemToolbox> items = [];
+    for (var a = 0; a < codeList.length; a++) {
+      ItemToolbox item = new ItemToolbox();
+      //alarm.id = codeList[a]['id'];
+      item.titulo = codeList[a]['Title'];
+      item.descripcion = codeList[a]['Description'];
+      item.enlace = codeList[a]['URL'];
+      item.type = codeList[a]['Type'];
+      items.add(item);
+    }
+    return items;
+  }
+
 
   Future<String> linkUser(String emailUser, var token_type, var token) async {
     Map data2 = {'Email': emailUser};

@@ -7,6 +7,7 @@ import 'package:appkinsonFront/views/HomeDifferentUsers/Patient/PatientHomePage.
 
 import 'package:appkinsonFront/views/Notifications/PatientNotifications.dart';
 import 'package:appkinsonFront/views/SymptomsFormDoctor/symptomsFormQ.dart';
+import 'package:appkinsonFront/views/ToolBox/ToolBoxInitial.dart';
 import 'package:appkinsonFront/views/profiles/Patient/PatientProfile.dart';
 import 'package:appkinsonFront/views/profiles/Patient/profileEdition/ProfileEditionPatient.dart';
 import 'package:flutter/material.dart';
@@ -59,5 +60,9 @@ class RoutesPatient {
   toSymptomsFormPatient(BuildContext context) {
     Navigator.push(context,
         new MaterialPageRoute(builder: (context) => SymptomsFormPatient()));
+  }
+  toToolbox(BuildContext context) {
+    Navigator.push(context,
+        new MaterialPageRoute(builder: (context) => toolbox()));
   }
 }

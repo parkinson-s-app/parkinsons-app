@@ -24,7 +24,7 @@ class _toolbox extends State<toolbox> {
   String _stepCountValue = '0';
   StreamSubscription<int> _subscription;
 
-  double numero_pasos; //numero pasos
+  double numero_pasos;
   double _convert;
   double _kmx;
   double burnedx;
@@ -38,7 +38,6 @@ class _toolbox extends State<toolbox> {
     setUpPedometer();
   }
 
-  //inicia codigo pedometer
   void setUpPedometer() {
     Pedometer pedometer = new Pedometer();
     _subscription = pedometer.stepCountStream.listen(_onData,
@@ -46,18 +45,18 @@ class _toolbox extends State<toolbox> {
   }
 
   void _onData(int stepCountValue) async {
-    // print(stepCountValue); //impresion numero pasos por consola
+    // print(stepCountValue);
     setState(() {
       _stepCountValue = "$stepCountValue";
       // print(_stepCountValue);
     });
 
-    var dist = stepCountValue; //pasamos el entero a una variable llamada dist
-    double y = (dist + .0); //lo convertimos a double una forma de varias
+    var dist = stepCountValue;
+    double y = (dist + .0);
 
     setState(() {
       numero_pasos =
-          y; //lo pasamos a un estado para ser capturado ya convertido a double
+          y;
     });
 
     var long3 = (numero_pasos);
@@ -92,23 +91,21 @@ class _toolbox extends State<toolbox> {
     print("Flutter Pedometer Error: $error");
   }
 
-  //function to determine the distance run in kilometers using number of steps
   void getDistanceRun(double numero_pasos) {
     var distance = ((numero_pasos * 78) / 100000);
-    distance = num.parse(distance.toStringAsFixed(2)); //dos decimales
+    distance = num.parse(distance.toStringAsFixed(2));
     var distancekmx = distance * 34;
     distancekmx = num.parse(distancekmx.toStringAsFixed(2));
     //print(distance.runtimeType);
     setState(() {
       _km = "$distance";
-      //print(_km);
+
     });
     setState(() {
       _kmx = num.parse(distancekmx.toStringAsFixed(2));
     });
   }
 
-  //function to determine the calories burned in kilometers using number of steps
   void getBurnedRun() {
     setState(() {
       var calories = _kmx; //dos decimales
@@ -117,11 +114,9 @@ class _toolbox extends State<toolbox> {
     });
   }
 
-  //fin codigo pedometer
 
   @override
   Widget build(BuildContext context) {
-    //print(_stepCountValue);
     getBurnedRun();
     return new MaterialApp(
       debugShowCheckedModeBanner: false,
@@ -135,12 +130,12 @@ class _toolbox extends State<toolbox> {
           children: <Widget>[
             Container(
               padding: EdgeInsets.only(top: 10.0),
-              width: 250, //ancho
-              height: 250, //largo tambien por numero height: 300
+              width: 250,
+              height: 250,
               decoration: BoxDecoration(
                   gradient: LinearGradient(
                     begin: Alignment
-                        .bottomCenter, //cambia la iluminacion del degradado
+                        .bottomCenter,
                     end: Alignment.topCenter,
                     colors: [Color(0xFFA9F5F2), Color(0xFF01DFD7)],
                   ),
