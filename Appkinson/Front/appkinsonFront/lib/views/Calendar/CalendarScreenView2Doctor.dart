@@ -6,6 +6,7 @@ import 'package:appkinsonFront/routes/RoutesPatient.dart';
 import 'package:appkinsonFront/services/EndPoints.dart';
 import 'package:appkinsonFront/views/Login/Buttons/ButtonLogin.dart';
 import 'package:appkinsonFront/views/SymptomsFormPatient/SymptomsFormPatientQ5ON.dart';
+import 'package:appkinsonFront/views/videoScreen/videoScreenDoctor.dart';
 import 'package:flutter/material.dart';
 import 'package:syncfusion_flutter_calendar/calendar.dart';
 
@@ -29,6 +30,8 @@ int hora = 0;
 var cont = 0;
 String q2;
 String q1;
+String idCurrent;
+bool isLoading = false;
 
 List<Color> _colors = <Color>[
   Colors.green,
@@ -50,6 +53,18 @@ class _Calendar extends State<CalendarScreenView2Doctor> {
         cont = 0;
       }
     });
+  }
+
+  Widget buildLoading() {
+    return AlertDialog(
+      title: Text("Subiendo el video "),
+      content: Form(
+          child: Column(mainAxisSize: MainAxisSize.min, children: [
+        new CircularProgressIndicator(
+          valueColor: AlwaysStoppedAnimation<Color>(Colors.teal[200]),
+        ),
+      ])),
+    );
   }
 
   @override
@@ -92,6 +107,8 @@ class _Calendar extends State<CalendarScreenView2Doctor> {
           DateTime dateBd = DateTime.parse(convertedList[a]['formdate']);
           print(dateBd.toString() + 'hola');
           print(probTime.toString() + 'hola2');
+          idCurrent = convertedList[a]['ID_PATIENT'].toString();
+          //print();
 
           print(r);
           if (dateBd.toString() == r) {
@@ -100,6 +117,7 @@ class _Calendar extends State<CalendarScreenView2Doctor> {
             q2 = currentMeeting['Q2'];
             q1 = currentMeeting['Q1'];
             pathVideo = currentMeeting['pathvideo'].toString() + '.mp4';
+            idCurrent = currentMeeting['ID_PATIENT'].toString();
           }
         }
 
@@ -137,18 +155,17 @@ class _Calendar extends State<CalendarScreenView2Doctor> {
                           var video =
                               await EndPoints().getVideoUser(token, pathVideo);
                           this.setState(() {
-                            fileMedia = video;
+                            fileMediaDoctor = video;
                           });
                           Navigator.push(
                               context,
                               new MaterialPageRoute(
-                                  builder: (context) =>
-                                      SymptomsFormPatientQ5ON()));
+                                  builder: (context) => VideoScreenDoctor()));
                         },
 
                         color: Colors.teal[200],
                         //textColor: Colors.white,
-                        child: Text('hacer video(opcional)'),
+                        child: Text('ver video'),
                         /*() => {
                         //print(cont);
                         _incrementColorIndex()
@@ -280,45 +297,56 @@ class _Calendar extends State<CalendarScreenView2Doctor> {
                       ),
                     ])),
                     actions: <Widget>[
-                      FlatButton(
-                          onPressed: () async {
-                            SymptomsFormPatientM patientForm =
-                                new SymptomsFormPatientM();
+                      !isLoading
+                          ? FlatButton(
+                              onPressed: () async {
+                                SymptomsFormPatientM patientForm =
+                                    new SymptomsFormPatientM();
 
-                            patientForm.q1 = _onOff[cont];
-                            patientForm.q2 = _disqui.text;
-                            //patientForm.q3 = BringAnswer2Off().send();
-                            //patientForm.q4 = BringAnswerPatientQ3().send();
-                            //patientForm.q5 = BringAnswerPatientQ4().send();
-                            patientForm.video = fileMedia;
-                            patientForm.formDate = dateChoosed;
+                                patientForm.q1 = _onOff[cont];
+                                patientForm.q2 = _disqui.text;
+                                //patientForm.q3 = BringAnswer2Off().send();
+                                //patientForm.q4 = BringAnswerPatientQ3().send();
+                                //patientForm.q5 = BringAnswerPatientQ4().send();
+                                patientForm.video = fileMedia;
+                                patientForm.formDate = dateChoosed;
 
-                            debugPrint('enviado');
-                            var savedDone = await EndPoints()
-                                .registerSymptomsFormPatient(patientForm,
-                                    currentUser['id'].toString(), token);
+                                debugPrint('enviado');
 
-                            debugPrint(savedDone.toString());
+                                setState(() {
+                                  isLoading = true;
+                                });
 
-                            int hora = dateChoosed.hour;
+                                var savedDone = await EndPoints()
+                                    .registerSymptomsFormPatient(
+                                        patientForm, idCurrent, token);
 
-                            final DateTime startTime = DateTime(
-                                dateChoosed.year,
-                                dateChoosed.month,
-                                dateChoosed.day,
-                                hora,
-                                0,
-                                0);
-                            final DateTime endTime =
-                                startTime.add(const Duration(hours: 1));
-                            Meeting m = new Meeting(_onOff[cont], startTime,
-                                endTime, _colors[cont], false);
-                            debugPrint(m.eventName);
-                            //setState(() {
-                            meetings.add(m);
-                            Navigator.pop(context);
-                          },
-                          child: Text("añadir"))
+                                int hora = dateChoosed.hour;
+
+                                final DateTime startTime = DateTime(
+                                    dateChoosed.year,
+                                    dateChoosed.month,
+                                    dateChoosed.day,
+                                    hora,
+                                    0,
+                                    0);
+                                final DateTime endTime =
+                                    startTime.add(const Duration(hours: 1));
+                                Meeting m = new Meeting(_onOff[cont], startTime,
+                                    endTime, _colors[cont], false);
+                                debugPrint(m.eventName);
+                                //setState(() {
+
+                                debugPrint(savedDone.toString());
+
+                                this.setState(() {
+                                  meetings.add(m);
+                                  isLoading = false;
+                                });
+                                Navigator.pop(context);
+                              },
+                              child: Text("añadir"))
+                          : Center(child: buildLoading())
                     ],
                   );
                 });

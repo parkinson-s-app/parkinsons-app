@@ -366,6 +366,7 @@ class EndPoints {
   Future<String> registerSymptomsFormPatient(
       SymptomsFormPatientM form, var tokenID, var token) async {
     bool success = false;
+    print(tokenID + 'hola');
 
     var decodedToken = json.decode(token);
     var video;
