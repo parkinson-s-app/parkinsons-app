@@ -122,7 +122,11 @@ UserController.post('/users/:id', multer.single('photo'), verifyToken, async (re
     const id = +req.params.id;
     let updatedUserData = req.body as IPersonalDataDto;
     try {
-        updatedUserData.PHOTOPATH = req.file.path;
+        // verificando si la actualizacion tiene foto
+        if(req.file) {
+            updatedUserData.PHOTOPATH = req.file.path;
+        }
+
         debug('Users Update user: %j, ID:', updatedUserData, id);
         const response = await PersonService.updatePerson(id, updatedUserData);
         debug('User UpdateById response db: %j', response);
@@ -145,7 +149,30 @@ UserController.post('/users/:id', multer.single('photo'), verifyToken, async (re
 UserController.post('/users/:id/symptomsFormPatient', multer.single('video'), verifyToken, async (req: Request, res: Response) => {
     debug('Patients form by Id');
     const id = +req.params.id;
-    debug('Patients Symptoms body: %j, ID: %s, file path: %s',req.body, id, req.file.path);
+    debug('Patients Symptoms body: %j, ID: %s',req.body, id);
+    let symptomsFormData = req.body as ISymptomsFormDto;
+    let status;
+    if(req.file && req.file.path ){
+        symptomsFormData.pathvideo = req.file.path;
+        debug('Patients Symptoms json: %j', symptomsFormData);
+    }
+    try {
+        const response = await PersonService.saveSymptomsForm(id, symptomsFormData);
+        debug('Patient symptoms save result %j, succesful', response);
+        status = constants.HTTP_STATUS_OK;
+        res.status(status).send('OK');
+    } catch (error) {
+        debug('Patient symptoms saving failed. Error: %j', error);
+        status = constants.HTTP_STATUS_INTERNAL_SERVER_ERROR;
+        const responseError = { status, error};
+        res.status(status).send(responseError);
+    }
+});
+
+UserController.put('/users/:id/symptomsFormPatient', multer.single('video'), verifyToken, async (req: Request, res: Response) => {
+    debug('Patients form update by Id');
+    const id = +req.params.id;
+    debug('Patients update Symptoms body: %j, ID: %s',req.body, id);
     let symptomsFormData = req.body as ISymptomsFormDto;
     let status;
     if(req.file && req.file.path ){
@@ -340,6 +367,23 @@ UserController.get('/download', verifyToken, async (req: Request, res: Response)
         debug('Getting info about use Error getting authorization header');
         status = constants.HTTP_STATUS_BAD_REQUEST;
         res.status(status).send('Bad request');
+    }
+});
+
+
+UserController.get('/users/toolbox/items', verifyToken, async (req: Request, res: Response) => {
+    debug('getting toolbox items');
+    let status;
+    try {
+        const response = await PersonService.getToolboxItems();
+        debug('Patient getting toolbox items. Items: %j', response);
+        status = constants.HTTP_STATUS_OK;
+        res.status(status).send(response);
+    } catch (error) {
+        debug('Patient getting medicine Alarms failed, error: %j', error);
+        status = constants.HTTP_STATUS_INTERNAL_SERVER_ERROR;
+        const responseError = { status, error: "An error has ocurred"};
+        res.status(status).send(responseError);
     }
 });
 

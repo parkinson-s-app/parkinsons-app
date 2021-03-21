@@ -8,7 +8,10 @@ import { getIdFromToken, verifyToken } from '../utilities/AuthUtilities';
 const debug = debugLib('AppKinson:CarerController');
 const CarerController = Router();
 
-
+/**
+ * recurso que permite obtener los pacientes que aún no están relacionados al cuidador que hace la
+ * petición
+ */
 CarerController.get('/carer/patients/unrelated', verifyToken, async (req: Request, res: Response) => {
     debug('Getting unrelated patients');
     const bearerHeader = req.headers['authorization'];
@@ -33,7 +36,9 @@ CarerController.get('/carer/patients/unrelated', verifyToken, async (req: Reques
         res.status(status).send('Bad request');
     }
 });
-
+/**
+ * recurso que permite obtener todos los pacientes que un cuidador tiene a su cargo
+ */
 CarerController.get('/carer/patients/related', verifyToken, async (req: Request, res: Response) => {
     debug('Getting related patients');
     const bearerHeader = req.headers['authorization'];
@@ -59,7 +64,9 @@ CarerController.get('/carer/patients/related', verifyToken, async (req: Request,
     }
 });
 
-
+/**
+ * recurso que permite lanzar la petición de un cuidador a un paciente con el id, para ser su encargado
+ */
 CarerController.post('/carer/relate/:idPatient', verifyToken, async (req: Request, res: Response) => {
     const bearerHeader = req.headers['authorization'];
     const idPatient = +req.params.idPatient;
@@ -92,7 +99,10 @@ CarerController.post('/carer/relate/:idPatient', verifyToken, async (req: Reques
         res.status(status).send('Bad request');
     }
 });
-
+/**
+ * recurso que permite lanzar la petición de un cuidador a un paciente con el correo de este,
+ * para ser su encargado
+ */
 CarerController.post('/carer/relate', verifyToken, async (req: Request, res: Response) => {
     const bearerHeader = req.headers['authorization'];
     let status;

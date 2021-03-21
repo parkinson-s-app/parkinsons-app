@@ -2,22 +2,22 @@ import 'dart:async';
 import 'dart:convert';
 //import 'dart:html';
 import 'dart:io';
-import 'dart:typed_data';
 
 import 'package:appkinsonFront/constants/Constant.dart';
 import 'package:appkinsonFront/model/EmotionsForm.dart';
 import 'package:appkinsonFront/model/SymptomsForm.dart';
 import 'package:appkinsonFront/model/SymptomsFormPatientM.dart';
+import 'package:appkinsonFront/views/Administrator/FormAddItem.dart';
+import 'package:appkinsonFront/views/AlarmsAndMedicine/AlarmAndMedicinePage.dart';
+import 'package:appkinsonFront/views/Login/Buttons/ButtonLogin.dart';
+import 'package:appkinsonFront/views/Medicines/alarm.dart';
 import 'package:appkinsonFront/views/RelationRequest/request.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_downloader/flutter_downloader.dart';
 import 'package:path_provider/path_provider.dart';
-import 'package:permission_handler/permission_handler.dart';
 import '../model/User.dart';
 import 'package:http/http.dart' as http;
 import 'package:path/path.dart' as p;
 import 'package:dio/dio.dart';
-import 'package:network_to_file_image/network_to_file_image.dart';
 
 class EndPoints {
   Future<String> addUsers(User newUser) async {
@@ -120,6 +120,48 @@ class EndPoints {
     debugPrint(data2.toString());
     String i = response.body;
     return i;
+  }
+
+  //Envíar ítems desde el administrador
+  Future<String> sendItemToolbox(String titulo, String descripcion,
+      String enlace, String tipo, var token) async {
+    Map data2 = {
+      'Title': titulo,
+      'Description': descripcion,
+      'URL': enlace,
+      'Type': tipo
+    };
+    var codeToken = json.decode(token);
+    http.Response response = await http
+        .post(endpointBack + '/api/admin/toolbox/item', body: data2, headers: {
+      HttpHeaders.authorizationHeader: jwtkey + codeToken['token']
+    });
+    debugPrint(data2.toString());
+    String i = response.body;
+    return i;
+  }
+
+  //Recibir items para el toolbox
+  Future<List<ItemToolbox>> getItemsToolbox(var tokenID, var token) async {
+    var codeToken = json.decode(token);
+    http.Response lista = await http
+        .get(endpointBack + '/api/users/toolbox/items', headers: {
+      HttpHeaders.authorizationHeader: jwtkey + codeToken['token']
+    });
+    String i = lista.body;
+    debugPrint(i.toString());
+    var codeList = json.decode(i);
+    List<ItemToolbox> items = [];
+    for (var a = 0; a < codeList.length; a++) {
+      ItemToolbox item = new ItemToolbox();
+      //alarm.id = codeList[a]['id'];
+      item.titulo = codeList[a]['Title'];
+      item.descripcion = codeList[a]['Description'];
+      item.enlace = codeList[a]['URL'];
+      item.type = codeList[a]['Type'];
+      items.add(item);
+    }
+    return items;
   }
 
   Future<String> linkUser(String emailUser, var token_type, var token) async {
@@ -338,6 +380,65 @@ class EndPoints {
     });
 
     return success;
+  }
+
+  //Recibir alarmas
+  Future<List<AlarmAndMedicine>> getMedicinesAlarms(
+      var tokenID, var token) async {
+    var codeToken = json.decode(token);
+    http.Response lista = await http
+        .get(endpointBack + '/api/patient/$tokenID/medicineAlarm', headers: {
+      HttpHeaders.authorizationHeader: jwtkey + codeToken['token']
+    });
+    String i = lista.body;
+    debugPrint(i.toString());
+    var codeList = json.decode(i);
+    List<AlarmAndMedicine> alarms = [];
+    for (var a = 0; a < codeList.length; a++) {
+      AlarmAndMedicine alarm = new AlarmAndMedicine();
+      //alarm.id = codeList[a]['id'];
+      alarm.title = codeList[a]['Title'];
+      alarm.idMedicine = codeList[a]['Medicine'];
+
+      alarms.add(alarm);
+    }
+    return alarms;
+  }
+
+  //Enviar alarmas
+  Future<String> sendAlarm(String id, String title, String alarmTime,
+      String isPending, var token, var tokenID) async {
+    Map data2 = {
+      "id": id,
+      "title": title,
+      "alarmDateTime": alarmTime,
+      "isPending": isPending
+    };
+    //var dataToSend = [data2];
+    //var dataJson = json.encode(dataToSend);
+    //debugPrint(dataJson.toString());
+    var codeToken = json.decode(token);
+    http.Response response = await http.post(
+        endpointBack + '/api/patient/$tokenID/medicineAlarm',
+        body: data2,
+        headers: {
+          HttpHeaders.authorizationHeader: jwtkey + codeToken['token']
+        });
+    debugPrint(data2.toString());
+    String i = response.body;
+    return i;
+  }
+
+  Future<String> deleteAlarm(String id, var token, var tokenID) async {
+    var codeToken = json.decode(token);
+    http.Response response = await http.post(
+        endpointBack + '/api/patient/$tokenID/medicineAlarm/delete/$id',
+        headers: {
+          HttpHeaders.authorizationHeader: jwtkey + codeToken['token']
+        });
+
+    String i = response.body;
+    return i;
   }
 
   Future<List<RelationRequest>> getRelationRequest(var token) async {
@@ -573,5 +674,49 @@ class EndPoints {
 
     //String res = response.body;
     return file;
+  }
+
+  Future<String> getMedicines(var token) async {
+    //Map data2 = {'email': authUser.email, 'password': authUser.password};
+    var codeToken = json.decode(token);
+    http.Response response = await http
+        .get(endpointBack + '/api/doctor/medicines', headers: {
+      HttpHeaders.authorizationHeader: "Bearer " + codeToken['token']
+    });
+    //http.Response response =
+
+    String medicines = response.body;
+    debugPrint('medicines: $medicines');
+    return medicines;
+  }
+
+  Future<String> saveAlarmsAndMedicines(
+      AlarmAndMedicine alarmAndMedicine, int idPatient) async {
+    print('entra');
+    Map<String, dynamic> alarmAndMedicineToSave = {
+      'periodicityQuantity': alarmAndMedicine.periodicityQuantity,
+      'alarmTime':
+          '${alarmAndMedicine.alarmTime.hour}:${alarmAndMedicine.alarmTime.minute}',
+      'idMedicine': alarmAndMedicine.idMedicine,
+      'dose': alarmAndMedicine.dose,
+      'periodicityType': alarmAndMedicine.periodicityType
+    };
+
+    print('entra2');
+    var codeToken = json.decode(token);
+    print('entra3 ${jsonEncode(alarmAndMedicineToSave).toString()}');
+    String idPatientString = idPatient.toString();
+    print(' id: $idPatientString');
+    http.Response response =
+        await http.post('$endpointBack/api/doctor/medicine/$idPatientString',
+            headers: {
+              HttpHeaders.authorizationHeader: jwtkey + codeToken['token'],
+              'Content-Type': 'application/json; charset=UTF-8'
+            },
+            body: jsonEncode(alarmAndMedicineToSave));
+    debugPrint(alarmAndMedicineToSave.toString());
+    print('response ${response.body}');
+    String responseBody = response.body;
+    return responseBody;
   }
 }

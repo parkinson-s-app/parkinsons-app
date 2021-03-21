@@ -25,9 +25,16 @@ export default class PersonService {
             debug('savePerson saved and returned: %j', res);
             if( res && res[0] ) {
                 const inserted = res[0] as any;
-                const idInserted = inserted.insertId
-                debug('Registro success id inserted: %s:%s', idInserted);
-                const idPerson = {ID_USER: idInserted};
+                const idInserted = inserted.insertId;
+                debug('Registro success id inserted: %s', idInserted);
+                let idPerson;
+                if(person.name) {
+                    debug('Insert with name, name: %s', person.name);
+                    idPerson = {ID_USER: idInserted, NAME: person.name};
+                } else {
+                    debug('Insert without name, name: %s', person.name);
+                    idPerson = {ID_USER: idInserted};
+                }
                 debug('Registro data to insert in type tables %j', idPerson);
                 if( userSave.TYPE === 'Paciente' ) {
                     await conn.query('INSERT INTO patients SET ?', [idPerson]);
@@ -220,7 +227,7 @@ export default class PersonService {
         try {
             conn = await connect();
             const res = await conn.query('SELECT * FROM symptomsformpatient WHERE ID_PATIENT = ?',[id]);
-            debug('Symptoms found: %j', res);
+            debug('Symptoms found: %j', res[0]);
             conn.end();
             return res[0];
         } catch (e) {
@@ -232,4 +239,34 @@ export default class PersonService {
         }
     }
 
+
+    public static async getToolboxItems() {
+        debug('getting toolbox items ');
+        let conn: Pool | undefined;
+        try {
+            conn = await connect();
+            const query = 
+                `SELECT
+                    ID,
+                    Title,
+                    Description,
+                    URL,
+                    Type
+                FROM toolboxitems;`;
+            const res = await conn.query(query);
+            debug('getting toolbox items response query %s', res[0]);
+            conn.end();
+            if(res) {
+                return res[0];
+            } else {
+                return null;
+            }
+        } catch (error) {
+            if(conn) {
+                conn.end();
+            }
+            debug('getting toolbox items error making query. Error: %s', error);
+            throw error;
+        }
+    }
 }

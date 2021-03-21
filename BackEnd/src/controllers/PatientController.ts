@@ -3,6 +3,7 @@ import { Request, Response, Router } from 'express';
 import { constants } from 'http2';
 import IAnswerRequestDto from '../models/IAnswerRequestDto';
 import IEmotionalFormDto from '../models/IEmotionalFormDto';
+import IMedicineAlarm from '../models/IMedicineAlarm';
 import CarerService from '../services/CarerService';
 import PatientService from '../services/PatientService';
 import { getIdFromToken, verifyToken } from '../utilities/AuthUtilities';
@@ -168,4 +169,66 @@ PatientController.get('/patient/:id/emotionalFormPatient', verifyToken, async (r
         res.status(status).send(responseError);
     }
 });
+
+PatientController.post('/patient/:id/medicineAlarm', verifyToken, async (req: Request, res: Response) => {
+    debug('Patients save Medicine alarms by Id');
+    const id = +req.params.id;
+    debug('Patients save Medicine alarms body: %j, ID: %s',req.body, id);
+    const medicineAlarms: IMedicineAlarm = req.body;
+    let status;
+    if(req.body.isPending === 'true') {
+        medicineAlarms.isPending = true;
+    } else {
+        medicineAlarms.isPending = false;
+    }
+    debug('Patients save Medicine alarms json: %j', medicineAlarms);
+    try {
+        const response = await PatientService.saveMedicineAlarms(id, medicineAlarms);
+        debug('Patients save Medicine alarms result %j, succesful', response);
+        status = constants.HTTP_STATUS_OK;
+        res.status(status).send('OK');
+    } catch (error) {
+        debug('Patients Medicine alarms saving failed, error: %j', error);
+        status = constants.HTTP_STATUS_INTERNAL_SERVER_ERROR;
+        const responseError = { status, error: "An error has ocurred"};
+        res.status(status).send(responseError);
+    }
+});
+
+PatientController.get('/patient/:id/medicineAlarm', verifyToken, async (req: Request, res: Response) => {
+    const id = +req.params.id;
+    debug('Patients getting medicine Alarms by Id: %s', id);
+    let status;
+    try {
+        const response = await PatientService.getMedicineAlarmsById(id);
+        debug('Patient getting medicine Alarms result %j, succesful', response);
+        status = constants.HTTP_STATUS_OK;
+        res.status(status).send(response);
+    } catch (error) {
+        debug('Patient getting medicine Alarms failed, error: %j', error);
+        status = constants.HTTP_STATUS_INTERNAL_SERVER_ERROR;
+        const responseError = { status, error: "An error has ocurred"};
+        res.status(status).send(responseError);
+    }
+});
+
+PatientController.post('/patient/:idPatient/medicineAlarm/delete/:id', verifyToken, async (req: Request, res: Response) => {
+    debug('Patients delete Medicine alarms by Id');
+    const id = req.params.id;
+    const idPatient = +req.params.idPatient;
+    debug('Patients delete Medicine alarms patient: %s, ID: %s',idPatient, id);
+    let status;
+    try {
+        const response = await PatientService.deleteMedicineAlarms(id, idPatient);
+        debug('Patients delete Medicine alarms result %j, succesful', response);
+        status = constants.HTTP_STATUS_OK;
+        res.status(status).send('OK');
+    } catch (error) {
+        debug('Patients Medicine alarms deleting failed, error: %j', error);
+        status = constants.HTTP_STATUS_INTERNAL_SERVER_ERROR;
+        const responseError = { status, error: "An error has ocurred"};
+        res.status(status).send(responseError);
+    }
+});
+
 export default PatientController;

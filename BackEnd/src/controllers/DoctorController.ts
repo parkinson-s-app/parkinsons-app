@@ -1,6 +1,7 @@
 import debugLib from 'debug';
 import { Request, Response, Router } from 'express';
 import { constants } from 'http2';
+import IMedicine from '../models/IMedicine';
 import DoctorService from '../services/DoctorService';
 import PatientService from '../services/PatientService';
 import { getIdFromToken, verifyToken } from '../utilities/AuthUtilities';
@@ -146,5 +147,71 @@ DoctorController.post('/doctor/relate', verifyToken, async (req: Request, res: R
         res.status(status).send('Bad request');
     }
 });
+
+
+DoctorController.get('/doctor/medicines', verifyToken, async (req: Request, res: Response) => {
+    debug('Getting list medicines');
+    const bearerHeader = req.headers['authorization'];
+    let status;
+    if( bearerHeader !== undefined ) {
+        const id = getIdFromToken(bearerHeader);
+        if( !isNaN(id) ){
+            try {
+                const medicines = await DoctorService.getMedicines();
+                debug('Getting list medicines result %j', medicines);
+                status = constants.HTTP_STATUS_OK;
+                res.status(status).send(medicines);
+            } catch (error) {
+                status = constants.HTTP_STATUS_INTERNAL_SERVER_ERROR;
+                const responseError = { status, error};
+                res.status(status).send(responseError);
+            }
+        }
+    } else {
+        debug('Getting list medicines. Error getting authorization header');
+        status = constants.HTTP_STATUS_BAD_REQUEST;
+        res.status(status).send('Bad request');
+    }
+});
+
+
+DoctorController.post('/doctor/medicine/:idPatient', verifyToken, async (req: Request, res: Response) => {
+    const bearerHeader = req.headers['authorization'];
+    const idPatient = +req.params.idPatient;
+    let status;
+    if( bearerHeader !== undefined ) {
+        const id = getIdFromToken(bearerHeader);
+        debug('Set medicine patient by id. Id patient: %s, id doctor: %s', idPatient, id);
+        if( !isNaN(id) ){     
+            try {
+                const medicine = req.body as IMedicine;
+                debug('body %j', req.body);
+                medicine.ID_PATIENT = idPatient;
+                debug('medicine to save %j', medicine);
+                const response = await DoctorService.setMedicineToPatient(medicine);
+                if(response) {
+                    status = constants.HTTP_STATUS_OK;
+                    res.status(status).send('Success');
+                } else {
+                    status = constants.HTTP_STATUS_INTERNAL_SERVER_ERROR;
+                    res.status(status).send('An Error had ocurred');
+                }
+            } catch (error) {
+                status = constants.HTTP_STATUS_INTERNAL_SERVER_ERROR;
+                const responseError = { status, error};
+                res.status(status).send(responseError);
+            }
+        } else {
+            debug('Set medicine Error getting id from token')
+            status = constants.HTTP_STATUS_BAD_REQUEST;
+            res.status(status).send('Bad request');
+        }
+    } else {
+        debug('Set medicine Error getting authorization header');
+        status = constants.HTTP_STATUS_BAD_REQUEST;
+        res.status(status).send('Bad request');
+    }
+});
+
 
 export default DoctorController;

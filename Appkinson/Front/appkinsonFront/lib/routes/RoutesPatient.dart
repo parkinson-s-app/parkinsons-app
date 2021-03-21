@@ -1,4 +1,5 @@
 import 'package:appkinsonFront/views/Calendar/CalendarScreenView2.dart';
+import 'package:appkinsonFront/views/Game/countDownGame.dart';
 import 'package:appkinsonFront/views/Medicines/medicines.dart';
 import 'package:appkinsonFront/views/RelationRequest/relationsRequets.dart';
 import 'package:appkinsonFront/views/SymptomsFormPatient/SymptomsFormPatient.dart';
@@ -7,6 +8,7 @@ import 'package:appkinsonFront/views/HomeDifferentUsers/Patient/PatientHomePage.
 
 import 'package:appkinsonFront/views/Notifications/PatientNotifications.dart';
 import 'package:appkinsonFront/views/SymptomsFormDoctor/symptomsFormQ.dart';
+import 'package:appkinsonFront/views/ToolBox/ToolBoxInitial.dart';
 import 'package:appkinsonFront/views/profiles/Patient/PatientProfile.dart';
 import 'package:appkinsonFront/views/profiles/Patient/profileEdition/ProfileEditionPatient.dart';
 import 'package:flutter/material.dart';
@@ -21,9 +23,13 @@ class RoutesPatient {
     Navigator.push(context,
         new MaterialPageRoute(builder: (context) => CalendarScreenView2()));
   }
-  toScheduleMedicines(BuildContext context) {
-    Navigator.push(context,
-        new MaterialPageRoute(builder: (context) => Medicines()));
+  toScheduleMedicines(BuildContext context, int idPatient) {
+    Navigator.push(
+        context,
+        new MaterialPageRoute(
+            builder: (context) => Medicines(
+              idPatient: idPatient,
+            )));
   }
 
   toNotifications(BuildContext context) {
@@ -54,5 +60,13 @@ class RoutesPatient {
   toSymptomsFormPatient(BuildContext context) {
     Navigator.push(context,
         new MaterialPageRoute(builder: (context) => SymptomsFormPatient()));
+  }
+  toToolbox(BuildContext context) {
+    Navigator.push(context,
+        new MaterialPageRoute(builder: (context) => toolbox()));
+  }
+  toGame(BuildContext context) {
+    Navigator.push(context,
+        new MaterialPageRoute(builder: (context) => CountDownTimer()));
   }
 }
