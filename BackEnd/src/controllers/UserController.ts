@@ -169,6 +169,29 @@ UserController.post('/users/:id/symptomsFormPatient', multer.single('video'), ve
     }
 });
 
+UserController.put('/users/:id/symptomsFormPatient', multer.single('video'), verifyToken, async (req: Request, res: Response) => {
+    debug('Patients form update by Id');
+    const id = +req.params.id;
+    debug('Patients update Symptoms body: %j, ID: %s',req.body, id);
+    let symptomsFormData = req.body as ISymptomsFormDto;
+    let status;
+    if(req.file && req.file.path ){
+        symptomsFormData.pathvideo = req.file.path;
+        debug('Patients Symptoms json: %j', symptomsFormData);
+    }
+    try {
+        const response = await PersonService.saveSymptomsForm(id, symptomsFormData);
+        debug('Patient symptoms save result %j, succesful', response);
+        status = constants.HTTP_STATUS_OK;
+        res.status(status).send('OK');
+    } catch (error) {
+        debug('Patient symptoms saving failed. Error: %j', error);
+        status = constants.HTTP_STATUS_INTERNAL_SERVER_ERROR;
+        const responseError = { status, error};
+        res.status(status).send(responseError);
+    }
+});
+
 UserController.get('/patient/relationRequest', verifyToken, async (req: Request, res: Response) => {
     debug('Getting requests of a patient');
     const bearerHeader = req.headers['authorization'];
