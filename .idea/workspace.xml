@@ -30,30 +30,28 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="08d39895-96e3-4c46-aa63-7e2ef03a5c34" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/Appkinson/Front/appkinsonFront/lib/views/Administrator/FormAddItem.dart" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Appkinson/Front/appkinsonFront/lib/views/Administrator/ListItemsAdministrator.dart" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Appkinson/Front/appkinsonFront/lib/views/Administrator/item_widget_administrator.dart" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Appkinson/Front/appkinsonFront/lib/views/ToolBox/AboutExcercises/ExcercisesList.dart" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Appkinson/Front/appkinsonFront/lib/views/ToolBox/AboutFood/FoodList.dart" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Appkinson/Front/appkinsonFront/lib/views/ToolBox/AboutNews/NewsList.dart" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Appkinson/Front/appkinsonFront/lib/views/ToolBox/Buttons/ButtonGoGame.dart" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Appkinson/Front/appkinsonFront/lib/views/ToolBox/item_widget.dart" afterDir="false" />
+    <list default="true" id="08d39895-96e3-4c46-aa63-7e2ef03a5c34" name="Default Changelist" comment="toolbox en proceso">
+      <change afterPath="$PROJECT_DIR$/Appkinson/Front/appkinsonFront/assets/images/game.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Appkinson/Front/appkinsonFront/android/local.properties" beforeDir="false" afterPath="$PROJECT_DIR$/Appkinson/Front/appkinsonFront/android/local.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Appkinson/Front/appkinsonFront/lib/main.dart" beforeDir="false" afterPath="$PROJECT_DIR$/Appkinson/Front/appkinsonFront/lib/main.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Appkinson/Front/appkinsonFront/lib/routes/RoutesAdmin.dart" beforeDir="false" afterPath="$PROJECT_DIR$/Appkinson/Front/appkinsonFront/lib/routes/RoutesAdmin.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Appkinson/Front/appkinsonFront/lib/constants/Constant.dart" beforeDir="false" afterPath="$PROJECT_DIR$/Appkinson/Front/appkinsonFront/lib/constants/Constant.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Appkinson/Front/appkinsonFront/lib/routes/RoutesDoctor.dart" beforeDir="false" afterPath="$PROJECT_DIR$/Appkinson/Front/appkinsonFront/lib/routes/RoutesDoctor.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Appkinson/Front/appkinsonFront/lib/routes/RoutesGeneral.dart" beforeDir="false" afterPath="$PROJECT_DIR$/Appkinson/Front/appkinsonFront/lib/routes/RoutesGeneral.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Appkinson/Front/appkinsonFront/lib/routes/RoutesPatient.dart" beforeDir="false" afterPath="$PROJECT_DIR$/Appkinson/Front/appkinsonFront/lib/routes/RoutesPatient.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Appkinson/Front/appkinsonFront/lib/services/EndPoints.dart" beforeDir="false" afterPath="$PROJECT_DIR$/Appkinson/Front/appkinsonFront/lib/services/EndPoints.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Appkinson/Front/appkinsonFront/lib/views/HomeDifferentUsers/Admin/AdminHomePage.dart" beforeDir="false" afterPath="$PROJECT_DIR$/Appkinson/Front/appkinsonFront/lib/views/HomeDifferentUsers/Admin/AdminHomePage.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Appkinson/Front/appkinsonFront/lib/views/HomeDifferentUsers/Admin/Button/ButtonGoPatientList.dart" beforeDir="false" afterPath="$PROJECT_DIR$/Appkinson/Front/appkinsonFront/lib/views/HomeDifferentUsers/Admin/Button/ButtonGoModifiToolBox.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Appkinson/Front/appkinsonFront/lib/views/HomeDifferentUsers/Admin/Button/ButtonGoProfile.dart" beforeDir="false" afterPath="$PROJECT_DIR$/Appkinson/Front/appkinsonFront/lib/views/HomeDifferentUsers/Admin/Button/ButtonGoCheckUsers.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Appkinson/Front/appkinsonFront/lib/views/HomeDifferentUsers/Patient/Buttons/ButtonGoToolBox.dart" beforeDir="false" afterPath="$PROJECT_DIR$/Appkinson/Front/appkinsonFront/lib/views/HomeDifferentUsers/Patient/Buttons/ButtonGoToolBox.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Appkinson/Front/appkinsonFront/lib/views/AlarmsAndMedicine/AlarmAndMedicinePage.dart" beforeDir="false" afterPath="$PROJECT_DIR$/Appkinson/Front/appkinsonFront/lib/views/AlarmsAndMedicine/AlarmAndMedicinePage.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Appkinson/Front/appkinsonFront/lib/views/Game/countDownGame.dart" beforeDir="false" afterPath="$PROJECT_DIR$/Appkinson/Front/appkinsonFront/lib/views/Game/countDownGame.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Appkinson/Front/appkinsonFront/lib/views/HomeDifferentUsers/Doctor/Buttons/ButtonGoPatientList.dart" beforeDir="false" afterPath="$PROJECT_DIR$/Appkinson/Front/appkinsonFront/lib/views/HomeDifferentUsers/Doctor/Buttons/ButtonGoPatientList.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Appkinson/Front/appkinsonFront/lib/views/HomeDifferentUsers/Patient/Buttons/ButtonGoMedicinesSchedule.dart" beforeDir="false" afterPath="$PROJECT_DIR$/Appkinson/Front/appkinsonFront/lib/views/HomeDifferentUsers/Patient/Buttons/ButtonGoMedicinesSchedule.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Appkinson/Front/appkinsonFront/lib/views/Medicines/alarm_item_widget.dart" beforeDir="false" afterPath="$PROJECT_DIR$/Appkinson/Front/appkinsonFront/lib/views/Medicines/alarm_item_widget.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Appkinson/Front/appkinsonFront/lib/views/Relations/Buttons/ButtonGoMedicinesFromDoctor.dart" beforeDir="false" afterPath="$PROJECT_DIR$/Appkinson/Front/appkinsonFront/lib/views/Relations/Buttons/ButtonGoMedicinesFromDoctor.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Appkinson/Front/appkinsonFront/lib/views/ToolBox/AboutExcercises/Buttons/ButtonGoAboutExcercises.dart" beforeDir="false" afterPath="$PROJECT_DIR$/Appkinson/Front/appkinsonFront/lib/views/ToolBox/AboutExcercises/Buttons/ButtonGoAboutExcercises.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Appkinson/Front/appkinsonFront/lib/views/ToolBox/AboutExcercises/ExcercisesList.dart" beforeDir="false" afterPath="$PROJECT_DIR$/Appkinson/Front/appkinsonFront/lib/views/ToolBox/AboutExcercises/ExcercisesList.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Appkinson/Front/appkinsonFront/lib/views/ToolBox/AboutFood/Buttons/ButtonGoAboutFood.dart" beforeDir="false" afterPath="$PROJECT_DIR$/Appkinson/Front/appkinsonFront/lib/views/ToolBox/AboutFood/Buttons/ButtonGoAboutFood.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Appkinson/Front/appkinsonFront/lib/views/ToolBox/AboutNews/Buttons/ButtonGoAboutNews.dart" beforeDir="false" afterPath="$PROJECT_DIR$/Appkinson/Front/appkinsonFront/lib/views/ToolBox/AboutNews/Buttons/ButtonGoAboutNews.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Appkinson/Front/appkinsonFront/lib/views/ToolBox/AboutNews/NewsList.dart" beforeDir="false" afterPath="$PROJECT_DIR$/Appkinson/Front/appkinsonFront/lib/views/ToolBox/AboutNews/NewsList.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Appkinson/Front/appkinsonFront/lib/views/ToolBox/Buttons/ButtonGoGame.dart" beforeDir="false" afterPath="$PROJECT_DIR$/Appkinson/Front/appkinsonFront/lib/views/ToolBox/Buttons/ButtonGoGame.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Appkinson/Front/appkinsonFront/lib/views/ToolBox/ToolBoxInitial.dart" beforeDir="false" afterPath="$PROJECT_DIR$/Appkinson/Front/appkinsonFront/lib/views/ToolBox/ToolBoxInitial.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Appkinson/Front/appkinsonFront/pubspec.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/Appkinson/Front/appkinsonFront/pubspec.yaml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -142,7 +140,8 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Pantallas de listas paciente" />
     <MESSAGE value="Pantallas de listas paciente, para el doctor agragacion y visualizacion" />
-    <option name="LAST_COMMIT_MESSAGE" value="Pantallas de listas paciente, para el doctor agragacion y visualizacion" />
+    <MESSAGE value="toolbox en proceso" />
+    <option name="LAST_COMMIT_MESSAGE" value="toolbox en proceso" />
   </component>
   <component name="WindowStateProjectService">
     <state x="395" y="90" key="#Inspections" timestamp="1609689008646">
@@ -161,35 +160,35 @@
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="499" y="159" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.0.1536.824@0.0.1536.824" timestamp="1609725622901" />
-    <state x="23" y="264" width="1625" height="816" key="AVDManager" timestamp="1616215422621">
+    <state x="72" y="264" width="1625" height="816" key="AVDManager" timestamp="1616305698549">
       <screen x="72" y="27" width="1848" height="1053" />
     </state>
     <state x="93" y="93" width="1350" height="638" key="AVDManager/0.0.1536.824@0.0.1536.824" timestamp="1610665511366" />
-    <state x="23" y="264" width="1625" height="816" key="AVDManager/72.27.1848.1053@72.27.1848.1053" timestamp="1616215422621" />
+    <state x="72" y="264" width="1625" height="816" key="AVDManager/72.27.1848.1053@72.27.1848.1053" timestamp="1616305698549" />
     <state x="779" y="311" width="424" height="491" key="FileChooserDialogImpl" timestamp="1614660412769">
       <screen x="72" y="27" width="1848" height="1053" />
     </state>
     <state x="779" y="311" width="424" height="491" key="FileChooserDialogImpl/72.27.1848.1053@72.27.1848.1053" timestamp="1614660412769" />
-    <state width="1802" height="275" key="GridCell.Tab.0.bottom" timestamp="1616215284297">
+    <state width="1802" height="275" key="GridCell.Tab.0.bottom" timestamp="1616306048810">
       <screen x="72" y="27" width="1848" height="1053" />
     </state>
     <state width="1491" height="174" key="GridCell.Tab.0.bottom/0.0.1536.824@0.0.1536.824" timestamp="1613525147058" />
-    <state width="1802" height="275" key="GridCell.Tab.0.bottom/72.27.1848.1053@72.27.1848.1053" timestamp="1616215284297" />
-    <state width="1802" height="275" key="GridCell.Tab.0.center" timestamp="1616215284297">
+    <state width="1802" height="275" key="GridCell.Tab.0.bottom/72.27.1848.1053@72.27.1848.1053" timestamp="1616306048810" />
+    <state width="1802" height="275" key="GridCell.Tab.0.center" timestamp="1616306048809">
       <screen x="72" y="27" width="1848" height="1053" />
     </state>
     <state width="1491" height="174" key="GridCell.Tab.0.center/0.0.1536.824@0.0.1536.824" timestamp="1613525147058" />
-    <state width="1802" height="275" key="GridCell.Tab.0.center/72.27.1848.1053@72.27.1848.1053" timestamp="1616215284297" />
-    <state width="1802" height="275" key="GridCell.Tab.0.left" timestamp="1616215284296">
+    <state width="1802" height="275" key="GridCell.Tab.0.center/72.27.1848.1053@72.27.1848.1053" timestamp="1616306048809" />
+    <state width="1802" height="275" key="GridCell.Tab.0.left" timestamp="1616306048809">
       <screen x="72" y="27" width="1848" height="1053" />
     </state>
     <state width="1491" height="174" key="GridCell.Tab.0.left/0.0.1536.824@0.0.1536.824" timestamp="1613525147058" />
-    <state width="1802" height="275" key="GridCell.Tab.0.left/72.27.1848.1053@72.27.1848.1053" timestamp="1616215284296" />
-    <state width="1802" height="275" key="GridCell.Tab.0.right" timestamp="1616215284297">
+    <state width="1802" height="275" key="GridCell.Tab.0.left/72.27.1848.1053@72.27.1848.1053" timestamp="1616306048809" />
+    <state width="1802" height="275" key="GridCell.Tab.0.right" timestamp="1616306048809">
       <screen x="72" y="27" width="1848" height="1053" />
     </state>
     <state width="1491" height="174" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1613525147058" />
-    <state width="1802" height="275" key="GridCell.Tab.0.right/72.27.1848.1053@72.27.1848.1053" timestamp="1616215284297" />
+    <state width="1802" height="275" key="GridCell.Tab.0.right/72.27.1848.1053@72.27.1848.1053" timestamp="1616306048809" />
     <state x="277" y="57" key="SettingsEditor" timestamp="1610665511002">
       <screen x="0" y="0" width="1536" height="824" />
     </state>

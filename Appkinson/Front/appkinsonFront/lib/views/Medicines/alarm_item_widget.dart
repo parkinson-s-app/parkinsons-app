@@ -1,8 +1,9 @@
+import 'package:appkinsonFront/views/AlarmsAndMedicine/AlarmAndMedicinePage.dart';
 import 'package:appkinsonFront/views/Medicines/alarm.dart';
 import 'package:flutter/material.dart';
 
 class AlarmItemWidget extends StatelessWidget {
-  final AlarmInfo item;
+  final AlarmAndMedicine item;
   final Animation animation;
   final VoidCallback onClicked;
 
@@ -28,7 +29,7 @@ class AlarmItemWidget extends StatelessWidget {
               radius: 32,
               child: Icon(Icons.alarm, color: Colors.amber, size: 45),
             ),
-            title: Text(item.title, style: TextStyle(fontSize: 20)),
+            title: Text(item.idMedicine, style: TextStyle(fontSize: 20)),
             trailing: IconButton(
               icon: Icon(Icons.delete, color: Colors.red, size: 32),
               onPressed: onClicked,

@@ -28,14 +28,11 @@ class ButtonGoAboutFood extends StatelessWidget {
           print(itemsByType.length);
           for(int i = 0; i<itemsByType.length; i++){
             itemToolbox = itemsByType[i];
-            print("Entra");
-            if(itemToolbox.type.compareTo('NOTICIA') == 0) {
-              print("no entras");
+            print(itemToolbox.type.compareTo('COMIDA'));
+            if(itemToolbox.type.compareTo('COMIDA') == 0) {
               food.add(itemToolbox);
             }
           }
-          //if(food.length == null){food = [{}];}
-          //food = await EndPoints().getItemsToolbox(currentUser['id'].toString(), token);
           print(food.length);
           RoutesGeneral().toListFood(context);
         },

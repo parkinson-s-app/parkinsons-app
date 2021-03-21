@@ -18,7 +18,7 @@ class ButtonGoMedicinesSchedule extends StatelessWidget {
         onPressed: () async {
            
            items = await EndPoints().getMedicinesAlarms( currentUser['id'].toString(), token);
-           //RoutesPatient().toScheduleMedicines(context);
+           RoutesPatient().toScheduleMedicines(context, currentUser['id']);
            },
         padding: EdgeInsets.symmetric(horizontal: 10),
         color: Colors.grey[50],

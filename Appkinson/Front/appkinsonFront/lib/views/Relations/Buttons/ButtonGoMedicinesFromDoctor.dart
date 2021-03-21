@@ -28,7 +28,7 @@ class ButtonGoMedicinesFromDoctor extends StatelessWidget {
         onPressed: () async {
           print('patient bboton ${idPatient.toString()}');
           items = await EndPoints()
-              .getMedicinesAlarms(currentUser['id'].toString(), token);
+              .getMedicinesAlarms(idPatient, token);
           RoutesPatient().toScheduleMedicines(context, idPatient);
           //  RoutesDoctor().toPatientAlarmAndMedicine(context, idPatient);
         },

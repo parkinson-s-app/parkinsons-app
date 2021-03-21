@@ -1,6 +1,7 @@
-/*import 'package:appkinsonFront/routes/RoutesAdmin.dart';
+import 'package:appkinsonFront/routes/RoutesAdmin.dart';
 import 'package:appkinsonFront/routes/RoutesDoctor.dart';
 import 'package:appkinsonFront/services/EndPoints.dart';
+import 'package:appkinsonFront/views/Administrator/FormAddItem.dart';
 import 'package:appkinsonFront/views/Administrator/item_widget_administrator.dart';
 import 'package:appkinsonFront/views/AlarmsAndMedicine/AlarmAndMedicinePage.dart';
 import 'package:appkinsonFront/views/Login/Buttons/ButtonLogin.dart';
@@ -14,7 +15,7 @@ class ListExcercises extends StatefulWidget {
   @override
   _ListExcercisesState createState() => _ListExcercisesState();
 }
-var items;
+List<ItemToolbox> items =  List<ItemToolbox>();
 var id = 0;
 class _ListExcercisesState extends State<ListExcercises> {
   final key = GlobalKey<AnimatedListState>();
@@ -63,7 +64,7 @@ class _ListExcercisesState extends State<ListExcercises> {
     },
   );
 
-  void insertItem(int index, AlarmAndMedicine item) {
+  void insertItem(int index, ItemToolbox item) {
     items.insert(index, item);
     key.currentState.insertItem(index);
     Navigator.pop(context);
@@ -78,4 +79,4 @@ class _ListExcercisesState extends State<ListExcercises> {
           (context, animation) => buildItem(item, index, animation),
     );
   }
-}*/
+}

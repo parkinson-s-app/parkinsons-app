@@ -30,12 +30,12 @@ class RoutesGeneral {
         context, new MaterialPageRoute(builder: (context) => ListFood()));
   }
 
-  /*toListExcercises(BuildContext context) {
+  toListExcercises(BuildContext context) {
     Navigator.push(
         context, new MaterialPageRoute(builder: (context) => ListExcercises()));
   }
   toListNews(BuildContext context) {
     Navigator.push(
         context, new MaterialPageRoute(builder: (context) => ListNews()));
-  }*/
+  }
 }

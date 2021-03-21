@@ -386,7 +386,7 @@ class EndPoints {
   }
 
   //Recibir alarmas
-  Future<List<AlarmInfo>> getMedicinesAlarms(var tokenID, var token) async {
+  Future<List<AlarmAndMedicine>> getMedicinesAlarms(var tokenID, var token) async {
    
     var codeToken = json.decode(token);
     http.Response lista = await http
@@ -396,11 +396,12 @@ class EndPoints {
      String i = lista.body;
      debugPrint(i.toString());
      var codeList = json.decode(i);
-     List<AlarmInfo> alarms = [];
-     for (var a = 0; a < codeList.length; a++) {     
-     AlarmInfo alarm = new AlarmInfo();
+     List<AlarmAndMedicine> alarms = [];
+     for (var a = 0; a < codeList.length; a++) {
+       AlarmAndMedicine alarm = new AlarmAndMedicine();
      //alarm.id = codeList[a]['id'];
-     alarm.title = codeList[a]['title'];
+     alarm.title = codeList[a]['Title'];
+     alarm.idMedicine = codeList[a]['Medicine'];
      
      alarms.add(alarm);
     }

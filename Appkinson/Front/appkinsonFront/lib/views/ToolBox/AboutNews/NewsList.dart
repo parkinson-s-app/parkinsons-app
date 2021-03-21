@@ -1,22 +1,21 @@
-/*import 'package:appkinsonFront/routes/RoutesAdmin.dart';
+import 'package:appkinsonFront/routes/RoutesAdmin.dart';
 import 'package:appkinsonFront/routes/RoutesDoctor.dart';
 import 'package:appkinsonFront/services/EndPoints.dart';
-import 'package:appkinsonFront/views/Administrator/item_widget_administrator.dart';
-import 'package:appkinsonFront/views/AlarmsAndMedicine/AlarmAndMedicinePage.dart';
+import 'package:appkinsonFront/views/Administrator/FormAddItem.dart';
 import 'package:appkinsonFront/views/Login/Buttons/ButtonLogin.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_local_notifications/flutter_local_notifications.dart';
-import 'package:intl/intl.dart';
-import 'package:appkinsonFront/main.dart';
 
+import 'package:appkinsonFront/views/ToolBox/item_widget.dart';
 
 class ListNews extends StatefulWidget {
   @override
   _ListNewsState createState() => _ListNewsState();
 }
-var news;
+List<ItemToolbox> news =  List<ItemToolbox>();
 var id = 0;
 class _ListNewsState extends State<ListNews> {
+
+  @override
   final key = GlobalKey<AnimatedListState>();
   //List<AlarmInfo> news;
   DateTime _alarmTime;
@@ -48,7 +47,7 @@ class _ListNewsState extends State<ListNews> {
   );
 
   Widget buildItem(item, int index, Animation<double> animation) =>
-      ItemToolboxWidgetAdministrator(
+      ItemToolboxWidgetGeneral(
         item: item,
         animation: animation,
         onClicked: () => removeItem(index),
@@ -63,11 +62,11 @@ class _ListNewsState extends State<ListNews> {
     },
   );
 
-  void insertItem(int index, AlarmAndMedicine item) {
+  /* void insertItem(int index, AlarmAndMedicine item) {
     news.insert(index, item);
     key.currentState.insertItem(index);
     Navigator.pop(context);
-  }
+  }*/
 
   void removeItem(int index) {
     EndPoints().deleteAlarm(index.toString(), token, currentUser['id'].toString());
@@ -79,4 +78,3 @@ class _ListNewsState extends State<ListNews> {
     );
   }
 }
-*/

@@ -1,4 +1,5 @@
 import 'package:appkinsonFront/views/Calendar/CalendarScreenView2.dart';
+import 'package:appkinsonFront/views/Game/countDownGame.dart';
 import 'package:appkinsonFront/views/Medicines/medicines.dart';
 import 'package:appkinsonFront/views/RelationRequest/relationsRequets.dart';
 import 'package:appkinsonFront/views/SymptomsFormPatient/SymptomsFormPatient.dart';
@@ -23,7 +24,6 @@ class RoutesPatient {
         new MaterialPageRoute(builder: (context) => CalendarScreenView2()));
   }
   toScheduleMedicines(BuildContext context, int idPatient) {
-     print('patient boton2 ${idPatient.toString()}');
     Navigator.push(
         context,
         new MaterialPageRoute(
@@ -64,5 +64,9 @@ class RoutesPatient {
   toToolbox(BuildContext context) {
     Navigator.push(context,
         new MaterialPageRoute(builder: (context) => toolbox()));
+  }
+  toGame(BuildContext context) {
+    Navigator.push(context,
+        new MaterialPageRoute(builder: (context) => CountDownTimer()));
   }
 }

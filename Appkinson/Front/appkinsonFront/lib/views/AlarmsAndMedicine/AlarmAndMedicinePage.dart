@@ -1,7 +1,10 @@
 import 'dart:convert';
 
+import 'package:appkinsonFront/routes/RoutesDoctor.dart';
+import 'package:appkinsonFront/routes/RoutesPatient.dart';
 import 'package:appkinsonFront/services/EndPoints.dart';
 import 'package:appkinsonFront/views/Login/Buttons/ButtonLogin.dart';
+import 'package:appkinsonFront/views/Medicines/medicines.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -14,6 +17,7 @@ class AlarmAndMedicine {
   TimeOfDay alarmTime;
   String dose; //mg pastilla
   int id;
+  String medicine;
   /**
    * preguntas: todos los dias las dosis?
    * dosis como mg o ml son un dropdown o un input text?
@@ -166,10 +170,15 @@ class ListAlarmsAndMedicine extends State<ListAlarmsAndMedicinePatient> {
           String res = await EndPoints()
               .saveAlarmsAndMedicines(alarmAndMedicine, idPatient);
           print('response save medicine: $res');
+          //Navigator.pop(context);
+          items = await EndPoints()
+              .getMedicinesAlarms(idPatient, token);
+          RoutesPatient().toScheduleMedicines(context, idPatient);
         },
         color: Colors.blue,
         textColor: Colors.white,
         child: Text("Guardar", style: TextStyle(fontSize: 15)),
+
       )),
     ]));
     //}

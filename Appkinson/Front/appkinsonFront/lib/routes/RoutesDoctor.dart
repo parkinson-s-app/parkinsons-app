@@ -14,7 +14,6 @@ class RoutesDoctor {
   }
 
   toInteractionDoctorPatient(BuildContext context, int idPatient) {
-    print('patient pantalla intermedia ${idPatient.toString()}');
   Navigator.push(
           context,
           new MaterialPageRoute(

@@ -27,15 +27,16 @@ class ButtonGoAboutExcercises extends StatelessWidget {
         onPressed: () async {
           ItemToolbox itemToolbox = new ItemToolbox();
           itemsByType = await EndPoints().getItemsToolbox(currentUser['id'].toString(), token);
-          for(int i = 0; i<itemsByType.length(); i++){
+          print(itemsByType.length);
+          for(int i = 0; i<itemsByType.length; i++){
             itemToolbox = itemsByType[i];
-            if(itemToolbox.type == 'EJERCICIO'){
-              //items.add(itemToolbox);
-              print("Entra");
+            print(itemToolbox.type.compareTo('EJERCICIO'));
+            if(itemToolbox.type.compareTo('EJERCICIO') == 0) {
+              items.add(itemToolbox);
             }
           }
-          //RoutesGeneral().toListExcercises(context);
-         // RoutesAdmin().toListItems(context);
+          print(items.length);
+          RoutesGeneral().toListExcercises(context);
         },
         padding: EdgeInsets.symmetric(horizontal: 10),
         color: Colors.grey[50],

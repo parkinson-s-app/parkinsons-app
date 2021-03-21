@@ -11,6 +11,8 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:pedometer/pedometer.dart';
 import 'package:decimal/decimal.dart';
 
+import 'Buttons/ButtonGoGame.dart';
+
 class toolbox extends StatefulWidget {
   @override
   _toolbox createState() => _toolbox();
@@ -329,8 +331,12 @@ class _toolbox extends State<toolbox> {
                       child: ButtonGoAboutExcercises(),
                     ),
                     Positioned(
-                      left: 180,
+                      left: 100,
                       child: ButtonGoAboutFood(),
+                    ),
+                    Positioned(
+                      left: 200,
+                      child: ButtonGoGame(),
                     ),
                     Positioned(
                       top: 150,

@@ -125,7 +125,7 @@ class _CountDownTimerState extends State<CountDownTimer>
                       ),
                       Text('$count', style: TextStyle(fontSize: 100, color: Colors.blue),),
                       FloatingActionButton(
-                        
+                        heroTag: "btn1",
                         child: Icon(Icons.fingerprint_rounded, size: 32,),
                         backgroundColor: Colors.green,
                         onPressed: (){
@@ -143,6 +143,7 @@ class _CountDownTimerState extends State<CountDownTimer>
                           animation: controller,
                           builder: (context, child) {
                             return FloatingActionButton.extended(
+                              heroTag: "btn2",
                                 onPressed: () {
                                     controller.reverse(
                                         from: controller.value == 0.0
