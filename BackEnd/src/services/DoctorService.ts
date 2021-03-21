@@ -202,4 +202,22 @@ export default class DoctorService {
         }
     }
 
+
+    public static async unrelatePatient(idCarer: number, idPatient: number) {
+        debug('Unrelate patient Doctor: %d, patient: %d', idCarer, idPatient);
+        let conn: Pool | undefined;
+        try {
+            conn = await connect();
+            const res = await conn.query('DELETE FROM patientxdoctor WHERE ID_CARER = ? AND ID_PATIENT = ?',[idCarer, idPatient]);
+            debug('unrelated patient Doctor. response: %j', res);
+            conn.end();
+            return res;
+        } catch (e) {
+            if(conn) {
+                conn.end();
+            }
+            debug('unrelated patient Doctor Catch Error: %s, %j', e.stack, e);
+            throw Error(e);
+        }
+    }
 }
