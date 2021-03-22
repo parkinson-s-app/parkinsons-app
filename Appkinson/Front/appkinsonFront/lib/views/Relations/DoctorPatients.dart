@@ -3,7 +3,8 @@ import 'dart:convert';
 import 'package:appkinsonFront/routes/RoutesDoctor.dart';
 import 'package:appkinsonFront/routes/RoutesPatient.dart';
 import 'package:appkinsonFront/services/EndPoints.dart';
-import 'package:appkinsonFront/views/Calendar/CalendarScreenView2.dart';
+//import 'package:appkinsonFront/views/Calendar/CalendarScreenView2.dart';
+import 'package:appkinsonFront/views/Calendar/CalendarScreenView2Doctor.dart';
 import 'package:appkinsonFront/views/Login/Buttons/ButtonLogin.dart';
 import 'package:flutter/material.dart';
 import '../../model/User.dart';
@@ -134,7 +135,8 @@ class DoctorPatientsCustom extends State<DoctorPatients> {
                       String m = await EndPoints()
                           .getSymptomsFormPatient(token, selectId);
                       //final DateTime today = DateTime.now();
-                      /*
+                      listPacientes = m;
+
                       var codeList = json.decode(m);
                       //List<String> patients = [];
                       for (var a = 0; a < codeList.length; a++) {
@@ -161,14 +163,17 @@ class DoctorPatientsCustom extends State<DoctorPatients> {
                           meetings.add(Meeting('off malo', startTime, endTime,
                               Colors.red[800], false));
                         }
-                      } 
-                      RoutesPatient().toCalendar(context);*/
+                      }
+                      RoutesDoctor().toCalendarDoctor(context);
+                    },
+                    /* 
+                      RoutesPatient().toCalendar(context);
                       print(patients[index]);
                       //RoutesDoctor().toPatientAlarmAndMedicine(context, patient.id);
                       print('patient list ${patient.id.toString()}');
                       RoutesDoctor()
-                          .toInteractionDoctorPatient(context, patient.id);
-                    },
+                          .toInteractionDoctorPatient(context, patient.id);*/
+                    //},
                     title: Text(patient.email),
                     //subtitle: Text(user.email),
                     leading: CircleAvatar(

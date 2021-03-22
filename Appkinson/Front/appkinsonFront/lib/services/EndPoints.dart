@@ -7,6 +7,7 @@ import 'package:appkinsonFront/constants/Constant.dart';
 import 'package:appkinsonFront/model/EmotionsForm.dart';
 import 'package:appkinsonFront/model/SymptomsForm.dart';
 import 'package:appkinsonFront/model/SymptomsFormPatientM.dart';
+import 'package:appkinsonFront/utils/Utils.dart';
 import 'package:appkinsonFront/views/Administrator/FormAddItem.dart';
 import 'package:appkinsonFront/views/AlarmsAndMedicine/AlarmAndMedicinePage.dart';
 import 'package:appkinsonFront/views/Login/Buttons/ButtonLogin.dart';
@@ -123,7 +124,8 @@ class EndPoints {
   }
 
   //Envíar ítems desde el administrador
-  Future<String> sendItemToolbox(String titulo, String descripcion, String enlace, String tipo, var token) async {
+  Future<String> sendItemToolbox(String titulo, String descripcion,
+      String enlace, String tipo, var token) async {
     Map data2 = {
       'Title': titulo,
       'Description': descripcion,
@@ -131,12 +133,10 @@ class EndPoints {
       'Type': tipo
     };
     var codeToken = json.decode(token);
-    http.Response response = await http.post(
-        endpointBack + '/api/admin/toolbox/item',
-        body: data2,
-        headers: {
-        HttpHeaders.authorizationHeader: jwtkey + codeToken['token']
-        });
+    http.Response response = await http
+        .post(endpointBack + '/api/admin/toolbox/item', body: data2, headers: {
+      HttpHeaders.authorizationHeader: jwtkey + codeToken['token']
+    });
     debugPrint(data2.toString());
     String i = response.body;
     return i;
@@ -144,7 +144,6 @@ class EndPoints {
 
   //Recibir items para el toolbox
   Future<List<ItemToolbox>> getItemsToolbox(var tokenID, var token) async {
-
     var codeToken = json.decode(token);
     http.Response lista = await http
         .get(endpointBack + '/api/users/toolbox/items', headers: {
@@ -165,7 +164,6 @@ class EndPoints {
     }
     return items;
   }
-
 
   Future<String> linkUser(String emailUser, var token_type, var token) async {
     Map data2 = {'Email': emailUser};
@@ -386,43 +384,73 @@ class EndPoints {
   }
 
   //Recibir alarmas
-  Future<List<AlarmAndMedicine>> getMedicinesAlarms(var tokenID, var token) async {
-   
+  Future<List<AlarmAndMedicine>> getMedicinesAlarms(
+      var tokenID, var token) async {
     var codeToken = json.decode(token);
     http.Response lista = await http
         .get(endpointBack + '/api/patient/$tokenID/medicineAlarm', headers: {
       HttpHeaders.authorizationHeader: jwtkey + codeToken['token']
     });
-     String i = lista.body;
-     debugPrint(i.toString());
-     var codeList = json.decode(i);
-     List<AlarmAndMedicine> alarms = [];
-     for (var a = 0; a < codeList.length; a++) {
-       AlarmAndMedicine alarm = new AlarmAndMedicine();
-     //alarm.id = codeList[a]['id'];
-     alarm.title = codeList[a]['Title'];
-     alarm.idMedicine = codeList[a]['Medicine'];
-     
-     alarms.add(alarm);
+    String i = lista.body;
+    debugPrint(i.toString());
+    var codeList = json.decode(i);
+    List<AlarmAndMedicine> alarms = [];
+    for (var a = 0; a < codeList.length; a++) {
+      AlarmAndMedicine alarm = new AlarmAndMedicine();
+      //alarm.id = codeList[a]['id'];
+      alarm.title = codeList[a]['Title'];
+      alarm.idMedicine = codeList[a]['Medicine'];
+
+      alarms.add(alarm);
     }
     return alarms;
   }
-  
-  //Enviar alarmas
-   Future<String> sendAlarm(String id, String title, String alarmTime, String isPending, var token, var tokenID) async {
 
+  Future<List<AlarmAndMedicine>> getMedicinesAndAlarms(String idPatient) async {
+    var token = await Utils().getToken();
+    http.Response lista = await http.get(
+        endpointBack + '/api/patient/$idPatient/medicineAlarm',
+        headers: {HttpHeaders.authorizationHeader: jwtkey + token});
+    String i = lista.body;
+    debugPrint(i.toString());
+    var alarmsJSON = json.decode(i);
+    List<AlarmAndMedicine> alarms = [];
+    for (var medAlarm in alarmsJSON) {
+      AlarmAndMedicine alarm = new AlarmAndMedicine();
+      //alarm.id = codeList[a]['id'];
+      String time = medAlarm['AlarmTime'];
+      alarm.title = medAlarm['Title'];
+      alarm.idMedicine = medAlarm['IdMedicine'].toString();
+      alarm.alarmTime = TimeOfDay(
+          hour: int.parse(time.split(":")[0]),
+          minute: int.parse(time.split(":")[1]));
+      alarm.medicine = medAlarm['Medicine'];
+      alarm.dose = medAlarm['Dose'];
+      alarm.periodicityQuantity = medAlarm['PeriodicityQuantity'];
+      alarm.periodicityType = medAlarm['PeriodicityType'];
+      alarm.id = medAlarm['IdPatient'];
+      alarms.add(alarm);
+    }
+    return alarms;
+  }
+
+  //Enviar alarmas
+  Future<String> sendAlarm(String id, String title, String alarmTime,
+      String isPending, var token, var tokenID) async {
     Map data2 = {
-        "id": id,
-        "title": title,
-        "alarmDateTime": alarmTime,
-        "isPending": isPending
+      "id": id,
+      "title": title,
+      "alarmDateTime": alarmTime,
+      "isPending": isPending
     };
-    //var dataToSend = [data2]; 
+    //var dataToSend = [data2];
     //var dataJson = json.encode(dataToSend);
     //debugPrint(dataJson.toString());
     var codeToken = json.decode(token);
-    http.Response response =
-        await http.post(endpointBack + '/api/patient/$tokenID/medicineAlarm', body: data2,  headers: {
+    http.Response response = await http.post(
+        endpointBack + '/api/patient/$tokenID/medicineAlarm',
+        body: data2,
+        headers: {
           HttpHeaders.authorizationHeader: jwtkey + codeToken['token']
         });
     debugPrint(data2.toString());
@@ -431,17 +459,16 @@ class EndPoints {
   }
 
   Future<String> deleteAlarm(String id, var token, var tokenID) async {
-
     var codeToken = json.decode(token);
-    http.Response response =
-        await http.post(endpointBack + '/api/patient/$tokenID/medicineAlarm/delete/$id',  headers: {
+    http.Response response = await http.post(
+        endpointBack + '/api/patient/$tokenID/medicineAlarm/delete/$id',
+        headers: {
           HttpHeaders.authorizationHeader: jwtkey + codeToken['token']
         });
- 
+
     String i = response.body;
     return i;
   }
-  
 
   Future<List<RelationRequest>> getRelationRequest(var token) async {
     //Map data2 = {'email': authUser.email, 'password': authUser.password};
@@ -469,12 +496,13 @@ class EndPoints {
   Future<String> registerSymptomsFormPatient(
       SymptomsFormPatientM form, var tokenID, var token) async {
     bool success = false;
+    print(tokenID + 'hola');
 
-    String fileName = form.video.path.split('/').last;
     var decodedToken = json.decode(token);
     var video;
 
     if (form.video != null) {
+      String fileName = form.video.path.split('/').last;
       video = await MultipartFile.fromFile(form.video.path, filename: fileName);
     } else {
       video = null;
@@ -602,6 +630,81 @@ class EndPoints {
     return file;
   }
 
+  Future<File> getVideoUser(var token, var path) async {
+    debugPrint("entro");
+    var codeToken = json.decode(token);
+    http.Response response;
+
+    /*
+    WidgetsFlutterBinding.ensureInitialized();
+    await FlutterDownloader.initialize(
+        debug: true // optional: set false to disable printing logs to console
+        );
+      */
+
+    if (path != null) {
+      response = await http.get(endpointBack + "/" + path, headers: {
+        HttpHeaders.authorizationHeader: jwtkey + codeToken['token'],
+        //HttpHeaders.hostHeader: path
+      });
+    }
+
+    /*
+    var s;
+
+    FadeInImage.memoryNetwork(
+      image: 'http://192.168.0.16:8001/uploads/photo/' + path
+      //HttpHeaders.hostHeader: path
+      ,
+      placeholder: s,
+    );
+
+    print('holo' + s.toString());
+
+    //FileUploadInputElement();
+    //debugPrint(data2.toString());
+    debugPrint("-----");
+    debugPrint(response.headers.toString());
+    */
+    final documentDirectory = await getApplicationDocumentsDirectory();
+
+    final file = File(p.join(documentDirectory.path, 'imagetest.png'));
+
+    if (path != null) {
+      file.writeAsBytesSync(response.bodyBytes);
+    }
+    /*
+    Uint8List n = await http
+        .readBytes(await http.get(endpointBack + "/" + path, headers: {
+      HttpHeaders.authorizationHeader: jwtkey + codeToken['token'],
+      //HttpHeaders.hostHeader: path
+    }));
+    */
+
+    //File m = File.fromRawPath(response.bodyBytes);
+    //print(m.absolute.toString());
+
+    //debugPrint(response.bodyBytes.toString());
+
+    /*
+    final status = await Permission.storage.request();
+    if (status.isGranted) {
+      final externalDir = await getExternalStorageDirectory();
+      final taskId = await FlutterDownloader.enqueue(
+        url: 'http://192.168.0.16:8001/uploads/photo/' + path,
+        savedDir: externalDir.path,
+        //headers: jwtkey + codeToken['token'],
+        showNotification:
+            true, // show download progress in status bar (for Android)
+        openFileFromNotification:
+            true, // click on notification to open downloaded file (for Android)
+      );
+    }*/
+
+    //String res = response.body;
+    return file;
+  }
+
   Future<String> getMedicines(var token) async {
     //Map data2 = {'email': authUser.email, 'password': authUser.password};
     var codeToken = json.decode(token);
@@ -625,7 +728,8 @@ class EndPoints {
           '${alarmAndMedicine.alarmTime.hour}:${alarmAndMedicine.alarmTime.minute}',
       'idMedicine': alarmAndMedicine.idMedicine,
       'dose': alarmAndMedicine.dose,
-      'periodicityType': alarmAndMedicine.periodicityType
+      'periodicityType': alarmAndMedicine.periodicityType,
+      'quantity': alarmAndMedicine.quantity
     };
 
     print('entra2');

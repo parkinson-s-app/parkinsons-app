@@ -56,6 +56,7 @@ class _Calendar extends State<CalendarScreenView2> {
       headerHeight: 100,
       onTap: (calendarTapDetails) {
         dateChoosed = calendarTapDetails.date;
+
         showDialog(
             context: context,
             builder: (BuildContext context) {
