@@ -2,144 +2,144 @@ import 'package:flutter/material.dart';
 import 'package:charts_flutter/flutter.dart' as charts;
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
-class ReportPage extends StatefulWidget {
+class ReportPageRefactor extends StatefulWidget {
   final Widget child;
 
-  ReportPage({Key key, this.child}) : super(key: key);
+  ReportPageRefactor({Key key, this.child}) : super(key: key);
 
-  _ReportPageState createState() => _ReportPageState();
+  _ReportPageRefactorState createState() => _ReportPageRefactorState();
 }
 
-class _ReportPageState extends State<ReportPage> {
-  List<charts.Series<Pollution, String>> _seriesData;
-  List<charts.Series<Task, String>> _seriesPieData;
-  List<charts.Series<Sales, int>> _seriesLineData;
+class _ReportPageRefactorState extends State<ReportPageRefactor> {
+  List<charts.Series<Animo, String>> _seriesData;
+  List<charts.Series<Sintomas, String>> _seriesPieData;
+  List<charts.Series<TomaMedicamentos, int>> _seriesLineData;
 
   _generateData() {
     var data1 = [
-      new Pollution(1980, 'USA', 30),
-      new Pollution(1980, 'Asia', 40),
-      new Pollution(1980, 'Europe', 10),
+      new Animo(15,"Enero"),
+   //   new Animo(10,"Febrero"),
+   //   new Animo(10,"Marzo"),
     ];
     var data2 = [
-      new Pollution(1985, 'USA', 100),
-      new Pollution(1980, 'Asia', 150),
-      new Pollution(1985, 'Europe', 80),
+    //  new Animo(10, "Enero"),
+      new Animo(20,"Febrero"),
+    //  new Animo(10,"Marzo"),
     ];
     var data3 = [
-      new Pollution(1985, 'USA', 200),
-      new Pollution(1980, 'Asia', 300),
-      new Pollution(1985, 'Europe', 180),
+    //  new Animo(10, "Enero"),
+    //  new Animo(10,"Febrero"),
+      new Animo(35,"Marzo"),
     ];
 
     var piedata = [
-      new Task('Work', 35.8, Color(0xff3366cc)),
-      new Task('Eat', 8.3, Color(0xff990099)),
-      new Task('Commute', 10.8, Color(0xff109618)),
-      new Task('TV', 15.6, Color(0xfffdbe19)),
-      new Task('Sleep', 19.2, Color(0xffff9900)),
-      new Task('Other', 10.3, Color(0xffdc3912)),
+      //new Sintomas('ON', 35.8, Color(0xff3366cc)),
+      //new Sintomas('OFF', 8.3, Color(0xff990099)),
+      new Sintomas('ON MUY BUENO', 10.8, Color(0xff109618)),
+      new Sintomas('ON BUENO', 15.6, Color(0xfffdbe19)),
+      new Sintomas('OFF MALO', 19.2, Color(0xffff9900)),
+      new Sintomas('OFF MUY MALO', 10.3, Color(0xffdc3912)),
     ];
 
-    var linesalesdata = [
-      new Sales(0, 45),
-      new Sales(1, 56),
-      new Sales(2, 55),
-      new Sales(3, 60),
-      new Sales(4, 61),
-      new Sales(5, 70),
+    var lineTomaMedicamentosdata = [
+      new TomaMedicamentos(0, 45), // mes y desfase calculado
+      new TomaMedicamentos(1, 56),
+      new TomaMedicamentos(2, 55),
+      new TomaMedicamentos(3, 60),
+      new TomaMedicamentos(4, 61),
+      new TomaMedicamentos(5, 70),
     ];
-    var linesalesdata1 = [
-      new Sales(0, 35),
-      new Sales(1, 46),
-      new Sales(2, 45),
-      new Sales(3, 50),
-      new Sales(4, 51),
-      new Sales(5, 60),
+    var lineTomaMedicamentosdata1 = [
+      new TomaMedicamentos(0, 35),
+      new TomaMedicamentos(1, 46),
+      new TomaMedicamentos(2, 45),
+      new TomaMedicamentos(3, 50),
+      new TomaMedicamentos(4, 51),
+      new TomaMedicamentos(5, 60),
     ];
 
-    var linesalesdata2 = [
-      new Sales(0, 20),
-      new Sales(1, 24),
-      new Sales(2, 25),
-      new Sales(3, 40),
-      new Sales(4, 45),
-      new Sales(5, 60),
+    var lineTomaMedicamentosdata2 = [
+      new TomaMedicamentos(0, 20),
+      new TomaMedicamentos(1, 24),
+      new TomaMedicamentos(2, 25),
+      new TomaMedicamentos(3, 40),
+      new TomaMedicamentos(4, 45),
+      new TomaMedicamentos(5, 60),
     ];
 
     _seriesData.add(
       charts.Series(
-        domainFn: (Pollution pollution, _) => pollution.place,
-        measureFn: (Pollution pollution, _) => pollution.quantity,
+        domainFn: (Animo Animo, _) => Animo.mes,
+        measureFn: (Animo Animo, _) => Animo.estadoDeAnimo,
         id: '2017',
         data: data1,
         fillPatternFn: (_, __) => charts.FillPatternType.solid,
-        fillColorFn: (Pollution pollution, _) =>
+        fillColorFn: (Animo Animo, _) =>
             charts.ColorUtil.fromDartColor(Color(0xff990099)),
       ),
     );
 
     _seriesData.add(
       charts.Series(
-        domainFn: (Pollution pollution, _) => pollution.place,
-        measureFn: (Pollution pollution, _) => pollution.quantity,
+        domainFn: (Animo Animo, _) => Animo.mes,
+        measureFn: (Animo Animo, _) => Animo.estadoDeAnimo,
         id: '2018',
         data: data2,
         fillPatternFn: (_, __) => charts.FillPatternType.solid,
-        fillColorFn: (Pollution pollution, _) =>
+        fillColorFn: (Animo Animo, _) =>
             charts.ColorUtil.fromDartColor(Color(0xff109618)),
       ),
     );
 
     _seriesData.add(
       charts.Series(
-        domainFn: (Pollution pollution, _) => pollution.place,
-        measureFn: (Pollution pollution, _) => pollution.quantity,
+        domainFn: (Animo Animo, _) => Animo.mes,
+        measureFn: (Animo Animo, _) => Animo.estadoDeAnimo,
         id: '2019',
         data: data3,
         fillPatternFn: (_, __) => charts.FillPatternType.solid,
-        fillColorFn: (Pollution pollution, _) =>
+        fillColorFn: (Animo Animo, _) =>
             charts.ColorUtil.fromDartColor(Color(0xffff9900)),
       ),
     );
 
     _seriesPieData.add(
       charts.Series(
-        domainFn: (Task task, _) => task.task,
-        measureFn: (Task task, _) => task.taskvalue,
-        colorFn: (Task task, _) =>
-            charts.ColorUtil.fromDartColor(task.colorval),
-        id: 'Air Pollution',
+        domainFn: (Sintomas Sintomas, _) => Sintomas.sintoma,
+        measureFn: (Sintomas Sintomas, _) => Sintomas.Sintomasvalue,
+        colorFn: (Sintomas Sintomas, _) =>
+            charts.ColorUtil.fromDartColor(Sintomas.colorval),
+        id: 'Air Animo',
         data: piedata,
-        labelAccessorFn: (Task row, _) => '${row.taskvalue}',
+        labelAccessorFn: (Sintomas row, _) => '${row.Sintomasvalue}',
       ),
     );
 
     _seriesLineData.add(
       charts.Series(
         colorFn: (__, _) => charts.ColorUtil.fromDartColor(Color(0xff990099)),
-        id: 'Air Pollution',
-        data: linesalesdata,
-        domainFn: (Sales sales, _) => sales.yearval,
-        measureFn: (Sales sales, _) => sales.salesval,
+        id: 'Air Animo',
+        data: lineTomaMedicamentosdata,
+        domainFn: (TomaMedicamentos TomaMedicamentos, _) => TomaMedicamentos.yearval,
+        measureFn: (TomaMedicamentos TomaMedicamentos, _) => TomaMedicamentos.TomaMedicamentosval,
       ),
     );
     _seriesLineData.add(
       charts.Series(
         colorFn: (__, _) => charts.ColorUtil.fromDartColor(Color(0xff109618)),
-        id: 'Air Pollution',
-        data: linesalesdata1,
-        domainFn: (Sales sales, _) => sales.yearval,
-        measureFn: (Sales sales, _) => sales.salesval,
+        id: 'Air Animo',
+        data: lineTomaMedicamentosdata1,
+        domainFn: (TomaMedicamentos TomaMedicamentos, _) => TomaMedicamentos.yearval,
+        measureFn: (TomaMedicamentos TomaMedicamentos, _) => TomaMedicamentos.TomaMedicamentosval,
       ),
     );
     _seriesLineData.add(
       charts.Series(
         colorFn: (__, _) => charts.ColorUtil.fromDartColor(Color(0xffff9900)),
-        id: 'Air Pollution',
-        data: linesalesdata2,
-        domainFn: (Sales sales, _) => sales.yearval,
-        measureFn: (Sales sales, _) => sales.salesval,
+        id: 'Air Animo',
+        data: lineTomaMedicamentosdata2,
+        domainFn: (TomaMedicamentos TomaMedicamentos, _) => TomaMedicamentos.yearval,
+        measureFn: (TomaMedicamentos TomaMedicamentos, _) => TomaMedicamentos.TomaMedicamentosval,
       ),
     );
   }
@@ -148,9 +148,9 @@ class _ReportPageState extends State<ReportPage> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    _seriesData = List<charts.Series<Pollution, String>>();
-    _seriesPieData = List<charts.Series<Task, String>>();
-    _seriesLineData = List<charts.Series<Sales, int>>();
+    _seriesData = List<charts.Series<Animo, String>>();
+    _seriesPieData = List<charts.Series<Sintomas, String>>();
+    _seriesLineData = List<charts.Series<TomaMedicamentos, int>>();
     _generateData();
   }
 
@@ -184,7 +184,7 @@ class _ReportPageState extends State<ReportPage> {
                     child: Column(
                       children: <Widget>[
                         Text(
-                          'SO₂ emissions, by world region (in million tonnes)',style: TextStyle(fontSize: 24.0,fontWeight: FontWeight.bold),),
+                          'Puntaje de ánimo en el paciente',style: TextStyle(fontSize: 24.0,fontWeight: FontWeight.bold),),
                         Expanded(
                           child: charts.BarChart(
                             _seriesData,
@@ -206,7 +206,7 @@ class _ReportPageState extends State<ReportPage> {
                     child: Column(
                       children: <Widget>[
                         Text(
-                          'Time spent on daily tasks',style: TextStyle(fontSize: 24.0,fontWeight: FontWeight.bold),),
+                          'Promedio de estados del paciente',style: TextStyle(fontSize: 24.0,fontWeight: FontWeight.bold),),
                         SizedBox(height: 10.0,),
                         Expanded(
                           child: charts.PieChart(
@@ -244,7 +244,7 @@ class _ReportPageState extends State<ReportPage> {
                     child: Column(
                       children: <Widget>[
                         Text(
-                          'Sales for the first 5 years',style: TextStyle(fontSize: 24.0,fontWeight: FontWeight.bold),),
+                          'Desfase en la toma de medicamentos',style: TextStyle(fontSize: 24.0,fontWeight: FontWeight.bold),),
                         Expanded(
                           child: charts.LineChart(
                               _seriesLineData,
@@ -253,13 +253,13 @@ class _ReportPageState extends State<ReportPage> {
                               animate: true,
                               animationDuration: Duration(seconds: 5),
                               behaviors: [
-                                new charts.ChartTitle('Years',
+                                new charts.ChartTitle('Meses',
                                     behaviorPosition: charts.BehaviorPosition.bottom,
                                     titleOutsideJustification:charts.OutsideJustification.middleDrawArea),
-                                new charts.ChartTitle('Sales',
+                                new charts.ChartTitle('Desfase',
                                     behaviorPosition: charts.BehaviorPosition.start,
                                     titleOutsideJustification: charts.OutsideJustification.middleDrawArea),
-                                new charts.ChartTitle('Departments',
+                                new charts.ChartTitle('Médicamento',
                                   behaviorPosition: charts.BehaviorPosition.end,
                                   titleOutsideJustification:charts.OutsideJustification.middleDrawArea,
                                 )
@@ -279,25 +279,24 @@ class _ReportPageState extends State<ReportPage> {
   }
 }
 
-class Pollution {
-  String place;
-  int year;
-  int quantity;
+class Animo {
+  int estadoDeAnimo;
+  String mes;
 
-  Pollution(this.year, this.place, this.quantity);
+  Animo(this.estadoDeAnimo, this.mes);
 }
 
-class Task {
-  String task;
-  double taskvalue;
+class Sintomas {
+  String sintoma;
+  double Sintomasvalue;
   Color colorval;
 
-  Task(this.task, this.taskvalue, this.colorval);
+  Sintomas(this.sintoma, this.Sintomasvalue, this.colorval);
 }
 
-class Sales {
+class TomaMedicamentos {
   int yearval;
-  int salesval;
+  int TomaMedicamentosval;
 
-  Sales(this.yearval, this.salesval);
+  TomaMedicamentos(this.yearval, this.TomaMedicamentosval);
 }

@@ -138,7 +138,7 @@ class _ReportConfigPageState extends State<ReportConfigPage> {
               padding: EdgeInsets.all(100.0),
             ),
             FlatButton(onPressed: (){
-              RoutesDoctor().toReportPage(context);
+              RoutesDoctor().toListReportPage(context);
             }, child: Text("Generar reporte"), color: Colors.blueAccent,
               textColor: Colors.white,)
           ],

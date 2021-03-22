@@ -25,7 +25,7 @@ import 'views/Calendar/CalendarScreen.dart';
 import 'model/User.dart';
 
 final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
-    FlutterLocalNotificationsPlugin();
+FlutterLocalNotificationsPlugin();
 /*
 List<User> patients = [];
 
@@ -60,7 +60,7 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   var initializationSettingsAndroid =
-      AndroidInitializationSettings('@mipmap/ic_launcher');
+  AndroidInitializationSettings('@mipmap/ic_launcher');
   var initializationSettingsIOS = IOSInitializationSettings(
       requestAlertPermission: true,
       requestBadgePermission: true,
@@ -71,10 +71,10 @@ void main() async {
       initializationSettingsAndroid, initializationSettingsIOS);
   await flutterLocalNotificationsPlugin.initialize(initializationSettings,
       onSelectNotification: (String payload) async {
-    if (payload != null) {
-      debugPrint('notification payload: ' + payload);
-    }
-  });
+        if (payload != null) {
+          debugPrint('notification payload: ' + payload);
+        }
+      });
 
   runApp(MyApp());
 }
@@ -95,4 +95,3 @@ class MyApp extends StatelessWidget {
     //     debugShowCheckedModeBanner: false, home: SymptomsFormPatient());
   }
 }
-
