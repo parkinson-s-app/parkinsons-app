@@ -4,6 +4,8 @@ import 'package:appkinsonFront/views/HomeDifferentUsers/Doctor/DoctorHomePage.da
 
 import 'package:appkinsonFront/views/Relations/DoctorPatients.dart';
 import 'package:appkinsonFront/views/Relations/interactionDoctorPatient.dart';
+import 'package:appkinsonFront/views/Report/report.dart';
+import 'package:appkinsonFront/views/Report/reportConfig.dart';
 import 'package:appkinsonFront/views/profiles/Doctor/DoctorProfile.dart';
 import 'package:appkinsonFront/views/profiles/Doctor/profileEdition/ProfileEditionDoctor.dart';
 import 'package:flutter/material.dart';
@@ -14,11 +16,24 @@ class RoutesDoctor {
         context, new MaterialPageRoute(builder: (context) => DoctorHomePage()));
   }
 
-  toCalendarDoctor(BuildContext context) {
+ /* toCalendarDoctor(BuildContext context) {
     Navigator.push(
         context,
         new MaterialPageRoute(
-            builder: (context) => CalendarScreenView2Doctor()));
+            builder: (context) => ReportConfigPage()));
+  }*/
+  toReportConfigPage(BuildContext context) {
+    Navigator.push(
+        context,
+        new MaterialPageRoute(
+            builder: (context) => ReportConfigPage()));
+  }
+
+  toReportPage(BuildContext context) {
+    Navigator.push(
+        context,
+        new MaterialPageRoute(
+            builder: (context) => ReportPage()));
   }
 
   toInteractionDoctorPatient(BuildContext context, int idPatient) {
@@ -44,6 +59,7 @@ class RoutesDoctor {
     Navigator.push(context,
         new MaterialPageRoute(builder: (context) => ProfileEditionDoctor()));
   }
+
 
   toPatientAlarmAndMedicine(BuildContext context, int idPatient) {
     print('otro idpat ${idPatient.toString()}');
