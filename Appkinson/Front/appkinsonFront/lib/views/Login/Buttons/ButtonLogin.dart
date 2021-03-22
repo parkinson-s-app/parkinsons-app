@@ -54,6 +54,7 @@ class _FormButtonLogin extends State<ButtonLogin> {
           }else{
 
           currentUser = Utils().tokenDecoder(token);
+          
           /*
           debugPrint(token);
           var lista = token.split(".");
@@ -75,7 +76,7 @@ class _FormButtonLogin extends State<ButtonLogin> {
           */
           //debugPrint(currentUser['type']);
           // debugPrint(decoded);
-
+          
           if (currentUser['type'] == 'Cuidador') {
             RoutesCarer().toCarerHome(context);
           }
@@ -126,7 +127,7 @@ Widget _buildPopupDialog(BuildContext context, String invalidReason) {
           Navigator.of(context).pop();
         },
         textColor: Theme.of(context).primaryColor,
-        child: const Text('Cancelar'),
+        child: const Text('Cerrar'),
       ),
     ],
   );

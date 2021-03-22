@@ -4,6 +4,7 @@ import 'package:appkinsonFront/views/AboutUs/helpSupport.dart';
 import 'package:appkinsonFront/views/Administrator/FormAddItem.dart';
 import 'package:appkinsonFront/views/AlarmsAndMedicine/AlarmAndMedicinePage.dart';
 import 'package:appkinsonFront/views/Calendar/CalendarScreenView2.dart';
+import 'package:appkinsonFront/views/AboutUs/helpSupport.dart';
 import 'package:appkinsonFront/views/DataAnalisis/ReportScreen.dart';
 import 'package:appkinsonFront/views/Game/countDownGame.dart';
 import 'package:appkinsonFront/views/Medicines/medicines.dart';
@@ -57,25 +58,6 @@ void callbackDispatcher() {
 */
 
 void main() async {
-  WidgetsFlutterBinding.ensureInitialized();
-
-  var initializationSettingsAndroid =
-      AndroidInitializationSettings('@mipmap/ic_launcher');
-  var initializationSettingsIOS = IOSInitializationSettings(
-      requestAlertPermission: true,
-      requestBadgePermission: true,
-      requestSoundPermission: true,
-      onDidReceiveLocalNotification:
-          (int id, String title, String body, String payload) async {});
-  var initializationSettings = InitializationSettings(
-      initializationSettingsAndroid, initializationSettingsIOS);
-  await flutterLocalNotificationsPlugin.initialize(initializationSettings,
-      onSelectNotification: (String payload) async {
-    if (payload != null) {
-      debugPrint('notification payload: ' + payload);
-    }
-  });
-
   runApp(MyApp());
 }
 
@@ -85,8 +67,14 @@ class MyApp extends StatelessWidget {
     //return new MaterialApp(
     //  debugShowCheckedModeBanner: false, home: CalendarScreen());
     //return new MaterialApp(debugShowCheckedModeBanner: false, home: toolbox());
-    return new MaterialApp(debugShowCheckedModeBanner: false, home: HomePage());
-    // return new MaterialApp(debugShowCheckedModeBanner: false, home: AlarmAndMedicinePage( idPatient: 0,));
+    return new MaterialApp(
+      initialRoute: '/',
+      routes: {
+        '/': (context) => HomePage(),
+      },
+      debugShowCheckedModeBanner: false, 
+      //home: HomePage()
+      );
     //return new MaterialApp(debugShowCheckedModeBanner: false, home: CalendarScreenView2());
     //  return new MaterialApp(debugShowCheckedModeBanner: false, home: CountDownTimer());
     //return new MaterialApp(debugShowCheckedModeBanner: false, home: relationRequest());

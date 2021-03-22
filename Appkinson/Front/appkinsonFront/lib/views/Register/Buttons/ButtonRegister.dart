@@ -49,6 +49,9 @@ class ButtonRegisterCustom extends State<ButtonRegister> {
                     debugPrint(save);
                     if (save == 'Guardado') {
                       //RoutesGeneral().toLogin(context);
+                      //probar
+                      //emailController = null;
+
                       Navigator.push(context, new MaterialPageRoute( builder: (context) => LoginPage()));
                     }else if(save == 'Existe'){
                       //register
@@ -105,7 +108,7 @@ Widget _buildPopupDialog(BuildContext context, String invalidReason) {
           Navigator.of(context).pop();
         },
         textColor: Theme.of(context).primaryColor,
-        child: const Text('Cancelar'),
+        child: const Text('Cerrar'),
       ),
     ],
   );

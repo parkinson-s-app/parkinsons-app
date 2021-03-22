@@ -1,12 +1,48 @@
 import 'package:appkinsonFront/views/Notifications/NotificationPlugin.dart';
 import 'package:flutter/material.dart';
 
+import 'package:foldable_sidebar/foldable_sidebar.dart';
+import '../sideMenus/CustomDrawerMenu.dart';
+
 class PatientNotifications extends StatefulWidget {
   @override
   _PatientNotifications createState() => _PatientNotifications();
 }
 
 class _PatientNotifications extends State<PatientNotifications> {
+  
+  FSBStatus status;
+  
+  @override
+  Widget build(BuildContext context) {
+  return SafeArea(
+      child: Scaffold(
+        body: FoldableSidebarBuilder(status: status , drawer: CustomDrawerMenu(), screenContents: PatientNotifications0()),
+        floatingActionButton: FloatingActionButton(
+            backgroundColor: Colors.blue[800],
+            child: Icon(
+              Icons.menu,
+              color: Colors.white,
+            ),
+            onPressed: () {
+              setState(() {
+                status = status == FSBStatus.FSB_OPEN
+                    ? FSBStatus.FSB_CLOSE
+                    : FSBStatus.FSB_OPEN;
+              });
+            }
+        ),
+      ),
+    ); 
+  }
+}
+
+class PatientNotifications0 extends StatefulWidget {
+  @override
+  _PatientNotifications0 createState() => _PatientNotifications0();
+}
+
+class _PatientNotifications0 extends State<PatientNotifications0> {
   bool valueSymptoms = true;
   bool valueMedicines = true;
   bool valueCheerUp = true;

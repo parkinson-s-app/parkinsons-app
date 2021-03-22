@@ -7,6 +7,42 @@ import 'package:intl/intl.dart';
 import 'package:appkinsonFront/services/EndPoints.dart';
 import 'package:appkinsonFront/views/Login/Buttons/ButtonLogin.dart';
 
+import 'package:foldable_sidebar/foldable_sidebar.dart';
+import '../sideMenus/CustomDrawerMenu.dart';
+
+/*
+class RelationsRequest extends StatefulWidget {
+  @override
+  _RelationsRequest createState() => _RelationsRequest();
+}
+
+class _RelationsRequest extends State<RelationsRequest> {
+  
+  FSBStatus status;
+  
+  @override
+  Widget build(BuildContext context) {
+  return SafeArea(
+      child: Scaffold(
+        body: FoldableSidebarBuilder(status: status , drawer: CustomDrawerMenu(), screenContents: RelationsRequest0()),
+        floatingActionButton: FloatingActionButton(
+            backgroundColor: Colors.blue[800],
+            child: Icon(
+              Icons.menu,
+              color: Colors.white,
+            ),
+            onPressed: () {
+              setState(() {
+                status = status == FSBStatus.FSB_OPEN
+                    ? FSBStatus.FSB_CLOSE
+                    : FSBStatus.FSB_OPEN;
+              });
+            }
+        ),
+      ),
+    ); 
+  }
+}*/
 
 class RelationsRequest extends StatefulWidget {
   @override

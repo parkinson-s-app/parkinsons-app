@@ -8,10 +8,48 @@ import 'package:appkinsonFront/views/SymptomsFormPatient/SymptomsFormPatientQ5ON
 import 'package:flutter/material.dart';
 import 'package:syncfusion_flutter_calendar/calendar.dart';
 
+
+import 'package:foldable_sidebar/foldable_sidebar.dart';
+import '../sideMenus/CustomDrawerMenu.dart';
+
 DateTime dateChoosed;
 int count = 0;
 
+
 class CalendarScreenView2 extends StatefulWidget {
+  @override
+  _CalendarScreenView2 createState() => _CalendarScreenView2();
+}
+
+class _CalendarScreenView2 extends State<CalendarScreenView2> {
+  
+  FSBStatus status;
+  
+  @override
+  Widget build(BuildContext context) {
+  return SafeArea(
+      child: Scaffold(
+        body: FoldableSidebarBuilder(status: status , drawer: CustomDrawerMenu(), screenContents: CalendarScreenView2aux()),
+        floatingActionButton: FloatingActionButton(
+            backgroundColor: Colors.blue[800],
+            child: Icon(
+              Icons.menu,
+              color: Colors.white,
+            ),
+            onPressed: () {
+              setState(() {
+                status = status == FSBStatus.FSB_OPEN
+                    ? FSBStatus.FSB_CLOSE
+                    : FSBStatus.FSB_OPEN;
+              });
+            }
+        ),
+      ),
+    ); 
+  }
+}
+
+class CalendarScreenView2aux extends StatefulWidget {
   @override
   _Calendar createState() => _Calendar();
 }
@@ -35,7 +73,7 @@ List<Color> _colors = <Color>[
 
 List<String> _onOff = <String>['on', 'on bueno', 'off', 'off malo'];
 
-class _Calendar extends State<CalendarScreenView2> {
+class _Calendar extends State<CalendarScreenView2aux> {
   void _incrementColorIndex() {
     setState(() {
       print(cont);
