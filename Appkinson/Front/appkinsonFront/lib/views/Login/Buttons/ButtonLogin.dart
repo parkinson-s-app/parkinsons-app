@@ -54,6 +54,7 @@ class _FormButtonLogin extends State<ButtonLogin> {
           }else{
 
           currentUser = Utils().tokenDecoder(token);
+          
           /*
           debugPrint(token);
           var lista = token.split(".");
