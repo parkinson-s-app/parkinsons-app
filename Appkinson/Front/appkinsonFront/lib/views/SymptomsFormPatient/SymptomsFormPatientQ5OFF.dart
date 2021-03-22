@@ -92,7 +92,7 @@ class _symptomsFormQ29 extends State<SymptomsFormPatientQ5OFF> {
                         'off', startTime, endTime, Colors.red, false);
                     debugPrint(m.eventName);
                     //setState(() {
-                    meetings.add(m);
+                    meetingPatient.add(m);
 
                     RoutesPatient().toCalendar(context);
                   },

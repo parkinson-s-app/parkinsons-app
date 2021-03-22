@@ -4,7 +4,6 @@ import 'dart:io';
 import 'package:appkinsonFront/model/SymptomsFormPatientM.dart';
 import 'package:appkinsonFront/routes/RoutesPatient.dart';
 import 'package:appkinsonFront/services/EndPoints.dart';
-import 'package:appkinsonFront/views/HomeDifferentUsers/Patient/Buttons/ButtonGoCalendar.dart';
 import 'package:appkinsonFront/views/Login/Buttons/ButtonLogin.dart';
 import 'package:appkinsonFront/views/SymptomsFormPatient/SymptomsFormPatientQ5ON.dart';
 import 'package:appkinsonFront/views/videoScreen/videoScreenCarer.dart';
@@ -15,7 +14,7 @@ import 'package:syncfusion_flutter_calendar/calendar.dart';
 DateTime dateChoosed;
 int count = 0;
 
-class CalendarScreenView2 extends StatefulWidget {
+class CalendarScreenView2Carer extends StatefulWidget {
   @override
   _Calendar createState() => _Calendar();
 }
@@ -25,7 +24,7 @@ String state = 'on';
 var color = Colors.green;
 //File fileMedia;
 
-List<Meeting> meetingPatient = new List<Meeting>();
+List<Meeting> meetingsCarer = new List<Meeting>();
 String listPacientes;
 var conta = 0;
 int hora = 0;
@@ -45,7 +44,7 @@ List<Color> _colors = <Color>[
 List<String> _onOff = <String>['on', 'on bueno', 'off', 'off malo'];
 var currentMeeting;
 
-class _Calendar extends State<CalendarScreenView2> {
+class _Calendar extends State<CalendarScreenView2Carer> {
   void _incrementColorIndex() {
     setState(() {
       print(cont);
@@ -211,7 +210,7 @@ class _Calendar extends State<CalendarScreenView2> {
                                 endTime, _colors[cont], false);
                             debugPrint(m.eventName);
                             //setState(() {
-                            meetingPatient.remove(m);
+                            meetingsCarer.remove(m);
                             Navigator.pop(context);
                           },
                           child: Icon(Icons.delete)),
@@ -344,7 +343,7 @@ class _Calendar extends State<CalendarScreenView2> {
                                 debugPrint(savedDone.toString());
 
                                 this.setState(() {
-                                  meetingPatient.add(m);
+                                  meetingsCarer.add(m);
                                   isLoading = false;
                                 });
                                 Navigator.pop(context);
@@ -368,14 +367,14 @@ class _Calendar extends State<CalendarScreenView2> {
 
         // RoutesPatient().toSymptomsFormPatient(context);
       },
-      dataSource: MeetingDataSource(meetingPatient),
+      dataSource: MeetingDataSource(meetingsCarer),
       monthViewSettings: MonthViewSettings(
           appointmentDisplayMode: MonthAppointmentDisplayMode.appointment),
     ));
   }
 
   List<Meeting> _getDataSource() {
-    meetingPatient = <Meeting>[];
+    meetingsCarer = <Meeting>[];
 
     //final DateTime today = DateTime.now();
     if (dateChoosed.hour != null) {
@@ -388,23 +387,23 @@ class _Calendar extends State<CalendarScreenView2> {
     final DateTime endTime = startTime.add(const Duration(hours: 1));
 
     if (conta == 1) {
-      meetingPatient.add(
+      meetingsCarer.add(
           Meeting('on', startTime, endTime, const Color(0xFF0F8644), false));
     }
     if (conta == 3) {
-      meetingPatient.add(
+      meetingsCarer.add(
           Meeting('on Bueno', startTime, endTime, Colors.green[900], false));
     }
     if (conta == 5) {
-      meetingPatient
+      meetingsCarer
           .add(Meeting('off', startTime, endTime, Colors.red[400], false));
     }
     if (conta == 7) {
-      meetingPatient
+      meetingsCarer
           .add(Meeting('off Malo', startTime, endTime, Colors.red[900], false));
     }
 
-    return meetingPatient;
+    return meetingsCarer;
   }
 }
 

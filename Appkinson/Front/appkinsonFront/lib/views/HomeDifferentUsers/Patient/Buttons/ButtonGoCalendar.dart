@@ -8,7 +8,14 @@ import '../../../../routes/RoutesPatient.dart';
 
 //import '../../Register/RegisterPage.dart';
 
-class ButtonGoCalendar extends StatelessWidget {
+var codeList;
+
+class ButtonGoCalendar extends StatefulWidget {
+  @override
+  _ButtonGoCalendarState createState() => _ButtonGoCalendarState();
+}
+
+class _ButtonGoCalendarState extends State<ButtonGoCalendar> {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -20,12 +27,13 @@ class ButtonGoCalendar extends StatelessWidget {
             RoundedRectangleBorder(borderRadius: BorderRadius.circular(18.0)),
         //   side: BorderSide(color: Color.fromRGBO(0, 160, 227, 1))),
         onPressed: () async {
-          meetings = <Meeting>[];
+          meetingPatient = <Meeting>[];
           //SymptomsFormPatientM m= await EndPoints().getSymptomsFormPatient(token,currentUser['id'].toString());\
           String m = await EndPoints()
               .getSymptomsFormPatient(token, currentUser['id'].toString());
           //final DateTime today = DateTime.now();
-          var codeList = json.decode(m);
+          listPacientes = m;
+          codeList = json.decode(m);
           //List<String> patients = [];
           for (var a = 0; a < codeList.length; a++) {
             //patients.add(codeList[a]['EMAIL']);
@@ -34,19 +42,19 @@ class ButtonGoCalendar extends StatelessWidget {
                 dateBd.year, dateBd.month, dateBd.day, dateBd.hour, 0, 0);
             final DateTime endTime = startTime.add(const Duration(hours: 1));
             if (codeList[a]['Q1'] == 'on') {
-              meetings
+              meetingPatient
                   .add(Meeting('on', startTime, endTime, Colors.green, false));
             }
             if (codeList[a]['Q1'] == 'off') {
-              meetings
+              meetingPatient
                   .add(Meeting('off', startTime, endTime, Colors.red, false));
             }
             if (codeList[a]['Q1'] == 'on bueno') {
-              meetings.add(Meeting(
+              meetingPatient.add(Meeting(
                   'on bueno', startTime, endTime, Colors.green[700], false));
             }
             if (codeList[a]['Q1'] == 'off malo') {
-              meetings.add(Meeting(
+              meetingPatient.add(Meeting(
                   'off malo', startTime, endTime, Colors.red[800], false));
             }
           }

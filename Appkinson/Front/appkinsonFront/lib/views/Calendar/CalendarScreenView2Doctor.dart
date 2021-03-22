@@ -23,7 +23,7 @@ String state = 'on';
 var color = Colors.green;
 //File fileMedia;
 
-List<Meeting> meetings = new List<Meeting>();
+List<Meeting> meetingsDoctor = new List<Meeting>();
 String listPacientes;
 var conta = 0;
 int hora = 0;
@@ -132,6 +132,7 @@ class _Calendar extends State<CalendarScreenView2Doctor> {
                     content: Form(
                         child:
                             Column(mainAxisSize: MainAxisSize.min, children: [
+                      Text(q1),
                       Row(
                         children: [
                           Text('Disquinesias:'),
@@ -173,7 +174,7 @@ class _Calendar extends State<CalendarScreenView2Doctor> {
                         // Text("Registrarse ", style:  TextStyle(fontSize: 15)),
                       ),
                     ])),
-                    actions: <Widget>[
+                    /*actions: <Widget>[
                       FlatButton(
                           onPressed: () async {
                             SymptomsFormPatientM patientForm =
@@ -213,12 +214,13 @@ class _Calendar extends State<CalendarScreenView2Doctor> {
                             Navigator.pop(context);
                           },
                           child: Text("añadir"))
-                    ],
+                    ],*/
                   );
                 });
               });
           currentMeeting = null;
         } else {
+          /*
           showDialog(
               context: context,
               builder: (BuildContext context) {
@@ -350,7 +352,7 @@ class _Calendar extends State<CalendarScreenView2Doctor> {
                     ],
                   );
                 });
-              });
+              });*/
         }
         //dateChoosed = calendarTapDetails.date;
 
@@ -364,14 +366,14 @@ class _Calendar extends State<CalendarScreenView2Doctor> {
 
         // RoutesPatient().toSymptomsFormPatient(context);
       },
-      dataSource: MeetingDataSource(meetings),
+      dataSource: MeetingDataSource(meetingsDoctor),
       monthViewSettings: MonthViewSettings(
           appointmentDisplayMode: MonthAppointmentDisplayMode.appointment),
     ));
   }
 
   List<Meeting> _getDataSource() {
-    meetings = <Meeting>[];
+    meetingsDoctor = <Meeting>[];
 
     //final DateTime today = DateTime.now();
     if (dateChoosed.hour != null) {
@@ -384,22 +386,23 @@ class _Calendar extends State<CalendarScreenView2Doctor> {
     final DateTime endTime = startTime.add(const Duration(hours: 1));
 
     if (conta == 1) {
-      meetings.add(
+      meetingsDoctor.add(
           Meeting('on', startTime, endTime, const Color(0xFF0F8644), false));
     }
     if (conta == 3) {
-      meetings.add(
+      meetingsDoctor.add(
           Meeting('on Bueno', startTime, endTime, Colors.green[900], false));
     }
     if (conta == 5) {
-      meetings.add(Meeting('off', startTime, endTime, Colors.red[400], false));
+      meetingsDoctor
+          .add(Meeting('off', startTime, endTime, Colors.red[400], false));
     }
     if (conta == 7) {
-      meetings
+      meetingsDoctor
           .add(Meeting('off Malo', startTime, endTime, Colors.red[900], false));
     }
 
-    return meetings;
+    return meetingsDoctor;
   }
 }
 

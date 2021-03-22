@@ -122,7 +122,7 @@ class DoctorPatientsCustom extends State<DoctorPatients> {
                 return ListTile(
                     onTap: () async {
                       String selectId;
-                      meetings = <Meeting>[];
+                      meetingsDoctor = <Meeting>[];
                       //SymptomsFormPatientM m= await EndPoints().getSymptomsFormPatient(token,currentUser['id'].toString());\
                       selectId = patient.id.toString();
                       /* for (var a = 0; a < codeListPatients.length; a++) {
@@ -148,20 +148,20 @@ class DoctorPatientsCustom extends State<DoctorPatients> {
                         final DateTime endTime =
                             startTime.add(const Duration(hours: 1));
                         if (codeList[a]['Q1'] == 'on') {
-                          meetings.add(Meeting(
+                          meetingsDoctor.add(Meeting(
                               'on', startTime, endTime, Colors.green, false));
                         }
                         if (codeList[a]['Q1'] == 'off') {
-                          meetings.add(Meeting(
+                          meetingsDoctor.add(Meeting(
                               'off', startTime, endTime, Colors.red, false));
                         }
                         if (codeList[a]['Q1'] == 'on bueno') {
-                          meetings.add(Meeting('on bueno', startTime, endTime,
-                              Colors.green[700], false));
+                          meetingsDoctor.add(Meeting('on bueno', startTime,
+                              endTime, Colors.green[700], false));
                         }
                         if (codeList[a]['Q1'] == 'off malo') {
-                          meetings.add(Meeting('off malo', startTime, endTime,
-                              Colors.red[800], false));
+                          meetingsDoctor.add(Meeting('off malo', startTime,
+                              endTime, Colors.red[800], false));
                         }
                       }
                       RoutesDoctor().toCalendarDoctor(context);
