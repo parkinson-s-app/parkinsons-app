@@ -7,6 +7,7 @@ import 'package:appkinsonFront/constants/Constant.dart';
 import 'package:appkinsonFront/model/EmotionsForm.dart';
 import 'package:appkinsonFront/model/SymptomsForm.dart';
 import 'package:appkinsonFront/model/SymptomsFormPatientM.dart';
+import 'package:appkinsonFront/utils/Utils.dart';
 import 'package:appkinsonFront/views/Administrator/FormAddItem.dart';
 import 'package:appkinsonFront/views/AlarmsAndMedicine/AlarmAndMedicinePage.dart';
 import 'package:appkinsonFront/views/Login/Buttons/ButtonLogin.dart';
@@ -405,6 +406,34 @@ class EndPoints {
     return alarms;
   }
 
+  Future<List<AlarmAndMedicine>> getMedicinesAndAlarms(String idPatient) async {
+    var token = await Utils().getToken();
+    http.Response lista = await http.get(
+        endpointBack + '/api/patient/$idPatient/medicineAlarm',
+        headers: {HttpHeaders.authorizationHeader: jwtkey + token});
+    String i = lista.body;
+    debugPrint(i.toString());
+    var alarmsJSON = json.decode(i);
+    List<AlarmAndMedicine> alarms = [];
+    for (var medAlarm in alarmsJSON) {
+      AlarmAndMedicine alarm = new AlarmAndMedicine();
+      //alarm.id = codeList[a]['id'];
+      String time = medAlarm['AlarmTime'];
+      alarm.title = medAlarm['Title'];
+      alarm.idMedicine = medAlarm['IdMedicine'].toString();
+      alarm.alarmTime = TimeOfDay(
+          hour: int.parse(time.split(":")[0]),
+          minute: int.parse(time.split(":")[1]));
+      alarm.medicine = medAlarm['Medicine'];
+      alarm.dose = medAlarm['Dose'];
+      alarm.periodicityQuantity = medAlarm['PeriodicityQuantity'];
+      alarm.periodicityType = medAlarm['PeriodicityType'];
+      alarm.id = medAlarm['IdPatient'];
+      alarms.add(alarm);
+    }
+    return alarms;
+  }
+
   //Enviar alarmas
   Future<String> sendAlarm(String id, String title, String alarmTime,
       String isPending, var token, var tokenID) async {
@@ -699,7 +728,8 @@ class EndPoints {
           '${alarmAndMedicine.alarmTime.hour}:${alarmAndMedicine.alarmTime.minute}',
       'idMedicine': alarmAndMedicine.idMedicine,
       'dose': alarmAndMedicine.dose,
-      'periodicityType': alarmAndMedicine.periodicityType
+      'periodicityType': alarmAndMedicine.periodicityType,
+      'quantity': alarmAndMedicine.quantity
     };
 
     print('entra2');

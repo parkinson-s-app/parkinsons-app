@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:appkinsonFront/services/EndPoints.dart';
+import 'package:appkinsonFront/utils/Utils.dart';
 import 'package:appkinsonFront/views/AboutUs/helpSupport.dart';
 import 'package:appkinsonFront/views/Administrator/FormAddItem.dart';
 import 'package:appkinsonFront/views/AlarmsAndMedicine/AlarmAndMedicinePage.dart';
@@ -11,6 +12,7 @@ import 'package:appkinsonFront/views/RelationRequest/relationsRequets.dart';
 import 'package:appkinsonFront/views/Relations/interactionDoctorPatient.dart';
 import 'package:appkinsonFront/views/ToolBox/ToolBoxInitial.dart';
 import 'package:flutter/material.dart';
+import 'package:nova_alarm_plugin/nova_alarm_plugin.dart';
 import 'views/SymptomsFormPatient/SymptomsFormPatient.dart';
 import 'package:appkinsonFront/local_notifications.dart';
 import 'package:workmanager/workmanager.dart';
@@ -23,6 +25,7 @@ import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'views/SymptomsFormDoctor/symptomsForm.dart';
 import 'views/Calendar/CalendarScreen.dart';
 import 'model/User.dart';
+import 'package:appkinsonFront/constants/Constant.dart';
 
 final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
     FlutterLocalNotificationsPlugin();
@@ -55,7 +58,58 @@ void callbackDispatcher() {
   });
 }
 */
+void callbackDispatcher() {
+    Workmanager.executeTask((task, inputData) async {
+      // print("Native called background task: $backgroundTask"); //simpleTask will be emitted here.
+      switch (task) {
+        case TASK_SET_ALARMS:
+          print("$TASK_SET_ALARMS was executed. inputData = $inputData");
+          // const ip = '18.222.20.36';
+          // const port = '9000';
+          // const endpointBack = 'http://$ip:$port';
+          // const jwtkey = "Bearer ";
+          // var token =
+          //     'eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InBhY2llbnRlQG1haWwuY29tIiwidHlwZSI6IlBhY2llbnRlIiwiaWQiOjEsImlhdCI6MTYxNjMxMTA0MX0.v-4rxSlePPwlcF7QVl1qXl1FGmzcsmGIatj7cDMtqyaPIrh3Es0MM1jtymR5rLgdrjxOlckVx3qQFba3n1Dmww';
 
+          // http.Response lista = await http.get(
+          //     endpointBack + '/api/patient/relationRequest',
+          //     headers: {HttpHeaders.authorizationHeader: jwtkey + token});
+          
+          //_________________
+          
+          // var tokenID = await Utils().getFromToken('id');
+          // List<AlarmAndMedicine> alarms =
+          //     EndPoints().getMedicinesAndAlarms(int.parse(tokenID))
+          //         as List<AlarmAndMedicine>;
+
+          // // print('Lista: ${lista.body}');
+          // var dateTime = new DateTime.now();
+          // for (var alarm in alarms) {
+          //   int hour = alarm.alarmTime.hour;
+          //   int minute = alarm.alarmTime.minute;
+          //   var dateClock = new DateTime(
+          //       dateTime.year, dateTime.month, dateTime.day, hour, minute);
+          //   var clockId = int.parse(
+          //       '${alarm.idMedicine.toString()}${alarm.id.toString()}');
+          //   String time = (dateClock.millisecondsSinceEpoch).toString();
+          //   bool result = await NovaAlarmPlugin.setClock(
+          //     time,
+          //     clockId,
+          //     title: "title: ${alarm.title}",
+          //     content:
+          //         "Tomar ${alarm.quantity} ${alarm.dose} de ${alarm.medicine}",
+          //   );
+          //   print(
+          //       ' ${alarm.medicine} time: $time result: ${result.toString()}');
+          //   await Future.delayed(Duration(seconds: 1));
+          // }
+          print('finished');
+          break;
+      }
+      return Future.value(true);
+    });
+  }
+  
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 

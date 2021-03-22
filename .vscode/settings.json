@@ -1,0 +1,17 @@
+{
+    "sqltools.connections": [
+        {
+            "mysqlOptions": {
+                "authProtocol": "default"
+            },
+            "previewLimit": 50,
+            "server": "appkinson-db.cgmd1uulv47n.us-east-2.rds.amazonaws.com",
+            "port": 3306,
+            "driver": "MySQL",
+            "name": "AppkinsonDB",
+            "database": "AppKinsonDB",
+            "username": "admin",
+            "password": "appkinson6"
+        }
+    ]
+}

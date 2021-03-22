@@ -147,6 +147,7 @@ CREATE TABLE alarmandmedicinepatient (
     alarmTime TIME NOT NULL,
     idMedicine INT NOT NULL,
     dose VARCHAR(50),
+    quantity INT NOT NULL,
     periodicityType VARCHAR(50),
     FOREIGN KEY (ID_PATIENT) REFERENCES patients(ID_USER) ON DELETE CASCADE,
     FOREIGN KEY (idMedicine) REFERENCES medicine(ID) ON DELETE CASCADE,

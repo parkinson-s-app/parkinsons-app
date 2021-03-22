@@ -1,4 +1,5 @@
 import 'package:appkinsonFront/routes/RoutesPatient.dart';
+import 'package:appkinsonFront/utils/Utils.dart';
 import 'package:appkinsonFront/views/profiles/Patient/PatientProfileScreen.dart';
 import 'package:appkinsonFront/views/profiles/Patient/profileEdition/ProfileEditionPatient.dart';
 import 'package:flutter/material.dart';
@@ -176,8 +177,9 @@ class CustomDrawer extends StatelessWidget {
             color: Colors.white,
           ),
           ListTile(
-            onTap: () {
+            onTap: () async {
               debugPrint("Tapped Log Out");
+              await Utils().removeBackgroundTask();
             },
             leading: Icon(Icons.exit_to_app),
             title: Text("Cerrar Sesión"),
