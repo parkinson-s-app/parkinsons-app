@@ -25,8 +25,12 @@ class listReportPage extends StatelessWidget {
                       RoutesDoctor().toReportChartPie(context, "idquemado", piedata);
                     }, child: Text("Promedio de los sintomas del paciente"), color: Colors.blueAccent,
                     textColor: Colors.white,),
-                  FlatButton(onPressed: null, child: Text("Promedio del estado de ánimo del paciente")),
-                  FlatButton(onPressed: null, child: Text("Promedio de desfase en la toma de médicamentos")),
+                  FlatButton(onPressed:(){
+                  RoutesDoctor().toReportChartLine(context, "idquemado", piedata);
+                  } , child: Text("Promedio del estado de ánimo del paciente")),
+                  FlatButton(onPressed:(){
+                    RoutesDoctor().toReportChartSerie(context, "idquemado", piedata);
+                  }, child: Text("Promedio de desfase en la toma de médicamentos")),
 
                 ]
             )

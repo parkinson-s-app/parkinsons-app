@@ -2,20 +2,20 @@ import 'package:flutter/material.dart';
 import 'package:charts_flutter/flutter.dart' as charts;
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
-class WidgetPrueba extends StatefulWidget {
+class WidgetChartPie extends StatefulWidget {
 
   var dataPie;
   String id;
-  WidgetPrueba({Key key, @required this.dataPie, @required this.id}) : super(key: key);
-  _WidgetPruebaState createState() => _WidgetPruebaState(this.dataPie, this.id);
+  WidgetChartPie({Key key, @required this.dataPie, @required this.id}) : super(key: key);
+  _WidgetChartPieState createState() => _WidgetChartPieState(this.dataPie, this.id);
 }
 
 
 var datapie;
-class _WidgetPruebaState extends State<WidgetPrueba> {
+class _WidgetChartPieState extends State<WidgetChartPie> {
   List<charts.Series<DataPieChart, String>> _seriesPieData;
 
-  _WidgetPruebaState(this.dataPie,this.id);
+  _WidgetChartPieState(this.dataPie,this.id);
   var dataPie;
   String id;
 
@@ -45,12 +45,12 @@ class _WidgetPruebaState extends State<WidgetPrueba> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: Colors.lightBlueAccent,
+      color: Colors.white,
       child: Center(
         child: Column(
           children: <Widget>[
             Text(
-              'Promedio de estados del paciente',style: TextStyle(fontSize: 24.0,fontWeight: FontWeight.bold),),
+              'Promedio de estados del paciente',style: TextStyle(fontSize: 24.0,fontWeight: FontWeight.bold, color: Colors.teal),),
             SizedBox(height: 10.0,),
             Expanded(
               child: charts.PieChart(
