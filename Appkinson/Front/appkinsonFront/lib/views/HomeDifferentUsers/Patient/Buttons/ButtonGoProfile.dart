@@ -1,6 +1,5 @@
 import 'dart:convert';
 import 'dart:io';
-
 import 'package:appkinsonFront/routes/RoutesPatient.dart';
 import 'package:appkinsonFront/services/EndPoints.dart';
 import 'package:appkinsonFront/utils/Utils.dart';
@@ -33,14 +32,14 @@ class _ButtonGoProfileState extends State<ButtonGoProfile> {
 
           var codeList = json.decode(patient);
           //namePatient
-          print('hey' + codeList[0]['NAME']);
+          //print('hey' + codeList[0]['NAME']);
           namePatient = codeList[0]['NAME'];
           var res =
               await EndPoints().getPhotoUser(token, codeList[0]['PHOTOPATH']);
-          this.setState(() {
+            this.setState(() {
             imageFilePatient = res;
           });
-
+          
           print(imageFilePatient.uri.toFilePath());
           RoutesPatient().toPatientProfile(context);
         },

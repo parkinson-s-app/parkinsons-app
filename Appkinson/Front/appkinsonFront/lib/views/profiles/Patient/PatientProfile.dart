@@ -1,5 +1,7 @@
 import 'package:appkinsonFront/routes/RoutesPatient.dart';
 import 'package:appkinsonFront/utils/Utils.dart';
+import 'package:appkinsonFront/views/HomeInitial/HomePage.dart';
+import 'package:appkinsonFront/views/Login/InputFieldLogin.dart';
 import 'package:appkinsonFront/views/profiles/Patient/PatientProfileScreen.dart';
 import 'package:appkinsonFront/views/profiles/Patient/profileEdition/ProfileEditionPatient.dart';
 import 'package:flutter/material.dart';
@@ -7,6 +9,9 @@ import 'package:flutter_screenutil/screenutil.dart';
 import 'package:line_awesome_flutter/line_awesome_flutter.dart';
 import 'package:foldable_sidebar/foldable_sidebar.dart';
 import 'package:swipedetector/swipedetector.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:path_provider/path_provider.dart';
+
 
 const bla = Colors.white;
 const kSpacingUnit = 10;
@@ -180,6 +185,7 @@ class CustomDrawer extends StatelessWidget {
             onTap: () async {
               debugPrint("Tapped Log Out");
               await Utils().removeBackgroundTask();
+              //Navigator.popUntil(context, ModalRoute.withName("/"));
             },
             leading: Icon(Icons.exit_to_app),
             title: Text("Cerrar Sesión"),

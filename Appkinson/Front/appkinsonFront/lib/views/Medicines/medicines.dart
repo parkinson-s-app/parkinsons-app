@@ -10,6 +10,43 @@ import 'package:intl/intl.dart';
 import 'package:appkinsonFront/main.dart';
 
 
+import 'package:foldable_sidebar/foldable_sidebar.dart';
+import '../sideMenus/CustomDrawerMenu.dart';
+
+/*
+class Medicines extends StatefulWidget {
+  @override
+  _Medicines createState() => _Medicines();
+}
+
+class _Medicines extends State<Medicines> {
+  
+  FSBStatus status;
+  
+  @override
+  Widget build(BuildContext context) {
+  return SafeArea(
+      child: Scaffold(
+        body: FoldableSidebarBuilder(status: status , drawer: CustomDrawerMenu(), screenContents: Medicines0()),
+        floatingActionButton: FloatingActionButton(
+            backgroundColor: Colors.blue[800],
+            child: Icon(
+              Icons.menu,
+              color: Colors.white,
+            ),
+            onPressed: () {
+              setState(() {
+                status = status == FSBStatus.FSB_OPEN
+                    ? FSBStatus.FSB_CLOSE
+                    : FSBStatus.FSB_OPEN;
+              });
+            }
+        ),
+      ),
+    ); 
+  }
+}*/
+
 class Medicines extends StatefulWidget {
   final int idPatient;
 

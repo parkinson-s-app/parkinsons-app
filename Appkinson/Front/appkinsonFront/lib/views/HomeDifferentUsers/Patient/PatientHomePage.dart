@@ -12,7 +12,7 @@ class PatientHomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return Scaffold(
-        body: Column(
+      body: Column(
       children: <Widget>[
         ClipPath(
           clipper: MyClipper(),
@@ -157,7 +157,8 @@ class PatientHomePage extends StatelessWidget {
           ),
         ),
       ],
-    ));
+    ),
+    );
   }
 }
 
