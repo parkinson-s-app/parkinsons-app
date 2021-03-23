@@ -29,10 +29,9 @@ import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'views/SymptomsFormDoctor/symptomsForm.dart';
 import 'views/Calendar/CalendarScreen.dart';
 import 'model/User.dart';
-import 'package:appkinsonFront/constants/Constant.dart';
+import 'package:apkinsonFront/constants/Constant.dart';
 
-final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
-    FlutterLocalNotificationsPlugin();
+final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
 /*
 List<User> patients = [];
 
