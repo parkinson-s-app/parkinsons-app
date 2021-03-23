@@ -45,39 +45,42 @@ class _WidgetPruebaState extends State<WidgetPruebaLineal> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      color: Colors.lightBlueAccent,
-      child: Center(
-        child: Column(
-          children: <Widget>[
-            Text(
-              'Promedio de estados del paciente',
-              style: TextStyle(fontSize: 24.0, fontWeight: FontWeight.bold),
-            ),
-            SizedBox(
-              height: 10.0,
-            ),
-            Expanded(
-              child: charts.LineChart(_seriesLinear,
-                  animate: true,
-                  animationDuration: Duration(seconds: 5),
-                  behaviors: [
-                    new charts.DatumLegend(
-                      outsideJustification:
-                          charts.OutsideJustification.endDrawArea,
-                      horizontalFirst: false,
-                      desiredMaxRows: 2,
-                      cellPadding: new EdgeInsets.only(right: 4.0, bottom: 4.0),
-                      entryTextStyle: charts.TextStyleSpec(
-                          color: charts.MaterialPalette.purple.shadeDefault,
-                          fontFamily: 'Georgia',
-                          fontSize: 11),
-                    )
-                  ],
-                  defaultRenderer: new charts.LineRendererConfig(
-                      includeLine: true, includePoints: true)),
-            ),
-          ],
+    return Scaffold(
+      body: Container(
+        color: Colors.lightBlueAccent,
+        child: Center(
+          child: Column(
+            children: <Widget>[
+              Text(
+                'Promedio de estados del paciente',
+                style: TextStyle(fontSize: 24.0, fontWeight: FontWeight.bold),
+              ),
+              SizedBox(
+                height: 10.0,
+              ),
+              Expanded(
+                child: charts.LineChart(_seriesLinear,
+                    animate: true,
+                    animationDuration: Duration(seconds: 5),
+                    behaviors: [
+                      new charts.DatumLegend(
+                        outsideJustification:
+                            charts.OutsideJustification.endDrawArea,
+                        horizontalFirst: false,
+                        desiredMaxRows: 2,
+                        cellPadding:
+                            new EdgeInsets.only(right: 4.0, bottom: 4.0),
+                        entryTextStyle: charts.TextStyleSpec(
+                            color: charts.MaterialPalette.purple.shadeDefault,
+                            fontFamily: 'Georgia',
+                            fontSize: 11),
+                      )
+                    ],
+                    defaultRenderer: new charts.LineRendererConfig(
+                        includeLine: true, includePoints: true)),
+              ),
+            ],
+          ),
         ),
       ),
     );
