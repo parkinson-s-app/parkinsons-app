@@ -231,4 +231,23 @@ PatientController.post('/patient/:idPatient/medicineAlarm/delete/:id', verifyTok
     }
 });
 
+PatientController.get('/patient/:id/symptoms/report', verifyToken, async (req: Request, res: Response) => {
+    debug('getting symptoms report');
+    let status;
+    const idPatient = +req.params.id;
+    const initDate = req.query.start as string;
+    const endDate = req.query.end as string;
+    try {
+        const response = await PatientService.getReportSymptomsTwoDates(idPatient, initDate, endDate);
+        debug('Patient getting symptoms report. Items: %j', response);
+        status = constants.HTTP_STATUS_OK;
+        res.status(status).send(response);
+    } catch (error) {
+        debug('Patient getting symptoms report failed, error: %j', error);
+        status = constants.HTTP_STATUS_INTERNAL_SERVER_ERROR;
+        const responseError = { status, error: "An error has ocurred"};
+        res.status(status).send(responseError);
+    }
+});
+
 export default PatientController;

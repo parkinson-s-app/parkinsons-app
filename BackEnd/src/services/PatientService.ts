@@ -7,6 +7,7 @@ import DoctorService from "./DoctorService";
 import IEmotionalFormDto from "../models/IEmotionalFormDto";
 import { Pool } from "mysql2/promise";
 import IMedicineAlarm from "../models/IMedicineAlarm";
+import { json } from "express";
 
 const debug = debugLib('AppKinson:PatientService');
 
@@ -247,6 +248,63 @@ export default class PatientService {
                 conn.end();
             }
             debug('deleteMedicineAlarms Error: %j', error);
+            throw error;
+        }
+    }
+
+    public static async  getReportSymptomsTwoDates(idPatient: number, initDate: string, endDate: string) {
+        let conn: Pool | undefined;
+        try {
+            conn = await connect();
+            const query = `
+            SELECT 
+                Q1
+            FROM 
+                symptomsformpatient
+            WHERE ID_PATIENT= ? 
+            AND formdate BETWEEN ? AND ?`;
+            debug('getReportSymptomsTwoDates to patient id: %s', idPatient);
+            const res = await conn.query(query,[idPatient, initDate, endDate]);
+            debug('getReportSymptomsTwoDates executed and returned: %j', res[0]);
+            conn.end();
+            debug('query reslt response :%j', res[0]);
+            const listJSON = JSON.parse(JSON.stringify(res[0]));
+            debug('query response as a list :%j', res[0]);
+            let on = 0;
+            let onG = 0;
+            let off = 0;
+            let offB = 0;
+            const size = listJSON.length;
+            debug('size :%s', size);
+            for (let index = 0; index < size; index++) {
+                
+                if(listJSON[index].Q1 == 'on') {
+                    on++;
+                } else if (listJSON[index].Q1 == 'on bueno') {
+                    onG++;
+                } else if (listJSON[index].Q1 == 'off malo') {
+                    offB++;
+                } else if (listJSON[index].Q1 == 'off') {
+                    off++;
+                }
+            }
+            on = (100/size)*on;
+            off = (100/size)*off;
+            offB = (100/size)*offB;
+            onG = (100/size)*onG;
+            const finalResponse = {
+                on,
+                off,
+                offB,
+                onG
+            }
+            debug('response final :%j', finalResponse);
+            return finalResponse;
+        }  catch (error) {
+            if(conn) {
+                conn.end();
+            }
+            debug('getReportSymptomsTwoDates Error: %j', error);
             throw error;
         }
     }
