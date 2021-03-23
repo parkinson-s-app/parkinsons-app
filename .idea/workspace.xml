@@ -30,13 +30,8 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="08d39895-96e3-4c46-aa63-7e2ef03a5c34" name="Default Changelist" comment="Chart pie finished">
-      <change afterPath="$PROJECT_DIR$/Appkinson/Front/appkinsonFront/lib/views/Report/Widget_Chart_Line.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Appkinson/Front/appkinsonFront/lib/routes/RoutesDoctor.dart" beforeDir="false" afterPath="$PROJECT_DIR$/Appkinson/Front/appkinsonFront/lib/routes/RoutesDoctor.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Appkinson/Front/appkinsonFront/lib/views/Report/Widget_Chart_Pie.dart" beforeDir="false" afterPath="$PROJECT_DIR$/Appkinson/Front/appkinsonFront/lib/views/Report/Widget_Chart_Pie.dart" afterDir="false" />
+    <list default="true" id="08d39895-96e3-4c46-aa63-7e2ef03a5c34" name="Default Changelist" comment="Avance gráficas">
       <change beforePath="$PROJECT_DIR$/Appkinson/Front/appkinsonFront/lib/views/Report/listReports.dart" beforeDir="false" afterPath="$PROJECT_DIR$/Appkinson/Front/appkinsonFront/lib/views/Report/listReports.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Appkinson/Front/appkinsonFront/lib/views/Report/reportRefactor.dart" beforeDir="false" afterPath="$PROJECT_DIR$/Appkinson/Front/appkinsonFront/lib/views/Report/Widget_Chart_Serie.dart" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -121,7 +116,14 @@
       <option name="project" value="LOCAL" />
       <updated>1616450220068</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="Avance gráficas">
+      <created>1616477519412</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1616477519412</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -142,7 +144,8 @@
     <MESSAGE value="toolbox en proceso" />
     <MESSAGE value="Inicio reporte" />
     <MESSAGE value="Chart pie finished" />
-    <option name="LAST_COMMIT_MESSAGE" value="Chart pie finished" />
+    <MESSAGE value="Avance gráficas" />
+    <option name="LAST_COMMIT_MESSAGE" value="Avance gráficas" />
   </component>
   <component name="WindowStateProjectService">
     <state x="395" y="90" key="#Inspections" timestamp="1609689008646">
@@ -172,26 +175,26 @@
       <screen x="72" y="27" width="1848" height="1053" />
     </state>
     <state x="779" y="311" width="424" height="491" key="FileChooserDialogImpl/72.27.1848.1053@72.27.1848.1053" timestamp="1616381884356" />
-    <state width="1802" height="275" key="GridCell.Tab.0.bottom" timestamp="1616450225287">
+    <state width="1802" height="275" key="GridCell.Tab.0.bottom" timestamp="1616477523979">
       <screen x="72" y="27" width="1848" height="1053" />
     </state>
     <state width="1491" height="174" key="GridCell.Tab.0.bottom/0.0.1536.824@0.0.1536.824" timestamp="1613525147058" />
-    <state width="1802" height="275" key="GridCell.Tab.0.bottom/72.27.1848.1053@72.27.1848.1053" timestamp="1616450225287" />
-    <state width="1802" height="275" key="GridCell.Tab.0.center" timestamp="1616450225284">
+    <state width="1802" height="275" key="GridCell.Tab.0.bottom/72.27.1848.1053@72.27.1848.1053" timestamp="1616477523979" />
+    <state width="1802" height="275" key="GridCell.Tab.0.center" timestamp="1616477523978">
       <screen x="72" y="27" width="1848" height="1053" />
     </state>
     <state width="1491" height="174" key="GridCell.Tab.0.center/0.0.1536.824@0.0.1536.824" timestamp="1613525147058" />
-    <state width="1802" height="275" key="GridCell.Tab.0.center/72.27.1848.1053@72.27.1848.1053" timestamp="1616450225284" />
-    <state width="1802" height="275" key="GridCell.Tab.0.left" timestamp="1616450225283">
+    <state width="1802" height="275" key="GridCell.Tab.0.center/72.27.1848.1053@72.27.1848.1053" timestamp="1616477523978" />
+    <state width="1802" height="275" key="GridCell.Tab.0.left" timestamp="1616477523976">
       <screen x="72" y="27" width="1848" height="1053" />
     </state>
     <state width="1491" height="174" key="GridCell.Tab.0.left/0.0.1536.824@0.0.1536.824" timestamp="1613525147058" />
-    <state width="1802" height="275" key="GridCell.Tab.0.left/72.27.1848.1053@72.27.1848.1053" timestamp="1616450225283" />
-    <state width="1802" height="275" key="GridCell.Tab.0.right" timestamp="1616450225286">
+    <state width="1802" height="275" key="GridCell.Tab.0.left/72.27.1848.1053@72.27.1848.1053" timestamp="1616477523976" />
+    <state width="1802" height="275" key="GridCell.Tab.0.right" timestamp="1616477523979">
       <screen x="72" y="27" width="1848" height="1053" />
     </state>
     <state width="1491" height="174" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1613525147058" />
-    <state width="1802" height="275" key="GridCell.Tab.0.right/72.27.1848.1053@72.27.1848.1053" timestamp="1616450225286" />
+    <state width="1802" height="275" key="GridCell.Tab.0.right/72.27.1848.1053@72.27.1848.1053" timestamp="1616477523978" />
     <state x="405" y="100" width="1022" height="737" key="SettingsEditor" timestamp="1616376866120">
       <screen x="72" y="27" width="1848" height="1053" />
     </state>
