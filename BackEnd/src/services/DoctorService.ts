@@ -188,7 +188,8 @@ export default class DoctorService {
                 alarmTime: medicine.alarmTime,
                 idMedicine: medicine.idMedicine,
                 dose: medicine.dose,
-                periodicityType: medicine.periodicityType
+                periodicityType: medicine.periodicityType,
+                quantity: medicine.quantity
             }; 
             const res = await conn.query('INSERT INTO alarmandmedicinepatient SET ?',[queryData]);
             conn.end();

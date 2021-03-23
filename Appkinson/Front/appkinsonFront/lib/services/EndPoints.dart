@@ -429,6 +429,7 @@ class EndPoints {
       alarm.periodicityQuantity = medAlarm['PeriodicityQuantity'];
       alarm.periodicityType = medAlarm['PeriodicityType'];
       alarm.id = medAlarm['IdPatient'];
+      alarm.quantity = medAlarm['Quantity'];
       alarms.add(alarm);
     }
     return alarms;
