@@ -1,8 +1,9 @@
+import 'package:appkinsonFront/routes/RoutesCarer.dart';
 import 'package:appkinsonFront/routes/RoutesDoctor.dart';
 import 'package:appkinsonFront/routes/RoutesPatient.dart';
 import 'package:flutter/material.dart';
 
-class ButtonGoCalendarFromDoctor extends StatelessWidget {
+class ButtonGoCalendarFromCarer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -14,7 +15,7 @@ class ButtonGoCalendarFromDoctor extends StatelessWidget {
             RoundedRectangleBorder(borderRadius: BorderRadius.circular(18.0)),
         //   side: BorderSide(color: Color.fromRGBO(0, 160, 227, 1))),
         onPressed: () {
-          RoutesDoctor().toCalendarDoctor(context);
+          RoutesCarer().toCalendarCarer(context);
         },
         padding: EdgeInsets.symmetric(horizontal: 10),
         color: Colors.grey[50],

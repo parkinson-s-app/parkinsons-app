@@ -132,7 +132,7 @@ class DoctorPatientsCustom extends State<DoctorPatients> {
                           selectId = codeListPatients[a]['ID_USER'].toString();
                         }
                       } */
-                  /*    String m = await EndPoints()
+                      String m = await EndPoints()
                           .getSymptomsFormPatient(token, selectId);
                       //final DateTime today = DateTime.now();
                       listPacientes = m;
@@ -164,10 +164,8 @@ class DoctorPatientsCustom extends State<DoctorPatients> {
                               endTime, Colors.red[800], false));
                         }
                       }
-                      RoutesDoctor().toCalendarDoctor(context);
-                    },*/
 
-                      RoutesPatient().toCalendar(context);
+                      // RoutesPatient().toCalendar(context);
                       print(patients[index]);
                       //RoutesDoctor().toPatientAlarmAndMedicine(context, patient.id);
                       print('patient list ${patient.id.toString()}');

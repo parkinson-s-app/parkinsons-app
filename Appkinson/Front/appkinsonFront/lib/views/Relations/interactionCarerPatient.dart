@@ -1,3 +1,4 @@
+import 'package:appkinsonFront/views/Relations/Buttons/ButtonGoCalendarFromCarer.dart';
 import 'package:appkinsonFront/views/Relations/Buttons/ButtonGoCalendarFromDoctor.dart';
 import 'package:appkinsonFront/views/Relations/Buttons/ButtonGoFormFeelsFromCarer.dart';
 import 'package:appkinsonFront/views/Relations/Buttons/ButtonGoMedicinesFromCarer.dart';
@@ -6,12 +7,9 @@ import 'package:appkinsonFront/views/Relations/Buttons/ButtonGoReporter.dart';
 import 'package:flutter/material.dart';
 
 class InteractionCarerPatient extends StatelessWidget {
-
   final int idPatient;
 
   const InteractionCarerPatient({Key key, this.idPatient}) : super(key: key);
-
-
 
   @override
   Widget build(BuildContext context) {
@@ -19,79 +17,91 @@ class InteractionCarerPatient extends StatelessWidget {
     Size size = MediaQuery.of(context).size;
     return Scaffold(
         body: Column(
-          children: <Widget>[
-            ClipPath(
-              clipper: MyClipper(),
-              child: Container(
-                height: 350,
-                width: double.infinity,
-                decoration: BoxDecoration(
-                    gradient: LinearGradient(
-                      begin: Alignment.topLeft,
-                      end: Alignment.bottomRight,
-                      colors: [Colors.blue[400], Colors.blue[900]],
-                    ),
-                    image: DecorationImage(
-                      image: AssetImage("assets/images/starsBackGround.png"),
-                    )),
-                child: Expanded(
-                  child: Stack(
-                    children: <Widget>[
-                      Image.asset(
-                        "assets/images/coronadr.png",
-                        width: 150,
-                        fit: BoxFit.fitWidth,
-                        height: size.height * 0.4,
-                        alignment: Alignment.bottomLeft,
-                      ),
-                      Positioned(
-                          top: 70,
-                          left: 200,
-                          child: Text(
-                            "¡A cuidar!",
-                            style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 30,
-                                fontFamily: "Raleway2"),
-                          )),
-                    ],
-                  ),
+      children: <Widget>[
+        ClipPath(
+          clipper: MyClipper(),
+          child: Container(
+            height: 350,
+            width: double.infinity,
+            decoration: BoxDecoration(
+                gradient: LinearGradient(
+                  begin: Alignment.topLeft,
+                  end: Alignment.bottomRight,
+                  colors: [Colors.blue[400], Colors.blue[900]],
                 ),
+                image: DecorationImage(
+                  image: AssetImage("assets/images/starsBackGround.png"),
+                )),
+            child: Expanded(
+              child: Stack(
+                children: <Widget>[
+                  Image.asset(
+                    "assets/images/coronadr.png",
+                    width: 150,
+                    fit: BoxFit.fitWidth,
+                    height: size.height * 0.4,
+                    alignment: Alignment.bottomLeft,
+                  ),
+                  Positioned(
+                      top: 70,
+                      left: 200,
+                      child: Text(
+                        "¡A cuidar!",
+                        style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 30,
+                            fontFamily: "Raleway2"),
+                      )),
+                ],
               ),
             ),
-            SizedBox(
-              height: 30,
-            ),
-            Container(
-              child: Column(
+          ),
+        ),
+        SizedBox(
+          height: 30,
+        ),
+        Container(
+          child: Column(
+            children: <Widget>[
+              Row(
                 children: <Widget>[
-                  Row(
+                  Column(
                     children: <Widget>[
-                      Column(
-                        children: <Widget>[
-                          ButtonGoMedicinesFromCarer(),
-                          Text(
-                            "Medicamentos",
-                            style: TextStyle(
-                                color: Colors.blue[900],
-                                fontSize: 20,
-                                fontFamily: "Raleway2"),
-                          )
-                        ],
-                      ),
-                      Column(
-                        children: <Widget>[
-                          ButtonGoFormFeelsFromCarer(),
-                          Text(
-                            "Sentimientos",
-                            style: TextStyle(
-                                color: Colors.blue[900],
-                                fontSize: 20,
-                                fontFamily: "Raleway2"),
-                          )
-                        ],
-                      ),
-                     /* Column(
+                      ButtonGoCalendarFromCarer(),
+                      Text(
+                        "Calendario",
+                        style: TextStyle(
+                            color: Colors.blue[900],
+                            fontSize: 15,
+                            fontFamily: "Raleway2"),
+                      )
+                    ],
+                  ),
+                  Column(
+                    children: <Widget>[
+                      ButtonGoMedicinesFromCarer(),
+                      Text(
+                        "Medicamentos",
+                        style: TextStyle(
+                            color: Colors.blue[900],
+                            fontSize: 15,
+                            fontFamily: "Raleway2"),
+                      )
+                    ],
+                  ),
+                  Column(
+                    children: <Widget>[
+                      ButtonGoFormFeelsFromCarer(),
+                      Text(
+                        "Sentimientos",
+                        style: TextStyle(
+                            color: Colors.blue[900],
+                            fontSize: 15,
+                            fontFamily: "Raleway2"),
+                      )
+                    ],
+                  ),
+                  /* Column(
                         children: <Widget>[
                           ButtonGoMedicinesFromDoctor(idPatient: this.idPatient,),
                           Text(
@@ -103,13 +113,13 @@ class InteractionCarerPatient extends StatelessWidget {
                           )
                         ],
                       ),*/
-                    ],
-                  )
                 ],
-              ),
-            ),
-          ],
-        ));
+              )
+            ],
+          ),
+        ),
+      ],
+    ));
   }
 }
 

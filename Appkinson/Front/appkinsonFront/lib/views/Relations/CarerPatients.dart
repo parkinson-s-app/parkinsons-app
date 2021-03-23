@@ -166,7 +166,9 @@ class DoctorPatientsCustom extends State<CarerPatients> {
                               endTime, Colors.red[800], false));
                         }
                       }
-                      RoutesCarer().toCalendarCarer(context);
+                      RoutesCarer()
+                          .toInteractionCarerPatient(context, patient.id);
+                      //RoutesCarer().toCalendarCarer(context);
                     },
                     /* 
                       RoutesPatient().toCalendar(context);
