@@ -530,11 +530,11 @@ class EndPoints {
 
   Future<String> getSymptomsFormPatient(var token, var tokenID) async {
     //Map data2 = {'email': authUser.email, 'password': authUser.password};
-    var codeToken = json.decode(token);
+    
     http.Response lista = await http.get(
         endpointBack + '/api/patients/$tokenID/symptomsFormPatient',
         headers: {
-          HttpHeaders.authorizationHeader: "Bearer " + codeToken['token']
+          HttpHeaders.authorizationHeader: "Bearer " + token
         });
     //http.Response response =
     debugPrint(lista.body);
