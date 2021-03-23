@@ -4,11 +4,12 @@ import 'package:appkinsonFront/views/HomeDifferentUsers/Doctor/DoctorHomePage.da
 
 import 'package:appkinsonFront/views/Relations/DoctorPatients.dart';
 import 'package:appkinsonFront/views/Relations/interactionDoctorPatient.dart';
+import 'package:appkinsonFront/views/Report/Widget_Chart_Line.dart';
 import 'package:appkinsonFront/views/Report/Widget_Chart_Pie.dart';
 import 'package:appkinsonFront/views/Report/Widget_Chart_lineal.dart';
 import 'package:appkinsonFront/views/Report/listReports.dart';
 import 'package:appkinsonFront/views/Report/reportConfig.dart';
-import 'package:appkinsonFront/views/Report/reportRefactor.dart';
+import 'package:appkinsonFront/views/Report/Widget_Chart_Serie.dart';
 import 'package:appkinsonFront/views/profiles/Doctor/DoctorProfile.dart';
 import 'package:appkinsonFront/views/profiles/Doctor/profileEdition/ProfileEditionDoctor.dart';
 import 'package:flutter/material.dart';
@@ -32,7 +33,7 @@ class RoutesDoctor {
 
   toReportPage(BuildContext context) {
     Navigator.push(
-        context, new MaterialPageRoute(builder: (context) => WidgetPrueba()));
+        context, new MaterialPageRoute(builder: (context) => WidgetChartPie()));
   }
 
   toListReportPage(BuildContext context) {
@@ -75,26 +76,32 @@ class RoutesDoctor {
   }
 
   toReportChartPie(BuildContext context, String id, var dataPie) {
-    print(id);
-    print(dataPie);
     Navigator.push(
         context,
         new MaterialPageRoute(
-            builder: (context) => WidgetPrueba(
+            builder: (context) => WidgetChartPie(
                   id: id,
                   dataPie: dataPie,
                 )));
   }
 
-  toReportChartLineal(BuildContext context, String id, var dataPie) {
-    print(id);
-    print(dataPie);
+  toReportChartLine(BuildContext context, String id, var dataLine) {
     Navigator.push(
         context,
         new MaterialPageRoute(
-            builder: (context) => WidgetPruebaLineal(
+            builder: (context) => WidgetChartLine(
                   id: id,
-                  dataPie: dataPie,
+                  dataLine: dataLine,
+                )));
+  }
+
+  toReportChartSerie(BuildContext context, String id, var dataLine) {
+    Navigator.push(
+        context,
+        new MaterialPageRoute(
+            builder: (context) => WidgetChartSerie(
+                  id: id,
+                  dataSerie: dataLine,
                 )));
   }
 }
