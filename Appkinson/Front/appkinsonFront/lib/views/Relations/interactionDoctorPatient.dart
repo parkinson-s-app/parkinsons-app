@@ -93,7 +93,7 @@ class InteractionDoctorPatient extends StatelessWidget {
                     children: <Widget>[
                       ButtonGoMedicinesFromDoctor(idPatient: this.idPatient,),
                       Text(
-                        "Medicamentos",
+                        "Medicinas",
                         style: TextStyle(
                             color: Colors.blue[900],
                             fontSize: 20,

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:charts_flutter/flutter.dart' as charts;
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-
+import 'dart:math'as math;
 class WidgetChartLine extends StatefulWidget {
 
   var dataLine;
@@ -17,62 +17,31 @@ class _WidgetChartLineState extends State<WidgetChartLine> {
   String id;
   _WidgetChartLineState(this.dataLine,this.id);
 
+  _generateColor(){
+    var colors = [];
+    for(int i = 0; i<dataLine.length; i++){
+      Color colorItem;
+      colorItem = Color((math.Random().nextDouble() * 0xFFFFFF).toInt() << 0).withOpacity(1.0);
+      colors.add(colorItem);
+    }
+    return colors;
+  }
   _generateData(){
+    var colors = _generateColor();
+    print(dataLine);
 
-  var data = [
-    new dataLineSerie(0, 45), // mes y desfase calculado
-    new dataLineSerie(1, 56),
-    new dataLineSerie(2, 55),
-    new dataLineSerie(3, 60),
-    new dataLineSerie(4, 61),
-    new dataLineSerie(5, 70),
-  ];
-  var data1 = [
-    new dataLineSerie(0, 35),
-    new dataLineSerie(1, 46),
-    new dataLineSerie(2, 45),
-    new dataLineSerie(3, 50),
-    new dataLineSerie(4, 51),
-    new dataLineSerie(5, 60),
-  ];
+  for(int i = 0; i<dataLine.length; i++){
+    _seriesLineData.add(
+      charts.Series(
+        colorFn: (__, _) => charts.ColorUtil.fromDartColor(colors[i]),
+        id: this.id + i.toString(),
+        data: dataLine[i],
+        domainFn: (dataLineSerie dataLineSerie, _) => dataLineSerie.yearval,
+        measureFn: (dataLineSerie dataLineSerie, _) => dataLineSerie.dataLineSerieval,
+      ),
+    );
+  }
 
-  var data2 = [
-    new dataLineSerie(0, 20),
-    new dataLineSerie(1, 24),
-    new dataLineSerie(2, 25),
-    new dataLineSerie(3, 40),
-    new dataLineSerie(4, 45),
-    new dataLineSerie(5, 60),
-  ];
-
-
-  _seriesLineData.add(
-    charts.Series(
-      colorFn: (__, _) => charts.ColorUtil.fromDartColor(Color(0xff990099)),
-      id: 'Air Animo',
-      data: data,
-      domainFn: (dataLineSerie dataLineSerie, _) => dataLineSerie.yearval,
-      measureFn: (dataLineSerie dataLineSerie, _) => dataLineSerie.dataLineSerieval,
-    ),
-  );
-  _seriesLineData.add(
-    charts.Series(
-      colorFn: (__, _) => charts.ColorUtil.fromDartColor(Color(0xff109618)),
-      id: 'Air Animo',
-      data: data1,
-      domainFn: (dataLineSerie dataLineSerie, _) => dataLineSerie.yearval,
-      measureFn: (dataLineSerie dataLineSerie, _) => dataLineSerie.dataLineSerieval,
-    ),
-  );
-  _seriesLineData.add(
-    charts.Series(
-      colorFn: (__, _) => charts.ColorUtil.fromDartColor(Color(0xffff9900)),
-      id: 'Air Animo',
-      data: data2,
-      domainFn: (dataLineSerie dataLineSerie, _) => dataLineSerie.yearval,
-      measureFn: (dataLineSerie dataLineSerie, _) => dataLineSerie.dataLineSerieval,
-    ),
-  );
 }
   void initState() {
     // TODO: implement initState
