@@ -5,6 +5,7 @@ import 'package:appkinsonFront/views/HomeDifferentUsers/Doctor/DoctorHomePage.da
 import 'package:appkinsonFront/views/Relations/DoctorPatients.dart';
 import 'package:appkinsonFront/views/Relations/interactionDoctorPatient.dart';
 import 'package:appkinsonFront/views/Report/Widget_Chart_Pie.dart';
+import 'package:appkinsonFront/views/Report/Widget_Chart_lineal.dart';
 import 'package:appkinsonFront/views/Report/listReports.dart';
 import 'package:appkinsonFront/views/Report/reportConfig.dart';
 import 'package:appkinsonFront/views/Report/reportRefactor.dart';
@@ -18,31 +19,25 @@ class RoutesDoctor {
         context, new MaterialPageRoute(builder: (context) => DoctorHomePage()));
   }
 
- /* toCalendarDoctor(BuildContext context) {
+  /* toCalendarDoctor(BuildContext context) {
     Navigator.push(
         context,
         new MaterialPageRoute(
             builder: (context) => ReportConfigPage()));
   }*/
   toReportConfigPage(BuildContext context) {
-    Navigator.push(
-        context,
-        new MaterialPageRoute(
-            builder: (context) => ReportConfigPage()));
+    Navigator.push(context,
+        new MaterialPageRoute(builder: (context) => ReportConfigPage()));
   }
 
   toReportPage(BuildContext context) {
     Navigator.push(
-        context,
-        new MaterialPageRoute(
-            builder: (context) => WidgetPrueba()));
+        context, new MaterialPageRoute(builder: (context) => WidgetPrueba()));
   }
 
   toListReportPage(BuildContext context) {
     Navigator.push(
-        context,
-        new MaterialPageRoute(
-            builder: (context) => listReportPage()));
+        context, new MaterialPageRoute(builder: (context) => listReportPage()));
   }
 
   toInteractionDoctorPatient(BuildContext context, int idPatient) {
@@ -69,7 +64,6 @@ class RoutesDoctor {
         new MaterialPageRoute(builder: (context) => ProfileEditionDoctor()));
   }
 
-
   toPatientAlarmAndMedicine(BuildContext context, int idPatient) {
     print('otro idpat ${idPatient.toString()}');
     Navigator.push(
@@ -81,16 +75,26 @@ class RoutesDoctor {
   }
 
   toReportChartPie(BuildContext context, String id, var dataPie) {
-
     print(id);
     print(dataPie);
     Navigator.push(
         context,
         new MaterialPageRoute(
             builder: (context) => WidgetPrueba(
-              id: id,
-              dataPie: dataPie,
-            )));
+                  id: id,
+                  dataPie: dataPie,
+                )));
   }
 
+  toReportChartLineal(BuildContext context, String id, var dataPie) {
+    print(id);
+    print(dataPie);
+    Navigator.push(
+        context,
+        new MaterialPageRoute(
+            builder: (context) => WidgetPruebaLineal(
+                  id: id,
+                  dataPie: dataPie,
+                )));
+  }
 }
