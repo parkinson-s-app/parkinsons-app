@@ -7,6 +7,10 @@ import 'package:appkinsonFront/views/AlarmsAndMedicine/AlarmAndMedicinePage.dart
 import 'package:appkinsonFront/views/Calendar/CalendarScreenView2.dart';
 import 'package:appkinsonFront/views/DataAnalisis/ReportScreen.dart';
 import 'package:appkinsonFront/views/Game/countDownGame.dart';
+import 'package:appkinsonFront/views/HomeDifferentUsers/Admin/AdminHomePage.dart';
+import 'package:appkinsonFront/views/HomeDifferentUsers/Carer/CarerHomePage.dart';
+import 'package:appkinsonFront/views/HomeDifferentUsers/Doctor/DoctorHomePage.dart';
+import 'package:appkinsonFront/views/HomeDifferentUsers/Patient/PatientHomePage.dart';
 import 'package:appkinsonFront/views/Medicines/medicines.dart';
 import 'package:appkinsonFront/views/RelationRequest/relationsRequets.dart';
 import 'package:appkinsonFront/views/Relations/interactionDoctorPatient.dart';
@@ -59,57 +63,44 @@ void callbackDispatcher() {
 }
 */
 void callbackDispatcher() {
-    Workmanager.executeTask((task, inputData) async {
-      // print("Native called background task: $backgroundTask"); //simpleTask will be emitted here.
-      switch (task) {
-        case TASK_SET_ALARMS:
-          print("$TASK_SET_ALARMS was executed. inputData = $inputData");
-          // const ip = '18.222.20.36';
-          // const port = '9000';
-          // const endpointBack = 'http://$ip:$port';
-          // const jwtkey = "Bearer ";
-          // var token =
-          //     'eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InBhY2llbnRlQG1haWwuY29tIiwidHlwZSI6IlBhY2llbnRlIiwiaWQiOjEsImlhdCI6MTYxNjMxMTA0MX0.v-4rxSlePPwlcF7QVl1qXl1FGmzcsmGIatj7cDMtqyaPIrh3Es0MM1jtymR5rLgdrjxOlckVx3qQFba3n1Dmww';
+  Workmanager.executeTask((task, inputData) async {
+    // print("Native called background task: $backgroundTask"); //simpleTask will be emitted here.
+    switch (task) {
+      case TASK_SET_ALARMS:
+        print("$TASK_SET_ALARMS was executed. inputData = $inputData");
+        var tokenID = await Utils().getFromToken('id');
+        List<AlarmAndMedicine> alarms =
+            await EndPoints().getMedicinesAndAlarms(tokenID);
 
-          // http.Response lista = await http.get(
-          //     endpointBack + '/api/patient/relationRequest',
-          //     headers: {HttpHeaders.authorizationHeader: jwtkey + token});
-          
-          //_________________
-          
-          // var tokenID = await Utils().getFromToken('id');
-          // List<AlarmAndMedicine> alarms =
-          //     EndPoints().getMedicinesAndAlarms(int.parse(tokenID))
-          //         as List<AlarmAndMedicine>;
+        // print('Lista: ${lista.body}');
+        var dateTime = new DateTime.now();
+        for (var alarm in alarms) {
+          int hour = alarm.alarmTime.hour;
+          int minute = alarm.alarmTime.minute;
+          var dateClock = new DateTime(
+              dateTime.year, dateTime.month, dateTime.day, hour, minute);
+          var clockId = int.tryParse(
+                '${alarm.idMedicine.toString()}${alarm.id.toString()}',
+              ) ??
+              (-1);
+          String time = (dateClock.millisecondsSinceEpoch).toString();
+          bool result = await NovaAlarmPlugin.setClock(
+            time,
+            clockId,
+            title: "title: ${alarm.title}",
+            content:
+                "Tomar ${alarm.quantity} ${alarm.dose} de ${alarm.medicine}",
+          );
+          print(' ${alarm.medicine} time: $time result: ${result.toString()}');
+          await Future.delayed(Duration(seconds: 1));
+        }
+        print('finished');
+        break;
+    }
+    return Future.value(true);
+  });
+}
 
-          // // print('Lista: ${lista.body}');
-          // var dateTime = new DateTime.now();
-          // for (var alarm in alarms) {
-          //   int hour = alarm.alarmTime.hour;
-          //   int minute = alarm.alarmTime.minute;
-          //   var dateClock = new DateTime(
-          //       dateTime.year, dateTime.month, dateTime.day, hour, minute);
-          //   var clockId = int.parse(
-          //       '${alarm.idMedicine.toString()}${alarm.id.toString()}');
-          //   String time = (dateClock.millisecondsSinceEpoch).toString();
-          //   bool result = await NovaAlarmPlugin.setClock(
-          //     time,
-          //     clockId,
-          //     title: "title: ${alarm.title}",
-          //     content:
-          //         "Tomar ${alarm.quantity} ${alarm.dose} de ${alarm.medicine}",
-          //   );
-          //   print(
-          //       ' ${alarm.medicine} time: $time result: ${result.toString()}');
-          //   await Future.delayed(Duration(seconds: 1));
-          // }
-          print('finished');
-          break;
-      }
-      return Future.value(true);
-    });
-  }
-  
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
@@ -129,17 +120,40 @@ void main() async {
       debugPrint('notification payload: ' + payload);
     }
   });
-
-  runApp(MyApp());
+  String token = await Utils().getToken();
+  if (token != null) {
+    String type = await Utils().getFromToken('type');
+    runApp(MyApp(type));
+  } else {
+    runApp(MyApp(null));
+  }
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
+  final String type;
+  MyApp(this.type);
+  @override
+  _MyAppState createState() => _MyAppState(this.type);
+}
+
+class _MyAppState extends State<MyApp> {
+  String token;
+  final String type;
+  _MyAppState(this.type);
   @override
   Widget build(BuildContext context) {
-    //return new MaterialApp(
-    //  debugShowCheckedModeBanner: false, home: CalendarScreen());
-    //return new MaterialApp(debugShowCheckedModeBanner: false, home: toolbox());
-    return new MaterialApp(debugShowCheckedModeBanner: false, home: HomePage());
+    if (type == 'Cuidador') {
+      return MaterialApp(debugShowCheckedModeBanner: false, home: CarerHomePage());
+    } else if (type == 'Doctor') {
+      return MaterialApp(debugShowCheckedModeBanner: false, home: DoctorHomePage());
+    } else if (type == 'Paciente') {
+      return MaterialApp(debugShowCheckedModeBanner: false, home: PatientHomePage());
+    } else if (type == 'Admin') {
+      return MaterialApp(debugShowCheckedModeBanner: false, home: AdminHomePage());
+    } else {
+      return new MaterialApp(debugShowCheckedModeBanner: false, home: HomePage());
+    }
+
     // return new MaterialApp(debugShowCheckedModeBanner: false, home: AlarmAndMedicinePage( idPatient: 0,));
     //return new MaterialApp(debugShowCheckedModeBanner: false, home: CalendarScreenView2());
     //  return new MaterialApp(debugShowCheckedModeBanner: false, home: CountDownTimer());

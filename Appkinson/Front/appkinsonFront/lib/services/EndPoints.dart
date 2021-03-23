@@ -544,10 +544,9 @@ class EndPoints {
 
   Future<String> getUserName(var token) async {
     debugPrint("entro");
-    var codeToken = json.decode(token);
     http.Response response = await http.get(endpointBack + getNameUSer,
         headers: {
-          HttpHeaders.authorizationHeader: jwtkey + codeToken['token']
+          HttpHeaders.authorizationHeader: jwtkey + token
         });
     //debugPrint(data2.toString());
     debugPrint("-----");
@@ -558,7 +557,6 @@ class EndPoints {
 
   Future<File> getPhotoUser(var token, var path) async {
     debugPrint("entro");
-    var codeToken = json.decode(token);
     http.Response response;
 
     /*
@@ -570,7 +568,7 @@ class EndPoints {
 
     if (path != null) {
       response = await http.get(endpointBack + "/" + path, headers: {
-        HttpHeaders.authorizationHeader: jwtkey + codeToken['token'],
+        HttpHeaders.authorizationHeader: jwtkey + token,
         //HttpHeaders.hostHeader: path
       });
     }

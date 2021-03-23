@@ -2,7 +2,7 @@ import 'dart:convert';
 
 import 'package:appkinsonFront/routes/RoutesDoctor.dart';
 import 'package:appkinsonFront/services/EndPoints.dart';
-import 'package:appkinsonFront/views/Login/Buttons/ButtonLogin.dart';
+import 'package:appkinsonFront/utils/Utils.dart';
 import 'package:appkinsonFront/views/profiles/Doctor/DoctorProfileScreen.dart';
 import 'package:flutter/material.dart';
 
@@ -27,6 +27,7 @@ class _ButtonGoProfileState extends State<ButtonGoProfile> {
         onPressed: () async {
           // var doctor = await EndPoints()
           // .getCarer(user, currentUser['id'].toString(), token);
+          String token = await Utils().getToken();
           var patient = await EndPoints().getUserName(token);
 
           var codeList = json.decode(patient);

@@ -1,5 +1,6 @@
 //import 'package:appkinsonFront/views/profiles/Patient/PatientProfileScreen.dart';
 import 'package:appkinsonFront/routes/RoutesCarer.dart';
+import 'package:appkinsonFront/utils/Utils.dart';
 import 'package:appkinsonFront/views/profiles/Carer/profileEdition/ProfileEditionCarer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/screenutil.dart';
@@ -123,7 +124,7 @@ class CustomDrawer extends StatelessWidget {
                   SizedBox(
                     height: 10,
                   ),
-                  Text(nameControllerCarer.text)
+                  Text('nameControllerCarer.text')
                 ],
               )),
           Divider(
@@ -178,8 +179,9 @@ class CustomDrawer extends StatelessWidget {
             color: Colors.white,
           ),
           ListTile(
-            onTap: () {
+            onTap: () async {
               debugPrint("Tapped Log Out");
+              await Utils().logOut();
             },
             leading: Icon(Icons.exit_to_app),
             title: Text("Cerrar Sesión"),

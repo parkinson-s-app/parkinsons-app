@@ -4,6 +4,7 @@ import 'Buttons/ButtonRegister.dart';
 import 'package:flutter/services.dart';
 
 class HomePage extends StatelessWidget {
+  
   @override
   Widget build(BuildContext context) {
     SystemChrome.setPreferredOrientations([

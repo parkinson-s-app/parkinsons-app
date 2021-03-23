@@ -68,40 +68,19 @@ class Utils {
     prefs.setBool(TOKEN_TASK, true);
 
     /**------------- */
-    var tokenID = await Utils().getFromToken('id');
-    List<AlarmAndMedicine> alarms =
-        await EndPoints().getMedicinesAndAlarms(tokenID);
-
-    // print('Lista: ${lista.body}');
-    var dateTime = new DateTime.now();
-    for (var alarm in alarms) {
-      int hour = alarm.alarmTime.hour;
-      int minute = alarm.alarmTime.minute;
-      var dateClock = new DateTime(
-          dateTime.year, dateTime.month, dateTime.day, hour, minute);
-      var clockId = int.tryParse(
-            '${alarm.idMedicine.toString()}${alarm.id.toString()}',
-          ) ??
-          (-1);
-      String time = (dateClock.millisecondsSinceEpoch).toString();
-      bool result = await NovaAlarmPlugin.setClock(
-        time,
-        clockId,
-        title: "title: ${alarm.title}",
-        content: "Tomar ${alarm.quantity} ${alarm.dose} de ${alarm.medicine}",
-      );
-      print(' ${alarm.medicine} time: $time result: ${result.toString()}');
-      await Future.delayed(Duration(seconds: 1));
-    }
   }
 
   Future<void> removeBackgroundTask() async {
     print('unset task');
     final prefs = await SharedPreferences.getInstance();
     prefs.remove(TOKEN_TASK);
+    prefs.remove(TOKEN_KEY);
     Workmanager.cancelAll();
   }
-
+  Future<void> logOut() async {
+    final prefs = await SharedPreferences.getInstance();
+    prefs.remove(TOKEN_KEY);
+  }
   Future<bool> isSetBackgroundTask() async {
     final prefs = await SharedPreferences.getInstance();
     if (prefs.containsKey(TOKEN_TASK)) {
