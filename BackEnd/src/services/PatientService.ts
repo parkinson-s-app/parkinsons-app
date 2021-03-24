@@ -289,10 +289,12 @@ export default class PatientService {
                     off++;
                 }
             }
-            on = (100/size)*on;
-            off = (100/size)*off;
-            offB = (100/size)*offB;
-            onG = (100/size)*onG;
+            if (size != 0) {
+                on = (100/size)*on;
+                off = (100/size)*off;
+                offB = (100/size)*offB;
+                onG = (100/size)*onG;
+            }
             const finalResponse = {
                 on,
                 off,
