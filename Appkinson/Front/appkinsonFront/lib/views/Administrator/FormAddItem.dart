@@ -19,7 +19,7 @@ class FormItemToolboxPage extends StatefulWidget {
 class _FormItemToolboxPageState extends State {
   final _formKey = GlobalKey();
   final _ItemToolbox = ItemToolbox();
-  String dropdownValue = 'Video';
+  String dropdownValue = 'EJERCICIO';
   @override
   Widget build(BuildContext context) {
     return Scaffold(
