@@ -237,6 +237,8 @@ PatientController.get('/patient/:id/symptoms/report', verifyToken, async (req: R
     const idPatient = +req.params.id;
     const initDate = req.query.start as string;
     const endDate = req.query.end as string;
+    debug('Start get report Dates: %s to %s', initDate, endDate);
+    
     try {
         const response = await PatientService.getReportSymptomsTwoDates(idPatient, initDate, endDate);
         debug('Patient getting symptoms report. Items: %j', response);

@@ -256,6 +256,7 @@ export default class PatientService {
         let conn: Pool | undefined;
         try {
             conn = await connect();
+            debug('getting report by two dates First: %s Second: %s', initDate, endDate);
             const query = `
             SELECT 
                 Q1
