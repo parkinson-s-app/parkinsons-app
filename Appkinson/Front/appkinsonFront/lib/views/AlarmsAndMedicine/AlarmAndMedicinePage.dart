@@ -10,7 +10,7 @@ import 'package:flutter/services.dart';
 
 class AlarmAndMedicine {
   String title; // levodopa
-  String quantity; // 1 or 2 dose 1
+  int quantity; // 1 or 2 dose 1
   int periodicityQuantity; // 8
   String periodicityType; // hour or day
   String idMedicine;
@@ -164,7 +164,7 @@ class ListAlarmsAndMedicine extends State<ListAlarmsAndMedicinePatient> {
           alarmAndMedicine.dose = dose.text;
           alarmAndMedicine.idMedicine = medicineSelected;
           alarmAndMedicine.periodicityQuantity = periodiciyNumb;
-          alarmAndMedicine.quantity = quantity.text;
+          alarmAndMedicine.quantity = int.tryParse(quantity.text) ?? (-1);
           alarmAndMedicine.periodicityType = periodicityType;
           //Aquí se agrega a la lista
           String res = await EndPoints()

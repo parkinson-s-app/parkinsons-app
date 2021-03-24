@@ -7,4 +7,5 @@ export default interface IMedicine {
     idMedicine: number;
     dose: string;
     periodicityType: string;
+    quantity: number;
 }

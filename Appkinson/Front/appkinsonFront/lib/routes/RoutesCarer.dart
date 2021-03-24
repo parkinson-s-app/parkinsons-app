@@ -1,5 +1,6 @@
 import 'package:appkinsonFront/views/HomeDifferentUsers/Carer/CarerHomePage.dart';
 import 'package:appkinsonFront/views/Relations/interactionCarerPatient.dart';
+import 'package:appkinsonFront/views/ToolBox/ToolBoxInitial.dart';
 import 'package:appkinsonFront/views/profiles/Carer/CarerProfle.dart';
 import 'package:appkinsonFront/views/profiles/Carer/profileEdition/ProfileEditionCarer.dart';
 import 'package:flutter/material.dart';
@@ -28,6 +29,11 @@ class RoutesCarer {
             builder: (context) => InteractionCarerPatient(
               idPatient: idPatient,
             )));
+  }
+
+  toToolbox(BuildContext context) {
+    Navigator.push(context,
+        new MaterialPageRoute(builder: (context) => toolbox()));
   }
 
 }

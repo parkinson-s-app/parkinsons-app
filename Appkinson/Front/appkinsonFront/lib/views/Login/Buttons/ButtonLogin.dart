@@ -18,6 +18,12 @@ class ButtonLogin extends StatefulWidget {
 
 class _FormButtonLogin extends State<ButtonLogin> {
   @override
+  void initState() {
+    super.initState();
+    Utils().initWorkmanager();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Container(
       height: 50,
@@ -42,20 +48,19 @@ class _FormButtonLogin extends State<ButtonLogin> {
           */
 
           token = await EndPoints().authUser(user);
-          
+
           debugPrint(token);
           Map responseJson = json.decode(token);
-          if(responseJson["person"] != null){
+          if (responseJson["person"] != null) {
             debugPrint("contraseña invalida");
             invalid(0, context);
-          }else if(responseJson["message"] != null){
+          } else if (responseJson["message"] != null) {
             debugPrint("correo invalido");
             invalid(1, context);
-          }else{
-
-          currentUser = Utils().tokenDecoder(token);
-          
-          /*
+          } else {
+            await Utils().saveToken(responseJson['token']);
+            currentUser = Utils().tokenDecoder(token);
+            /*
           debugPrint(token);
           var lista = token.split(".");
           var payload = lista[1];
@@ -74,24 +79,28 @@ class _FormButtonLogin extends State<ButtonLogin> {
           var decoded = utf8.decode(base64.decode(payload));
           currentUser = json.decode(decoded);
           */
-          //debugPrint(currentUser['type']);
-          // debugPrint(decoded);
-          
-          if (currentUser['type'] == 'Cuidador') {
-            RoutesCarer().toCarerHome(context);
-          }
-          if (currentUser['type'] == 'Paciente') {
-            debugPrint("paciente");
-            //getRelationsRequest();
-            RoutesPatient().toPatientHome(context);
-          }
-          if (currentUser['type'] == 'Doctor') {
-            RoutesDoctor().toDoctorHome(context);
-          }
-          if (currentUser['type'] == 'Admin') {
-            RoutesAdmin().toAdminHome(context);
-          }
+            //debugPrint(currentUser['type']);
+            // debugPrint(decoded);
 
+            if (currentUser['type'] == 'Cuidador') {
+              RoutesCarer().toCarerHome(context);
+            }
+            if (currentUser['type'] == 'Paciente') {
+              bool isSetBackground = await Utils().isSetBackgroundTask();
+              if (isSetBackground) {
+                print('esta seteaada');
+              }
+              await Utils().setTaskGetAlarms();
+              debugPrint("paciente");
+              //getRelationsRequest();
+              RoutesPatient().toPatientHome(context);
+            }
+            if (currentUser['type'] == 'Doctor') {
+              RoutesDoctor().toDoctorHome(context);
+            }
+            if (currentUser['type'] == 'Admin') {
+              RoutesAdmin().toAdminHome(context);
+            }
           }
         },
         color: Colors.blue,
@@ -127,7 +136,7 @@ Widget _buildPopupDialog(BuildContext context, String invalidReason) {
           Navigator.of(context).pop();
         },
         textColor: Theme.of(context).primaryColor,
-        child: const Text('Cerrar'),
+        child: const Text('Cancelar'),
       ),
     ],
   );

@@ -7,6 +7,7 @@ import 'package:appkinsonFront/constants/Constant.dart';
 import 'package:appkinsonFront/model/EmotionsForm.dart';
 import 'package:appkinsonFront/model/SymptomsForm.dart';
 import 'package:appkinsonFront/model/SymptomsFormPatientM.dart';
+import 'package:appkinsonFront/utils/Utils.dart';
 import 'package:appkinsonFront/views/Administrator/FormAddItem.dart';
 import 'package:appkinsonFront/views/AlarmsAndMedicine/AlarmAndMedicinePage.dart';
 import 'package:appkinsonFront/views/Login/Buttons/ButtonLogin.dart';
@@ -405,6 +406,35 @@ class EndPoints {
     return alarms;
   }
 
+  Future<List<AlarmAndMedicine>> getMedicinesAndAlarms(String idPatient) async {
+    var token = await Utils().getToken();
+    http.Response lista = await http.get(
+        endpointBack + '/api/patient/$idPatient/medicineAlarm',
+        headers: {HttpHeaders.authorizationHeader: jwtkey + token});
+    String i = lista.body;
+    debugPrint(i.toString());
+    var alarmsJSON = json.decode(i);
+    List<AlarmAndMedicine> alarms = [];
+    for (var medAlarm in alarmsJSON) {
+      AlarmAndMedicine alarm = new AlarmAndMedicine();
+      //alarm.id = codeList[a]['id'];
+      String time = medAlarm['AlarmTime'];
+      alarm.title = medAlarm['Title'];
+      alarm.idMedicine = medAlarm['IdMedicine'].toString();
+      alarm.alarmTime = TimeOfDay(
+          hour: int.parse(time.split(":")[0]),
+          minute: int.parse(time.split(":")[1]));
+      alarm.medicine = medAlarm['Medicine'];
+      alarm.dose = medAlarm['Dose'];
+      alarm.periodicityQuantity = medAlarm['PeriodicityQuantity'];
+      alarm.periodicityType = medAlarm['PeriodicityType'];
+      alarm.id = medAlarm['IdPatient'];
+      alarm.quantity = medAlarm['Quantity'];
+      alarms.add(alarm);
+    }
+    return alarms;
+  }
+
   //Enviar alarmas
   Future<String> sendAlarm(String id, String title, String alarmTime,
       String isPending, var token, var tokenID) async {
@@ -500,11 +530,11 @@ class EndPoints {
 
   Future<String> getSymptomsFormPatient(var token, var tokenID) async {
     //Map data2 = {'email': authUser.email, 'password': authUser.password};
-    var codeToken = json.decode(token);
+    
     http.Response lista = await http.get(
         endpointBack + '/api/patients/$tokenID/symptomsFormPatient',
         headers: {
-          HttpHeaders.authorizationHeader: "Bearer " + codeToken['token']
+          HttpHeaders.authorizationHeader: "Bearer " + token
         });
     //http.Response response =
     debugPrint(lista.body);
@@ -514,10 +544,9 @@ class EndPoints {
 
   Future<String> getUserName(var token) async {
     debugPrint("entro");
-    var codeToken = json.decode(token);
     http.Response response = await http.get(endpointBack + getNameUSer,
         headers: {
-          HttpHeaders.authorizationHeader: jwtkey + codeToken['token']
+          HttpHeaders.authorizationHeader: jwtkey + token
         });
     //debugPrint(data2.toString());
     debugPrint("-----");
@@ -528,7 +557,6 @@ class EndPoints {
 
   Future<File> getPhotoUser(var token, var path) async {
     debugPrint("entro");
-    var codeToken = json.decode(token);
     http.Response response;
 
     /*
@@ -540,7 +568,7 @@ class EndPoints {
 
     if (path != null) {
       response = await http.get(endpointBack + "/" + path, headers: {
-        HttpHeaders.authorizationHeader: jwtkey + codeToken['token'],
+        HttpHeaders.authorizationHeader: jwtkey + token,
         //HttpHeaders.hostHeader: path
       });
     }
@@ -699,7 +727,8 @@ class EndPoints {
           '${alarmAndMedicine.alarmTime.hour}:${alarmAndMedicine.alarmTime.minute}',
       'idMedicine': alarmAndMedicine.idMedicine,
       'dose': alarmAndMedicine.dose,
-      'periodicityType': alarmAndMedicine.periodicityType
+      'periodicityType': alarmAndMedicine.periodicityType,
+      'quantity': alarmAndMedicine.quantity
     };
 
     print('entra2');

@@ -1,4 +1,5 @@
 import 'package:appkinsonFront/routes/RoutesPatient.dart';
+import 'package:appkinsonFront/utils/Utils.dart';
 import 'package:appkinsonFront/views/HomeInitial/HomePage.dart';
 import 'package:appkinsonFront/views/Login/InputFieldLogin.dart';
 import 'package:appkinsonFront/views/profiles/Patient/PatientProfileScreen.dart';
@@ -185,10 +186,9 @@ class CustomDrawer extends StatelessWidget {
               debugPrint("Tapped Log Out");
               SharedPreferences prefs = await SharedPreferences.getInstance();
               prefs?.clear(); 
-              emailController = new TextEditingController();
-              nameController = new TextEditingController();
-              password = new TextEditingController();
-              Navigator.popUntil(context, ModalRoute.withName("/"));
+              await Utils().removeBackgroundTask();
+              Navigator.popUntil(context, ModalRoute.withName("/home"));
+              //Navigator.popUntil(context, ModalRoute.withName("/"));
             },
             leading: Icon(Icons.exit_to_app),
             title: Text("Cerrar Sesión"),

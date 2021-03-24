@@ -2,7 +2,7 @@ import 'dart:convert';
 import 'dart:io';
 import 'package:appkinsonFront/routes/RoutesPatient.dart';
 import 'package:appkinsonFront/services/EndPoints.dart';
-import 'package:appkinsonFront/views/Login/Buttons/ButtonLogin.dart';
+import 'package:appkinsonFront/utils/Utils.dart';
 import 'package:appkinsonFront/views/profiles/Carer/CarerProfileScreen.dart';
 import 'package:appkinsonFront/views/profiles/Patient/PatientProfileScreen.dart';
 import 'package:flutter/material.dart';
@@ -26,6 +26,8 @@ class _ButtonGoProfileState extends State<ButtonGoProfile> {
             RoundedRectangleBorder(borderRadius: BorderRadius.circular(18.0)),
         //   side: BorderSide(color: Color.fromRGBO(0, 160, 227, 1))),
         onPressed: () async {
+          String token = await Utils().getToken();
+          print(token);
           var patient = await EndPoints().getUserName(token);
 
           var codeList = json.decode(patient);

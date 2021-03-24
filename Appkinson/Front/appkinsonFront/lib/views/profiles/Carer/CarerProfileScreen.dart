@@ -152,7 +152,7 @@ class DoctorProfileScreenP extends State<CarerProfileScreen> {
           height: 20,
         ),
         Text(
-          nameCarer,
+          'nameCarer',
           style: kTitleTextStyle,
         ),
         SizedBox(
