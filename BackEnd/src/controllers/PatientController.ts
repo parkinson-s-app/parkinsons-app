@@ -237,10 +237,17 @@ PatientController.get('/patient/:id/symptoms/report', verifyToken, async (req: R
     const idPatient = +req.params.id;
     const initDate = req.query.start as string;
     const endDate = req.query.end as string;
+    const montly = req.query.montly as string;
     debug('Start get report Dates: %s to %s', initDate, endDate);
-    
+
     try {
-        const response = await PatientService.getReportSymptomsTwoDates(idPatient, initDate, endDate);
+        let response;
+        if(montly != 'true'){
+            response = await PatientService.getReportSymptomsTwoDates(idPatient, initDate, endDate);
+
+        } else if (montly && montly == 'true') {
+            response = await montlyReport(idPatient, initDate, endDate);
+        }
         debug('Patient getting symptoms report. Items: %j', response);
         status = constants.HTTP_STATUS_OK;
         res.status(status).send(response);
@@ -251,5 +258,27 @@ PatientController.get('/patient/:id/symptoms/report', verifyToken, async (req: R
         res.status(status).send(responseError);
     }
 });
+
+async function montlyReport(idPatient: number, initDate: string, endDate: string) {
+    var before = new Date(initDate);
+    var last = new Date(endDate);
+    let resp = [];
+    while(before.getTime() < last.getTime()) {
+        let report;
+        const nDate = new Date(before.getFullYear(), before.getMonth()+1, 0 );
+        if(nDate.getTime() < last.getTime()){
+            initDate = (before.toJSON()).toString();
+            endDate = (nDate.toJSON()).toString();
+            report = await PatientService.getReportSymptomsTwoDates(idPatient, initDate, endDate);
+        } else {
+            initDate = (before.toJSON()).toString();
+            endDate = (last.toJSON()).toString();
+            report = await PatientService.getReportSymptomsTwoDates(idPatient, initDate, endDate);
+        }
+        before = new Date(before.getFullYear(), before.getMonth() +1, 1 );
+        resp.push(report);
+    }
+    return resp;
+}
 
 export default PatientController;
