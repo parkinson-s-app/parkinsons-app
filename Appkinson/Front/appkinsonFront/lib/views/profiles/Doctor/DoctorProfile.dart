@@ -185,7 +185,7 @@ class CustomDrawer extends StatelessWidget {
               SharedPreferences prefs = await SharedPreferences.getInstance();
               prefs?.clear(); 
               await Utils().removeBackgroundTask();
-              Navigator.popUntil(context, ModalRoute.withName("/"));
+              Navigator.popUntil(context, ModalRoute.withName("/home"));
             },
             leading: Icon(Icons.exit_to_app),
             title: Text("Cerrar Sesión"),
