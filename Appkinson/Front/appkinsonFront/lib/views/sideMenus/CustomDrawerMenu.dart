@@ -1,3 +1,4 @@
+import 'package:appkinsonFront/utils/Utils.dart';
 import 'package:flutter/material.dart';
 import 'package:foldable_sidebar/foldable_sidebar.dart';
 import 'package:appkinsonFront/routes/RoutesPatient.dart';
@@ -111,9 +112,7 @@ class CustomDrawerMenu extends StatelessWidget {
               debugPrint("Tapped Log Out....");
               SharedPreferences prefs = await SharedPreferences.getInstance();
               prefs?.clear(); 
-              emailController = new TextEditingController();
-              nameController = new TextEditingController();
-              password = new TextEditingController();
+              await Utils().removeBackgroundTask();
               Navigator.popUntil(context, ModalRoute.withName("/"));
             },
             leading: Icon(Icons.exit_to_app),

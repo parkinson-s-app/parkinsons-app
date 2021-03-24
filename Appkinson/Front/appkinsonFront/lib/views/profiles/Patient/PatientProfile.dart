@@ -184,7 +184,10 @@ class CustomDrawer extends StatelessWidget {
           ListTile(
             onTap: () async {
               debugPrint("Tapped Log Out");
+              SharedPreferences prefs = await SharedPreferences.getInstance();
+              prefs?.clear(); 
               await Utils().removeBackgroundTask();
+              Navigator.popUntil(context, ModalRoute.withName("/"));
               //Navigator.popUntil(context, ModalRoute.withName("/"));
             },
             leading: Icon(Icons.exit_to_app),

@@ -4,7 +4,9 @@ import 'package:appkinsonFront/views/ToolBox/AboutExcercises/Buttons/ButtonGoAbo
 import 'package:appkinsonFront/views/ToolBox/AboutFood/Buttons/ButtonGoAboutFood.dart';
 import 'package:appkinsonFront/views/ToolBox/AboutNews/Buttons/ButtonGoAboutNews.dart';
 import 'package:appkinsonFront/views/ToolBox/AboutParkinson/Buttons/ButtonGoAboutParkinson.dart';
+import 'package:appkinsonFront/views/sideMenus/CustomDrawerMenu.dart';
 import 'package:flutter/material.dart';
+import 'package:foldable_sidebar/foldable_sidebar.dart';
 import 'dart:async';
 import 'package:percent_indicator/circular_percent_indicator.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -13,12 +15,46 @@ import 'package:decimal/decimal.dart';
 
 import 'Buttons/ButtonGoGame.dart';
 
+
 class toolbox extends StatefulWidget {
   @override
   _toolbox createState() => _toolbox();
 }
 
 class _toolbox extends State<toolbox> {
+  
+  FSBStatus status;
+  
+  @override
+  Widget build(BuildContext context) {
+  return SafeArea(
+      child: Scaffold(
+        body: FoldableSidebarBuilder(status: status , drawer: CustomDrawerMenu(), screenContents: toolbox0()),
+        floatingActionButton: FloatingActionButton(
+            backgroundColor: Colors.blue[800],
+            child: Icon(
+              Icons.menu,
+              color: Colors.white,
+            ),
+            onPressed: () {
+              setState(() {
+                status = status == FSBStatus.FSB_OPEN
+                    ? FSBStatus.FSB_CLOSE
+                    : FSBStatus.FSB_OPEN;
+              });
+            }
+        ),
+      ),
+    ); 
+  }
+}
+
+class toolbox0 extends StatefulWidget {
+  @override
+  _toolbox0 createState() => _toolbox0();
+}
+
+class _toolbox0 extends State<toolbox0> {
   String muestrePasos = "0";
   String _km = "0";
   String _calories = "0";
