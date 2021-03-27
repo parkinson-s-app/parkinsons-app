@@ -1,7 +1,7 @@
 import 'package:appkinsonFront/routes/RoutesAdmin.dart';
 import 'package:appkinsonFront/services/EndPoints.dart';
+import 'package:appkinsonFront/utils/Utils.dart';
 import 'package:appkinsonFront/views/Administrator/ListItemsAdministrator.dart';
-import 'package:appkinsonFront/views/Login/Buttons/ButtonLogin.dart';
 import 'package:flutter/material.dart';
 
 class ButtonGoCheckUsers extends StatelessWidget {
@@ -16,9 +16,10 @@ class ButtonGoCheckUsers extends StatelessWidget {
             RoundedRectangleBorder(borderRadius: BorderRadius.circular(18.0)),
         //   side: BorderSide(color: Color.fromRGBO(0, 160, 227, 1))),
         onPressed: () async {
-
-          items = await EndPoints().getItemsToolbox(currentUser['id'].toString(), token);
-            RoutesAdmin().toListItems(context);
+          String id = await Utils().getFromToken('id');
+          String token = await Utils().getToken();
+          items = await EndPoints().getItemsToolbox(id, token);
+          RoutesAdmin().toListItems(context);
         },
         padding: EdgeInsets.symmetric(horizontal: 10),
         color: Colors.grey[50],

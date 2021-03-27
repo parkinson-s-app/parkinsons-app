@@ -143,37 +143,17 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     if (type == 'Cuidador') {
-      return MaterialApp(debugShowCheckedModeBanner: false, home: CarerHomePage(),   
-      initialRoute: '/home',
-      routes: {
-        '/home': (context) => HomePage(),
-      },);
+      return MaterialApp(debugShowCheckedModeBanner: false, home: CarerHomePage(),);
     } else if (type == 'Doctor') {
-      return MaterialApp(debugShowCheckedModeBanner: false, home: DoctorHomePage(),
-        initialRoute: '/home',
-      routes: {
-        '/home': (context) => HomePage(),
-      },);
+      return MaterialApp(debugShowCheckedModeBanner: false, home: DoctorHomePage(),);
     } else if (type == 'Paciente') {
-      return MaterialApp(debugShowCheckedModeBanner: false, home: PatientHomePage(),
-        initialRoute: '/home',
-      routes: {
-        '/home': (context) => HomePage(),
-      },);
+      return MaterialApp(debugShowCheckedModeBanner: false, home: PatientHomePage(),);
     } else if (type == 'Admin') {
-      return MaterialApp(debugShowCheckedModeBanner: false, home: AdminHomePage(),
-        initialRoute: '/home',
-      routes: {
-        '/home': (context) => HomePage(),
-      },);
+      return MaterialApp(debugShowCheckedModeBanner: false, home: AdminHomePage(),);
     } else {
-      return new MaterialApp(debugShowCheckedModeBanner: false, home: HomePage(),
-        initialRoute: '/home',
-      routes: {
-        '/home': (context) => HomePage(),
-      },);
+      return new MaterialApp(debugShowCheckedModeBanner: false, home: HomePage(),);
     }
-
+    
     // return new MaterialApp(debugShowCheckedModeBanner: false, home: AlarmAndMedicinePage( idPatient: 0,));
     //return new MaterialApp(debugShowCheckedModeBanner: false, home: CalendarScreenView2());
     //  return new MaterialApp(debugShowCheckedModeBanner: false, home: CountDownTimer());

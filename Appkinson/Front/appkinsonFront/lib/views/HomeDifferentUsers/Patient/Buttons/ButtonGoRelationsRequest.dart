@@ -1,7 +1,7 @@
 import 'package:appkinsonFront/routes/RoutesPatient.dart';
 import 'package:appkinsonFront/services/EndPoints.dart';
-import 'package:appkinsonFront/views/Login/Buttons/ButtonLogin.dart';
 import 'package:appkinsonFront/views/RelationRequest/relationsRequets.dart';
+import 'package:appkinsonFront/utils/Utils.dart';
 
 import 'package:flutter/material.dart';
 
@@ -19,7 +19,7 @@ class ButtonGoRelationsRequest extends StatelessWidget {
         //RoundedRectangleBorder(borderRadius: BorderRadius.circular(18.0)),
         //   side: BorderSide(color: Color.fromRGBO(0, 160, 227, 1))),
         onPressed: () async {
-         
+          String token = await Utils().getToken();
          //items =  getListRelationsRequest();
           items = await EndPoints().getRelationRequest(token);
           debugPrint(items.length.toString());
