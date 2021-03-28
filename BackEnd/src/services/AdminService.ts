@@ -2,6 +2,8 @@ import { connect } from "../database";
 import debugLib from 'debug';
 import { Pool } from "mysql2/promise";
 import IToolboxItemDto from "../models/IToolboxItemDto";
+import * as nodemailer from 'nodemailer';
+import config from "../config";
 
 const debug = debugLib('AppKinson:AdminService');
 
@@ -73,6 +75,33 @@ export default class AdminService {
             }
             debug('save toolbox item Error: %s', e);
             throw e;
+        }
+    }
+
+    public static async sendEmail(email: string) {
+        debug(' Reset password email: %s', email);
+        const transport = nodemailer.createTransport({
+            // host: config.hostEmail,
+            // port: config.portEmail as number,
+            service: 'gmail',
+            auth: {
+               user: config.userEmail,
+               pass: config.passwordEmail
+            }
+        });
+        const message = {
+            from: config.userEmail, //'elonmusk@tesla.com', // Sender address
+            to: email,         // List of recipients
+            subject: 'Design Your Model S | Tesla', // Subject line
+            text: 'Have the most fun you can in a car. Get your Tesla today!' // Plain text body
+        };
+        try {
+            const result = await transport.sendMail(message);
+            debug('Confirmation sent. Email: %s', email);
+            return result;
+        } catch (error) {
+            debug('Error sending email: %s, error: %j', email, error);
+            throw error;            
         }
     }
 }

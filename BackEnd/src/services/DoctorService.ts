@@ -71,9 +71,14 @@ export default class DoctorService {
         let conn: Pool | undefined;
         try {
             conn = await connect();
-            const query = `SELECT *
-            FROM patients 
-            WHERE ID_USER NOT IN 
+            const query = `SELECT 
+            p.ID_USER as IdUser,
+            p.NAME as Name,
+            u.EMAIL as Email
+            FROM patients as p
+            INNER JOIN users as u
+            ON u.ID = p.ID_USER
+            WHERE p.ID_USER NOT IN 
             ( SELECT ID_PATIENT
                 FROM patientxdoctor 
                 WHERE ID_DOCTOR = ? )`;

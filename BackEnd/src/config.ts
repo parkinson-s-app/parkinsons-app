@@ -7,5 +7,9 @@ export default {
     connectionLimit: process.env.CON_LIMIT || 10,
     port: process.env.PORT || '9000',
     portDB: process.env.PORTDB || 3306,
-    secretKey: process.env.SECRET_KEY || 'supersecretkey'
+    secretKey: process.env.SECRET_KEY || 'supersecretkey',
+    userEmail: process.env.USER_EMAIL || 'userFake',
+    passwordEmail: process.env.PASSWORD_EMAIL || 'passFake',
+    hostEmail: process.env.HOST_EMAIL || 'smtp.mailtrap.io',
+    portEmail: process.env.PORT_EMAIL || 2525
 };

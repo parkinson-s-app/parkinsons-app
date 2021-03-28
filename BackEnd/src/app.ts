@@ -1,4 +1,4 @@
-import debug from 'debug';
+import debugLib from 'debug';
 import e from 'express';
 import express, { Request, Response } from 'express';
 import logger from 'morgan';
@@ -16,6 +16,7 @@ import { verifyToken } from './utilities/AuthUtilities';
 const app = express();
 const apiPath = config.apiPath;
 const fullApiPath = `${apiPath}/api`;
+const debug = debugLib('AppKinson:AdminService');
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({extended: false}));
@@ -40,7 +41,7 @@ app.use((error: any, req: Request,res: Response, next: any) => {
     const msgRsErrorDto = DefaultResponseDto.getErrorFromMessage(JSON.stringify(error.message), error.statusCode);
     res.status(Number(msgRsErrorDto.status)).send(msgRsErrorDto);
     } else{
-        console.log(error);
+        debug('Error entry, %s',error);
         res.status(500).send(error);
     }
 });
