@@ -3,10 +3,15 @@ import 'Buttons/ButtonGoPatientList.dart';
 import 'Buttons/ButtonGoProfile.dart';
 
 class DoctorHomePage extends StatelessWidget {
+  bool shouldPop = false;
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-    return Scaffold(
+    return WillPopScope(
+      onWillPop: () async {
+        return shouldPop;
+      },
+    child: Scaffold(
         body: Column(
       children: <Widget>[
         ClipPath(
@@ -86,7 +91,7 @@ class DoctorHomePage extends StatelessWidget {
           ),
         ),
       ],
-    ));
+    )));
   }
 }
 

@@ -1,7 +1,6 @@
 import 'package:appkinsonFront/routes/RoutesPatient.dart';
 import 'package:appkinsonFront/utils/Utils.dart';
 import 'package:appkinsonFront/views/HomeInitial/HomePage.dart';
-import 'package:appkinsonFront/views/Login/InputFieldLogin.dart';
 import 'package:appkinsonFront/views/profiles/Patient/PatientProfileScreen.dart';
 import 'package:appkinsonFront/views/profiles/Patient/profileEdition/ProfileEditionPatient.dart';
 import 'package:flutter/material.dart';
@@ -187,7 +186,8 @@ class CustomDrawer extends StatelessWidget {
               SharedPreferences prefs = await SharedPreferences.getInstance();
               prefs?.clear(); 
               await Utils().removeBackgroundTask();
-              Navigator.popUntil(context, ModalRoute.withName("/home"));
+              Navigator.pushReplacement(context,
+                MaterialPageRoute(builder: (BuildContext ctx) => HomePage()));
               //Navigator.popUntil(context, ModalRoute.withName("/"));
             },
             leading: Icon(Icons.exit_to_app),

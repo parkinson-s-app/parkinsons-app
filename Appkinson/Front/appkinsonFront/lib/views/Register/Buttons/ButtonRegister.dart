@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import '../../../services/EndPoints.dart';
 import '../InputFieldRegister.dart';
 import '../../Login/LoginPage.dart';
+import 'package:email_validator/email_validator.dart';
 
 class ButtonRegister extends StatefulWidget {
   @override
@@ -40,7 +41,7 @@ class ButtonRegisterCustom extends State<ButtonRegister> {
           bool hasSpecialCharacters = false;
           debugPrint(user.password.length.toString());
             debugPrint("Validando condiciones");
-            if (user.email.toString().contains('@')) {
+            if (EmailValidator.validate(user.email)) {
               debugPrint("correo valido");
               if (/*mas de 8 char*/ user.password.toString().length > 7) {
                 if(user.passwordVerify.toString() == user.password.toString()){

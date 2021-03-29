@@ -4,7 +4,7 @@ import 'dart:io';
 import 'package:appkinsonFront/model/SymptomsFormPatientM.dart';
 import 'package:appkinsonFront/routes/RoutesPatient.dart';
 import 'package:appkinsonFront/services/EndPoints.dart';
-import 'package:appkinsonFront/views/Login/Buttons/ButtonLogin.dart';
+import 'package:appkinsonFront/utils/Utils.dart';
 import 'package:appkinsonFront/views/SymptomsFormPatient/SymptomsFormPatientQ5ON.dart';
 import 'package:appkinsonFront/views/videoScreen/videoScreenDoctor.dart';
 import 'package:flutter/material.dart';
@@ -152,6 +152,7 @@ class _Calendar extends State<CalendarScreenView2Doctor> {
 
                         //onPressed: _incrementColorIndex,
                         onPressed: () async {
+                          String token = await Utils().getToken();
                           var video =
                               await EndPoints().getVideoUser(token, pathVideo);
                           this.setState(() {
@@ -186,11 +187,12 @@ class _Calendar extends State<CalendarScreenView2Doctor> {
                             //patientForm.q5 = BringAnswerPatientQ4().send();
                             patientForm.video = fileMedia;
                             patientForm.formDate = dateChoosed;
-
+                            String id = await Utils().getFromToken('id');
+                            String token = await Utils().getToken();
                             debugPrint('enviado');
                             var savedDone = await EndPoints()
                                 .registerSymptomsFormPatient(patientForm,
-                                    currentUser['id'].toString(), token);
+                                    id, token);
 
                             debugPrint(savedDone.toString());
 
@@ -316,7 +318,7 @@ class _Calendar extends State<CalendarScreenView2Doctor> {
                                 setState(() {
                                   isLoading = true;
                                 });
-
+                                String token = await Utils().getToken();
                                 var savedDone = await EndPoints()
                                     .registerSymptomsFormPatient(
                                         patientForm, idCurrent, token);

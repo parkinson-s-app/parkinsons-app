@@ -4,6 +4,7 @@ import 'package:appkinsonFront/views/ToolBox/ToolBoxInitial.dart';
 import 'package:appkinsonFront/views/profiles/Carer/CarerProfle.dart';
 import 'package:appkinsonFront/views/profiles/Carer/profileEdition/ProfileEditionCarer.dart';
 import 'package:flutter/material.dart';
+import '../views/Relations/DoctorPatientAdd.dart';
 
 class RoutesCarer {
   toCarerHome(BuildContext context) {
@@ -14,6 +15,11 @@ class RoutesCarer {
   toCarerProfile(BuildContext context) {
     Navigator.push(
         context, new MaterialPageRoute(builder: (context) => MyHomePage3()));
+  }
+
+  toAddUser(BuildContext context) {
+    Navigator.push(context,
+        new MaterialPageRoute(builder: (context) => DoctorPatientsAdd()));
   }
 
   toCarerEditProfile(BuildContext context) {

@@ -1,11 +1,11 @@
 import 'package:appkinsonFront/routes/RoutesGeneral.dart';
 import 'package:appkinsonFront/routes/RoutesPatient.dart';
+import 'package:appkinsonFront/utils/Utils.dart';
 import 'package:appkinsonFront/views/RelationRequest/request.dart';
 import 'package:appkinsonFront/views/RelationRequest/request_item_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:appkinsonFront/services/EndPoints.dart';
-import 'package:appkinsonFront/views/Login/Buttons/ButtonLogin.dart';
 
 import 'package:foldable_sidebar/foldable_sidebar.dart';
 import '../sideMenus/CustomDrawerMenu.dart';
@@ -106,7 +106,11 @@ class RelationsRequest extends StatefulWidget {
 
   void removeItem(int index) {
     RelationRequest rq = items[index];
-    EndPoints().sendResponseRelation('ACCEPT', rq.sender, rq.id.toString(), token);
+    
+    debugPrint("bandera");
+    debugPrint(rq.id.toString());
+    debugPrint(rq.sender);
+    EndPoints().sendResponseRelation('ACCEPT', rq.sender, rq.id.toString());
     final item = items.removeAt(index);
     
     key.currentState.removeItem(
@@ -117,7 +121,7 @@ class RelationsRequest extends StatefulWidget {
   void removeItem2(int index) {
     debugPrint("Entra");
     RelationRequest rq = items[index];
-    EndPoints().sendResponseRelation('DENIED', rq.sender, rq.id.toString(), token);
+    EndPoints().sendResponseRelation('DENIED', rq.sender, rq.id.toString());
     final item = items.removeAt(index);
 
     key.currentState.removeItem(
@@ -125,4 +129,9 @@ class RelationsRequest extends StatefulWidget {
           (context, animation) => buildItem(item, index, animation),
     );
   }
+}
+
+getToken() async {
+  String token = await Utils().getToken();
+  return token;
 }

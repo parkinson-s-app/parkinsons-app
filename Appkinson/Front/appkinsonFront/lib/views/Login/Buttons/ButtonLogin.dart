@@ -81,7 +81,9 @@ class _FormButtonLogin extends State<ButtonLogin> {
           */
             //debugPrint(currentUser['type']);
             // debugPrint(decoded);
-
+            
+            TextEditingController emailController = new TextEditingController();
+            TextEditingController password = new TextEditingController();
             if (currentUser['type'] == 'Cuidador') {
               RoutesCarer().toCarerHome(context);
             }

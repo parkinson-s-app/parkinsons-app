@@ -1,9 +1,9 @@
 import 'dart:convert';
 import 'package:appkinsonFront/model/User.dart';
 import 'package:appkinsonFront/services/EndPoints.dart';
+import 'package:appkinsonFront/utils/Utils.dart';
 import 'package:appkinsonFront/views/profiles/Carer/CarerProfileScreen.dart';
 import 'package:flutter/material.dart';
-import 'package:appkinsonFront/views/Login/Buttons/ButtonLogin.dart';
 
 class ProfileEditionCarer extends StatefulWidget {
   @override
@@ -61,8 +61,10 @@ class __ProfileEdition extends State<ProfileEditionCarer> {
           debugPrint(currentUser['id'].toString());
 
           */
+          String id = await Utils().getFromToken('id');
+          String token = await Utils().getToken();
           String save = await EndPoints()
-              .modifyUsers(user, currentUser['id'].toString(), token);
+              .modifyUsers(user, id, token);
           debugPrint(save);
 
           setState(() {

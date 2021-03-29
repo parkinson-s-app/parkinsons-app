@@ -8,10 +8,16 @@ import 'Buttons/ButtonGoToolBox.dart';
 import 'Buttons/ButtonGoWeeklyForm.dart';
 
 class PatientHomePage extends StatelessWidget {
+  bool shouldPop = false;
   @override
   Widget build(BuildContext context) {
+    
     Size size = MediaQuery.of(context).size;
-    return Scaffold(
+    return WillPopScope(
+      onWillPop: () async {
+        return shouldPop;
+      },
+    child: Scaffold(
       body: Column(
       children: <Widget>[
         ClipPath(
@@ -158,6 +164,7 @@ class PatientHomePage extends StatelessWidget {
         ),
       ],
     ),
+    )
     );
   }
 }

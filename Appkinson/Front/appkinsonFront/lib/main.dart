@@ -142,16 +142,18 @@ class _MyAppState extends State<MyApp> {
   _MyAppState(this.type);
   @override
   Widget build(BuildContext context) {
+    
     if (type == 'Cuidador') {
-      return MaterialApp(debugShowCheckedModeBanner: false, home: CarerHomePage(),);
+      return MaterialApp(debugShowCheckedModeBanner: false, home: CarerHomePage());
     } else if (type == 'Doctor') {
-      return MaterialApp(debugShowCheckedModeBanner: false, home: DoctorHomePage(),);
+      return MaterialApp(debugShowCheckedModeBanner: false, home: DoctorHomePage());
     } else if (type == 'Paciente') {
-      return MaterialApp(debugShowCheckedModeBanner: false, home: PatientHomePage(),);
+      return MaterialApp(debugShowCheckedModeBanner: false, home: PatientHomePage());
     } else if (type == 'Admin') {
-      return MaterialApp(debugShowCheckedModeBanner: false, home: AdminHomePage(),);
+      return MaterialApp(debugShowCheckedModeBanner: false, home: AdminHomePage());
     } else {
-      return new MaterialApp(debugShowCheckedModeBanner: false, home: HomePage(),);
+       
+      return new MaterialApp(debugShowCheckedModeBanner: false, home: HomePage());
     }
     
     // return new MaterialApp(debugShowCheckedModeBanner: false, home: AlarmAndMedicinePage( idPatient: 0,));

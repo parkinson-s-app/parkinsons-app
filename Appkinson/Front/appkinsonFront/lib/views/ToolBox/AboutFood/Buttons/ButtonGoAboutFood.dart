@@ -1,8 +1,8 @@
 import 'package:appkinsonFront/routes/RoutesAdmin.dart';
 import 'package:appkinsonFront/routes/RoutesGeneral.dart';
 import 'package:appkinsonFront/services/EndPoints.dart';
+import 'package:appkinsonFront/utils/Utils.dart';
 import 'package:appkinsonFront/views/Administrator/FormAddItem.dart';
-import 'package:appkinsonFront/views/Login/Buttons/ButtonLogin.dart';
 import 'package:flutter/material.dart';
 
 import '../FoodList.dart';
@@ -23,8 +23,10 @@ class ButtonGoAboutFood extends StatelessWidget {
         //   side: BorderSide(color: Color.fromRGBO(0, 160, 227, 1))),
         onPressed: () async {
           ItemToolbox itemToolbox = new ItemToolbox();
+          String token = await Utils().getToken();
+          String id = await Utils().getFromToken('id');
           itemsByType = await EndPoints()
-              .getItemsToolbox(currentUser['id'].toString(), token);
+              .getItemsToolbox(id, token);
           print(itemsByType.length);
           for (int i = 0; i < itemsByType.length; i++) {
             itemToolbox = itemsByType[i];

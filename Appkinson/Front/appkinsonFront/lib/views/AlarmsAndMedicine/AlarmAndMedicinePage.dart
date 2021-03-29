@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'package:appkinsonFront/routes/RoutesDoctor.dart';
 import 'package:appkinsonFront/routes/RoutesPatient.dart';
 import 'package:appkinsonFront/services/EndPoints.dart';
-import 'package:appkinsonFront/views/Login/Buttons/ButtonLogin.dart';
+import 'package:appkinsonFront/utils/Utils.dart';
 import 'package:appkinsonFront/views/Medicines/medicines.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -172,7 +172,7 @@ class ListAlarmsAndMedicine extends State<ListAlarmsAndMedicinePatient> {
           print('response save medicine: $res');
           //Navigator.pop(context);
           items = await EndPoints()
-              .getMedicinesAlarms(idPatient, token);
+              .getMedicinesAlarms(idPatient, getToken());
           RoutesPatient().toScheduleMedicines(context, idPatient);
         },
         color: Colors.blue,
@@ -267,7 +267,7 @@ class ListAlarmsAndMedicine extends State<ListAlarmsAndMedicinePatient> {
     Medicine med0 = new Medicine.filled("Seleccione una medicina", 0);
     _medicines.add(med0);
     // Medicine med0, med2, med3;
-    String medicinesInBackJSON = await EndPoints().getMedicines(token);
+    String medicinesInBackJSON = await EndPoints().getMedicines(getToken());
     var medicinesInBack = json.decode(medicinesInBackJSON);
     for (var medicine in medicinesInBack) {
       print('med: ${medicine.toString()}');
@@ -310,4 +310,9 @@ class Medicine {
     this.name = name;
     this.idMedicine = idMedicine;
   }
+}
+
+getToken() async {
+  String token = await Utils().getToken();
+  return token;
 }

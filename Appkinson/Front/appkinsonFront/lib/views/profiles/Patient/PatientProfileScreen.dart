@@ -4,7 +4,7 @@ import 'package:appkinsonFront/model/User.dart';
 import 'package:appkinsonFront/routes/RoutesGeneral.dart';
 import 'package:appkinsonFront/routes/RoutesPatient.dart';
 import 'package:appkinsonFront/services/EndPoints.dart';
-import 'package:appkinsonFront/views/Login/Buttons/ButtonLogin.dart';
+import 'package:appkinsonFront/utils/Utils.dart';
 import 'package:appkinsonFront/views/Login/InputFieldLogin.dart';
 import 'package:appkinsonFront/views/profiles/Patient/profileEdition/ProfileEditionPatient.dart';
 import 'package:flutter/cupertino.dart';
@@ -44,8 +44,10 @@ class PatientProfileScreenP extends State<PatientProfileScreen> {
       imageFilePatient = picture;
     });
     var newUser = new User(photo: imageFilePatient);
+    String id = await Utils().getFromToken('id');
+    String token = await Utils().getToken();
     String save = await EndPoints()
-        .modifyUsersPhoto(newUser, currentUser['id'].toString(), token);
+        .modifyUsersPhoto(newUser, id, token);
     RoutesGeneral().toPop(context);
   }
 
@@ -57,8 +59,10 @@ class PatientProfileScreenP extends State<PatientProfileScreen> {
     });
 
     var newUser = new User(photo: imageFilePatient);
+    String id = await Utils().getFromToken('id');
+    String token = await Utils().getToken();
     String save = await EndPoints()
-        .modifyUsersPhoto(newUser, currentUser['id'].toString(), token);
+        .modifyUsersPhoto(newUser, id, token);
     RoutesGeneral().toPop(context);
   }
 

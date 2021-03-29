@@ -8,6 +8,7 @@ import 'package:line_awesome_flutter/line_awesome_flutter.dart';
 import 'package:foldable_sidebar/foldable_sidebar.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:swipedetector/swipedetector.dart';
+import '../../HomeInitial/HomePage.dart';
 
 import 'DoctorProfileScreen.dart';
 
@@ -135,6 +136,7 @@ class CustomDrawer extends StatelessWidget {
           ListTile(
             onTap: () {
               debugPrint("Tapped Profile");
+              
             },
             leading: Icon(Icons.person),
             title: Text(
@@ -185,7 +187,8 @@ class CustomDrawer extends StatelessWidget {
               SharedPreferences prefs = await SharedPreferences.getInstance();
               prefs?.clear(); 
               await Utils().removeBackgroundTask();
-              Navigator.popUntil(context, ModalRoute.withName("/home"));
+              Navigator.pushReplacement(context,
+                MaterialPageRoute(builder: (BuildContext ctx) => HomePage()));
             },
             leading: Icon(Icons.exit_to_app),
             title: Text("Cerrar Sesión"),

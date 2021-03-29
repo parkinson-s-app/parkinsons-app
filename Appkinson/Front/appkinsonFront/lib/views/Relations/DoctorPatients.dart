@@ -3,9 +3,10 @@ import 'dart:convert';
 import 'package:appkinsonFront/routes/RoutesDoctor.dart';
 import 'package:appkinsonFront/routes/RoutesPatient.dart';
 import 'package:appkinsonFront/services/EndPoints.dart';
+import 'package:appkinsonFront/utils/Utils.dart';
 //import 'package:appkinsonFront/views/Calendar/CalendarScreenView2.dart';
 import 'package:appkinsonFront/views/Calendar/CalendarScreenView2Doctor.dart';
-import 'package:appkinsonFront/views/Login/Buttons/ButtonLogin.dart';
+import 'package:appkinsonFront/views/ToolBox/AboutExcercises/ExcercisesList.dart';
 import 'package:flutter/material.dart';
 import '../../model/User.dart';
 
@@ -19,6 +20,7 @@ var codeListPatients;
 class DoctorPatientsCustom extends State<DoctorPatients> {
   final TextEditingController addPatientController =
       new TextEditingController();
+  final TextEditingController editingController = new TextEditingController();
   final GlobalKey<FormState> _keyDialogForm = new GlobalKey<FormState>();
   List<User> patients = [];
 
@@ -51,32 +53,26 @@ class DoctorPatientsCustom extends State<DoctorPatients> {
     List<User> _patients = [];
     User patient;
     //Pedir lista de pacientes relacionados
+    String tipe = await Utils().getFromToken('type');
+    String id = await Utils().getFromToken('id');
+    String token = await Utils().getToken();
     debugPrint("pidiendo pacientes");
-    var patientsAux = await EndPoints().linkedUser(
-        currentUser['id'].toString(), token, currentUser['type'].toString());
-    debugPrint("pacientes pedidos");
+    debugPrint(id);
+    debugPrint(tipe);
+    debugPrint(token);
+    var patientsAux = await EndPoints().linkedUser(token, tipe);
     codeListPatients = json.decode(patientsAux);
     //List<User> patients = [];
+    debugPrint(codeListPatients.toString());
     for (var a = 0; a < codeListPatients.length; a++) {
       //patients.add(codeList[a]['EMAIL']);
       patient = new User();
       patient.email = codeListPatients[a]['EMAIL'];
       patient.id = codeListPatients[a]['ID_USER'];
       _patients.add(patient);
+      debugPrint("agregando paciente....");
+      debugPrint(patient.email);
     }
-    /*
-    for (var a = 0; a < patientsAux.length; a++) {
-      User u = new User();
-      u.email = patientsAux[a]['ID_USER'];
-      _patients.add(u);
-      debugPrint("------");
-      debugPrint(u.email);
-    }
-    */
-    /*User usuarioAux;
-    usuarioAux.name = "Usuario Auxiliar";
-    usuarioAux.email ="h@h.com";
-    _patients.add(usuarioAux);*/
     setState(() {
       patients = _patients;
     });
@@ -88,21 +84,29 @@ class DoctorPatientsCustom extends State<DoctorPatients> {
       child: Scaffold(
         appBar: AppBar(
           title: Text('Pacientes'),
-          actions: <Widget>[
-            IconButton(
-              icon: Icon(Icons.search, color: Colors.white),
-              onPressed: () {},
-            )
-          ],
         ),
-        body: Container(
+        
+        body: SingleChildScrollView(
             child: Column(
+            key: UniqueKey(),
           children: <Widget>[
-            /*Expanded(
-                  child: PatientsList(patients),
-                ),*/
-            ListView.builder(
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: TextField(
+                onChanged: (value) {
+                  //filterSearchResults(value);
+                },
+                controller: editingController,
+                decoration: InputDecoration(
+                    hintText: "Buscar",
+                    prefixIcon: Icon(Icons.search),
+                    border: OutlineInputBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(25.0)))),
+              ),
+            ),
+            ListView.separated(
               shrinkWrap: true,
+              physics: NeverScrollableScrollPhysics(),
               itemCount: patients.length,
               itemBuilder: (context, index) {
                 User patient = patients[index];
@@ -112,60 +116,34 @@ class DoctorPatientsCustom extends State<DoctorPatients> {
                       meetings = <Meeting>[];
                       //SymptomsFormPatientM m= await EndPoints().getSymptomsFormPatient(token,currentUser['id'].toString());\
                       selectId = patient.id.toString();
-                      /* for (var a = 0; a < codeListPatients.length; a++) {
-                        //patients.add(codeList[a]['EMAIL']);
-
-                        if (codeListPatients[a]['EMAIL'] == patient.email) {
-                          selectId = codeListPatients[a]['ID_USER'].toString();
-                        }
-                      } */
-                  /*    String m = await EndPoints()
-                          .getSymptomsFormPatient(token, selectId);
-                      //final DateTime today = DateTime.now();
-                      listPacientes = m;
-
-                      var codeList = json.decode(m);
-                      //List<String> patients = [];
-                      for (var a = 0; a < codeList.length; a++) {
-                        //patients.add(codeList[a]['EMAIL']);
-                        DateTime dateBd =
-                            DateTime.parse(codeList[a]['formdate']);
-                        final DateTime startTime = DateTime(dateBd.year,
-                            dateBd.month, dateBd.day, dateBd.hour, 0, 0);
-                        final DateTime endTime =
-                            startTime.add(const Duration(hours: 1));
-                        if (codeList[a]['Q1'] == 'on') {
-                          meetings.add(Meeting(
-                              'on', startTime, endTime, Colors.green, false));
-                        }
-                        if (codeList[a]['Q1'] == 'off') {
-                          meetings.add(Meeting(
-                              'off', startTime, endTime, Colors.red, false));
-                        }
-                        if (codeList[a]['Q1'] == 'on bueno') {
-                          meetings.add(Meeting('on bueno', startTime, endTime,
-                              Colors.green[700], false));
-                        }
-                        if (codeList[a]['Q1'] == 'off malo') {
-                          meetings.add(Meeting('off malo', startTime, endTime,
-                              Colors.red[800], false));
-                        }
-                      }
-                      RoutesDoctor().toCalendarDoctor(context);
-                    },*/
-
-                      RoutesPatient().toCalendar(context);
+                      //RoutesPatient().toCalendar(context);
                       print(patients[index]);
                       //RoutesDoctor().toPatientAlarmAndMedicine(context, patient.id);
                       print('patient list ${patient.id.toString()}');
                       RoutesDoctor()
                           .toInteractionDoctorPatient(context, patient.id);
                     },
-                    title: Text(patient.email),
+                    title: Text(patient.email, style: DefaultTextStyle.of(context).style.apply(fontSizeFactor: 1.5)),
                     //subtitle: Text(user.email),
                     leading: CircleAvatar(
                       child: Icon(Icons.account_circle_outlined),
-                    ));
+                    ),
+                    trailing: TextButton(
+                      onPressed: () async{
+                        debugPrint("eliminar");
+                        EndPoints().unlinkedPatient(patient.id.toString());
+                        setState(() {
+                          patients.remove(patient); 
+                        });
+                      },
+                      child: Icon(Icons.delete_forever, size: 40),
+                  ),
+                  contentPadding: EdgeInsets.symmetric(vertical: 16.0, horizontal: 16.0),
+                  dense:true,  
+                );
+              },
+              separatorBuilder: (context, index){
+                return Divider(thickness: 2, color: Colors.blue[700], indent: 10, endIndent: 10);
               },
             ),
             
@@ -181,7 +159,8 @@ class DoctorPatientsCustom extends State<DoctorPatients> {
                   color: Colors.white,
                 ),
               onPressed: () {
-                addUser();
+                //addUser();
+                RoutesDoctor().toAddUser(context);
                 debugPrint(addPatientController.text);
               },            
             ),
@@ -243,11 +222,13 @@ class DoctorPatientsCustom extends State<DoctorPatients> {
                     var decoded = utf8.decode(base64.decode(payload));
                     currentUser = json.decode(decoded);
                     */
-
-                    debugPrint(currentUser['id'].toString());
+                    String tipe = await Utils().getFromToken('type');
+                    String id = await Utils().getFromToken('id');
+                    String token = await Utils().getToken();
+                    debugPrint(id);
                     var response = await EndPoints().linkUser(
                         addPatientController.text,
-                        currentUser['type'].toString(),
+                        tipe,
                         token);
                     getPatients();
                     debugPrint(response.toString());
@@ -276,12 +257,13 @@ class DoctorPatientsCustom extends State<DoctorPatients> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           Text(
-              "¡Hola! Para poder ver a tu paciente, es necesario mandarle la soliitud de relación ¿Deseas continuar? "),
+              "¡Hola! Para poder ver a tu paciente, es necesario mandarle la solicitud de relación ¿Deseas continuar? "),
         ],
       ),
       actions: <Widget>[
         new FlatButton(
           onPressed: () async {
+            String token = await Utils().getToken();
             if (_keyDialogForm.currentState.validate()) {
               _keyDialogForm.currentState.save();
               debugPrint(addPatientController.text);
@@ -300,11 +282,13 @@ class DoctorPatientsCustom extends State<DoctorPatients> {
               }
 
               var decoded = utf8.decode(base64.decode(payload));
-              currentUser = json.decode(decoded);
-              debugPrint(currentUser['id'].toString());
+              //currentUser = json.decode(decoded);
+              String tipe = await Utils().getFromToken('type');
+              String id = await Utils().getFromToken('id');
+              debugPrint(id);
               var listaUsuarios = await EndPoints().linkUser(
                   addPatientController.text,
-                  currentUser['id'].toString(),
+                  id,
                   token);
               debugPrint(listaUsuarios.toString());
               //getPatients();

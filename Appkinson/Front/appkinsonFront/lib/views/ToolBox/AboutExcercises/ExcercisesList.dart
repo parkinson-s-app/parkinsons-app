@@ -1,10 +1,10 @@
 import 'package:appkinsonFront/routes/RoutesAdmin.dart';
 import 'package:appkinsonFront/routes/RoutesDoctor.dart';
 import 'package:appkinsonFront/services/EndPoints.dart';
+import 'package:appkinsonFront/utils/Utils.dart';
 import 'package:appkinsonFront/views/Administrator/FormAddItem.dart';
 import 'package:appkinsonFront/views/Administrator/item_widget_administrator.dart';
 import 'package:appkinsonFront/views/AlarmsAndMedicine/AlarmAndMedicinePage.dart';
-import 'package:appkinsonFront/views/Login/Buttons/ButtonLogin.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:intl/intl.dart';
@@ -71,7 +71,7 @@ class _ListExcercisesState extends State<ListExcercises> {
   }
 
   void removeItem(int index) {
-    EndPoints().deleteAlarm(index.toString(), token, currentUser['id'].toString());
+    EndPoints().deleteAlarm(index.toString(), getToken(), getId());
     final item = items.removeAt(index);
 
     key.currentState.removeItem(
@@ -79,4 +79,14 @@ class _ListExcercisesState extends State<ListExcercises> {
           (context, animation) => buildItem(item, index, animation),
     );
   }
+}
+
+getId() async{
+  String id = await Utils().getFromToken('id');
+  return id;
+}
+
+getToken() async {
+  String token = await Utils().getToken();
+  return token;
 }

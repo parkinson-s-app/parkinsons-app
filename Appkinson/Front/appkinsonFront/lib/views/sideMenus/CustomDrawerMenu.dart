@@ -1,13 +1,15 @@
 import 'package:appkinsonFront/utils/Utils.dart';
+import 'package:appkinsonFront/views/RelationRequest/relationsRequets.dart';
+import 'package:appkinsonFront/views/profiles/Patient/PatientProfile.dart';
 import 'package:flutter/material.dart';
 import 'package:foldable_sidebar/foldable_sidebar.dart';
 import 'package:appkinsonFront/routes/RoutesPatient.dart';
 import 'package:swipedetector/swipedetector.dart';
 import 'package:appkinsonFront/views/profiles/Patient/PatientProfileScreen.dart';
 import 'package:appkinsonFront/views/profiles/Patient/profileEdition/ProfileEditionPatient.dart';
-import 'package:appkinsonFront/views/Login/InputFieldLogin.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter/src/widgets/safe_area.dart';
+import '../HomeInitial/HomePage.dart';
 
 class CustomDrawerMenu extends StatelessWidget {
   final Function closeDrawer;
@@ -63,6 +65,7 @@ class CustomDrawerMenu extends StatelessWidget {
           ListTile(
             onTap: () {
               debugPrint("Tapped Profile");
+              
             },
             leading: Icon(Icons.person),
             title: Text(
@@ -87,7 +90,7 @@ class CustomDrawerMenu extends StatelessWidget {
           ListTile(
             onTap: () {
               debugPrint("Tapped Payments");
-              RoutesPatient().toPatientHome(context);
+              
             },
             leading: Icon(Icons.home),
             title: Text("Ir al Home"),
@@ -99,6 +102,7 @@ class CustomDrawerMenu extends StatelessWidget {
           ListTile(
             onTap: () {
               debugPrint("Tapped Notifications");
+              
             },
             leading: Icon(Icons.notifications),
             title: Text("Notificaciones"),
@@ -113,7 +117,8 @@ class CustomDrawerMenu extends StatelessWidget {
               SharedPreferences prefs = await SharedPreferences.getInstance();
               prefs?.clear(); 
               await Utils().removeBackgroundTask();
-              Navigator.popUntil(context, ModalRoute.withName("/home"));
+              Navigator.pushReplacement(context,
+                MaterialPageRoute(builder: (BuildContext ctx) => HomePage()));
             },
             leading: Icon(Icons.exit_to_app),
             title: Text("Cerrar Sesión..."),

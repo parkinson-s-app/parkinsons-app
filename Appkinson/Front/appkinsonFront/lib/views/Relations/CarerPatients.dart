@@ -1,8 +1,10 @@
 import 'dart:convert';
 
 import 'package:appkinsonFront/routes/RoutesCarer.dart';
+import 'package:appkinsonFront/routes/RoutesPatient.dart';
 import 'package:appkinsonFront/services/EndPoints.dart';
-import 'package:appkinsonFront/views/Login/Buttons/ButtonLogin.dart';
+import 'package:appkinsonFront/utils/Utils.dart';
+import 'package:appkinsonFront/views/ToolBox/AboutFood/FoodList.dart';
 import 'package:flutter/material.dart';
 import '../../model/User.dart';
 
@@ -11,9 +13,12 @@ class CarerPatients extends StatefulWidget {
   CarerPatientsCustom createState() => CarerPatientsCustom();
 }
 
+var codeListPatients;
+
 class CarerPatientsCustom extends State<CarerPatients> {
   final TextEditingController addPatientController =
       new TextEditingController();
+  final TextEditingController editingController = new TextEditingController();
   final GlobalKey<FormState> _keyDialogForm = new GlobalKey<FormState>();
   List<User> patients = [];
 
@@ -43,16 +48,28 @@ class CarerPatientsCustom extends State<CarerPatients> {
     var decoded = utf8.decode(base64.decode(payload));
     currentUser = json.decode(decoded);
     */
-    //Pedir lista de pacientes relacionados
-    var patientsAux =
-        await EndPoints().linkedUserCarer(currentUser['id'].toString(), token);
     List<User> _patients = [];
-    for (var a = 0; a < patientsAux.length; a++) {
-      User u = new User();
-      u.email = patientsAux[a];
-      _patients.add(u);
-      debugPrint("------");
-      debugPrint(u.email);
+    User patient;
+    //Pedir lista de pacientes relacionados
+    String tipe = await Utils().getFromToken('type');
+    String id = await Utils().getFromToken('id');
+    String token = await Utils().getToken();
+    debugPrint("pidiendo pacientes");
+    debugPrint(id);
+    debugPrint(tipe);
+    debugPrint(token);
+    var patientsAux = await EndPoints().linkedUser(token, tipe);
+    codeListPatients = json.decode(patientsAux);
+    //List<User> patients = [];
+    debugPrint(codeListPatients.toString());
+    for (var a = 0; a < codeListPatients.length; a++) {
+      //patients.add(codeList[a]['EMAIL']);
+      patient = new User();
+      patient.email = codeListPatients[a]['EMAIL'];
+      patient.id = codeListPatients[a]['ID_USER'];
+      _patients.add(patient);
+      debugPrint("agregando paciente....");
+      debugPrint(patient.email);
     }
     setState(() {
       patients = _patients;
@@ -65,21 +82,29 @@ class CarerPatientsCustom extends State<CarerPatients> {
       child: Scaffold(
         appBar: AppBar(
           title: Text('Pacientes'),
-          actions: <Widget>[
-            IconButton(
-              icon: Icon(Icons.search, color: Colors.white),
-              onPressed: () {},
-            )
-          ],
         ),
-        body: Container(
+        
+        body: SingleChildScrollView(
             child: Column(
+            key: UniqueKey(),
           children: <Widget>[
-            /*Expanded(
-                  child: PatientsList(patients),
-                ),*/
-            ListView.builder(
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: TextField(
+                onChanged: (value) {
+                  //filterSearchResults(value);
+                },
+                controller: editingController,
+                decoration: InputDecoration(
+                    hintText: "Buscar",
+                    prefixIcon: Icon(Icons.search),
+                    border: OutlineInputBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(25.0)))),
+              ),
+            ),
+            ListView.separated(
               shrinkWrap: true,
+              physics: NeverScrollableScrollPhysics(),
               itemCount: patients.length,
               itemBuilder: (context, index) {
                 User patient = patients[index];
@@ -89,13 +114,30 @@ class CarerPatientsCustom extends State<CarerPatients> {
                       selectId = patient.id.toString();
                       RoutesCarer().toInteractionCarerPatient(context, patient.id);
                     },
-                    title: Text(patient.email),
+                    title: Text(patient.email, style: DefaultTextStyle.of(context).style.apply(fontSizeFactor: 1.5)),
                     //subtitle: Text(user.email),
                     leading: CircleAvatar(
                       child: Icon(Icons.account_circle_outlined),
-                    ));
+                    ),
+                    trailing: TextButton(
+                      onPressed: () async{
+                        debugPrint("eliminar");
+                        EndPoints().unlinkedPatient(patient.id.toString());
+                        setState(() {
+                          patients.remove(patient); 
+                        });
+                      },
+                      child: Icon(Icons.delete_forever, size: 40),
+                  ),
+                  contentPadding: EdgeInsets.symmetric(vertical: 16.0, horizontal: 16.0),
+                  dense:true,  
+                );
               },
-            )
+              separatorBuilder: (context, index){
+                return Divider(thickness: 2, color: Colors.blue[700], indent: 10, endIndent: 10);
+              },
+            ),
+            
           ],
         )),
         floatingActionButton:FloatingActionButton(
@@ -108,7 +150,8 @@ class CarerPatientsCustom extends State<CarerPatients> {
                   color: Colors.white,
                 ),
               onPressed: () {
-                addUser();
+                //addUser();
+                RoutesCarer().toAddUser(context);
                 debugPrint(addPatientController.text);
               },            
             ),
@@ -164,9 +207,11 @@ class CarerPatientsCustom extends State<CarerPatients> {
                     currentUser = json.decode(decoded);
                     debugPrint(currentUser['id'].toString());
                     */
+                    String id = await Utils().getFromToken('id');
+                    String token = await Utils().getToken();
                     var listaUsuarios = await EndPoints().linkUserCarer(
                         addPatientController.text,
-                        currentUser['id'].toString(),
+                        id,
                         token);
                     debugPrint(listaUsuarios.toString());
                     //getPatients();

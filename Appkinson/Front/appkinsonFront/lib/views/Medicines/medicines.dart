@@ -1,7 +1,7 @@
 import 'package:appkinsonFront/routes/RoutesDoctor.dart';
 import 'package:appkinsonFront/services/EndPoints.dart';
+import 'package:appkinsonFront/utils/Utils.dart';
 import 'package:appkinsonFront/views/AlarmsAndMedicine/AlarmAndMedicinePage.dart';
-import 'package:appkinsonFront/views/Login/Buttons/ButtonLogin.dart';
 import 'package:appkinsonFront/views/Medicines/alarm.dart';
 import 'package:appkinsonFront/views/Medicines/alarm_item_widget.dart';
 import 'package:flutter/material.dart';
@@ -211,7 +211,7 @@ class _MedicinesState extends State<Medicines> {
   }
 
   void removeItem(int index) {
-    EndPoints().deleteAlarm(index.toString(), token, currentUser['id'].toString());
+    EndPoints().deleteAlarm(index.toString(), getToken(), getId());
     final item = items.removeAt(index);
 
     key.currentState.removeItem(
@@ -219,4 +219,14 @@ class _MedicinesState extends State<Medicines> {
       (context, animation) => buildItem(item, index, animation),
     );
   }
+}
+
+getId() async {
+  String id = await Utils().getFromToken('id');
+  return id;
+}
+
+getToken() async {
+  String token = await Utils().getToken();
+  return token;
 }
