@@ -14,6 +14,9 @@ import ISymptomsFormDto from '../models/ISymptomsFormDto';
 import DoctorService from '../services/DoctorService';
 import CarerService from '../services/CarerService';
 import fs from 'fs';
+import OTPUtilities from '../utilities/OTPUtilities';
+import EmailUtilities from '../utilities/EmailUtilities';
+import IPersonResetDto from '../models/IPersonResetDto';
 
 const debug = debugLib('AppKinson:UserController');
 const UserController = Router();
@@ -433,6 +436,68 @@ UserController.get('/users/toolbox/items', verifyToken, async (req: Request, res
     }
 });
 
+
+UserController.post('/user/forgotPassword', async (req: Request, res: Response) => {
+    debug('Forgot password user entry: %j', req.body.email);
+    const email = req.body.Email;
+    try {
+        const responseDB = await PersonService.getPersonByEmail(email);
+        const responseJSON = JSON.parse(JSON.stringify(responseDB));
+        debug('Forgotten password. User get response db: %j', responseDB);
+        let status;
+        if (responseJSON.length === 0 ) {
+            status =  constants.HTTP_STATUS_NOT_FOUND;
+            res.status(status).send({ message:'Invalid Email' });
+        } else {
+            debug(' Reset password email: %s', email);
+            const otp = await OTPUtilities.generateOTP();
+            const subject = 'Peticion de cambio de contraseña';
+            const text = `Para poder cambiar su contraseña el codigo de verificación es: ${otp}`;
+            const responseSendEmail = await EmailUtilities.sendEmail(email, subject, text);
+            if(responseSendEmail) {
+                const status =  constants.HTTP_STATUS_OK;
+                const responseOK = { status, message: "Email sent"};
+                res.status(status).send(responseOK);
+            }
+        }
+    } catch (error) {
+        debug("Forgotten password failed. Error: %j", error);
+        const status =  constants.HTTP_STATUS_INTERNAL_SERVER_ERROR;
+        const responseError = { status, error: "An error has ocurred"};
+        res.status(status).send(responseError);
+    }
+});
+
+UserController.post('/user/resetPassword', async (req: Request, res: Response) => {
+    debug('Reset password user entry: %j', req.body.email);
+    const credentials = req.body as IPersonResetDto;
+    try {
+        const verified = await OTPUtilities.verifyOtp(credentials.OTP);
+        if(verified){
+            const responseDB = await PersonService.resetPassword(credentials);
+            debug('Resetten password. User get response db: %j', responseDB);
+            let status;
+            if (responseDB) {
+                status =  constants.HTTP_STATUS_OK;
+                res.status(status).send({ message:'Password Reset' });
+            } else {
+                debug("Reset password failed response db.");
+                const status =  constants.HTTP_STATUS_INTERNAL_SERVER_ERROR;
+                const responseError = { status, error: "An error has ocurred"};
+                res.status(status).send(responseError);
+            }
+        } else {
+            const status =  constants.HTTP_STATUS_UNAUTHORIZED;
+            const responseError = { status, error: "Unauthorized"};
+            res.status(status).send(responseError);
+        }
+    } catch (error) {
+        debug("Reset password failed. Error: %j", error);
+        const status =  constants.HTTP_STATUS_INTERNAL_SERVER_ERROR;
+        const responseError = { status, error: "An error has ocurred"};
+        res.status(status).send(responseError);
+    }
+});
 function getIdFromToken(token: string) {
     const dataInToken = token.split('.')[1];
     debug('getIdFromToken data encoded: %s', dataInToken);

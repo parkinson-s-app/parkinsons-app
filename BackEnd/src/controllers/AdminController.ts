@@ -122,21 +122,4 @@ AdminController.delete('/admin/toolbox/item/:id', verifyToken, async (req: Reque
     }
 });
 
-AdminController.get('/user/forgotPassword', async (req: Request, res: Response) => {
-    debug('Forgotten password');
-    let status;
-    const email = req.query.Email as string;
-    try {
-        const response = await AdminService.sendEmail(email);
-        debug('sending email result %j, succesful', response);
-        status = constants.HTTP_STATUS_OK;
-        res.status(status).send({ message:'Sent' });
-    } catch (error) {
-        debug('Sending email failed. Error: %j', error);
-        status = constants.HTTP_STATUS_INTERNAL_SERVER_ERROR;
-        const responseError = { status, error};
-        res.status(status).send(responseError);
-    }
-});
-
 export default AdminController;

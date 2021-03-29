@@ -4,6 +4,7 @@ import IPersonDto from "../models/IPersonDto";
 import * as bcrypt from "bcryptjs";
 import ISymptomsFormDto from "../models/ISymptomsFormDto";
 import { Pool } from "mysql2/promise";
+import IPersonResetDto from "../models/IPersonResetDto";
 
 const debug = debugLib('AppKinson:PersonService');
 
@@ -304,6 +305,30 @@ export default class PersonService {
             }
             debug('getting toolbox items error making query. Error: %s', error);
             throw error;
+        }
+    }
+
+    public static async resetPassword(credentials: IPersonResetDto) {
+        debug('Resetting Password: ');
+        let conn: Pool | undefined;
+        try {
+            conn = await connect();
+            const cript = await bcrypt.hash(credentials.Password,10);
+            const userSave = {
+                EMAIL: credentials.Email,
+                PASSWORD: cript
+            }
+            debug('Credentials to reset: %j', userSave);
+            const res = await conn.query('UPDATE users SET PASSWORD = ? WHERE EMAIL = ?',[userSave.PASSWORD, userSave.EMAIL]);
+            debug('Reset credentials result: %j', res);
+            conn.end();
+            return res[0];
+        } catch (e) {
+            debug('Reset credentials Catch Error: %s, %j', e.stack, e);
+            if(conn) {
+                conn.end();
+            }
+            throw e;
         }
     }
 
