@@ -275,6 +275,7 @@ async function montlyReport(idPatient: number, initDate: string, endDate: string
             endDate = (last.toJSON()).toString();
             report = await PatientService.getReportSymptomsTwoDates(idPatient, initDate, endDate);
         }
+        report.mes = before.getMonth().toString();
         before = new Date(before.getFullYear(), before.getMonth() +1, 1 );
         resp.push(report);
     }

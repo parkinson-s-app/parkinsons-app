@@ -11,5 +11,6 @@ export default {
     userEmail: process.env.USER_EMAIL || 'userFake',
     passwordEmail: process.env.PASSWORD_EMAIL || 'passFake',
     hostEmail: process.env.HOST_EMAIL || 'smtp.mailtrap.io',
-    portEmail: process.env.PORT_EMAIL || 2525
+    portEmail: process.env.PORT_EMAIL || 2525,
+    otpKey: process.env.OTP_KEY || 'fake_key'
 };

@@ -64,23 +64,23 @@ export default class DoctorService {
     }
 
     /**
-     * 
+     *
      */
     public static async getPatientsUnrelated(id: number) {
         debug('Unrelated Patients, id doctor: ', id);
         let conn: Pool | undefined;
         try {
             conn = await connect();
-            const query = `SELECT 
+            const query = `SELECT
             p.ID_USER as IdUser,
             p.NAME as Name,
             u.EMAIL as Email
             FROM patients as p
             INNER JOIN users as u
             ON u.ID = p.ID_USER
-            WHERE p.ID_USER NOT IN 
+            WHERE p.ID_USER NOT IN
             ( SELECT ID_PATIENT
-                FROM patientxdoctor 
+                FROM patientxdoctor
                 WHERE ID_DOCTOR = ? )`;
             const res = await conn.query(query,[id]);
             debug('Unrelated Patients response query %s', res);
@@ -111,9 +111,9 @@ export default class DoctorService {
             const query = `
             SELECT ID_USER, NAME, EMAIL
             FROM patients
-            LEFT JOIN patientxdoctor 
+            LEFT JOIN patientxdoctor
             ON patients.ID_USER=patientxdoctor.ID_PATIENT
-            LEFT JOIN users 
+            LEFT JOIN users
             ON users.ID=patients.ID_USER
             WHERE ID_DOCTOR = ?`;
             const res = await conn.query(query,[id]);
