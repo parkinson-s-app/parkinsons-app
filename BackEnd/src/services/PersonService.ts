@@ -4,8 +4,6 @@ import IPersonDto from "../models/IPersonDto";
 import * as bcrypt from "bcryptjs";
 import ISymptomsFormDto from "../models/ISymptomsFormDto";
 import { Pool } from "mysql2/promise";
-import * as speakeasy from 'speakeasy';
-import config from "../config";
 
 const debug = debugLib('AppKinson:PersonService');
 
@@ -309,14 +307,4 @@ export default class PersonService {
         }
     }
 
-    public static async generateOTP() {
-        const token = speakeasy.totp({
-            secret: config.otpKey as string,
-            encoding: 'base32',
-            digits:6,
-            step: 300
-        });
-
-        
-    }
 }
