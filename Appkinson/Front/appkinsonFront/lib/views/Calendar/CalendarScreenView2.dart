@@ -106,11 +106,9 @@ class _Calendar extends State<CalendarScreenView2aux> {
                     FlatButton(
                       shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(18.0)),
-                      //   side: BorderSide(color: Color.fromRGBO(0, 160, 227, 1))),
 
                       padding: EdgeInsets.symmetric(horizontal: 30),
 
-                      //onPressed: _incrementColorIndex,
                       onPressed: () {
                         setState(() {
                           _incrementColorIndex();
@@ -118,13 +116,8 @@ class _Calendar extends State<CalendarScreenView2aux> {
                       },
 
                       color: _colors[cont],
-                      //textColor: Colors.white,
                       child: Text(_onOff[cont]),
-                      /*() => {
-                        //print(cont);
-                        _incrementColorIndex()
-                      },*/
-                      // Text("Registrarse ", style:  TextStyle(fontSize: 15)),
+                     
                     ),
                     Row(
                       children: [
@@ -147,12 +140,11 @@ class _Calendar extends State<CalendarScreenView2aux> {
                     FlatButton(
                       shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(18.0)),
-                      //   side: BorderSide(color: Color.fromRGBO(0, 160, 227, 1))),
+                     
 
                       padding: EdgeInsets.symmetric(horizontal: 30),
 
-                      //onPressed: _incrementColorIndex,
-                      onPressed: () {
+                        onPressed: () {
                         Navigator.push(
                             context,
                             new MaterialPageRoute(
@@ -163,11 +155,7 @@ class _Calendar extends State<CalendarScreenView2aux> {
                       color: Colors.teal[200],
                       //textColor: Colors.white,
                       child: Text('hacer video(opcional)'),
-                      /*() => {
-                        //print(cont);
-                        _incrementColorIndex()
-                      },*/
-                      // Text("Registrarse ", style:  TextStyle(fontSize: 15)),
+                      
                     ),
                   ])),
                   actions: <Widget>[
@@ -178,9 +166,6 @@ class _Calendar extends State<CalendarScreenView2aux> {
 
                           patientForm.q1 = _onOff[cont];
                           patientForm.q2 = _disqui.text;
-                          //patientForm.q3 = BringAnswer2Off().send();
-                          //patientForm.q4 = BringAnswerPatientQ3().send();
-                          //patientForm.q5 = BringAnswerPatientQ4().send();
                           patientForm.video = fileMedia;
                           patientForm.formDate = dateChoosed;
                           String id = await Utils().getFromToken('id');
@@ -210,17 +195,12 @@ class _Calendar extends State<CalendarScreenView2aux> {
                 );
               });
             });
-        //dateChoosed = calendarTapDetails.date;
-
-        //meetings = _getDataSource();
         setState(() {
           if (conta == 8) {
             conta = 0;
           }
           conta++;
         });
-
-        // RoutesPatient().toSymptomsFormPatient(context);
       },
       dataSource: MeetingDataSource(meetings),
       monthViewSettings: MonthViewSettings(
@@ -231,7 +211,6 @@ class _Calendar extends State<CalendarScreenView2aux> {
   List<Meeting> _getDataSource() {
     meetings = <Meeting>[];
 
-    //final DateTime today = DateTime.now();
     if (dateChoosed.hour != null) {
       hora = dateChoosed.hour;
     }

@@ -396,9 +396,6 @@ class EndPoints {
     return success;
   }
 
-  /*Future<List<RelationRequest>> getRelationRequest(var token) async {
-
-    debugPrint("entraget");*/
   Future<bool> getEmotionsForm(
       var tokenID, var token, DateTime start, DateTime end) async {
     bool success = false;
@@ -479,9 +476,6 @@ class EndPoints {
       "alarmDateTime": alarmTime,
       "isPending": isPending
     };
-    //var dataToSend = [data2];
-    //var dataJson = json.encode(dataToSend);
-    //debugPrint(dataJson.toString());
     http.Response response = await http.post(
         endpointBack + '/api/patient/$tokenID/medicineAlarm',
         body: data2,
@@ -505,12 +499,10 @@ class EndPoints {
   }
 
   Future<List<RelationRequest>> getRelationRequest(var token) async {
-    //Map data2 = {'email': authUser.email, 'password': authUser.password};
     http.Response lista = await http
         .get(endpointBack + '/api/patient/relationRequest', headers: {
       HttpHeaders.authorizationHeader: jwtkey + token
     });
-    //http.Response response =
     debugPrint(lista.body);
     String i = lista.body;
     var codeList = json.decode(i);
@@ -540,7 +532,6 @@ class EndPoints {
       video = null;
     }
 
-    //http.Response response =
     Map<String, dynamic> formMap = {
       'q1': form.q1,
       'q2': form.q2,
@@ -560,14 +551,12 @@ class EndPoints {
   }
 
   Future<String> getSymptomsFormPatient(var token, var tokenID) async {
-    //Map data2 = {'email': authUser.email, 'password': authUser.password};
     
     http.Response lista = await http.get(
         endpointBack + '/api/patients/$tokenID/symptomsFormPatient',
         headers: {
           HttpHeaders.authorizationHeader: "Bearer " + token
         });
-    //http.Response response =
     debugPrint(lista.body);
     String relationsRequest = lista.body;
     return relationsRequest;
@@ -579,7 +568,6 @@ class EndPoints {
         headers: {
           HttpHeaders.authorizationHeader: jwtkey + token
         });
-    //debugPrint(data2.toString());
     debugPrint("-----");
     debugPrint(response.body);
     String res = response.body;
@@ -590,37 +578,14 @@ class EndPoints {
     debugPrint("entro");
     http.Response response;
 
-    /*
-    WidgetsFlutterBinding.ensureInitialized();
-    await FlutterDownloader.initialize(
-        debug: true // optional: set false to disable printing logs to console
-        );
-      */
-
     if (path != null) {
       response = await http.get(endpointBack + "/" + path, headers: {
         HttpHeaders.authorizationHeader: jwtkey + token,
-        //HttpHeaders.hostHeader: path
+     
       });
     }
 
-    /*
-    var s;
-
-    FadeInImage.memoryNetwork(
-      image: 'http://192.168.0.16:8001/uploads/photo/' + path
-      //HttpHeaders.hostHeader: path
-      ,
-      placeholder: s,
-    );
-
-    print('holo' + s.toString());
-
-    //FileUploadInputElement();
-    //debugPrint(data2.toString());
-    debugPrint("-----");
-    debugPrint(response.headers.toString());
-    */
+    
     final documentDirectory = await getApplicationDocumentsDirectory();
 
     final file = File(p.join(documentDirectory.path, 'imagetest.png'));
@@ -628,35 +593,8 @@ class EndPoints {
     if (path != null) {
       file.writeAsBytesSync(response.bodyBytes);
     }
-    /*
-    Uint8List n = await http
-        .readBytes(await http.get(endpointBack + "/" + path, headers: {
-      HttpHeaders.authorizationHeader: jwtkey + codeToken['token'],
-      //HttpHeaders.hostHeader: path
-    }));
-    */
+    
 
-    //File m = File.fromRawPath(response.bodyBytes);
-    //print(m.absolute.toString());
-
-    //debugPrint(response.bodyBytes.toString());
-
-    /*
-    final status = await Permission.storage.request();
-    if (status.isGranted) {
-      final externalDir = await getExternalStorageDirectory();
-      final taskId = await FlutterDownloader.enqueue(
-        url: 'http://192.168.0.16:8001/uploads/photo/' + path,
-        savedDir: externalDir.path,
-        //headers: jwtkey + codeToken['token'],
-        showNotification:
-            true, // show download progress in status bar (for Android)
-        openFileFromNotification:
-            true, // click on notification to open downloaded file (for Android)
-      );
-    }*/
-
-    //String res = response.body;
     return file;
   }
 
@@ -664,37 +602,14 @@ class EndPoints {
     debugPrint("entro");
     http.Response response;
 
-    /*
-    WidgetsFlutterBinding.ensureInitialized();
-    await FlutterDownloader.initialize(
-        debug: true // optional: set false to disable printing logs to console
-        );
-      */
 
     if (path != null) {
       response = await http.get(endpointBack + "/" + path, headers: {
         HttpHeaders.authorizationHeader: jwtkey + token,
-        //HttpHeaders.hostHeader: path
+    
       });
     }
 
-    /*
-    var s;
-
-    FadeInImage.memoryNetwork(
-      image: 'http://192.168.0.16:8001/uploads/photo/' + path
-      //HttpHeaders.hostHeader: path
-      ,
-      placeholder: s,
-    );
-
-    print('holo' + s.toString());
-
-    //FileUploadInputElement();
-    //debugPrint(data2.toString());
-    debugPrint("-----");
-    debugPrint(response.headers.toString());
-    */
     final documentDirectory = await getApplicationDocumentsDirectory();
 
     final file = File(p.join(documentDirectory.path, 'imagetest.png'));
@@ -702,45 +617,15 @@ class EndPoints {
     if (path != null) {
       file.writeAsBytesSync(response.bodyBytes);
     }
-    /*
-    Uint8List n = await http
-        .readBytes(await http.get(endpointBack + "/" + path, headers: {
-      HttpHeaders.authorizationHeader: jwtkey + codeToken['token'],
-      //HttpHeaders.hostHeader: path
-    }));
-    */
-
-    //File m = File.fromRawPath(response.bodyBytes);
-    //print(m.absolute.toString());
-
-    //debugPrint(response.bodyBytes.toString());
-
-    /*
-    final status = await Permission.storage.request();
-    if (status.isGranted) {
-      final externalDir = await getExternalStorageDirectory();
-      final taskId = await FlutterDownloader.enqueue(
-        url: 'http://192.168.0.16:8001/uploads/photo/' + path,
-        savedDir: externalDir.path,
-        //headers: jwtkey + codeToken['token'],
-        showNotification:
-            true, // show download progress in status bar (for Android)
-        openFileFromNotification:
-            true, // click on notification to open downloaded file (for Android)
-      );
-    }*/
-
-    //String res = response.body;
+    
     return file;
   }
 
   Future<String> getMedicines(var token) async {
-    //Map data2 = {'email': authUser.email, 'password': authUser.password};
     http.Response response = await http
         .get(endpointBack + '/api/doctor/medicines', headers: {
       HttpHeaders.authorizationHeader: "Bearer " + token
     });
-    //http.Response response =
 
     String medicines = response.body;
     debugPrint('medicines: $medicines');

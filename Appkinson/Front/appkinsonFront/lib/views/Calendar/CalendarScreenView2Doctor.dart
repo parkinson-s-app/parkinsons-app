@@ -95,10 +95,7 @@ class _Calendar extends State<CalendarScreenView2Doctor> {
 
         //print(calen.from);
         dateChoosed = calendarTapDetails.date;
-        //var calen = calendarTapDetails.targetElement;
-        //print(calen.index);
-        //int horaPrueba = calen.index;
-        //print(horaPrueba.toString());
+  
 
         final DateTime probTime = DateTime(
             dateChoosed.year, dateChoosed.month, dateChoosed.day, 0, 0, 0);
@@ -167,11 +164,7 @@ class _Calendar extends State<CalendarScreenView2Doctor> {
                         color: Colors.teal[200],
                         //textColor: Colors.white,
                         child: Text('ver video'),
-                        /*() => {
-                        //print(cont);
-                        _incrementColorIndex()
-                      },*/
-                        // Text("Registrarse ", style:  TextStyle(fontSize: 15)),
+                        
                       ),
                     ])),
                     actions: <Widget>[
@@ -182,9 +175,6 @@ class _Calendar extends State<CalendarScreenView2Doctor> {
 
                             patientForm.q1 = _onOff[cont];
                             patientForm.q2 = _disqui.text;
-                            //patientForm.q3 = BringAnswer2Off().send();
-                            //patientForm.q4 = BringAnswerPatientQ3().send();
-                            //patientForm.q5 = BringAnswerPatientQ4().send();
                             patientForm.video = fileMedia;
                             patientForm.formDate = dateChoosed;
                             String id = await Utils().getFromToken('id');
@@ -248,11 +238,7 @@ class _Calendar extends State<CalendarScreenView2Doctor> {
                         color: _colors[cont],
                         //textColor: Colors.white,
                         child: Text(_onOff[cont]),
-                        /*() => {
-                        //print(cont);
-                        _incrementColorIndex()
-                      },*/
-                        // Text("Registrarse ", style:  TextStyle(fontSize: 15)),
+                        
                       ),
                       Row(
                         children: [
@@ -307,9 +293,6 @@ class _Calendar extends State<CalendarScreenView2Doctor> {
 
                                 patientForm.q1 = _onOff[cont];
                                 patientForm.q2 = _disqui.text;
-                                //patientForm.q3 = BringAnswer2Off().send();
-                                //patientForm.q4 = BringAnswerPatientQ3().send();
-                                //patientForm.q5 = BringAnswerPatientQ4().send();
                                 patientForm.video = fileMedia;
                                 patientForm.formDate = dateChoosed;
 
@@ -354,9 +337,6 @@ class _Calendar extends State<CalendarScreenView2Doctor> {
                 });
               });
         }
-        //dateChoosed = calendarTapDetails.date;
-
-        //meetings = _getDataSource();
         setState(() {
           if (conta == 8) {
             conta = 0;

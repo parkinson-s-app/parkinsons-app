@@ -40,12 +40,7 @@ class _FormButtonLogin extends State<ButtonLogin> {
           debugPrint(user.password);
           debugPrint("------");
 
-          /*
-            parte del decodificado del token y 
-            ontención del payload. Posteriormente
-            obtención del tipo de usuario para 
-            dirijirlo a la pantalla correspondiente
-          */
+      
 
           token = await EndPoints().authUser(user);
 
@@ -60,28 +55,8 @@ class _FormButtonLogin extends State<ButtonLogin> {
           } else {
             await Utils().saveToken(responseJson['token']);
             currentUser = Utils().tokenDecoder(token);
-            /*
-          debugPrint(token);
-          var lista = token.split(".");
-          var payload = lista[1];
-
-          switch (payload.length % 4) {
-            case 1:
-              break; // this case can't be handled well, because 3 padding chars is illeagal.
-            case 2:
-              payload = payload + "==";
-              break;
-            case 3:
-              payload = payload + "=";
-              break;
-          }
-
-          var decoded = utf8.decode(base64.decode(payload));
-          currentUser = json.decode(decoded);
-          */
-            //debugPrint(currentUser['type']);
-            // debugPrint(decoded);
-            
+         
+         
             TextEditingController emailController = new TextEditingController();
             TextEditingController password = new TextEditingController();
             if (currentUser['type'] == 'Cuidador') {
