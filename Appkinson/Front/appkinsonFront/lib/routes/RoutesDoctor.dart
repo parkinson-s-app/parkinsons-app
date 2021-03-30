@@ -20,13 +20,6 @@ class RoutesDoctor {
         context, new MaterialPageRoute(builder: (context) => DoctorHomePage()));
   }
 
-  /* toCalendarDoctor(BuildContext context) {
-    Navigator.push(
-        context,
-        new MaterialPageRoute(
-            builder: (context) => ReportConfigPage()));
-  }*/
-
   toReportConfigPage(BuildContext context) {
     Navigator.push(context,
         new MaterialPageRoute(builder: (context) => ReportConfigPage()));
