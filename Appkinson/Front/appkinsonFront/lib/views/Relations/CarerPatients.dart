@@ -329,6 +329,7 @@ class CarerPatientsCustom extends State<CarerPatients> {
             if (_keyDialogForm.currentState.validate()) {
               _keyDialogForm.currentState.save();
               debugPrint(addPatientController.text);
+              /*
               var lista = token.split(".");
               var payload = lista[1];
 
@@ -342,14 +343,15 @@ class CarerPatientsCustom extends State<CarerPatients> {
                   payload = payload + "=";
                   break;
               }
+              */
 
-              var decoded = utf8.decode(base64.decode(payload));
-              currentUser = json.decode(decoded);
-              debugPrint(currentUser['id'].toString());
-              var listaUsuarios = await EndPoints().linkUser(
-                  addPatientController.text,
-                  currentUser['id'].toString(),
-                  token);
+              //var decoded = utf8.decode(base64.decode(payload));
+              // currentUser = json.decode(decoded);
+              String token = await Utils().getToken();
+              String id = await Utils().getFromToken('id');
+              // debugPrint(currentUser['id'].toString());
+              var listaUsuarios = await EndPoints()
+                  .linkUser(addPatientController.text, id, token);
               debugPrint(listaUsuarios.toString());
               //getPatients();
               Navigator.pop(context);
