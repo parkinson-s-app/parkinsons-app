@@ -1,7 +1,7 @@
 import 'package:appkinsonFront/views/Calendar/CalendarScreenView2Doctor.dart';
 import 'package:appkinsonFront/views/AlarmsAndMedicine/AlarmAndMedicinePage.dart';
 import 'package:appkinsonFront/views/HomeDifferentUsers/Doctor/DoctorHomePage.dart';
-
+import 'package:appkinsonFront/views/Relations/DoctorPatientAdd.dart';
 import 'package:appkinsonFront/views/Relations/DoctorPatients.dart';
 import 'package:appkinsonFront/views/Relations/interactionDoctorPatient.dart';
 import 'package:appkinsonFront/views/Report/Widget_Chart_Line.dart';
@@ -30,6 +30,11 @@ class RoutesDoctor {
   toReportConfigPage(BuildContext context) {
     Navigator.push(context,
         new MaterialPageRoute(builder: (context) => ReportConfigPage()));
+  }
+
+  toAddUser(BuildContext context) {
+    Navigator.push(context,
+        new MaterialPageRoute(builder: (context) => DoctorPatientsAdd()));
   }
 
   toReportPage(BuildContext context) {

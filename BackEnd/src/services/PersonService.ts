@@ -217,6 +217,43 @@ export default class PersonService {
             throw e;
         }
     }
+
+    public static async updateSymptomsForm(id: number, symptomsFormData: ISymptomsFormDto) {
+        symptomsFormData.id_patient=id;
+        debug('updateSymptoms to person: %j, id: %s', symptomsFormData, id);
+        let conn: Pool | undefined;
+        try {
+            conn = await connect(); // UPDATE patients SET ? WHERE ID_USER = ?
+            const res = await conn.query('UPDATE symptomsformpatient SET ? WHERE ID_PATIENT = ? AND formdate = ?',[symptomsFormData, symptomsFormData.id_patient, symptomsFormData.formdate]);
+            debug('updatePerson updated and returned: %j', res);
+            conn.end();
+            return res;
+        } catch (e) {
+            if(conn) {
+                conn.end();
+            }
+            debug('updateSymptoms Catch Error: %s, %j', e.stack, e);
+            throw e;
+        }
+    }
+
+    public static async deleteSymptomsForm(id: number, date: string) {
+        debug('deleteSymptomsForm SymptomsForm: %d', id);
+        let conn: Pool | undefined;
+        try {
+            conn = await connect();
+            const res = await conn.query('DELETE FROM symptomsformpatient WHERE ID_PATIENT = ? AND formdate = ?',[id, date]);
+            debug('deleteSymptomsForm deleted. response: %j', res);
+            conn.end();
+            return res;
+        } catch (e) {
+            if(conn) {
+                conn.end();
+            }
+            debug('deleteSymptomsForm Catch Error: %s, %j', e.stack, e);
+            throw Error(e);
+        }
+    }
     /**
      * obtener los formularios de un paciente con el id
      * @param id 

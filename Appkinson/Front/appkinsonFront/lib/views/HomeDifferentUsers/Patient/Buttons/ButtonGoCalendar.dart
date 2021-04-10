@@ -1,8 +1,8 @@
 import 'dart:convert';
 
 import 'package:appkinsonFront/services/EndPoints.dart';
+import 'package:appkinsonFront/utils/Utils.dart';
 import 'package:appkinsonFront/views/Calendar/CalendarScreenView2.dart';
-import 'package:appkinsonFront/views/Login/Buttons/ButtonLogin.dart';
 import 'package:flutter/material.dart';
 import '../../../../routes/RoutesPatient.dart';
 
@@ -29,14 +29,16 @@ class _ButtonGoCalendarState extends State<ButtonGoCalendar> {
         onPressed: () async {
           meetingPatient = <Meeting>[];
           //SymptomsFormPatientM m= await EndPoints().getSymptomsFormPatient(token,currentUser['id'].toString());\
-          String m = await EndPoints()
-              .getSymptomsFormPatient(token, currentUser['id'].toString());
+          String id = await Utils().getFromToken('id');
+          String token = await Utils().getToken();
+          String m = await EndPoints().getSymptomsFormPatient(token, id);
           //final DateTime today = DateTime.now();
           listPacientes = m;
           codeList = json.decode(m);
           //List<String> patients = [];
           for (var a = 0; a < codeList.length; a++) {
             //patients.add(codeList[a]['EMAIL']);
+            print('formdate: ${codeList[a]['formdate']}');
             DateTime dateBd = DateTime.parse(codeList[a]['formdate']);
             final DateTime startTime = DateTime(
                 dateBd.year, dateBd.month, dateBd.day, dateBd.hour, 0, 0);

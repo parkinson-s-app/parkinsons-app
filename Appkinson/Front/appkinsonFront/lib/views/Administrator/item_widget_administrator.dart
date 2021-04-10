@@ -25,10 +25,7 @@ class ItemToolboxWidgetAdministrator extends StatelessWidget {
       ),
       child: ListTile(
         contentPadding: EdgeInsets.symmetric(vertical: 12, horizontal: 16),
-       /* leading: CircleAvatar(
-          radius: 32,
-          child: Icon(Icons.alarm, color: Colors.amber, size: 45),
-        ),*/
+     
         title: Text(item.titulo, style: TextStyle(fontSize: 20)),
         subtitle: Text(item.descripcion),
         trailing: IconButton(

@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:appkinsonFront/utils/Utils.dart';
 import 'package:appkinsonFront/views/Calendar/CalendarScreenView2.dart';
 import 'package:appkinsonFront/views/SymptomsFormPatient/SymptomsFormPatientQ1.dart';
 import 'package:appkinsonFront/views/SymptomsFormPatient/SymptomsFormPatientQ2.dart';
@@ -9,7 +10,6 @@ import 'package:appkinsonFront/model/SymptomsFormPatientM.dart';
 
 import 'package:appkinsonFront/routes/RoutesPatient.dart';
 import 'package:appkinsonFront/services/EndPoints.dart';
-import 'package:appkinsonFront/views/Login/Buttons/ButtonLogin.dart';
 import 'package:appkinsonFront/views/SymptomsFormDoctor/videoPluguin.dart';
 
 import 'package:flutter/material.dart';
@@ -76,9 +76,11 @@ class _symptomsFormQ29 extends State<SymptomsFormPatientQ5OFF> {
                     patientForm.formDate = dateChoosed;
 
                     debugPrint('enviado');
+                    String id = await Utils().getFromToken('id');
+                    String token = await Utils().getToken();
                     var savedDone = await EndPoints()
                         .registerSymptomsFormPatient(
-                            patientForm, currentUser['id'].toString(), token);
+                            patientForm, id, token);
 
                     debugPrint(savedDone.toString());
 

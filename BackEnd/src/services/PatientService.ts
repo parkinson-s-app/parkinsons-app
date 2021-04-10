@@ -186,13 +186,15 @@ export default class PatientService {
                 am.dose as Dose,
                 am.periodicityQuantity as PeriodicityQuantity,
                 am.periodicityType as PeriodicityType,
-                am.alarmTime as AlarmTime
+                am.alarmTime as AlarmTime,
+                am.ID_PATIENT as IdPatient,
+                am.quantity as Quantity
             FROM 
                 alarmandmedicinepatient am
                 INNER JOIN
                 medicine m
                 ON m.ID = am.idMedicine
-            WHERE ID_PATIENT=?`;
+            WHERE ID_PATIENT= ?`;
             debug('getMedicineAlarmsById to patient id: %s', id);
             const res = await conn.query(query,[id]);
             debug('getMedicineAlarmsById executed and returned: %j', res[0]);

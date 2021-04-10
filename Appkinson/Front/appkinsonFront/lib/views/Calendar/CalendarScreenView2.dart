@@ -4,18 +4,54 @@ import 'dart:io';
 import 'package:appkinsonFront/model/SymptomsFormPatientM.dart';
 import 'package:appkinsonFront/routes/RoutesPatient.dart';
 import 'package:appkinsonFront/services/EndPoints.dart';
-import 'package:appkinsonFront/views/HomeDifferentUsers/Patient/Buttons/ButtonGoCalendar.dart';
-import 'package:appkinsonFront/views/Login/Buttons/ButtonLogin.dart';
+import 'package:appkinsonFront/utils/Utils.dart';
 import 'package:appkinsonFront/views/SymptomsFormPatient/SymptomsFormPatientQ5ON.dart';
 import 'package:appkinsonFront/views/videoScreen/videoScreenCarer.dart';
 import 'package:appkinsonFront/views/videoScreen/videoScreenDoctor.dart';
 import 'package:flutter/material.dart';
 import 'package:syncfusion_flutter_calendar/calendar.dart';
 
+import 'package:foldable_sidebar/foldable_sidebar.dart';
+import '../sideMenus/CustomDrawerMenu.dart';
+
 DateTime dateChoosed;
 int count = 0;
 
 class CalendarScreenView2 extends StatefulWidget {
+  @override
+  _CalendarScreenView2 createState() => _CalendarScreenView2();
+}
+
+class _CalendarScreenView2 extends State<CalendarScreenView2> {
+  FSBStatus status;
+
+  @override
+  Widget build(BuildContext context) {
+    return SafeArea(
+      child: Scaffold(
+        body: FoldableSidebarBuilder(
+            status: status,
+            drawer: CustomDrawerMenu(),
+            screenContents: CalendarScreenView2aux()),
+        floatingActionButton: FloatingActionButton(
+            backgroundColor: Colors.blue[800],
+            child: Icon(
+              Icons.menu,
+              color: Colors.white,
+            ),
+            onPressed: () {
+              setState(() {
+                status = status == FSBStatus.FSB_OPEN
+                    ? FSBStatus.FSB_CLOSE
+                    : FSBStatus.FSB_OPEN;
+              });
+            }),
+      ),
+    );
+  }
+}
+
+class CalendarScreenView2aux extends StatefulWidget {
   @override
   _Calendar createState() => _Calendar();
 }
@@ -45,7 +81,7 @@ List<Color> _colors = <Color>[
 List<String> _onOff = <String>['on', 'on bueno', 'off', 'off malo'];
 var currentMeeting;
 
-class _Calendar extends State<CalendarScreenView2> {
+class _Calendar extends State<CalendarScreenView2aux> {
   void _incrementColorIndex() {
     setState(() {
       print(cont);
@@ -154,6 +190,7 @@ class _Calendar extends State<CalendarScreenView2> {
 
                         //onPressed: _incrementColorIndex,
                         onPressed: () async {
+                          String token = await Utils().getToken();
                           var video =
                               await EndPoints().getVideoUser(token, pathVideo);
                           this.setState(() {
@@ -190,9 +227,11 @@ class _Calendar extends State<CalendarScreenView2> {
                             patientForm.formDate = dateChoosed;
 
                             debugPrint('enviado');
+                            String token = await Utils().getToken();
+                            String id = await Utils().getFromToken('id');
                             var savedDone = await EndPoints()
-                                .registerSymptomsFormPatient(patientForm,
-                                    currentUser['id'].toString(), token);
+                                .registerSymptomsFormPatient(
+                                    patientForm, id, token);
 
                             debugPrint(savedDone.toString());
 
@@ -321,6 +360,7 @@ class _Calendar extends State<CalendarScreenView2> {
                                   isLoading = true;
                                 });
 
+                                String token = await Utils().getToken();
                                 var savedDone = await EndPoints()
                                     .registerSymptomsFormPatient(
                                         patientForm, idCurrent, token);
@@ -365,8 +405,6 @@ class _Calendar extends State<CalendarScreenView2> {
           }
           conta++;
         });
-
-        // RoutesPatient().toSymptomsFormPatient(context);
       },
       dataSource: MeetingDataSource(meetingPatient),
       monthViewSettings: MonthViewSettings(
@@ -377,7 +415,6 @@ class _Calendar extends State<CalendarScreenView2> {
   List<Meeting> _getDataSource() {
     meetingPatient = <Meeting>[];
 
-    //final DateTime today = DateTime.now();
     if (dateChoosed.hour != null) {
       hora = dateChoosed.hour;
     }
