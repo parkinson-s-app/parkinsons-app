@@ -8,6 +8,7 @@ import IGameScore from '../models/IGameScore';
 import CarerService from '../services/CarerService';
 import PatientService from '../services/PatientService';
 import { getIdFromToken, verifyToken } from '../utilities/AuthUtilities';
+import IStepRecord from '../models/IStepRecord';
 
 const debug = debugLib('AppKinson:PatientController');
 const PatientController = Router();
@@ -299,6 +300,27 @@ PatientController.post('/patient/:id/newGameScore', verifyToken, async (req: Req
         res.status(status).send('Saved');
     } catch (error) {
         debug('Patients Game Score saving failed, error: %j', error);
+        status = constants.HTTP_STATUS_INTERNAL_SERVER_ERROR;
+        const responseError = { status, error: "An error has ocurred"};
+        res.status(status).send(responseError);
+    }
+});
+
+PatientController.post('/patient/:id/newStepRecord', verifyToken, async (req: Request, res: Response) => {
+    debug('Patients save Step Record by Id');
+    const id = +req.params.id;
+    debug('Patients save Step Record body: %j, ID: %s',req.body, id);
+    let stepRecord: IStepRecord = req.body;
+    stepRecord.ID_PATIENT = id;
+    let status;
+    debug('Patients save Step Record json: %j', stepRecord);
+    try {
+        const response = await PatientService.saveStepRecord(stepRecord);
+        debug('Patients save Step Record result %j, succesful', response);
+        status = constants.HTTP_STATUS_OK;
+        res.status(status).send('Saved');
+    } catch (error) {
+        debug('Patients Step Record saving failed, error: %j', error);
         status = constants.HTTP_STATUS_INTERNAL_SERVER_ERROR;
         const responseError = { status, error: "An error has ocurred"};
         res.status(status).send(responseError);
