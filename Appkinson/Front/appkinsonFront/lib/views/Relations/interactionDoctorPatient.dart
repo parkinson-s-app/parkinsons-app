@@ -79,7 +79,7 @@ class InteractionDoctorPatient extends StatelessWidget {
                   ),
                   Column(
                     children: <Widget>[
-                    ButtonGoReporter(),
+                    ButtonGoReporter(idPatient: this.idPatient),
                       Text(
                         "Reporte",
                         style: TextStyle(

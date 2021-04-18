@@ -1,14 +1,24 @@
 import 'package:appkinsonFront/routes/RoutesDoctor.dart';
 import 'package:flutter/material.dart';
 import 'package:date_range_picker/date_range_picker.dart' as DateRangePicker;
+   
 
+List<DateTime> picked = [];
+String selectedChoice = "";
 class ReportConfigPage extends StatefulWidget {
 
+  final int idPatient;
+
+  const ReportConfigPage({Key key, this.idPatient}) : super(key: key);
   @override
-  _ReportConfigPageState createState() => _ReportConfigPageState();
+  _ReportConfigPageState createState() => _ReportConfigPageState(idPatient);
 }
 
 class _ReportConfigPageState extends State<ReportConfigPage> {
+  final int idPatient;
+  _ReportConfigPageState(this.idPatient);
+
+
   List<String> dataList = [
     "Síntomas",
     "Ánimo",
@@ -18,10 +28,39 @@ class _ReportConfigPageState extends State<ReportConfigPage> {
   List<String> dataListPeriocity = [
     "Última semana",
     "Último mes",
-    "últimos tres meses",
+    "Ultimos tres meses",
     "Últimos seis meses",
     "Último año"
   ];
+
+  
+
+  void getPeriocity(String periocity){
+    if(picked.isNotEmpty){
+       picked.clear();
+    }
+    print("Hola");
+    var now = DateTime.now(); 
+    picked.add(now);
+    if(periocity == "Última semana"){
+      var lastDate = new DateTime(now.year , now.month , now.day - 7);
+      picked.add(lastDate);
+    }
+     if(periocity == "Último mes"){
+       picked.add(new DateTime(now.year , now.month -1 , now.day)); 
+    }
+     if(periocity == "Ultimos tres meses"){
+       picked.add(new DateTime(now.year , now.month -3, now.day)); 
+    }
+     if(periocity == "Últimos seis meses"){
+       picked.add(new DateTime(now.year , now.month -6, now.day)); 
+    }
+     if(periocity == "Último año"){
+       picked.add(new DateTime(now.year -1, now.month , now.day)); 
+    }
+    print(picked[0]);
+    print(picked[1]);
+  }
 
 
   List<String> selecteddataList = List();
@@ -62,37 +101,15 @@ class _ReportConfigPageState extends State<ReportConfigPage> {
             actions: <Widget>[
               FlatButton(
                 child: Text("Aceptar"),
-                onPressed: () => Navigator.of(context).pop(),
+                onPressed: () {
+                  getPeriocity(selectedChoice);
+                  Navigator.of(context).pop();
+                }
               )
             ],
           );
         });
   }
-
-  _showIntervalDates(){
-    showDialog(
-        context: context,
-        builder: (BuildContext context) {
-          //Here we will build the content of the dialog
-          return new FlatButton(
-              color: Colors.deepOrangeAccent,
-              onPressed: () async {
-                final List<DateTime> picked = await DateRangePicker.showDatePicker(
-                    context: context,
-                    initialFirstDate: new DateTime.now(),
-                    initialLastDate: (new DateTime.now()).add(new Duration(days: 7)),
-                    firstDate: new DateTime(2015),
-                    lastDate: new DateTime(DateTime.now().year + 2)
-                );
-                if (picked != null && picked.length == 2) {
-                  print(picked);
-                }
-              },
-              child: new Text("Seleccionar fechas")
-          );
-        });
-  }
-
 
   @override
   Widget build(BuildContext context) {
@@ -121,16 +138,19 @@ class _ReportConfigPageState extends State<ReportConfigPage> {
             RaisedButton(
             //color: Colors.deepOrangeAccent,
             onPressed: () async {
-              final List<DateTime> picked = await DateRangePicker.showDatePicker(
+              print("Entraaa");
+              if(picked.isNotEmpty){
+                picked.clear();
+              }
+               picked = await DateRangePicker.showDatePicker(
                   context: context,
                   initialFirstDate: new DateTime.now(),
                   initialLastDate: (new DateTime.now()).add(new Duration(days: 7)),
                   firstDate: new DateTime(2015),
                   lastDate: new DateTime(DateTime.now().year + 2)
               );
-              if (picked != null && picked.length == 2) {
-                print(picked);
-              }
+              print(picked[0]);
+              print(picked[1]);
             },
             child: new Text("Seleccionar fechas")
             ),
@@ -138,7 +158,7 @@ class _ReportConfigPageState extends State<ReportConfigPage> {
               padding: EdgeInsets.all(100.0),
             ),
             FlatButton(onPressed: (){
-              RoutesDoctor().toListReportPage(context);
+              RoutesDoctor().toListReportPage(context, idPatient);
             }, child: Text("Generar reporte"), color: Colors.blueAccent,
               textColor: Colors.white,)
           ],
@@ -157,7 +177,6 @@ class MultiSelectChipOne extends StatefulWidget {
   _MultiSelectChipStateOne createState() => _MultiSelectChipStateOne();
 }
 class _MultiSelectChipStateOne extends State<MultiSelectChipOne> {
-  String selectedChoice = "";  // this function will build and return the choice list
   _buildChoiceList() {
     List<Widget> choices = List();
     widget.reportList.forEach((item) {

@@ -52,7 +52,7 @@ class _CountDownTimerState extends State<CountDownTimer>
     super.initState();
     controller = AnimationController(
       vsync: this,
-      duration: Duration(seconds: 60),
+      duration: Duration(seconds: 30),
     );
   }
 
@@ -150,6 +150,7 @@ class _CountDownTimerState extends State<CountDownTimer>
                                             ? 1.0
                                             : controller.value);
                                     if(controller.value == 0.0){
+                                      //Aquí llamar el servicio y si es diferente de 0 se guarda el resultado
                                      count = 0;
                                     }
                                 }, label: Text("Jugar"),);
