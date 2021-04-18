@@ -525,6 +525,28 @@ class EndPoints {
     return i;
   }
 
+  //Envíar puntaje del juego
+    Future<String> sendGameRecord(int stepsQuantity) async {
+    var token = await Utils().getToken();
+    var tokenID = await Utils().getFromToken('id');
+    DateTime recordDate = DateTime.now();
+    debugPrint("AQUÍ ESTAMOS");
+    debugPrint(tokenID);
+    Map data2 = {
+      "recordDate": recordDate.toString(),
+      "stepsQuantity": stepsQuantity.toString(),
+    };
+    http.Response response = await http.post(
+        endpointBack + '/api/patient/$tokenID/newStepRecord',
+        body: data2,
+        headers: {
+          HttpHeaders.authorizationHeader: jwtkey + token
+        });
+    debugPrint(data2.toString());
+    String i = response.body;
+    return i;
+  }
+
   Future<String> deleteAlarm(String id, var token, var tokenID) async {
     http.Response response = await http.post(
         endpointBack + '/api/patient/$tokenID/medicineAlarm/delete/$id',

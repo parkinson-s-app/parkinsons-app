@@ -1,3 +1,4 @@
+import 'package:appkinsonFront/services/EndPoints.dart';
 import 'package:flutter/material.dart';
 import 'dart:math' as math;
 
@@ -6,6 +7,7 @@ class CountDownTimer extends StatefulWidget {
   _CountDownTimerState createState() => _CountDownTimerState();
 }
 int count = 0;
+bool envio = false;
 class CustomTimerPainter extends CustomPainter {
   CustomTimerPainter({
     this.animation,
@@ -27,8 +29,20 @@ class CustomTimerPainter extends CustomPainter {
     canvas.drawCircle(size.center(Offset.zero), size.width / 2.0, paint);
     paint.color = color;
     double progress = (1.0 - animation.value) * 2 * math.pi;
+    //print(progress);
+    if(progress > 6.28 && envio == false){
+       envio = true;
+       _sendScore();
+       print("AQUIIII");
+       
+    }
     canvas.drawArc(Offset.zero & size, math.pi * 1.5, -progress, false, paint);
   }
+
+   Future _sendScore() async {
+     await EndPoints().sendGameRecord(count);
+  }
+ 
 
   @override
   bool shouldRepaint(CustomTimerPainter old) {
@@ -50,6 +64,8 @@ class _CountDownTimerState extends State<CountDownTimer>
   @override
   void initState() {
     super.initState();
+    count = 0;
+    envio = false;
     controller = AnimationController(
       vsync: this,
       duration: Duration(seconds: 30),
@@ -130,11 +146,14 @@ class _CountDownTimerState extends State<CountDownTimer>
                         backgroundColor: Colors.green,
                         onPressed: (){
                               if(controller.value != 0.0){
+                                //print(controller.value);
                               setState(() {
                               });
                               count = count + 1;
                               }
-                              
+                              if(controller.value == 0.0){
+                                print("Se acabó el tiempo");
+                              }
                               //debugPrint(controller.value.toString());
                         }, 
                         ),
@@ -149,7 +168,10 @@ class _CountDownTimerState extends State<CountDownTimer>
                                         from: controller.value == 0.0
                                             ? 1.0
                                             : controller.value);
-                                    if(controller.value == 0.0){
+                                    if(controller.value == 1.0){
+                                      print("ENTRAAAAAA");
+                                  
+                                      envio = false;
                                       //Aquí llamar el servicio y si es diferente de 0 se guarda el resultado
                                      count = 0;
                                     }

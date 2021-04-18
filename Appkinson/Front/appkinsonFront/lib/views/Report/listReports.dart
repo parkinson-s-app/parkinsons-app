@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:appkinsonFront/routes/RoutesDoctor.dart';
 import 'package:appkinsonFront/services/EndPoints.dart';
 import 'package:appkinsonFront/views/Login/Buttons/ButtonLogin.dart';
@@ -7,8 +9,8 @@ import 'package:appkinsonFront/views/Report/Widget_Chart_lineal.dart';
 import 'package:flutter/material.dart';
 
 import 'Widget_Chart_Serie.dart';
-
-
+String averageSymtomsResponse;
+List<double> averageSymptoms = [];
 class ListReportPage extends StatefulWidget {
  final int idPatient;
 
@@ -30,17 +32,16 @@ class _ListReportPage extends State<ListReportPage> {
    var lastDate = new DateTime(now.year , now.month , now.day - 7);
     print("Entra al init state");
     _getAllDataCharts(lastDate, now).then((value){
-   //   //aquí empezamos a llamar las funciones que construyen los arreglos de las gráficas
+   
+     var averageSymtomsResponseDecode =  json.decode(averageSymtomsResponse);
+     
      });
-   // _getAverageSymptomsAndCheerUp(lastDate, now).then((value){
-     // aquí empezamos a llamar las funciones que construyen los arreglos de las gráficas
-   // });
     super.initState();
   }
   
 
   Future _getAllDataCharts(DateTime lastDate, DateTime now) async {
-     await EndPoints().getAverageSymptoms( idPatient, lastDate, now);
+     averageSymtomsResponse = await EndPoints().getAverageSymptoms( idPatient, lastDate, now);
      await EndPoints().getAverageSymptomsAndCheerUp( idPatient, lastDate, now);
   }
  
@@ -87,6 +88,60 @@ class _ListReportPage extends State<ListReportPage> {
                       .toReportChartSerie(context, "idquemado", seriedata);
                 },
                 child: Text("Promedio del estado de ánimo del paciente"),
+                color: Colors.blueAccent,
+                textColor: Colors.white,
+              ),
+                FlatButton(
+                onPressed: () {
+                  RoutesDoctor()
+                      .toReportChartSerie(context, "idquemado", seriedata);
+                },
+                child: Text("Promedio de disquinecias"),
+                color: Colors.blueAccent,
+                textColor: Colors.white,
+              ),
+                FlatButton(
+                onPressed: () {
+                  RoutesDoctor()
+                      .toReportChartSerie(context, "idquemado", seriedata);
+                },
+                child: Text("Promedio del estado de ánimo"),
+                color: Colors.blueAccent,
+                textColor: Colors.white,
+              ),
+                FlatButton(
+                onPressed: () {
+                  RoutesDoctor()
+                      .toReportChartSerie(context, "idquemado", seriedata);
+                },
+                child: Text("Promedio de destreza"),
+                color: Colors.blueAccent,
+                textColor: Colors.white,
+              ),
+                FlatButton(
+                onPressed: () {
+                  RoutesDoctor()
+                      .toReportChartSerie(context, "idquemado", seriedata);
+                },
+                child: Text("Promedio del ejercicio realizado"),
+                color: Colors.blueAccent,
+                textColor: Colors.white,
+              ),
+               FlatButton(
+                onPressed: () {
+                  RoutesDoctor()
+                      .toReportChartSerie(context, "idquemado", seriedata);
+                },
+                child: Text("Promedio del ejercicio realizad comparado con los síntomas"),
+                color: Colors.blueAccent,
+                textColor: Colors.white,
+              ),
+               FlatButton(
+                onPressed: () {
+                  RoutesDoctor()
+                      .toReportChartSerie(context, "idquemado", seriedata);
+                },
+                child: Text("Promedio del ejercicio realizado comparado con el ánimo"),
                 color: Colors.blueAccent,
                 textColor: Colors.white,
               ),
