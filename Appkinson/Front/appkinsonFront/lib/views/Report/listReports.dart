@@ -10,14 +10,13 @@ import 'package:flutter/material.dart';
 
 import 'Widget_Chart_Serie.dart';
 String averageSymtomsResponse;
-List<double> averageSymptoms = [];
+var piedata;
 class ListReportPage extends StatefulWidget {
  final int idPatient;
 
   const ListReportPage({Key key, this.idPatient}) : super(key: key);
   _ListReportPage createState() => _ListReportPage(idPatient);
-  
-  
+
 }
 
 class _ListReportPage extends State<ListReportPage> {
@@ -34,7 +33,20 @@ class _ListReportPage extends State<ListReportPage> {
     _getAllDataCharts(lastDate, now).then((value){
    
      var averageSymtomsResponseDecode =  json.decode(averageSymtomsResponse);
-     
+     List<double> averageSymptoms = [];
+     //Construyendo los datos de la gráfica de promedio de los síntomas del paciente
+     averageSymptoms.add(averageSymtomsResponseDecode["on"].toDouble());
+     averageSymptoms.add(averageSymtomsResponseDecode["onG"].toDouble());
+     averageSymptoms.add(averageSymtomsResponseDecode["off"].toDouble());
+     averageSymptoms.add(averageSymtomsResponseDecode["offB"].toDouble());
+    
+    print(averageSymptoms[0]);
+    print(averageSymptoms[1]);
+    print(averageSymptoms[2]);
+    print(averageSymptoms[3]);
+
+    piedata = returnDataPie(averageSymptoms);
+
      });
     super.initState();
   }
@@ -43,10 +55,11 @@ class _ListReportPage extends State<ListReportPage> {
   Future _getAllDataCharts(DateTime lastDate, DateTime now) async {
      averageSymtomsResponse = await EndPoints().getAverageSymptoms( idPatient, lastDate, now);
      await EndPoints().getAverageSymptomsAndCheerUp( idPatient, lastDate, now);
+     await EndPoints().getAverageGame( idPatient, lastDate, now);
   }
  
 
-  var piedata = returnDataPie();
+  
   var linedata = returnDataLine();
   var seriedata = returnDataSeries();
 
@@ -149,26 +162,15 @@ class _ListReportPage extends State<ListReportPage> {
   }
 }
 
-returnDataPie() {
-  var piedata = [
-    //new DataPieChart('ON', 35.8, Color(0xff3366cc)),
-    //new DataPieChart('OFF', 8.3, Color(0xff990099)),
-    new DataPieChart('ON MUY BUENO', 10.8, Color(0xff109618)),
-    new DataPieChart('ON BUENO', 15.6, Colors.lightGreen),
-    new DataPieChart('OFF MALO', 19.2, Color(0xffff9900)),
-    new DataPieChart('OFF MUY MALO', 10.3, Color(0xffdc3912)),
-  ];
-  return piedata;
-}
 
-returnDataLineal() {
+returnDataPie(List<double> datos) {
   var linealdata = [
     //new DataPieChart('ON', 35.8, Color(0xff3366cc)),
     //new DataPieChart('OFF', 8.3, Color(0xff990099)),
-    new DataLinealChart1('ON MUY BUENO', 10.8, Color(0xff109618)),
-    new DataLinealChart1('ON BUENO', 15.6, Colors.lightGreen),
-    new DataLinealChart1('OFF MALO', 19.2, Color(0xffff9900)),
-    new DataLinealChart1('OFF MUY MALO', 10.3, Color(0xffdc3912)),
+    new DataPieChart('ON MUY BUENO', datos[1], Color(0xff109618)),
+    new DataPieChart('ON BUENO', datos[0], Colors.lightGreen),
+    new DataPieChart('OFF MALO', datos[2], Color(0xffff9900)),
+    new DataPieChart('OFF MUY MALO', datos[3], Color(0xffdc3912)),
   ];
   return linealdata;
 }

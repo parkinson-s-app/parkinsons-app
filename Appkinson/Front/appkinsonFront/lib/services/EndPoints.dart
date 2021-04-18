@@ -416,6 +416,7 @@ class EndPoints {
     return success;
   }
 
+//Datos de las gráficas
   Future<String> getAverageSymptoms(
       var tokenID, DateTime start, DateTime end) async {
     var token = await Utils().getToken();
@@ -444,6 +445,25 @@ class EndPoints {
       'montly' : 'true'
     };
     var uri = Uri.http(pagePath, '/api/patient/$tokenID/symptoms/report',
+        queryParameters);
+    http.Response lista = await http.get(uri, headers: {
+      HttpHeaders.authorizationHeader: jwtkey + token
+    });
+    String i = lista.body;
+    var codeList = json.decode(i);
+    debugPrint(i);
+    return i;
+  }
+
+  Future<String> getAverageGame(
+    var tokenID, DateTime start, DateTime end) async {
+    var token = await Utils().getToken();
+    var queryParameters = {
+      'start': start.toString(),
+      'end': end.toString(),
+      'montly' : 'true'
+    };
+    var uri = Uri.http(pagePath, '/api/patient/$tokenID/game/report',
         queryParameters);
     http.Response lista = await http.get(uri, headers: {
       HttpHeaders.authorizationHeader: jwtkey + token
