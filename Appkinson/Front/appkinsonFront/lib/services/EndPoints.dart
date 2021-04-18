@@ -532,19 +532,19 @@ class EndPoints {
     DateTime recordDate = DateTime.now();
     debugPrint("AQUÍ ESTAMOS");
     debugPrint(tokenID);
-    Map data2 = {
-      "recordDate": recordDate.toString(),
-      "stepsQuantity": stepsQuantity.toString(),
+    Map<String, dynamic> data2 = {
+      "gameDate": recordDate.toString(),
+      "score": stepsQuantity,
     };
-    http.Response response = await http.post(
-        endpointBack + '/api/patient/$tokenID/newStepRecord',
-        body: data2,
-        headers: {
-          HttpHeaders.authorizationHeader: jwtkey + token
-        });
-    debugPrint(data2.toString());
-    String i = response.body;
-    return i;
+
+    FormData formData = new FormData.fromMap(data2);
+    Dio dio = new Dio();
+    dio.options.headers["authorization"] = jwtkey + token;
+    Response response = await dio.post(
+        endpointBack + '/api/patient/$tokenID/newGameScore',
+        data: formData );
+    debugPrint(response.statusMessage);
+    return response.statusMessage;
   }
 
   Future<String> deleteAlarm(String id, var token, var tokenID) async {
