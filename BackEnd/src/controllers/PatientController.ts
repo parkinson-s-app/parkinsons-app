@@ -173,7 +173,7 @@ PatientController.get('/patient/:id/emotionalFormPatient', verifyToken, async (r
     }
 });
 
-PatientController.post('/patient/:id/emotionalFormPatient', verifyToken, async (req: Request, res: Response) => {
+PatientController.post('/patient/:id/noMotorSymptomsFormPatient', verifyToken, async (req: Request, res: Response) => {
     debug('Patients noMotorSymptomsFormPatient by Id');
     const id = +req.params.id;
     debug('Patients noMotorSymptomsFormPatient body: %j, ID: %s',req.body, id);
@@ -193,19 +193,19 @@ PatientController.post('/patient/:id/emotionalFormPatient', verifyToken, async (
     }
 });
 
-PatientController.get('/patient/:id/emotionalFormPatient', verifyToken, async (req: Request, res: Response) => {
+PatientController.get('/patient/:id/noMotorSymptomsFormPatient', verifyToken, async (req: Request, res: Response) => {
     const id = +req.params.id;
-    debug('Patients getting emotional form by Id: %s', id);
+    debug('Patients getting no motor form by Id: %s', id);
     let status;
     try {
         const initialDate: string = (req.query.start) ? req.query.start as string : '';
         const endDate = (req.query.end) ? req.query.end as string : '';
-        const response = await PatientService.getEmotionalFormsById(id, initialDate, endDate);
-        debug('Patient getting emotional result %j, succesful', response);
+        const response = await PatientService.getNoMotorFormsById(id, initialDate, endDate);
+        debug('Patient getting no motor result %j, succesful', response);
         status = constants.HTTP_STATUS_OK;
         res.status(status).send(response);
     } catch (error) {
-        debug('Patient getting emotional form failed, error: %j', error);
+        debug('Patient getting no motor form failed, error: %j', error);
         status = constants.HTTP_STATUS_INTERNAL_SERVER_ERROR;
         const responseError = { status, error: "An error has ocurred"};
         res.status(status).send(responseError);
