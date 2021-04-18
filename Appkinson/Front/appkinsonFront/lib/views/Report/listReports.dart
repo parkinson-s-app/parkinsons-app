@@ -1,240 +1,188 @@
 import 'package:appkinsonFront/routes/RoutesDoctor.dart';
+import 'package:appkinsonFront/services/EndPoints.dart';
+import 'package:appkinsonFront/views/Login/Buttons/ButtonLogin.dart';
+import 'package:appkinsonFront/views/Report/Widget_Chart_Line.dart';
+import 'package:appkinsonFront/views/Report/Widget_Chart_Pie.dart';
+import 'package:appkinsonFront/views/Report/Widget_Chart_lineal.dart';
 import 'package:flutter/material.dart';
-import 'package:date_range_picker/date_range_picker.dart' as DateRangePicker;
-   
 
-List<DateTime> picked = [];
-String selectedChoice = "";
-class ReportConfigPage extends StatefulWidget {
+import 'Widget_Chart_Serie.dart';
 
-  @override
-  _ReportConfigPageState createState() => _ReportConfigPageState();
+
+class ListReportPage extends StatefulWidget {
+ final int idPatient;
+
+  const ListReportPage({Key key, this.idPatient}) : super(key: key);
+  _ListReportPage createState() => _ListReportPage(idPatient);
+  
+  
 }
 
-class _ReportConfigPageState extends State<ReportConfigPage> {
-  List<String> dataList = [
-    "Síntomas",
-    "Ánimo",
-    "Médicamentos",
-    "Destreza"
-  ];
-  List<String> dataListPeriocity = [
-    "Última semana",
-    "Último mes",
-    "Ultimos tres meses",
-    "Últimos seis meses",
-    "Último año"
-  ];
+class _ListReportPage extends State<ListReportPage> {
 
-  void getPeriocity(String periocity){
-    if(picked.isNotEmpty){
-       picked.clear();
-    }
-    print("Hola");
-    var now = DateTime.now(); 
-    picked.add(now);
-    if(periocity == "Última semana"){
-      var lastDate = new DateTime(now.year , now.month , now.day - 7);
-      picked.add(lastDate);
-    }
-     if(periocity == "Último mes"){
-       picked.add(new DateTime(now.year , now.month -1 , now.day)); 
-    }
-     if(periocity == "Ultimos tres meses"){
-       picked.add(new DateTime(now.year , now.month -3, now.day)); 
-    }
-     if(periocity == "Últimos seis meses"){
-       picked.add(new DateTime(now.year , now.month -6, now.day)); 
-    }
-     if(periocity == "Último año"){
-       picked.add(new DateTime(now.year -1, now.month , now.day)); 
-    }
-    print(picked[0]);
-    print(picked[1]);
+   final int idPatient;
+
+  _ListReportPage(this.idPatient);
+  
+  @override
+  void initState() {
+    var now = DateTime.now();
+   var lastDate = new DateTime(now.year , now.month , now.day - 7);
+    print("Entra al init state");
+    _getAllDataCharts(lastDate, now).then((value){
+   //   //aquí empezamos a llamar las funciones que construyen los arreglos de las gráficas
+     });
+   // _getAverageSymptomsAndCheerUp(lastDate, now).then((value){
+     // aquí empezamos a llamar las funciones que construyen los arreglos de las gráficas
+   // });
+    super.initState();
   }
+  
 
-
-  List<String> selecteddataList = List();
-
-  _showReportDialog() {
-    showDialog(
-        context: context,
-        builder: (BuildContext context) {
-          //Here we will build the content of the dialog
-          return AlertDialog(
-            title: Text("Elige los datos que deseas analizar"),
-            content: MultiSelectChip(
-              dataList,
-              onSelectionChanged: (selectedList) {
-                setState(() {
-                  selecteddataList = selectedList;
-                });
-              },
-            ),
-            actions: <Widget>[
-              FlatButton(
-                child: Text("Aceptar"),
-                onPressed: () => Navigator.of(context).pop(),
-              )
-            ],
-          );
-        });
+  Future _getAllDataCharts(DateTime lastDate, DateTime now) async {
+     await EndPoints().getAverageSymptoms( idPatient, lastDate, now);
+     await EndPoints().getAverageSymptomsAndCheerUp( idPatient, lastDate, now);
   }
+ 
 
-  _showReportDialogPeriocity() {
-    showDialog(
-        context: context,
-        builder: (BuildContext context) {
-          //Here we will build the content of the dialog
-          return AlertDialog(
-            title: Text("Periocidad"),
-            content: MultiSelectChipOne(dataListPeriocity),
-            actions: <Widget>[
+  var piedata = returnDataPie();
+  var linedata = returnDataLine();
+  var seriedata = returnDataSeries();
+
+
+  // This widget is the root of your application.
+  @override
+  Widget build(BuildContext context) {
+    print("Entraaaaa");
+    return new MaterialApp(
+        debugShowCheckedModeBanner: false,
+        title: 'Reportes',
+        theme: new ThemeData(
+          primarySwatch: Colors.blue,
+        ),
+        home: Scaffold(
+            appBar: AppBar(title: Text('Reportes')),
+            body: new ListView(children: [
               FlatButton(
-                child: Text("Aceptar"),
                 onPressed: () {
-                  getPeriocity(selectedChoice);
-                  Navigator.of(context).pop();
-                }
-              )
-            ],
-          );
-        });
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text("Configuración del reporte"),
-      ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: <Widget>[
-            RaisedButton(
-              child: Text("Datos"),
-              onPressed: () => _showReportDialog(),
-            ),
-            Text(selecteddataList.join(" , ")),
-            Padding(
-              padding: EdgeInsets.all(30.0),
-            ),
-            Text("Intervalo de tiempo"),
-            RaisedButton(
-              child: Text("Periocidad"),
-              onPressed: () => _showReportDialogPeriocity(),
-            ),
-            RaisedButton(
-            //color: Colors.deepOrangeAccent,
-            onPressed: () async {
-              print("Entraaa");
-              if(picked.isNotEmpty){
-                picked.clear();
-              }
-               picked = await DateRangePicker.showDatePicker(
-                  context: context,
-                  initialFirstDate: new DateTime.now(),
-                  initialLastDate: (new DateTime.now()).add(new Duration(days: 7)),
-                  firstDate: new DateTime(2015),
-                  lastDate: new DateTime(DateTime.now().year + 2)
-              );
-              print(picked[0]);
-              print(picked[1]);
-            },
-            child: new Text("Seleccionar fechas")
-            ),
-            Padding(
-              padding: EdgeInsets.all(100.0),
-            ),
-            FlatButton(onPressed: (){
-              RoutesDoctor().toListReportPage(context);
-            }, child: Text("Generar reporte"), color: Colors.blueAccent,
-              textColor: Colors.white,)
-          ],
-        ),
-      ),
-    );
+                  RoutesDoctor()
+                      .toReportChartPie(context, "idquemado", piedata);
+                },
+                child: Text("Promedio de los sintomas del paciente"),
+                color: Colors.blueAccent,
+                textColor: Colors.white,
+              ),
+              FlatButton(
+                onPressed: () {
+                  RoutesDoctor()
+                      .toReportChartLine(context, "idquemado", linedata);
+                },
+                child: Text("Promedio de desfase en la toma de médicamentos"),
+                color: Colors.blueAccent,
+                textColor: Colors.white,
+              ),
+              FlatButton(
+                onPressed: () {
+                  RoutesDoctor()
+                      .toReportChartSerie(context, "idquemado", seriedata);
+                },
+                child: Text("Promedio del estado de ánimo del paciente"),
+                color: Colors.blueAccent,
+                textColor: Colors.white,
+              ),
+            ])));
   }
 }
 
-
-
-class MultiSelectChipOne extends StatefulWidget {
-  final List<String> reportList;
-  MultiSelectChipOne(this.reportList);
-  @override
-  _MultiSelectChipStateOne createState() => _MultiSelectChipStateOne();
-}
-class _MultiSelectChipStateOne extends State<MultiSelectChipOne> {
-  _buildChoiceList() {
-    List<Widget> choices = List();
-    widget.reportList.forEach((item) {
-      choices.add(Container(
-        padding: const EdgeInsets.all(2.0),
-        child: ChoiceChip(
-          label: Text(item),
-          selected: selectedChoice == item,
-          onSelected: (selected) {
-            setState(() {
-              selectedChoice = item;
-            });
-          },
-        ),
-      ));
-    });    return choices;
-  }  @override
-  Widget build(BuildContext context) {
-    return Wrap(
-      children: _buildChoiceList(),
-    );
-  }
+returnDataPie() {
+  var piedata = [
+    //new DataPieChart('ON', 35.8, Color(0xff3366cc)),
+    //new DataPieChart('OFF', 8.3, Color(0xff990099)),
+    new DataPieChart('ON MUY BUENO', 10.8, Color(0xff109618)),
+    new DataPieChart('ON BUENO', 15.6, Colors.lightGreen),
+    new DataPieChart('OFF MALO', 19.2, Color(0xffff9900)),
+    new DataPieChart('OFF MUY MALO', 10.3, Color(0xffdc3912)),
+  ];
+  return piedata;
 }
 
-
-class MultiSelectChip extends StatefulWidget {
-  final List<String> dataList;
-  final Function(List<String>) onSelectionChanged;
-
-  MultiSelectChip(this.dataList, {this.onSelectionChanged});
-
-  @override
-  _MultiSelectChipState createState() => _MultiSelectChipState();
+returnDataLineal() {
+  var linealdata = [
+    //new DataPieChart('ON', 35.8, Color(0xff3366cc)),
+    //new DataPieChart('OFF', 8.3, Color(0xff990099)),
+    new DataLinealChart1('ON MUY BUENO', 10.8, Color(0xff109618)),
+    new DataLinealChart1('ON BUENO', 15.6, Colors.lightGreen),
+    new DataLinealChart1('OFF MALO', 19.2, Color(0xffff9900)),
+    new DataLinealChart1('OFF MUY MALO', 10.3, Color(0xffdc3912)),
+  ];
+  return linealdata;
 }
 
-class _MultiSelectChipState extends State<MultiSelectChip> {
-// String selectedChoice = "";
-  List<String> selectedChoices = List();
+returnDataLine() {
+  var allData = [];
+  var data = [
+    new dataLineSerie(0, 45), // mes y desfase calculado
+    new dataLineSerie(1, 56),
+    new dataLineSerie(2, 55),
+    new dataLineSerie(3, 60),
+    new dataLineSerie(4, 61),
+    new dataLineSerie(5, 70),
+  ];
+  var data1 = [
+    new dataLineSerie(0, 35),
+    new dataLineSerie(1, 46),
+    new dataLineSerie(2, 45),
+    new dataLineSerie(3, 50),
+    new dataLineSerie(4, 51),
+    new dataLineSerie(5, 60),
+  ];
 
-  _buildChoiceList() {
-    List<Widget> choices = List();
+  var data2 = [
+    new dataLineSerie(0, 20),
+    new dataLineSerie(1, 24),
+    new dataLineSerie(2, 25),
+    new dataLineSerie(3, 40),
+    new dataLineSerie(4, 45),
+    new dataLineSerie(5, 60),
+  ];
+  allData.add(data);
+  allData.add(data1);
+  allData.add(data2);
+  return allData;
+}
 
-    widget.dataList.forEach((item) {
-      choices.add(Container(
-        padding: const EdgeInsets.all(2.0),
-        child: ChoiceChip(
-          label: Text(item),
-          selected: selectedChoices.contains(item),
-          onSelected: (selected) {
-            setState(() {
-              selectedChoices.contains(item)
-                  ? selectedChoices.remove(item)
-                  : selectedChoices.add(item);
-              widget.onSelectionChanged(selectedChoices);
-            });
-          },
-        ),
-      ));
-    });
-
-    return choices;
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Wrap(
-      children: _buildChoiceList(),
-    );
-  }
+returnDataSeries() {
+  var allData = [];
+  var data1 = [
+    // en enero el estado de off malo
+    new Animo(15, "Enero"),
+    new Animo(10, "Febrero"),
+    new Animo(10, "Marzo"),
+  ];
+  var data2 = [
+    new Animo(10, "Enero"), // en enero el estado de off normal
+    new Animo(20, "Febrero"),
+    new Animo(10, "Marzo"),
+  ];
+  var data3 = [
+    new Animo(10, "Enero"), // en enero el estado de on normal
+    new Animo(10, "Febrero"),
+    new Animo(35, "Marzo"),
+  ];
+  var data4 = [
+    new Animo(10, "Enero"), // en enero el estado de on muy bueno
+    new Animo(10, "Febrero"),
+    new Animo(35, "Marzo"),
+  ];
+  var data5 = [
+    new Animo(10, "Enero"), // en enero el promedio de desfase de la medicina
+    new Animo(10, "Febrero"),
+    new Animo(35, "Marzo"),
+  ];
+  allData.add(data1);
+  allData.add(data2);
+  allData.add(data3);
+  allData.add(data4);
+  allData.add(data5);
+  return allData;
 }
