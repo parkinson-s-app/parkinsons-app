@@ -4,6 +4,7 @@ import { constants } from 'http2';
 import IAnswerRequestDto from '../models/IAnswerRequestDto';
 import IEmotionalFormDto from '../models/IEmotionalFormDto';
 import IMedicineAlarm from '../models/IMedicineAlarm';
+import IGameScore from '../models/IGameScore';
 import CarerService from '../services/CarerService';
 import PatientService from '../services/PatientService';
 import { getIdFromToken, verifyToken } from '../utilities/AuthUtilities';
@@ -281,5 +282,27 @@ async function montlyReport(idPatient: number, initDate: string, endDate: string
     }
     return resp;
 }
+
+
+PatientController.post('/patient/:id/newGameScore', verifyToken, async (req: Request, res: Response) => {
+    debug('Patients save Game Score by Id');
+    const id = +req.params.id;
+    debug('Patients save Game Score body: %j, ID: %s',req.body, id);
+    let gameScore: IGameScore = req.body;
+    gameScore.ID_PATIENT = id;
+    let status;
+    debug('Patients save Game Score json: %j', gameScore);
+    try {
+        const response = await PatientService.saveGameScore(gameScore);
+        debug('Patients save Game Score result %j, succesful', response);
+        status = constants.HTTP_STATUS_OK;
+        res.status(status).send('Saved');
+    } catch (error) {
+        debug('Patients Game Score saving failed, error: %j', error);
+        status = constants.HTTP_STATUS_INTERNAL_SERVER_ERROR;
+        const responseError = { status, error: "An error has ocurred"};
+        res.status(status).send(responseError);
+    }
+});
 
 export default PatientController;

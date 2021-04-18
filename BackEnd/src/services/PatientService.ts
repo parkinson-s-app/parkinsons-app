@@ -8,6 +8,7 @@ import IEmotionalFormDto from "../models/IEmotionalFormDto";
 import { Pool } from "mysql2/promise";
 import IMedicineAlarm from "../models/IMedicineAlarm";
 import { json } from "express";
+import IGameScore from "../models/IGameScore";
 
 const debug = debugLib('AppKinson:PatientService');
 
@@ -309,6 +310,25 @@ export default class PatientService {
                 conn.end();
             }
             debug('getReportSymptomsTwoDates Error: %j', error);
+            throw error;
+        }
+    }
+
+    public static async saveGameScore(gameScore: IGameScore) {
+        let conn: Pool | undefined;
+        try {
+            debug('saveGameScore get into');
+            conn = await connect();
+            debug('saveGameScore medicine alarms to save: %j', gameScore);
+            const res = await conn.query('INSERT INTO touchgamexpatient SET ?',[gameScore]);
+            debug('saveGameScore saved and returned: %j', res);
+            conn.end();
+            return res;
+        }  catch (error) {
+            if(conn) {
+                conn.end();
+            }
+            debug('saveGameScore Error: %j', error);
             throw error;
         }
     }

@@ -162,3 +162,20 @@ CREATE TABLE toolboxitems (
     Type VARCHAR(20) NOT NULL,
     PRIMARY KEY (ID)
 );
+
+CREATE TABLE stepsxpatient (
+    ID_PATIENT INT,
+    stepDate DATETIME,
+    quantitySteps INT NOT NULL,
+    FOREIGN KEY (ID_PATIENT) REFERENCES patients(ID_USER) ON DELETE CASCADE,
+    PRIMARY KEY (ID_PATIENT,stepDate)
+);
+
+
+CREATE TABLE touchgamexpatient (
+    ID_PATIENT INT,
+    gameDate DATETIME,
+    score INT NOT NULL,
+    FOREIGN KEY (ID_PATIENT) REFERENCES patients(ID_USER) ON DELETE CASCADE,
+    PRIMARY KEY (ID_PATIENT,gameDate)
+);
