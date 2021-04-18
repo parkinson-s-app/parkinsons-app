@@ -352,4 +352,50 @@ export default class PatientService {
             throw error;
         }
     }
+
+    public static async  getReportGameTwoDates(idPatient: number, initDate: string, endDate: string) {
+        let conn: Pool | undefined;
+        try {
+            conn = await connect();
+            debug('getting game report by two dates First: %s Second: %s', initDate, endDate);
+            const query = `
+            SELECT 
+                score
+            FROM 
+                touchgamexpatient
+            WHERE ID_PATIENT= ? 
+            AND gameDate BETWEEN ? AND ?`;
+            debug('getReportGameTwoDates to patient id: %s', idPatient);
+            const res = await conn.query(query,[idPatient, initDate, endDate]);
+            debug('getReportGameTwoDates executed and returned: %j', res[0]);
+            conn.end();
+            debug('query game result response :%j', res[0]);
+            const listJSON = JSON.parse(JSON.stringify(res[0]));
+            debug('query game response as a list :%j', res[0]);
+            let on = 0;
+            let acum = 0;
+            let average = 0;
+            const size = listJSON.length;
+            debug('size :%s', size);
+            for (let index = 0; index < size; index++) {
+                acum += listJSON[index].score;
+            }
+            if (size != 0) {
+                average = (acum/size);
+            }
+            const finalResponse = {
+                Mes: 'null',
+                Promedio: average,
+                Cantidad: size
+            };
+            debug('response final :%j', finalResponse);
+            return finalResponse;
+        }  catch (error) {
+            if(conn) {
+                conn.end();
+            }
+            debug('getReportGameTwoDates Error: %j', error);
+            throw error;
+        }
+    }
 }

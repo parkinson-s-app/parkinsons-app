@@ -327,7 +327,7 @@ PatientController.post('/patient/:id/newStepRecord', verifyToken, async (req: Re
     }
 });
 
-/*
+
 PatientController.get('/patient/:id/game/report', verifyToken, async (req: Request, res: Response) => {
     debug('getting game report');
     let status;
@@ -341,9 +341,8 @@ PatientController.get('/patient/:id/game/report', verifyToken, async (req: Reque
         let response;
         if(montly != 'true'){
             response = await PatientService.getReportSymptomsTwoDates(idPatient, initDate, endDate);
-
         } else if (montly && montly == 'true') {
-            response = await montlyReport(idPatient, initDate, endDate);
+            response = await montlyGameReport(idPatient, initDate, endDate);
         }
         debug('Patient getting symptoms report. Items: %j', response);
         status = constants.HTTP_STATUS_OK;
@@ -355,5 +354,28 @@ PatientController.get('/patient/:id/game/report', verifyToken, async (req: Reque
         res.status(status).send(responseError);
     }
 });
-*/
+
+async function montlyGameReport(idPatient: number, initDate: string, endDate: string) {
+    var before = new Date(initDate);
+    var last = new Date(endDate);
+    let resp = [];
+    while(before.getTime() < last.getTime()) {
+        let report;
+        const nDate = new Date(before.getFullYear(), before.getMonth()+1, 0 );
+        if(nDate.getTime() < last.getTime()){
+            initDate = (before.toJSON()).toString();
+            endDate = (nDate.toJSON()).toString();
+            report = await PatientService.getReportGameTwoDates(idPatient, initDate, endDate);
+        } else {
+            initDate = (before.toJSON()).toString();
+            endDate = (last.toJSON()).toString();
+            report = await PatientService.getReportGameTwoDates(idPatient, initDate, endDate);
+        }
+        report.Mes = before.getMonth().toString();
+        before = new Date(before.getFullYear(), before.getMonth() +1, 1 );
+        resp.push(report);
+    }
+    return resp;
+}
+
 export default PatientController;
