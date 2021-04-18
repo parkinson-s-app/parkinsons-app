@@ -344,11 +344,11 @@ PatientController.get('/patient/:id/game/report', verifyToken, async (req: Reque
         } else if (montly && montly == 'true') {
             response = await montlyGameReport(idPatient, initDate, endDate);
         }
-        debug('Patient getting symptoms report. Items: %j', response);
+        debug('Patient getting game report. Items: %j', response);
         status = constants.HTTP_STATUS_OK;
         res.status(status).send(response);
     } catch (error) {
-        debug('Patient getting symptoms report failed, error: %j', error);
+        debug('Patient getting game report failed, error: %j', error);
         status = constants.HTTP_STATUS_INTERNAL_SERVER_ERROR;
         const responseError = { status, error: "An error has ocurred"};
         res.status(status).send(responseError);
