@@ -4,5 +4,6 @@ export default interface ISymptomsFormDto {
     q1: string;
     q2: string;
     formdate: Date;
+    discrepancy: number;
     pathvideo: string;
 }

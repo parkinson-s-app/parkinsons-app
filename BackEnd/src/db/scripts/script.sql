@@ -73,6 +73,7 @@ CREATE TABLE symptomsformpatient (
     Q2 VARCHAR(50) NOT NULL,
     formdate DATETIME NOT NULL,
     pathvideo VARCHAR(50),
+    discrepancy INT NOT NULL,
     FOREIGN KEY (ID_PATIENT) REFERENCES patients(ID_USER) ON DELETE CASCADE,
     PRIMARY KEY (ID_PATIENT,formdate)
 );
