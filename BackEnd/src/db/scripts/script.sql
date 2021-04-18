@@ -121,6 +121,15 @@ CREATE TABLE emotionalformpatient (
     PRIMARY KEY (ID_PATIENT,date)
 );
 
+CREATE TABLE emotionalformxpatient (
+    ID_PATIENT INT NOT NULL,
+    Q1 INT NOT NULL,
+    Q2 INT NOT NULL,
+    date DATETIME NOT NULL,
+    FOREIGN KEY (ID_PATIENT) REFERENCES patients(ID_USER) ON DELETE CASCADE,
+    PRIMARY KEY (ID_PATIENT,date)
+);
+
 CREATE TABLE medicinealarmpatient (
     ID_PATIENT INT NOT NULL,
     id VARCHAR(50) NOT NULL,

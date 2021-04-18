@@ -140,7 +140,7 @@ export default class PatientService {
             conn = await connect();
             emotionalFormData.id_patient=id;
             debug('saveEmotionalForm to person: %j, id: %s', emotionalFormData, id);
-            const res = await conn.query('INSERT INTO emotionalformpatient SET ?',[emotionalFormData]);
+            const res = await conn.query('INSERT INTO emotionalformxpatient SET ?',[emotionalFormData]);
             debug('saveEmotionalForm saved and returned: %j', res);
             conn.end();
             return res;
@@ -162,7 +162,7 @@ export default class PatientService {
             conn = await connect();
             const dateStart = new Date(start);
             const dateEnd = new Date(end);
-            const query = 'SELECT * FROM emotionalformpatient WHERE ID_PATIENT=? and ( date BETWEEN ? AND ?)';
+            const query = 'SELECT * FROM emotionalformxpatient WHERE ID_PATIENT=? and ( date BETWEEN ? AND ?)';
             debug('getEmotionalForms to patient id: %s', id);
             const res = await conn.query(query,[id, dateStart, dateEnd]);
             debug('getEmotionalForms saved and returned: %j', res);
