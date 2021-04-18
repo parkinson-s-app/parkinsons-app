@@ -327,4 +327,33 @@ PatientController.post('/patient/:id/newStepRecord', verifyToken, async (req: Re
     }
 });
 
+/*
+PatientController.get('/patient/:id/game/report', verifyToken, async (req: Request, res: Response) => {
+    debug('getting game report');
+    let status;
+    const idPatient = +req.params.id;
+    const initDate = req.query.start as string;
+    const endDate = req.query.end as string;
+    const montly = req.query.montly as string;
+    debug('Start get game report Dates: %s to %s', initDate, endDate);
+
+    try {
+        let response;
+        if(montly != 'true'){
+            response = await PatientService.getReportSymptomsTwoDates(idPatient, initDate, endDate);
+
+        } else if (montly && montly == 'true') {
+            response = await montlyReport(idPatient, initDate, endDate);
+        }
+        debug('Patient getting symptoms report. Items: %j', response);
+        status = constants.HTTP_STATUS_OK;
+        res.status(status).send(response);
+    } catch (error) {
+        debug('Patient getting symptoms report failed, error: %j', error);
+        status = constants.HTTP_STATUS_INTERNAL_SERVER_ERROR;
+        const responseError = { status, error: "An error has ocurred"};
+        res.status(status).send(responseError);
+    }
+});
+*/
 export default PatientController;

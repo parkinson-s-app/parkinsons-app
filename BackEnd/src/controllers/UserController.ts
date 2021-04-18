@@ -472,6 +472,7 @@ UserController.post('/user/resetPassword', async (req: Request, res: Response) =
     debug('Reset password user entry: %j', req.body.email);
     const credentials = req.body as IPersonResetDto;
     try {
+        debug('Reset password data: %j', credentials);
         const verified = await OTPUtilities.verifyOtp(credentials.OTP);
         if(verified){
             const responseDB = await PersonService.resetPassword(credentials);
