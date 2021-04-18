@@ -1,3 +1,4 @@
+import 'package:appkinsonFront/routes/RoutesGeneral.dart';
 import 'package:flutter/material.dart';
 import 'InputFieldLogin.dart';
 import 'Buttons/ButtonLogin.dart';
@@ -21,10 +22,12 @@ class InputWrapper extends StatelessWidget {
           SizedBox(
             height: 40,
           ),
-          Text(
-            "¿Olvidaste tu contraseña?",
-            style: TextStyle(color: Colors.blueGrey[400], fontSize: 12),
-          ),
+          TextButton(
+              onPressed: () {
+                print('hey');
+                RoutesGeneral().toChangePassword(context);
+              },
+              child: Text('olvidaste tu contraseña?')),
           SizedBox(
             height: 40,
           ),

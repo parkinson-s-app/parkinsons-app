@@ -1,5 +1,8 @@
 import 'package:appkinsonFront/views/AboutUs/helpSupport.dart';
 import 'package:appkinsonFront/views/Login/LoginPage.dart';
+
+import 'package:appkinsonFront/views/Login/resetPassword/passwordChange.dart';
+import 'package:appkinsonFront/views/Login/resetPassword/passwordChangeOtm.dart';
 import 'package:appkinsonFront/views/Register/RegisterPage.dart';
 import 'package:appkinsonFront/views/ToolBox/AboutExcercises/ExcercisesList.dart';
 import 'package:appkinsonFront/views/ToolBox/AboutFood/FoodList.dart';
@@ -25,6 +28,7 @@ class RoutesGeneral {
   toPop(BuildContext context) {
     Navigator.pop(context);
   }
+
   toListFood(BuildContext context) {
     Navigator.push(
         context, new MaterialPageRoute(builder: (context) => ListFood()));
@@ -34,8 +38,19 @@ class RoutesGeneral {
     Navigator.push(
         context, new MaterialPageRoute(builder: (context) => ListExcercises()));
   }
+
   toListNews(BuildContext context) {
     Navigator.push(
         context, new MaterialPageRoute(builder: (context) => ListNews()));
+  }
+
+  toChangePassword(BuildContext context) {
+    Navigator.push(
+        context, new MaterialPageRoute(builder: (context) => PasswordChange()));
+  }
+
+  toChangePasswordOtm(BuildContext context) {
+    Navigator.push(context,
+        new MaterialPageRoute(builder: (context) => PasswordChangeOtm()));
   }
 }
