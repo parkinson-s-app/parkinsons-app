@@ -9,6 +9,7 @@ import CarerService from '../services/CarerService';
 import PatientService from '../services/PatientService';
 import { getIdFromToken, verifyToken } from '../utilities/AuthUtilities';
 import IStepRecord from '../models/IStepRecord';
+import INoMotorFormDto from '../models/INoMotorFormDto';
 
 const debug = debugLib('AppKinson:PatientController');
 const PatientController = Router();
@@ -147,6 +148,45 @@ PatientController.post('/patient/:id/emotionalFormPatient', verifyToken, async (
         res.status(status).send('OK');
     } catch (error) {
         debug('Patient emotional form saving failed, error: %j', error);
+        status = constants.HTTP_STATUS_INTERNAL_SERVER_ERROR;
+        const responseError = { status, error: "An error has ocurred"};
+        res.status(status).send(responseError);
+    }
+});
+
+PatientController.get('/patient/:id/emotionalFormPatient', verifyToken, async (req: Request, res: Response) => {
+    const id = +req.params.id;
+    debug('Patients getting emotional form by Id: %s', id);
+    let status;
+    try {
+        const initialDate: string = (req.query.start) ? req.query.start as string : '';
+        const endDate = (req.query.end) ? req.query.end as string : '';
+        const response = await PatientService.getEmotionalFormsById(id, initialDate, endDate);
+        debug('Patient getting emotional result %j, succesful', response);
+        status = constants.HTTP_STATUS_OK;
+        res.status(status).send(response);
+    } catch (error) {
+        debug('Patient getting emotional form failed, error: %j', error);
+        status = constants.HTTP_STATUS_INTERNAL_SERVER_ERROR;
+        const responseError = { status, error: "An error has ocurred"};
+        res.status(status).send(responseError);
+    }
+});
+
+PatientController.post('/patient/:id/emotionalFormPatient', verifyToken, async (req: Request, res: Response) => {
+    debug('Patients noMotorSymptomsFormPatient by Id');
+    const id = +req.params.id;
+    debug('Patients noMotorSymptomsFormPatient body: %j, ID: %s',req.body, id);
+    const noMotorFormData: INoMotorFormDto = req.body;
+    let status;
+    debug('Patients noMotorSymptomsFormPatient json: %j', noMotorFormData);
+    try {
+        const response = await PatientService.saveNoMotorForm(id, noMotorFormData);
+        debug('Patient noMotorSymptomsFormPatient save result %j, succesful', response);
+        status = constants.HTTP_STATUS_OK;
+        res.status(status).send('OK');
+    } catch (error) {
+        debug('Patient noMotorSymptomsFormPatient saving failed, error: %j', error);
         status = constants.HTTP_STATUS_INTERNAL_SERVER_ERROR;
         const responseError = { status, error: "An error has ocurred"};
         res.status(status).send(responseError);

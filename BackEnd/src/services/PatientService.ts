@@ -10,6 +10,7 @@ import IMedicineAlarm from "../models/IMedicineAlarm";
 import { json } from "express";
 import IGameScore from "../models/IGameScore";
 import IStepRecord from "../models/IStepRecord";
+import INoMotorFormDto from "../models/INoMotorFormDto";
 
 const debug = debugLib('AppKinson:PatientService');
 
@@ -152,6 +153,25 @@ export default class PatientService {
             throw error;
         }
     }
+
+    public static async saveNoMotorForm(id: number, noMotorFormData: INoMotorFormDto) {
+        let conn: Pool | undefined;
+        try {
+            conn = await connect();
+            noMotorFormData.id_patient=id;
+            debug('saveEmotionalForm to person: %j, id: %s', noMotorFormData, id);
+            const res = await conn.query('INSERT INTO nomotorsymptomsformpatient SET ?',[noMotorFormData]);
+            debug('saveEmotionalForm saved and returned: %j', res);
+            conn.end();
+            return res;
+        }  catch (error) {
+            if(conn) {
+                conn.end();
+            }
+            debug('saveEmotionalForm Error: %j', error);
+            throw error;
+        }
+    }
     /**
      * 
      * @param id 
@@ -172,7 +192,32 @@ export default class PatientService {
             if(conn) {
                 conn.end();
             }
-            debug('saveEmotionalForm Error: %j', error);
+            debug('getEmotionalForms Error: %j', error);
+            throw error;
+        }
+    }
+
+    /**
+     * 
+     * @param id 
+     */
+    public static async getNoMotorFormsById(id: number, start: string, end: string) {
+        let conn: Pool | undefined;
+        try {
+            conn = await connect();
+            const dateStart = new Date(start);
+            const dateEnd = new Date(end);
+            const query = 'SELECT * FROM nomotorsymptomsformpatient WHERE ID_PATIENT=? and ( date BETWEEN ? AND ?)';
+            debug('getNoMotorForms to patient id: %s', id);
+            const res = await conn.query(query,[id, dateStart, dateEnd]);
+            debug('getNoMotorForms saved and returned: %j', res);
+            conn.end();
+            return res[0];
+        }  catch (error) {
+            if(conn) {
+                conn.end();
+            }
+            debug('getNoMotorForms Error: %j', error);
             throw error;
         }
     }

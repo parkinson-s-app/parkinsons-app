@@ -84,7 +84,7 @@ CREATE TABLE patientxsymptomsform(
     PRIMARY KEY (DATE_FORM,ID_PATIENT)
 );
 
-CREATE TABLE emotionalformpatient (
+CREATE TABLE nomotorsymptomsformpatient (
     ID_PATIENT INT NOT NULL,
     Q1 INT NOT NULL,
     Q2 INT NOT NULL,
