@@ -45,10 +45,11 @@ class RoutesDoctor {
         context, new MaterialPageRoute(builder: (context) => WidgetChartPie()));
   }
 
-  toListReportPage(BuildContext context, int idPatient) {
+  toListReportPage(BuildContext context, int idPatient, List<DateTime> picked ) {
     Navigator.push(
         context, new MaterialPageRoute(builder: (context) => ListReportPage(
           idPatient: idPatient,
+          picked: picked,
         )));
   }
 

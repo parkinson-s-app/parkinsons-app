@@ -158,7 +158,13 @@ class _ReportConfigPageState extends State<ReportConfigPage> {
               padding: EdgeInsets.all(100.0),
             ),
             FlatButton(onPressed: (){
-              RoutesDoctor().toListReportPage(context, idPatient);
+              if(!picked.isEmpty){
+                RoutesDoctor().toListReportPage(context, idPatient, picked);
+              }
+              else{
+                print("Agregar pop up de que debe seleccionar fechas");
+              }
+              
             }, child: Text("Generar reporte"), color: Colors.blueAccent,
               textColor: Colors.white,)
           ],

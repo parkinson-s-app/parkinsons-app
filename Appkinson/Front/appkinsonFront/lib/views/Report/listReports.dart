@@ -1,36 +1,43 @@
 import 'dart:convert';
-
 import 'package:appkinsonFront/routes/RoutesDoctor.dart';
 import 'package:appkinsonFront/services/EndPoints.dart';
-import 'package:appkinsonFront/views/Login/Buttons/ButtonLogin.dart';
 import 'package:appkinsonFront/views/Report/Widget_Chart_Line.dart';
 import 'package:appkinsonFront/views/Report/Widget_Chart_Pie.dart';
 import 'package:appkinsonFront/views/Report/Widget_Chart_lineal.dart';
 import 'package:flutter/material.dart';
-
+import 'dart:math' as math;
 import 'Widget_Chart_Serie.dart';
+
 String averageSymtomsResponse;
 String averageSymptomsByMonth;
 String averageGameScore;
+String averageDyskineciasWithoutMonth;
 var piedata; //Gráfica promedio de sintomas
 var seriedata; //Gráfica promedio de sintomas por mes
 var seriedataGameAverage; //Gráfica promedio de veces y puntaje jugado por mes
+var serieDataDiskineias; //Gráfica de porcentaje de diskinecias entre meses
 class ListReportPage extends StatefulWidget {
  final int idPatient;
+  List<DateTime> picked;
 
-  const ListReportPage({Key key, this.idPatient}) : super(key: key);
-  _ListReportPage createState() => _ListReportPage(idPatient);
+   ListReportPage({Key key, this.idPatient, this.picked}) : super(key: key);
+  _ListReportPage createState() => _ListReportPage(idPatient, picked);
 
 }
 
 class _ListReportPage extends State<ListReportPage> {
 
    final int idPatient;
+   List<DateTime> picked = [];
 
-  _ListReportPage(this.idPatient);
+  _ListReportPage(this.idPatient, this.picked);
   
   @override
   void initState() {
+    print("BUENASSSSSSSS");
+    //print(picked[0]);
+    //print(picked[0]);
+    print("________________________-");
     var now = DateTime.now();
    var lastDate = new DateTime(now.year , now.month , now.day - 7);
     print("Entra al init state");
@@ -55,6 +62,9 @@ class _ListReportPage extends State<ListReportPage> {
       var averageGameResponseDecode =  json.decode(averageSymptomsByMonth);
       seriedataGameAverage = returnDataSeriesGameAverage(averageGameResponseDecode.length, averageGameResponseDecode);
       //
+      //Construyeno la gráfica de porcentaje de disquinecias por meses - Gráfica de pie
+      var averageDyskineciasDecode = json.decode(averageDyskineciasWithoutMonth);
+      serieDataDiskineias = returnDataPieAverageDiskinecias(averageDyskineciasDecode.length, averageDyskineciasDecode);
      });
     super.initState();
   }
@@ -64,6 +74,7 @@ class _ListReportPage extends State<ListReportPage> {
      averageSymtomsResponse = await EndPoints().getAverageSymptoms( idPatient, lastDate, now);
      averageSymptomsByMonth =  await EndPoints().getAverageSymptomsAndCheerUp( idPatient, lastDate, now); //corregir el  nombre del endpoint
      averageGameScore = await EndPoints().getAverageGame( idPatient, lastDate, now);
+     averageDyskineciasWithoutMonth = await EndPoints().getAverageDyskineciasWithoutMonths( idPatient, lastDate, now);
   }
  
 
@@ -112,6 +123,15 @@ class _ListReportPage extends State<ListReportPage> {
                 color: Colors.blueAccent,
                 textColor: Colors.white,
               ),
+                     FlatButton(
+                onPressed: () {
+                  RoutesDoctor()
+                      .toReportChartPie(context, "idquemado", serieDataDiskineias);
+                },
+                child: Text("Porcentaje de disquinecias en meses"),
+                color: Colors.blueAccent,
+                textColor: Colors.white,
+              ),
               FlatButton(
                 onPressed: () {
                   RoutesDoctor()
@@ -127,15 +147,6 @@ class _ListReportPage extends State<ListReportPage> {
                       .toReportChartSerie(context, "idquemado", seriedata);
                 },
                 child: Text("Promedio del estado de ánimo del paciente"),
-                color: Colors.blueAccent,
-                textColor: Colors.white,
-              ),
-                FlatButton(
-                onPressed: () {
-                  RoutesDoctor()
-                      .toReportChartSerie(context, "idquemado", seriedata);
-                },
-                child: Text("Promedio de disquinecias"),
                 color: Colors.blueAccent,
                 textColor: Colors.white,
               ),
@@ -179,12 +190,17 @@ class _ListReportPage extends State<ListReportPage> {
             ])));
   }
 }
+//Esta función debería estar en utils
+  _generateColor() {
+    
+   var colorItem = Color((math.Random().nextDouble() * 0xFFFFFF).toInt() << 0)
+          .withOpacity(1.0);
+    return colorItem;
+  }
 
 
 returnDataPie(List<double> datos) {
   var linealdata = [
-    //new DataPieChart('ON', 35.8, Color(0xff3366cc)),
-    //new DataPieChart('OFF', 8.3, Color(0xff990099)),
     new DataPieChart('ON MUY BUENO', datos[1], Color(0xff109618)),
     new DataPieChart('ON BUENO', datos[0], Colors.lightGreen),
     new DataPieChart('OFF MALO', datos[2], Color(0xffff9900)),
@@ -269,15 +285,27 @@ returnDataSeriesGameAverage(int length, var averageGameResponseDecode) {//GRÁFI
  
   for(int i = 0; i<length; i++){
     //Este ciclo recoge el promedio de puntaje jugado por mes
-     data1.add(new Animo(averageGameResponseDecode[i]['Promedio'], averageGameResponseDecode[i]['Mes'])); // el més debemos pasarlo a String
+     data1.add(new Animo(averageGameResponseDecode[i]['Promedio'], averageGameResponseDecode[i]['mes'])); // el més debemos pasarlo a String
   }
   allData.add(data1);
 
   for(int j = 0; j<length; j++){
     //Este ciclo recoge la cantidad de veces jugada por mes
-     data2.add(new Animo(averageGameResponseDecode[j]['Cantidad'], averageGameResponseDecode[j]['Mes'])); // el més debemos pasarlo a String
+     data2.add(new Animo(averageGameResponseDecode[j]['Cantidad'], averageGameResponseDecode[j]['mes'])); // el més debemos pasarlo a String
   }
   allData.add(data2);
  
   return allData;
+}
+
+returnDataPieAverageDiskinecias(int length, var averageDiskineciasResponseDecode) {
+
+  //Porcentaje de número de disquinecias por mes
+  //averageDiskineciasResponseDecode[i]['promedio'].toDouble()
+  List<DataPieChart> dataDiskinecias = [];
+  for(int i = 0; i< length ; i++){
+    dataDiskinecias.add(new DataPieChart(averageDiskineciasResponseDecode[i]['mes'], averageDiskineciasResponseDecode[i]['Promedio'].toDouble(), _generateColor())); 
+  }
+
+  return dataDiskinecias;
 }
