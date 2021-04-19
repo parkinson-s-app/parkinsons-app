@@ -27,9 +27,12 @@ class RoutesDoctor {
             builder: (context) => CalendarScreenView2Doctor()));
   }
 
-  toReportConfigPage(BuildContext context) {
+  toReportConfigPage(BuildContext context, int idPatient) {
     Navigator.push(context,
-        new MaterialPageRoute(builder: (context) => ReportConfigPage()));
+        new MaterialPageRoute(
+            builder: (context) => ReportConfigPage(
+                  idPatient: idPatient,
+                )));
   }
 
   toAddUser(BuildContext context) {
@@ -42,9 +45,12 @@ class RoutesDoctor {
         context, new MaterialPageRoute(builder: (context) => WidgetChartPie()));
   }
 
-  toListReportPage(BuildContext context) {
+  toListReportPage(BuildContext context, int idPatient, List<DateTime> picked ) {
     Navigator.push(
-        context, new MaterialPageRoute(builder: (context) => listReportPage()));
+        context, new MaterialPageRoute(builder: (context) => ListReportPage(
+          idPatient: idPatient,
+          picked: picked,
+        )));
   }
 
   toInteractionDoctorPatient(BuildContext context, int idPatient) {

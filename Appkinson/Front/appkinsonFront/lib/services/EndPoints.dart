@@ -427,6 +427,102 @@ class EndPoints {
     return success;
   }
 
+//Datos de las gráficas
+  Future<String> getAverageSymptoms(
+      var tokenID, DateTime start, DateTime end) async {
+    var token = await Utils().getToken();
+    var queryParameters = {
+      'start': start.toString(),
+      'end': end.toString(),
+    };
+    debugPrint("llega1");
+    var uri = Uri.http(pagePath, '/api/patient/$tokenID/symptoms/report',
+        queryParameters);
+    http.Response lista = await http.get(uri, headers: {
+      HttpHeaders.authorizationHeader: jwtkey + token
+    });
+    String i = lista.body;
+    var codeList = json.decode(i);
+    debugPrint(i);
+    return i;
+  }
+
+  Future<String> getAverageSymptomsAndCheerUp(
+    var tokenID, DateTime start, DateTime end) async {
+    var token = await Utils().getToken();
+    var queryParameters = {
+      'start': start.toString(),
+      'end': end.toString(),
+      'montly' : 'true'
+    };
+    var uri = Uri.http(pagePath, '/api/patient/$tokenID/symptoms/report',
+        queryParameters);
+    http.Response lista = await http.get(uri, headers: {
+      HttpHeaders.authorizationHeader: jwtkey + token
+    });
+    String i = lista.body;
+    var codeList = json.decode(i);
+    debugPrint(i);
+    return i;
+  }
+
+  Future<String> getAverageGame(
+    var tokenID, DateTime start, DateTime end) async {
+    var token = await Utils().getToken();
+    var queryParameters = {
+      'start': start.toString(),
+      'end': end.toString(),
+      'montly' : 'true'
+    };
+    var uri = Uri.http(pagePath, '/api/patient/$tokenID/game/report',
+        queryParameters);
+    http.Response lista = await http.get(uri, headers: {
+      HttpHeaders.authorizationHeader: jwtkey + token
+    });
+    String i = lista.body;
+    var codeList = json.decode(i);
+    debugPrint(i);
+    return i;
+  }
+   Future<String> getAverageDyskineciasWithoutMonths(
+    var tokenID, DateTime start, DateTime end) async {
+    var token = await Utils().getToken();
+    var queryParameters = {
+      'start': start.toString(),
+      'end': end.toString(),
+      'montly' : 'true'
+    };
+    var uri = Uri.http(pagePath, '/api/patient/$tokenID/dyskinecia/report',
+        queryParameters);
+    http.Response lista = await http.get(uri, headers: {
+      HttpHeaders.authorizationHeader: jwtkey + token
+    });
+    String i = lista.body;
+    var codeList = json.decode(i);
+    debugPrint(i);
+    return i;
+  }
+
+    Future<String> getAverageEmotionalSymptoms(
+    var tokenID, DateTime start, DateTime end) async {
+    var token = await Utils().getToken();
+    var queryParameters = {
+      'start': start.toString(),
+      'end': end.toString(),
+      'montly' : 'true'
+    };
+    var uri = Uri.http(pagePath, '/api/patient/$tokenID/emotionalsymptoms/report',
+        queryParameters);
+    http.Response lista = await http.get(uri, headers: {
+      HttpHeaders.authorizationHeader: jwtkey + token
+    });
+    String i = lista.body;
+    var codeList = json.decode(i);
+    debugPrint(i);
+    return i;
+  }
+  //----------------------------------------------
+
   //Recibir alarmas
   Future<List<AlarmAndMedicine>> getMedicinesAlarms(
       var tokenID, var token) async {
@@ -493,6 +589,28 @@ class EndPoints {
     debugPrint(data2.toString());
     String i = response.body;
     return i;
+  }
+
+  //Envíar puntaje del juego
+    Future<String> sendGameRecord(int stepsQuantity) async {
+    var token = await Utils().getToken();
+    var tokenID = await Utils().getFromToken('id');
+    DateTime recordDate = DateTime.now();
+    debugPrint("AQUÍ ESTAMOS");
+    debugPrint(tokenID);
+    Map<String, dynamic> data2 = {
+      "gameDate": recordDate.toString(),
+      "score": stepsQuantity,
+    };
+
+    FormData formData = new FormData.fromMap(data2);
+    Dio dio = new Dio();
+    dio.options.headers["authorization"] = jwtkey + token;
+    Response response = await dio.post(
+        endpointBack + '/api/patient/$tokenID/newGameScore',
+        data: formData );
+    debugPrint(response.statusMessage);
+    return response.statusMessage;
   }
 
   Future<String> deleteAlarm(String id, var token, var tokenID) async {

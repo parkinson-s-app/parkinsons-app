@@ -30,7 +30,7 @@ dependencies:
   dio: ^3.0.9
   table_calendar: ^2.3.3
   google_fonts:
-  font_awesome_flutter:
+  font_awesome_flutter: ^8.4.0
   flutter_downloader: ^1.5.2
   permission_handler: ^5.0.1
   network_to_file_image: ^2.3.8
