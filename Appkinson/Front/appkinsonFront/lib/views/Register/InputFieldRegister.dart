@@ -143,3 +143,8 @@ class metod {
     return newUser;
   }
 }
+
+cleanRegister(){
+  emailController = new TextEditingController();
+  password = new TextEditingController();
+}
