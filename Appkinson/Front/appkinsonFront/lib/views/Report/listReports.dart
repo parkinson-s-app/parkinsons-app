@@ -10,7 +10,9 @@ import 'package:flutter/material.dart';
 
 import 'Widget_Chart_Serie.dart';
 String averageSymtomsResponse;
-var piedata;
+String averageSymptomsByMonth;
+var piedata; //Gráfica promedio de sintomas
+var seriedata; //Gráfica promedio de sintomas por mes
 class ListReportPage extends StatefulWidget {
  final int idPatient;
 
@@ -39,14 +41,14 @@ class _ListReportPage extends State<ListReportPage> {
      averageSymptoms.add(averageSymtomsResponseDecode["onG"].toDouble());
      averageSymptoms.add(averageSymtomsResponseDecode["off"].toDouble());
      averageSymptoms.add(averageSymtomsResponseDecode["offB"].toDouble());
+
+      piedata = returnDataPie(averageSymptoms);
+
+      //---------------------------------------------------------------------------
+      //Construyendo la gráfica del promedio de síntomas por cada mes
+      var averageSymtomsByMonthResponseDecode =  json.decode(averageSymptomsByMonth);
+      seriedata = returnDataSeries(averageSymtomsByMonthResponseDecode.length, averageSymtomsByMonthResponseDecode);
     
-    print(averageSymptoms[0]);
-    print(averageSymptoms[1]);
-    print(averageSymptoms[2]);
-    print(averageSymptoms[3]);
-
-    piedata = returnDataPie(averageSymptoms);
-
      });
     super.initState();
   }
@@ -54,14 +56,14 @@ class _ListReportPage extends State<ListReportPage> {
 
   Future _getAllDataCharts(DateTime lastDate, DateTime now) async {
      averageSymtomsResponse = await EndPoints().getAverageSymptoms( idPatient, lastDate, now);
-     await EndPoints().getAverageSymptomsAndCheerUp( idPatient, lastDate, now);
+     averageSymptomsByMonth =  await EndPoints().getAverageSymptomsAndCheerUp( idPatient, lastDate, now); //corregir el  nombre del endpoint
      await EndPoints().getAverageGame( idPatient, lastDate, now);
   }
  
 
   
   var linedata = returnDataLine();
-  var seriedata = returnDataSeries();
+   
 
 
   // This widget is the root of your application.
@@ -83,6 +85,15 @@ class _ListReportPage extends State<ListReportPage> {
                       .toReportChartPie(context, "idquemado", piedata);
                 },
                 child: Text("Promedio de los sintomas del paciente"),
+                color: Colors.blueAccent,
+                textColor: Colors.white,
+              ),
+                FlatButton(
+                onPressed: () {
+                  RoutesDoctor()
+                      .toReportChartSerie(context, "idquemado", seriedata);
+                },
+                child: Text("Promedio de los sintomas del paciente por meses"),
                 color: Colors.blueAccent,
                 textColor: Colors.white,
               ),
@@ -208,38 +219,36 @@ returnDataLine() {
   return allData;
 }
 
-returnDataSeries() {
+returnDataSeries(int length, var averageSymtomsByMonthResponseDecode) {
+
   var allData = [];
-  var data1 = [
-    // en enero el estado de off malo
-    new Animo(15, "Enero"),
-    new Animo(10, "Febrero"),
-    new Animo(10, "Marzo"),
-  ];
-  var data2 = [
-    new Animo(10, "Enero"), // en enero el estado de off normal
-    new Animo(20, "Febrero"),
-    new Animo(10, "Marzo"),
-  ];
-  var data3 = [
-    new Animo(10, "Enero"), // en enero el estado de on normal
-    new Animo(10, "Febrero"),
-    new Animo(35, "Marzo"),
-  ];
-  var data4 = [
-    new Animo(10, "Enero"), // en enero el estado de on muy bueno
-    new Animo(10, "Febrero"),
-    new Animo(35, "Marzo"),
-  ];
-  var data5 = [
-    new Animo(10, "Enero"), // en enero el promedio de desfase de la medicina
-    new Animo(10, "Febrero"),
-    new Animo(35, "Marzo"),
-  ];
+  List<Animo> data1 = []; //todos los on por cada mes
+  List<Animo> data2 = []; //todos los on buenos por cada mes
+  List<Animo> data3 = []; //todos los off por cada mes
+  List<Animo> data4 = []; //todos los off malos por cada mes
+  for(int i = 0; i<length; i++){
+    //Este ciclo recoge todos los ON
+     data1.add(new Animo(averageSymtomsByMonthResponseDecode[i]['on'], averageSymtomsByMonthResponseDecode[i]['mes'])); // el més debemos pasarlo a String
+  }
   allData.add(data1);
+
+  for(int j = 0; j<length; j++){
+    //Este ciclo recoge todos los On buenos
+     data2.add(new Animo(averageSymtomsByMonthResponseDecode[j]['onG'], averageSymtomsByMonthResponseDecode[j]['mes'])); // el més debemos pasarlo a String
+  }
   allData.add(data2);
+
+  for(int i = 0; i<length; i++){
+    //Este ciclo recoge todos los ff
+     data3.add(new Animo(averageSymtomsByMonthResponseDecode[i]['off'], averageSymtomsByMonthResponseDecode[i]['mes'])); // el més debemos pasarlo a String
+  }
   allData.add(data3);
+  for(int i = 0; i<length; i++){
+    //Este ciclo recoge todos los ON
+     data4.add(new Animo(averageSymtomsByMonthResponseDecode[i]['offB'], averageSymtomsByMonthResponseDecode[i]['mes'])); // el més debemos pasarlo a String
+  }
   allData.add(data4);
-  allData.add(data5);
+ 
+  print(allData);
   return allData;
 }

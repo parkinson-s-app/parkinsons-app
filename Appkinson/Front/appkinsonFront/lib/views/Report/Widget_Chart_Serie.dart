@@ -5,6 +5,7 @@ import 'dart:math' as math;
 
 class WidgetChartSerie extends StatefulWidget {
   var dataSerie;
+  
   String id;
   WidgetChartSerie({Key key, @required this.dataSerie, @required this.id})
       : super(key: key);
@@ -19,7 +20,7 @@ class _WidgetChartSerieState extends State<WidgetChartSerie> {
   _WidgetChartSerieState(this.dataSerie, this.id);
   var dataSerie;
   String id;
-
+   
   _generateColor() {
     var colors = [];
     for (int i = 0; i < dataSerie.length; i++) {
@@ -33,6 +34,8 @@ class _WidgetChartSerieState extends State<WidgetChartSerie> {
 
 //Gráfica de lineas/
   _generateData() {
+    print("hh");
+    print(dataSerie);
     var colors = _generateColor();
     for (int i = 0; i < dataSerie.length; i++) {
       _seriesData.add(
