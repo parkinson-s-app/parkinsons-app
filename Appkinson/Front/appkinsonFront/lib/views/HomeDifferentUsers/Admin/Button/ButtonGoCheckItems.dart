@@ -4,7 +4,7 @@ import 'package:appkinsonFront/utils/Utils.dart';
 import 'package:appkinsonFront/views/Administrator/ListItemsAdministrator.dart';
 import 'package:flutter/material.dart';
 
-class ButtonGoCheckUsers extends StatelessWidget {
+class ButtonGoCheckItems extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -26,7 +26,7 @@ class ButtonGoCheckUsers extends StatelessWidget {
         //textColor: Colors.white,
         child: Image.asset(
           "assets/images/formulario.png",
-          height: size.height * 0.15,
+          height: size.height * 0.08,
         ),
         // Text("Registrarse ", style:  TextStyle(fontSize: 15)),
       ),

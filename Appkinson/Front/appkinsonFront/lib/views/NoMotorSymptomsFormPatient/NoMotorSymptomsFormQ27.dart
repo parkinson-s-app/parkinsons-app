@@ -5,11 +5,16 @@ class NoMotorSymptomsFormQ27 extends StatefulWidget {
   _NoMotorSymptomsFormQ27 createState() => _NoMotorSymptomsFormQ27();
 }
 
-enum SigningCharacter { Si, No }
+enum SigningCharacter { Si, No, Nada }
 SigningCharacter _character;
 int selectedStateRadioQ27 = 0;
 
 class _NoMotorSymptomsFormQ27 extends State<NoMotorSymptomsFormQ27> {
+  void initState() {
+    super.initState();
+    _character = SigningCharacter.Nada;
+    selectedStateRadioQ27 = 0;
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(

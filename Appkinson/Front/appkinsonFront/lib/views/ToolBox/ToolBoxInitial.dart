@@ -157,13 +157,12 @@ class _toolbox0 extends State<toolbox0> {
     getBurnedRun();
     return new MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: new Scaffold(
-        appBar: new AppBar(
-          title: const Text('Caja de herramientas'),
-          backgroundColor: Colors.blue,
+      home: Scaffold(
+        appBar: AppBar(
+          title: Text("Caja de herramientas"),
         ),
-        body: new ListView(
-          padding: EdgeInsets.all(5.0),
+        body: ListView(
+          padding: EdgeInsets.all(2.0),
           children: <Widget>[
             Container(
               padding: EdgeInsets.only(top: 10.0),
@@ -229,14 +228,16 @@ class _toolbox0 extends State<toolbox0> {
               ),
             ),
             Divider(
-              height: 5.0,
+              height: 1.0,
             ),
-            Container(
-              width: 80,
+            Expanded(
+              flex: 1,
+              /*width: 80,
               height: 100,
               padding: EdgeInsets.only(left: 25.0, top: 10.0, bottom: 10.0),
-              color: Colors.transparent,
+              color: Colors.transparent,*/
               child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: <Widget>[
                   new Container(
                     child: new Card(
@@ -247,7 +248,7 @@ class _toolbox0 extends State<toolbox0> {
                           image: DecorationImage(
                             image: AssetImage("assets/images/distance.png"),
                             fit: BoxFit.fitWidth,
-                            alignment: Alignment.topCenter,
+                            alignment: Alignment.bottomCenter,
                           ),
                         ),
                         child: Text(
@@ -261,7 +262,7 @@ class _toolbox0 extends State<toolbox0> {
                     ),
                   ),
                   VerticalDivider(
-                    width: 20.0,
+                    width: 30.0,
                   ),
                   new Container(
                     child: new Card(
@@ -280,7 +281,7 @@ class _toolbox0 extends State<toolbox0> {
                     ),
                   ),
                   VerticalDivider(
-                    width: 20.0,
+                    width: 30.0,
                   ),
                   new Container(
                     child: new Card(
@@ -301,23 +302,22 @@ class _toolbox0 extends State<toolbox0> {
                 ],
               ),
             ),
-            Divider(
-              height: 2,
-            ),
-            Container(
-              padding: EdgeInsets.only(top: 2.0),
+            Expanded(
+              flex: 2, 
+              /*padding: EdgeInsets.only(top: 2.0),
               width: 150, //ancho
               height: 30, //largo tambien por numero height: 300
-              color: Colors.transparent,
+              color: Colors.transparent,*/
               child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: <Widget>[
                   new Container(
-                    padding: EdgeInsets.only(left: 40.0),
+                    padding: EdgeInsets.only(left: 10.0),
                     child: new Card(
                       child: Container(
                         child: Text(
                           "$_km Km",
-                          textAlign: TextAlign.right,
+                          textAlign: TextAlign.center,
                         ),
                       ),
 
@@ -332,7 +332,7 @@ class _toolbox0 extends State<toolbox0> {
                       child: Container(
                         child: Text(
                           "$_calories kCal",
-                          textAlign: TextAlign.right,
+                          textAlign: TextAlign.center,
                         ),
                       ),
 
@@ -347,7 +347,7 @@ class _toolbox0 extends State<toolbox0> {
                       child: Container(
                         child: Text(
                           "$_stepCountValue Pasos",
-                          textAlign: TextAlign.right,
+                          textAlign: TextAlign.center,
                         ),
                       ),
                     ),
@@ -355,32 +355,44 @@ class _toolbox0 extends State<toolbox0> {
                 ],
               ),
             ),
+            Divider(
+              height: 30,
+              thickness: 5,
+              color: Colors.blue[500],
+              indent: 5,
+              endIndent: 5,
+            ),
             new Container(
               width: 80,
               height: 300,
-              padding: EdgeInsets.only(left: 25.0, top: 10.0, bottom: 10.0),
               child: Expanded(
-                child: Stack(
-                  children: <Widget>[
-                    Positioned(
-                      child: ButtonGoAboutExcercises(),
-                    ),
-                    Positioned(
-                      left: 100,
-                      child: ButtonGoAboutFood(),
-                    ),
-                    Positioned(
-                      left: 200,
-                      child: ButtonGoGame(),
-                    ),
-                    Positioned(
-                      top: 150,
-                      child: ButtonGoAboutParkinson(),
-                    ),
-                    Positioned(
-                      left: 180,
-                      top: 150,
-                      child: ButtonGoAboutNews(),
+                child: Column(
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        Expanded(
+                              child: ButtonGoAboutExcercises(),
+                            ),
+                        Expanded(
+                              child: ButtonGoAboutFood(),
+                            ),
+                        
+                                ],
+                            ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                          /*Expanded(
+                                child: ButtonGoAboutParkinson(),
+                              ),*/
+                          Expanded(
+                              child: ButtonGoGame(),
+                            ),
+                          Expanded(
+                                child: ButtonGoAboutNews(),
+                              ),
+                        ],
                     ),
                   ],
                 ),

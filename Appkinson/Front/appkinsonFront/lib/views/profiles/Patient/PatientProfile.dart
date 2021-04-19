@@ -1,6 +1,8 @@
 import 'package:appkinsonFront/routes/RoutesPatient.dart';
 import 'package:appkinsonFront/utils/Utils.dart';
+import 'package:appkinsonFront/views/HomeDifferentUsers/Patient/PatientHomePage.dart';
 import 'package:appkinsonFront/views/HomeInitial/HomePage.dart';
+import 'package:appkinsonFront/views/RelationRequest/relationsRequets.dart';
 import 'package:appkinsonFront/views/profiles/Patient/PatientProfileScreen.dart';
 import 'package:appkinsonFront/views/profiles/Patient/profileEdition/ProfileEditionPatient.dart';
 import 'package:flutter/material.dart';
@@ -136,6 +138,9 @@ class CustomDrawer extends StatelessWidget {
           ListTile(
             onTap: () {
               debugPrint("Tapped Profile");
+              Navigator.pushReplacement(context,
+                MaterialPageRoute(builder: (BuildContext ctx) => PatientProfileScreen()));
+              
             },
             leading: Icon(Icons.person),
             title: Text(
@@ -148,19 +153,10 @@ class CustomDrawer extends StatelessWidget {
           ),
           ListTile(
             onTap: () {
-              debugPrint("Tapped settings");
-            },
-            leading: Icon(Icons.settings),
-            title: Text("Ajustes"),
-          ),
-          Divider(
-            height: 1,
-            color: Colors.white,
-          ),
-          ListTile(
-            onTap: () {
               debugPrint("Tapped Payments");
-              RoutesPatient().toPatientHome(context);
+              Navigator.pushReplacement(context,
+                MaterialPageRoute(builder: (BuildContext ctx) => PatientHomePage()));
+          
             },
             leading: Icon(Icons.home),
             title: Text("Ir al Home"),
@@ -172,26 +168,13 @@ class CustomDrawer extends StatelessWidget {
           ListTile(
             onTap: () {
               debugPrint("Tapped Notifications");
+              debugPrint("Tapped Notifications");
+              Navigator.pushReplacement(context,
+                MaterialPageRoute(builder: (BuildContext ctx) => RelationsRequest()));
+            
             },
             leading: Icon(Icons.notifications),
             title: Text("Notificaciones"),
-          ),
-          Divider(
-            height: 1,
-            color: Colors.white,
-          ),
-          ListTile(
-            onTap: () async {
-              debugPrint("Tapped Log Out");
-              SharedPreferences prefs = await SharedPreferences.getInstance();
-              prefs?.clear(); 
-              await Utils().removeBackgroundTask();
-              Navigator.pushReplacement(context,
-                MaterialPageRoute(builder: (BuildContext ctx) => HomePage()));
-              //Navigator.popUntil(context, ModalRoute.withName("/"));
-            },
-            leading: Icon(Icons.exit_to_app),
-            title: Text("Cerrar Sesión"),
           ),
         ],
       ),

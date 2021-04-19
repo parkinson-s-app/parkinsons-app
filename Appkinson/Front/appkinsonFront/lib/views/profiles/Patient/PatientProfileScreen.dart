@@ -5,6 +5,7 @@ import 'package:appkinsonFront/routes/RoutesGeneral.dart';
 import 'package:appkinsonFront/routes/RoutesPatient.dart';
 import 'package:appkinsonFront/services/EndPoints.dart';
 import 'package:appkinsonFront/utils/Utils.dart';
+import 'package:appkinsonFront/views/HomeInitial/HomePage.dart';
 import 'package:appkinsonFront/views/Login/InputFieldLogin.dart';
 import 'package:appkinsonFront/views/profiles/Patient/profileEdition/ProfileEditionPatient.dart';
 import 'package:flutter/cupertino.dart';
@@ -15,6 +16,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/screenutil.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:line_awesome_flutter/line_awesome_flutter.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 const bla = Colors.white;
 const kSpacingUnit = 10;
@@ -307,12 +309,20 @@ class ProfileListItem extends StatelessWidget {
           shape:
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)),
           color: Colors.grey[100],
-          onPressed: () {
+          onPressed: () async{
             if (text == 'Editar') {
               RoutesPatient().toPatientEditProfile(context);
             }
             if (text == 'Ayuda & soporte') {
               RoutesGeneral().toAboutUs(context);
+            }
+            if(text == 'Cerrar Sesión') {
+              debugPrint("Tapped Log Out....");
+              SharedPreferences prefs = await SharedPreferences.getInstance();
+              prefs?.clear(); 
+              await Utils().removeBackgroundTask();
+              Navigator.pushReplacement(context,
+                MaterialPageRoute(builder: (BuildContext ctx) => HomePage()));
             }
           },
           child: Row(
