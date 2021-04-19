@@ -504,7 +504,7 @@ export default class PatientService {
             FROM 
                 symptomsformpatient
             WHERE ID_PATIENT= ? 
-            AND date BETWEEN ? AND ?`;
+            AND formdate BETWEEN ? AND ?`;
             debug('getReportDiskineciaTwoDates to patient id: %s', idPatient);
             const res = await conn.query(query,[idPatient, initDate, endDate]);
             debug('getReportDiskineciaTwoDates executed and returned: %j', res[0]);
