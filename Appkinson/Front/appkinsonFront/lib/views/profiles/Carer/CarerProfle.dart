@@ -144,6 +144,10 @@ class CustomDrawer extends StatelessWidget {
           ListTile(
             onTap: () {
               debugPrint("Tapped Profile");
+              Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(
+                      builder: (BuildContext ctx) => CarerProfileScreen()));
             },
             leading: Icon(Icons.person),
             title: Text(
@@ -154,7 +158,7 @@ class CustomDrawer extends StatelessWidget {
             height: 1,
             color: Colors.white,
           ),
-          ListTile(
+          /* ListTile(
             onTap: () {
               debugPrint("Tapped settings");
             },
@@ -164,22 +168,26 @@ class CustomDrawer extends StatelessWidget {
           Divider(
             height: 1,
             color: Colors.white,
-          ),
+          ),*/
           ListTile(
             onTap: () {
               debugPrint("Tapped Payments");
-              RoutesCarer().toCarerHome(context);
+              Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(
+                      builder: (BuildContext ctx) => CarerProfileScreen()));
             },
             leading: Icon(Icons.home),
             title: Text("Ir al Home"),
           ),
-          Divider(
+          /*Divider(
             height: 1,
             color: Colors.white,
           ),
           ListTile(
             onTap: () {
               debugPrint("Tapped Notifications");
+
             },
             leading: Icon(Icons.notifications),
             title: Text("Notificaciones"),
@@ -201,6 +209,7 @@ class CustomDrawer extends StatelessWidget {
             leading: Icon(Icons.exit_to_app),
             title: Text("Cerrar Sesión"),
           ),
+          ),*/
         ],
       ),
     );

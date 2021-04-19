@@ -1,10 +1,6 @@
 import 'package:appkinsonFront/utils/Utils.dart';
-import 'package:appkinsonFront/views/HomeDifferentUsers/Carer/CarerHomePage.dart';
-import 'package:appkinsonFront/views/HomeDifferentUsers/Doctor/DoctorHomePage.dart';
 import 'package:appkinsonFront/views/HomeDifferentUsers/Patient/PatientHomePage.dart';
 import 'package:appkinsonFront/views/RelationRequest/relationsRequets.dart';
-import 'package:appkinsonFront/views/profiles/Carer/CarerProfileScreen.dart';
-import 'package:appkinsonFront/views/profiles/Doctor/DoctorProfileScreen.dart';
 import 'package:appkinsonFront/views/profiles/Patient/PatientProfile.dart';
 import 'package:flutter/material.dart';
 import 'package:foldable_sidebar/foldable_sidebar.dart';
@@ -16,10 +12,10 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter/src/widgets/safe_area.dart';
 import '../HomeInitial/HomePage.dart';
 
-class CustomDrawerMenu extends StatelessWidget {
+class CustomDrawerMenuPatient extends StatelessWidget {
   final Function closeDrawer;
 
-  const CustomDrawerMenu({Key key, this.closeDrawer}) : super(key: key);
+  const CustomDrawerMenuPatient({Key key, this.closeDrawer}) : super(key: key);
 
   Widget decideImage() {
     if (imageFilePatient == null) {
@@ -68,18 +64,10 @@ class CustomDrawerMenu extends StatelessWidget {
             color: Colors.white,
           ),
           ListTile(
-            onTap: () async{
+            onTap: () {
               debugPrint("Tapped Profile");
-              String tipe = await Utils().getFromToken('type');
-              if(tipe == 'Cuidador'){
-                Navigator.pushReplacement(context,
-                MaterialPageRoute(builder: (BuildContext ctx) => CarerProfileScreen()));
-              }
-              if(tipe == 'Doctor'){
-                Navigator.pushReplacement(context,
-                MaterialPageRoute(builder: (BuildContext ctx) => DoctorProfileScreen()));
-              }
-              
+              Navigator.pushReplacement(context,
+                MaterialPageRoute(builder: (BuildContext ctx) => PatientProfileScreen()));
               
             },
             leading: Icon(Icons.person),
@@ -104,19 +92,26 @@ class CustomDrawerMenu extends StatelessWidget {
             color: Colors.white,
           ),
           ListTile(
-            onTap: () async{
-              String tipe = await Utils().getFromToken('type');
-              if(tipe == 'Cuidador'){
-                Navigator.pushReplacement(context,
-                MaterialPageRoute(builder: (BuildContext ctx) => CarerHomePage()));
-              }
-              if(tipe == 'Doctor'){
-                Navigator.pushReplacement(context,
-                MaterialPageRoute(builder: (BuildContext ctx) => DoctorHomePage()));
-              }
+            onTap: () {
+              debugPrint("Tapped Payments");
+              Navigator.pushReplacement(context,
+                MaterialPageRoute(builder: (BuildContext ctx) => PatientHomePage()));
             },
             leading: Icon(Icons.home),
             title: Text("Ir al Home"),
+          ),
+          Divider(
+            height: 1,
+            color: Colors.white,
+          ),
+          ListTile(
+            onTap: () {
+              debugPrint("Tapped Notifications");
+              Navigator.pushReplacement(context,
+                MaterialPageRoute(builder: (BuildContext ctx) => RelationsRequest()));
+            },
+            leading: Icon(Icons.notifications),
+            title: Text("Notificaciones"),
           ),
         ],
       ),

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 
 import 'package:foldable_sidebar/foldable_sidebar.dart';
 import '../sideMenus/CustomDrawerMenu.dart';
+import '../sideMenus/CustomDrawerMenuPatient.dart';
 
 class PatientNotifications extends StatefulWidget {
   @override
@@ -17,7 +18,7 @@ class _PatientNotifications extends State<PatientNotifications> {
   Widget build(BuildContext context) {
   return SafeArea(
       child: Scaffold(
-        body: FoldableSidebarBuilder(status: status , drawer: CustomDrawerMenu(), screenContents: PatientNotifications0()),
+        body: FoldableSidebarBuilder(status: status , drawer: CustomDrawerMenuPatient(), screenContents: PatientNotifications0()),
         floatingActionButton: FloatingActionButton(
             backgroundColor: Colors.blue[800],
             child: Icon(

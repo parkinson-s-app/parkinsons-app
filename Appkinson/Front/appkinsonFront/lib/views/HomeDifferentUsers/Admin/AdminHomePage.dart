@@ -1,12 +1,19 @@
+import 'package:appkinsonFront/views/HomeDifferentUsers/Admin/Button/ButtonGoCheckItems.dart';
+import 'package:appkinsonFront/views/HomeDifferentUsers/Admin/Button/ButtonGoModifiToolBox.dart';
+import 'package:appkinsonFront/views/HomeDifferentUsers/Admin/Button/ButtonLogout.dart';
 import 'package:flutter/material.dart';
-import 'Button/ButtonGoModifiToolBox.dart';
-import 'Button/ButtonGoCheckUsers.dart';
+
 
 class AdminHomePage extends StatelessWidget {
+  bool shouldPop = false;
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-    return Scaffold(
+    return WillPopScope(
+      onWillPop: () async {
+        return shouldPop;
+      },
+    child: Scaffold(
         body: Column(
       children: <Widget>[
         ClipPath(
@@ -15,15 +22,14 @@ class AdminHomePage extends StatelessWidget {
             height: 350,
             width: double.infinity,
             decoration: BoxDecoration(
-              gradient: LinearGradient(
-                begin: Alignment.topLeft,
-                end: Alignment.bottomRight,
-                colors: [Colors.blue[400], Colors.blue[900]],
-              ),
-              // image: DecorationImage(
-              //image: AssetImage("assets/images/toolsBack.png"),
-              // )
-            ),
+                gradient: LinearGradient(
+                  begin: Alignment.topLeft,
+                  end: Alignment.bottomRight,
+                  colors: [Colors.blue[400], Colors.blue[900]],
+                ),
+                image: DecorationImage(
+                  image: AssetImage("assets/images/starsBackGround.png"),
+                )),
             child: Expanded(
               child: Stack(
                 children: <Widget>[
@@ -34,15 +40,15 @@ class AdminHomePage extends StatelessWidget {
                     height: size.height * 0.4,
                     alignment: Alignment.bottomLeft,
                   ),
-                  Positioned(
+                   Positioned(
                       top: 70,
-                      left: 150,
+                      left: 200,
                       child: Text(
                         "  \nAdministrador \n",
                         style: TextStyle(
                             color: Colors.white,
                             fontSize: 30,
-                            fontFamily: "Raleway"),
+                            fontFamily: "Raleway2"),
                       ))
                 ],
               ),
@@ -53,9 +59,10 @@ class AdminHomePage extends StatelessWidget {
           height: 100,
         ),
         Container(
-          child: Column(
+          child: Wrap(
             children: <Widget>[
               Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: <Widget>[
                   Column(
                     children: <Widget>[
@@ -71,9 +78,21 @@ class AdminHomePage extends StatelessWidget {
                   ),
                   Column(
                     children: <Widget>[
-                      ButtonGoCheckUsers(),
+                      ButtonGoCheckItems(),
                       Text(
-                        "Autorizar \nUsuarios",
+                        "Items",
+                        style: TextStyle(
+                            color: Colors.blue[900],
+                            fontSize: 20,
+                            fontFamily: "Raleway2"),
+                      )
+                    ],
+                  ),
+                  Column(
+                    children: <Widget>[
+                      ButtonLogout(),
+                      Text(
+                        "Cerrar Sesión",
                         style: TextStyle(
                             color: Colors.blue[900],
                             fontSize: 20,
@@ -87,7 +106,7 @@ class AdminHomePage extends StatelessWidget {
           ),
         ),
       ],
-    ));
+    )));
   }
 }
 

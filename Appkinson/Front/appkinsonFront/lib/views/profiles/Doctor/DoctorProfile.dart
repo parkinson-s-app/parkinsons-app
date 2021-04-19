@@ -1,6 +1,7 @@
 //import 'package:appkinsonFront/views/profiles/Patient/PatientProfileScreen.dart';
 import 'package:appkinsonFront/routes/RoutesDoctor.dart';
 import 'package:appkinsonFront/utils/Utils.dart';
+import 'package:appkinsonFront/views/HomeDifferentUsers/Doctor/DoctorHomePage.dart';
 import 'package:appkinsonFront/views/profiles/Doctor/profileEdition/ProfileEditionDoctor.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/screenutil.dart';
@@ -144,6 +145,10 @@ class CustomDrawer extends StatelessWidget {
           ListTile(
             onTap: () {
               debugPrint("Tapped Profile");
+              Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(
+                      builder: (BuildContext ctx) => DoctorProfileScreen()));
             },
             leading: Icon(Icons.person),
             title: Text(
@@ -154,7 +159,7 @@ class CustomDrawer extends StatelessWidget {
             height: 1,
             color: Colors.white,
           ),
-          ListTile(
+          /*ListTile(
             onTap: () {
               debugPrint("Tapped settings");
             },
@@ -164,16 +169,19 @@ class CustomDrawer extends StatelessWidget {
           Divider(
             height: 1,
             color: Colors.white,
-          ),
+          ),*/
           ListTile(
             onTap: () {
               debugPrint("Tapped Payments");
-              RoutesDoctor().toDoctorHome(context);
+              Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(
+                      builder: (BuildContext ctx) => DoctorHomePage()));
             },
             leading: Icon(Icons.home),
             title: Text("Ir al Home"),
           ),
-          Divider(
+          /*Divider(
             height: 1,
             color: Colors.white,
           ),
@@ -200,6 +208,7 @@ class CustomDrawer extends StatelessWidget {
             leading: Icon(Icons.exit_to_app),
             title: Text("Cerrar Sesión"),
           ),
+          ),*/
         ],
       ),
     );

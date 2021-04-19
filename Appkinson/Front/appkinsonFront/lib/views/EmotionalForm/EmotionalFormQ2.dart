@@ -11,11 +11,16 @@ class EmotionalFormQ2 extends StatefulWidget {
   _EmotionalFormQ2 createState() => _EmotionalFormQ2();
 }
 
-enum SigningCharacter { Si, No }
+enum SigningCharacter { Cero, Uno, Dos, Tres, Nada}
 SigningCharacter _character;
 int selectedStateRadioQ2 = -1;
 
 class _EmotionalFormQ2 extends State<EmotionalFormQ2> {
+  void initState() {
+    super.initState();
+    _character = SigningCharacter.Nada;
+    selectedStateRadioQ1 = -1;
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -49,7 +54,7 @@ class _EmotionalFormQ2 extends State<EmotionalFormQ2> {
                     fontSize: 30.0,
                   ),
                 ),
-                value: SigningCharacter.Si,
+                value: SigningCharacter.Cero,
                 groupValue: _character,
                 onChanged: (SigningCharacter value) {
                   setState(() {
@@ -68,7 +73,7 @@ class _EmotionalFormQ2 extends State<EmotionalFormQ2> {
                     fontSize: 30.0,
                   ),
                 ),
-                value: SigningCharacter.No,
+                value: SigningCharacter.Uno,
                 groupValue: _character,
                 onChanged: (SigningCharacter value) {
                   setState(() {
@@ -87,7 +92,7 @@ class _EmotionalFormQ2 extends State<EmotionalFormQ2> {
                     fontSize: 30.0,
                   ),
                 ),
-                value: SigningCharacter.No,
+                value: SigningCharacter.Dos,
                 groupValue: _character,
                 onChanged: (SigningCharacter value) {
                   setState(() {
@@ -106,7 +111,7 @@ class _EmotionalFormQ2 extends State<EmotionalFormQ2> {
                     fontSize: 30.0,
                   ),
                 ),
-                value: SigningCharacter.No,
+                value: SigningCharacter.Tres,
                 groupValue: _character,
                 onChanged: (SigningCharacter value) {
                   setState(() {

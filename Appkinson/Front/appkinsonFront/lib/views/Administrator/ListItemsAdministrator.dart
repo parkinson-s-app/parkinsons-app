@@ -17,6 +17,11 @@ class ListItemsAdministrator extends StatefulWidget {
 var items;
 var id = 0;
 class _ListItemsAdministratorState extends State<ListItemsAdministrator> {
+  @override
+  void initState() {
+    super.initState();
+  }
+
   final key = GlobalKey<AnimatedListState>();
   //List<AlarmInfo> items;
   DateTime _alarmTime;
@@ -38,10 +43,6 @@ class _ListItemsAdministratorState extends State<ListItemsAdministrator> {
             itemBuilder: (context, index, animation) =>
                 buildItem(items[index], index, animation),
           ),
-        ),
-        Container(
-          padding: EdgeInsets.all(5),
-          child: buildInsertButton(),
         ),
       ],
     ),
@@ -70,9 +71,7 @@ class _ListItemsAdministratorState extends State<ListItemsAdministrator> {
   }
 
   void removeItem(int index) {
-    String id = getId();
-    String token = getToken();
-    EndPoints().deleteAlarm(index.toString(), token, id);
+    EndPoints().deleteItemToolbox(items[index].idItem.toString());
     final item = items.removeAt(index);
 
     key.currentState.removeItem(
@@ -80,14 +79,4 @@ class _ListItemsAdministratorState extends State<ListItemsAdministrator> {
           (context, animation) => buildItem(item, index, animation),
     );
   }
-}
-
-getId() async {
-  String id = await Utils().getFromToken('id');
-  return id;
-}
-
-getToken() async {
-  String token = await Utils().getToken();
-  return token;
 }

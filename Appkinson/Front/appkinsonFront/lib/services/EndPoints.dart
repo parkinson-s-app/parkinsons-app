@@ -127,6 +127,8 @@ class EndPoints {
       'URL': enlace,
       'Type': tipo
     };
+    debugPrint("agregando");
+    debugPrint( jwtkey + token);
     http.Response response = await http.post(
         endpointBack + '/api/admin/toolbox/item',
         body: data2,
@@ -147,7 +149,8 @@ class EndPoints {
     List<ItemToolbox> items = [];
     for (var a = 0; a < codeList.length; a++) {
       ItemToolbox item = new ItemToolbox();
-      //alarm.id = codeList[a]['id'];
+      debugPrint(".");
+      item.idItem = codeList[a]['ID'];
       item.titulo = codeList[a]['Title'];
       item.descripcion = codeList[a]['Description'];
       item.enlace = codeList[a]['URL'];
@@ -155,6 +158,18 @@ class EndPoints {
       items.add(item);
     }
     return items;
+  }
+
+  Future<String> deleteItemToolbox(String index) async {
+    String i = " ";
+    String token = await Utils().getToken();
+    debugPrint("elimino");
+    debugPrint(index.toString());
+    final request = http.delete(
+        endpointBack + '/api/admin/toolbox/item/$index',
+        headers: {HttpHeaders.authorizationHeader: jwtkey + token});
+
+    return i;
   }
 
   Future<String> linkUser(String emailUser, var token_type, var token) async {
