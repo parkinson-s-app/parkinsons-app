@@ -420,6 +420,7 @@ class _Calendar extends State<CalendarScreenView2Carer> {
                                 //patientForm.q4 = BringAnswerPatientQ3().send();
                                 //patientForm.q5 = BringAnswerPatientQ4().send();
                                 patientForm.video = fileMedia;
+                                patientForm.discrepancy = desface;
                                 patientForm.formDate = dateChoosed;
 
                                 debugPrint('enviado');
