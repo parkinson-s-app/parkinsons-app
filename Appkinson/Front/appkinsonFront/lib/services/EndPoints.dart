@@ -510,6 +510,25 @@ class EndPoints {
     debugPrint(i);
     return i;
   }
+
+    Future<String> getDiscrepancyData(
+    var tokenID, DateTime start, DateTime end) async {
+    var token = await Utils().getToken();
+    var queryParameters = {
+      'start': start.toString(),
+      'end': end.toString(),
+      'montly' : 'true'
+    };
+    var uri = Uri.http(pagePath, '/api/patient/$tokenID/discrepancy/report',
+        queryParameters);
+    http.Response lista = await http.get(uri, headers: {
+      HttpHeaders.authorizationHeader: jwtkey + token
+    });
+    String i = lista.body;
+    var codeList = json.decode(i);
+    debugPrint(i);
+    return i;
+  }
   //----------------------------------------------
 
   //Recibir alarmas
