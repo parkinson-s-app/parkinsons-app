@@ -342,10 +342,10 @@ export default class PatientService {
                 onG = (100/size)*onG;
             }
             const finalResponse = {
-                on,
-                off,
-                offB,
-                onG,
+                on: Math.round((100/size)*on).toFixed(3),
+                off: Math.round((100/size)*off).toFixed(3),
+                offB: Math.round((100/size)*offB).toFixed(3),
+                onG: Math.round((100/size)*onG).toFixed(3),
                 mes: 'null'
             }
             debug('response final :%j', finalResponse);
