@@ -37,7 +37,7 @@ export default class AdminService {
         let conn: Pool | undefined;
         try {
             conn = await connect();
-            const res = await conn.query('DELETE FROM users WHERE ID = ?',[id]);
+            const res = await conn.query('DELETE FROM toolboxitems WHERE ID = ?',[id]);
             debug('delete Toolbox item response: %j', res);
             conn.end();
             if( res && res[0] ) {

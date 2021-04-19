@@ -487,30 +487,28 @@ async function montlyReport(idPatient: number, initDate: string, endDate: string
 }
 
 
-PatientController.get('/patient/:id/alarms/today', verifyToken, async (req: Request, res: Response) => {
-    debug('getting dyskinecia report');
+PatientController.get('/patient/alarms/today', verifyToken, async (req: Request, res: Response) => {
+    debug('getting alarms today');
     let status;
-    const idPatient = +req.params.id;
-    const initDate = req.query.start as string;
-    const endDate = req.query.end as string;
-    const montly = req.query.montly as string;
-    debug('Start get dyskinecia report Dates: %s to %s', initDate, endDate);
-
-    try {
-        let response;
-        if(montly != 'true'){
-            response = await PatientService.getReportDiskineciaTwoDates(idPatient, initDate, endDate);
-        } else if (montly && montly == 'true') {
-            response = await montlyReport(idPatient, initDate, endDate, 'DYSKINECIA');
+    const bearerHeader = req.headers['authorization'];
+    if( bearerHeader !== undefined ) {
+        const id = getIdFromToken(bearerHeader);
+        try {
+            let response;
+            debug('Patient getting alarms by id: %s', id);
+            //response = PatientService.getAlarmsTodayById(id);
+            status = constants.HTTP_STATUS_OK;
+            res.status(status).send(response);
+        } catch (error) {
+            debug('Patient getting dyskinecia report failed, error: %j', error);
+            status = constants.HTTP_STATUS_INTERNAL_SERVER_ERROR;
+            const responseError = { status, error: "An error has ocurred"};
+            res.status(status).send(responseError);
         }
-        debug('Patient getting dyskinecia report. Items: %j', response);
-        status = constants.HTTP_STATUS_OK;
-        res.status(status).send(response);
-    } catch (error) {
-        debug('Patient getting dyskinecia report failed, error: %j', error);
-        status = constants.HTTP_STATUS_INTERNAL_SERVER_ERROR;
-        const responseError = { status, error: "An error has ocurred"};
-        res.status(status).send(responseError);
+    } else {
+        debug('Request Error getting authorization header alarms');
+        status = constants.HTTP_STATUS_BAD_REQUEST;
+        res.status(status).send('Bad request');
     }
 });
 
