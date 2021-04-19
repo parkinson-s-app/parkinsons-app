@@ -30,6 +30,7 @@ int hora = 0;
 var cont = 0;
 String q2;
 String q1;
+int desface;
 String idCurrent;
 bool isLoading = false;
 
@@ -95,7 +96,6 @@ class _Calendar extends State<CalendarScreenView2Doctor> {
 
         //print(calen.from);
         dateChoosed = calendarTapDetails.date;
-  
 
         final DateTime probTime = DateTime(
             dateChoosed.year, dateChoosed.month, dateChoosed.day, 0, 0, 0);
@@ -113,6 +113,7 @@ class _Calendar extends State<CalendarScreenView2Doctor> {
             print(currentMeeting.toString());
             q2 = currentMeeting['Q2'];
             q1 = currentMeeting['Q1'];
+            desface = currentMeeting['discrepancy'];
             pathVideo = currentMeeting['pathvideo'].toString() + '.mp4';
             idCurrent = currentMeeting['ID_PATIENT'].toString();
           }
@@ -165,8 +166,19 @@ class _Calendar extends State<CalendarScreenView2Doctor> {
                         color: Colors.teal[200],
                         //textColor: Colors.white,
                         child: Text('ver video'),
-                        
                       ),
+                      Row(
+                        children: [
+                          Text('Desface:'),
+                          IconButton(
+                              icon: Icon(Icons.announcement_rounded,
+                                  color: Colors.yellow[900]),
+                              tooltip:
+                                  'Esta opcion es para escoger cuanto tiempo depués de la hora indicada se tomo el medicamento. Si fue a la hora establecida, puede continur sin escoger nada.')
+                        ],
+                      ),
+                      Text(desface.toString() +
+                          ' min de desface en la toma de medicamento'),
                     ])),
                     /*actions: <Widget>[
                       FlatButton(

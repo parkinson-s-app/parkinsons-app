@@ -2,12 +2,14 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:appkinsonFront/model/SymptomsFormPatientM.dart';
+import 'package:appkinsonFront/routes/RoutesGeneral.dart';
 import 'package:appkinsonFront/routes/RoutesPatient.dart';
 import 'package:appkinsonFront/services/EndPoints.dart';
 import 'package:appkinsonFront/utils/Utils.dart';
 import 'package:appkinsonFront/views/SymptomsFormPatient/SymptomsFormPatientQ5ON.dart';
 import 'package:appkinsonFront/views/videoScreen/videoScreenCarer.dart';
 import 'package:appkinsonFront/views/videoScreen/videoScreenDoctor.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:syncfusion_flutter_calendar/calendar.dart';
 
@@ -68,8 +70,12 @@ int hora = 0;
 var cont = 0;
 String q2;
 String q1;
+String datePatient;
+int desface;
 String idCurrent;
 bool isLoading = false;
+
+DateTime deleteTime;
 
 List<Color> _colors = <Color>[
   Colors.green,
@@ -82,6 +88,7 @@ List<String> _onOff = <String>['on', 'on bueno', 'off', 'off malo'];
 var currentMeeting;
 
 class _Calendar extends State<CalendarScreenView2aux> {
+  var valueHour = '0';
   void _incrementColorIndex() {
     setState(() {
       print(cont);
@@ -109,6 +116,7 @@ class _Calendar extends State<CalendarScreenView2aux> {
   void initState() {
     super.initState();
     currentMeeting = null;
+    valueHour = '0';
     //todos.add("Regular Colors");
     //todos.add("Power Coating");
   }
@@ -116,6 +124,7 @@ class _Calendar extends State<CalendarScreenView2aux> {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
+
     return Scaffold(
         body: SfCalendar(
       view: CalendarView.day,
@@ -125,10 +134,12 @@ class _Calendar extends State<CalendarScreenView2aux> {
         print(sizeAppo.toString() + 'hola6');
         Meeting calen;
         String r;
+        String dateNoZ;
         String pathVideo;
         if (sizeAppo.toString() != 'null') {
           calen = calendarTapDetails.appointments[0];
           r = calen.from.toString() + 'Z';
+          dateNoZ = calen.from.toString();
         }
 
         //print(calen.from);
@@ -154,6 +165,9 @@ class _Calendar extends State<CalendarScreenView2aux> {
             print(currentMeeting.toString());
             q2 = currentMeeting['Q2'];
             q1 = currentMeeting['Q1'];
+            desface = currentMeeting['discrepancy'];
+            datePatient = dateNoZ;
+            deleteTime = dateBd;
             pathVideo = currentMeeting['pathvideo'].toString() + '.mp4';
             idCurrent = currentMeeting['ID_PATIENT'].toString();
           }
@@ -211,10 +225,23 @@ class _Calendar extends State<CalendarScreenView2aux> {
                       },*/
                         // Text("Registrarse ", style:  TextStyle(fontSize: 15)),
                       ),
+                      Row(
+                        children: [
+                          Text('Desface:'),
+                          IconButton(
+                              icon: Icon(Icons.announcement_rounded,
+                                  color: Colors.yellow[900]),
+                              tooltip:
+                                  'Esta opcion es para escoger cuanto tiempo depués de la hora indicada se tomo el medicamento. Si fue a la hora establecida, puede continur sin escoger nada.')
+                        ],
+                      ),
+                      Text(desface.toString() +
+                          ' min de desface en la toma de medicamento'),
                     ])),
                     actions: <Widget>[
                       FlatButton(
                           onPressed: () async {
+                            int disMinutes = int.parse(this.valueHour);
                             SymptomsFormPatientM patientForm =
                                 new SymptomsFormPatientM();
 
@@ -224,38 +251,41 @@ class _Calendar extends State<CalendarScreenView2aux> {
                             //patientForm.q4 = BringAnswerPatientQ3().send();
                             //patientForm.q5 = BringAnswerPatientQ4().send();
                             patientForm.video = fileMedia;
+                            patientForm.discrepancy = disMinutes;
                             patientForm.formDate = dateChoosed;
 
-                            debugPrint('enviado');
+                            debugPrint('envia');
                             String token = await Utils().getToken();
                             String id = await Utils().getFromToken('id');
+                            debugPrint('id');
+                            print('token');
                             var savedDone = await EndPoints()
-                                .registerSymptomsFormPatient(
-                                    patientForm, id, token);
+                                .deleteSymtomsPatientForm(
+                                    datePatient, token, id);
 
-                            debugPrint(savedDone.toString());
+                            // debugPrint(savedDone.toString());
 
-                            int hora = dateChoosed.hour;
+                            int hora = deleteTime.hour;
 
-                            final DateTime startTime = DateTime(
-                                dateChoosed.year,
-                                dateChoosed.month,
-                                dateChoosed.day,
-                                hora,
-                                0,
-                                0);
+                            final DateTime startTime = DateTime(deleteTime.year,
+                                deleteTime.month, deleteTime.day, hora, 0, 0);
+                            print(startTime.toString() + 'startime');
                             final DateTime endTime =
                                 startTime.add(const Duration(hours: 1));
                             Meeting m = new Meeting(_onOff[cont], startTime,
                                 endTime, _colors[cont], false);
                             debugPrint(m.eventName);
+                            // print(meetingPatient.);
                             //setState(() {
-                            meetingPatient.remove(m);
+                            this.setState(() {
+                              meetingPatient.removeWhere(
+                                  (item) => item.from == startTime);
+                              //isLoading = false;
+                            });
+
                             Navigator.pop(context);
                           },
                           child: Icon(Icons.delete)),
-                      FlatButton(
-                          onPressed: null, child: Icon(Icons.edit_outlined))
                     ],
                   );
                 });
@@ -338,11 +368,101 @@ class _Calendar extends State<CalendarScreenView2aux> {
                       },*/
                         // Text("Registrarse ", style:  TextStyle(fontSize: 15)),
                       ),
+                      Row(children: [
+                        SizedBox(
+                          width: 20,
+                        ),
+                        FlatButton(
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(18.0)),
+                          //   side: BorderSide(color: Color.fromRGBO(0, 160, 227, 1))),
+
+                          padding: EdgeInsets.symmetric(horizontal: 50),
+
+                          //onPressed: _incrementColorIndex,
+                          onPressed: () {
+                            valueHour = '0';
+                            showDialog(
+                                context: context,
+                                builder: (BuildContext context) {
+                                  return StatefulBuilder(
+                                      builder: (context, setState) {
+                                    currentMeeting = null;
+                                    return AlertDialog(
+                                        title: Text(
+                                            "Cuanto tiempo después se tomo el medicamento?"),
+                                        content: Container(
+                                            height: 350.0,
+                                            width: 350.0,
+                                            child: Column(
+                                                mainAxisSize: MainAxisSize.min,
+                                                children: <Widget>[
+                                                  Expanded(
+                                                    child: CupertinoTimerPicker(
+                                                      // initialTimerDuration: ,
+                                                      mode:
+                                                          CupertinoTimerPickerMode
+                                                              .hm,
+                                                      onTimerDurationChanged:
+                                                          (value) {
+                                                        setState(() {
+                                                          this.valueHour = value
+                                                              .inMinutes
+                                                              .toString();
+                                                        });
+                                                      },
+                                                    ),
+                                                  ),
+                                                  FlatButton(
+                                                    shape:
+                                                        RoundedRectangleBorder(
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        18.0)),
+                                                    //   side: BorderSide(color: Color.fromRGBO(0, 160, 227, 1))),
+
+                                                    padding:
+                                                        EdgeInsets.symmetric(
+                                                            horizontal: 30),
+
+                                                    //onPressed: _incrementColorIndex,
+                                                    onPressed: () {
+                                                      print(this.valueHour);
+                                                      RoutesGeneral()
+                                                          .toPop(context);
+                                                    },
+
+                                                    color: Colors.teal[200],
+                                                    //textColor: Colors.white,
+                                                    child: Text('Listo'),
+                                                  ),
+                                                ])));
+                                  });
+                                });
+                          },
+
+                          color: Colors.teal[200],
+                          //textColor: Colors.white,
+                          child: Text('desface '),
+                          /*() => {
+                        //print(cont);
+                        _incrementColorIndex()
+                      },*/
+                          // Text("Registrarse ", style:  TextStyle(fontSize: 15)),
+                        ),
+                        IconButton(
+                            icon: Icon(Icons.announcement_rounded,
+                                color: Colors.yellow[900]),
+                            tooltip:
+                                'Esta opcion es para escoger cuanto tiempo depués de la hora indicada se tomo el medicamento. Si fue a la hora establecida, puede continur sin escoger nada.')
+                      ])
                     ])),
                     actions: <Widget>[
                       !isLoading
                           ? FlatButton(
                               onPressed: () async {
+                                int disMinutes = int.parse(this.valueHour);
                                 SymptomsFormPatientM patientForm =
                                     new SymptomsFormPatientM();
 
@@ -353,17 +473,19 @@ class _Calendar extends State<CalendarScreenView2aux> {
                                 //patientForm.q5 = BringAnswerPatientQ4().send();
                                 patientForm.video = fileMedia;
                                 patientForm.formDate = dateChoosed;
+                                patientForm.discrepancy = disMinutes;
 
-                                debugPrint('enviado');
+                                debugPrint('envia');
 
                                 setState(() {
                                   isLoading = true;
                                 });
 
                                 String token = await Utils().getToken();
+                                String id = await Utils().getFromToken('id');
                                 var savedDone = await EndPoints()
                                     .registerSymptomsFormPatient(
-                                        patientForm, idCurrent, token);
+                                        patientForm, id, token);
 
                                 int hora = dateChoosed.hour;
 
@@ -374,6 +496,7 @@ class _Calendar extends State<CalendarScreenView2aux> {
                                     hora,
                                     0,
                                     0);
+                                print(startTime.toString() + 'startime');
                                 final DateTime endTime =
                                     startTime.add(const Duration(hours: 1));
                                 Meeting m = new Meeting(_onOff[cont], startTime,

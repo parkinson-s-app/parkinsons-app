@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:appkinsonFront/model/SymptomsFormPatientM.dart';
+import 'package:appkinsonFront/routes/RoutesGeneral.dart';
 import 'package:appkinsonFront/routes/RoutesPatient.dart';
 import 'package:appkinsonFront/services/EndPoints.dart';
 import 'package:appkinsonFront/utils/Utils.dart';
@@ -9,6 +10,7 @@ import 'package:appkinsonFront/utils/Utils.dart';
 import 'package:appkinsonFront/views/SymptomsFormPatient/SymptomsFormPatientQ5ON.dart';
 import 'package:appkinsonFront/views/videoScreen/videoScreenCarer.dart';
 import 'package:appkinsonFront/views/videoScreen/videoScreenDoctor.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:syncfusion_flutter_calendar/calendar.dart';
 
@@ -32,6 +34,7 @@ int hora = 0;
 var cont = 0;
 String q2;
 String q1;
+int desface;
 String idCurrent;
 bool isLoading = false;
 
@@ -46,6 +49,7 @@ List<String> _onOff = <String>['on', 'on bueno', 'off', 'off malo'];
 var currentMeeting;
 
 class _Calendar extends State<CalendarScreenView2Carer> {
+  var valueHour = '0';
   void _incrementColorIndex() {
     setState(() {
       print(cont);
@@ -118,6 +122,7 @@ class _Calendar extends State<CalendarScreenView2Carer> {
             print(currentMeeting.toString());
             q2 = currentMeeting['Q2'];
             q1 = currentMeeting['Q1'];
+            desface = currentMeeting['discrepancy'];
             pathVideo = currentMeeting['pathvideo'].toString() + '.mp4';
             idCurrent = currentMeeting['ID_PATIENT'].toString();
           }
@@ -175,6 +180,18 @@ class _Calendar extends State<CalendarScreenView2Carer> {
                       },*/
                         // Text("Registrarse ", style:  TextStyle(fontSize: 15)),
                       ),
+                      Row(
+                        children: [
+                          Text('Desface:'),
+                          IconButton(
+                              icon: Icon(Icons.announcement_rounded,
+                                  color: Colors.yellow[900]),
+                              tooltip:
+                                  'Esta opcion es para escoger cuanto tiempo depués de la hora indicada se tomo el medicamento. Si fue a la hora establecida, puede continur sin escoger nada.')
+                        ],
+                      ),
+                      Text(desface.toString() +
+                          ' min de desface en la toma de medicamento'),
                     ])),
                     actions: <Widget>[
                       FlatButton(
@@ -218,8 +235,6 @@ class _Calendar extends State<CalendarScreenView2Carer> {
                             Navigator.pop(context);
                           },
                           child: Icon(Icons.delete)),
-                      FlatButton(
-                          onPressed: null, child: Icon(Icons.edit_outlined))
                     ],
                   );
                 });
@@ -302,6 +317,95 @@ class _Calendar extends State<CalendarScreenView2Carer> {
                       },*/
                         // Text("Registrarse ", style:  TextStyle(fontSize: 15)),
                       ),
+                      Row(children: [
+                        SizedBox(
+                          width: 20,
+                        ),
+                        FlatButton(
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(18.0)),
+                          //   side: BorderSide(color: Color.fromRGBO(0, 160, 227, 1))),
+
+                          padding: EdgeInsets.symmetric(horizontal: 50),
+
+                          //onPressed: _incrementColorIndex,
+                          onPressed: () {
+                            valueHour = '0';
+                            showDialog(
+                                context: context,
+                                builder: (BuildContext context) {
+                                  return StatefulBuilder(
+                                      builder: (context, setState) {
+                                    currentMeeting = null;
+                                    return AlertDialog(
+                                        title: Text(
+                                            "Cuanto tiempo después se tomo el medicamento?"),
+                                        content: Container(
+                                            height: 350.0,
+                                            width: 350.0,
+                                            child: Column(
+                                                mainAxisSize: MainAxisSize.min,
+                                                children: <Widget>[
+                                                  Expanded(
+                                                    child: CupertinoTimerPicker(
+                                                      // initialTimerDuration: ,
+                                                      mode:
+                                                          CupertinoTimerPickerMode
+                                                              .hm,
+                                                      onTimerDurationChanged:
+                                                          (value) {
+                                                        setState(() {
+                                                          this.valueHour = value
+                                                              .inMinutes
+                                                              .toString();
+                                                        });
+                                                      },
+                                                    ),
+                                                  ),
+                                                  FlatButton(
+                                                    shape:
+                                                        RoundedRectangleBorder(
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        18.0)),
+                                                    //   side: BorderSide(color: Color.fromRGBO(0, 160, 227, 1))),
+
+                                                    padding:
+                                                        EdgeInsets.symmetric(
+                                                            horizontal: 30),
+
+                                                    //onPressed: _incrementColorIndex,
+                                                    onPressed: () {
+                                                      print(this.valueHour);
+                                                      RoutesGeneral()
+                                                          .toPop(context);
+                                                    },
+
+                                                    color: Colors.teal[200],
+                                                    //textColor: Colors.white,
+                                                    child: Text('Listo'),
+                                                  ),
+                                                ])));
+                                  });
+                                });
+                          },
+
+                          color: Colors.teal[200],
+                          //textColor: Colors.white,
+                          child: Text('desface '),
+                          /*() => {
+                        //print(cont);
+                        _incrementColorIndex()
+                      },*/
+                          // Text("Registrarse ", style:  TextStyle(fontSize: 15)),
+                        ),
+                        IconButton(
+                            icon: Icon(Icons.announcement_rounded,
+                                color: Colors.yellow[900]),
+                            tooltip:
+                                'Esta opcion es para escoger cuanto tiempo depués de la hora indicada se tomo el medicamento. Si fue a la hora establecida, puede continur sin escoger nada.')
+                      ])
                     ])),
                     actions: <Widget>[
                       !isLoading

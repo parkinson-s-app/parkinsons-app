@@ -139,20 +139,41 @@ class DoctorPatientsCustom extends State<DoctorPatients> {
                       final DateTime endTime =
                           startTime.add(const Duration(hours: 1));
                       if (codeList[a]['Q1'] == 'on') {
-                        meetingsDoctor.add(Meeting(
-                            'on', startTime, endTime, Colors.green, false));
+                        if (codeList[a]['Q2'] != "") {
+                          meetingsDoctor.add(Meeting('on              ++',
+                              startTime, endTime, Colors.green, false));
+                        } else {
+                          meetingsDoctor.add(Meeting(
+                              'on', startTime, endTime, Colors.green, false));
+                        }
                       }
                       if (codeList[a]['Q1'] == 'off') {
-                        meetingsDoctor.add(Meeting(
-                            'off', startTime, endTime, Colors.red, false));
+                        String f = 'hola';
+                        if (codeList[a]['Q2'] != "") {
+                          meetingsDoctor.add(Meeting('off              ++',
+                              startTime, endTime, Colors.red, false));
+                        } else {
+                          meetingsDoctor.add(Meeting(
+                              'off', startTime, endTime, Colors.red, false));
+                        }
                       }
                       if (codeList[a]['Q1'] == 'on bueno') {
-                        meetingsDoctor.add(Meeting('on bueno', startTime,
-                            endTime, Colors.green[700], false));
+                        if (codeList[a]['Q2'] != "") {
+                          meetingsDoctor.add(Meeting('on bueno              ++',
+                              startTime, endTime, Colors.green[700], false));
+                        } else {
+                          meetingsDoctor.add(Meeting('on bueno', startTime,
+                              endTime, Colors.green[700], false));
+                        }
                       }
                       if (codeList[a]['Q1'] == 'off malo') {
-                        meetingsDoctor.add(Meeting('off malo', startTime,
-                            endTime, Colors.red[800], false));
+                        if (codeList[a]['Q2'] != "") {
+                          meetingsDoctor.add(Meeting('off malo              ++',
+                              startTime, endTime, Colors.red[800], false));
+                        } else {
+                          meetingsDoctor.add(Meeting('off malo', startTime,
+                              endTime, Colors.red[800], false));
+                        }
                       }
                     }
 

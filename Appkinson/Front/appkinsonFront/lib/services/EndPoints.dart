@@ -498,7 +498,7 @@ class EndPoints {
   Future<String> registerSymptomsFormPatient(
       SymptomsFormPatientM form, var tokenID, var token) async {
     bool success = false;
-    print(tokenID + 'hola');
+    print(tokenID + 'hol');
 
     var video;
 
@@ -513,6 +513,7 @@ class EndPoints {
       'q1': form.q1,
       'q2': form.q2,
       'formDate': form.formDate,
+      'discrepancy': form.discrepancy,
       'video': video,
     };
 
@@ -662,5 +663,32 @@ class EndPoints {
         data: jsonEncode(data2));
     debugPrint(response.statusMessage);
     return response.statusMessage;
+  }
+
+  Future<String> deleteSymtomsPatientForm(
+      String date, var token, var tokenId) async {
+    print(date);
+    print(token);
+    print(tokenId);
+    var data2 = {
+      'Date': date,
+    };
+    //debugPrint(data2.toString());
+    //debugPrint(endpointBack + addUserUrl);
+    //
+    FormData formData = new FormData.fromMap(data2);
+    Dio dio = new Dio();
+
+    debugPrint("bandera");
+    var uri =
+        Uri.http(pagePath, '/api/users/$tokenId/symptomsFormPatient', data2);
+
+    http.Response response = await http.delete(uri,
+        headers: {HttpHeaders.authorizationHeader: jwtkey + token});
+
+    //dio.options.headers['content-Type'] = 'application/json';
+
+    debugPrint(response.body);
+    return response.body;
   }
 }
