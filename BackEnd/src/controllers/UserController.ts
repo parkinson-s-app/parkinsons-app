@@ -203,7 +203,7 @@ UserController.delete('/users/:id/symptomsFormPatient', verifyToken, async (req:
     const bearerHeader = req.headers['authorization'];
     let status;
     if( bearerHeader !== undefined ) {
-
+        debug('Delete symptoms form patient data: %j', date);
         if ( id && date) {
             try {
                 // se llama al servicio encargado de eliminar una persona por el id

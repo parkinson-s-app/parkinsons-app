@@ -492,8 +492,53 @@ export default class PatientService {
         }
     }
 
-
     public static async getReportDiskineciaTwoDates(idPatient: number, initDate: string, endDate: string): Promise<any> {
+        let conn: Pool | undefined;
+        try {
+            conn = await connect();
+            debug('getting dyskinecia report by two dates First: %s Second: %s', initDate, endDate);
+            const query = `
+            SELECT
+                Q2
+            FROM 
+                symptomsformpatient
+            WHERE ID_PATIENT= ? 
+            AND formdate BETWEEN ? AND ?`;
+            debug('getReportDiskineciaTwoDates to patient id: %s', idPatient);
+            const res = await conn.query(query,[idPatient, initDate, endDate]);
+            debug('getReportDiskineciaTwoDates executed and returned: %j', res[0]);
+            conn.end();
+            debug('query dyskinecia result response :%j', res[0]);
+            const listJSON = JSON.parse(JSON.stringify(res[0]));
+            debug('query dyskinecia response as a list :%j', res[0]);
+            let acum = 0;
+            let average = 0;
+            const size = listJSON.length;
+            for (let index = 0; index < size; index++) {
+                if(listJSON[index].Q2 !==''){
+                    acum += 1;
+                }
+            }
+            if (size != 0) {
+                average = (acum/(size));
+            }
+            const finalResponse = {
+                Mes: 'null',
+                Promedio: average,
+                Cantidad: size
+            };
+            debug('response dyskinecia report final :%j', finalResponse);
+            return finalResponse;
+        }  catch (error) {
+            if(conn) {
+                conn.end();
+            }
+            debug('getReportDiskineciaTwoDates Error: %j', error);
+            throw error;
+        }
+    }
+
+    public static async getReportDiscrepancyTwoDates(idPatient: number, initDate: string, endDate: string): Promise<any> {
         let conn: Pool | undefined;
         try {
             conn = await connect();
