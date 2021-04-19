@@ -19,7 +19,8 @@ import 'package:line_awesome_flutter/line_awesome_flutter.dart';
 const bla = Colors.white;
 const kSpacingUnit = 10;
 File imageFilePatient;
-String namePatient = 'cero';
+String namePatient = " ";
+
 
 final kTitleTextStyle = TextStyle(
   fontFamily: "Raleway",
@@ -34,10 +35,12 @@ final kCaptionTextStyle = TextStyle(
 );
 
 class PatientProfileScreen extends StatefulWidget {
+  
   PatientProfileScreenP createState() => PatientProfileScreenP();
 }
 
 class PatientProfileScreenP extends State<PatientProfileScreen> {
+  
   openGallery(BuildContext context) async {
     var picture = await ImagePicker.pickImage(source: ImageSource.gallery);
     this.setState(() {
@@ -191,7 +194,7 @@ class PatientProfileScreenP extends State<PatientProfileScreen> {
         ),
         Text(
           //currentUser['EMAIL'],
-          nameController.text,
+          "nombre",
           //namePatient,
           style: kTitleTextStyle,
         ),
@@ -201,7 +204,9 @@ class PatientProfileScreenP extends State<PatientProfileScreen> {
         Text(
             //currentUser['EMAIL']
             //"h@gamil.com",
-            emailController.text,
+            "email",
+            //emailPatient,
+            //emailPatient,
             style: kCaptionTextStyle),
         SizedBox(),
       ],

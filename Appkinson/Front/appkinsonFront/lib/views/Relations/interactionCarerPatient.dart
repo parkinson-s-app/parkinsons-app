@@ -4,16 +4,52 @@ import 'package:appkinsonFront/views/Relations/Buttons/ButtonGoFormFeelsFromCare
 import 'package:appkinsonFront/views/Relations/Buttons/ButtonGoMedicinesFromCarer.dart';
 import 'package:appkinsonFront/views/Relations/Buttons/ButtonGoMedicinesFromDoctor.dart';
 import 'package:appkinsonFront/views/Relations/Buttons/ButtonGoReporter.dart';
+import 'package:appkinsonFront/views/sideMenus/CustomDrawerMenu.dart';
 import 'package:flutter/material.dart';
+import 'package:foldable_sidebar/foldable_sidebar.dart';
 
-class InteractionCarerPatient extends StatelessWidget {
+class InteractionCarerPatient extends StatefulWidget {
+  @override
+  
   final int idPatient;
 
   const InteractionCarerPatient({Key key, this.idPatient}) : super(key: key);
 
+  _InteractionCarerPatient createState() => _InteractionCarerPatient();
+}
+
+class _InteractionCarerPatient extends State<InteractionCarerPatient> {
+  FSBStatus status;
+  
   @override
   Widget build(BuildContext context) {
-    print('patient pantalla intermedia ${idPatient.toString()}');
+  return SafeArea(
+      child: Scaffold(
+        body: FoldableSidebarBuilder(status: status , drawer: CustomDrawerMenu(), screenContents: InteractionCarerPatient0()),
+        floatingActionButton: FloatingActionButton(
+            backgroundColor: Colors.blue[800],
+            child: Icon(
+              Icons.menu,
+              color: Colors.white,
+            ),
+            onPressed: () {
+              setState(() {
+                status = status == FSBStatus.FSB_OPEN
+                    ? FSBStatus.FSB_CLOSE
+                    : FSBStatus.FSB_OPEN;
+              });
+            }
+        ),
+      ),
+    ); 
+  }
+}
+
+class InteractionCarerPatient0 extends StatelessWidget {
+  
+  @override
+  Widget build(BuildContext context) {
+    //print('patient pantalla intermedia ${idPatient.toString()}');
     Size size = MediaQuery.of(context).size;
     return Scaffold(
         body: Column(

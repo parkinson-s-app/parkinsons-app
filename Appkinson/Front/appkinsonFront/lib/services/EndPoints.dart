@@ -4,7 +4,8 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:appkinsonFront/constants/Constant.dart';
-import 'package:appkinsonFront/model/EmotionsForm.dart';
+import 'package:appkinsonFront/model/NoMotorSymptomsForm.dart';
+import 'package:appkinsonFront/model/EmotionalForm.dart';
 import 'package:appkinsonFront/model/SymptomsForm.dart';
 import 'package:appkinsonFront/model/SymptomsFormPatientM.dart';
 import 'package:appkinsonFront/utils/Utils.dart';
@@ -341,8 +342,8 @@ class EndPoints {
     return success;
   }
 
-  Future<bool> registerEmotionsForm(
-      EmotionsForm form, var tokenID, var token) async {
+  Future<bool> registerNoMotorSymptomsForm(
+      NoMotorSymptomsForm form, var tokenID, var token) async {
     bool success = false;
 
     //http.Response response =
@@ -377,6 +378,33 @@ class EndPoints {
       'q28': form.q28,
       'q29': form.q29,
       'q30': form.q30,
+      'date': form.date.toString(),
+    };
+    var jsonBody = jsonEncode(formMap);
+    debugPrint(jsonBody);
+    http.Response lista = await http.post(
+        endpointBack + '/api/patient/$tokenID/noMotorSymptomsFormPatient',
+        headers: {
+          HttpHeaders.authorizationHeader: jwtkey + token,
+          'Content-Type': 'application/json; charset=UTF-8'
+        },
+        body: jsonBody);
+
+    debugPrint(lista.body);
+    if (lista.body == "OK") {
+      success = true;
+    }
+    return success;
+  }
+
+  Future<bool> registerEmotionalForm(
+      EmotionalForm form, var tokenID, var token) async {
+    bool success = false;
+
+    //http.Response response =
+    Map<String, dynamic> formMap = {
+      'q1': form.q1,
+      'q2': form.q2,
       'date': form.date.toString(),
     };
     var jsonBody = jsonEncode(formMap);

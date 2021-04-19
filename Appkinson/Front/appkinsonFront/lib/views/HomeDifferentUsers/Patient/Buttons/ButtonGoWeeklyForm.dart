@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../../../EmotionalFormPatient/emotionsFormQ.dart';
+import '../../../EmotionalForm/EmotionalFormQ.dart';
 
 class ButtonGoWeeklyForm extends StatelessWidget {
   @override
@@ -14,7 +14,7 @@ class ButtonGoWeeklyForm extends StatelessWidget {
         //   side: BorderSide(color: Color.fromRGBO(0, 160, 227, 1))),
         onPressed: () {
           Navigator.push(context,
-              new MaterialPageRoute(builder: (context) => emotionsFormQ()));
+              new MaterialPageRoute(builder: (context) => EmotionalFormQ()));
         },
         padding: EdgeInsets.symmetric(horizontal: 10),
         color: Colors.grey[50],
