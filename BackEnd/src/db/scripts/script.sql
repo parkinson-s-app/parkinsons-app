@@ -147,7 +147,7 @@ CREATE TABLE medicine (
     PRIMARY KEY (ID)
 );
 
-insert into medicine(NAME) values('levodopa'), ('medicina2'),('medicina3');
+--insert into medicine(NAME) values('levodopa'), ('medicina2'),('medicina3');
 
 
 CREATE TABLE alarmandmedicinepatient (

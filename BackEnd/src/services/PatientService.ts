@@ -7,7 +7,6 @@ import DoctorService from "./DoctorService";
 import IEmotionalFormDto from "../models/IEmotionalFormDto";
 import { Pool } from "mysql2/promise";
 import IMedicineAlarm from "../models/IMedicineAlarm";
-import { json } from "express";
 import IGameScore from "../models/IGameScore";
 import IStepRecord from "../models/IStepRecord";
 import INoMotorFormDto from "../models/INoMotorFormDto";
@@ -398,7 +397,7 @@ export default class PatientService {
         }
     }
 
-    public static async  getReportGameTwoDates(idPatient: number, initDate: string, endDate: string) {
+    public static async getReportGameTwoDates(idPatient: number, initDate: string, endDate: string) {
         let conn: Pool | undefined;
         try {
             conn = await connect();
@@ -440,6 +439,102 @@ export default class PatientService {
                 conn.end();
             }
             debug('getReportGameTwoDates Error: %j', error);
+            throw error;
+        }
+    }
+
+
+    public static async getReportEmotionalSymptomsTwoDates(idPatient: number, initDate: string, endDate: string): Promise<any> {
+        let conn: Pool | undefined;
+        try {
+            conn = await connect();
+            debug('getting emotional symptoms report by two dates First: %s Second: %s', initDate, endDate);
+            const query = `
+            SELECT 
+                Q1,
+                Q2
+            FROM 
+                emotionalformxpatient
+            WHERE ID_PATIENT= ? 
+            AND date BETWEEN ? AND ?`;
+            debug('getReportEmotionalSymptomsTwoDates to patient id: %s', idPatient);
+            const res = await conn.query(query,[idPatient, initDate, endDate]);
+            debug('getReportEmotionalSymptomsTwoDates executed and returned: %j', res[0]);
+            conn.end();
+            debug('query emotional symptoms result response :%j', res[0]);
+            const listJSON = JSON.parse(JSON.stringify(res[0]));
+            debug('query emotional symptoms response as a list :%j', res[0]);
+            let on = 0;
+            let acum = 0;
+            let average = 0;
+            const size = listJSON.length;
+            debug('size :%s', size);
+            for (let index = 0; index < size; index++) {
+                acum += listJSON[index].Q1;
+                acum += listJSON[index].Q2;
+            }
+            if (size != 0) {
+                average = (acum/(size*2));
+            }
+            const finalResponse = {
+                Mes: 'null',
+                Promedio: average,
+                Cantidad: size
+            };
+            debug('response emotional symptoms report final :%j', finalResponse);
+            return finalResponse;
+        }  catch (error) {
+            if(conn) {
+                conn.end();
+            }
+            debug('getReportGameTwoDates Error: %j', error);
+            throw error;
+        }
+    }
+
+
+    public static async getReportDiskineciaTwoDates(idPatient: number, initDate: string, endDate: string): Promise<any> {
+        let conn: Pool | undefined;
+        try {
+            conn = await connect();
+            debug('getting dyskinecia report by two dates First: %s Second: %s', initDate, endDate);
+            const query = `
+            SELECT
+                Q2
+            FROM 
+                symptomsformpatient
+            WHERE ID_PATIENT= ? 
+            AND date BETWEEN ? AND ?`;
+            debug('getReportDiskineciaTwoDates to patient id: %s', idPatient);
+            const res = await conn.query(query,[idPatient, initDate, endDate]);
+            debug('getReportDiskineciaTwoDates executed and returned: %j', res[0]);
+            conn.end();
+            debug('query dyskinecia result response :%j', res[0]);
+            const listJSON = JSON.parse(JSON.stringify(res[0]));
+            debug('query dyskinecia response as a list :%j', res[0]);
+            let acum = 0;
+            let average = 0;
+            const size = listJSON.length;
+            for (let index = 0; index < size; index++) {
+                if(listJSON[index].Q2 !==''){
+                    acum += 1;
+                }
+            }
+            if (size != 0) {
+                average = (acum/(size));
+            }
+            const finalResponse = {
+                Mes: 'null',
+                Promedio: average,
+                Cantidad: size
+            };
+            debug('response dyskinecia report final :%j', finalResponse);
+            return finalResponse;
+        }  catch (error) {
+            if(conn) {
+                conn.end();
+            }
+            debug('getReportDiskineciaTwoDates Error: %j', error);
             throw error;
         }
     }

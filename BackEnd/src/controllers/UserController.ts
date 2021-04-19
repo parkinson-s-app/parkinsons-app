@@ -398,7 +398,7 @@ UserController.get('/download', verifyToken, async (req: Request, res: Response)
                     res.download(path);
                 } else {
                     /*
-                   let data = new FormData();
+                    let data = new FormData();
                     data.append('name', req.body.name)
                     data.append('phone', req.body.phone)
                     data.append('email', req.body.email)

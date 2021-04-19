@@ -288,7 +288,7 @@ PatientController.get('/patient/:id/symptoms/report', verifyToken, async (req: R
             response = await PatientService.getReportSymptomsTwoDates(idPatient, initDate, endDate);
 
         } else if (montly && montly == 'true') {
-            response = await montlyReport(idPatient, initDate, endDate);
+            response = await montlyReport(idPatient, initDate, endDate, 'SYMPTOMS');
         }
         debug('Patient getting symptoms report. Items: %j', response);
         status = constants.HTTP_STATUS_OK;
@@ -300,30 +300,6 @@ PatientController.get('/patient/:id/symptoms/report', verifyToken, async (req: R
         res.status(status).send(responseError);
     }
 });
-
-async function montlyReport(idPatient: number, initDate: string, endDate: string) {
-    var before = new Date(initDate);
-    var last = new Date(endDate);
-    let resp = [];
-    while(before.getTime() < last.getTime()) {
-        let report;
-        const nDate = new Date(before.getFullYear(), before.getMonth()+1, 0 );
-        if(nDate.getTime() < last.getTime()){
-            initDate = (before.toJSON()).toString();
-            endDate = (nDate.toJSON()).toString();
-            report = await PatientService.getReportSymptomsTwoDates(idPatient, initDate, endDate);
-        } else {
-            initDate = (before.toJSON()).toString();
-            endDate = (last.toJSON()).toString();
-            report = await PatientService.getReportSymptomsTwoDates(idPatient, initDate, endDate);
-        }
-        report.mes = before.getMonth().toString();
-        before = new Date(before.getFullYear(), before.getMonth() +1, 1 );
-        resp.push(report);
-    }
-    return resp;
-}
-
 
 PatientController.post('/patient/:id/newGameScore', verifyToken, async (req: Request, res: Response) => {
     debug('Patients save Game Score by Id');
@@ -382,7 +358,7 @@ PatientController.get('/patient/:id/game/report', verifyToken, async (req: Reque
         if(montly != 'true'){
             response = await PatientService.getReportSymptomsTwoDates(idPatient, initDate, endDate);
         } else if (montly && montly == 'true') {
-            response = await montlyGameReport(idPatient, initDate, endDate);
+            response = await montlyReport(idPatient, initDate, endDate, 'GAME');
         }
         debug('Patient getting game report. Items: %j', response);
         status = constants.HTTP_STATUS_OK;
@@ -395,23 +371,85 @@ PatientController.get('/patient/:id/game/report', verifyToken, async (req: Reque
     }
 });
 
-async function montlyGameReport(idPatient: number, initDate: string, endDate: string) {
+PatientController.get('/patient/:id/emotionalsymptoms/report', verifyToken, async (req: Request, res: Response) => {
+    debug('getting emotionalsymptoms report');
+    let status;
+    const idPatient = +req.params.id;
+    const initDate = req.query.start as string;
+    const endDate = req.query.end as string;
+    const montly = req.query.montly as string;
+    debug('Start get emotionalsymptoms report Dates: %s to %s', initDate, endDate);
+
+    try {
+        let response;
+        if(montly != 'true'){
+            response = await PatientService.getReportEmotionalSymptomsTwoDates(idPatient, initDate, endDate);
+        } else if (montly && montly == 'true') {
+            response = await montlyReport(idPatient, initDate, endDate, 'EMOTIONAL');
+        }
+        debug('Patient getting emotionalsymptoms report. Items: %j', response);
+        status = constants.HTTP_STATUS_OK;
+        res.status(status).send(response);
+    } catch (error) {
+        debug('Patient getting emotionalsymptoms report failed, error: %j', error);
+        status = constants.HTTP_STATUS_INTERNAL_SERVER_ERROR;
+        const responseError = { status, error: "An error has ocurred"};
+        res.status(status).send(responseError);
+    }
+});
+
+PatientController.get('/patient/:id/dyskinecia/report', verifyToken, async (req: Request, res: Response) => {
+    debug('getting emotionalsymptoms report');
+    let status;
+    const idPatient = +req.params.id;
+    const initDate = req.query.start as string;
+    const endDate = req.query.end as string;
+    const montly = req.query.montly as string;
+    debug('Start get dyskinecia report Dates: %s to %s', initDate, endDate);
+
+    try {
+        let response;
+        if(montly != 'true'){
+            response = await PatientService.getReportDiskineciaTwoDates(idPatient, initDate, endDate);
+        } else if (montly && montly == 'true') {
+            response = await montlyReport(idPatient, initDate, endDate, 'DYSKINECIA');
+        }
+        debug('Patient getting dyskinecia report. Items: %j', response);
+        status = constants.HTTP_STATUS_OK;
+        res.status(status).send(response);
+    } catch (error) {
+        debug('Patient getting dyskinecia report failed, error: %j', error);
+        status = constants.HTTP_STATUS_INTERNAL_SERVER_ERROR;
+        const responseError = { status, error: "An error has ocurred"};
+        res.status(status).send(responseError);
+    }
+});
+
+
+async function montlyReport(idPatient: number, initDate: string, endDate: string, reportType: string) {
     var before = new Date(initDate);
     var last = new Date(endDate);
     let resp = [];
     while(before.getTime() < last.getTime()) {
-        let report;
+        let report: any;
         const nDate = new Date(before.getFullYear(), before.getMonth()+1, 0 );
         if(nDate.getTime() < last.getTime()){
             initDate = (before.toJSON()).toString();
             endDate = (nDate.toJSON()).toString();
-            report = await PatientService.getReportGameTwoDates(idPatient, initDate, endDate);
         } else {
             initDate = (before.toJSON()).toString();
             endDate = (last.toJSON()).toString();
-            report = await PatientService.getReportGameTwoDates(idPatient, initDate, endDate);
         }
-        report.Mes = before.getMonth().toString();
+        if(reportType === 'SYMPTOMS') {
+            report = await PatientService.getReportSymptomsTwoDates(idPatient, initDate, endDate);
+        } else if(reportType === 'GAME') {
+            report = await PatientService.getReportGameTwoDates(idPatient, initDate, endDate);
+        } else if(reportType === 'EMOTIONAL') {
+            report = await PatientService.getReportEmotionalSymptomsTwoDates(idPatient, initDate, endDate);
+        } else if(reportType === 'DYSKINECIA') {
+            report = await PatientService.getReportDiskineciaTwoDates(idPatient, initDate, endDate);
+        }
+        report.mes = before.getMonth().toString();
         before = new Date(before.getFullYear(), before.getMonth() +1, 1 );
         resp.push(report);
     }
