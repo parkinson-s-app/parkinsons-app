@@ -496,7 +496,7 @@ PatientController.get('/patient/alarms/today', verifyToken, async (req: Request,
         try {
             let response;
             debug('Patient getting alarms by id: %s', id);
-            //response = PatientService.getAlarmsTodayById(id);
+            //response = PatientService.getAlarmsTodfonnayById(id);
             status = constants.HTTP_STATUS_OK;
             res.status(status).send(response);
         } catch (error) {
