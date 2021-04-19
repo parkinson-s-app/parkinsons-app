@@ -35,8 +35,11 @@ var cont = 0;
 String q2;
 String q1;
 int desface;
+String datePatient;
 String idCurrent;
 bool isLoading = false;
+
+DateTime deleteTime;
 
 List<Color> _colors = <Color>[
   Colors.green,
@@ -93,10 +96,12 @@ class _Calendar extends State<CalendarScreenView2Carer> {
         print(sizeAppo.toString() + 'hola6');
         Meeting calen;
         String r;
+        String dateNoZ;
         String pathVideo;
         if (sizeAppo.toString() != 'null') {
           calen = calendarTapDetails.appointments[0];
           r = calen.from.toString() + 'Z';
+          dateNoZ = calen.from.toString();
         }
 
         //print(calen.from);
@@ -123,6 +128,8 @@ class _Calendar extends State<CalendarScreenView2Carer> {
             q2 = currentMeeting['Q2'];
             q1 = currentMeeting['Q1'];
             desface = currentMeeting['discrepancy'];
+            datePatient = dateNoZ;
+            deleteTime = dateBd;
             pathVideo = currentMeeting['pathvideo'].toString() + '.mp4';
             idCurrent = currentMeeting['ID_PATIENT'].toString();
           }
@@ -209,29 +216,27 @@ class _Calendar extends State<CalendarScreenView2Carer> {
 
                             debugPrint('enviado');
                             String token = await Utils().getToken();
-                            String id = await Utils().getFromToken('id');
+                            //String id = await Utils().getFromToken('id');
                             var savedDone = await EndPoints()
-                                .registerSymptomsFormPatient(
-                                    patientForm, id, token);
+                                .deleteSymtomsPatientForm(
+                                    datePatient, token, idCurrent);
 
                             debugPrint(savedDone.toString());
 
-                            int hora = dateChoosed.hour;
+                            int hora = deleteTime.hour;
 
-                            final DateTime startTime = DateTime(
-                                dateChoosed.year,
-                                dateChoosed.month,
-                                dateChoosed.day,
-                                hora,
-                                0,
-                                0);
+                            final DateTime startTime = DateTime(deleteTime.year,
+                                deleteTime.month, deleteTime.day, hora, 0, 0);
                             final DateTime endTime =
                                 startTime.add(const Duration(hours: 1));
                             Meeting m = new Meeting(_onOff[cont], startTime,
                                 endTime, _colors[cont], false);
                             debugPrint(m.eventName);
-                            //setState(() {
-                            meetingsCarer.remove(m);
+                            this.setState(() {
+                              meetingsCarer.removeWhere(
+                                  (item) => item.from == startTime);
+                              //isLoading = false;
+                            });
                             Navigator.pop(context);
                           },
                           child: Icon(Icons.delete)),
