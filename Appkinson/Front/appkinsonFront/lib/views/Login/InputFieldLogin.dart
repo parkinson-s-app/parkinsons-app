@@ -1,3 +1,4 @@
+import 'package:appkinsonFront/views/Register/InputFieldRegister.dart';
 import 'package:flutter/material.dart';
 import '../../model/User.dart';
 
@@ -10,6 +11,7 @@ TextEditingController emailController = new TextEditingController();
 TextEditingController password = new TextEditingController();
 
 class __FormInputFieldLogin extends State<InputFieldLogin> {
+  
   bool _obscurePassword = true;
   String _password;
   String _correo;
@@ -76,4 +78,9 @@ class metod {
     debugPrint(newUser.password);
     return newUser;
   }
+}
+
+cleanLogin(){
+  emailController = new TextEditingController();
+  password = new TextEditingController();
 }

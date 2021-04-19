@@ -1,6 +1,7 @@
 import 'package:appkinsonFront/views/Calendar/CalendarScreenView2.dart';
 import 'package:appkinsonFront/views/Game/countDownGame.dart';
 import 'package:appkinsonFront/views/Medicines/medicines.dart';
+import 'package:appkinsonFront/views/NoMotorSymptomsFormPatient/NoMotorSymptomsFormQ.dart';
 import 'package:appkinsonFront/views/RelationRequest/relationsRequets.dart';
 import 'package:appkinsonFront/views/SymptomsFormPatient/SymptomsFormPatient.dart';
 
@@ -23,6 +24,12 @@ class RoutesPatient {
     Navigator.push(context,
         new MaterialPageRoute(builder: (context) => CalendarScreenView2()));
   }
+
+  toNoMotorSymptoms(BuildContext context) {
+    Navigator.push(context,
+        new MaterialPageRoute(builder: (context) => NoMotorSymptomsFormQ()));
+  }
+
   toScheduleMedicines(BuildContext context, int idPatient) {
     Navigator.push(
         context,

@@ -99,6 +99,7 @@ flutter:
      - assets/images/starsBackGround.png
      - assets/images/abrir-caja.png
      - assets/images/advertir.png
+     - assets/images/condiciones.png
      - assets/images/calendario.png
      - assets/images/formulario.png
      - assets/images/obrero.png

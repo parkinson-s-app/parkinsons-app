@@ -55,10 +55,7 @@ class _FormButtonLogin extends State<ButtonLogin> {
           } else {
             await Utils().saveToken(responseJson['token']);
             currentUser = Utils().tokenDecoder(token);
-         
-         
-            TextEditingController emailController = new TextEditingController();
-            TextEditingController password = new TextEditingController();
+            cleanLogin();
             if (currentUser['type'] == 'Cuidador') {
               RoutesCarer().toCarerHome(context);
             }

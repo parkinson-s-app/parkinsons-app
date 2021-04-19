@@ -1,3 +1,4 @@
+import 'package:appkinsonFront/views/HomeDifferentUsers/Patient/Buttons/ButtonGoNoMotorSymptoms.dart';
 import 'package:flutter/material.dart';
 import 'Buttons/ButtonGoCalendar.dart';
 import 'Buttons/ButtonGoProfile.dart';
@@ -38,9 +39,14 @@ class PatientHomePage extends StatelessWidget {
               child: Stack(
                 children: <Widget>[
                   Positioned(
-                    top: 250,
+                    top: 265,
                     left: 255,
                     child: ButtonGoRelationsRequest(),
+                  ),
+                  Positioned(
+                    top: 250,
+                    right: 125,
+                    child: ButtonGoReminder(),
                   ),
                   Image.asset(
                     "assets/images/coronadr.png",
@@ -98,9 +104,9 @@ class PatientHomePage extends StatelessWidget {
                   ),
                   Column(
                     children: <Widget>[
-                      ButtonGoReminder(),
+                      ButtonGoNoMotorSymptoms(),
                       Text(
-                        "Recordatorio",
+                        "No motores",
                         style: TextStyle(
                             color: Colors.blue[900],
                             fontSize: 20,

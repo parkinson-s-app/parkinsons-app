@@ -52,7 +52,7 @@ class ButtonRegisterCustom extends State<ButtonRegister> {
                       //RoutesGeneral().toLogin(context);
                       //probar
                       //emailController = null;
-
+                      cleanRegister();
                       Navigator.push(context, new MaterialPageRoute( builder: (context) => LoginPage()));
                     }else if(save == 'Existe'){
                       //register
