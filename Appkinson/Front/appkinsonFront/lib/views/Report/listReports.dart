@@ -13,12 +13,14 @@ String averageSymptomsByMonth;
 String averageGameScore;
 String averageDyskineciasWithoutMonth;
 String averageEmotionalSymptoms;
+String dataDisrepancy;
 
 var piedata; //Gráfica promedio de sintomas
 var seriedata; //Gráfica promedio de sintomas por mes
 var seriedataGameAverage; //Gráfica promedio de veces y puntaje jugado por mes
 var serieDataDiskineias; //Gráfica de porcentaje de diskinecias entre meses
 var seriesDataEmotional; //Gráfica de promedio de puntaje del formulario emocional por meses
+var lineDataMedicinesDiscrepacy; //Gráfica de discrepancia del tiempo de toma de médicamento
 
 class ListReportPage extends StatefulWidget {
   final int idPatient;
@@ -76,10 +78,12 @@ class _ListReportPage extends State<ListReportPage> {
       var averageEmotionalSymptomsDecode =
           json.decode(averageEmotionalSymptoms);
       seriesDataEmotional = returnDataSeriesEmotionalAverage(
-          averageEmotionalSymptomsDecode.length,
-          averageEmotionalSymptomsDecode);
+          averageDyskineciasDecode.length, averageDyskineciasDecode);
 
-      //seriesDataEmotional
+      //Construyendo la gráfica de disrepania en los tiempos de toma de médicamentos
+      var discrepandyDataDecode = json.decode(dataDisrepancy);
+      lineDataMedicinesDiscrepacy =
+          returnDataLine(discrepandyDataDecode.length, discrepandyDataDecode);
     });
 
     super.initState();
@@ -96,9 +100,10 @@ class _ListReportPage extends State<ListReportPage> {
         .getAverageDyskineciasWithoutMonths(idPatient, lastDate, now);
     averageEmotionalSymptoms =
         await EndPoints().getAverageEmotionalSymptoms(idPatient, lastDate, now);
+    print("nuevaa");
+    dataDisrepancy =
+        await EndPoints().getDiscrepancyData(idPatient, lastDate, now);
   }
-
-  var linedata = returnDataLine();
 
   // This widget is the root of your application.
   @override
@@ -142,7 +147,7 @@ class _ListReportPage extends State<ListReportPage> {
               ),
               FlatButton(
                 onPressed: () {
-                  RoutesDoctor().toReportChartPie(
+                  RoutesDoctor().toReportChartSerie(
                       context, "idquemado", serieDataDiskineias);
                 },
                 child: Text("Porcentaje de disquinecias en meses"),
@@ -161,8 +166,8 @@ class _ListReportPage extends State<ListReportPage> {
               ),
               FlatButton(
                 onPressed: () {
-                  RoutesDoctor()
-                      .toReportChartLine(context, "idquemado", linedata);
+                  RoutesDoctor().toReportChartLine(
+                      context, "idquemado", lineDataMedicinesDiscrepacy);
                 },
                 child: Text("Promedio de desfase en la toma de médicamentos"),
                 color: Colors.blueAccent,
@@ -177,7 +182,8 @@ class _ListReportPage extends State<ListReportPage> {
                 color: Colors.blueAccent,
                 textColor: Colors.white,
               ),
-              /*FlatButton(
+
+              /*    FlatButton(
                 onPressed: () {
                   RoutesDoctor()
                       .toReportChartSerie(context, "idquemado", seriedata);
@@ -191,8 +197,7 @@ class _ListReportPage extends State<ListReportPage> {
                   RoutesDoctor()
                       .toReportChartSerie(context, "idquemado", seriedata);
                 },
-                child: Text(
-                    "Promedio del ejercicio realizad comparado con los síntomas"),
+                child: Text("Promedio del ejercicio realizado comparado con los síntomas"),
                 color: Colors.blueAccent,
                 textColor: Colors.white,
               ),
@@ -227,36 +232,18 @@ returnDataPie(List<double> datos) {
   return linealdata;
 }
 
-returnDataLine() {
+returnDataLine(int length, var discrepancyaDataDecode) {
+  //Gráfica de discrepancia del tiempo en la toma de médicamentos
   var allData = [];
-  var data = [
-    new dataLineSerie(0, 45), // mes y desfase calculado
-    new dataLineSerie(1, 56),
-    new dataLineSerie(2, 55),
-    new dataLineSerie(3, 60),
-    new dataLineSerie(4, 61),
-    new dataLineSerie(5, 70),
-  ];
-  var data1 = [
-    new dataLineSerie(0, 35),
-    new dataLineSerie(1, 46),
-    new dataLineSerie(2, 45),
-    new dataLineSerie(3, 50),
-    new dataLineSerie(4, 51),
-    new dataLineSerie(5, 60),
-  ];
-
-  var data2 = [
-    new dataLineSerie(0, 20),
-    new dataLineSerie(1, 24),
-    new dataLineSerie(2, 25),
-    new dataLineSerie(3, 40),
-    new dataLineSerie(4, 45),
-    new dataLineSerie(5, 60),
-  ];
+  List<dataLineSerie> data = [];
+  for (int i = 0; i < length; i++) {
+    data.add(new dataLineSerie(
+        3,
+        discrepancyaDataDecode[i]
+            ['Promedio'])); // mes y promedio en tiempo del desfase calculado
+  }
   allData.add(data);
-  allData.add(data1);
-  allData.add(data2);
+
   return allData;
 }
 
@@ -337,16 +324,19 @@ returnDataSeriesGameAverage(int length, var averageGameResponseDecode) {
 
 returnDataPieAverageDiskinecias(
     int length, var averageDiskineciasResponseDecode) {
-  //Porcentaje de número de disquinecias por mes
-  List<DataPieChart> dataDiskinecias = [];
-  for (int i = 0; i < length; i++) {
-    dataDiskinecias.add(new DataPieChart(
-        averageDiskineciasResponseDecode[i]['mes'],
-        averageDiskineciasResponseDecode[i]['Promedio'].toDouble(),
-        _generateColor()));
-  }
+  var allData = [];
+  List<Animo> data1 = []; //Promedio del puntaje del formulario por cada mes
 
-  return dataDiskinecias;
+  for (int i = 0; i < length; i++) {
+    //Este ciclo recoge el promedio de puntaje de disquinecias por mes
+    data1.add(new Animo(
+        averageDiskineciasResponseDecode[i]['Promedio'],
+        averageDiskineciasResponseDecode[i]
+            ['mes'])); // el més debemos pasarlo a String
+  }
+  allData.add(data1);
+
+  return allData;
 }
 
 returnDataSeriesEmotionalAverage(int length, var averageGameResponseDecode) {
