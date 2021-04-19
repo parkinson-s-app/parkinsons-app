@@ -11,7 +11,6 @@ import 'package:swipedetector/swipedetector.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:path_provider/path_provider.dart';
 
-
 const bla = Colors.white;
 const kSpacingUnit = 10;
 //File imageFile;
@@ -126,7 +125,15 @@ class CustomDrawer extends StatelessWidget {
                   SizedBox(
                     height: 10,
                   ),
-                  Text(nameController.text)
+                  Text(
+                    ///nameControllerDoctor.text,
+                    namePatient,
+                    style: kTitleTextStyle,
+                  ),
+                  SizedBox(
+                    height: 5,
+                  ),
+                  Text(emailPatient, style: kCaptionTextStyle),
                 ],
               )),
           Divider(
@@ -184,10 +191,10 @@ class CustomDrawer extends StatelessWidget {
             onTap: () async {
               debugPrint("Tapped Log Out");
               SharedPreferences prefs = await SharedPreferences.getInstance();
-              prefs?.clear(); 
+              prefs?.clear();
               await Utils().removeBackgroundTask();
               Navigator.pushReplacement(context,
-                MaterialPageRoute(builder: (BuildContext ctx) => HomePage()));
+                  MaterialPageRoute(builder: (BuildContext ctx) => HomePage()));
               //Navigator.popUntil(context, ModalRoute.withName("/"));
             },
             leading: Icon(Icons.exit_to_app),

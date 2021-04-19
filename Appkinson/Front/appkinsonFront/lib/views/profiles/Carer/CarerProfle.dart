@@ -126,7 +126,15 @@ class CustomDrawer extends StatelessWidget {
                   SizedBox(
                     height: 10,
                   ),
-                  Text('nameControllerCarer.text')
+                  Text(
+                    ///nameControllerDoctor.text,
+                    nameCarer,
+                    style: kTitleTextStyle,
+                  ),
+                  SizedBox(
+                    height: 5,
+                  ),
+                  Text(emailCarer, style: kCaptionTextStyle),
                 ],
               )),
           Divider(
@@ -184,11 +192,11 @@ class CustomDrawer extends StatelessWidget {
             onTap: () async {
               debugPrint("Tapped Log Out");
               SharedPreferences prefs = await SharedPreferences.getInstance();
-              prefs?.clear(); 
+              prefs?.clear();
               await Utils().removeBackgroundTask();
               //Navigator.popUntil(context, ModalRoute.withName("/home"));
               Navigator.pushReplacement(context,
-                MaterialPageRoute(builder: (BuildContext ctx) => HomePage()));
+                  MaterialPageRoute(builder: (BuildContext ctx) => HomePage()));
             },
             leading: Icon(Icons.exit_to_app),
             title: Text("Cerrar Sesión"),
@@ -198,7 +206,6 @@ class CustomDrawer extends StatelessWidget {
     );
   }
 }
-
 
 class ProfileListItem extends StatelessWidget {
   final IconData icon;

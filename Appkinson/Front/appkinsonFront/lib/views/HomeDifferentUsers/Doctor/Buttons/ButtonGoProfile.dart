@@ -34,6 +34,7 @@ class _ButtonGoProfileState extends State<ButtonGoProfile> {
           //namePatient
           print('hey' + codeList[0]['NAME']);
           nameDoctor = codeList[0]['NAME'];
+          emailDoctor = codeList[0]['EMAIL'];
           var res =
               await EndPoints().getPhotoUser(token, codeList[0]['PHOTOPATH']);
           this.setState(() {

@@ -34,12 +34,13 @@ class _ButtonGoProfileState extends State<ButtonGoProfile> {
           //namePatient
           //print('hey' + codeList[0]['NAME']);
           namePatient = codeList[0]['NAME'];
+          emailPatient = codeList[0]['EMAIL'];
           var res =
               await EndPoints().getPhotoUser(token, codeList[0]['PHOTOPATH']);
-            this.setState(() {
+          this.setState(() {
             imageFilePatient = res;
           });
-          
+
           print(imageFilePatient.uri.toFilePath());
           RoutesPatient().toPatientProfile(context);
         },

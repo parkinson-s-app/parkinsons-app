@@ -173,15 +173,6 @@ class _ListReportPage extends State<ListReportPage> {
                 color: Colors.blueAccent,
                 textColor: Colors.white,
               ),
-              FlatButton(
-                onPressed: () {
-                  RoutesDoctor()
-                      .toReportChartSerie(context, "idquemado", seriedata);
-                },
-                child: Text("Promedio del estado de ánimo"),
-                color: Colors.blueAccent,
-                textColor: Colors.white,
-              ),
 
               /*    FlatButton(
                 onPressed: () {
@@ -238,9 +229,9 @@ returnDataLine(int length, var discrepancyaDataDecode) {
   List<dataLineSerie> data = [];
   for (int i = 0; i < length; i++) {
     data.add(new dataLineSerie(
-        3,
-        discrepancyaDataDecode[i]
-            ['Promedio'])); // mes y promedio en tiempo del desfase calculado
+        int.parse(discrepancyaDataDecode[i]['mes']),
+        discrepancyaDataDecode[i]['Promedio']
+            .toInt())); // mes y promedio en tiempo del desfase calculado
   }
   allData.add(data);
 
@@ -330,7 +321,7 @@ returnDataPieAverageDiskinecias(
   for (int i = 0; i < length; i++) {
     //Este ciclo recoge el promedio de puntaje de disquinecias por mes
     data1.add(new Animo(
-        averageDiskineciasResponseDecode[i]['Promedio'],
+        averageDiskineciasResponseDecode[i]['Promedio'].toInt(),
         averageDiskineciasResponseDecode[i]
             ['mes'])); // el més debemos pasarlo a String
   }

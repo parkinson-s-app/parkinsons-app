@@ -16,6 +16,7 @@ const bla = Colors.white;
 const kSpacingUnit = 10;
 File imageFileDoctor;
 var nameDoctor = '';
+String emailDoctor = "";
 
 final kTitleTextStyle = TextStyle(
   fontFamily: "Raleway",
@@ -42,8 +43,7 @@ class DoctorProfileScreenP extends State<DoctorProfileScreen> {
     var newUser = new User(photo: imageFileDoctor);
     String id = await Utils().getFromToken('id');
     String token = await Utils().getToken();
-    String save = await EndPoints()
-        .modifyUsersPhoto(newUser, id, token);
+    String save = await EndPoints().modifyUsersPhoto(newUser, id, token);
     RoutesGeneral().toPop(context);
   }
 
@@ -55,8 +55,7 @@ class DoctorProfileScreenP extends State<DoctorProfileScreen> {
     var newUser = new User(photo: imageFileDoctor);
     String id = await Utils().getFromToken('id');
     String token = await Utils().getToken();
-    String save = await EndPoints()
-        .modifyUsersPhoto(newUser, id, token);
+    String save = await EndPoints().modifyUsersPhoto(newUser, id, token);
     RoutesGeneral().toPop(context);
   }
 
@@ -162,8 +161,7 @@ class DoctorProfileScreenP extends State<DoctorProfileScreen> {
         SizedBox(
           height: 5,
         ),
-        Text(emailController.text, style: kCaptionTextStyle),
-        SizedBox(),
+        Text(emailDoctor, style: kCaptionTextStyle),
       ],
     ));
     var header = Row(

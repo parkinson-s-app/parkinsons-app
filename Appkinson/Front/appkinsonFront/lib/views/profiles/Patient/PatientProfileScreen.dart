@@ -5,6 +5,7 @@ import 'package:appkinsonFront/routes/RoutesGeneral.dart';
 import 'package:appkinsonFront/routes/RoutesPatient.dart';
 import 'package:appkinsonFront/services/EndPoints.dart';
 import 'package:appkinsonFront/utils/Utils.dart';
+
 import 'package:appkinsonFront/views/Login/InputFieldLogin.dart';
 import 'package:appkinsonFront/views/profiles/Patient/profileEdition/ProfileEditionPatient.dart';
 import 'package:flutter/cupertino.dart';
@@ -20,7 +21,10 @@ const bla = Colors.white;
 const kSpacingUnit = 10;
 File imageFilePatient;
 String namePatient = " ";
-
+String emailPatient = " ";
+Map currentUser;
+var token = Utils().getToken();
+var tokenId = Utils().getFromToken('id');
 
 final kTitleTextStyle = TextStyle(
   fontFamily: "Raleway",
@@ -35,12 +39,18 @@ final kCaptionTextStyle = TextStyle(
 );
 
 class PatientProfileScreen extends StatefulWidget {
-  
   PatientProfileScreenP createState() => PatientProfileScreenP();
 }
 
 class PatientProfileScreenP extends State<PatientProfileScreen> {
-  
+  @override
+  void initState() {
+    super.initState();
+
+    //todos.add("Regular Colors");
+    //todos.add("Power Coating");
+  }
+
   openGallery(BuildContext context) async {
     var picture = await ImagePicker.pickImage(source: ImageSource.gallery);
     this.setState(() {
@@ -49,8 +59,7 @@ class PatientProfileScreenP extends State<PatientProfileScreen> {
     var newUser = new User(photo: imageFilePatient);
     String id = await Utils().getFromToken('id');
     String token = await Utils().getToken();
-    String save = await EndPoints()
-        .modifyUsersPhoto(newUser, id, token);
+    String save = await EndPoints().modifyUsersPhoto(newUser, id, token);
     RoutesGeneral().toPop(context);
   }
 
@@ -64,8 +73,7 @@ class PatientProfileScreenP extends State<PatientProfileScreen> {
     var newUser = new User(photo: imageFilePatient);
     String id = await Utils().getFromToken('id');
     String token = await Utils().getToken();
-    String save = await EndPoints()
-        .modifyUsersPhoto(newUser, id, token);
+    String save = await EndPoints().modifyUsersPhoto(newUser, id, token);
     RoutesGeneral().toPop(context);
   }
 
@@ -112,11 +120,14 @@ class PatientProfileScreenP extends State<PatientProfileScreen> {
                     currentUser = json.decode(decoded);
                     debugPrint(currentUser['id'].toString());
                     */
+
                     debugPrint('aqui');
-                    /*
-                    String save = await EndPoints().modifyUsersPhoto(
-                        newUser, currentUser['id'].toString(), token);
-                        */
+                    currentUser = Utils().tokenDecoder(token);
+                    print(currentUser.toString());
+
+                    String save = await EndPoints()
+                        .modifyUsersPhoto(newUser, tokenId, token);
+
                     //debugPrint('aqui' + save);
                   },
                 )
@@ -193,19 +204,20 @@ class PatientProfileScreenP extends State<PatientProfileScreen> {
           height: 20,
         ),
         Text(
-          //currentUser['EMAIL'],
-          "nombre",
-          //namePatient,
+          // currentUser['EMAIL'],
+          //"nombre",
+          namePatient,
           style: kTitleTextStyle,
         ),
         SizedBox(
           height: 5,
         ),
         Text(
-            //currentUser['EMAIL']
+            //currentUser['EMAIL'],
             //"h@gamil.com",
-            "email",
-            //emailPatient,
+            //"email",
+            //emailPatient
+            emailPatient,
             //emailPatient,
             style: kCaptionTextStyle),
         SizedBox(),

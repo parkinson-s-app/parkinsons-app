@@ -16,7 +16,8 @@ import 'package:line_awesome_flutter/line_awesome_flutter.dart';
 const bla = Colors.white;
 const kSpacingUnit = 10;
 File imageFile;
-var nameCarer;
+var nameCarer = "";
+var emailCarer = "";
 
 final kTitleTextStyle = TextStyle(
   fontFamily: "Raleway",
@@ -43,8 +44,7 @@ class DoctorProfileScreenP extends State<CarerProfileScreen> {
     var newUser = new User(photo: imageFile);
     String id = await Utils().getFromToken('id');
     String token = await Utils().getToken();
-    String save = await EndPoints()
-        .modifyUsersPhoto(newUser, id, token);
+    String save = await EndPoints().modifyUsersPhoto(newUser, id, token);
     RoutesGeneral().toPop(context);
   }
 
@@ -56,8 +56,7 @@ class DoctorProfileScreenP extends State<CarerProfileScreen> {
     var newUser = new User(photo: imageFile);
     String id = await Utils().getFromToken('id');
     String token = await Utils().getToken();
-    String save = await EndPoints()
-        .modifyUsersPhoto(newUser, id, token);
+    String save = await EndPoints().modifyUsersPhoto(newUser, id, token);
     RoutesGeneral().toPop(context);
   }
 
@@ -156,14 +155,13 @@ class DoctorProfileScreenP extends State<CarerProfileScreen> {
           height: 20,
         ),
         Text(
-          'nameCarer',
+          nameCarer,
           style: kTitleTextStyle,
         ),
         SizedBox(
           height: 5,
         ),
-        Text('cami.Hoyos@gmail.com', style: kCaptionTextStyle),
-        SizedBox(),
+        Text(emailCarer, style: kCaptionTextStyle),
       ],
     ));
     var header = Row(
