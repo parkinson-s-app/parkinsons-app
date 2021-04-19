@@ -292,232 +292,382 @@ class _Calendar extends State<CalendarScreenView2aux> {
               });
           currentMeeting = null;
         } else {
-          showDialog(
-              context: context,
-              builder: (BuildContext context) {
-                return StatefulBuilder(builder: (context, setState) {
-                  currentMeeting = null;
-                  return AlertDialog(
-                    title: Text("llenado:"),
-                    content: Form(
-                        child:
-                            Column(mainAxisSize: MainAxisSize.min, children: [
-                      FlatButton(
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(18.0)),
-                        //   side: BorderSide(color: Color.fromRGBO(0, 160, 227, 1))),
+          //poner el servicio de leyder
+          //var obtainHour;
+          //
+          int hora = dateChoosed.hour;
 
-                        padding: EdgeInsets.symmetric(horizontal: 30),
+          final DateTime startTimeBefore = DateTime(
+              dateChoosed.year, dateChoosed.month, dateChoosed.day, hora, 0, 0);
 
-                        //onPressed: _incrementColorIndex,
-                        onPressed: () {
-                          setState(() {
-                            _incrementColorIndex();
-                          });
-                        },
-
-                        color: _colors[cont],
-                        //textColor: Colors.white,
-                        child: Text(_onOff[cont]),
-                        /*() => {
-                        //print(cont);
-                        _incrementColorIndex()
-                      },*/
-                        // Text("Registrarse ", style:  TextStyle(fontSize: 15)),
-                      ),
-                      Row(
-                        children: [
-                          Text('Disquinesias:'),
-                          IconButton(
-                              icon: Icon(Icons.announcement_rounded,
-                                  color: Colors.yellow[900]),
-                              tooltip:
-                                  'son trastornos del movimiento que se caracterizan por un exceso de movimientos o por movimientos anormales e involuntarios')
-                        ],
-                      ),
-                      TextFormField(
-                        controller: _disqui,
-                        validator: (value) {
-                          return value.isNotEmpty ? null : "Invalido";
-                        },
-                        decoration: InputDecoration(
-                            hintText: "Ej: 'hoy tuve un movimiento raro"),
-                      ),
-                      FlatButton(
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(18.0)),
-                        //   side: BorderSide(color: Color.fromRGBO(0, 160, 227, 1))),
-
-                        padding: EdgeInsets.symmetric(horizontal: 30),
-
-                        //onPressed: _incrementColorIndex,
-                        onPressed: () {
-                          Navigator.push(
-                              context,
-                              new MaterialPageRoute(
-                                  builder: (context) =>
-                                      SymptomsFormPatientQ5ON()));
-                        },
-
-                        color: Colors.teal[200],
-                        //textColor: Colors.white,
-                        child: Text('hacer video(opcional)'),
-                        /*() => {
-                        //print(cont);
-                        _incrementColorIndex()
-                      },*/
-                        // Text("Registrarse ", style:  TextStyle(fontSize: 15)),
-                      ),
-                      Row(children: [
-                        SizedBox(
-                          width: 20,
-                        ),
+          if (false) {
+            showDialog(
+                context: context,
+                builder: (BuildContext context) {
+                  return StatefulBuilder(builder: (context, setState) {
+                    currentMeeting = null;
+                    return AlertDialog(
+                      title: Text("llenado:"),
+                      content: Form(
+                          child:
+                              Column(mainAxisSize: MainAxisSize.min, children: [
                         FlatButton(
                           shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(18.0)),
                           //   side: BorderSide(color: Color.fromRGBO(0, 160, 227, 1))),
 
-                          padding: EdgeInsets.symmetric(horizontal: 50),
+                          padding: EdgeInsets.symmetric(horizontal: 30),
 
                           //onPressed: _incrementColorIndex,
                           onPressed: () {
-                            valueHour = '0';
-                            showDialog(
-                                context: context,
-                                builder: (BuildContext context) {
-                                  return StatefulBuilder(
-                                      builder: (context, setState) {
-                                    currentMeeting = null;
-                                    return AlertDialog(
-                                        title: Text(
-                                            "Cuanto tiempo después se tomo el medicamento?"),
-                                        content: Container(
-                                            height: 350.0,
-                                            width: 350.0,
-                                            child: Column(
-                                                mainAxisSize: MainAxisSize.min,
-                                                children: <Widget>[
-                                                  Expanded(
-                                                    child: CupertinoTimerPicker(
-                                                      // initialTimerDuration: ,
-                                                      mode:
-                                                          CupertinoTimerPickerMode
-                                                              .hm,
-                                                      onTimerDurationChanged:
-                                                          (value) {
-                                                        setState(() {
-                                                          this.valueHour = value
-                                                              .inMinutes
-                                                              .toString();
-                                                        });
-                                                      },
-                                                    ),
-                                                  ),
-                                                  FlatButton(
-                                                    shape:
-                                                        RoundedRectangleBorder(
-                                                            borderRadius:
-                                                                BorderRadius
-                                                                    .circular(
-                                                                        18.0)),
-                                                    //   side: BorderSide(color: Color.fromRGBO(0, 160, 227, 1))),
-
-                                                    padding:
-                                                        EdgeInsets.symmetric(
-                                                            horizontal: 30),
-
-                                                    //onPressed: _incrementColorIndex,
-                                                    onPressed: () {
-                                                      print(this.valueHour);
-                                                      RoutesGeneral()
-                                                          .toPop(context);
-                                                    },
-
-                                                    color: Colors.teal[200],
-                                                    //textColor: Colors.white,
-                                                    child: Text('Listo'),
-                                                  ),
-                                                ])));
-                                  });
-                                });
+                            setState(() {
+                              _incrementColorIndex();
+                            });
                           },
 
-                          color: Colors.teal[200],
+                          color: _colors[cont],
                           //textColor: Colors.white,
-                          child: Text('desface '),
+                          child: Text(_onOff[cont]),
                           /*() => {
                         //print(cont);
                         _incrementColorIndex()
                       },*/
                           // Text("Registrarse ", style:  TextStyle(fontSize: 15)),
                         ),
-                        IconButton(
-                            icon: Icon(Icons.announcement_rounded,
-                                color: Colors.yellow[900]),
-                            tooltip:
-                                'Esta opcion es para escoger cuanto tiempo depués de la hora indicada se tomo el medicamento. Si fue a la hora establecida, puede continur sin escoger nada.')
-                      ])
-                    ])),
-                    actions: <Widget>[
-                      !isLoading
-                          ? FlatButton(
-                              onPressed: () async {
-                                int disMinutes = int.parse(this.valueHour);
-                                SymptomsFormPatientM patientForm =
-                                    new SymptomsFormPatientM();
+                        Row(
+                          children: [
+                            Text('Disquinesias:'),
+                            IconButton(
+                                icon: Icon(Icons.announcement_rounded,
+                                    color: Colors.yellow[900]),
+                                tooltip:
+                                    'son trastornos del movimiento que se caracterizan por un exceso de movimientos o por movimientos anormales e involuntarios')
+                          ],
+                        ),
+                        TextFormField(
+                          controller: _disqui,
+                          validator: (value) {
+                            return value.isNotEmpty ? null : "Invalido";
+                          },
+                          decoration: InputDecoration(
+                              hintText: "Ej: 'hoy tuve un movimiento raro"),
+                        ),
+                        FlatButton(
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(18.0)),
+                          //   side: BorderSide(color: Color.fromRGBO(0, 160, 227, 1))),
 
-                                patientForm.q1 = _onOff[cont];
-                                patientForm.q2 = _disqui.text;
-                                //patientForm.q3 = BringAnswer2Off().send();
-                                //patientForm.q4 = BringAnswerPatientQ3().send();
-                                //patientForm.q5 = BringAnswerPatientQ4().send();
-                                patientForm.video = fileMedia;
-                                patientForm.formDate = dateChoosed;
-                                patientForm.discrepancy = disMinutes;
+                          padding: EdgeInsets.symmetric(horizontal: 30),
 
-                                debugPrint('envia');
+                          //onPressed: _incrementColorIndex,
+                          onPressed: () {
+                            Navigator.push(
+                                context,
+                                new MaterialPageRoute(
+                                    builder: (context) =>
+                                        SymptomsFormPatientQ5ON()));
+                          },
 
-                                setState(() {
-                                  isLoading = true;
-                                });
+                          color: Colors.teal[200],
+                          //textColor: Colors.white,
+                          child: Text('hacer video(opcional)'),
+                          /*() => {
+                        //print(cont);
+                        _incrementColorIndex()
+                      },*/
+                          // Text("Registrarse ", style:  TextStyle(fontSize: 15)),
+                        ),
+                      ])),
+                      actions: <Widget>[
+                        !isLoading
+                            ? FlatButton(
+                                onPressed: () async {
+                                  int disMinutes = int.parse(this.valueHour);
+                                  SymptomsFormPatientM patientForm =
+                                      new SymptomsFormPatientM();
 
-                                String token = await Utils().getToken();
-                                String id = await Utils().getFromToken('id');
-                                var savedDone = await EndPoints()
-                                    .registerSymptomsFormPatient(
-                                        patientForm, id, token);
+                                  patientForm.q1 = _onOff[cont];
+                                  patientForm.q2 = _disqui.text;
+                                  //patientForm.q3 = BringAnswer2Off().send();
+                                  //patientForm.q4 = BringAnswerPatientQ3().send();
+                                  //patientForm.q5 = BringAnswerPatientQ4().send();
+                                  patientForm.video = fileMedia;
+                                  patientForm.formDate = dateChoosed;
+                                  patientForm.discrepancy = disMinutes;
 
-                                int hora = dateChoosed.hour;
+                                  debugPrint('envia');
 
-                                final DateTime startTime = DateTime(
-                                    dateChoosed.year,
-                                    dateChoosed.month,
-                                    dateChoosed.day,
-                                    hora,
-                                    0,
-                                    0);
-                                print(startTime.toString() + 'startime');
-                                final DateTime endTime =
-                                    startTime.add(const Duration(hours: 1));
-                                Meeting m = new Meeting(_onOff[cont], startTime,
-                                    endTime, _colors[cont], false);
-                                debugPrint(m.eventName);
-                                //setState(() {
+                                  setState(() {
+                                    isLoading = true;
+                                  });
 
-                                debugPrint(savedDone.toString());
+                                  String token = await Utils().getToken();
+                                  String id = await Utils().getFromToken('id');
+                                  /* var savedDone = await EndPoints()
+                                      .registerSymptomsFormPatient(
+                                          patientForm, id, token);*/
 
-                                this.setState(() {
-                                  meetingPatient.add(m);
-                                  isLoading = false;
-                                });
-                                Navigator.pop(context);
-                              },
-                              child: Text("añadir"))
-                          : Center(child: buildLoading())
-                    ],
-                  );
+                                  int hora = dateChoosed.hour;
+
+                                  final DateTime startTime = DateTime(
+                                      dateChoosed.year,
+                                      dateChoosed.month,
+                                      dateChoosed.day,
+                                      hora,
+                                      0,
+                                      0);
+                                  print(startTime.toString() + 'startime');
+                                  final DateTime endTime =
+                                      startTime.add(const Duration(hours: 1));
+                                  Meeting m = new Meeting(_onOff[cont],
+                                      startTime, endTime, _colors[cont], false);
+                                  debugPrint(m.eventName);
+                                  //setState(() {
+
+                                  // debugPrint(savedDone.toString());
+
+                                  this.setState(() {
+                                    meetingPatient.add(m);
+                                    isLoading = false;
+                                  });
+                                  Navigator.pop(context);
+                                },
+                                child: Text("añadir"))
+                            : Center(child: buildLoading())
+                      ],
+                    );
+                  });
                 });
-              });
+          } else {
+            showDialog(
+                context: context,
+                builder: (BuildContext context) {
+                  return StatefulBuilder(builder: (context, setState) {
+                    currentMeeting = null;
+                    return AlertDialog(
+                      title: Text("llenado:"),
+                      content: Form(
+                          child:
+                              Column(mainAxisSize: MainAxisSize.min, children: [
+                        FlatButton(
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(18.0)),
+                          //   side: BorderSide(color: Color.fromRGBO(0, 160, 227, 1))),
+
+                          padding: EdgeInsets.symmetric(horizontal: 30),
+
+                          //onPressed: _incrementColorIndex,
+                          onPressed: () {
+                            setState(() {
+                              _incrementColorIndex();
+                            });
+                          },
+
+                          color: _colors[cont],
+                          //textColor: Colors.white,
+                          child: Text(_onOff[cont]),
+                          /*() => {
+                        //print(cont);
+                        _incrementColorIndex()
+                      },*/
+                          // Text("Registrarse ", style:  TextStyle(fontSize: 15)),
+                        ),
+                        Row(
+                          children: [
+                            Text('Disquinesias:'),
+                            IconButton(
+                                icon: Icon(Icons.announcement_rounded,
+                                    color: Colors.yellow[900]),
+                                tooltip:
+                                    'son trastornos del movimiento que se caracterizan por un exceso de movimientos o por movimientos anormales e involuntarios')
+                          ],
+                        ),
+                        TextFormField(
+                          controller: _disqui,
+                          validator: (value) {
+                            return value.isNotEmpty ? null : "Invalido";
+                          },
+                          decoration: InputDecoration(
+                              hintText: "Ej: 'hoy tuve un movimiento raro"),
+                        ),
+                        FlatButton(
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(18.0)),
+                          //   side: BorderSide(color: Color.fromRGBO(0, 160, 227, 1))),
+
+                          padding: EdgeInsets.symmetric(horizontal: 30),
+
+                          //onPressed: _incrementColorIndex,
+                          onPressed: () {
+                            Navigator.push(
+                                context,
+                                new MaterialPageRoute(
+                                    builder: (context) =>
+                                        SymptomsFormPatientQ5ON()));
+                          },
+
+                          color: Colors.teal[200],
+                          //textColor: Colors.white,
+                          child: Text('hacer video(opcional)'),
+                          /*() => {
+                        //print(cont);
+                        _incrementColorIndex()
+                      },*/
+                          // Text("Registrarse ", style:  TextStyle(fontSize: 15)),
+                        ),
+                        Row(children: [
+                          SizedBox(
+                            width: 20,
+                          ),
+                          FlatButton(
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(18.0)),
+                            //   side: BorderSide(color: Color.fromRGBO(0, 160, 227, 1))),
+
+                            padding: EdgeInsets.symmetric(horizontal: 50),
+
+                            //onPressed: _incrementColorIndex,
+                            onPressed: () {
+                              valueHour = '0';
+                              showDialog(
+                                  context: context,
+                                  builder: (BuildContext context) {
+                                    return StatefulBuilder(
+                                        builder: (context, setState) {
+                                      currentMeeting = null;
+                                      return AlertDialog(
+                                          title: Text(
+                                              "Cuanto tiempo después se tomo el medicamento?"),
+                                          content: Container(
+                                              height: 350.0,
+                                              width: 350.0,
+                                              child: Column(
+                                                  mainAxisSize:
+                                                      MainAxisSize.min,
+                                                  children: <Widget>[
+                                                    Expanded(
+                                                      child:
+                                                          CupertinoTimerPicker(
+                                                        // initialTimerDuration: ,
+                                                        mode:
+                                                            CupertinoTimerPickerMode
+                                                                .hm,
+                                                        onTimerDurationChanged:
+                                                            (value) {
+                                                          setState(() {
+                                                            this.valueHour =
+                                                                value.inMinutes
+                                                                    .toString();
+                                                          });
+                                                        },
+                                                      ),
+                                                    ),
+                                                    FlatButton(
+                                                      shape:
+                                                          RoundedRectangleBorder(
+                                                              borderRadius:
+                                                                  BorderRadius
+                                                                      .circular(
+                                                                          18.0)),
+                                                      //   side: BorderSide(color: Color.fromRGBO(0, 160, 227, 1))),
+
+                                                      padding:
+                                                          EdgeInsets.symmetric(
+                                                              horizontal: 30),
+
+                                                      //onPressed: _incrementColorIndex,
+                                                      onPressed: () {
+                                                        print(this.valueHour);
+                                                        RoutesGeneral()
+                                                            .toPop(context);
+                                                      },
+
+                                                      color: Colors.teal[200],
+                                                      //textColor: Colors.white,
+                                                      child: Text('Listo'),
+                                                    ),
+                                                  ])));
+                                    });
+                                  });
+                            },
+
+                            color: Colors.teal[200],
+                            //textColor: Colors.white,
+                            child: Text('desface '),
+                            /*() => {
+                        //print(cont);
+                        _incrementColorIndex()
+                      },*/
+                            // Text("Registrarse ", style:  TextStyle(fontSize: 15)),
+                          ),
+                          IconButton(
+                              icon: Icon(Icons.announcement_rounded,
+                                  color: Colors.yellow[900]),
+                              tooltip:
+                                  'Esta opcion es para escoger cuanto tiempo depués de la hora indicada se tomo el medicamento. Si fue a la hora establecida, puede continur sin escoger nada.')
+                        ])
+                      ])),
+                      actions: <Widget>[
+                        !isLoading
+                            ? FlatButton(
+                                onPressed: () async {
+                                  int disMinutes = int.parse(this.valueHour);
+                                  SymptomsFormPatientM patientForm =
+                                      new SymptomsFormPatientM();
+
+                                  patientForm.q1 = _onOff[cont];
+                                  patientForm.q2 = _disqui.text;
+                                  //patientForm.q3 = BringAnswer2Off().send();
+                                  //patientForm.q4 = BringAnswerPatientQ3().send();
+                                  //patientForm.q5 = BringAnswerPatientQ4().send();
+                                  patientForm.video = fileMedia;
+                                  patientForm.formDate = dateChoosed;
+                                  patientForm.discrepancy = disMinutes;
+
+                                  debugPrint('envia');
+
+                                  setState(() {
+                                    isLoading = true;
+                                  });
+
+                                  String token = await Utils().getToken();
+                                  String id = await Utils().getFromToken('id');
+                                  var savedDone = await EndPoints()
+                                      .registerSymptomsFormPatient(
+                                          patientForm, id, token);
+
+                                  int hora = dateChoosed.hour;
+
+                                  final DateTime startTime = DateTime(
+                                      dateChoosed.year,
+                                      dateChoosed.month,
+                                      dateChoosed.day,
+                                      hora,
+                                      0,
+                                      0);
+                                  print(startTime.toString() + 'startime');
+                                  final DateTime endTime =
+                                      startTime.add(const Duration(hours: 1));
+                                  Meeting m = new Meeting(_onOff[cont],
+                                      startTime, endTime, _colors[cont], false);
+                                  debugPrint(m.eventName);
+                                  //setState(() {
+
+                                  debugPrint(savedDone.toString());
+
+                                  this.setState(() {
+                                    meetingPatient.add(m);
+                                    isLoading = false;
+                                  });
+                                  Navigator.pop(context);
+                                },
+                                child: Text("añadir"))
+                            : Center(child: buildLoading())
+                      ],
+                    );
+                  });
+                });
+          }
         }
         //dateChoosed = calendarTapDetails.date;
 
