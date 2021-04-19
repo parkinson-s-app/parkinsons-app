@@ -399,7 +399,7 @@ PatientController.get('/patient/:id/emotionalsymptoms/report', verifyToken, asyn
 });
 
 PatientController.get('/patient/:id/dyskinecia/report', verifyToken, async (req: Request, res: Response) => {
-    debug('getting emotionalsymptoms report');
+    debug('getting dyskinecia report');
     let status;
     const idPatient = +req.params.id;
     const initDate = req.query.start as string;
@@ -419,6 +419,33 @@ PatientController.get('/patient/:id/dyskinecia/report', verifyToken, async (req:
         res.status(status).send(response);
     } catch (error) {
         debug('Patient getting dyskinecia report failed, error: %j', error);
+        status = constants.HTTP_STATUS_INTERNAL_SERVER_ERROR;
+        const responseError = { status, error: "An error has ocurred"};
+        res.status(status).send(responseError);
+    }
+});
+
+PatientController.get('/patient/:id/discrepancy/report', verifyToken, async (req: Request, res: Response) => {
+    debug('getting discrepancy report');
+    let status;
+    const idPatient = +req.params.id;
+    const initDate = req.query.start as string;
+    const endDate = req.query.end as string;
+    const montly = req.query.montly as string;
+    debug('Start get discrepancy report Dates: %s to %s', initDate, endDate);
+
+    try {
+        let response;
+        if(montly != 'true'){
+            response = await PatientService.getReportDiscrepancyTwoDates(idPatient, initDate, endDate);
+        } else if (montly && montly == 'true') {
+            response = await montlyReport(idPatient, initDate, endDate, 'DISCREPANCY');
+        }
+        debug('Patient getting discrepancy report. Items: %j', response);
+        status = constants.HTTP_STATUS_OK;
+        res.status(status).send(response);
+    } catch (error) {
+        debug('Patient getting discrepancy report failed, error: %j', error);
         status = constants.HTTP_STATUS_INTERNAL_SERVER_ERROR;
         const responseError = { status, error: "An error has ocurred"};
         res.status(status).send(responseError);
@@ -448,8 +475,11 @@ async function montlyReport(idPatient: number, initDate: string, endDate: string
             report = await PatientService.getReportEmotionalSymptomsTwoDates(idPatient, initDate, endDate);
         } else if(reportType === 'DYSKINECIA') {
             report = await PatientService.getReportDiskineciaTwoDates(idPatient, initDate, endDate);
+        } else if(reportType === 'DISCREPANCY') {
+            report = await PatientService.getReportDiscrepancyTwoDates(idPatient, initDate, endDate);
         }
         report.mes = before.getMonth().toString();
+        report.Mes = before.getMonth().toString();
         before = new Date(before.getFullYear(), before.getMonth() +1, 1 );
         resp.push(report);
     }
