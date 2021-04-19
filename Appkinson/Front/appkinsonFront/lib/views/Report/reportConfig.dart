@@ -39,9 +39,7 @@ class _ReportConfigPageState extends State<ReportConfigPage> {
     if(picked.isNotEmpty){
        picked.clear();
     }
-    print("Hola");
     var now = DateTime.now(); 
-    picked.add(now);
     if(periocity == "Última semana"){
       var lastDate = new DateTime(now.year , now.month , now.day - 7);
       picked.add(lastDate);
@@ -58,8 +56,8 @@ class _ReportConfigPageState extends State<ReportConfigPage> {
      if(periocity == "Último año"){
        picked.add(new DateTime(now.year -1, now.month , now.day)); 
     }
-    print(picked[0]);
-    print(picked[1]);
+    picked.add(now);
+
   }
 
 
@@ -158,6 +156,8 @@ class _ReportConfigPageState extends State<ReportConfigPage> {
               padding: EdgeInsets.all(100.0),
             ),
             FlatButton(onPressed: (){
+              print(picked[0]);
+              print(picked[1]);
               if(!picked.isEmpty){
                 RoutesDoctor().toListReportPage(context, idPatient, picked);
               }

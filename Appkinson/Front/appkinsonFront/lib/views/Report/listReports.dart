@@ -12,10 +12,13 @@ String averageSymtomsResponse;
 String averageSymptomsByMonth;
 String averageGameScore;
 String averageDyskineciasWithoutMonth;
+String averageEmotionalSymptoms;
+
 var piedata; //Gráfica promedio de sintomas
 var seriedata; //Gráfica promedio de sintomas por mes
 var seriedataGameAverage; //Gráfica promedio de veces y puntaje jugado por mes
 var serieDataDiskineias; //Gráfica de porcentaje de diskinecias entre meses
+var seriesDataEmotional; //Gráfica de promedio de puntaje del formulario emocional por meses
 class ListReportPage extends StatefulWidget {
  final int idPatient;
   List<DateTime> picked;
@@ -28,18 +31,18 @@ class ListReportPage extends StatefulWidget {
 class _ListReportPage extends State<ListReportPage> {
 
    final int idPatient;
-   List<DateTime> picked = [];
+   List<DateTime> picked;
 
   _ListReportPage(this.idPatient, this.picked);
   
   @override
   void initState() {
     print("BUENASSSSSSSS");
-    //print(picked[0]);
-    //print(picked[0]);
-    print("________________________-");
-    var now = DateTime.now();
-   var lastDate = new DateTime(now.year , now.month , now.day - 7);
+    print(picked[0]);
+    print(picked[1]);
+    print("________________________");
+    var now = picked[1];
+    var lastDate = picked[0];
     print("Entra al init state");
     _getAllDataCharts(lastDate, now).then((value){
    
@@ -65,7 +68,15 @@ class _ListReportPage extends State<ListReportPage> {
       //Construyeno la gráfica de porcentaje de disquinecias por meses - Gráfica de pie
       var averageDyskineciasDecode = json.decode(averageDyskineciasWithoutMonth);
       serieDataDiskineias = returnDataPieAverageDiskinecias(averageDyskineciasDecode.length, averageDyskineciasDecode);
+
+      //Construyendo la gráfica de promedio de puntaje del formulario emocional por meses
+      var averageEmotionalSymptomsDecode = json.decode(averageEmotionalSymptoms);
+      seriesDataEmotional = returnDataSeriesEmotionalAverage(averageDyskineciasDecode.length, averageDyskineciasDecode);
+      
+      //seriesDataEmotional 
+
      });
+     
     super.initState();
   }
   
@@ -75,6 +86,9 @@ class _ListReportPage extends State<ListReportPage> {
      averageSymptomsByMonth =  await EndPoints().getAverageSymptomsAndCheerUp( idPatient, lastDate, now); //corregir el  nombre del endpoint
      averageGameScore = await EndPoints().getAverageGame( idPatient, lastDate, now);
      averageDyskineciasWithoutMonth = await EndPoints().getAverageDyskineciasWithoutMonths( idPatient, lastDate, now);
+     averageEmotionalSymptoms = await EndPoints().getAverageEmotionalSymptoms( idPatient, lastDate, now);
+    
+
   }
  
 
@@ -101,7 +115,7 @@ class _ListReportPage extends State<ListReportPage> {
                   RoutesDoctor()
                       .toReportChartPie(context, "idquemado", piedata);
                 },
-                child: Text("Promedio de los sintomas del paciente"),
+                child: Text("Porcentaje de los síntomas del paciente"),
                 color: Colors.blueAccent,
                 textColor: Colors.white,
               ),
@@ -110,7 +124,7 @@ class _ListReportPage extends State<ListReportPage> {
                   RoutesDoctor()
                       .toReportChartSerie(context, "idquemado", seriedata);
                 },
-                child: Text("Promedio de los sintomas del paciente por meses"),
+                child: Text("Promedio de los síntomas del paciente por meses"),
                 color: Colors.blueAccent,
                 textColor: Colors.white,
               ),
@@ -132,21 +146,21 @@ class _ListReportPage extends State<ListReportPage> {
                 color: Colors.blueAccent,
                 textColor: Colors.white,
               ),
-              FlatButton(
+                 FlatButton(
                 onPressed: () {
                   RoutesDoctor()
-                      .toReportChartLine(context, "idquemado", linedata);
+                      .toReportChartSerie(context, "idquemado", seriesDataEmotional);
                 },
-                child: Text("Promedio de desfase en la toma de médicamentos"),
+                child: Text("Promedio del puntaje del estado de ánimo del paciente"),
                 color: Colors.blueAccent,
                 textColor: Colors.white,
               ),
               FlatButton(
                 onPressed: () {
                   RoutesDoctor()
-                      .toReportChartSerie(context, "idquemado", seriedata);
+                      .toReportChartLine(context, "idquemado", linedata);
                 },
-                child: Text("Promedio del estado de ánimo del paciente"),
+                child: Text("Promedio de desfase en la toma de médicamentos"),
                 color: Colors.blueAccent,
                 textColor: Colors.white,
               ),
@@ -299,13 +313,25 @@ returnDataSeriesGameAverage(int length, var averageGameResponseDecode) {//GRÁFI
 }
 
 returnDataPieAverageDiskinecias(int length, var averageDiskineciasResponseDecode) {
-
   //Porcentaje de número de disquinecias por mes
-  //averageDiskineciasResponseDecode[i]['promedio'].toDouble()
   List<DataPieChart> dataDiskinecias = [];
   for(int i = 0; i< length ; i++){
     dataDiskinecias.add(new DataPieChart(averageDiskineciasResponseDecode[i]['mes'], averageDiskineciasResponseDecode[i]['Promedio'].toDouble(), _generateColor())); 
   }
 
   return dataDiskinecias;
+}
+
+
+returnDataSeriesEmotionalAverage(int length, var averageGameResponseDecode) {//GRÁFICA PROMEDIO DE JUEGO COMPARADO CON LA CANTIDAD, HAY QUE PASAR EL TÍTULO DE L GRÁFICA POR PARÁMETRO
+  var allData = [];
+  List<Animo> data1 = []; //Promedio del puntaje del formulario por cada mes
+ 
+  for(int i = 0; i<length; i++){
+    //Este ciclo recoge el promedio de puntaje del formulario emocional por mes
+     data1.add(new Animo(averageGameResponseDecode[i]['Promedio'], averageGameResponseDecode[i]['mes'])); // el més debemos pasarlo a String
+  }
+  allData.add(data1);
+ 
+  return allData;
 }
