@@ -429,7 +429,7 @@ export default class PatientService {
             }
             const finalResponse = {
                 Mes: 'null',
-                Promedio: Number( Math.round(average).toFixed(3)),
+                Promedio: average,
                 Cantidad: size
             };
             debug('response final :%j', finalResponse);
@@ -478,7 +478,7 @@ export default class PatientService {
             }
             const finalResponse = {
                 Mes: 'null',
-                Promedio:  Number(Math.round(average).toFixed(3)),
+                Promedio:  average,
                 Cantidad: size
             };
             debug('response emotional symptoms report final :%j', finalResponse);
@@ -524,7 +524,7 @@ export default class PatientService {
             }
             const finalResponse = {
                 Mes: 'null',
-                Promedio:  Number(Math.round(average).toFixed(3)),
+                Promedio:  average,
                 Cantidad: size
             };
             debug('response dyskinecia report final :%j', finalResponse);
@@ -572,7 +572,7 @@ export default class PatientService {
             }
             const finalResponse = {
                 Mes: 'null',
-                Promedio: Number(Math.round(average).toFixed(3)),
+                Promedio: average,
                 Cantidad: cant
             };
             debug('response discrepancy report final :%j', finalResponse);
