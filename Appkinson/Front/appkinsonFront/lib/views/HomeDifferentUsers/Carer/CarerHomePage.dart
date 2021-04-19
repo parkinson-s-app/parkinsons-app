@@ -4,10 +4,15 @@ import 'Buttons/ButtonGoProfile.dart';
 import 'Buttons/ButtonGoToolBox.dart';
 
 class CarerHomePage extends StatelessWidget {
+  bool shouldPop = false;
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-    return Scaffold(
+    return WillPopScope(
+      onWillPop: () async {
+        return shouldPop;
+      },
+    child: Scaffold(
         body: Column(
       children: <Widget>[
         ClipPath(
@@ -99,7 +104,7 @@ class CarerHomePage extends StatelessWidget {
           ),
         ),
       ],
-    ));
+    )));
   }
 }
 

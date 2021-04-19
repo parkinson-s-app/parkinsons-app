@@ -3,6 +3,10 @@ import 'package:appkinsonFront/routes/RoutesDoctor.dart';
 import 'package:flutter/material.dart';
 
 class ButtonGoReporter extends StatelessWidget {
+final int idPatient;
+
+  ButtonGoReporter({@required this.idPatient});
+
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -15,7 +19,7 @@ class ButtonGoReporter extends StatelessWidget {
         //   side: BorderSide(color: Color.fromRGBO(0, 160, 227, 1))),
         onPressed: () {
 
-          RoutesDoctor().toReportConfigPage(context);
+          RoutesDoctor().toReportConfigPage(context, idPatient);
         },
         padding: EdgeInsets.symmetric(horizontal: 10),
         color: Colors.grey[50],

@@ -2,7 +2,7 @@ import 'package:appkinsonFront/model/User.dart';
 import 'package:appkinsonFront/routes/RoutesDoctor.dart';
 import 'package:appkinsonFront/routes/RoutesPatient.dart';
 import 'package:appkinsonFront/services/EndPoints.dart';
-import 'package:appkinsonFront/views/Login/Buttons/ButtonLogin.dart';
+import 'package:appkinsonFront/utils/Utils.dart';
 import 'package:appkinsonFront/views/Medicines/medicines.dart';
 import 'package:appkinsonFront/views/Relations/DoctorPatients.dart';
 import 'package:appkinsonFront/views/Relations/DoctorPatients.dart';
@@ -27,6 +27,7 @@ class ButtonGoMedicinesFromDoctor extends StatelessWidget {
         //   side: BorderSide(color: Color.fromRGBO(0, 160, 227, 1))),
         onPressed: () async {
           print('patient bboton ${idPatient.toString()}');
+          String token = await Utils().getToken();
           items = await EndPoints()
               .getMedicinesAlarms(idPatient, token);
           RoutesPatient().toScheduleMedicines(context, idPatient);

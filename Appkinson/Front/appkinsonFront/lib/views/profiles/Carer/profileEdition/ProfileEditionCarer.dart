@@ -1,9 +1,9 @@
 import 'dart:convert';
 import 'package:appkinsonFront/model/User.dart';
 import 'package:appkinsonFront/services/EndPoints.dart';
+import 'package:appkinsonFront/utils/Utils.dart';
 import 'package:appkinsonFront/views/profiles/Carer/CarerProfileScreen.dart';
 import 'package:flutter/material.dart';
-import 'package:appkinsonFront/views/Login/Buttons/ButtonLogin.dart';
 
 class ProfileEditionCarer extends StatefulWidget {
   @override
@@ -40,29 +40,11 @@ class __ProfileEdition extends State<ProfileEditionCarer> {
           setState(() {
             nameCarer = nameControllerCarer.text;
           });
-          /*
-          debugPrint(user.name);
-          var lista = token.split(".");
-          var payload = lista[1];
-
-          switch (payload.length % 4) {
-            case 1:
-              break; // this case can't be handled well, because 3 padding chars is illeagal.
-            case 2:
-              payload = payload + "==";
-              break;
-            case 3:
-              payload = payload + "=";
-              break;
-          }
-
-          var decoded = utf8.decode(base64.decode(payload));
-          currentUser = json.decode(decoded);
-          debugPrint(currentUser['id'].toString());
-
-          */
+          
+          String id = await Utils().getFromToken('id');
+          String token = await Utils().getToken();
           String save = await EndPoints()
-              .modifyUsers(user, currentUser['id'].toString(), token);
+              .modifyUsers(user, id, token);
           debugPrint(save);
 
           setState(() {
