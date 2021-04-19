@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 
 //import '../../Register/RegisterPage.dart';
 
-class ButtonGoReminder extends StatelessWidget {
+class ButtonGoNoMotorSymptoms extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -11,18 +11,18 @@ class ButtonGoReminder extends StatelessWidget {
       height: 90,
       margin: EdgeInsets.symmetric(horizontal: 20),
       child: FlatButton(
-        //shape:
-        //    RoundedRectangleBorder(borderRadius: BorderRadius.circular(18.0)),
+        shape:
+            RoundedRectangleBorder(borderRadius: BorderRadius.circular(18.0)),
         //   side: BorderSide(color: Color.fromRGBO(0, 160, 227, 1))),
         onPressed: () {
-          RoutesPatient().toNotifications(context);
+          RoutesPatient().toNoMotorSymptoms(context);
         },
         padding: EdgeInsets.symmetric(horizontal: 10),
-        //color: Colors.grey[50],
+        color: Colors.grey[50],
         //textColor: Colors.white,
         child: Image.asset(
-          "assets/images/advertir.png",
-          height: size.height * 0.08,
+          "assets/images/condiciones.png",
+          height: size.height * 0.09,
         ),
         // Text("Registrarse ", style:  TextStyle(fontSize: 15)),
       ),

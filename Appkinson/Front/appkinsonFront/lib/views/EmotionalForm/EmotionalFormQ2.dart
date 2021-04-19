@@ -37,16 +37,16 @@ class _EmotionalFormQ2 extends State<EmotionalFormQ2> {
             ),
           ),
           Expanded(
-            flex: 2,
+            flex: 6,
             child: Column(children: <Widget>[
               Divider(
-                height: 80,
+                height: 50,
               ),
               RadioListTile<SigningCharacter>(
                 title: const Text(
                   'Ningún día',
                   style: TextStyle(
-                    fontSize: 40.0,
+                    fontSize: 30.0,
                   ),
                 ),
                 value: SigningCharacter.Si,
@@ -59,13 +59,13 @@ class _EmotionalFormQ2 extends State<EmotionalFormQ2> {
                 },
               ),
               Divider(
-                height: 100,
+                height: 50,
               ),
               RadioListTile<SigningCharacter>(
                 title: const Text(
                   'Varios días',
                   style: TextStyle(
-                    fontSize: 40.0,
+                    fontSize: 30.0,
                   ),
                 ),
                 value: SigningCharacter.No,
@@ -84,7 +84,7 @@ class _EmotionalFormQ2 extends State<EmotionalFormQ2> {
                 title: const Text(
                   'Más de la mitad de los días',
                   style: TextStyle(
-                    fontSize: 40.0,
+                    fontSize: 30.0,
                   ),
                 ),
                 value: SigningCharacter.No,
@@ -103,7 +103,7 @@ class _EmotionalFormQ2 extends State<EmotionalFormQ2> {
                 title: const Text(
                   'Casi todos los días',
                   style: TextStyle(
-                    fontSize: 40.0,
+                    fontSize: 30.0,
                   ),
                 ),
                 value: SigningCharacter.No,
