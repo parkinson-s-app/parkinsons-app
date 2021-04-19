@@ -34,8 +34,6 @@ class _WidgetChartSerieState extends State<WidgetChartSerie> {
 
 //Gráfica de lineas/
   _generateData() {
-    print("hh");
-    print(dataSerie);
     var colors = _generateColor();
     for (int i = 0; i < dataSerie.length; i++) {
       _seriesData.add(

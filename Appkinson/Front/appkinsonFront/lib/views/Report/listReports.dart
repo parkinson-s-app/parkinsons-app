@@ -11,8 +11,10 @@ import 'package:flutter/material.dart';
 import 'Widget_Chart_Serie.dart';
 String averageSymtomsResponse;
 String averageSymptomsByMonth;
+String averageGameScore;
 var piedata; //Gráfica promedio de sintomas
 var seriedata; //Gráfica promedio de sintomas por mes
+var seriedataGameAverage; //Gráfica promedio de veces y puntaje jugado por mes
 class ListReportPage extends StatefulWidget {
  final int idPatient;
 
@@ -36,7 +38,7 @@ class _ListReportPage extends State<ListReportPage> {
    
      var averageSymtomsResponseDecode =  json.decode(averageSymtomsResponse);
      List<double> averageSymptoms = [];
-     //Construyendo los datos de la gráfica de promedio de los síntomas del paciente
+     //Construyendo los datos de la gráfica de promedio de los síntomas del paciente - Gráfica de tortas
      averageSymptoms.add(averageSymtomsResponseDecode["on"].toDouble());
      averageSymptoms.add(averageSymtomsResponseDecode["onG"].toDouble());
      averageSymptoms.add(averageSymtomsResponseDecode["off"].toDouble());
@@ -45,10 +47,14 @@ class _ListReportPage extends State<ListReportPage> {
       piedata = returnDataPie(averageSymptoms);
 
       //---------------------------------------------------------------------------
-      //Construyendo la gráfica del promedio de síntomas por cada mes
+      //Construyendo la gráfica del promedio de síntomas por cada mes - Gráfica de barras
       var averageSymtomsByMonthResponseDecode =  json.decode(averageSymptomsByMonth);
       seriedata = returnDataSeries(averageSymtomsByMonthResponseDecode.length, averageSymtomsByMonthResponseDecode);
-    
+
+      //Construyendo la gráfica de promedio de puntaje obtenido en el juego por mes - Gráfica de barras
+      var averageGameResponseDecode =  json.decode(averageSymptomsByMonth);
+      seriedataGameAverage = returnDataSeriesGameAverage(averageGameResponseDecode.length, averageGameResponseDecode);
+      //
      });
     super.initState();
   }
@@ -57,7 +63,7 @@ class _ListReportPage extends State<ListReportPage> {
   Future _getAllDataCharts(DateTime lastDate, DateTime now) async {
      averageSymtomsResponse = await EndPoints().getAverageSymptoms( idPatient, lastDate, now);
      averageSymptomsByMonth =  await EndPoints().getAverageSymptomsAndCheerUp( idPatient, lastDate, now); //corregir el  nombre del endpoint
-     await EndPoints().getAverageGame( idPatient, lastDate, now);
+     averageGameScore = await EndPoints().getAverageGame( idPatient, lastDate, now);
   }
  
 
@@ -97,6 +103,15 @@ class _ListReportPage extends State<ListReportPage> {
                 color: Colors.blueAccent,
                 textColor: Colors.white,
               ),
+                FlatButton(
+                onPressed: () {
+                  RoutesDoctor()
+                      .toReportChartSerie(context, "idquemado", seriedataGameAverage);
+                },
+                child: Text("Promedio de destreza en el juego"),
+                color: Colors.blueAccent,
+                textColor: Colors.white,
+              ),
               FlatButton(
                 onPressed: () {
                   RoutesDoctor()
@@ -133,15 +148,7 @@ class _ListReportPage extends State<ListReportPage> {
                 color: Colors.blueAccent,
                 textColor: Colors.white,
               ),
-                FlatButton(
-                onPressed: () {
-                  RoutesDoctor()
-                      .toReportChartSerie(context, "idquemado", seriedata);
-                },
-                child: Text("Promedio de destreza"),
-                color: Colors.blueAccent,
-                textColor: Colors.white,
-              ),
+              
                 FlatButton(
                 onPressed: () {
                   RoutesDoctor()
@@ -219,7 +226,7 @@ returnDataLine() {
   return allData;
 }
 
-returnDataSeries(int length, var averageSymtomsByMonthResponseDecode) {
+returnDataSeries(int length, var averageSymtomsByMonthResponseDecode) {//GRÁFICA PROMEDIO DE LOS SÍNTOMAS DEL PACIENTE POR MES, HAY QUE PASAR EL TÍTULO DE L GRÁFICA POR PARÁMETRO
 
   var allData = [];
   List<Animo> data1 = []; //todos los on por cada mes
@@ -249,6 +256,28 @@ returnDataSeries(int length, var averageSymtomsByMonthResponseDecode) {
   }
   allData.add(data4);
  
-  print(allData);
+  return allData;
+}
+
+
+
+returnDataSeriesGameAverage(int length, var averageGameResponseDecode) {//GRÁFICA PROMEDIO DE JUEGO COMPARADO CON LA CANTIDAD, HAY QUE PASAR EL TÍTULO DE L GRÁFICA POR PARÁMETRO
+
+  var allData = [];
+  List<Animo> data1 = []; //Promedio del puntaje por cada mes
+  List<Animo> data2 = []; //Cantidad Jugada por cada mes
+ 
+  for(int i = 0; i<length; i++){
+    //Este ciclo recoge el promedio de puntaje jugado por mes
+     data1.add(new Animo(averageGameResponseDecode[i]['Promedio'], averageGameResponseDecode[i]['Mes'])); // el més debemos pasarlo a String
+  }
+  allData.add(data1);
+
+  for(int j = 0; j<length; j++){
+    //Este ciclo recoge la cantidad de veces jugada por mes
+     data2.add(new Animo(averageGameResponseDecode[j]['Cantidad'], averageGameResponseDecode[j]['Mes'])); // el més debemos pasarlo a String
+  }
+  allData.add(data2);
+ 
   return allData;
 }
