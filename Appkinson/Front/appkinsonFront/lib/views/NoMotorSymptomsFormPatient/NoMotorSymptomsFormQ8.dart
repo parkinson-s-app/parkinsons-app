@@ -15,6 +15,7 @@ class _NoMotorSymptomsFormQ8 extends State<NoMotorSymptomsFormQ8> {
     _character = SigningCharacter.Nada;
     selectedStateRadioQ8 = 0;
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -27,7 +28,7 @@ class _NoMotorSymptomsFormQ8 extends State<NoMotorSymptomsFormQ8> {
               padding: EdgeInsets.all(15.0),
               alignment: Alignment.center,
               child: Text(
-                "Sensación de tener que orinar urgentemente que le obliga a ir rápidamente al servici",
+                "Sensación de tener que orinar urgentemente que le obliga a ir rápidamente al baño",
                 style: TextStyle(
                   fontSize: 22.0,
                   fontFamily: "Ralewaybold",

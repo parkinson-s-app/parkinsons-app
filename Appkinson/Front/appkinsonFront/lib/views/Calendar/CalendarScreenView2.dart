@@ -186,15 +186,38 @@ class _Calendar extends State<CalendarScreenView2aux> {
                             Column(mainAxisSize: MainAxisSize.min, children: [
                       Row(
                         children: [
-                          Text('Disquinesias:'),
+                          Text('Disquinesias:',
+                              style: TextStyle(fontWeight: FontWeight.bold)),
                           IconButton(
-                              icon: Icon(Icons.announcement_rounded,
-                                  color: Colors.yellow[900]),
+                              icon: Icon(Icons.help_outlined,
+                                  color: Colors.grey[500]),
                               tooltip:
                                   'son trastornos del movimiento que se caracterizan por un exceso de movimientos o por movimientos anormales e involuntarios')
                         ],
                       ),
                       Text(q2),
+                      Divider(
+                        thickness: 1,
+                      ),
+                      Row(
+                        children: [
+                          Text('Desfase:',
+                              style: TextStyle(fontWeight: FontWeight.bold)),
+                          IconButton(
+                              icon: Icon(Icons.help_outlined,
+                                  color: Colors.grey[500]),
+                              tooltip:
+                                  'Esta opcion es para escoger cuanto tiempo depués de la hora indicada se tomo el medicamento. Si fue a la hora establecida, puede continur sin escoger nada.')
+                        ],
+                      ),
+                      Text(desface.toString() +
+                          ' min de desfase en la toma de medicamento'),
+                      Divider(
+                        thickness: 1,
+                      ),
+                      SizedBox(
+                        height: 20,
+                      ),
                       FlatButton(
                         shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(18.0)),
@@ -216,27 +239,15 @@ class _Calendar extends State<CalendarScreenView2aux> {
                                   builder: (context) => VideoScreenCarer()));
                         },
 
-                        color: Colors.teal[200],
+                        color: Colors.blue[500],
                         //textColor: Colors.white,
-                        child: Text('ver video'),
+                        child: Text('Ver video'),
                         /*() => {
                         //print(cont);
                         _incrementColorIndex()
                       },*/
                         // Text("Registrarse ", style:  TextStyle(fontSize: 15)),
                       ),
-                      Row(
-                        children: [
-                          Text('Desface:'),
-                          IconButton(
-                              icon: Icon(Icons.announcement_rounded,
-                                  color: Colors.yellow[900]),
-                              tooltip:
-                                  'Esta opcion es para escoger cuanto tiempo depués de la hora indicada se tomo el medicamento. Si fue a la hora establecida, puede continur sin escoger nada.')
-                        ],
-                      ),
-                      Text(desface.toString() +
-                          ' min de desface en la toma de medicamento'),
                     ])),
                     actions: <Widget>[
                       FlatButton(
@@ -307,7 +318,7 @@ class _Calendar extends State<CalendarScreenView2aux> {
                   return StatefulBuilder(builder: (context, setState) {
                     currentMeeting = null;
                     return AlertDialog(
-                      title: Text("llenado:"),
+                      title: Text("Llenado:"),
                       content: Form(
                           child:
                               Column(mainAxisSize: MainAxisSize.min, children: [
@@ -336,10 +347,11 @@ class _Calendar extends State<CalendarScreenView2aux> {
                         ),
                         Row(
                           children: [
-                            Text('Disquinesias:'),
+                            Text('Disquinesias:',
+                                style: TextStyle(fontWeight: FontWeight.bold)),
                             IconButton(
-                                icon: Icon(Icons.announcement_rounded,
-                                    color: Colors.yellow[900]),
+                                icon: Icon(Icons.help_outlined,
+                                    color: Colors.grey[500]),
                                 tooltip:
                                     'son trastornos del movimiento que se caracterizan por un exceso de movimientos o por movimientos anormales e involuntarios')
                           ],
@@ -445,7 +457,7 @@ class _Calendar extends State<CalendarScreenView2aux> {
                   return StatefulBuilder(builder: (context, setState) {
                     currentMeeting = null;
                     return AlertDialog(
-                      title: Text("llenado:"),
+                      title: Text("Llenado:"),
                       content: Form(
                           child:
                               Column(mainAxisSize: MainAxisSize.min, children: [
@@ -474,10 +486,11 @@ class _Calendar extends State<CalendarScreenView2aux> {
                         ),
                         Row(
                           children: [
-                            Text('Disquinesias:'),
+                            Text('Disquinesias:',
+                                style: TextStyle(fontWeight: FontWeight.bold)),
                             IconButton(
-                                icon: Icon(Icons.announcement_rounded,
-                                    color: Colors.yellow[900]),
+                                icon: Icon(Icons.help_outlined,
+                                    color: Colors.grey[500]),
                                 tooltip:
                                     'son trastornos del movimiento que se caracterizan por un exceso de movimientos o por movimientos anormales e involuntarios')
                           ],
@@ -506,7 +519,7 @@ class _Calendar extends State<CalendarScreenView2aux> {
                                         SymptomsFormPatientQ5ON()));
                           },
 
-                          color: Colors.teal[200],
+                          color: Colors.blue[500],
                           //textColor: Colors.white,
                           child: Text('hacer video(opcional)'),
                           /*() => {
@@ -591,9 +604,9 @@ class _Calendar extends State<CalendarScreenView2aux> {
                                   });
                             },
 
-                            color: Colors.teal[200],
+                            color: Colors.blue[500],
                             //textColor: Colors.white,
-                            child: Text('desface '),
+                            child: Text('Desfase '),
                             /*() => {
                         //print(cont);
                         _incrementColorIndex()
@@ -601,8 +614,8 @@ class _Calendar extends State<CalendarScreenView2aux> {
                             // Text("Registrarse ", style:  TextStyle(fontSize: 15)),
                           ),
                           IconButton(
-                              icon: Icon(Icons.announcement_rounded,
-                                  color: Colors.yellow[900]),
+                              icon: Icon(Icons.help_outlined,
+                                  color: Colors.grey[500]),
                               tooltip:
                                   'Esta opcion es para escoger cuanto tiempo depués de la hora indicada se tomo el medicamento. Si fue a la hora establecida, puede continur sin escoger nada.')
                         ])
@@ -661,7 +674,7 @@ class _Calendar extends State<CalendarScreenView2aux> {
                                   });
                                   Navigator.pop(context);
                                 },
-                                child: Text("añadir"))
+                                child: Text("Añadir"))
                             : Center(child: buildLoading())
                       ],
                     );

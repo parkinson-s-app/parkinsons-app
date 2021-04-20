@@ -128,7 +128,7 @@ class EndPoints {
       'Type': tipo
     };
     debugPrint("agregando");
-    debugPrint( jwtkey + token);
+    debugPrint(jwtkey + token);
     http.Response response = await http.post(
         endpointBack + '/api/admin/toolbox/item',
         body: data2,
@@ -165,8 +165,7 @@ class EndPoints {
     String token = await Utils().getToken();
     debugPrint("elimino");
     debugPrint(index.toString());
-    final request = http.delete(
-        endpointBack + '/api/admin/toolbox/item/$index',
+    final request = http.delete(endpointBack + '/api/admin/toolbox/item/$index',
         headers: {HttpHeaders.authorizationHeader: jwtkey + token});
 
     return i;
@@ -451,11 +450,10 @@ class EndPoints {
       'end': end.toString(),
     };
     debugPrint("llega1");
-    var uri = Uri.http(pagePath, '/api/patient/$tokenID/symptoms/report',
-        queryParameters);
-    http.Response lista = await http.get(uri, headers: {
-      HttpHeaders.authorizationHeader: jwtkey + token
-    });
+    var uri = Uri.http(
+        pagePath, '/api/patient/$tokenID/symptoms/report', queryParameters);
+    http.Response lista = await http
+        .get(uri, headers: {HttpHeaders.authorizationHeader: jwtkey + token});
     String i = lista.body;
     var codeList = json.decode(i);
     debugPrint(i);
@@ -463,18 +461,17 @@ class EndPoints {
   }
 
   Future<String> getAverageSymptomsAndCheerUp(
-    var tokenID, DateTime start, DateTime end) async {
+      var tokenID, DateTime start, DateTime end) async {
     var token = await Utils().getToken();
     var queryParameters = {
       'start': start.toString(),
       'end': end.toString(),
-      'montly' : 'true'
+      'montly': 'true'
     };
-    var uri = Uri.http(pagePath, '/api/patient/$tokenID/symptoms/report',
-        queryParameters);
-    http.Response lista = await http.get(uri, headers: {
-      HttpHeaders.authorizationHeader: jwtkey + token
-    });
+    var uri = Uri.http(
+        pagePath, '/api/patient/$tokenID/symptoms/report', queryParameters);
+    http.Response lista = await http
+        .get(uri, headers: {HttpHeaders.authorizationHeader: jwtkey + token});
     String i = lista.body;
     var codeList = json.decode(i);
     debugPrint(i);
@@ -482,74 +479,71 @@ class EndPoints {
   }
 
   Future<String> getAverageGame(
-    var tokenID, DateTime start, DateTime end) async {
+      var tokenID, DateTime start, DateTime end) async {
     var token = await Utils().getToken();
     var queryParameters = {
       'start': start.toString(),
       'end': end.toString(),
-      'montly' : 'true'
+      'montly': 'true'
     };
-    var uri = Uri.http(pagePath, '/api/patient/$tokenID/game/report',
-        queryParameters);
-    http.Response lista = await http.get(uri, headers: {
-      HttpHeaders.authorizationHeader: jwtkey + token
-    });
-    String i = lista.body;
-    var codeList = json.decode(i);
-    debugPrint(i);
-    return i;
-  }
-   Future<String> getAverageDyskineciasWithoutMonths(
-    var tokenID, DateTime start, DateTime end) async {
-    var token = await Utils().getToken();
-    var queryParameters = {
-      'start': start.toString(),
-      'end': end.toString(),
-      'montly' : 'true'
-    };
-    var uri = Uri.http(pagePath, '/api/patient/$tokenID/dyskinecia/report',
-        queryParameters);
-    http.Response lista = await http.get(uri, headers: {
-      HttpHeaders.authorizationHeader: jwtkey + token
-    });
+    var uri = Uri.http(
+        pagePath, '/api/patient/$tokenID/game/report', queryParameters);
+    http.Response lista = await http
+        .get(uri, headers: {HttpHeaders.authorizationHeader: jwtkey + token});
     String i = lista.body;
     var codeList = json.decode(i);
     debugPrint(i);
     return i;
   }
 
-    Future<String> getAverageEmotionalSymptoms(
-    var tokenID, DateTime start, DateTime end) async {
+  Future<String> getAverageDyskineciasWithoutMonths(
+      var tokenID, DateTime start, DateTime end) async {
     var token = await Utils().getToken();
     var queryParameters = {
       'start': start.toString(),
       'end': end.toString(),
-      'montly' : 'true'
+      'montly': 'true'
     };
-    var uri = Uri.http(pagePath, '/api/patient/$tokenID/emotionalsymptoms/report',
-        queryParameters);
-    http.Response lista = await http.get(uri, headers: {
-      HttpHeaders.authorizationHeader: jwtkey + token
-    });
+    var uri = Uri.http(
+        pagePath, '/api/patient/$tokenID/dyskinecia/report', queryParameters);
+    http.Response lista = await http
+        .get(uri, headers: {HttpHeaders.authorizationHeader: jwtkey + token});
     String i = lista.body;
     var codeList = json.decode(i);
     debugPrint(i);
     return i;
   }
 
-    Future<String> getDiscrepancyData(
-    var tokenID, DateTime start, DateTime end) async {
+  Future<String> getAverageEmotionalSymptoms(
+      var tokenID, DateTime start, DateTime end) async {
     var token = await Utils().getToken();
     var queryParameters = {
       'start': start.toString(),
       'end': end.toString(),
-      'montly' : 'true'
+      'montly': 'true'
     };
-    var uri = Uri.http(pagePath, '/api/patient/$tokenID/discrepancy/report',
-        queryParameters);
-    http.Response lista = await http.get(uri, headers: {
-      HttpHeaders.authorizationHeader: jwtkey + token
-    });
+    var uri = Uri.http(pagePath,
+        '/api/patient/$tokenID/emotionalsymptoms/report', queryParameters);
+    http.Response lista = await http
+        .get(uri, headers: {HttpHeaders.authorizationHeader: jwtkey + token});
+    String i = lista.body;
+    var codeList = json.decode(i);
+    debugPrint(i);
+    return i;
+  }
+
+  Future<String> getDiscrepancyData(
+      var tokenID, DateTime start, DateTime end) async {
+    var token = await Utils().getToken();
+    var queryParameters = {
+      'start': start.toString(),
+      'end': end.toString(),
+      'montly': 'true'
+    };
+    var uri = Uri.http(
+        pagePath, '/api/patient/$tokenID/discrepancy/report', queryParameters);
+    http.Response lista = await http
+        .get(uri, headers: {HttpHeaders.authorizationHeader: jwtkey + token});
     String i = lista.body;
     var codeList = json.decode(i);
     debugPrint(i);
@@ -626,7 +620,7 @@ class EndPoints {
   }
 
   //Envíar puntaje del juego
-    Future<String> sendGameRecord(int stepsQuantity) async {
+  Future<String> sendGameRecord(int stepsQuantity) async {
     var token = await Utils().getToken();
     var tokenID = await Utils().getFromToken('id');
     DateTime recordDate = DateTime.now();
@@ -642,7 +636,7 @@ class EndPoints {
     dio.options.headers["authorization"] = jwtkey + token;
     Response response = await dio.post(
         endpointBack + '/api/patient/$tokenID/newGameScore',
-        data: formData );
+        data: formData);
     debugPrint(response.statusMessage);
     return response.statusMessage;
   }
@@ -770,6 +764,7 @@ class EndPoints {
   }
 
   Future<String> getMedicines(var token) async {
+    print(token + 'hey');
     http.Response response = await http.get(
         endpointBack + '/api/doctor/medicines',
         headers: {HttpHeaders.authorizationHeader: "Bearer " + token});

@@ -83,13 +83,19 @@ class ListAlarmsAndMedicine extends State<ListAlarmsAndMedicinePatient> {
     Size size = MediaQuery.of(context).size;
     return Container(
         child: Column(children: [
+      SizedBox(
+        height: 50,
+      ),
       Center(child: dropdownMedicinesfilled()),
+      SizedBox(
+        height: 30,
+      ),
       Row(
         children: [
           Text(
             "Hora Inicial",
             style: TextStyle(
-                color: Colors.indigo, fontSize: 18, fontFamily: "Raleway2"),
+                color: Colors.indigo, fontSize: 15, fontFamily: "Raleway2"),
           ),
           relojito(size, context)
         ],
@@ -170,15 +176,14 @@ class ListAlarmsAndMedicine extends State<ListAlarmsAndMedicinePatient> {
           String res = await EndPoints()
               .saveAlarmsAndMedicines(alarmAndMedicine, idPatient);
           print('response save medicine: $res');
+          var token = await Utils().getToken();
           //Navigator.pop(context);
-          items = await EndPoints()
-              .getMedicinesAlarms(idPatient, getToken());
+          items = await EndPoints().getMedicinesAlarms(idPatient, token);
           RoutesPatient().toScheduleMedicines(context, idPatient);
         },
         color: Colors.blue,
         textColor: Colors.white,
         child: Text("Guardar", style: TextStyle(fontSize: 15)),
-
       )),
     ]));
     //}
@@ -188,7 +193,7 @@ class ListAlarmsAndMedicine extends State<ListAlarmsAndMedicinePatient> {
   Widget relojito(Size size, BuildContext context) {
     return Container(
       height: 50,
-      margin: EdgeInsets.symmetric(horizontal: 90),
+      margin: EdgeInsets.symmetric(horizontal: 50),
       child: FlatButton(
         shape:
             RoundedRectangleBorder(borderRadius: BorderRadius.circular(25.0)),
@@ -267,7 +272,8 @@ class ListAlarmsAndMedicine extends State<ListAlarmsAndMedicinePatient> {
     Medicine med0 = new Medicine.filled("Seleccione una medicina", 0);
     _medicines.add(med0);
     // Medicine med0, med2, med3;
-    String medicinesInBackJSON = await EndPoints().getMedicines(getToken());
+    var token = await Utils().getToken();
+    String medicinesInBackJSON = await EndPoints().getMedicines(token);
     var medicinesInBack = json.decode(medicinesInBackJSON);
     for (var medicine in medicinesInBack) {
       print('med: ${medicine.toString()}');
