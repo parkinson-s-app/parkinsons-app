@@ -24,13 +24,14 @@ class _NoMotorSymptomsFormQ2 extends State<NoMotorSymptomsFormQ2> {
           Expanded(
             flex: 1,
             child: Container(
-              color: Colors.white60,
+              color: Colors.grey[350],
               padding: EdgeInsets.all(15.0),
               alignment: Alignment.center,
               child: Text(
                 "Pérdida o alteración en la percepción de sabores u olores ",
+                textAlign: TextAlign.center,
                 style: TextStyle(
-                  fontSize: 22.0,
+                  fontSize: 30.0,
                   fontFamily: "Ralewaybold",
                 ),
               ),
@@ -46,7 +47,7 @@ class _NoMotorSymptomsFormQ2 extends State<NoMotorSymptomsFormQ2> {
                 title: const Text(
                   'Si',
                   style: TextStyle(
-                    fontSize: 40.0,
+                    fontSize: 35.0,
                   ),
                 ),
                 value: SigningCharacter.Si,
@@ -65,7 +66,7 @@ class _NoMotorSymptomsFormQ2 extends State<NoMotorSymptomsFormQ2> {
                 title: const Text(
                   'No',
                   style: TextStyle(
-                    fontSize: 40.0,
+                    fontSize: 35.0,
                   ),
                 ),
                 value: SigningCharacter.No,

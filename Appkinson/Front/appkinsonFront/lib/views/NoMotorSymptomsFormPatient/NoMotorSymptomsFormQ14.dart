@@ -5,7 +5,7 @@ class NoMotorSymptomsFormQ14 extends StatefulWidget {
   _NoMotorSymptomsFormQ14 createState() => _NoMotorSymptomsFormQ14();
 }
 
-enum SigningCharacter { Si, No,Nada }
+enum SigningCharacter { Si, No, Nada }
 SigningCharacter _character;
 int selectedStateRadioQ14 = 0;
 
@@ -15,6 +15,7 @@ class _NoMotorSymptomsFormQ14 extends State<NoMotorSymptomsFormQ14> {
     _character = SigningCharacter.Nada;
     selectedStateRadioQ14 = 0;
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -23,13 +24,14 @@ class _NoMotorSymptomsFormQ14 extends State<NoMotorSymptomsFormQ14> {
           Expanded(
             flex: 1,
             child: Container(
-              color: Colors.white60,
+              color: Colors.grey[350],
               padding: EdgeInsets.all(15.0),
               alignment: Alignment.center,
               child: Text(
                 "Ver u oír cosas que sabe o que otras personas le dicen que no están ahí",
+                textAlign: TextAlign.center,
                 style: TextStyle(
-                  fontSize: 22.0,
+                  fontSize: 30.0,
                   fontFamily: "Ralewaybold",
                 ),
               ),
@@ -45,7 +47,7 @@ class _NoMotorSymptomsFormQ14 extends State<NoMotorSymptomsFormQ14> {
                 title: const Text(
                   'Si',
                   style: TextStyle(
-                    fontSize: 40.0,
+                    fontSize: 35.0,
                   ),
                 ),
                 value: SigningCharacter.Si,
@@ -64,7 +66,7 @@ class _NoMotorSymptomsFormQ14 extends State<NoMotorSymptomsFormQ14> {
                 title: const Text(
                   'No',
                   style: TextStyle(
-                    fontSize: 40.0,
+                    fontSize: 35.0,
                   ),
                 ),
                 value: SigningCharacter.No,

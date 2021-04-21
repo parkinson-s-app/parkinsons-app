@@ -21,7 +21,7 @@ class ButtonGoToolBox extends StatelessWidget {
         color: Colors.grey[50],
         //textColor: Colors.white,
         child: Image.asset(
-          "assets/images/abrir-caja.png",
+          "assets/images/puzzle.png",
           height: size.height * 0.08,
         ),
         // Text("Registrarse ", style:  TextStyle(fontSize: 15)),

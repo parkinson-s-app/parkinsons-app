@@ -48,7 +48,7 @@ class _ButtonGoProfileState extends State<ButtonGoProfile> {
         color: Colors.grey[50],
         //textColor: Colors.white,
         child: Image.asset(
-          "assets/images/obrero.png",
+          "assets/images/perfil2.png",
           height: size.height * 0.08,
         ),
         // Text("Registrarse ", style:  TextStyle(fontSize: 15)),

@@ -9,10 +9,8 @@ import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:intl/intl.dart';
 import 'package:appkinsonFront/main.dart';
 
-
 import 'package:foldable_sidebar/foldable_sidebar.dart';
 import '../sideMenus/CustomDrawerMenu.dart';
-
 
 class Medicines extends StatefulWidget {
   final int idPatient;
@@ -21,8 +19,10 @@ class Medicines extends StatefulWidget {
 
   _MedicinesState createState() => _MedicinesState(this.idPatient);
 }
+
 var items;
 var id = 0;
+
 class _MedicinesState extends State<Medicines> {
   final key = GlobalKey<AnimatedListState>();
   final int idPatient;
@@ -35,18 +35,10 @@ class _MedicinesState extends State<Medicines> {
 
   @override
   Widget build(BuildContext context) => Scaffold(
-        backgroundColor: Colors.teal,
+        backgroundColor: Colors.white,
         appBar: AppBar(
-          title: Text("Médicamentos"),
-          actions:<Widget> [
-            new IconButton(
-                icon: Icon(Icons.settings),
-                color: Colors.black45,
-                onPressed: () {
-                  //onSaveAlarm();
-                  //deleteAlarm(alarm.id);
-                }),
-          ],
+          title: Text("Alarmas de Médicamentos"),
+          actions: <Widget>[],
         ),
         body: Column(
           children: [
@@ -58,12 +50,30 @@ class _MedicinesState extends State<Medicines> {
                     buildItem(items[index], index, animation),
               ),
             ),
+            /*
             Container(
               padding: EdgeInsets.all(5),
               child: buildInsertButton(this.idPatient),
             ),
+            */
           ],
         ),
+        floatingActionButton: FloatingActionButton(
+          shape: RoundedRectangleBorder(
+              borderRadius: new BorderRadius.circular(30.0)),
+          //   side: BorderSide(color: Color.fromRGBO(0, 160, 227, 1))),
+          backgroundColor: Colors.blue[800],
+          child: Icon(
+            Icons.add,
+            color: Colors.white,
+          ),
+          onPressed: () {
+            //addUser();
+            print('otro idp ${idPatient.toString()}');
+            RoutesDoctor().toPatientAlarmAndMedicine(context, idPatient);
+          },
+        ),
+        //  floatingActionButton:  ,
       );
 
   Widget buildItem(item, int index, Animation<double> animation) =>
@@ -73,19 +83,20 @@ class _MedicinesState extends State<Medicines> {
         onClicked: () => removeItem(index),
       );
 
-
   Widget buildInsertButton(int idPatient) => RaisedButton(
-        child: Icon(Icons.add, size: 50, color: Colors.lightGreen,),
+        child: Icon(
+          Icons.add,
+          size: 50,
+          color: Colors.lightGreen,
+        ),
         color: Colors.white,
         onPressed: () {
           print('otro idp ${idPatient.toString()}');
           RoutesDoctor().toPatientAlarmAndMedicine(context, idPatient);
-         
         },
       );
-  
+
   void insertItem(int index, AlarmAndMedicine item) {
-   
     items.insert(index, item);
     key.currentState.insertItem(index);
     Navigator.pop(context);

@@ -42,11 +42,13 @@ class PatientHomePage extends StatelessWidget {
                           left: 255,
                           child: ButtonGoRelationsRequest(),
                         ),
+                        /*
                         Positioned(
                           top: 250,
                           right: 125,
                           child: ButtonGoReminder(),
                         ),
+                        */
                         Image.asset(
                           "assets/images/coronadr.png",
                           width: 150,

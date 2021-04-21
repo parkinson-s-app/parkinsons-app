@@ -5,18 +5,18 @@ class EmotionalFormQ1 extends StatefulWidget {
   _EmotionalFormQ1 createState() => _EmotionalFormQ1();
 }
 
-enum SigningCharacter { Cero, Uno, Dos, Tres, Nada}
+enum SigningCharacter { Cero, Uno, Dos, Tres, Nada }
 SigningCharacter _character;
 int selectedStateRadioQ1 = -1;
 
 class _EmotionalFormQ1 extends State<EmotionalFormQ1> {
-
   void initState() {
     super.initState();
 
     _character = SigningCharacter.Nada;
     selectedStateRadioQ1 = -1;
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -25,13 +25,14 @@ class _EmotionalFormQ1 extends State<EmotionalFormQ1> {
           Expanded(
             flex: 1,
             child: Container(
-              color: Colors.white60,
+              color: Colors.grey[350],
               padding: EdgeInsets.all(15.0),
               alignment: Alignment.center,
               child: Text(
                 "Poco interés o placer en hacer cosas",
+                textAlign: TextAlign.center,
                 style: TextStyle(
-                  fontSize: 22.0,
+                  fontSize: 30.0,
                   fontFamily: "Ralewaybold",
                 ),
               ),
@@ -47,7 +48,7 @@ class _EmotionalFormQ1 extends State<EmotionalFormQ1> {
                 title: const Text(
                   'Ningún día',
                   style: TextStyle(
-                    fontSize: 30.0,
+                    fontSize: 25.0,
                   ),
                 ),
                 value: SigningCharacter.Cero,
@@ -66,7 +67,7 @@ class _EmotionalFormQ1 extends State<EmotionalFormQ1> {
                 title: const Text(
                   'Varios días',
                   style: TextStyle(
-                    fontSize: 30.0,
+                    fontSize: 25.0,
                   ),
                 ),
                 value: SigningCharacter.Uno,
@@ -85,7 +86,7 @@ class _EmotionalFormQ1 extends State<EmotionalFormQ1> {
                 title: const Text(
                   'Más de la mitad de los días',
                   style: TextStyle(
-                    fontSize: 30.0,
+                    fontSize: 25.0,
                   ),
                 ),
                 value: SigningCharacter.Dos,
@@ -104,7 +105,7 @@ class _EmotionalFormQ1 extends State<EmotionalFormQ1> {
                 title: const Text(
                   'Casi todos los días',
                   style: TextStyle(
-                    fontSize: 30.0,
+                    fontSize: 25.0,
                   ),
                 ),
                 value: SigningCharacter.Tres,

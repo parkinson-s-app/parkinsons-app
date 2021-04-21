@@ -11,7 +11,7 @@ class EmotionalFormQ2 extends StatefulWidget {
   _EmotionalFormQ2 createState() => _EmotionalFormQ2();
 }
 
-enum SigningCharacter { Cero, Uno, Dos, Tres, Nada}
+enum SigningCharacter { Cero, Uno, Dos, Tres, Nada }
 SigningCharacter _character;
 int selectedStateRadioQ2 = -1;
 
@@ -21,6 +21,7 @@ class _EmotionalFormQ2 extends State<EmotionalFormQ2> {
     _character = SigningCharacter.Nada;
     selectedStateRadioQ1 = -1;
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -29,13 +30,14 @@ class _EmotionalFormQ2 extends State<EmotionalFormQ2> {
           Expanded(
             flex: 1,
             child: Container(
-              color: Colors.white60,
+              color: Colors.grey[350],
               padding: EdgeInsets.all(15.0),
               alignment: Alignment.center,
               child: Text(
                 " Se ha sentido decaído(a), deprimido(a) o sin esperanzas",
+                textAlign: TextAlign.center,
                 style: TextStyle(
-                  fontSize: 22.0,
+                  fontSize: 30.0,
                   fontFamily: "Ralewaybold",
                 ),
               ),
@@ -51,7 +53,7 @@ class _EmotionalFormQ2 extends State<EmotionalFormQ2> {
                 title: const Text(
                   'Ningún día',
                   style: TextStyle(
-                    fontSize: 30.0,
+                    fontSize: 25.0,
                   ),
                 ),
                 value: SigningCharacter.Cero,
@@ -70,7 +72,7 @@ class _EmotionalFormQ2 extends State<EmotionalFormQ2> {
                 title: const Text(
                   'Varios días',
                   style: TextStyle(
-                    fontSize: 30.0,
+                    fontSize: 25.0,
                   ),
                 ),
                 value: SigningCharacter.Uno,
@@ -89,7 +91,7 @@ class _EmotionalFormQ2 extends State<EmotionalFormQ2> {
                 title: const Text(
                   'Más de la mitad de los días',
                   style: TextStyle(
-                    fontSize: 30.0,
+                    fontSize: 25.0,
                   ),
                 ),
                 value: SigningCharacter.Dos,
@@ -108,7 +110,7 @@ class _EmotionalFormQ2 extends State<EmotionalFormQ2> {
                 title: const Text(
                   'Casi todos los días',
                   style: TextStyle(
-                    fontSize: 30.0,
+                    fontSize: 25.0,
                   ),
                 ),
                 value: SigningCharacter.Tres,
@@ -138,7 +140,8 @@ class _EmotionalFormQ2 extends State<EmotionalFormQ2> {
                   debugPrint("formulario llenado");
                   String id = await Utils().getFromToken('id');
                   String token = await Utils().getToken();
-                  var savedEmotional = await EndPoints().registerEmotionalForm(patientForm, id, token);
+                  var savedEmotional = await EndPoints()
+                      .registerEmotionalForm(patientForm, id, token);
 
                   //var savedEmotional2 = await EndPoints().getEmotionalForm( id, token, new DateTime.utc(2021, 02, 20) , patientForm.date);
                   debugPrint("formulario enviado");

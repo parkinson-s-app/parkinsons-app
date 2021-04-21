@@ -15,6 +15,7 @@ class _NoMotorSymptomsFormQ17 extends State<NoMotorSymptomsFormQ17> {
     _character = SigningCharacter.Nada;
     selectedStateRadioQ17 = 0;
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -23,13 +24,14 @@ class _NoMotorSymptomsFormQ17 extends State<NoMotorSymptomsFormQ17> {
           Expanded(
             flex: 1,
             child: Container(
-              color: Colors.white60,
+              color: Colors.grey[350],
               padding: EdgeInsets.all(15.0),
               alignment: Alignment.center,
               child: Text(
                 "Sentimientos de ansiedad, miedo o pánico",
+                textAlign: TextAlign.center,
                 style: TextStyle(
-                  fontSize: 22.0,
+                  fontSize: 30.0,
                   fontFamily: "Ralewaybold",
                 ),
               ),
@@ -45,7 +47,7 @@ class _NoMotorSymptomsFormQ17 extends State<NoMotorSymptomsFormQ17> {
                 title: const Text(
                   'Si',
                   style: TextStyle(
-                    fontSize: 40.0,
+                    fontSize: 35.0,
                   ),
                 ),
                 value: SigningCharacter.Si,
@@ -64,7 +66,7 @@ class _NoMotorSymptomsFormQ17 extends State<NoMotorSymptomsFormQ17> {
                 title: const Text(
                   'No',
                   style: TextStyle(
-                    fontSize: 40.0,
+                    fontSize: 35.0,
                   ),
                 ),
                 value: SigningCharacter.No,

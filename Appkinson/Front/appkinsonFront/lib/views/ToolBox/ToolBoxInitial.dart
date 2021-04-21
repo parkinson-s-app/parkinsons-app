@@ -4,6 +4,7 @@ import 'package:appkinsonFront/views/ToolBox/AboutExcercises/Buttons/ButtonGoAbo
 import 'package:appkinsonFront/views/ToolBox/AboutFood/Buttons/ButtonGoAboutFood.dart';
 import 'package:appkinsonFront/views/ToolBox/AboutNews/Buttons/ButtonGoAboutNews.dart';
 import 'package:appkinsonFront/views/ToolBox/AboutParkinson/Buttons/ButtonGoAboutParkinson.dart';
+import 'package:appkinsonFront/views/ToolBox/Pedometer/Buttons/ButtonGoPedometer.dart';
 import 'package:appkinsonFront/views/sideMenus/CustomDrawerMenu.dart';
 import 'package:flutter/material.dart';
 import 'package:foldable_sidebar/foldable_sidebar.dart';
@@ -21,14 +22,19 @@ class toolbox extends StatefulWidget {
 }
 
 class _toolbox extends State<toolbox> {
-  
   FSBStatus status;
-  
+
   @override
   Widget build(BuildContext context) {
-  return SafeArea(
+    return SafeArea(
       child: Scaffold(
-        body: FoldableSidebarBuilder(status: status , drawer: CustomDrawerMenu(), screenContents: toolbox0()),
+        appBar: AppBar(
+          title: Text('Actividades y Juegos'),
+        ),
+        body: FoldableSidebarBuilder(
+            status: status,
+            drawer: CustomDrawerMenu(),
+            screenContents: toolbox0()),
         floatingActionButton: FloatingActionButton(
             backgroundColor: Colors.blue[800],
             child: Icon(
@@ -41,10 +47,9 @@ class _toolbox extends State<toolbox> {
                     ? FSBStatus.FSB_CLOSE
                     : FSBStatus.FSB_OPEN;
               });
-            }
-        ),
+            }),
       ),
-    ); 
+    );
   }
 }
 
@@ -92,8 +97,7 @@ class _toolbox0 extends State<toolbox0> {
     double y = (dist + .0);
 
     setState(() {
-      numero_pasos =
-          y;
+      numero_pasos = y;
     });
 
     var long3 = (numero_pasos);
@@ -136,7 +140,6 @@ class _toolbox0 extends State<toolbox0> {
     //print(distance.runtimeType);
     setState(() {
       _km = "$distance";
-
     });
     setState(() {
       _kmx = num.parse(distancekmx.toStringAsFixed(2));
@@ -151,27 +154,22 @@ class _toolbox0 extends State<toolbox0> {
     });
   }
 
-
   @override
   Widget build(BuildContext context) {
     getBurnedRun();
     return new MaterialApp(
       debugShowCheckedModeBanner: false,
       home: Scaffold(
-        appBar: AppBar(
-          title: Text("Caja de herramientas"),
-        ),
         body: ListView(
           padding: EdgeInsets.all(2.0),
           children: <Widget>[
-            Container(
+            /*Container(
               padding: EdgeInsets.only(top: 10.0),
               width: 250,
               height: 250,
               decoration: BoxDecoration(
                   gradient: LinearGradient(
-                    begin: Alignment
-                        .bottomCenter,
+                    begin: Alignment.bottomCenter,
                     end: Alignment.topCenter,
                     colors: [Color(0xFFA9F5F2), Color(0xFF01DFD7)],
                   ),
@@ -302,8 +300,9 @@ class _toolbox0 extends State<toolbox0> {
                 ],
               ),
             ),
-            Expanded(
-              flex: 2, 
+            */
+            /* Expanded(
+              flex: 2,
               /*padding: EdgeInsets.only(top: 2.0),
               width: 150, //ancho
               height: 30, //largo tambien por numero height: 300
@@ -320,7 +319,6 @@ class _toolbox0 extends State<toolbox0> {
                           textAlign: TextAlign.center,
                         ),
                       ),
-
                     ),
                   ),
                   VerticalDivider(
@@ -335,7 +333,6 @@ class _toolbox0 extends State<toolbox0> {
                           textAlign: TextAlign.center,
                         ),
                       ),
-
                     ),
                   ),
                   VerticalDivider(
@@ -354,45 +351,47 @@ class _toolbox0 extends State<toolbox0> {
                   ),
                 ],
               ),
-            ),
-            Divider(
-              height: 30,
-              thickness: 5,
-              color: Colors.blue[500],
-              indent: 5,
-              endIndent: 5,
-            ),
+            ),*/
+
             new Container(
               width: 80,
-              height: 300,
+              height: 700,
               child: Expanded(
                 child: Column(
                   children: [
+                    SizedBox(
+                      height: 100,
+                    ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
                         Expanded(
-                              child: ButtonGoAboutExcercises(),
-                            ),
+                          child: ButtonGoAboutExcercises(),
+                        ),
                         Expanded(
-                              child: ButtonGoAboutFood(),
-                            ),
-                        
-                                ],
-                            ),
+                          child: ButtonGoAboutFood(),
+                        ),
+                      ],
+                    ),
+                    SizedBox(
+                      height: 30,
+                    ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
-                          /*Expanded(
+                        /*Expanded(
                                 child: ButtonGoAboutParkinson(),
                               ),*/
-                          Expanded(
-                              child: ButtonGoGame(),
-                            ),
-                          Expanded(
-                                child: ButtonGoAboutNews(),
-                              ),
-                        ],
+                        Expanded(
+                          child: ButtonGoGame(),
+                        ),
+                        Expanded(
+                          child: ButtonGoAboutNews(),
+                        ),
+                      ],
+                    ),
+                    Expanded(
+                      child: ButtonGoPedometer(),
                     ),
                   ],
                 ),

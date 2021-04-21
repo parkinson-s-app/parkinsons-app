@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 
 //import '../../Register/RegisterPage.dart';
 
-class ButtonGoGame extends StatelessWidget {
+class ButtonGoPedometer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -22,7 +22,7 @@ class ButtonGoGame extends StatelessWidget {
           color: Colors.grey[50],
           //textColor: Colors.white,
           child: Image.asset(
-            "assets/images/game.png",
+            "assets/images/pedometer.png",
             height: size.height * 0.08,
           ),
           // Text("Registrarse ", style:  TextStyle(fontSize: 15)),
@@ -31,7 +31,7 @@ class ButtonGoGame extends StatelessWidget {
           height: 20,
         ),
         Text(
-          "Juego Tap",
+          "Podómetro",
           textAlign: TextAlign.center,
           style: TextStyle(
               color: Colors.blue[900], fontSize: 20, fontFamily: "Raleway2"),

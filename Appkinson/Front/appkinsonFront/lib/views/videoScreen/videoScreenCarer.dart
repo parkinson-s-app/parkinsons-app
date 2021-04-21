@@ -36,63 +36,73 @@ class _symptomsFormQ29 extends State<VideoScreenCarer> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
                 Expanded(
+                    child: Container(
+                  decoration: BoxDecoration(
+                    border: Border(
+                        top: BorderSide(width: 2),
+                        bottom: BorderSide(width: 1)),
+                  ),
                   child: fileMediaCarer == null
                       ? Icon(Icons.play_circle_outline, size: 240)
                       : (source == MediaSource.image
                           ? Image.file(fileMediaCarer)
                           : VideoWidget(fileMediaCarer)),
-                ),
+                )),
                 const SizedBox(height: 24),
                 const SizedBox(height: 12),
                 const SizedBox(height: 12),
-                RaisedButton(
-                  child: Text('volver'),
-                  shape: StadiumBorder(),
-                  //onPressed: () => save(),
-                  color: Theme.of(context).primaryColor,
-                  textColor: Colors.white,
-                  onPressed: () async {
-                    /*
-                    SymptomsFormPatientM patientForm =
-                        new SymptomsFormPatientM();
+                ButtonTheme(
+                  minWidth: 120.0,
+                  height: 50.0,
+                  child: RaisedButton(
+                    child: Text('Volver'),
+                    shape: StadiumBorder(),
+                    //onPressed: () => save(),
+                    color: Theme.of(context).primaryColor,
+                    textColor: Colors.white,
+                    onPressed: () async {
+                      /*
+                      SymptomsFormPatientM patientForm =
+                          new SymptomsFormPatientM();
 
-                    patientForm.q1 = BringAnswerPatient1().send();
-                    patientForm.q2 = BringAnswerPatient2().send();
-                    //patientForm.q3 = BringAnswer2On().send();
-                    //patientForm.q4 = BringAnswerPatientQ3().send();
-                    //patientForm.q5 = BringAnswerPatientQ4().send();
+                      patientForm.q1 = BringAnswerPatient1().send();
+                      patientForm.q2 = BringAnswerPatient2().send();
+                      //patientForm.q3 = BringAnswer2On().send();
+                      //patientForm.q4 = BringAnswerPatientQ3().send();
+                      //patientForm.q5 = BringAnswerPatientQ4().send();
 
-                    patientForm.video = fileMedia;
-                    patientForm.formDate = dateChoosed;
+                      patientForm.video = fileMedia;
+                      patientForm.formDate = dateChoosed;
 
-                    debugPrint('enviado');
-                    var savedDone = await EndPoints()
-                        .registerSymptomsFormPatient(
-                            patientForm, currentUser['id'].toString(), token);
+                      debugPrint('enviado');
+                      var savedDone = await EndPoints()
+                          .registerSymptomsFormPatient(
+                              patientForm, currentUser['id'].toString(), token);
 
-                    //void _getDataSource() {
-                    //meetings = <Meeting>[];
+                      //void _getDataSource() {
+                      //meetings = <Meeting>[];
 
-                    //final DateTime today = DateTime.now();
-                    int hora = dateChoosed.hour;
-                    final DateTime startTime = DateTime(dateChoosed.year,
-                        dateChoosed.month, dateChoosed.day, hora, 0, 0);
-                    final DateTime endTime =
-                        startTime.add(const Duration(hours: 1));
-                    Meeting m = new Meeting('on', startTime, endTime,
-                        const Color(0xFF0F8644), false);
-                    debugPrint(m.eventName);
-                    //setState(() {
-                    meetings.add(m);
-                    */
-                    //});
+                      //final DateTime today = DateTime.now();
+                      int hora = dateChoosed.hour;
+                      final DateTime startTime = DateTime(dateChoosed.year,
+                          dateChoosed.month, dateChoosed.day, hora, 0, 0);
+                      final DateTime endTime =
+                          startTime.add(const Duration(hours: 1));
+                      Meeting m = new Meeting('on', startTime, endTime,
+                          const Color(0xFF0F8644), false);
+                      debugPrint(m.eventName);
+                      //setState(() {
+                      meetings.add(m);
+                      */
+                      //});
 
-                    //return meetings;
-                    //}
+                      //return meetings;
+                      //}
 
-                    // RoutesPatient().toCalendar(context);
-                    RoutesGeneral().toPop(context);
-                  },
+                      // RoutesPatient().toCalendar(context);
+                      RoutesGeneral().toPop(context);
+                    },
+                  ),
                 ),
               ],
             ),

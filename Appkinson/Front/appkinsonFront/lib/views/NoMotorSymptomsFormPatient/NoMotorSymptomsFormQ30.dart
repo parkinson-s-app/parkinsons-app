@@ -49,6 +49,7 @@ class _NoMotorSymptomsFormQ30 extends State<NoMotorSymptomsFormQ30> {
     _character = SigningCharacter.Nada;
     selectedStateRadioQ30 = 0;
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -57,13 +58,14 @@ class _NoMotorSymptomsFormQ30 extends State<NoMotorSymptomsFormQ30> {
           Expanded(
             flex: 1,
             child: Container(
-              color: Colors.white60,
+              color: Colors.grey[350],
               padding: EdgeInsets.all(15.0),
               alignment: Alignment.center,
               child: Text(
                 "Creer que le pasan cosas que otras personas le dicen que no son verdad.",
+                textAlign: TextAlign.center,
                 style: TextStyle(
-                  fontSize: 22.0,
+                  fontSize: 30.0,
                   fontFamily: "Ralewaybold",
                 ),
               ),
@@ -79,7 +81,7 @@ class _NoMotorSymptomsFormQ30 extends State<NoMotorSymptomsFormQ30> {
                 title: const Text(
                   'Si',
                   style: TextStyle(
-                    fontSize: 40.0,
+                    fontSize: 35.0,
                   ),
                 ),
                 value: SigningCharacter.Si,
@@ -98,7 +100,7 @@ class _NoMotorSymptomsFormQ30 extends State<NoMotorSymptomsFormQ30> {
                 title: const Text(
                   'No',
                   style: TextStyle(
-                    fontSize: 40.0,
+                    fontSize: 35.0,
                   ),
                 ),
                 value: SigningCharacter.No,
@@ -156,7 +158,8 @@ class _NoMotorSymptomsFormQ30 extends State<NoMotorSymptomsFormQ30> {
                   debugPrint("formulario llenado");
                   String id = await Utils().getFromToken('id');
                   String token = await Utils().getToken();
-                  var savedEmotional = await EndPoints().registerNoMotorSymptomsForm(patientForm, id, token);
+                  var savedEmotional = await EndPoints()
+                      .registerNoMotorSymptomsForm(patientForm, id, token);
 
                   //var savedEmotional2 = await EndPoints().getNoMotorSymptomsForm( id, token, new DateTime.utc(2021, 02, 20) , patientForm.date);
                   debugPrint("formulario enviado");

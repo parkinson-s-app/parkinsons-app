@@ -36,15 +36,22 @@ class _symptomsFormQ29 extends State<SymptomsFormPatientQ5ON> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
                 Expanded(
-                  child: fileMedia == null
-                      ? Icon(Icons.play_circle_outline, size: 240)
-                      : (source == MediaSource.image
-                          ? Image.file(fileMedia)
-                          : VideoWidget(fileMedia)),
+                  child: Container(
+                    decoration: BoxDecoration(
+                      border: Border(
+                          top: BorderSide(width: 2),
+                          bottom: BorderSide(width: 1)),
+                    ),
+                    child: fileMedia == null
+                        ? Icon(Icons.play_circle_outline, size: 240)
+                        : (source == MediaSource.image
+                            ? Image.file(fileMedia)
+                            : VideoWidget(fileMedia)),
+                  ),
                 ),
                 const SizedBox(height: 24),
                 RaisedButton(
-                  child: Text('Capturar video'),
+                  child: Text('Capturar Video'),
                   shape: StadiumBorder(),
                   onPressed: () => capture(MediaSource.video),
                   color: Theme.of(context).primaryColor,
@@ -52,7 +59,7 @@ class _symptomsFormQ29 extends State<SymptomsFormPatientQ5ON> {
                 ),
                 const SizedBox(height: 12),
                 RaisedButton(
-                  child: Text('Eliminar video'),
+                  child: Text('Eliminar Video'),
                   shape: StadiumBorder(),
                   onPressed: () => delete(),
                   color: Theme.of(context).primaryColor,
@@ -60,9 +67,10 @@ class _symptomsFormQ29 extends State<SymptomsFormPatientQ5ON> {
                 ),
                 const SizedBox(height: 12),
                 RaisedButton(
-                  child: Text('volver'),
+                  child: Text('        Volver        '),
                   shape: StadiumBorder(),
                   //onPressed: () => save(),
+
                   color: Theme.of(context).primaryColor,
                   textColor: Colors.white,
                   onPressed: () async {

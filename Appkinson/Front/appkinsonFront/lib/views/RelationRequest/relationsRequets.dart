@@ -48,11 +48,13 @@ class RelationsRequest extends StatefulWidget {
   @override
   _RelationsRequestState createState() => _RelationsRequestState();
 }
- var items;
-  class _RelationsRequestState extends State<RelationsRequest> {
+
+var items;
+
+class _RelationsRequestState extends State<RelationsRequest> {
   final key = GlobalKey<AnimatedListState>();
   //final items = List.from(Data.relations);
-  
+
   //List<AlarmInfo> items;
   DateTime _alarmTime;
   String _alarmTimeString;
@@ -60,10 +62,10 @@ class RelationsRequest extends StatefulWidget {
 
   @override
   Widget build(BuildContext context) => Scaffold(
-        backgroundColor: Colors.teal,
+        backgroundColor: Colors.white,
         appBar: AppBar(
           title: Text("Solicitudes de relación"),
-          actions:<Widget> [
+          actions: <Widget>[
             new IconButton(
                 icon: Icon(Icons.settings),
                 color: Colors.black45,
@@ -106,18 +108,19 @@ class RelationsRequest extends StatefulWidget {
 
   void removeItem(int index) {
     RelationRequest rq = items[index];
-    
+
     debugPrint("bandera");
     debugPrint(rq.id.toString());
     debugPrint(rq.sender);
     EndPoints().sendResponseRelation('ACCEPT', rq.sender, rq.id.toString());
     final item = items.removeAt(index);
-    
+
     key.currentState.removeItem(
       index,
       (context, animation) => buildItem(item, index, animation),
     );
   }
+
   void removeItem2(int index) {
     debugPrint("Entra");
     RelationRequest rq = items[index];
@@ -126,7 +129,7 @@ class RelationsRequest extends StatefulWidget {
 
     key.currentState.removeItem(
       index,
-          (context, animation) => buildItem(item, index, animation),
+      (context, animation) => buildItem(item, index, animation),
     );
   }
 }
