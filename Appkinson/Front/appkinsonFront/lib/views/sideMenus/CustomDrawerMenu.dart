@@ -68,19 +68,21 @@ class CustomDrawerMenu extends StatelessWidget {
             color: Colors.white,
           ),
           ListTile(
-            onTap: () async{
+            onTap: () async {
               debugPrint("Tapped Profile");
               String tipe = await Utils().getFromToken('type');
-              if(tipe == 'Cuidador'){
-                Navigator.pushReplacement(context,
-                MaterialPageRoute(builder: (BuildContext ctx) => CarerProfileScreen()));
+              if (tipe == 'Cuidador') {
+                Navigator.pushReplacement(
+                    context,
+                    MaterialPageRoute(
+                        builder: (BuildContext ctx) => CarerProfileScreen()));
               }
-              if(tipe == 'Doctor'){
-                Navigator.pushReplacement(context,
-                MaterialPageRoute(builder: (BuildContext ctx) => DoctorProfileScreen()));
+              if (tipe == 'Doctor') {
+                Navigator.pushReplacement(
+                    context,
+                    MaterialPageRoute(
+                        builder: (BuildContext ctx) => DoctorProfileScreen()));
               }
-              
-              
             },
             leading: Icon(Icons.person),
             title: Text(
@@ -104,15 +106,19 @@ class CustomDrawerMenu extends StatelessWidget {
             color: Colors.white,
           ),
           ListTile(
-            onTap: () async{
+            onTap: () async {
               String tipe = await Utils().getFromToken('type');
-              if(tipe == 'Cuidador'){
-                Navigator.pushReplacement(context,
-                MaterialPageRoute(builder: (BuildContext ctx) => CarerHomePage()));
+              if (tipe == 'Cuidador') {
+                Navigator.pushReplacement(
+                    context,
+                    MaterialPageRoute(
+                        builder: (BuildContext ctx) => CarerHomePage()));
               }
-              if(tipe == 'Doctor'){
-                Navigator.pushReplacement(context,
-                MaterialPageRoute(builder: (BuildContext ctx) => DoctorHomePage()));
+              if (tipe == 'Doctor') {
+                Navigator.pushReplacement(
+                    context,
+                    MaterialPageRoute(
+                        builder: (BuildContext ctx) => DoctorHomePage()));
               }
             },
             leading: Icon(Icons.home),

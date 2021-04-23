@@ -5,6 +5,7 @@ import 'package:appkinsonFront/utils/Utils.dart';
 import 'package:appkinsonFront/views/Medicines/medicines.dart';
 import 'package:appkinsonFront/views/profiles/Patient/PatientProfileScreen.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 class ProfileEditionPatient extends StatefulWidget {
   @override
@@ -16,6 +17,10 @@ TextEditingController nameController = new TextEditingController();
 class __ProfileEdition extends State<ProfileEditionPatient> {
   @override
   Widget build(BuildContext context) {
+    SystemChrome.setPreferredOrientations([
+      DeviceOrientation.portraitUp,
+      DeviceOrientation.portraitDown,
+    ]);
     return Scaffold(
         appBar: AppBar(
           title: Text("Cambio de nombre"),

@@ -7,6 +7,7 @@ import 'package:appkinsonFront/views/ToolBox/AboutParkinson/Buttons/ButtonGoAbou
 import 'package:appkinsonFront/views/ToolBox/Pedometer/Buttons/ButtonGoPedometer.dart';
 import 'package:appkinsonFront/views/sideMenus/CustomDrawerMenu.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:foldable_sidebar/foldable_sidebar.dart';
 import 'dart:async';
 import 'package:percent_indicator/circular_percent_indicator.dart';
@@ -15,12 +16,13 @@ import 'package:pedometer/pedometer.dart';
 import 'package:decimal/decimal.dart';
 
 import 'Buttons/ButtonGoGame.dart';
-
+/*
 class toolbox extends StatefulWidget {
   @override
-  _toolbox createState() => _toolbox();
-}
+  toolbox0 createState() => toolbox0();
+}*/
 
+/*
 class _toolbox extends State<toolbox> {
   FSBStatus status;
 
@@ -51,14 +53,14 @@ class _toolbox extends State<toolbox> {
       ),
     );
   }
-}
+}*/
 
-class toolbox0 extends StatefulWidget {
+class toolbox extends StatefulWidget {
   @override
   _toolbox0 createState() => _toolbox0();
 }
 
-class _toolbox0 extends State<toolbox0> {
+class _toolbox0 extends State<toolbox> {
   String muestrePasos = "0";
   String _km = "0";
   String _calories = "0";
@@ -157,13 +159,19 @@ class _toolbox0 extends State<toolbox0> {
   @override
   Widget build(BuildContext context) {
     getBurnedRun();
-    return new MaterialApp(
-      debugShowCheckedModeBanner: false,
-      home: Scaffold(
-        body: ListView(
-          padding: EdgeInsets.all(2.0),
-          children: <Widget>[
-            /*Container(
+    SystemChrome.setPreferredOrientations([
+      DeviceOrientation.portraitUp,
+      DeviceOrientation.portraitDown,
+    ]);
+
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Actividades y juego'),
+      ),
+      body: ListView(
+        padding: EdgeInsets.all(2.0),
+        children: <Widget>[
+          /*Container(
               padding: EdgeInsets.only(top: 10.0),
               width: 250,
               height: 250,
@@ -301,7 +309,7 @@ class _toolbox0 extends State<toolbox0> {
               ),
             ),
             */
-            /* Expanded(
+          /* Expanded(
               flex: 2,
               /*padding: EdgeInsets.only(top: 2.0),
               width: 150, //ancho
@@ -353,52 +361,58 @@ class _toolbox0 extends State<toolbox0> {
               ),
             ),*/
 
-            new Container(
-              width: 80,
-              height: 700,
-              child: Expanded(
-                child: Column(
-                  children: [
-                    SizedBox(
-                      height: 100,
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        Expanded(
-                          child: ButtonGoAboutExcercises(),
-                        ),
-                        Expanded(
-                          child: ButtonGoAboutFood(),
-                        ),
-                      ],
-                    ),
-                    SizedBox(
-                      height: 30,
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        /*Expanded(
+          new Container(
+            width: 80,
+            height: 750,
+            child: Expanded(
+              child: Column(
+                children: [
+                  SizedBox(
+                    height: 100,
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      Expanded(
+                        child: ButtonGoAboutExcercises(),
+                      ),
+                      Expanded(
+                        child: ButtonGoAboutFood(),
+                      ),
+                    ],
+                  ),
+                  SizedBox(
+                    height: 30,
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      /*Expanded(
                                 child: ButtonGoAboutParkinson(),
                               ),*/
+                      Expanded(
+                        child: ButtonGoGame(),
+                      ),
+                      Expanded(
+                        child: ButtonGoAboutNews(),
+                      ),
+                    ],
+                  ),
+                  Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
                         Expanded(
-                          child: ButtonGoGame(),
+                          child: ButtonGoPedometer(),
                         ),
                         Expanded(
-                          child: ButtonGoAboutNews(),
+                          child: ButtonGoAboutParkinson(),
                         ),
-                      ],
-                    ),
-                    Expanded(
-                      child: ButtonGoPedometer(),
-                    ),
-                  ],
-                ),
+                      ]),
+                ],
               ),
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }

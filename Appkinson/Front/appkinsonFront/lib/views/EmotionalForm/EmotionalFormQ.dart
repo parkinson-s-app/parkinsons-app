@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 import '../EmotionalForm/EmotionalFormQ1.dart';
 import '../EmotionalForm/EmotionalFormQ2.dart';
@@ -17,6 +18,10 @@ class _EmotionalFormQ extends State<EmotionalFormQ> {
 
   @override
   Widget build(BuildContext context) {
+    SystemChrome.setPreferredOrientations([
+      DeviceOrientation.portraitUp,
+      DeviceOrientation.portraitDown,
+    ]);
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(

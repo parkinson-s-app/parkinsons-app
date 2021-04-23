@@ -2,12 +2,16 @@ import 'package:appkinsonFront/services/EndPoints.dart';
 import 'package:flutter/material.dart';
 import 'dart:math' as math;
 
+import 'package:flutter/services.dart';
+
 class CountDownTimer extends StatefulWidget {
   @override
   _CountDownTimerState createState() => _CountDownTimerState();
 }
+
 int count = 0;
 bool envio = false;
+
 class CustomTimerPainter extends CustomPainter {
   CustomTimerPainter({
     this.animation,
@@ -30,19 +34,17 @@ class CustomTimerPainter extends CustomPainter {
     paint.color = color;
     double progress = (1.0 - animation.value) * 2 * math.pi;
     //print(progress);
-    if(progress > 6.28 && envio == false){
-       envio = true;
-       _sendScore();
-       print("AQUIIII");
-       
+    if (progress > 6.28 && envio == false) {
+      envio = true;
+      _sendScore();
+      print("AQUIIII");
     }
     canvas.drawArc(Offset.zero & size, math.pi * 1.5, -progress, false, paint);
   }
 
-   Future _sendScore() async {
-     await EndPoints().sendGameRecord(count);
+  Future _sendScore() async {
+    await EndPoints().sendGameRecord(count);
   }
- 
 
   @override
   bool shouldRepaint(CustomTimerPainter old) {
@@ -75,10 +77,13 @@ class _CountDownTimerState extends State<CountDownTimer>
   @override
   Widget build(BuildContext context) {
     ThemeData themeData = Theme.of(context);
+    SystemChrome.setPreferredOrientations([
+      DeviceOrientation.portraitUp,
+      DeviceOrientation.portraitDown,
+    ]);
     return Scaffold(
       backgroundColor: Colors.white10,
-      body:
-      AnimatedBuilder(
+      body: AnimatedBuilder(
           animation: controller,
           builder: (context, child) {
             return Stack(
@@ -106,10 +111,10 @@ class _CountDownTimerState extends State<CountDownTimer>
                                 Positioned.fill(
                                   child: CustomPaint(
                                       painter: CustomTimerPainter(
-                                        animation: controller,
-                                        backgroundColor: Colors.white,
-                                        color: themeData.indicatorColor,
-                                      )),
+                                    animation: controller,
+                                    backgroundColor: Colors.white,
+                                    color: themeData.indicatorColor,
+                                  )),
                                 ),
                                 Align(
                                   alignment: FractionalOffset.center,
@@ -128,7 +133,7 @@ class _CountDownTimerState extends State<CountDownTimer>
                                       Text(
                                         timerString,
                                         style: TextStyle(
-                                            fontSize: 112.0,
+                                            fontSize: 100.0,
                                             color: Colors.white),
                                       ),
                                     ],
@@ -139,43 +144,58 @@ class _CountDownTimerState extends State<CountDownTimer>
                           ),
                         ),
                       ),
-                      Text('$count', style: TextStyle(fontSize: 100, color: Colors.blue),),
-                      FloatingActionButton(
-                        heroTag: "btn1",
-                        child: Icon(Icons.fingerprint_rounded, size: 32,),
-                        backgroundColor: Colors.green,
-                        onPressed: (){
-                              if(controller.value != 0.0){
-                                //print(controller.value);
-                              setState(() {
-                              });
+                      SizedBox(
+                        width: 200,
+                        height: 200,
+                        child: FloatingActionButton(
+                          heroTag: "btn1",
+                          child: Icon(
+                            Icons.fingerprint_rounded,
+                            size: 32,
+                          ),
+                          backgroundColor: Colors.green,
+                          onPressed: () {
+                            if (controller.value != 0.0) {
+                              //print(controller.value);
+                              setState(() {});
                               count = count + 1;
-                              }
-                              if(controller.value == 0.0){
-                                print("Se acabó el tiempo");
-                              }
-                              //debugPrint(controller.value.toString());
-                        }, 
+                            }
+                            if (controller.value == 0.0) {
+                              print("Se acabó el tiempo");
+                            }
+                            //debugPrint(controller.value.toString());
+                          },
                         ),
-         
+                      ),
+                      Text(
+                        '$count',
+                        style: TextStyle(fontSize: 50, color: Colors.blue),
+                      ),
                       AnimatedBuilder(
                           animation: controller,
                           builder: (context, child) {
-                            return FloatingActionButton.extended(
-                              heroTag: "btn2",
+                            return SizedBox(
+                              width: 100,
+                              height: 100,
+                              child: FloatingActionButton.extended(
+                                isExtended: true,
+                                heroTag: "btn2",
                                 onPressed: () {
-                                    controller.reverse(
-                                        from: controller.value == 0.0
-                                            ? 1.0
-                                            : controller.value);
-                                    if(controller.value == 1.0){
-                                      print("ENTRAAAAAA");
-                                  
-                                      envio = false;
-                                      //Aquí llamar el servicio y si es diferente de 0 se guarda el resultado
-                                     count = 0;
-                                    }
-                                }, label: Text("Jugar"),);
+                                  controller.reverse(
+                                      from: controller.value == 0.0
+                                          ? 1.0
+                                          : controller.value);
+                                  if (controller.value == 1.0) {
+                                    print("ENTRAAAAAA");
+
+                                    envio = false;
+                                    //Aquí llamar el servicio y si es diferente de 0 se guarda el resultado
+                                    count = 0;
+                                  }
+                                },
+                                label: Text("Jugar"),
+                              ),
+                            );
                           }),
                     ],
                   ),

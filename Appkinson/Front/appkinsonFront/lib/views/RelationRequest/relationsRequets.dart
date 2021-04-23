@@ -62,7 +62,7 @@ class _RelationsRequestState extends State<RelationsRequest> {
 
   @override
   Widget build(BuildContext context) => Scaffold(
-        backgroundColor: Colors.white,
+        backgroundColor: Colors.grey[100],
         appBar: AppBar(
           title: Text("Solicitudes de relación"),
           actions: <Widget>[

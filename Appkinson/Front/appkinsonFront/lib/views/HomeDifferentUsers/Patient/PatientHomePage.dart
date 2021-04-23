@@ -83,7 +83,8 @@ class PatientHomePage extends StatelessWidget {
                           children: <Widget>[
                             ButtonGoCalendar(),
                             Text(
-                              "Calendario",
+                              "Calendario \n",
+                              textAlign: TextAlign.center,
                               style: TextStyle(
                                   color: Colors.blue[900],
                                   fontSize: 20,
@@ -95,7 +96,8 @@ class PatientHomePage extends StatelessWidget {
                           children: <Widget>[
                             ButtonGoMedicinesSchedule(),
                             Text(
-                              "Medicinas",
+                              "Medicinas \n",
+                              textAlign: TextAlign.center,
                               style: TextStyle(
                                   color: Colors.blue[900],
                                   fontSize: 20,
@@ -108,6 +110,7 @@ class PatientHomePage extends StatelessWidget {
                             ButtonGoNoMotorSymptoms(),
                             Text(
                               "Formulario \nNo motores",
+                              textAlign: TextAlign.center,
                               style: TextStyle(
                                   color: Colors.blue[900],
                                   fontSize: 20,
@@ -132,7 +135,8 @@ class PatientHomePage extends StatelessWidget {
                           children: <Widget>[
                             ButtonGoProfile(),
                             Text(
-                              "Perfil",
+                              "Perfil \n",
+                              textAlign: TextAlign.center,
                               style: TextStyle(
                                   color: Colors.blue[900],
                                   fontSize: 20,
@@ -145,6 +149,7 @@ class PatientHomePage extends StatelessWidget {
                             ButtonGoToolBox(),
                             Text(
                               "Actividades &\n Juegos",
+                              textAlign: TextAlign.center,
                               style: TextStyle(
                                   color: Colors.blue[900],
                                   fontSize: 18,
@@ -157,6 +162,7 @@ class PatientHomePage extends StatelessWidget {
                             ButtonGoWeeklyForm(),
                             Text(
                               "Formulario \nSentimientos",
+                              textAlign: TextAlign.center,
                               style: TextStyle(
                                   color: Colors.blue[900],
                                   fontSize: 20,

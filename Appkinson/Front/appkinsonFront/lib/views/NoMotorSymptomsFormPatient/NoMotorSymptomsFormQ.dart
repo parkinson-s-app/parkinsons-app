@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 import '../NoMotorSymptomsFormPatient/NoMotorSymptomsFormQ1.dart';
 import '../NoMotorSymptomsFormPatient/NoMotorSymptomsFormQ2.dart';
@@ -45,12 +46,15 @@ class _NoMotorSymptomsFormQ extends State<NoMotorSymptomsFormQ> {
 
   @override
   Widget build(BuildContext context) {
+    SystemChrome.setPreferredOrientations([
+      DeviceOrientation.portraitUp,
+      DeviceOrientation.portraitDown,
+    ]);
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
-        centerTitle: true,
         title: Text(
-          "Formulario emocional",
+          "Formulario Síntomas No Motores",
         ),
         backgroundColor: Colors.blue,
         actions: <Widget>[

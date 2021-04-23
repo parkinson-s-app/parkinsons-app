@@ -11,10 +11,11 @@ class ListFood extends StatefulWidget {
   @override
   _ListFoodState createState() => _ListFoodState();
 }
-List<ItemToolbox> food =  List<ItemToolbox>();
-var id = 0;
-class _ListFoodState extends State<ListFood> {
 
+List<ItemToolbox> food = List<ItemToolbox>();
+var id = 0;
+
+class _ListFoodState extends State<ListFood> {
   @override
   final key = GlobalKey<AnimatedListState>();
   //List<AlarmInfo> food;
@@ -24,27 +25,27 @@ class _ListFoodState extends State<ListFood> {
   //AlarmInfo alarm;
   @override
   Widget build(BuildContext context) => Scaffold(
-    backgroundColor: Colors.teal,
-    appBar: AppBar(
-      title: Text("Comida"),
-    ),
-    body: Column(
-      children: [
-        Expanded(
-          child: AnimatedList(
-            key: key,
-            initialItemCount: food.length,
-            itemBuilder: (context, index, animation) =>
-                buildItem(food[index], index, animation),
-          ),
+        backgroundColor: Colors.grey[100],
+        appBar: AppBar(
+          title: Text("Comida"),
         ),
-        Container(
-          padding: EdgeInsets.all(5),
-          child: buildInsertButton(),
+        body: Column(
+          children: [
+            Expanded(
+              child: AnimatedList(
+                key: key,
+                initialItemCount: food.length,
+                itemBuilder: (context, index, animation) =>
+                    buildItem(food[index], index, animation),
+              ),
+            ),
+            /*Container(
+              padding: EdgeInsets.all(5),
+              child: buildInsertButton(),
+            ),*/
+          ],
         ),
-      ],
-    ),
-  );
+      );
 
   Widget buildItem(item, int index, Animation<double> animation) =>
       ItemToolboxWidgetGeneral(
@@ -53,16 +54,19 @@ class _ListFoodState extends State<ListFood> {
         onClicked: () => removeItem(index),
       );
 
-
   Widget buildInsertButton() => RaisedButton(
-    child: Icon(Icons.add, size: 50, color: Colors.lightGreen,),
-    color: Colors.white,
-    onPressed: () {
-      RoutesAdmin().toFormAddItem(context);
-    },
-  );
+        child: Icon(
+          Icons.add,
+          size: 50,
+          color: Colors.lightGreen,
+        ),
+        color: Colors.white,
+        onPressed: () {
+          RoutesAdmin().toFormAddItem(context);
+        },
+      );
 
- /* void insertItem(int index, AlarmAndMedicine item) {
+  /* void insertItem(int index, AlarmAndMedicine item) {
     food.insert(index, item);
     key.currentState.insertItem(index);
     Navigator.pop(context);
@@ -74,7 +78,7 @@ class _ListFoodState extends State<ListFood> {
 
     key.currentState.removeItem(
       index,
-          (context, animation) => buildItem(item, index, animation),
+      (context, animation) => buildItem(item, index, animation),
     );
   }
 }

@@ -39,8 +39,9 @@ class _symptomsFormQ29 extends State<SymptomsFormPatientQ5ON> {
                   child: Container(
                     decoration: BoxDecoration(
                       border: Border(
-                          top: BorderSide(width: 2),
-                          bottom: BorderSide(width: 1)),
+                          top: BorderSide(width: 2, color: Colors.grey[350]),
+                          bottom:
+                              BorderSide(width: 1, color: Colors.grey[350])),
                     ),
                     child: fileMedia == null
                         ? Icon(Icons.play_circle_outline, size: 240)

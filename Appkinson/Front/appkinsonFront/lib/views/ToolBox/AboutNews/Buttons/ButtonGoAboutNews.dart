@@ -17,7 +17,9 @@ class ButtonGoAboutNews extends StatelessWidget {
       height: 200,
       margin: EdgeInsets.symmetric(horizontal: 20),
       child: Column(children: [
-        FlatButton(
+        RaisedButton(
+          shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(18.0)),
           //   side: BorderSide(color: Color.fromRGBO(0, 160, 227, 1))),
           onPressed: () async {
             ItemToolbox itemToolbox = new ItemToolbox();
@@ -34,7 +36,7 @@ class ButtonGoAboutNews extends StatelessWidget {
               }
             }
 
-            RoutesGeneral().toListExcercises(context);
+            RoutesGeneral().toListNews(context);
           },
           padding: EdgeInsets.symmetric(horizontal: 10),
           color: Colors.grey[50],

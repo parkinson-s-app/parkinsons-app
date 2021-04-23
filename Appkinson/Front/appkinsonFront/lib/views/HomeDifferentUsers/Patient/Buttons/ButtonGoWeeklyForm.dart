@@ -8,7 +8,7 @@ class ButtonGoWeeklyForm extends StatelessWidget {
     return Container(
       height: 90,
       margin: EdgeInsets.symmetric(horizontal: 20),
-      child: FlatButton(
+      child: RaisedButton(
         shape:
             RoundedRectangleBorder(borderRadius: BorderRadius.circular(18.0)),
         //   side: BorderSide(color: Color.fromRGBO(0, 160, 227, 1))),

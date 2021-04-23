@@ -35,9 +35,9 @@ class _MedicinesState extends State<Medicines> {
 
   @override
   Widget build(BuildContext context) => Scaffold(
-        backgroundColor: Colors.white,
+        backgroundColor: Colors.grey[100],
         appBar: AppBar(
-          title: Text("Alarmas de Médicamentos"),
+          title: Text("Alarmas de Medicamentos"),
           actions: <Widget>[],
         ),
         body: Column(

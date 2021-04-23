@@ -6,6 +6,7 @@ import 'package:appkinsonFront/views/RelationRequest/relationsRequets.dart';
 import 'package:appkinsonFront/views/profiles/Patient/PatientProfileScreen.dart';
 import 'package:appkinsonFront/views/profiles/Patient/profileEdition/ProfileEditionPatient.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/screenutil.dart';
 import 'package:line_awesome_flutter/line_awesome_flutter.dart';
 import 'package:foldable_sidebar/foldable_sidebar.dart';
@@ -24,10 +25,11 @@ final kTitleTextStyle = TextStyle(
 );
 
 final kCaptionTextStyle = TextStyle(
-  fontSize: ScreenUtil().setSp(kSpacingUnit * 1.3),
-  fontWeight: FontWeight.w100,
-  //fontFamily: "Raleway"
-);
+    fontSize: ScreenUtil().setSp(kSpacingUnit * 1.3),
+    fontWeight: FontWeight.w100,
+    color: Colors.green
+    //fontFamily: "Raleway"
+    );
 
 class MyHomePage1 extends StatefulWidget {
   @override
@@ -107,6 +109,10 @@ class CustomDrawer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    SystemChrome.setPreferredOrientations([
+      DeviceOrientation.portraitUp,
+      DeviceOrientation.portraitDown,
+    ]);
     MediaQueryData mediaQuery = MediaQuery.of(context);
     return Container(
       color: Colors.blue,

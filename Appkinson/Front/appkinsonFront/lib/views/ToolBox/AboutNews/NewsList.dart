@@ -11,10 +11,11 @@ class ListNews extends StatefulWidget {
   @override
   _ListNewsState createState() => _ListNewsState();
 }
-List<ItemToolbox> news =  List<ItemToolbox>();
-var id = 0;
-class _ListNewsState extends State<ListNews> {
 
+List<ItemToolbox> news = List<ItemToolbox>();
+var id = 0;
+
+class _ListNewsState extends State<ListNews> {
   @override
   final key = GlobalKey<AnimatedListState>();
   //List<AlarmInfo> news;
@@ -24,27 +25,27 @@ class _ListNewsState extends State<ListNews> {
   //AlarmInfo alarm;
   @override
   Widget build(BuildContext context) => Scaffold(
-    backgroundColor: Colors.teal,
-    appBar: AppBar(
-      title: Text("Noticias"),
-    ),
-    body: Column(
-      children: [
-        Expanded(
-          child: AnimatedList(
-            key: key,
-            initialItemCount: news.length,
-            itemBuilder: (context, index, animation) =>
-                buildItem(news[index], index, animation),
-          ),
+        backgroundColor: Colors.grey[100],
+        appBar: AppBar(
+          title: Text("Noticias"),
         ),
-        Container(
-          padding: EdgeInsets.all(5),
-          child: buildInsertButton(),
+        body: Column(
+          children: [
+            Expanded(
+              child: AnimatedList(
+                key: key,
+                initialItemCount: news.length,
+                itemBuilder: (context, index, animation) =>
+                    buildItem(news[index], index, animation),
+              ),
+            ),
+            /* Container(
+              padding: EdgeInsets.all(5),
+              child: buildInsertButton(),
+            ),*/
+          ],
         ),
-      ],
-    ),
-  );
+      );
 
   Widget buildItem(item, int index, Animation<double> animation) =>
       ItemToolboxWidgetGeneral(
@@ -53,14 +54,17 @@ class _ListNewsState extends State<ListNews> {
         onClicked: () => removeItem(index),
       );
 
-
   Widget buildInsertButton() => RaisedButton(
-    child: Icon(Icons.add, size: 50, color: Colors.lightGreen,),
-    color: Colors.white,
-    onPressed: () {
-      RoutesAdmin().toFormAddItem(context);
-    },
-  );
+        child: Icon(
+          Icons.add,
+          size: 50,
+          color: Colors.lightGreen,
+        ),
+        color: Colors.white,
+        onPressed: () {
+          RoutesAdmin().toFormAddItem(context);
+        },
+      );
 
   /* void insertItem(int index, AlarmAndMedicine item) {
     news.insert(index, item);
@@ -74,7 +78,7 @@ class _ListNewsState extends State<ListNews> {
 
     key.currentState.removeItem(
       index,
-          (context, animation) => buildItem(item, index, animation),
+      (context, animation) => buildItem(item, index, animation),
     );
   }
 }

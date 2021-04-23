@@ -47,7 +47,7 @@ class _NoMotorSymptomsFormQ6 extends State<NoMotorSymptomsFormQ6> {
                 title: const Text(
                   'Si',
                   style: TextStyle(
-                    fontSize: 35.0,
+                    fontSize: 30.0,
                   ),
                 ),
                 value: SigningCharacter.Si,
@@ -66,7 +66,7 @@ class _NoMotorSymptomsFormQ6 extends State<NoMotorSymptomsFormQ6> {
                 title: const Text(
                   'No',
                   style: TextStyle(
-                    fontSize: 35.0,
+                    fontSize: 30.0,
                   ),
                 ),
                 value: SigningCharacter.No,

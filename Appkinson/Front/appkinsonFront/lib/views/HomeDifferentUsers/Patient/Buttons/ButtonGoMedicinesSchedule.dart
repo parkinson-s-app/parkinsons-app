@@ -11,16 +11,16 @@ class ButtonGoMedicinesSchedule extends StatelessWidget {
     return Container(
       height: 90,
       margin: EdgeInsets.symmetric(horizontal: 20),
-      child: FlatButton(
+      child: RaisedButton(
         shape:
             RoundedRectangleBorder(borderRadius: BorderRadius.circular(18.0)),
         //   side: BorderSide(color: Color.fromRGBO(0, 160, 227, 1))),
         onPressed: () async {
-           String id = await Utils().getFromToken('id');
-           String token = await Utils().getToken();
-           items = await EndPoints().getMedicinesAlarms( id, token);
-           RoutesPatient().toScheduleMedicines(context, int.parse(id));
-           },
+          String id = await Utils().getFromToken('id');
+          String token = await Utils().getToken();
+          items = await EndPoints().getMedicinesAlarms(id, token);
+          RoutesPatient().toScheduleMedicines(context, int.parse(id));
+        },
         padding: EdgeInsets.symmetric(horizontal: 10),
         color: Colors.grey[50],
         //textColor: Colors.white,

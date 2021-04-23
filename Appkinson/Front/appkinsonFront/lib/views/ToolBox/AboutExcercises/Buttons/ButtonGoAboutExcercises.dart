@@ -18,7 +18,7 @@ class ButtonGoAboutExcercises extends StatelessWidget {
       height: 200,
       margin: EdgeInsets.symmetric(horizontal: 20),
       child: Column(children: [
-        FlatButton(
+        RaisedButton(
           shape:
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(18.0)),
           //   side: BorderSide(color: Color.fromRGBO(0, 160, 227, 1))),

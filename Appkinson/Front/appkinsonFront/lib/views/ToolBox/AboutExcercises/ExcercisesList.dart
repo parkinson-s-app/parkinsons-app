@@ -10,13 +10,14 @@ import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:intl/intl.dart';
 import 'package:appkinsonFront/main.dart';
 
-
 class ListExcercises extends StatefulWidget {
   @override
   _ListExcercisesState createState() => _ListExcercisesState();
 }
-List<ItemToolbox> items =  List<ItemToolbox>();
+
+List<ItemToolbox> items = List<ItemToolbox>();
 var id = 0;
+
 class _ListExcercisesState extends State<ListExcercises> {
   final key = GlobalKey<AnimatedListState>();
   //List<AlarmInfo> items;
@@ -26,27 +27,28 @@ class _ListExcercisesState extends State<ListExcercises> {
   //AlarmInfo alarm;
   @override
   Widget build(BuildContext context) => Scaffold(
-    backgroundColor: Colors.teal,
-    appBar: AppBar(
-      title: Text("Ejercicios"),
-    ),
-    body: Column(
-      children: [
-        Expanded(
-          child: AnimatedList(
-            key: key,
-            initialItemCount: items.length,
-            itemBuilder: (context, index, animation) =>
-                buildItem(items[index], index, animation),
-          ),
+        backgroundColor: Colors.grey[100],
+        appBar: AppBar(
+          title: Text("Ejercicios"),
         ),
-        Container(
-          padding: EdgeInsets.all(5),
-          child: buildInsertButton(),
+        body: Column(
+          children: [
+            Expanded(
+              child: AnimatedList(
+                key: key,
+                initialItemCount: items.length,
+                itemBuilder: (context, index, animation) =>
+                    buildItem(items[index], index, animation),
+              ),
+            ),
+
+            /*Container(
+              padding: EdgeInsets.all(5),
+              child: buildInsertButton(),
+            ),*/
+          ],
         ),
-      ],
-    ),
-  );
+      );
 
   Widget buildItem(item, int index, Animation<double> animation) =>
       ItemToolboxWidgetAdministrator(
@@ -55,14 +57,17 @@ class _ListExcercisesState extends State<ListExcercises> {
         onClicked: () => removeItem(index),
       );
 
-
   Widget buildInsertButton() => RaisedButton(
-    child: Icon(Icons.add, size: 50, color: Colors.lightGreen,),
-    color: Colors.white,
-    onPressed: () {
-      RoutesAdmin().toFormAddItem(context);
-    },
-  );
+        child: Icon(
+          Icons.add,
+          size: 50,
+          color: Colors.lightGreen,
+        ),
+        color: Colors.white,
+        onPressed: () {
+          RoutesAdmin().toFormAddItem(context);
+        },
+      );
 
   void insertItem(int index, ItemToolbox item) {
     items.insert(index, item);
@@ -76,12 +81,12 @@ class _ListExcercisesState extends State<ListExcercises> {
 
     key.currentState.removeItem(
       index,
-          (context, animation) => buildItem(item, index, animation),
+      (context, animation) => buildItem(item, index, animation),
     );
   }
 }
 
-getId() async{
+getId() async {
   String id = await Utils().getFromToken('id');
   return id;
 }

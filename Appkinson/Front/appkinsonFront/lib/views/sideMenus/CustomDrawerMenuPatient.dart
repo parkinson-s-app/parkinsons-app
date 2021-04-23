@@ -66,9 +66,10 @@ class CustomDrawerMenuPatient extends StatelessWidget {
           ListTile(
             onTap: () {
               debugPrint("Tapped Profile");
-              Navigator.pushReplacement(context,
-                MaterialPageRoute(builder: (BuildContext ctx) => PatientProfileScreen()));
-              
+              Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(
+                      builder: (BuildContext ctx) => PatientProfileScreen()));
             },
             leading: Icon(Icons.person),
             title: Text(
@@ -94,8 +95,10 @@ class CustomDrawerMenuPatient extends StatelessWidget {
           ListTile(
             onTap: () {
               debugPrint("Tapped Payments");
-              Navigator.pushReplacement(context,
-                MaterialPageRoute(builder: (BuildContext ctx) => PatientHomePage()));
+              Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(
+                      builder: (BuildContext ctx) => PatientHomePage()));
             },
             leading: Icon(Icons.home),
             title: Text("Ir al Home"),
@@ -107,8 +110,10 @@ class CustomDrawerMenuPatient extends StatelessWidget {
           ListTile(
             onTap: () {
               debugPrint("Tapped Notifications");
-              Navigator.pushReplacement(context,
-                MaterialPageRoute(builder: (BuildContext ctx) => RelationsRequest()));
+              Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(
+                      builder: (BuildContext ctx) => RelationsRequest()));
             },
             leading: Icon(Icons.notifications),
             title: Text("Notificaciones"),

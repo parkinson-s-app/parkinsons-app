@@ -38,9 +38,10 @@ class _symptomsFormQ29 extends State<VideoScreenCarer> {
                 Expanded(
                     child: Container(
                   decoration: BoxDecoration(
+                    color: Colors.grey[350],
                     border: Border(
-                        top: BorderSide(width: 2),
-                        bottom: BorderSide(width: 1)),
+                        top: BorderSide(width: 2, color: Colors.grey),
+                        bottom: BorderSide(width: 1, color: Colors.grey)),
                   ),
                   child: fileMediaCarer == null
                       ? Icon(Icons.play_circle_outline, size: 240)
