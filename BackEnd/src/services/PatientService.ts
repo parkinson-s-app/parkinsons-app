@@ -336,10 +336,10 @@ export default class PatientService {
                 }
             }
             if (size != 0) {
-                on = (100/size)*on;
-                off = (100/size)*off;
-                offB = (100/size)*offB;
-                onG = (100/size)*onG;
+                on = Number(((100/size)*on).toFixed(3));
+                off = Number(((100/size)*off).toFixed(3));
+                offB = Number(((100/size)*offB).toFixed(3));
+                onG = Number(((100/size)*onG).toFixed(3));
             }
             const finalResponse = {
                 on,
