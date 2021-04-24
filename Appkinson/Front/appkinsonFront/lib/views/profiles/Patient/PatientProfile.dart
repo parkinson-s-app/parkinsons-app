@@ -180,7 +180,7 @@ class CustomDrawer extends StatelessWidget {
             height: 1,
             color: Colors.white,
           ),
-          ListTile(
+          /* ListTile(
             onTap: () {
               debugPrint("Tapped Notifications");
               debugPrint("Tapped Notifications");
@@ -191,7 +191,7 @@ class CustomDrawer extends StatelessWidget {
             },
             leading: Icon(Icons.notifications),
             title: Text("Notificaciones"),
-          ),
+          ),*/
         ],
       ),
     );

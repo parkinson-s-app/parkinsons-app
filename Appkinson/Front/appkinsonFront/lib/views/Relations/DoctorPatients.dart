@@ -210,7 +210,7 @@ class DoctorPatientsCustom extends State<DoctorPatients> {
               separatorBuilder: (context, index) {
                 return Divider(
                     thickness: 2,
-                    color: Colors.blue[700],
+                    color: Colors.grey[200],
                     indent: 10,
                     endIndent: 10);
               },

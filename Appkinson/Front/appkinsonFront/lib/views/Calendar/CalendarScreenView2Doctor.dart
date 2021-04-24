@@ -8,6 +8,7 @@ import 'package:appkinsonFront/utils/Utils.dart';
 import 'package:appkinsonFront/views/SymptomsFormPatient/SymptomsFormPatientQ5ON.dart';
 import 'package:appkinsonFront/views/videoScreen/videoScreenDoctor.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:syncfusion_flutter_calendar/calendar.dart';
 
 DateTime dateChoosed;
@@ -41,6 +42,8 @@ List<Color> _colors = <Color>[
   Colors.red[800]
 ];
 
+var contCalendar = 0;
+
 List<String> _onOff = <String>['on', 'on bueno', 'off', 'off malo'];
 var currentMeeting;
 
@@ -68,119 +71,185 @@ class _Calendar extends State<CalendarScreenView2Doctor> {
     );
   }
 
+  CalendarController _controller;
+
   @override
   void initState() {
     super.initState();
     currentMeeting = null;
+    _controller = CalendarController();
+    _controller.view = CalendarView.week;
+    contCalendar = 0;
     //todos.add("Regular Colors");
     //todos.add("Power Coating");
   }
 
   @override
   Widget build(BuildContext context) {
+    SystemChrome.setPreferredOrientations([
+      DeviceOrientation.portraitUp,
+      DeviceOrientation.portraitDown,
+    ]);
     Size size = MediaQuery.of(context).size;
     return Scaffold(
+        appBar: AppBar(
+          actions: <Widget>[
+            new IconButton(
+                icon: Icon(Icons.autorenew_outlined),
+                color: Colors.black45,
+                onPressed: () {
+                  setState(() {
+                    print('ey');
+                    if (contCalendar == 0) {
+                      _controller.view = CalendarView.day;
+                      contCalendar = 1;
+                    } else {
+                      _controller.view = CalendarView.week;
+                      contCalendar = 0;
+                    }
+                  });
+                }),
+          ],
+          iconTheme: IconThemeData(color: Colors.grey),
+          title: Text('Calendario',
+              style: TextStyle(
+                  color: Colors.grey[900],
+                  fontSize: 20,
+                  fontFamily: "Raleway2")),
+          backgroundColor: Colors.white,
+        ),
         body: SfCalendar(
-      view: CalendarView.day,
-      headerHeight: 100,
-      onTap: (calendarTapDetails) {
-        var sizeAppo = calendarTapDetails.appointments;
-        print(sizeAppo.toString() + 'hola6');
-        Meeting calen;
-        String r;
-        String pathVideo;
-        if (sizeAppo.toString() != 'null') {
-          calen = calendarTapDetails.appointments[0];
-          r = calen.from.toString() + 'Z';
-        }
+          controller: _controller,
+          //view: _controller.view,
+          showNavigationArrow: true,
+          headerHeight: 50,
+          onTap: (calendarTapDetails) {
+            var sizeAppo = calendarTapDetails.appointments;
+            print(sizeAppo.toString() + 'hola6');
+            Meeting calen;
+            String r;
+            String pathVideo;
+            if (sizeAppo.toString() != 'null') {
+              calen = calendarTapDetails.appointments[0];
+              r = calen.from.toString() + 'Z';
+            }
 
-        //print(calen.from);
-        dateChoosed = calendarTapDetails.date;
+            //print(calen.from);
+            dateChoosed = calendarTapDetails.date;
 
-        final DateTime probTime = DateTime(
-            dateChoosed.year, dateChoosed.month, dateChoosed.day, 0, 0, 0);
-        var convertedList = json.decode(listPacientes);
-        for (var a = 0; a < convertedList.length; a++) {
-          DateTime dateBd = DateTime.parse(convertedList[a]['formdate']);
-          print(dateBd.toString() + 'hola');
-          print(probTime.toString() + 'hola2');
-          idCurrent = convertedList[a]['ID_PATIENT'].toString();
-          //print();
+            final DateTime probTime = DateTime(
+                dateChoosed.year, dateChoosed.month, dateChoosed.day, 0, 0, 0);
+            var convertedList = json.decode(listPacientes);
+            for (var a = 0; a < convertedList.length; a++) {
+              DateTime dateBd = DateTime.parse(convertedList[a]['formdate']);
+              print(dateBd.toString() + 'hola');
+              print(probTime.toString() + 'hola2');
+              idCurrent = convertedList[a]['ID_PATIENT'].toString();
+              //print();
 
-          print(r);
-          if (dateBd.toString() == r) {
-            currentMeeting = convertedList[a];
-            print(currentMeeting.toString());
-            q2 = currentMeeting['Q2'];
-            q1 = currentMeeting['Q1'];
-            desface = currentMeeting['discrepancy'];
-            pathVideo = currentMeeting['pathvideo'].toString() + '.mp4';
-            idCurrent = currentMeeting['ID_PATIENT'].toString();
-          }
-        }
+              print(r);
+              if (dateBd.toString() == r) {
+                currentMeeting = convertedList[a];
+                print(currentMeeting.toString());
+                q2 = currentMeeting['Q2'];
+                q1 = currentMeeting['Q1'];
+                desface = currentMeeting['discrepancy'];
+                pathVideo = currentMeeting['pathvideo'].toString() + '.mp4';
+                idCurrent = currentMeeting['ID_PATIENT'].toString();
+              }
+            }
 
-        if (currentMeeting != null) {
-          showDialog(
-              context: context,
-              builder: (BuildContext context) {
-                return StatefulBuilder(builder: (context, setState) {
-                  currentMeeting = null;
-                  return AlertDialog(
-                    title: Text("Detalles:"),
-                    content: Form(
-                        child:
-                            Column(mainAxisSize: MainAxisSize.min, children: [
-                      Text(q1),
-                      Row(
-                        children: [
-                          Text('Disquinesias:'),
-                          IconButton(
-                              icon: Icon(Icons.announcement_rounded,
-                                  color: Colors.yellow[900]),
-                              tooltip:
-                                  'son trastornos del movimiento que se caracterizan por un exceso de movimientos o por movimientos anormales e involuntarios')
-                        ],
-                      ),
-                      Text(q2),
-                      FlatButton(
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(18.0)),
-                        //   side: BorderSide(color: Color.fromRGBO(0, 160, 227, 1))),
+            if (currentMeeting != null) {
+              showDialog(
+                  context: context,
+                  builder: (BuildContext context) {
+                    return StatefulBuilder(builder: (context, setState) {
+                      currentMeeting = null;
+                      return AlertDialog(
+                        title: Text("Detalles:"),
+                        content: Form(
+                            child: Column(
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                              Row(
+                                children: [
+                                  Text('Estado:',
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.bold)),
+                                  IconButton(
+                                      icon: Icon(Icons.help_outlined,
+                                          color: Colors.grey[500]),
+                                      tooltip:
+                                          'Son cambios del estado del paciente a lo largo del día. En fase o periodo ON hay un control satisfactorio de los síntomas y es posible una actividad motora normal. En cambio, en las fases OFF reaparecen los síntomas con una función motora alterada.')
+                                ],
+                              ),
+                              Text(q1),
+                              Divider(
+                                thickness: 1,
+                              ),
+                              Row(
+                                children: [
+                                  Text('Disquinesias:',
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.bold)),
+                                  IconButton(
+                                      icon: Icon(Icons.help_outlined,
+                                          color: Colors.grey[500]),
+                                      tooltip:
+                                          'son trastornos del movimiento que se caracterizan por un exceso de movimientos o por movimientos anormales e involuntarios')
+                                ],
+                              ),
+                              Text(q2),
+                              Divider(
+                                thickness: 1,
+                              ),
+                              FlatButton(
+                                height: 35,
+                                minWidth: 220,
+                                shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(18.0)),
+                                //   side: BorderSide(color: Color.fromRGBO(0, 160, 227, 1))),
 
-                        padding: EdgeInsets.symmetric(horizontal: 30),
+                                padding: EdgeInsets.symmetric(horizontal: 30),
 
-                        //onPressed: _incrementColorIndex,
-                        onPressed: () async {
-                          String token = await Utils().getToken();
-                          var video =
-                              await EndPoints().getVideoUser(token, pathVideo);
-                          this.setState(() {
-                            fileMediaDoctor = video;
-                          });
-                          Navigator.push(
-                              context,
-                              new MaterialPageRoute(
-                                  builder: (context) => VideoScreenDoctor()));
-                        },
+                                //onPressed: _incrementColorIndex,
+                                onPressed: () async {
+                                  String token = await Utils().getToken();
+                                  var video = await EndPoints()
+                                      .getVideoUser(token, pathVideo);
+                                  this.setState(() {
+                                    fileMediaDoctor = video;
+                                  });
+                                  Navigator.push(
+                                      context,
+                                      new MaterialPageRoute(
+                                          builder: (context) =>
+                                              VideoScreenDoctor()));
+                                },
 
-                        color: Colors.teal[200],
-                        //textColor: Colors.white,
-                        child: Text('ver video'),
-                      ),
-                      Row(
-                        children: [
-                          Text('Desface:'),
-                          IconButton(
-                              icon: Icon(Icons.announcement_rounded,
-                                  color: Colors.yellow[900]),
-                              tooltip:
-                                  'Esta opcion es para escoger cuanto tiempo depués de la hora indicada se tomo el medicamento. Si fue a la hora establecida, puede continur sin escoger nada.')
-                        ],
-                      ),
-                      Text(desface.toString() +
-                          ' min de desface en la toma de medicamento'),
-                    ])),
-                    /*actions: <Widget>[
+                                color: Colors.blue[500],
+                                textColor: Colors.white,
+                                child: Text('ver video'),
+                              ),
+                              Divider(
+                                thickness: 1,
+                              ),
+                              Row(
+                                children: [
+                                  Text('Desfase:',
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.bold)),
+                                  IconButton(
+                                      icon: Icon(Icons.help_outlined,
+                                          color: Colors.grey[500]),
+                                      tooltip:
+                                          'Esta opción es para escoger cuánto tiempo después de la hora indicada se tomó el medicamento. Si fue a la hora establecida, puede continuar sin escoger nada.')
+                                ],
+                              ),
+                              Text(desface.toString() +
+                                  ' minuntos de desfase en la toma de medicamento'),
+                            ])),
+                        /*actions: <Widget>[
                       FlatButton(
                           onPressed: () async {
                             SymptomsFormPatientM patientForm =
@@ -219,12 +288,12 @@ class _Calendar extends State<CalendarScreenView2Doctor> {
                           },
                           child: Text("añadir"))
                     ],*/
-                  );
-                });
-              });
-          currentMeeting = null;
-        } else {
-          /*
+                      );
+                    });
+                  });
+              currentMeeting = null;
+            } else {
+              /*
           showDialog(
               context: context,
               builder: (BuildContext context) {
@@ -350,20 +419,20 @@ class _Calendar extends State<CalendarScreenView2Doctor> {
                   );
                 });
               });*/
-        }
-        setState(() {
-          if (conta == 8) {
-            conta = 0;
-          }
-          conta++;
-        });
+            }
+            setState(() {
+              if (conta == 8) {
+                conta = 0;
+              }
+              conta++;
+            });
 
-        // RoutesPatient().toSymptomsFormPatient(context);
-      },
-      dataSource: MeetingDataSource(meetingsDoctor),
-      monthViewSettings: MonthViewSettings(
-          appointmentDisplayMode: MonthAppointmentDisplayMode.appointment),
-    ));
+            // RoutesPatient().toSymptomsFormPatient(context);
+          },
+          dataSource: MeetingDataSource(meetingsDoctor),
+          monthViewSettings: MonthViewSettings(
+              appointmentDisplayMode: MonthAppointmentDisplayMode.appointment),
+        ));
   }
 
   List<Meeting> _getDataSource() {

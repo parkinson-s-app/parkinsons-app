@@ -21,15 +21,14 @@ class ButtonGoMedicinesFromDoctor extends StatelessWidget {
     return Container(
       height: 90,
       margin: EdgeInsets.symmetric(horizontal: 20),
-      child: FlatButton(
+      child: RaisedButton(
         shape:
             RoundedRectangleBorder(borderRadius: BorderRadius.circular(18.0)),
         //   side: BorderSide(color: Color.fromRGBO(0, 160, 227, 1))),
         onPressed: () async {
           print('patient bboton ${idPatient.toString()}');
           String token = await Utils().getToken();
-          items = await EndPoints()
-              .getMedicinesAlarms(idPatient, token);
+          items = await EndPoints().getMedicinesAlarms(idPatient, token);
           RoutesPatient().toScheduleMedicines(context, idPatient);
           //  RoutesDoctor().toPatientAlarmAndMedicine(context, idPatient);
         },

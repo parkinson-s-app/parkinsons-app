@@ -36,11 +36,20 @@ class _symptomsFormQ29 extends State<VideoScreenDoctor> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
                 Expanded(
-                  child: fileMediaDoctor == null
-                      ? Icon(Icons.play_circle_outline, size: 240)
-                      : (source == MediaSource.image
-                          ? Image.file(fileMediaDoctor)
-                          : VideoWidget(fileMediaDoctor)),
+                  child: Container(
+                    decoration: BoxDecoration(
+                      color: Colors.grey[350],
+                      border: Border(
+                          top: BorderSide(width: 2, color: Colors.grey[350]),
+                          bottom:
+                              BorderSide(width: 1, color: Colors.grey[350])),
+                    ),
+                    child: fileMediaDoctor == null
+                        ? Icon(Icons.play_circle_outline, size: 240)
+                        : (source == MediaSource.image
+                            ? Image.file(fileMediaDoctor)
+                            : VideoWidget(fileMediaDoctor)),
+                  ),
                 ),
                 const SizedBox(height: 24),
                 RaisedButton(

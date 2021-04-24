@@ -10,7 +10,7 @@ class ButtonGoPatientList extends StatelessWidget {
     return Container(
       height: 150,
       margin: EdgeInsets.symmetric(horizontal: 10),
-      child: FlatButton(
+      child: RaisedButton(
         shape:
             RoundedRectangleBorder(borderRadius: BorderRadius.circular(18.0)),
         //   side: BorderSide(color: Color.fromRGBO(0, 160, 227, 1))),

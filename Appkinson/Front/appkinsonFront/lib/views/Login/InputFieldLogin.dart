@@ -11,7 +11,6 @@ TextEditingController emailController = new TextEditingController();
 TextEditingController password = new TextEditingController();
 
 class __FormInputFieldLogin extends State<InputFieldLogin> {
-  
   bool _obscurePassword = true;
   String _password;
   String _correo;
@@ -80,7 +79,7 @@ class metod {
   }
 }
 
-cleanLogin(){
+cleanLogin() {
   emailController = new TextEditingController();
   password = new TextEditingController();
 }

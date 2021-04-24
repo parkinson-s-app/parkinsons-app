@@ -34,9 +34,7 @@ class DoctorPatientsCustomAdd extends State<DoctorPatientsAdd> {
     super.initState();
   }
 
-  
   getPatientsAdd() async {
-   
     User patientAdd;
     //Pedir lista de pacientes relacionados
     debugPrint("pidiendo pacientes");
@@ -69,10 +67,10 @@ class DoctorPatientsCustomAdd extends State<DoctorPatientsAdd> {
   void filterSearchResults(String query) {
     List<User> dummySearchList = List<User>();
     dummySearchList.addAll(patientsAdd);
-    if(query.isNotEmpty) {
+    if (query.isNotEmpty) {
       List<User> dummyListData = List<User>();
       dummySearchList.forEach((item) {
-        if(item.email.contains(query)) {
+        if (item.email.contains(query)) {
           dummyListData.add(item);
         }
       });
@@ -85,7 +83,6 @@ class DoctorPatientsCustomAdd extends State<DoctorPatientsAdd> {
         items = patientsAdd;
       });
     }
-
   }
 
   @override
@@ -96,9 +93,9 @@ class DoctorPatientsCustomAdd extends State<DoctorPatientsAdd> {
           title: Text('Pacientes no agregados'),
         ),
         body: SingleChildScrollView(
-          //physics: ScrollPhysics(),
-          child: Container(
-          child: Column(
+            //physics: ScrollPhysics(),
+            child: Container(
+                child: Column(
           key: UniqueKey(),
           children: <Widget>[
             Padding(
@@ -123,37 +120,41 @@ class DoctorPatientsCustomAdd extends State<DoctorPatientsAdd> {
               itemBuilder: (context, index) {
                 User patient = items[index];
                 return ListTile(
-                    onTap: () async {
-                      showDialog(
-                        context: context,
-                        builder: (BuildContext context) =>
-                            _buildPopupDialog(context, patient.email),
-                      );
-                      //getPatients();
-                      },
-                      title: Text(patient.email, style: DefaultTextStyle.of(context).style.apply(fontSizeFactor: 1.4)),
-                      //subtitle: Text(user.email),
-                      leading: CircleAvatar(
-                        child: Icon(Icons.account_circle_outlined),
-                    ),
-                    contentPadding: EdgeInsets.symmetric(vertical: 16.0, horizontal: 16.0),
-                    dense:true,  
-                  );
+                  onTap: () async {
+                    showDialog(
+                      context: context,
+                      builder: (BuildContext context) =>
+                          _buildPopupDialog(context, patient.email),
+                    );
+                    //getPatients();
+                  },
+                  title: Text(patient.email,
+                      style: DefaultTextStyle.of(context)
+                          .style
+                          .apply(fontSizeFactor: 1.4)),
+                  //subtitle: Text(user.email),
+                  leading: CircleAvatar(
+                    child: Icon(Icons.account_circle_outlined),
+                  ),
+                  contentPadding:
+                      EdgeInsets.symmetric(vertical: 16.0, horizontal: 16.0),
+                  dense: true,
+                );
               },
-              separatorBuilder: (context, index){
-                return Divider(thickness: 2, color: Colors.blue[700], indent: 15, endIndent: 20);
+              separatorBuilder: (context, index) {
+                return Divider(
+                    thickness: 2,
+                    color: Colors.grey[200],
+                    indent: 15,
+                    endIndent: 20);
               },
             ),
-            
           ],
-        ))
-      ),
+        ))),
       ),
     );
   }
-  
 }
-
 
 class PatientsList extends StatelessWidget {
   List<User> _patients;
@@ -191,21 +192,19 @@ class PatientsListItem extends ListTile {
 
 Widget _buildPopupDialog(BuildContext context, String email) {
   return new AlertDialog(
-    title: Text("Agregar a "+ email),
+    title: Text("Agregar a " + email),
     actions: <Widget>[
       new FlatButton(
         onPressed: () async {
           String tipe = await Utils().getFromToken('type');
           String token = await Utils().getToken();
-          var response = await EndPoints().linkUser(
-              email,
-              tipe,
-              token);
+          var response = await EndPoints().linkUser(email, tipe, token);
           Navigator.of(context).pop();
         },
         textColor: Theme.of(context).primaryColor,
         child: const Text('Aceptar'),
-      ),new FlatButton(
+      ),
+      new FlatButton(
         onPressed: () {
           Navigator.of(context).pop();
         },
