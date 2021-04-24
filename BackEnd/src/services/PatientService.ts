@@ -336,10 +336,10 @@ export default class PatientService {
                 }
             }
             if (size != 0) {
-                on = Number(((100/size)*on).toFixed(3));
-                off = Number(((100/size)*off).toFixed(3));
-                offB = Number(((100/size)*offB).toFixed(3));
-                onG = Number(((100/size)*onG).toFixed(3));
+                on = Number(((100/size)*on).toFixed(1));
+                off = Number(((100/size)*off).toFixed(1));
+                offB = Number(((100/size)*offB).toFixed(1));
+                onG = Number(((100/size)*onG).toFixed(1));
             }
             const finalResponse = {
                 on,
@@ -425,7 +425,7 @@ export default class PatientService {
                 acum += listJSON[index].score;
             }
             if (size != 0) {
-                average = (acum/size);
+                average = Number((acum/size).toFixed(1));
             }
             const finalResponse = {
                 Mes: 'null',
@@ -474,7 +474,7 @@ export default class PatientService {
                 acum += listJSON[index].Q2;
             }
             if (size != 0) {
-                average = (acum/(size*2));
+                average = Number((acum/(size*2)).toFixed(1));
             }
             const finalResponse = {
                 Mes: 'null',
@@ -520,7 +520,7 @@ export default class PatientService {
                 }
             }
             if (size != 0) {
-                average = (acum/(size));
+                average = Number((acum/(size)).toFixed(1));
             }
             const finalResponse = {
                 Mes: 'null',
@@ -568,7 +568,7 @@ export default class PatientService {
                 }
             }
             if (size != 0) {
-                average = (acum/(cant));
+                average = Number((acum/(cant)).toFixed(1));
             }
             const finalResponse = {
                 Mes: 'null',
