@@ -478,8 +478,8 @@ async function montlyReport(idPatient: number, initDate: string, endDate: string
         } else if(reportType === 'DISCREPANCY') {
             report = await PatientService.getReportDiscrepancyTwoDates(idPatient, initDate, endDate);
         }
-        report.mes = (before.getMonth()+1).toString();
-        report.Mes = (before.getMonth()+1).toString();
+        report.mes = (before.getMonth()+1);
+        report.Mes = (before.getMonth()+1);
         before = new Date(before.getFullYear(), before.getMonth() +1, 1 );
         resp.push(report);
     }
