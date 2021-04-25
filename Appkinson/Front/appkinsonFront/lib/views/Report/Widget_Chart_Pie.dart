@@ -5,10 +5,13 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 class WidgetChartPie extends StatefulWidget {
   var dataPie;
   String id;
-  WidgetChartPie({Key key, @required this.dataPie, @required this.id})
+  String tituloGrafica;
+  String descripcion;
+  WidgetChartPie({Key key, @required this.dataPie, @required this.id, @required this.tituloGrafica,
+  @required this.descripcion})
       : super(key: key);
   _WidgetChartPieState createState() =>
-      _WidgetChartPieState(this.dataPie, this.id);
+      _WidgetChartPieState(this.dataPie, this.id, this.tituloGrafica, this.descripcion);
 }
 
 var datapie;
@@ -16,9 +19,19 @@ var datapie;
 class _WidgetChartPieState extends State<WidgetChartPie> {
   List<charts.Series<DataPieChart, String>> _seriesPieData;
 
-  _WidgetChartPieState(this.dataPie, this.id);
+  _WidgetChartPieState(this.dataPie, this.id, this.tituloGrafica, this.descripcion);
   var dataPie;
   String id;
+  String tituloGrafica;
+  String descripcion;
+  String dataDescriptionBuild;
+_buildDataDescription(var dataPie){
+    String finalData = "";
+    for(int i = 0; i< dataPie.length; i++){
+        finalData = finalData + dataPie[i].valorAlfabetico + " : " + dataPie[i].valorNumerico.toString() + "\n";
+    }
+    return finalData;
+}
 
   _generateData(String id, var dataPie) {
     _seriesPieData.add(
@@ -44,24 +57,34 @@ class _WidgetChartPieState extends State<WidgetChartPie> {
   }
 
   @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          "Promedio estados paciente",
-        ),
-      ),
-      body: Container(
+ Widget build(BuildContext context) {
+    return MaterialApp(
+      home: DefaultTabController(
+        length: 2,
+        child: Scaffold(
+          appBar: AppBar(
+            bottom: TabBar(
+              tabs: [
+                Tab(icon: Icon(Icons.bar_chart)),
+                Tab(icon: Icon(Icons.description)),
+              ],
+            ),
+            title: Text(''),
+          ),
+           body:  TabBarView(
+            children: [
+         Container(
+        padding: EdgeInsets.all(30),
         color: Colors.white,
         child: Center(
           child: Column(
             children: <Widget>[
               Text(
-                'Promedio de estados del paciente',
+                "Promedio estados paciente",
                 style: TextStyle(
                     fontSize: 24.0,
                     fontWeight: FontWeight.bold,
-                    color: Colors.teal),
+                    color: Colors.blue),
               ),
               SizedBox(
                 height: 10.0,
@@ -95,8 +118,36 @@ class _WidgetChartPieState extends State<WidgetChartPie> {
           ),
         ),
       ),
+              Container(
+          padding: EdgeInsets.all(40),
+          decoration: BoxDecoration(
+           // borderRadius: BorderRadius.circular(13),
+            color: Colors.white,
+          ),
+          child: RichText(
+          text: TextSpan(
+            children: <TextSpan>[
+              TextSpan(text: 'Descripción: \n \n', style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold, 
+              color: Colors.blue)),
+              TextSpan(text: descripcion + '\n \n', style: TextStyle(fontSize: 15.0, fontWeight: FontWeight.bold, 
+              color: Colors.black26)),
+              TextSpan(text: ' Datos: \n \n ', style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold, 
+              color: Colors.blue)),
+              TextSpan(text: 'A continuación, encuentra los datos que se encuentran graficados: \n\n', style: TextStyle(fontSize: 15.0, fontWeight: FontWeight.bold, 
+              color: Colors.black26)),
+              TextSpan(text: _buildDataDescription(dataPie), style: TextStyle(fontSize: 15.0, fontWeight: FontWeight.bold, 
+              color: Colors.black26)),
+            ],
+          ),
+        )
+           
+        ),
+            ],
+          ),
+        ),
+      ),
     );
-  }
+}
 }
 
 class DataPieChart {

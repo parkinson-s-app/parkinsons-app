@@ -5,18 +5,40 @@ import 'dart:math' as math;
 
 class WidgetChartLine extends StatefulWidget {
   var dataLine;
-  String id;
-  WidgetChartLine({Key key, @required this.dataLine, @required this.id})
+  var id;
+  String titulo;
+  String ejex;
+  String ejey;
+  String description;
+  WidgetChartLine({Key key, @required this.dataLine, @required this.id, @required this.titulo,
+   @required this.ejex, @required this.ejey, @required this.description})
       : super(key: key);
   _WidgetChartLineState createState() =>
-      _WidgetChartLineState(this.dataLine, this.id);
+      _WidgetChartLineState(this.dataLine, this.id,this.titulo,this.ejex,this.ejey,this.description);
 }
 
 class _WidgetChartLineState extends State<WidgetChartLine> {
   List<charts.Series<dataLineSerie, int>> _seriesLineData;
   var dataLine;
-  String id;
-  _WidgetChartLineState(this.dataLine, this.id);
+  var id;
+  String titulo;
+  String ejex;
+  String ejey;
+  String description;
+  _WidgetChartLineState(this.dataLine, this.id,this.titulo,this.ejex,this.ejey, this.description);
+
+_buildDataDescription(dataLine){
+  String finalData = "";
+  for(int i = 0; i<dataLine.length; i++){
+    for(int j = 0; j< dataLine[i].length; j++){
+      finalData = finalData + dataLine[i][j].yearval.toString() + " mes : " +  dataLine[i][j].dataLineSerieval.toString() + " minutos de desfase \n";
+    }
+    print(finalData);
+    return finalData;
+  }
+
+  return finalData;
+}
 
   _generateColor() {
     var colors = [];
@@ -37,7 +59,7 @@ class _WidgetChartLineState extends State<WidgetChartLine> {
       _seriesLineData.add(
         charts.Series(
           colorFn: (__, _) => charts.ColorUtil.fromDartColor(colors[i]),
-          id: this.id + i.toString(),
+          id: id[0],
           data: dataLine[i],
           domainFn: (dataLineSerie dataLineSerie, _) => dataLineSerie.yearval,
           measureFn: (dataLineSerie dataLineSerie, _) =>
@@ -56,20 +78,30 @@ class _WidgetChartLineState extends State<WidgetChartLine> {
   }
 
   @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          "Desfase toma medicamentos",
-        ),
-      ),
-      body: Container(
+ Widget build(BuildContext context) {
+    return MaterialApp(
+      home: DefaultTabController(
+        length: 2,
+        child: Scaffold(
+          appBar: AppBar(
+            bottom: TabBar(
+              tabs: [
+                Tab(icon: Icon(Icons.bar_chart)),
+                Tab(icon: Icon(Icons.description)),
+              ],
+            ),
+            title: Text(''),
+          ),
+           body:  TabBarView(
+            children: [
+         Container(
+         padding: EdgeInsets.all(30),
         color: Colors.white,
         child: Center(
           child: Column(
             children: <Widget>[
               Text(
-                'Desfase en la toma de medicamentos',
+                titulo,
                 style: TextStyle(
                     fontSize: 24.0,
                     fontWeight: FontWeight.bold,
@@ -82,28 +114,65 @@ class _WidgetChartLineState extends State<WidgetChartLine> {
                     animate: true,
                     animationDuration: Duration(seconds: 5),
                     behaviors: [
-                      new charts.ChartTitle('Meses',
+                       new charts.SeriesLegend(
+                      outsideJustification: charts.OutsideJustification.endDrawArea,
+                      cellPadding: new EdgeInsets.only(right: 4.0, bottom: 4.0),
+                        entryTextStyle: charts.TextStyleSpec(
+                      color: charts.Color(r: 127, g: 63, b: 191),
+                      fontFamily: 'Georgia',
+                      fontSize: 11),
+                      desiredMaxRows: 2,
+                    ),
+                      new charts.ChartTitle(ejex,
                           behaviorPosition: charts.BehaviorPosition.bottom,
                           titleOutsideJustification:
                               charts.OutsideJustification.middleDrawArea),
-                      new charts.ChartTitle('Desfase',
+                      new charts.ChartTitle(ejey,
                           behaviorPosition: charts.BehaviorPosition.start,
                           titleOutsideJustification:
                               charts.OutsideJustification.middleDrawArea),
-                      new charts.ChartTitle(
+                      /*new charts.ChartTitle(
                         'Médicamento',
                         behaviorPosition: charts.BehaviorPosition.end,
                         titleOutsideJustification:
                             charts.OutsideJustification.middleDrawArea,
-                      )
+                      )*/
                     ]),
               ),
             ],
           ),
         ),
       ),
+          Container(
+          padding: EdgeInsets.all(40),
+          decoration: BoxDecoration(
+           // borderRadius: BorderRadius.circular(13),
+            color: Colors.white,
+          ),
+          child: RichText(
+          text: TextSpan(
+            children: <TextSpan>[
+              TextSpan(text: 'Descripción: \n \n', style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold, 
+              color: Colors.blue)),
+              TextSpan(text: description + '\n \n', style: TextStyle(fontSize: 15.0, fontWeight: FontWeight.bold, 
+              color: Colors.black26)),
+              TextSpan(text: ' Datos: \n \n ', style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold, 
+              color: Colors.blue)),
+              TextSpan(text: 'A continuación, encuentra los datos que se encuentran graficados: \n\n', style: TextStyle(fontSize: 15.0, fontWeight: FontWeight.bold, 
+              color: Colors.black26)),
+              TextSpan(text: _buildDataDescription(dataLine), style: TextStyle(fontSize: 15.0, fontWeight: FontWeight.bold, 
+              color: Colors.black26)),
+            ],
+          ),
+        )
+           
+        ),
+            ],
+          ),
+        ),
+      ),
     );
-  }
+}
 }
 
 class dataLineSerie {
