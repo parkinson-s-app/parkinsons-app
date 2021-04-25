@@ -28,6 +28,7 @@ class ButtonGoAboutFood extends StatelessWidget {
             String id = await Utils().getFromToken('id');
             itemsByType = await EndPoints().getItemsToolbox(id, token);
             print(itemsByType.length);
+            food.clear();
             for (int i = 0; i < itemsByType.length; i++) {
               itemToolbox = itemsByType[i];
               print(itemToolbox.type.compareTo('COMIDA'));

@@ -3,6 +3,7 @@ import 'package:appkinsonFront/services/EndPoints.dart';
 import 'package:appkinsonFront/utils/Utils.dart';
 import 'package:appkinsonFront/views/Register/InputFieldRegister.dart';
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class ItemToolbox {
   int idItem;
@@ -103,16 +104,24 @@ class _FormItemToolboxPageState extends State {
                                   vertical: 16.0, horizontal: 16.0),
                               child: RaisedButton(
                                   onPressed: () async{
-                                    debugPrint(titleController.text);
-                                    debugPrint("");
-                                    debugPrint(descripController.text);
-                                    debugPrint("");
-                                    debugPrint(linkController.text);
-                                    debugPrint(dropdownValue);
-                                    String token = await Utils().getToken();
-                                    EndPoints().sendItemToolbox(titleController.text.toString(), descripController.text.toString(), linkController.text.toString(), dropdownValue, token);
-                                    cleanData();
-                                    Navigator.pop(context);
+                                    if(await canLaunch(linkController.text)){
+                                      debugPrint(titleController.text);
+                                      debugPrint("");
+                                      debugPrint(descripController.text);
+                                      debugPrint("");
+                                      debugPrint(linkController.text);
+                                      debugPrint(dropdownValue);
+                                      String token = await Utils().getToken();
+                                      EndPoints().sendItemToolbox(titleController.text.toString(), descripController.text.toString(), linkController.text.toString(), dropdownValue, token);
+                                      cleanData();
+                                      Navigator.pop(context);
+                                    }else{
+                                      showDialog(
+                                        context: context,
+                                        builder: (BuildContext context) =>
+                                            _buildPopupDialog(context),
+                                      );
+                                    }
                                   },
                                   child: Text('Guardar'))),
                         ]))))));
@@ -126,4 +135,19 @@ cleanData(){
   titleController = new TextEditingController();
   descripController = new TextEditingController();
   linkController = new TextEditingController();
+}
+
+Widget _buildPopupDialog(BuildContext context) {
+  return new AlertDialog(
+    title: Text("Enlace invalido"),
+    actions: <Widget>[
+      new FlatButton(
+        onPressed: () {
+          Navigator.of(context).pop();
+        },
+        textColor: Theme.of(context).primaryColor,
+        child: const Text('Cancelar'),
+      ),
+    ],
+  );
 }

@@ -5,6 +5,7 @@ import 'package:appkinsonFront/utils/Utils.dart';
 import 'package:appkinsonFront/views/Administrator/FormAddItem.dart';
 import 'package:appkinsonFront/views/Administrator/item_widget_administrator.dart';
 import 'package:appkinsonFront/views/AlarmsAndMedicine/AlarmAndMedicinePage.dart';
+import 'package:appkinsonFront/views/ToolBox/item_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:intl/intl.dart';
@@ -27,7 +28,7 @@ class _ListExcercisesState extends State<ListExcercises> {
   //AlarmInfo alarm;
   @override
   Widget build(BuildContext context) => Scaffold(
-        backgroundColor: Colors.grey[100],
+        backgroundColor: Colors.white,
         appBar: AppBar(
           title: Text("Ejercicios"),
         ),
@@ -51,7 +52,7 @@ class _ListExcercisesState extends State<ListExcercises> {
       );
 
   Widget buildItem(item, int index, Animation<double> animation) =>
-      ItemToolboxWidgetAdministrator(
+      ItemToolboxWidgetGeneral(
         item: item,
         animation: animation,
         onClicked: () => removeItem(index),

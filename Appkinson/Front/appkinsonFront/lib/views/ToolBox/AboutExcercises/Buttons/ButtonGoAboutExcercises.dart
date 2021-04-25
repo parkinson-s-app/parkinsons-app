@@ -28,10 +28,12 @@ class ButtonGoAboutExcercises extends StatelessWidget {
             String id = await Utils().getFromToken('id');
             String token = await Utils().getToken();
             itemsByType = await EndPoints().getItemsToolbox(id, token);
+            print("Cantidad de items");
             print(itemsByType.length);
+            print(itemsByType.toString());
+            items.clear();
             for (int i = 0; i < itemsByType.length; i++) {
               itemToolbox = itemsByType[i];
-              print(itemToolbox.type.compareTo('EJERCICIO'));
               if (itemToolbox.type.compareTo('EJERCICIO') == 0) {
                 items.add(itemToolbox);
               }

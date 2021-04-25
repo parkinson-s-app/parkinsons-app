@@ -17,8 +17,8 @@ class ButtonLogout extends StatelessWidget {
         onPressed: () async {
           debugPrint("Tapped Log Out....");
           cleanLogin();
-          Navigator.pushReplacement(context,
-              MaterialPageRoute(builder: (BuildContext ctx) => HomePage()));
+          Navigator.push(context,
+              MaterialPageRoute(builder: (context){ return HomePage();}));
         },
         padding: EdgeInsets.symmetric(horizontal: 30),
         color: Colors.grey[50],

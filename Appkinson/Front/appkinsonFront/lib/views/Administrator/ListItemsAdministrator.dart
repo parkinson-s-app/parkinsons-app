@@ -30,7 +30,7 @@ class _ListItemsAdministratorState extends State<ListItemsAdministrator> {
   //AlarmInfo alarm;
   @override
   Widget build(BuildContext context) => Scaffold(
-    backgroundColor: Colors.teal,
+    backgroundColor: Colors.white,
     appBar: AppBar(
       title: Text("Items"),
     ),
@@ -73,7 +73,6 @@ class _ListItemsAdministratorState extends State<ListItemsAdministrator> {
   void removeItem(int index) {
     EndPoints().deleteItemToolbox(items[index].idItem.toString());
     final item = items.removeAt(index);
-
     key.currentState.removeItem(
       index,
           (context, animation) => buildItem(item, index, animation),
