@@ -1,4 +1,4 @@
-import { connect } from "../database";
+import { connect, executeSQL } from "../database";
 import debugLib from 'debug';
 import { Pool } from "mysql2/promise";
 
@@ -10,26 +10,20 @@ export default class CarerService {
      */
     public static async relatePatientToCarer(idCarer: number, idPatient: number, answer: string) {
         debug('relate Patient id patient: %s, id carer: %s', idPatient, idCarer);
-        let conn: Pool | undefined;
         try {
-            conn = await connect();
             const queryData = { ID_CARER: idCarer, ID_PATIENT: idPatient};
-            const resDeletion = await conn.query(
+            const resDeletion = await executeSQL(
                 'DELETE FROM requestlinkcarertopatient WHERE ID_CARER  = ? AND ID_PATIENT = ?',
                 [queryData.ID_CARER, queryData.ID_PATIENT]);
             debug(' Result deletion request %j', resDeletion);
             if(answer === 'ACCEPT') {
-                const res = await conn.query('INSERT INTO patientxcarer SET ?',[queryData]);
+                const res = await executeSQL('INSERT INTO patientxcarer SET ?',[queryData]);
                 debug('result adding row in patientxcarer: %j', res);
                 return res;
             }
             debug('answer was REJECTED result deleting row from requestlinkcarertopatient: %j', resDeletion);
-            conn.end();
             return resDeletion;
         } catch (e) {
-            if(conn) {
-                conn.end();
-            }
             debug('relate Patient to Carer Error: %s', e);
             throw e;
         }
@@ -40,17 +34,11 @@ export default class CarerService {
      */
     public static async requestRelatePatientToCarer(idCarer: number, idPatient: number) {
         debug('request relate Patient id patient: %s, id carer: ', idPatient, idCarer);
-        let conn: Pool | undefined;
         try {
-            conn = await connect();
             const queryData = { ID_CARER: idCarer, ID_PATIENT: idPatient};
-            const res = await conn.query('INSERT INTO requestlinkcarertopatient SET ?',[queryData]);
-            conn.end();
+            const res = await executeSQL('INSERT INTO requestlinkcarertopatient SET ?',[queryData]);
             return res;
         } catch (e) {
-            if(conn) {
-                conn.end();
-            }
             debug('request relate Patient to Carer Error: %s', e);
             throw e;
         }
@@ -62,9 +50,7 @@ export default class CarerService {
      */
     public static async getPatientsUnrelated(id: number) {
         debug('Unrelated Patients, id carer: ', id);
-        let conn: Pool | undefined;
         try {
-            conn = await connect();
             const query = `SELECT 
             p.ID_USER as IdUser,
             p.NAME as Name,
@@ -76,18 +62,14 @@ export default class CarerService {
             ( SELECT ID_PATIENT
                 FROM patientxcarer 
                 WHERE ID_CARER = ? )`;
-            const res = await conn.query(query,[id]);
+            const res = await executeSQL(query,[id]);
             debug('Unrelated Patients response query %s', res);
-            conn.end();
             if(res) {
                 return res[0];
             } else {
                 return null;
             }
         } catch (error) {
-            if(conn) {
-                conn.end();
-            }
             debug('Unrelated Patients error making query. Error: %s', error);
             throw error;
         }
@@ -99,9 +81,7 @@ export default class CarerService {
      */
     public static async getPatientsRelated(id: number) {
         debug('Related Patients, id carer: ', id);
-        let conn: Pool | undefined;
         try {
-            conn = await connect();
             const query = `
             SELECT ID_USER, NAME, EMAIL
             FROM patients
@@ -110,18 +90,14 @@ export default class CarerService {
             LEFT JOIN users 
             ON users.ID=patients.ID_USER
             WHERE ID_CARER = ?`;
-            const res = await conn.query(query,[id]);
+            const res = await executeSQL(query,[id]);
             debug('Related Patients response query %s', res);
-            conn.end();
             if(res) {
                 return res[0];
             } else {
                 return null;
             }
         } catch (error) {
-            if(conn) {
-                conn.end();
-            }
             debug('Unrelated Patients error making query. Error: %s', error);
             throw error;
         }
@@ -132,22 +108,16 @@ export default class CarerService {
      */
     public static async getCarerById(id : number) {
         debug('getCarerById id: %s', id);
-        let conn: Pool | undefined;
         try {
-            conn = await connect();
-            const person =  await conn.query(
+            const person =  await executeSQL(
                 `SELECT EMAIL, NAME, PHOTOPATH  
                 FROM doctors
                 LEFT JOIN users
                 ON users.ID = doctors.ID_USER
                 WHERE users.ID = ? `,[id]);
-            conn.end();
             debug('result search carer by id: %j', person[0]);
             return person[0];
         } catch (error) {
-            if(conn) {
-                conn.end();
-            }
             debug('GetCarerByID failed. Error: %s', error);
             throw error;
         }
@@ -155,17 +125,11 @@ export default class CarerService {
     
     public static async unrelatePatient(idCarer: number, idPatient: number) {
         debug('Unrelate patient Carer: %d, patient: %d', idCarer, idPatient);
-        let conn: Pool | undefined;
         try {
-            conn = await connect();
-            const res = await conn.query('DELETE FROM patientxcarer WHERE ID_CARER = ? AND ID_PATIENT = ?',[idCarer, idPatient]);
+            const res = await executeSQL('DELETE FROM patientxcarer WHERE ID_CARER = ? AND ID_PATIENT = ?',[idCarer, idPatient]);
             debug('unrelated patient. response: %j', res);
-            conn.end();
             return res;
         } catch (e) {
-            if(conn) {
-                conn.end();
-            }
             debug('unrelated patient carer Catch Error: %s, %j', e.stack, e);
             throw Error(e);
         }

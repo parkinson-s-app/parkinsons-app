@@ -1,4 +1,4 @@
-import { connect } from "../database";
+import { executeSQL } from "../database";
 import debugLib from 'debug';
 import IPersonDto from "../models/IPersonDto";
 import * as bcrypt from "bcryptjs";
@@ -12,9 +12,7 @@ export default class PersonService {
     
     public static async savePerson(person: IPersonDto) {
         debug('savePerson person: %j', person);
-        let conn: Pool | undefined;
         try {
-            conn = await connect();
             const cript = await bcrypt.hash(person.password,10);
             const userSave = {
                 EMAIL: person.email,
@@ -22,7 +20,7 @@ export default class PersonService {
                 TYPE: person.type
             }
             debug('savePerson person to save: %j', userSave);
-            const res = await conn.query('INSERT INTO users SET ?',[userSave]);
+            const res = await executeSQL('INSERT INTO users SET ?',[userSave]);
             debug('savePerson saved and returned: %j', res);
             if( res && res[0] ) {
                 const inserted = res[0] as any;
@@ -38,20 +36,16 @@ export default class PersonService {
                 }
                 debug('Registro data to insert in type tables %j', idPerson);
                 if( userSave.TYPE === 'Paciente' ) {
-                    await conn.query('INSERT INTO patients SET ?', [idPerson]);
+                    await executeSQL('INSERT INTO patients SET ?', [idPerson]);
                 } else if( userSave.TYPE === 'Doctor' ) {
-                    await conn.query('INSERT INTO doctors SET ?', [idPerson]);
+                    await executeSQL('INSERT INTO doctors SET ?', [idPerson]);
                 } else if( userSave.TYPE === 'Cuidador' ) {
-                    await conn.query('INSERT INTO carers SET ?', [idPerson]);
+                    await executeSQL('INSERT INTO carers SET ?', [idPerson]);
                 }
-                conn.end();
             }
             return res;
         } catch (e) {
             debug('savePerson Catch Error: %s, %j', e.stack, e);
-            if(conn) {
-                conn.end();
-            }
             throw e;
         }
     }
@@ -61,18 +55,12 @@ export default class PersonService {
      */
     public static async getPeople() {
         debug('getPeople start');
-        let conn: Pool | undefined;
         try {
-            conn = await connect();
             debug('getPeople bd connected');
-            const people = await conn.query('SELECT * FROM users');
+            const people = await executeSQL('SELECT ID as Id, EMAIL as Email, TYPE as Type FROM users');
             debug('getPeople response db: %j', people[0]);
-            conn.end();
             return people[0];
         } catch (error) {
-            if(conn) {
-                conn.end();
-            }
             debug("getPeople failed. Error: %j", error);
             throw error;
         }
@@ -83,16 +71,10 @@ export default class PersonService {
      */
     public static async getPersonByEmail(email: string) {
         debug('getPersonByEmail email: %s', email);
-        let conn: Pool | undefined;
         try {
-            conn = await connect();
-            const person =  await conn.query('SELECT * FROM users WHERE EMAIL = ?',[email]);
-            conn.end();
+            const person =  await executeSQL('SELECT * FROM users WHERE EMAIL = ?',[email]);
             return person[0];
         } catch (error) {
-            if(conn) {
-                conn.end();
-            }
             debug("getPersonByEmail failed. Error: %j", error);
             throw error;
         }
@@ -102,16 +84,10 @@ export default class PersonService {
      */
     public static async getPersonById(id: number) {
         debug('getPersonById id: %s', id);
-        let conn: Pool | undefined;
         try {
-            conn = await connect();
-            const person =  await conn.query('SELECT * FROM users WHERE ID = ?',[id]);
-            conn.end();
+            const person =  await executeSQL('SELECT * FROM users WHERE ID = ?',[id]);
             return person[0];
         } catch (error) {
-            if(conn) {
-                conn.end();
-            }
             debug("getPersonById failed. Error: %j", error);
             throw error;
         }
@@ -122,36 +98,30 @@ export default class PersonService {
      */
     public static async updatePerson(id: number, userUpdated: any) {
         debug('updatePerson id: %s', id);
-        let conn: Pool | undefined;
         try {
             const user = await this.getPersonById(id) as any;
             debug('updatePerson person to update: %j to %j', user, userUpdated);
-            conn = await connect();
             if( user && user[0] ) {
                 const type = user[0].TYPE;
                 debug('updatePerson person type: %s', type);
                 let person;
                     if( type === 'Doctor') {
                         debug('updatePerson person to update is a doctor');
-                        person =  await conn.query('UPDATE doctors SET ? WHERE ID_USER = ?',[userUpdated, id]);
+                        person =  await executeSQL('UPDATE doctors SET ? WHERE ID_USER = ?',[userUpdated, id]);
                     } else if( type === 'Paciente') {
                         debug('updatePerson person to update is a patient');
-                        person =  await conn.query('UPDATE patients SET ? WHERE ID_USER = ?',[userUpdated, id]);
+                        person =  await executeSQL('UPDATE patients SET ? WHERE ID_USER = ?',[userUpdated, id]);
                     } else if ( type === 'Cuidador') {
                         debug('updatePerson person to update is a carer');
-                        person =  await conn.query('UPDATE carers SET ? WHERE ID_USER = ?',[userUpdated, id]);
+                        person =  await executeSQL('UPDATE carers SET ? WHERE ID_USER = ?',[userUpdated, id]);
                     }
-                    conn.end();
                 debug('updatePerson returning person %j', person);
                 return person;
             } else  {
-                conn.end();
+                
                 return null;
             }
         } catch (error) {
-            if(conn) {
-                conn.end();
-            }
             debug('updatePerson failed. Error: %j', error);
             throw error;
         }
@@ -159,9 +129,7 @@ export default class PersonService {
     
     public static async getRelationRequest(id: number) {
         debug('Related Patients, id doctor: ', id);
-        let conn: Pool | undefined;
         try {
-            conn = await connect();
             const query = `
             SELECT EMAIL, TYPE, ID, NAME FROM 
             (                
@@ -183,18 +151,14 @@ export default class PersonService {
             )
            ) as result
            WHERE result.ID_PATIENT = ?`;
-            const res = await conn.query(query,[id]);
+            const res = await executeSQL(query,[id]);
             debug('Requests response query %s', res);
-            conn.end();
             if(res) {
                 return res[0];
             } else {
                 return null;
             }
         } catch (error) {
-            if(conn) {
-                conn.end();
-            }
             debug('Unrelated Patients error making query. Error: %s', error);
             return null;
         }
@@ -203,17 +167,11 @@ export default class PersonService {
     public static async saveSymptomsForm(id: number, symptomsFormData: ISymptomsFormDto) {
         symptomsFormData.id_patient=id;
         debug('saveSymptoms to person: %j, id: %s', symptomsFormData, id);
-        let conn: Pool | undefined;
         try {
-            conn = await connect();
-            const res = await conn.query('INSERT INTO symptomsformpatient SET ?',[symptomsFormData]);
+            const res = await executeSQL('INSERT INTO symptomsformpatient SET ?',[symptomsFormData]);
             debug('savePerson saved and returned: %j', res);
-            conn.end();
             return res;
         } catch (e) {
-            if(conn) {
-                conn.end();
-            }
             debug('saveSymptoms Catch Error: %s, %j', e.stack, e);
             throw e;
         }
@@ -222,17 +180,11 @@ export default class PersonService {
     public static async updateSymptomsForm(id: number, symptomsFormData: ISymptomsFormDto) {
         symptomsFormData.id_patient=id;
         debug('updateSymptoms to person: %j, id: %s', symptomsFormData, id);
-        let conn: Pool | undefined;
-        try {
-            conn = await connect(); // UPDATE patients SET ? WHERE ID_USER = ?
-            const res = await conn.query('UPDATE symptomsformpatient SET ? WHERE ID_PATIENT = ? AND formdate = ?',[symptomsFormData, symptomsFormData.id_patient, symptomsFormData.formdate]);
+        try { // UPDATE patients SET ? WHERE ID_USER = ?
+            const res = await executeSQL('UPDATE symptomsformpatient SET ? WHERE ID_PATIENT = ? AND formdate = ?',[symptomsFormData, symptomsFormData.id_patient, symptomsFormData.formdate]);
             debug('updatePerson updated and returned: %j', res);
-            conn.end();
             return res;
         } catch (e) {
-            if(conn) {
-                conn.end();
-            }
             debug('updateSymptoms Catch Error: %s, %j', e.stack, e);
             throw e;
         }
@@ -240,17 +192,11 @@ export default class PersonService {
 
     public static async deleteSymptomsForm(id: number, date: string) {
         debug('deleteSymptomsForm SymptomsForm: %d', id);
-        let conn: Pool | undefined;
         try {
-            conn = await connect();
-            const res = await conn.query('DELETE FROM symptomsformpatient WHERE ID_PATIENT = ? AND formdate = ?',[id, date]);
+            const res = await executeSQL('DELETE FROM symptomsformpatient WHERE ID_PATIENT = ? AND formdate = ?',[id, date]);
             debug('deleteSymptomsForm deleted. response: %j', res);
-            conn.end();
             return res;
         } catch (e) {
-            if(conn) {
-                conn.end();
-            }
             debug('deleteSymptomsForm Catch Error: %s, %j', e.stack, e);
             throw Error(e);
         }
@@ -261,17 +207,11 @@ export default class PersonService {
      */
     public static async getSymptomsForm(id: number) {
         debug('Symptoms of person: id: %s', id);
-        let conn: Pool | undefined;
         try {
-            conn = await connect();
-            const res = await conn.query('SELECT * FROM symptomsformpatient WHERE ID_PATIENT = ?',[id]);
+            const res = await executeSQL('SELECT * FROM symptomsformpatient WHERE ID_PATIENT = ?',[id]);
             debug('Symptoms found: %j', res[0]);
-            conn.end();
             return res[0];
         } catch (e) {
-            if(conn) {
-                conn.end();
-            }
             debug('Getting Symptoms Catch Error: %s, %j', e.stack, e);
             throw e;
         }
@@ -280,9 +220,7 @@ export default class PersonService {
 
     public static async getToolboxItems() {
         debug('getting toolbox items ');
-        let conn: Pool | undefined;
         try {
-            conn = await connect();
             const query = 
                 `SELECT
                     ID,
@@ -291,18 +229,14 @@ export default class PersonService {
                     URL,
                     Type
                 FROM toolboxitems;`;
-            const res = await conn.query(query);
+            const res = await executeSQL(query);
             debug('getting toolbox items response query %s', res[0]);
-            conn.end();
             if(res) {
                 return res[0];
             } else {
                 return null;
             }
         } catch (error) {
-            if(conn) {
-                conn.end();
-            }
             debug('getting toolbox items error making query. Error: %s', error);
             throw error;
         }
@@ -310,24 +244,18 @@ export default class PersonService {
 
     public static async resetPassword(credentials: IPersonResetDto) {
         debug('Resetting Password: ');
-        let conn: Pool | undefined;
         try {
-            conn = await connect();
             const cript = await bcrypt.hash(credentials.Password,10);
             const userSave = {
                 EMAIL: credentials.Email,
                 PASSWORD: cript
             }
             debug('Credentials to reset: %j', userSave);
-            const res = await conn.query('UPDATE users SET PASSWORD = ? WHERE EMAIL = ?',[userSave.PASSWORD, userSave.EMAIL]);
+            const res = await executeSQL('UPDATE users SET PASSWORD = ? WHERE EMAIL = ?',[userSave.PASSWORD, userSave.EMAIL]);
             debug('Reset credentials result: %j', res);
-            conn.end();
             return res[0];
         } catch (e) {
             debug('Reset credentials Catch Error: %s, %j', e.stack, e);
-            if(conn) {
-                conn.end();
-            }
             throw e;
         }
     }

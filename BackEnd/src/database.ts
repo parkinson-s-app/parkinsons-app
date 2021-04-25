@@ -1,4 +1,4 @@
-import { createPool } from "mysql2/promise";
+import { createPool, Pool } from "mysql2/promise";
 import config from "./config";
 import debugLib from 'debug';
 
@@ -18,6 +18,24 @@ export async function connect () {
         return connection;
     } catch (error) {
         debug('Error connecting to db, error: %j', error);
+        throw error;
+    }
+}
+
+export async function executeSQL(sqlQuery: string, values?: any) {
+    let conn: Pool | undefined;
+    try {
+        debug(`[DB NEW CONNECTION]`);
+        conn = await connect();
+        const result = (values) ? await conn.query(sqlQuery, values) : await conn.query(sqlQuery);
+        debug('Query executed. Result: %j', result[0]);
+        conn.end();
+        return result;
+    } catch (error) {
+        if(conn) {
+            conn.end();
+        }
+        debug('[ERROR-DB]: %s', error);
         throw error;
     }
 }
