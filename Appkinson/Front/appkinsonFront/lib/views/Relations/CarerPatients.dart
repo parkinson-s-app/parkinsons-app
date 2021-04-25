@@ -155,19 +155,23 @@ class CarerPatientsCustom extends State<CarerPatients> {
                           dateBd.month, dateBd.day, dateBd.hour, 0, 0);
                       final DateTime endTime =
                           startTime.add(const Duration(hours: 1));
-                      if (codeList[a]['Q1'] == 'on') {
+                      if (codeList[a]['Q1'] == 'on' ||
+                          codeList[a]['Q1'] == 'On') {
                         meetingsCarer.add(Meeting(
                             'on', startTime, endTime, Colors.green, false));
                       }
-                      if (codeList[a]['Q1'] == 'off') {
+                      if (codeList[a]['Q1'] == 'off' ||
+                          codeList[a]['Q1'] == 'Off') {
                         meetingsCarer.add(Meeting(
                             'off', startTime, endTime, Colors.red, false));
                       }
-                      if (codeList[a]['Q1'] == 'on bueno') {
+                      if (codeList[a]['Q1'] == 'on bueno' ||
+                          codeList[a]['Q1'] == 'On Bueno') {
                         meetingsCarer.add(Meeting('on bueno', startTime,
                             endTime, Colors.green[700], false));
                       }
-                      if (codeList[a]['Q1'] == 'off malo') {
+                      if (codeList[a]['Q1'] == 'off malo' ||
+                          codeList[a]['Q1'] == 'Off Malo') {
                         meetingsCarer.add(Meeting('off malo', startTime,
                             endTime, Colors.red[800], false));
                       }

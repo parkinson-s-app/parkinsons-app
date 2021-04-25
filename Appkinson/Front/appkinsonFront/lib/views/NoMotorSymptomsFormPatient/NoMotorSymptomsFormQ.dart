@@ -33,11 +33,16 @@ import '../NoMotorSymptomsFormPatient/NoMotorSymptomsFormQ29.dart';
 import '../NoMotorSymptomsFormPatient/NoMotorSymptomsFormQ30.dart';
 
 class NoMotorSymptomsFormQ extends StatefulWidget {
+  final int idPatient;
+
+  NoMotorSymptomsFormQ({Key key, this.idPatient}) : super(key: key);
   @override
-  _NoMotorSymptomsFormQ createState() => _NoMotorSymptomsFormQ();
+  _NoMotorSymptomsFormQ createState() => _NoMotorSymptomsFormQ(this.idPatient);
 }
 
 class _NoMotorSymptomsFormQ extends State<NoMotorSymptomsFormQ> {
+  final int idPatient;
+  _NoMotorSymptomsFormQ(this.idPatient);
   final controller = PageController(
     initialPage: 0,
   );
@@ -96,7 +101,9 @@ class _NoMotorSymptomsFormQ extends State<NoMotorSymptomsFormQ> {
           NoMotorSymptomsFormQ27(),
           NoMotorSymptomsFormQ28(),
           NoMotorSymptomsFormQ29(),
-          NoMotorSymptomsFormQ30(),
+          NoMotorSymptomsFormQ30(
+            idPatient: idPatient,
+          ),
         ],
       ),
     );

@@ -1,3 +1,4 @@
+import 'package:appkinsonFront/views/AlarmsAndMedicine/AlarmAndMedicinePage.dart';
 import 'package:appkinsonFront/views/HomeDifferentUsers/Patient/Buttons/ButtonGoNoMotorSymptoms.dart';
 import 'package:flutter/material.dart';
 import 'Buttons/ButtonGoCalendar.dart';

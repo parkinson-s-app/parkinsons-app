@@ -1,6 +1,7 @@
 import 'package:appkinsonFront/views/Relations/Buttons/ButtonGoCalendarFromCarer.dart';
 import 'package:appkinsonFront/views/Relations/Buttons/ButtonGoCalendarFromDoctor.dart';
 import 'package:appkinsonFront/views/Relations/Buttons/ButtonGoFormFeelsFromCarer.dart';
+import 'package:appkinsonFront/views/Relations/Buttons/ButtonGoFormNoMotoresFromCarer.dart';
 import 'package:appkinsonFront/views/Relations/Buttons/ButtonGoMedicinesFromCarer.dart';
 import 'package:appkinsonFront/views/Relations/Buttons/ButtonGoMedicinesFromDoctor.dart';
 import 'package:appkinsonFront/views/Relations/Buttons/ButtonGoReporter.dart';
@@ -66,6 +67,9 @@ class InteractionCarerPatient extends StatelessWidget {
             children: <Widget>[
               Row(
                 children: <Widget>[
+                  SizedBox(
+                    width: 10,
+                  ),
                   Column(
                     children: <Widget>[
                       ButtonGoCalendarFromCarer(),
@@ -73,31 +77,24 @@ class InteractionCarerPatient extends StatelessWidget {
                         "Calendario",
                         style: TextStyle(
                             color: Colors.blue[900],
-                            fontSize: 15,
+                            fontSize: 20,
                             fontFamily: "Raleway2"),
                       )
                     ],
                   ),
-                  Column(
-                    children: <Widget>[
-                      ButtonGoMedicinesFromCarer(),
-                      Text(
-                        "Medicamentos",
-                        style: TextStyle(
-                            color: Colors.blue[900],
-                            fontSize: 15,
-                            fontFamily: "Raleway2"),
-                      )
-                    ],
+                  SizedBox(
+                    width: 30,
                   ),
                   Column(
                     children: <Widget>[
-                      ButtonGoFormFeelsFromCarer(),
+                      ButtonGoFormFeelsFromCarer(
+                        idPatient: this.idPatient,
+                      ),
                       Text(
                         "Sentimientos",
                         style: TextStyle(
                             color: Colors.blue[900],
-                            fontSize: 15,
+                            fontSize: 20,
                             fontFamily: "Raleway2"),
                       )
                     ],
@@ -119,16 +116,41 @@ class InteractionCarerPatient extends StatelessWidget {
               SizedBox(
                 height: 30,
               ),
-              Column(
+              Row(
                 children: <Widget>[
-                  ButtonGoFormFeelsFromCarer(),
-                  Text(
-                    "Formulario Sintomas \nno motores",
-                    style: TextStyle(
-                        color: Colors.blue[900],
-                        fontSize: 15,
-                        fontFamily: "Raleway2"),
-                  )
+                  SizedBox(
+                    width: 10,
+                  ),
+                  Column(
+                    children: <Widget>[
+                      ButtonGoMedicinesFromCarer(
+                        idPatient: this.idPatient,
+                      ),
+                      Text(
+                        "Medicamentos \n",
+                        style: TextStyle(
+                            color: Colors.blue[900],
+                            fontSize: 20,
+                            fontFamily: "Raleway2"),
+                      )
+                    ],
+                  ),
+                  SizedBox(
+                    width: 2,
+                  ),
+                  Column(children: [
+                    ButtonGoFormNoMotoresFromCarer(
+                      idPatient: this.idPatient,
+                    ),
+                    Text(
+                      "Formulario Síntomas \nno motores",
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                          color: Colors.blue[900],
+                          fontSize: 20,
+                          fontFamily: "Raleway2"),
+                    )
+                  ])
                 ],
               ),
             ],

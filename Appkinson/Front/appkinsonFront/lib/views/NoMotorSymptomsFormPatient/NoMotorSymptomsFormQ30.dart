@@ -35,8 +35,12 @@ import 'NoMotorSymptomsFormQ28.dart';
 import 'NoMotorSymptomsFormQ29.dart';
 
 class NoMotorSymptomsFormQ30 extends StatefulWidget {
+  final int idPatient;
+
+  NoMotorSymptomsFormQ30({Key key, this.idPatient}) : super(key: key);
   @override
-  _NoMotorSymptomsFormQ30 createState() => _NoMotorSymptomsFormQ30();
+  _NoMotorSymptomsFormQ30 createState() =>
+      _NoMotorSymptomsFormQ30(this.idPatient);
 }
 
 enum SigningCharacter { Si, No, Nada }
@@ -44,6 +48,8 @@ SigningCharacter _character;
 int selectedStateRadioQ30 = 0;
 
 class _NoMotorSymptomsFormQ30 extends State<NoMotorSymptomsFormQ30> {
+  final int idPatient;
+  _NoMotorSymptomsFormQ30(this.idPatient);
   void initState() {
     super.initState();
     _character = SigningCharacter.Nada;
@@ -159,7 +165,8 @@ class _NoMotorSymptomsFormQ30 extends State<NoMotorSymptomsFormQ30> {
                   String id = await Utils().getFromToken('id');
                   String token = await Utils().getToken();
                   var savedEmotional = await EndPoints()
-                      .registerNoMotorSymptomsForm(patientForm, id, token);
+                      .registerNoMotorSymptomsForm(
+                          patientForm, idPatient, token);
 
                   //var savedEmotional2 = await EndPoints().getNoMotorSymptomsForm( id, token, new DateTime.utc(2021, 02, 20) , patientForm.date);
                   debugPrint("formulario enviado");

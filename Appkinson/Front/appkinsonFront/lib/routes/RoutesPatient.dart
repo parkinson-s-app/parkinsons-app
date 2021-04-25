@@ -1,4 +1,5 @@
 import 'package:appkinsonFront/views/Calendar/CalendarScreenView2.dart';
+import 'package:appkinsonFront/views/EmotionalForm/EmotionalFormQ.dart';
 import 'package:appkinsonFront/views/Game/countDownGame.dart';
 import 'package:appkinsonFront/views/Medicines/medicines.dart';
 import 'package:appkinsonFront/views/NoMotorSymptomsFormPatient/NoMotorSymptomsFormQ.dart';
@@ -25,9 +26,22 @@ class RoutesPatient {
         new MaterialPageRoute(builder: (context) => CalendarScreenView2()));
   }
 
-  toNoMotorSymptoms(BuildContext context) {
-    Navigator.push(context,
-        new MaterialPageRoute(builder: (context) => NoMotorSymptomsFormQ()));
+  toNoMotorSymptoms(BuildContext context, int idPatient) {
+    Navigator.push(
+        context,
+        new MaterialPageRoute(
+            builder: (context) => NoMotorSymptomsFormQ(
+                  idPatient: idPatient,
+                )));
+  }
+
+  toFeelsForm(BuildContext context, int idPatient) {
+    Navigator.push(
+        context,
+        new MaterialPageRoute(
+            builder: (context) => EmotionalFormQ(
+                  idPatient: idPatient,
+                )));
   }
 
   toScheduleMedicines(BuildContext context, int idPatient) {
@@ -35,8 +49,8 @@ class RoutesPatient {
         context,
         new MaterialPageRoute(
             builder: (context) => Medicines(
-              idPatient: idPatient,
-            )));
+                  idPatient: idPatient,
+                )));
   }
 
   toNotifications(BuildContext context) {
@@ -68,12 +82,14 @@ class RoutesPatient {
     Navigator.push(context,
         new MaterialPageRoute(builder: (context) => SymptomsFormPatient()));
   }
+
   toToolbox(BuildContext context) {
-    Navigator.push(context,
-        new MaterialPageRoute(builder: (context) => toolbox()));
+    Navigator.push(
+        context, new MaterialPageRoute(builder: (context) => toolbox()));
   }
+
   toGame(BuildContext context) {
-    Navigator.push(context,
-        new MaterialPageRoute(builder: (context) => CountDownTimer()));
+    Navigator.push(
+        context, new MaterialPageRoute(builder: (context) => CountDownTimer()));
   }
 }

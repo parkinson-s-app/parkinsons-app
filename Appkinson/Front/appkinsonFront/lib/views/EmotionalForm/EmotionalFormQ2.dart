@@ -7,8 +7,11 @@ import '../../services/EndPoints.dart';
 import 'EmotionalFormQ1.dart';
 
 class EmotionalFormQ2 extends StatefulWidget {
+  final int idPatient;
+
+  EmotionalFormQ2({Key key, this.idPatient}) : super(key: key);
   @override
-  _EmotionalFormQ2 createState() => _EmotionalFormQ2();
+  _EmotionalFormQ2 createState() => _EmotionalFormQ2(this.idPatient);
 }
 
 enum SigningCharacter { Cero, Uno, Dos, Tres, Nada }
@@ -16,6 +19,8 @@ SigningCharacter _character;
 int selectedStateRadioQ2 = -1;
 
 class _EmotionalFormQ2 extends State<EmotionalFormQ2> {
+  final int idPatient;
+  _EmotionalFormQ2(this.idPatient);
   void initState() {
     super.initState();
     _character = SigningCharacter.Nada;
@@ -141,7 +146,7 @@ class _EmotionalFormQ2 extends State<EmotionalFormQ2> {
                   String id = await Utils().getFromToken('id');
                   String token = await Utils().getToken();
                   var savedEmotional = await EndPoints()
-                      .registerEmotionalForm(patientForm, id, token);
+                      .registerEmotionalForm(patientForm, idPatient, token);
 
                   //var savedEmotional2 = await EndPoints().getEmotionalForm( id, token, new DateTime.utc(2021, 02, 20) , patientForm.date);
                   debugPrint("formulario enviado");

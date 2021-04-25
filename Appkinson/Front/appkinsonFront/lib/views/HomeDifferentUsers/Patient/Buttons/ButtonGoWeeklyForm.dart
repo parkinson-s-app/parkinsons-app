@@ -1,3 +1,5 @@
+import 'package:appkinsonFront/routes/RoutesPatient.dart';
+import 'package:appkinsonFront/utils/Utils.dart';
 import 'package:flutter/material.dart';
 import '../../../EmotionalForm/EmotionalFormQ.dart';
 
@@ -12,9 +14,10 @@ class ButtonGoWeeklyForm extends StatelessWidget {
         shape:
             RoundedRectangleBorder(borderRadius: BorderRadius.circular(18.0)),
         //   side: BorderSide(color: Color.fromRGBO(0, 160, 227, 1))),
-        onPressed: () {
-          Navigator.push(context,
-              new MaterialPageRoute(builder: (context) => EmotionalFormQ()));
+        onPressed: () async {
+          String id = await Utils().getFromToken('id');
+          String token = await Utils().getToken();
+          RoutesPatient().toFeelsForm(context, int.parse(id));
         },
         padding: EdgeInsets.symmetric(horizontal: 10),
         color: Colors.grey[50],

@@ -5,11 +5,16 @@ import '../EmotionalForm/EmotionalFormQ1.dart';
 import '../EmotionalForm/EmotionalFormQ2.dart';
 
 class EmotionalFormQ extends StatefulWidget {
+  final int idPatient;
+
+  EmotionalFormQ({Key key, this.idPatient}) : super(key: key);
   @override
-  _EmotionalFormQ createState() => _EmotionalFormQ();
+  _EmotionalFormQ createState() => _EmotionalFormQ(this.idPatient);
 }
 
 class _EmotionalFormQ extends State<EmotionalFormQ> {
+  final int idPatient;
+  _EmotionalFormQ(this.idPatient);
   final controller = PageController(
     initialPage: 0,
   );
@@ -41,7 +46,9 @@ class _EmotionalFormQ extends State<EmotionalFormQ> {
         scrollDirection: Axis.vertical,
         children: [
           EmotionalFormQ1(),
-          EmotionalFormQ2(),
+          EmotionalFormQ2(
+            idPatient: idPatient,
+          ),
         ],
       ),
     );

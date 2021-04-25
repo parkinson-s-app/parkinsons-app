@@ -8,7 +8,7 @@ class ButtonGoCalendarFromCarer extends StatelessWidget {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return Container(
-      height: 90,
+      height: 130,
       margin: EdgeInsets.symmetric(horizontal: 20),
       child: RaisedButton(
         shape:
@@ -22,7 +22,7 @@ class ButtonGoCalendarFromCarer extends StatelessWidget {
         //textColor: Colors.white,
         child: Image.asset(
           "assets/images/calendario.png",
-          height: size.height * 0.08,
+          height: size.height * 0.15,
         ),
         // Text("Registrarse ", style:  TextStyle(fontSize: 15)),
       ),
