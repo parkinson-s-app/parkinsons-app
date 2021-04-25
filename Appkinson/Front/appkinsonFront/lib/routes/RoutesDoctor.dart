@@ -87,33 +87,46 @@ class RoutesDoctor {
                 )));
   }
 
-  toReportChartPie(BuildContext context, String id, var dataPie) {
+  toReportChartPie(BuildContext context, String id, var dataPie, String titulo, String descripcion) {
     Navigator.push(
         context,
         new MaterialPageRoute(
             builder: (context) => WidgetChartPie(
                   id: id,
                   dataPie: dataPie,
+                  tituloGrafica: titulo,
+                  descripcion: descripcion
                 )));
   }
 
-  toReportChartLine(BuildContext context, String id, var dataLine) {
+  toReportChartLine(BuildContext context, var id, var dataLine, String titulo, String ejex, String ejey,
+  String description) {
     Navigator.push(
         context,
         new MaterialPageRoute(
             builder: (context) => WidgetChartLine(
                   id: id,
                   dataLine: dataLine,
+                  titulo: titulo,
+                  ejex: ejex,
+                  ejey: ejey,
+                  description: description,
                 )));
   }
 
-  toReportChartSerie(BuildContext context, String id, var dataLine) {
+  toReportChartSerie(BuildContext context, var id, var dataLine, String titulo, var colors,
+  String ejex, String ejey, String description) {
     Navigator.push(
         context,
         new MaterialPageRoute(
             builder: (context) => WidgetChartSerie(
                   id: id,
                   dataSerie: dataLine,
+                  titulo: titulo, 
+                  colors: colors,
+                  ejex: ejex,
+                  ejeY: ejey,
+                  description: description
                 )));
   }
 }
