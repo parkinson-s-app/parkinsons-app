@@ -115,7 +115,7 @@ class RoutesDoctor {
   }
 
   toReportChartSerie(BuildContext context, var id, var dataLine, String titulo, var colors,
-  String ejex, String ejey, String description) {
+  String ejex, String ejey, String description, String dataDescription) {
     Navigator.push(
         context,
         new MaterialPageRoute(
@@ -126,7 +126,8 @@ class RoutesDoctor {
                   colors: colors,
                   ejex: ejex,
                   ejeY: ejey,
-                  description: description
+                  description: description,
+                  dataDescription: dataDescription,
                 )));
   }
 }

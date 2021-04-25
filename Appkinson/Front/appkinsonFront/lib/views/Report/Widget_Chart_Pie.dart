@@ -119,7 +119,7 @@ _buildDataDescription(var dataPie){
         ),
       ),
               Container(
-          padding: EdgeInsets.all(60),
+          padding: EdgeInsets.all(40),
           decoration: BoxDecoration(
            // borderRadius: BorderRadius.circular(13),
             color: Colors.white,

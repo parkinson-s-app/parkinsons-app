@@ -11,20 +11,22 @@ class WidgetChartSerie extends StatefulWidget {
   String ejex;
   String ejeY;
   String description;
+  String dataDescription;
   WidgetChartSerie({Key key, @required this.dataSerie, @required this.id, @required this.titulo,
-  @required this.colors, @required this.ejex, @required this.ejeY, @required this.description})
+  @required this.colors, @required this.ejex, @required this.ejeY, @required this.description,
+  @required this.dataDescription})
       : super(key: key);
 
   _WidgetChartSerieState createState() =>
       _WidgetChartSerieState(this.dataSerie, this.id, this.titulo, this.colors, this.ejex,
-      this.ejeY, this.description);
+      this.ejeY, this.description, this.dataDescription);
 }
 
 class _WidgetChartSerieState extends State<WidgetChartSerie> {
   List<charts.Series<Animo, String>> _seriesData;
 
   _WidgetChartSerieState(this.dataSerie, this.id, this.titulo, this.colors,
-  this.ejex, this.ejeY, this.description);
+  this.ejex, this.ejeY, this.description, this.dataDescription);
   var dataSerie;
   var id;
   String titulo;
@@ -32,6 +34,7 @@ class _WidgetChartSerieState extends State<WidgetChartSerie> {
   String ejex;
   String ejeY;
   String description;
+  String dataDescription;
 
 _buildDataDescription(dataSerie){
   String finalData = "";
@@ -141,7 +144,7 @@ _buildDataDescription(dataSerie){
         ),
       ),
              Container(
-          padding: EdgeInsets.all(60),
+          padding: EdgeInsets.all(40),
           decoration: BoxDecoration(
            // borderRadius: BorderRadius.circular(13),
             color: Colors.white,
@@ -157,7 +160,7 @@ _buildDataDescription(dataSerie){
               color: Colors.blue)),
               TextSpan(text: 'A continuación, encuentra los datos que se encuentran graficados: \n\n', style: TextStyle(fontSize: 15.0, fontWeight: FontWeight.bold, 
               color: Colors.black26)),
-              TextSpan(text: _buildDataDescription(dataSerie), style: TextStyle(fontSize: 15.0, fontWeight: FontWeight.bold, 
+              TextSpan(text: dataDescription, style: TextStyle(fontSize: 11.0, fontWeight: FontWeight.bold, 
               color: Colors.black26)),
             ],
           ),
