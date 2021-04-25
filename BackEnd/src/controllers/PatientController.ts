@@ -17,7 +17,7 @@ const PatientController = Router();
 
 PatientController.post('/patient/answerRequest', verifyToken, async (req: Request, res: Response) => {
     debug('Request to link response patients');
-    const bearerHeader = req.headers['authorization'];
+    const bearerHeader = req.headers.authorization;
     let status;
     if( bearerHeader !== undefined ) {
         const id = getIdFromToken(bearerHeader);
@@ -28,18 +28,18 @@ PatientController.post('/patient/answerRequest', verifyToken, async (req: Reques
                 debug('Request to link result %j', patients);
                 if(patients) {
                     status = constants.HTTP_STATUS_OK;
-                    const message = { status, message: "Success"};
+                    const message = { status, message: 'Success'};
                     res.status(status).send(message);
                 } else {
                     status = constants.HTTP_STATUS_INTERNAL_SERVER_ERROR;
-                    const responseError = { status, error: "An error has ocurred"};
+                    const responseError = { status, error: 'An error has ocurred'};
                     res.status(status).send(responseError);
                 }
             } catch (error) {
                 debug('Answering request error: %j', error);
-                
+
                 status = constants.HTTP_STATUS_INTERNAL_SERVER_ERROR;
-                const responseError = { status, error: "An error has ocurred"};
+                const responseError = { status, error: 'An error has ocurred'};
                 res.status(status).send(responseError);
             }
         }
@@ -52,7 +52,7 @@ PatientController.post('/patient/answerRequest', verifyToken, async (req: Reques
 
 PatientController.get('/patient/request/doctor', verifyToken, async (req: Request, res: Response) => {
     debug('Getting request relation from doctors');
-    const bearerHeader = req.headers['authorization'];
+    const bearerHeader = req.headers.authorization;
     let status;
     if( bearerHeader !== undefined ) {
         const id = getIdFromToken(bearerHeader);
@@ -77,7 +77,7 @@ PatientController.get('/patient/request/doctor', verifyToken, async (req: Reques
 
 PatientController.get('/patient/request/carer', verifyToken, async (req: Request, res: Response) => {
     debug('Getting request relation from carers');
-    const bearerHeader = req.headers['authorization'];
+    const bearerHeader = req.headers.authorization;
     let status;
     if( bearerHeader !== undefined ) {
         const id = getIdFromToken(bearerHeader);
@@ -102,12 +102,12 @@ PatientController.get('/patient/request/carer', verifyToken, async (req: Request
 
 
 PatientController.post('/carer/relate/:idPatient', verifyToken, async (req: Request, res: Response) => {
-    const bearerHeader = req.headers['authorization'];
+    const bearerHeader = req.headers.authorization;
     const idPatient = +req.params.idPatient;
     let status;
     if( bearerHeader !== undefined ) {
         const id = getIdFromToken(bearerHeader);
-        if( !isNaN(id) ){    
+        if( !isNaN(id) ){
             try {
                 const response = await CarerService.requestRelatePatientToCarer(id, idPatient);
                 if(response) {
@@ -123,7 +123,7 @@ PatientController.post('/carer/relate/:idPatient', verifyToken, async (req: Requ
                 res.status(status).send(responseError);
             }
         } else {
-            debug('Relate Error getting id from token')
+            debug('Relate Error getting id from token');
             status = constants.HTTP_STATUS_BAD_REQUEST;
             res.status(status).send('Bad request');
         }
@@ -149,7 +149,7 @@ PatientController.post('/patient/:id/emotionalFormPatient', verifyToken, async (
     } catch (error) {
         debug('Patient emotional form saving failed, error: %j', error);
         status = constants.HTTP_STATUS_INTERNAL_SERVER_ERROR;
-        const responseError = { status, error: "An error has ocurred"};
+        const responseError = { status, error: 'An error has ocurred'};
         res.status(status).send(responseError);
     }
 });
@@ -168,7 +168,7 @@ PatientController.get('/patient/:id/emotionalFormPatient', verifyToken, async (r
     } catch (error) {
         debug('Patient getting emotional form failed, error: %j', error);
         status = constants.HTTP_STATUS_INTERNAL_SERVER_ERROR;
-        const responseError = { status, error: "An error has ocurred"};
+        const responseError = { status, error: 'An error has ocurred'};
         res.status(status).send(responseError);
     }
 });
@@ -188,7 +188,7 @@ PatientController.post('/patient/:id/noMotorSymptomsFormPatient', verifyToken, a
     } catch (error) {
         debug('Patient noMotorSymptomsFormPatient saving failed, error: %j', error);
         status = constants.HTTP_STATUS_INTERNAL_SERVER_ERROR;
-        const responseError = { status, error: "An error has ocurred"};
+        const responseError = { status, error: 'An error has ocurred'};
         res.status(status).send(responseError);
     }
 });
@@ -207,7 +207,7 @@ PatientController.get('/patient/:id/noMotorSymptomsFormPatient', verifyToken, as
     } catch (error) {
         debug('Patient getting no motor form failed, error: %j', error);
         status = constants.HTTP_STATUS_INTERNAL_SERVER_ERROR;
-        const responseError = { status, error: "An error has ocurred"};
+        const responseError = { status, error: 'An error has ocurred'};
         res.status(status).send(responseError);
     }
 });
@@ -232,7 +232,7 @@ PatientController.post('/patient/:id/medicineAlarm', verifyToken, async (req: Re
     } catch (error) {
         debug('Patients Medicine alarms saving failed, error: %j', error);
         status = constants.HTTP_STATUS_INTERNAL_SERVER_ERROR;
-        const responseError = { status, error: "An error has ocurred"};
+        const responseError = { status, error: 'An error has ocurred'};
         res.status(status).send(responseError);
     }
 });
@@ -249,7 +249,7 @@ PatientController.get('/patient/:id/medicineAlarm', verifyToken, async (req: Req
     } catch (error) {
         debug('Patient getting medicine Alarms failed, error: %j', error);
         status = constants.HTTP_STATUS_INTERNAL_SERVER_ERROR;
-        const responseError = { status, error: "An error has ocurred"};
+        const responseError = { status, error: 'An error has ocurred'};
         res.status(status).send(responseError);
     }
 });
@@ -268,7 +268,7 @@ PatientController.post('/patient/:idPatient/medicineAlarm/delete/:id', verifyTok
     } catch (error) {
         debug('Patients Medicine alarms deleting failed, error: %j', error);
         status = constants.HTTP_STATUS_INTERNAL_SERVER_ERROR;
-        const responseError = { status, error: "An error has ocurred"};
+        const responseError = { status, error: 'An error has ocurred'};
         res.status(status).send(responseError);
     }
 });
@@ -284,10 +284,10 @@ PatientController.get('/patient/:id/symptoms/report', verifyToken, async (req: R
 
     try {
         let response;
-        if(montly != 'true'){
+        if(montly !== 'true'){
             response = await PatientService.getReportSymptomsTwoDates(idPatient, initDate, endDate);
 
-        } else if (montly && montly == 'true') {
+        } else if (montly && montly === 'true') {
             response = await montlyReport(idPatient, initDate, endDate, 'SYMPTOMS');
         }
         debug('Patient getting symptoms report. Items: %j', response);
@@ -296,7 +296,7 @@ PatientController.get('/patient/:id/symptoms/report', verifyToken, async (req: R
     } catch (error) {
         debug('Patient getting symptoms report failed, error: %j', error);
         status = constants.HTTP_STATUS_INTERNAL_SERVER_ERROR;
-        const responseError = { status, error: "An error has ocurred"};
+        const responseError = { status, error: 'An error has ocurred'};
         res.status(status).send(responseError);
     }
 });
@@ -305,7 +305,7 @@ PatientController.post('/patient/:id/newGameScore', verifyToken, async (req: Req
     debug('Patients save Game Score by Id');
     const id = +req.params.id;
     debug('Patients save Game Score body: %j, ID: %s',req.body, id);
-    let gameScore: IGameScore = req.body;
+    const gameScore: IGameScore = req.body;
     gameScore.ID_PATIENT = id;
     let status;
     debug('Patients save Game Score json: %j', gameScore);
@@ -317,7 +317,7 @@ PatientController.post('/patient/:id/newGameScore', verifyToken, async (req: Req
     } catch (error) {
         debug('Patients Game Score saving failed, error: %j', error);
         status = constants.HTTP_STATUS_INTERNAL_SERVER_ERROR;
-        const responseError = { status, error: "An error has ocurred"};
+        const responseError = { status, error: 'An error has ocurred'};
         res.status(status).send(responseError);
     }
 });
@@ -326,7 +326,7 @@ PatientController.post('/patient/:id/newStepRecord', verifyToken, async (req: Re
     debug('Patients save Step Record by Id');
     const id = +req.params.id;
     debug('Patients save Step Record body: %j, ID: %s',req.body, id);
-    let stepRecord: IStepRecord = req.body;
+    const stepRecord: IStepRecord = req.body;
     stepRecord.ID_PATIENT = id;
     let status;
     debug('Patients save Step Record json: %j', stepRecord);
@@ -338,7 +338,7 @@ PatientController.post('/patient/:id/newStepRecord', verifyToken, async (req: Re
     } catch (error) {
         debug('Patients Step Record saving failed, error: %j', error);
         status = constants.HTTP_STATUS_INTERNAL_SERVER_ERROR;
-        const responseError = { status, error: "An error has ocurred"};
+        const responseError = { status, error: 'An error has ocurred'};
         res.status(status).send(responseError);
     }
 });
@@ -355,9 +355,9 @@ PatientController.get('/patient/:id/game/report', verifyToken, async (req: Reque
 
     try {
         let response;
-        if(montly != 'true'){
+        if(montly !== 'true'){
             response = await PatientService.getReportSymptomsTwoDates(idPatient, initDate, endDate);
-        } else if (montly && montly == 'true') {
+        } else if (montly && montly === 'true') {
             response = await montlyReport(idPatient, initDate, endDate, 'GAME');
         }
         debug('Patient getting game report. Items: %j', response);
@@ -366,7 +366,7 @@ PatientController.get('/patient/:id/game/report', verifyToken, async (req: Reque
     } catch (error) {
         debug('Patient getting game report failed, error: %j', error);
         status = constants.HTTP_STATUS_INTERNAL_SERVER_ERROR;
-        const responseError = { status, error: "An error has ocurred"};
+        const responseError = { status, error: 'An error has ocurred'};
         res.status(status).send(responseError);
     }
 });
@@ -382,9 +382,9 @@ PatientController.get('/patient/:id/emotionalsymptoms/report', verifyToken, asyn
 
     try {
         let response;
-        if(montly != 'true'){
+        if(montly !== 'true'){
             response = await PatientService.getReportEmotionalSymptomsTwoDates(idPatient, initDate, endDate);
-        } else if (montly && montly == 'true') {
+        } else if (montly && montly === 'true') {
             response = await montlyReport(idPatient, initDate, endDate, 'EMOTIONAL');
         }
         debug('Patient getting emotionalsymptoms report. Items: %j', response);
@@ -393,7 +393,7 @@ PatientController.get('/patient/:id/emotionalsymptoms/report', verifyToken, asyn
     } catch (error) {
         debug('Patient getting emotionalsymptoms report failed, error: %j', error);
         status = constants.HTTP_STATUS_INTERNAL_SERVER_ERROR;
-        const responseError = { status, error: "An error has ocurred"};
+        const responseError = { status, error: 'An error has ocurred'};
         res.status(status).send(responseError);
     }
 });
@@ -409,9 +409,9 @@ PatientController.get('/patient/:id/dyskinecia/report', verifyToken, async (req:
 
     try {
         let response;
-        if(montly != 'true'){
+        if(montly !== 'true'){
             response = await PatientService.getReportDiskineciaTwoDates(idPatient, initDate, endDate);
-        } else if (montly && montly == 'true') {
+        } else if (montly && montly === 'true') {
             response = await montlyReport(idPatient, initDate, endDate, 'DYSKINECIA');
         }
         debug('Patient getting dyskinecia report. Items: %j', response);
@@ -420,7 +420,7 @@ PatientController.get('/patient/:id/dyskinecia/report', verifyToken, async (req:
     } catch (error) {
         debug('Patient getting dyskinecia report failed, error: %j', error);
         status = constants.HTTP_STATUS_INTERNAL_SERVER_ERROR;
-        const responseError = { status, error: "An error has ocurred"};
+        const responseError = { status, error: 'An error has ocurred'};
         res.status(status).send(responseError);
     }
 });
@@ -436,9 +436,9 @@ PatientController.get('/patient/:id/discrepancy/report', verifyToken, async (req
 
     try {
         let response;
-        if(montly != 'true'){
+        if(montly !== 'true'){
             response = await PatientService.getReportDiscrepancyTwoDates(idPatient, initDate, endDate);
-        } else if (montly && montly == 'true') {
+        } else if (montly && montly === 'true') {
             response = await montlyReport(idPatient, initDate, endDate, 'DISCREPANCY');
         }
         debug('Patient getting discrepancy report. Items: %j', response);
@@ -447,16 +447,16 @@ PatientController.get('/patient/:id/discrepancy/report', verifyToken, async (req
     } catch (error) {
         debug('Patient getting discrepancy report failed, error: %j', error);
         status = constants.HTTP_STATUS_INTERNAL_SERVER_ERROR;
-        const responseError = { status, error: "An error has ocurred"};
+        const responseError = { status, error: 'An error has ocurred'};
         res.status(status).send(responseError);
     }
 });
 
 
 async function montlyReport(idPatient: number, initDate: string, endDate: string, reportType: string) {
-    var before = new Date(initDate);
-    var last = new Date(endDate);
-    let resp = [];
+    let before = new Date(initDate);
+    const last = new Date(endDate);
+    const resp = [];
     while(before.getTime() < last.getTime()) {
         let report: any;
         const nDate = new Date(before.getFullYear(), before.getMonth()+1, 0 );
@@ -490,19 +490,20 @@ async function montlyReport(idPatient: number, initDate: string, endDate: string
 PatientController.get('/patient/alarms/today', verifyToken, async (req: Request, res: Response) => {
     debug('getting alarms today');
     let status;
-    const bearerHeader = req.headers['authorization'];
+    const bearerHeader = req.headers.authorization;
     if( bearerHeader !== undefined ) {
         const id = getIdFromToken(bearerHeader);
         try {
             let response;
+            response = 'ok';
             debug('Patient getting alarms by id: %s', id);
-            //response = PatientService.getAlarmsTodfonnayById(id);
+            // response = PatientService.getAlarmsTodfonnayById(id);
             status = constants.HTTP_STATUS_OK;
             res.status(status).send(response);
         } catch (error) {
             debug('Patient getting dyskinecia report failed, error: %j', error);
             status = constants.HTTP_STATUS_INTERNAL_SERVER_ERROR;
-            const responseError = { status, error: "An error has ocurred"};
+            const responseError = { status, error: 'An error has ocurred'};
             res.status(status).send(responseError);
         }
     } else {

@@ -1,5 +1,5 @@
-import { createPool, Pool } from "mysql2/promise";
-import config from "./config";
+import { createPool, Pool } from 'mysql2/promise';
+import config from './config';
 import debugLib from 'debug';
 
 const debug = debugLib('AppKinson:DatabaseConnection');
@@ -8,6 +8,7 @@ const debug = debugLib('AppKinson:DatabaseConnection');
  */
 export async function connect () {
     try {
+        console.log("llega");
         const connection = createPool({
             host: config.host,
             user: config.user,
@@ -27,6 +28,7 @@ export async function executeSQL(sqlQuery: string, values?: any) {
     try {
         debug(`[DB NEW CONNECTION]`);
         conn = await connect();
+        debug('response connection: %j', conn);
         const result = (values) ? await conn.query(sqlQuery, values) : await conn.query(sqlQuery);
         debug('Query executed. Result: %j', result[0]);
         conn.end();

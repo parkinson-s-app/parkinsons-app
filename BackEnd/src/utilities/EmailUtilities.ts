@@ -1,10 +1,10 @@
 
-import config from "../config";
+import config from '../config';
 import debugLib from 'debug';
 import * as nodemailer from 'nodemailer';
 
 const debug = debugLib('AppKinson:OTPUtilities');
-export default class EmailUtilities { 
+export default class EmailUtilities {
     public static async sendEmail(email: string, subject: string, text: string) {
         debug(' Reset password email: %s', email);
         const transport = nodemailer.createTransport({
@@ -17,10 +17,10 @@ export default class EmailUtilities {
             }
         });
         const message = {
-            from: config.userEmail, //'elonmusk@tesla.com', // Sender address
+            from: config.userEmail, // 'elonmusk@tesla.com', // Sender address
             to: email,         // List of recipients
-            subject: subject, // Subject line
-            text: text // Plain text body
+            subject, // Subject line
+            text // Plain text body
         };
         try {
             const result = await transport.sendMail(message);
@@ -28,7 +28,7 @@ export default class EmailUtilities {
             return result;
         } catch (error) {
             debug('Error sending email: %s, error: %j', email, error);
-            throw error;            
+            throw error;
         }
     }
 }

@@ -1,6 +1,6 @@
-import { connect, executeSQL } from "../database";
+import { connect, executeSQL } from '../database';
 import debugLib from 'debug';
-import { Pool } from "mysql2/promise";
+import { Pool } from 'mysql2/promise';
 
 const debug = debugLib('AppKinson:CarerService');
 
@@ -46,12 +46,12 @@ export default class CarerService {
 
     /**
      * getPatients
-     * 
+     *
      */
     public static async getPatientsUnrelated(id: number) {
         debug('Unrelated Patients, id carer: ', id);
         try {
-            const query = `SELECT 
+            const query = `SELECT
             p.ID_USER as IdUser,
             p.NAME as Name,
             u.EMAIL as Email
@@ -60,7 +60,7 @@ export default class CarerService {
             ON u.ID = p.ID_USER
             WHERE p.ID_USER NOT IN
             ( SELECT ID_PATIENT
-                FROM patientxcarer 
+                FROM patientxcarer
                 WHERE ID_CARER = ? )`;
             const res = await executeSQL(query,[id]);
             debug('Unrelated Patients response query %s', res);
@@ -77,7 +77,7 @@ export default class CarerService {
 
     /**
      * getPatients
-     * 
+     *
      */
     public static async getPatientsRelated(id: number) {
         debug('Related Patients, id carer: ', id);
@@ -85,9 +85,9 @@ export default class CarerService {
             const query = `
             SELECT ID_USER, NAME, EMAIL
             FROM patients
-            LEFT JOIN patientxcarer 
+            LEFT JOIN patientxcarer
             ON patients.ID_USER=patientxcarer.ID_PATIENT
-            LEFT JOIN users 
+            LEFT JOIN users
             ON users.ID=patients.ID_USER
             WHERE ID_CARER = ?`;
             const res = await executeSQL(query,[id]);
@@ -110,7 +110,7 @@ export default class CarerService {
         debug('getCarerById id: %s', id);
         try {
             const person =  await executeSQL(
-                `SELECT EMAIL, NAME, PHOTOPATH  
+                `SELECT EMAIL, NAME, PHOTOPATH
                 FROM doctors
                 LEFT JOIN users
                 ON users.ID = doctors.ID_USER
@@ -122,7 +122,7 @@ export default class CarerService {
             throw error;
         }
     }
-    
+
     public static async unrelatePatient(idCarer: number, idPatient: number) {
         debug('Unrelate patient Carer: %d, patient: %d', idCarer, idPatient);
         try {

@@ -1,13 +1,13 @@
-import { connect, executeSQL } from "../database";
+import { connect, executeSQL } from '../database';
 import debugLib from 'debug';
-import { Pool } from "mysql2/promise";
-import IMedicine from "../models/IMedicine";
+import { Pool } from 'mysql2/promise';
+import IMedicine from '../models/IMedicine';
 
 const debug = debugLib('AppKinson:DoctorService');
 
 export default class DoctorService {
-    
-    
+
+
     /**
      * relatePatientToDoctor
      */
@@ -29,7 +29,7 @@ export default class DoctorService {
                 debug('Deletion from request table success, Response: %j', resDeletion);
             }
             return resDeletion;
-        
+
         } catch (e) {
             debug('relate Patient Error: %j', e);
             throw e;
@@ -116,7 +116,7 @@ export default class DoctorService {
         debug('getDoctorById id: %s', id);
         try {
             const person =  await executeSQL(
-                `SELECT EMAIL, NAME, PHOTOPATH  
+                `SELECT EMAIL, NAME, PHOTOPATH
                 FROM doctors
                 LEFT JOIN users
                 ON users.ID = doctors.ID_USER
@@ -129,13 +129,13 @@ export default class DoctorService {
         }
     }
     /**
-     * 
+     *
      */
     public static async getMedicines() {
         debug('Get medicines');
         try {
             const medicines =  await executeSQL(
-                `SELECT ID, NAME  
+                `SELECT ID, NAME
                 FROM medicine`);
             debug('result get medicines: %j', medicines[0]);
             return medicines[0];
@@ -148,7 +148,7 @@ export default class DoctorService {
     public static async setMedicineToPatient(medicine: IMedicine) {
         debug('set medicine to Patient. Id patient: %s', medicine.ID_PATIENT);
         try {
-            const queryData = { 
+            const queryData = {
                 ID_PATIENT: medicine.ID_PATIENT,
                 periodicityQuantity: medicine.periodicityQuantity,
                 title: medicine.title,
@@ -157,7 +157,7 @@ export default class DoctorService {
                 dose: medicine.dose,
                 periodicityType: medicine.periodicityType,
                 quantity: medicine.quantity
-            }; 
+            };
             const res = await executeSQL('INSERT INTO alarmandmedicinepatient SET ?',[queryData]);
             return res;
         } catch (e) {

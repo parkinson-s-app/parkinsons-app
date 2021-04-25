@@ -1,15 +1,15 @@
-import { connect, executeSQL } from "../database";
+import { connect, executeSQL } from '../database';
 import debugLib from 'debug';
-import IAnswerRequestDto from "../models/IAnswerRequestDto";
-import { PersonType } from "../utilities/GenericTypes";
-import CarerService from "./CarerService";
-import DoctorService from "./DoctorService";
-import IEmotionalFormDto from "../models/IEmotionalFormDto";
-import { Pool } from "mysql2/promise";
-import IMedicineAlarm from "../models/IMedicineAlarm";
-import IGameScore from "../models/IGameScore";
-import IStepRecord from "../models/IStepRecord";
-import INoMotorFormDto from "../models/INoMotorFormDto";
+import IAnswerRequestDto from '../models/IAnswerRequestDto';
+import { PersonType } from '../utilities/GenericTypes';
+import CarerService from './CarerService';
+import DoctorService from './DoctorService';
+import IEmotionalFormDto from '../models/IEmotionalFormDto';
+import { Pool } from 'mysql2/promise';
+import IMedicineAlarm from '../models/IMedicineAlarm';
+import IGameScore from '../models/IGameScore';
+import IStepRecord from '../models/IStepRecord';
+import INoMotorFormDto from '../models/INoMotorFormDto';
 
 const debug = debugLib('AppKinson:PatientService');
 
@@ -52,7 +52,7 @@ export default class PatientService {
             } else if(answer.RequesterType === PersonType.DOCTOR) {
                 const idDoctor = Number(answer.RequesterId);
                 if(!Number.isNaN(idDoctor)) {
-                    return await DoctorService.relatePatientToDoctor(idDoctor, idPatient, answer.Answer)
+                    return await DoctorService.relatePatientToDoctor(idDoctor, idPatient, answer.Answer);
                 } else {
                     debug('Error parsing Id Doctor. Id: %s', answer.RequesterId);
                     return null;
@@ -66,7 +66,7 @@ export default class PatientService {
             throw error;
         }
     }
-    
+
     /**
      * getPatientByEmail
      */
@@ -74,7 +74,7 @@ export default class PatientService {
         debug('getPatientByEmail email: %s', email);
         try {
             const person =  await executeSQL(
-                `SELECT ID 
+                `SELECT ID
                 FROM patients
                 LEFT JOIN users
                 ON users.ID = patients.ID_USER
@@ -93,7 +93,7 @@ export default class PatientService {
         debug('getPatientById id: %s', id);
         try {
             const person =  await executeSQL(
-                `SELECT EMAIL, NAME, PHOTOPATH 
+                `SELECT EMAIL, NAME, PHOTOPATH
                 FROM patients
                 LEFT JOIN users
                 ON users.ID = patients.ID_USER
@@ -102,13 +102,13 @@ export default class PatientService {
             return person[0];
         } catch (error) {
             debug('get patient by Id failed. Error: %j', error);
-            throw error;   
+            throw error;
         }
     }
     /**
-     * 
-     * @param id 
-     * @param emotionalFormData 
+     *
+     * @param id
+     * @param emotionalFormData
      */
     public static async saveEmotionalForm(id: number, emotionalFormData: IEmotionalFormDto) {
         try {
@@ -136,8 +136,8 @@ export default class PatientService {
         }
     }
     /**
-     * 
-     * @param id 
+     *
+     * @param id
      */
     public static async getEmotionalFormsById(id: number, start: string, end: string) {
         try {
@@ -155,8 +155,8 @@ export default class PatientService {
     }
 
     /**
-     * 
-     * @param id 
+     *
+     * @param id
      */
     public static async getNoMotorFormsById(id: number, start: string, end: string) {
         try {
@@ -176,7 +176,7 @@ export default class PatientService {
     public static async getMedicineAlarmsById(id: number) {
         try {
             const query = `
-            SELECT 
+            SELECT
                 am.title as Title,
                 m.NAME as Medicine,
                 m.ID as IdMedicine,
@@ -186,7 +186,7 @@ export default class PatientService {
                 am.alarmTime as AlarmTime,
                 am.ID_PATIENT as IdPatient,
                 am.quantity as Quantity
-            FROM 
+            FROM
                 alarmandmedicinepatient am
                 INNER JOIN
                 medicine m
@@ -236,11 +236,11 @@ export default class PatientService {
         try {
             debug('getting report by two dates First: %s Second: %s', initDate, endDate);
             const query = `
-            SELECT 
+            SELECT
                 Q1
-            FROM 
+            FROM
                 symptomsformpatient
-            WHERE ID_PATIENT= ? 
+            WHERE ID_PATIENT= ?
             AND formdate BETWEEN ? AND ?`;
             debug('getReportSymptomsTwoDates to patient id: %s', idPatient);
             const res = await executeSQL(query,[idPatient, initDate, endDate]);
@@ -255,18 +255,18 @@ export default class PatientService {
             const size = listJSON.length;
             debug('size :%s', size);
             for (let index = 0; index < size; index++) {
-                
-                if(listJSON[index].Q1 == 'on') {
+
+                if(listJSON[index].Q1 === 'on') {
                     on++;
-                } else if (listJSON[index].Q1 == 'on bueno') {
+                } else if (listJSON[index].Q1 === 'on bueno') {
                     onG++;
-                } else if (listJSON[index].Q1 == 'off malo') {
+                } else if (listJSON[index].Q1 === 'off malo') {
                     offB++;
-                } else if (listJSON[index].Q1 == 'off') {
+                } else if (listJSON[index].Q1 === 'off') {
                     off++;
                 }
             }
-            if (size != 0) {
+            if (size !== 0) {
                 on = Number(((100/size)*on).toFixed(1));
                 off = Number(((100/size)*off).toFixed(1));
                 offB = Number(((100/size)*offB).toFixed(1));
@@ -278,7 +278,7 @@ export default class PatientService {
                 offB,
                 onG,
                 mes: 'null'
-            }
+            };
             debug('response final :%j', finalResponse);
             return finalResponse;
         }  catch (error) {
@@ -317,11 +317,11 @@ export default class PatientService {
         try {
             debug('getting game report by two dates First: %s Second: %s', initDate, endDate);
             const query = `
-            SELECT 
+            SELECT
                 score
-            FROM 
+            FROM
                 touchgamexpatient
-            WHERE ID_PATIENT= ? 
+            WHERE ID_PATIENT= ?
             AND gameDate BETWEEN ? AND ?`;
             debug('getReportGameTwoDates to patient id: %s', idPatient);
             const res = await executeSQL(query,[idPatient, initDate, endDate]);
@@ -329,7 +329,7 @@ export default class PatientService {
             debug('query game result response :%j', res[0]);
             const listJSON = JSON.parse(JSON.stringify(res[0]));
             debug('query game response as a list :%j', res[0]);
-            let on = 0;
+            const on = 0;
             let acum = 0;
             let average = 0;
             const size = listJSON.length;
@@ -337,7 +337,7 @@ export default class PatientService {
             for (let index = 0; index < size; index++) {
                 acum += listJSON[index].score;
             }
-            if (size != 0) {
+            if (size !== 0) {
                 average = Number((acum/size).toFixed(1));
             }
             const finalResponse = {
@@ -358,12 +358,12 @@ export default class PatientService {
         try {
             debug('getting emotional symptoms report by two dates First: %s Second: %s', initDate, endDate);
             const query = `
-            SELECT 
+            SELECT
                 Q1,
                 Q2
-            FROM 
+            FROM
                 emotionalformxpatient
-            WHERE ID_PATIENT= ? 
+            WHERE ID_PATIENT= ?
             AND date BETWEEN ? AND ?`;
             debug('getReportEmotionalSymptomsTwoDates to patient id: %s', idPatient);
             const res = await executeSQL(query,[idPatient, initDate, endDate]);
@@ -371,7 +371,7 @@ export default class PatientService {
             debug('query emotional symptoms result response :%j', res[0]);
             const listJSON = JSON.parse(JSON.stringify(res[0]));
             debug('query emotional symptoms response as a list :%j', res[0]);
-            let on = 0;
+            const on = 0;
             let acum = 0;
             let average = 0;
             const size = listJSON.length;
@@ -380,8 +380,8 @@ export default class PatientService {
                 acum += listJSON[index].Q1;
                 acum += listJSON[index].Q2;
             }
-            if (size != 0) {
-                average = Number((acum/(size*2)).toFixed(1));
+            if (size !== 0) {
+                average = Number((acum/(size)).toFixed(1));
             }
             const finalResponse = {
                 Mes: 'null',
@@ -402,9 +402,9 @@ export default class PatientService {
             const query = `
             SELECT
                 Q2
-            FROM 
+            FROM
                 symptomsformpatient
-            WHERE ID_PATIENT= ? 
+            WHERE ID_PATIENT= ?
             AND formdate BETWEEN ? AND ?`;
             debug('getReportDiskineciaTwoDates to patient id: %s', idPatient);
             const res = await executeSQL(query,[idPatient, initDate, endDate]);
@@ -420,7 +420,7 @@ export default class PatientService {
                     acum += 1;
                 }
             }
-            if (size != 0) {
+            if (size !== 0) {
                 average = Number((acum/(size)).toFixed(1));
             }
             const finalResponse = {
@@ -442,9 +442,9 @@ export default class PatientService {
             const query = `
             SELECT
                 discrepancy
-            FROM 
+            FROM
                 symptomsformpatient
-            WHERE ID_PATIENT= ? 
+            WHERE ID_PATIENT= ?
             AND formdate BETWEEN ? AND ?`;
             debug('getReportDiscrepancyTwoDates to patient id: %s', idPatient);
             const res = await executeSQL(query,[idPatient, initDate, endDate]);
@@ -462,7 +462,7 @@ export default class PatientService {
                     cant += 1;
                 }
             }
-            if (size != 0) {
+            if (size !== 0) {
                 average = Number((acum/(cant)).toFixed(1));
             }
             const finalResponse = {

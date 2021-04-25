@@ -33,7 +33,7 @@ UserController.post('/registro', async (req: Request, res: Response) => {
             status =  constants.HTTP_STATUS_OK;
             res.status(status).send('Guardado');
         } else {
-            const status =  constants.HTTP_STATUS_INTERNAL_SERVER_ERROR;
+            status =  constants.HTTP_STATUS_INTERNAL_SERVER_ERROR;
             res.status(status).send('Error');
         }
     }  catch (error) {
@@ -41,11 +41,11 @@ UserController.post('/registro', async (req: Request, res: Response) => {
         const errorString: string = error.message;
         let responseError;
         if(errorString.includes('Duplicate entry')) {
-            responseError = "Existe";
+            responseError = 'Existe';
             status = constants.HTTP_STATUS_BAD_REQUEST;
         } else {
             status = constants.HTTP_STATUS_INTERNAL_SERVER_ERROR;
-            responseError = { status, error: "An error has ocurred"};
+            responseError = { status, error: 'An error has ocurred'};
         }
         res.status(status).send(responseError);
     }
@@ -64,9 +64,9 @@ UserController.get('/users', async (req: Request, res: Response) => {
             res.status(status).send('Error');
         }
     } catch (error) {
-        debug("getting users failed. Error: %j", error);
+        debug('getting users failed. Error: %j', error);
         const status =  constants.HTTP_STATUS_INTERNAL_SERVER_ERROR;
-        const responseError = { status, error: "An error has ocurred"};
+        const responseError = { status, error: 'An error has ocurred'};
         res.status(status).send(responseError);
     }
 });
@@ -113,9 +113,9 @@ UserController.post('/login', async (req: Request, res: Response) => {
             }
         }
     } catch (error) {
-        debug("Login failed. Error: %j", error);
+        debug('Login failed. Error: %j', error);
         const status =  constants.HTTP_STATUS_INTERNAL_SERVER_ERROR;
-        const responseError = { status, error: "An error has ocurred"};
+        const responseError = { status, error: 'An error has ocurred'};
         res.status(status).send(responseError);
     }
 });
@@ -123,7 +123,7 @@ UserController.post('/login', async (req: Request, res: Response) => {
 UserController.post('/users/:id', multer.single('photo'), verifyToken, async (req: Request, res: Response) => {
     debug('Users UpdateById');
     const id = +req.params.id;
-    let updatedUserData = req.body as IPersonalDataDto;
+    const updatedUserData = req.body as IPersonalDataDto;
     try {
         // verificando si la actualizacion tiene foto
         if(req.file) {
@@ -144,7 +144,7 @@ UserController.post('/users/:id', multer.single('photo'), verifyToken, async (re
     } catch (error) {
         debug('Patient symptoms saving failed');
         const status = constants.HTTP_STATUS_INTERNAL_SERVER_ERROR;
-        const responseError = { status, error: "An error has ocurred"};
+        const responseError = { status, error: 'An error has ocurred'};
         res.status(status).send(responseError);
     }
 });
@@ -153,7 +153,7 @@ UserController.post('/users/:id/symptomsFormPatient', multer.single('video'), ve
     debug('Patients form by Id');
     const id = +req.params.id;
     debug('Patients Symptoms body: %j, ID: %s',req.body, id);
-    let symptomsFormData = req.body as ISymptomsFormDto;
+    const symptomsFormData = req.body as ISymptomsFormDto;
     let status;
     if(req.file && req.file.path ){
         symptomsFormData.pathvideo = req.file.path;
@@ -176,7 +176,7 @@ UserController.put('/users/:id/symptomsFormPatient', multer.single('video'), ver
     debug('Patients form update by Id');
     const id = +req.params.id;
     debug('Patients update Symptoms body: %j, ID: %s',req.body, id);
-    let symptomsFormData = req.body as ISymptomsFormDto;
+    const symptomsFormData = req.body as ISymptomsFormDto;
     let status;
     if(req.file && req.file.path ){
         symptomsFormData.pathvideo = req.file.path;
@@ -200,7 +200,7 @@ UserController.delete('/users/:id/symptomsFormPatient', verifyToken, async (req:
     const date = req.query.Date as string;
     debug('Delete  sypmtoms formpatient Id: %s', id);
     // se obtiene la autenticación para saber si el usuario está con la sesión iniciada
-    const bearerHeader = req.headers['authorization'];
+    const bearerHeader = req.headers.authorization;
     let status;
     if( bearerHeader !== undefined ) {
         debug('Delete symptoms form patient data: %j', date);
@@ -221,7 +221,7 @@ UserController.delete('/users/:id/symptomsFormPatient', verifyToken, async (req:
                     res.status(status).send('Error');
                 }
             } catch (error) {
-                debug('Deletion  sypmtoms formpatient Catch Error: %s, %j', error.stack, error)
+                debug('Deletion  sypmtoms formpatient Catch Error: %s, %j', error.stack, error);
                 status =  constants.HTTP_STATUS_INTERNAL_SERVER_ERROR;
                 // si ocurre algún error y no se puede ejecutar la operación, se devuelve una respuesta
                 // indicando error en el servidor
@@ -243,7 +243,7 @@ UserController.delete('/users/:id/symptomsFormPatient', verifyToken, async (req:
 
 UserController.get('/patient/relationRequest', verifyToken, async (req: Request, res: Response) => {
     debug('Getting requests of a patient');
-    const bearerHeader = req.headers['authorization'];
+    const bearerHeader = req.headers.authorization;
     let status;
     if( bearerHeader !== undefined ) {
         const id = getIdFromToken(bearerHeader);
@@ -268,7 +268,7 @@ UserController.get('/patient/relationRequest', verifyToken, async (req: Request,
 
 UserController.get('/patients/relationRequest', verifyToken, async (req: Request, res: Response) => {
     debug('Mock Getting requests of a patient');
-    const bearerHeader = req.headers['authorization'];
+    const bearerHeader = req.headers.authorization;
     let status;
     if( bearerHeader !== undefined ) {
         const id = getIdFromToken(bearerHeader);
@@ -292,7 +292,7 @@ UserController.get('/patients/relationRequest', verifyToken, async (req: Request
 
 UserController.get('/patients/:id/symptomsFormPatient', verifyToken, async (req: Request, res: Response) => {
     debug('Getting symptoms form');
-    const bearerHeader = req.headers['authorization'];
+    const bearerHeader = req.headers.authorization;
     const id = +req.params.id;
     debug('Patients form by Id, id: %s', id);
     let status;
@@ -305,7 +305,7 @@ UserController.get('/patients/:id/symptomsFormPatient', verifyToken, async (req:
                 status = constants.HTTP_STATUS_OK;
                 res.status(status).send(requests);
             } catch (error) {
-                debug("Get symptoms form failed. Error: %j", error);
+                debug('Get symptoms form failed. Error: %j', error);
                 status = constants.HTTP_STATUS_INTERNAL_SERVER_ERROR;
                 const responseError = { status, error};
                 res.status(status).send(responseError);
@@ -320,7 +320,7 @@ UserController.get('/patients/:id/symptomsFormPatient', verifyToken, async (req:
 
 UserController.get('/users/me', verifyToken, async (req: Request, res: Response) => {
     debug('Getting info about user');
-    const bearerHeader = req.headers['authorization'];
+    const bearerHeader = req.headers.authorization;
     let status;
     if( bearerHeader !== undefined ) {
         const idSender = getIdFromToken(bearerHeader);
@@ -375,7 +375,7 @@ UserController.get('/users/:id', verifyToken, async (req: Request, res: Response
     } catch (error) {
         debug('Get user by Id failed. Error: %j', error);
         const status = constants.HTTP_STATUS_INTERNAL_SERVER_ERROR;
-        const responseError = { status, error: "An error has ocurred"};
+        const responseError = { status, error: 'An error has ocurred'};
         res.status(status).send(responseError);
     }
 });
@@ -383,7 +383,7 @@ UserController.get('/users/:id', verifyToken, async (req: Request, res: Response
 
 UserController.get('/download', verifyToken, async (req: Request, res: Response) => {
     debug('Download file %j', req.query.path);
-    const bearerHeader = req.headers['authorization'];
+    const bearerHeader = req.headers.authorization;
     let status;
     if( bearerHeader !== undefined ) {
         const idSender = getIdFromToken(bearerHeader);
@@ -431,7 +431,7 @@ UserController.get('/users/toolbox/items', verifyToken, async (req: Request, res
     } catch (error) {
         debug('Patient getting medicine Alarms failed, error: %j', error);
         status = constants.HTTP_STATUS_INTERNAL_SERVER_ERROR;
-        const responseError = { status, error: "An error has ocurred"};
+        const responseError = { status, error: 'An error has ocurred'};
         res.status(status).send(responseError);
     }
 });
@@ -455,15 +455,15 @@ UserController.post('/user/forgotPassword', async (req: Request, res: Response) 
             const text = `Para poder cambiar su contraseña el codigo de verificación es: ${otp}`;
             const responseSendEmail = await EmailUtilities.sendEmail(email, subject, text);
             if(responseSendEmail) {
-                const status =  constants.HTTP_STATUS_OK;
-                const responseOK = { status, message: "Email sent"};
+                status =  constants.HTTP_STATUS_OK;
+                const responseOK = { status, message: 'Email sent'};
                 res.status(status).send(responseOK);
             }
         }
     } catch (error) {
-        debug("Forgotten password failed. Error: %j", error);
+        debug('Forgotten password failed. Error: %j', error);
         const status =  constants.HTTP_STATUS_INTERNAL_SERVER_ERROR;
-        const responseError = { status, error: "An error has ocurred"};
+        const responseError = { status, error: 'An error has ocurred'};
         res.status(status).send(responseError);
     }
 });
@@ -482,20 +482,20 @@ UserController.post('/user/resetPassword', async (req: Request, res: Response) =
                 status =  constants.HTTP_STATUS_OK;
                 res.status(status).send({ message:'Password Reset' });
             } else {
-                debug("Reset password failed response db.");
-                const status =  constants.HTTP_STATUS_INTERNAL_SERVER_ERROR;
-                const responseError = { status, error: "An error has ocurred"};
+                debug('Reset password failed response db.');
+                status =  constants.HTTP_STATUS_INTERNAL_SERVER_ERROR;
+                const responseError = { status, error: 'An error has ocurred'};
                 res.status(status).send(responseError);
             }
         } else {
             const status =  constants.HTTP_STATUS_UNAUTHORIZED;
-            const responseError = { status, error: "Unauthorized"};
+            const responseError = { status, error: 'Unauthorized'};
             res.status(status).send(responseError);
         }
     } catch (error) {
-        debug("Reset password failed. Error: %j", error);
+        debug('Reset password failed. Error: %j', error);
         const status =  constants.HTTP_STATUS_INTERNAL_SERVER_ERROR;
-        const responseError = { status, error: "An error has ocurred"};
+        const responseError = { status, error: 'An error has ocurred'};
         res.status(status).send(responseError);
     }
 });

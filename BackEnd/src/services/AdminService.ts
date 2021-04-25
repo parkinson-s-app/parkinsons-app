@@ -1,9 +1,9 @@
-import { connect, executeSQL } from "../database";
+import { connect, executeSQL } from '../database';
 import debugLib from 'debug';
-import { Pool } from "mysql2/promise";
-import IToolboxItemDto from "../models/IToolboxItemDto";
+import { Pool } from 'mysql2/promise';
+import IToolboxItemDto from '../models/IToolboxItemDto';
 import * as nodemailer from 'nodemailer';
-import config from "../config";
+import config from '../config';
 
 const debug = debugLib('AppKinson:AdminService');
 
@@ -46,7 +46,7 @@ export default class AdminService {
     public static async saveToolboxItem(toolboxItem: IToolboxItemDto) {
         debug('save toolbox item: %j', toolboxItem);
         try {
-            const queryData = {  
+            const queryData = {
                 Title: toolboxItem.Title,
                 Description: toolboxItem.Description,
                 URL: toolboxItem.URL,

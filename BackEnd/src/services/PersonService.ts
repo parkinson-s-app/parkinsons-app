@@ -1,15 +1,15 @@
-import { executeSQL } from "../database";
+import { executeSQL } from '../database';
 import debugLib from 'debug';
-import IPersonDto from "../models/IPersonDto";
-import * as bcrypt from "bcryptjs";
-import ISymptomsFormDto from "../models/ISymptomsFormDto";
-import { Pool } from "mysql2/promise";
-import IPersonResetDto from "../models/IPersonResetDto";
+import IPersonDto from '../models/IPersonDto';
+import * as bcrypt from 'bcryptjs';
+import ISymptomsFormDto from '../models/ISymptomsFormDto';
+import { Pool } from 'mysql2/promise';
+import IPersonResetDto from '../models/IPersonResetDto';
 
 const debug = debugLib('AppKinson:PersonService');
 
 export default class PersonService {
-    
+
     public static async savePerson(person: IPersonDto) {
         debug('savePerson person: %j', person);
         try {
@@ -18,7 +18,7 @@ export default class PersonService {
                 EMAIL: person.email,
                 PASSWORD: cript,
                 TYPE: person.type
-            }
+            };
             debug('savePerson person to save: %j', userSave);
             const res = await executeSQL('INSERT INTO users SET ?',[userSave]);
             debug('savePerson saved and returned: %j', res);
@@ -61,7 +61,7 @@ export default class PersonService {
             debug('getPeople response db: %j', people[0]);
             return people[0];
         } catch (error) {
-            debug("getPeople failed. Error: %j", error);
+            debug('getPeople failed. Error: %j', error);
             throw error;
         }
     }
@@ -75,7 +75,7 @@ export default class PersonService {
             const person =  await executeSQL('SELECT * FROM users WHERE EMAIL = ?',[email]);
             return person[0];
         } catch (error) {
-            debug("getPersonByEmail failed. Error: %j", error);
+            debug('getPersonByEmail failed. Error: %j', error);
             throw error;
         }
     }
@@ -88,7 +88,7 @@ export default class PersonService {
             const person =  await executeSQL('SELECT * FROM users WHERE ID = ?',[id]);
             return person[0];
         } catch (error) {
-            debug("getPersonById failed. Error: %j", error);
+            debug('getPersonById failed. Error: %j', error);
             throw error;
         }
     }
@@ -118,7 +118,7 @@ export default class PersonService {
                 debug('updatePerson returning person %j', person);
                 return person;
             } else  {
-                
+
                 return null;
             }
         } catch (error) {
@@ -126,24 +126,24 @@ export default class PersonService {
             throw error;
         }
     }
-    
+
     public static async getRelationRequest(id: number) {
         debug('Related Patients, id doctor: ', id);
         try {
             const query = `
-            SELECT EMAIL, TYPE, ID, NAME FROM 
-            (                
+            SELECT EMAIL, TYPE, ID, NAME FROM
+            (
              (SELECT EMAIL, TYPE, ID, ID_PATIENT, NAME
-            FROM (requestlinkdoctortopatient 
-                  LEFT JOIN users 
+            FROM (requestlinkdoctortopatient
+                  LEFT JOIN users
                   ON users.ID = requestlinkdoctortopatient.ID_DOCTOR
                   LEFT JOIN doctors
                   ON users.ID = doctors.ID_USER
-                 ) 
-            UNION ( 
-                SELECT EMAIL, TYPE, ID, ID_PATIENT, NAME 
-                FROM requestlinkcarertopatient 
-                LEFT JOIN users 
+                 )
+            UNION (
+                SELECT EMAIL, TYPE, ID, ID_PATIENT, NAME
+                FROM requestlinkcarertopatient
+                LEFT JOIN users
                 ON users.ID = requestlinkcarertopatient.ID_CARER
                 LEFT JOIN carers
                 ON users.ID = carers.ID_USER
@@ -203,7 +203,7 @@ export default class PersonService {
     }
     /**
      * obtener los formularios de un paciente con el id
-     * @param id 
+     * @param id
      */
     public static async getSymptomsForm(id: number) {
         debug('Symptoms of person: id: %s', id);
@@ -221,7 +221,7 @@ export default class PersonService {
     public static async getToolboxItems() {
         debug('getting toolbox items ');
         try {
-            const query = 
+            const query =
                 `SELECT
                     ID,
                     Title,
@@ -249,7 +249,7 @@ export default class PersonService {
             const userSave = {
                 EMAIL: credentials.Email,
                 PASSWORD: cript
-            }
+            };
             debug('Credentials to reset: %j', userSave);
             const res = await executeSQL('UPDATE users SET PASSWORD = ? WHERE EMAIL = ?',[userSave.PASSWORD, userSave.EMAIL]);
             debug('Reset credentials result: %j', res);
