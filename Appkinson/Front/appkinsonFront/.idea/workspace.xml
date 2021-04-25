@@ -34,7 +34,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="31db714b-e910-47be-9d56-52caa0903605" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Flutter_Plugins.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Flutter_Plugins.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/local.properties" beforeDir="false" afterPath="$PROJECT_DIR$/android/local.properties" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -59,7 +60,7 @@
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="dart.analysis.tool.window.visible" value="false" />
     <property name="io.flutter.reload.alreadyRun" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../../../BdB/bbog-hc-legalization-mngr" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="settings.editor.selected.configurable" value="gradle.compiler" />
     <property name="show.migrate.to.gradle.popup" value="false" />
   </component>
@@ -75,7 +76,7 @@
       <method v="2" />
     </configuration>
   </component>
-  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="SpellCheckerSettings" BundledDictionaries="0" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" Dictionaries="0" CorrectionsLimit="5" DefaultDictionary="application-level" UseSingleDictionary="true" />
   <component name="SvnConfiguration">
     <configuration />
   </component>
@@ -103,5 +104,23 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state width="1320" height="378" key="GridCell.Tab.0.bottom" timestamp="1619310708296">
+      <screen x="0" y="27" width="1366" height="741" />
+    </state>
+    <state width="1320" height="378" key="GridCell.Tab.0.bottom/0.27.1366.741@0.27.1366.741" timestamp="1619310708296" />
+    <state width="1320" height="378" key="GridCell.Tab.0.center" timestamp="1619310708295">
+      <screen x="0" y="27" width="1366" height="741" />
+    </state>
+    <state width="1320" height="378" key="GridCell.Tab.0.center/0.27.1366.741@0.27.1366.741" timestamp="1619310708295" />
+    <state width="1320" height="378" key="GridCell.Tab.0.left" timestamp="1619310708293">
+      <screen x="0" y="27" width="1366" height="741" />
+    </state>
+    <state width="1320" height="378" key="GridCell.Tab.0.left/0.27.1366.741@0.27.1366.741" timestamp="1619310708293" />
+    <state width="1320" height="378" key="GridCell.Tab.0.right" timestamp="1619310708296">
+      <screen x="0" y="27" width="1366" height="741" />
+    </state>
+    <state width="1320" height="378" key="GridCell.Tab.0.right/0.27.1366.741@0.27.1366.741" timestamp="1619310708296" />
   </component>
 </project>
