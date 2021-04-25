@@ -16,7 +16,7 @@ class ButtonGoFormNoMotoresFromCarer extends StatelessWidget {
             RoundedRectangleBorder(borderRadius: BorderRadius.circular(18.0)),
         //   side: BorderSide(color: Color.fromRGBO(0, 160, 227, 1))),
         onPressed: () {
-          RoutesPatient().toFeelsForm(context, idPatient);
+          RoutesPatient().toNoMotorSymptoms(context, idPatient);
         },
         padding: EdgeInsets.symmetric(horizontal: 10),
         color: Colors.grey[50],
