@@ -27,7 +27,7 @@ class _ListExcercisesState extends State<ListExcercises> {
   //AlarmInfo alarm;
   @override
   Widget build(BuildContext context) => Scaffold(
-        backgroundColor: Colors.grey[100],
+        backgroundColor: Colors.white,
         appBar: AppBar(
           title: Text("Ejercicios"),
         ),

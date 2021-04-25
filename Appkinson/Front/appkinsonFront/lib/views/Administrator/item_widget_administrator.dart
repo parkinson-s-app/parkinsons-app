@@ -21,15 +21,15 @@ class ItemToolboxWidgetAdministrator extends StatelessWidget {
       margin: EdgeInsets.all(8),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(12),
-        color: Colors.white,
+        color: Colors.blue[100],
       ),
       child: ListTile(
         contentPadding: EdgeInsets.symmetric(vertical: 12, horizontal: 16),
      
-        title: Text(item.titulo, style: TextStyle(fontSize: 20)),
-        subtitle: Text(item.descripcion),
+        title: Text(item.titulo, style: TextStyle(fontSize: 21)),
+        subtitle: Text(item.descripcion, style: TextStyle(fontSize: 18)),
         trailing: IconButton(
-          icon: Icon(Icons.delete, color: Colors.red, size: 32),
+          icon: Icon(Icons.delete, color: Colors.blue[800], size: 32),
           onPressed: onClicked,
         ),
       ),
