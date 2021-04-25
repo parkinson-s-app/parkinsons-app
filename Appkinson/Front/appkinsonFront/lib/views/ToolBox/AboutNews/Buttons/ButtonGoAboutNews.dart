@@ -27,6 +27,7 @@ class ButtonGoAboutNews extends StatelessWidget {
             String token = await Utils().getToken();
             itemsByType = await EndPoints().getItemsToolbox(id, token);
             print(itemsByType.length);
+            news.clear();
             for (int i = 0; i < itemsByType.length; i++) {
               itemToolbox = itemsByType[i];
               print(itemToolbox.type.compareTo('NOTICIA'));

@@ -2,6 +2,8 @@ import 'package:appkinsonFront/views/Administrator/FormAddItem.dart';
 import 'package:appkinsonFront/views/Medicines/alarm.dart';
 import 'package:flutter/material.dart';
 
+
+
 class ItemToolboxWidgetAdministrator extends StatelessWidget {
   final ItemToolbox item;
   final Animation animation;
@@ -13,9 +15,10 @@ class ItemToolboxWidgetAdministrator extends StatelessWidget {
     @required this.onClicked,
     Key key,
   }) : super(key: key);
-
+  
   @override
   Widget build(BuildContext context) => ScaleTransition(
+    
     scale: animation,
     child: Container(
       margin: EdgeInsets.all(8),
@@ -25,7 +28,7 @@ class ItemToolboxWidgetAdministrator extends StatelessWidget {
       ),
       child: ListTile(
         contentPadding: EdgeInsets.symmetric(vertical: 12, horizontal: 16),
-     
+        
         title: Text(item.titulo, style: TextStyle(fontSize: 21)),
         subtitle: Text(item.descripcion, style: TextStyle(fontSize: 18)),
         trailing: IconButton(
