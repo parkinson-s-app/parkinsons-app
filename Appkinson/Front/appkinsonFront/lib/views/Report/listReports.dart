@@ -109,72 +109,130 @@ class _ListReportPage extends State<ListReportPage> {
   @override
   Widget build(BuildContext context) {
     print("Entraaaaa");
-    return new MaterialApp(
-        debugShowCheckedModeBanner: false,
-        title: 'Reportes',
-        theme: new ThemeData(
-          primarySwatch: Colors.blue,
-        ),
-        home: Scaffold(
-            appBar: AppBar(title: Text('Reportes')),
-            body: new ListView(children: [
-              FlatButton(
-                onPressed: () {
-                  RoutesDoctor()
-                      .toReportChartPie(context, "idquemado", piedata);
-                },
-                child: Text("Porcentaje de los síntomas del paciente"),
-                color: Colors.blueAccent,
-                textColor: Colors.white,
-              ),
-              FlatButton(
-                onPressed: () {
-                  RoutesDoctor()
-                      .toReportChartSerie(context, "idquemado", seriedata);
-                },
-                child: Text("Promedio de los síntomas del paciente por meses"),
-                color: Colors.blueAccent,
-                textColor: Colors.white,
-              ),
-              FlatButton(
-                onPressed: () {
-                  RoutesDoctor().toReportChartSerie(
-                      context, "idquemado", seriedataGameAverage);
-                },
-                child: Text("Promedio de destreza en el juego"),
-                color: Colors.blueAccent,
-                textColor: Colors.white,
-              ),
-              FlatButton(
-                onPressed: () {
-                  RoutesDoctor().toReportChartSerie(
-                      context, "idquemado", serieDataDiskineias);
-                },
-                child: Text("Porcentaje de disquinecias en meses"),
-                color: Colors.blueAccent,
-                textColor: Colors.white,
-              ),
-              FlatButton(
-                onPressed: () {
-                  RoutesDoctor().toReportChartSerie(
-                      context, "idquemado", seriesDataEmotional);
-                },
-                child: Text(
-                    "Promedio del puntaje del estado de ánimo del paciente"),
-                color: Colors.blueAccent,
-                textColor: Colors.white,
-              ),
-              FlatButton(
-                onPressed: () {
-                  RoutesDoctor().toReportChartLine(
-                      context, "idquemado", lineDataMedicinesDiscrepacy);
-                },
-                child: Text("Promedio de desfase en la toma de médicamentos"),
-                color: Colors.blueAccent,
-                textColor: Colors.white,
-              ),
+    Size size = MediaQuery.of(context).size;
 
-              /*    FlatButton(
+    return Scaffold(
+        appBar: AppBar(title: Text('Gráficas de Reportes')),
+        body: new ListView(children: [
+          new Container(
+            width: 80,
+            height: 750,
+            child: Expanded(
+              child: Column(
+                children: [
+                  SizedBox(
+                    height: 100,
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      RaisedButton(
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(18.0)),
+                        onPressed: () {
+                          RoutesDoctor()
+                              .toReportChartPie(context, "idquemado", piedata);
+                        },
+                        child: Image.asset(
+                          "assets/images/representation.png",
+                          height: size.height * 0.08,
+                        ),
+                        color: Colors.grey[50],
+                        textColor: Colors.white,
+                      ),
+                      RaisedButton(
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(18.0)),
+                        onPressed: () {
+                          RoutesDoctor().toReportChartSerie(
+                              context, "idquemado", seriedata);
+                        },
+                        child: Image.asset(
+                          "assets/images/output-onlinepngtools (1).png",
+                          height: size.height * 0.08,
+                        ),
+                        color: Colors.grey[50],
+                        textColor: Colors.white,
+                      ),
+                    ],
+                  ),
+                  SizedBox(
+                    height: 100,
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      RaisedButton(
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(18.0)),
+                        onPressed: () {
+                          RoutesDoctor().toReportChartSerie(
+                              context, "idquemado", seriedataGameAverage);
+                        },
+                        child: Image.asset(
+                          "assets/images/output-onlinepngtools (2).png",
+                          height: size.height * 0.08,
+                        ),
+                        color: Colors.grey[50],
+                        textColor: Colors.white,
+                      ),
+                      RaisedButton(
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(18.0)),
+                        onPressed: () {
+                          RoutesDoctor().toReportChartSerie(
+                              context, "idquemado", serieDataDiskineias);
+                        },
+                        child: Image.asset(
+                          "assets/images/bar-graph.png",
+                          height: size.height * 0.08,
+                        ),
+                        color: Colors.grey[50],
+                        textColor: Colors.white,
+                      ),
+                    ],
+                  ),
+                  SizedBox(
+                    height: 100,
+                  ),
+                  Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        RaisedButton(
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(18.0)),
+                          onPressed: () {
+                            RoutesDoctor().toReportChartSerie(
+                                context, "idquemado", seriesDataEmotional);
+                          },
+                          child: Image.asset(
+                            "assets/images/pie-chart.png",
+                            height: size.height * 0.08,
+                          ),
+                          color: Colors.grey[50],
+                          textColor: Colors.white,
+                        ),
+                        RaisedButton(
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(18.0)),
+                          onPressed: () {
+                            RoutesDoctor().toReportChartLine(context,
+                                "idquemado", lineDataMedicinesDiscrepacy);
+                          },
+                          child: Image.asset(
+                            "assets/images/output-onlinepngtools (3).png",
+                            height: size.height * 0.08,
+                          ),
+                          color: Colors.grey[50],
+                          textColor: Colors.white,
+                        ),
+                      ]),
+                ],
+              ),
+            ),
+          ),
+
+          /*    FlatButton(
                 onPressed: () {
                   RoutesDoctor()
                       .toReportChartSerie(context, "idquemado", seriedata);
@@ -202,7 +260,7 @@ class _ListReportPage extends State<ListReportPage> {
                 color: Colors.blueAccent,
                 textColor: Colors.white,
               ),*/
-            ])));
+        ]));
   }
 }
 

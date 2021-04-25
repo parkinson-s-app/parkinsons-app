@@ -16,53 +16,64 @@ class __ProfileEdition extends State<ProfileEditionCarer> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: Column(children: <Widget>[
-      Container(
-        padding: EdgeInsets.all(10),
-        decoration: BoxDecoration(
-            border: Border(bottom: BorderSide(color: Colors.grey[200]))),
-        child: TextField(
-          controller: nameControllerCarer,
-          decoration: InputDecoration(
-              hintText: "Ingrese su nombre",
-              hintStyle: TextStyle(color: Colors.grey),
-              border: InputBorder.none),
+        appBar: AppBar(
+          title: Text("Cambio de nombre"),
         ),
-      ),
-      FlatButton(
-        shape:
-            RoundedRectangleBorder(borderRadius: BorderRadius.circular(18.0)),
-        //   side: BorderSide(color: Color.fromRGBO(0, 160, 227, 1))),
-        onPressed: () async {
-          var m = new metod2();
-          var user = await m.send();
+        body: SingleChildScrollView(
+          padding: EdgeInsets.all(32),
+          child: Column(children: <Widget>[
+            SizedBox(
+              height: 200,
+            ),
+            Container(
+              padding: EdgeInsets.all(10),
+              decoration: BoxDecoration(
+                  border: Border.all(color: Colors.grey, width: 1)),
+              child: TextField(
+                controller: nameControllerCarer,
+                decoration: InputDecoration(
+                    hintText: "Ingrese su nombre",
+                    hintStyle: TextStyle(color: Colors.grey),
+                    border: InputBorder.none),
+              ),
+            ),
+            SizedBox(
+              height: 30,
+            ),
+            FlatButton(
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(18.0)),
+              //   side: BorderSide(color: Color.fromRGBO(0, 160, 227, 1))),
+              onPressed: () async {
+                var m = new metod2();
+                var user = await m.send();
 
-          setState(() {
-            nameCarer = nameControllerCarer.text;
-          });
-          
-          String id = await Utils().getFromToken('id');
-          String token = await Utils().getToken();
-          String save = await EndPoints()
-              .modifyUsers(user, id, token);
-          debugPrint(save);
+                setState(() {
+                  nameCarer = nameControllerCarer.text;
+                });
 
-          setState(() {
-            nameCarer = nameControllerCarer.text;
-          });
+                String id = await Utils().getFromToken('id');
+                String token = await Utils().getToken();
+                String save = await EndPoints().modifyUsers(user, id, token);
+                debugPrint(save);
 
-          if (save == 'Actualizado') {
-            Navigator.pop(context);
-          }
+                setState(() {
+                  nameCarer = nameControllerCarer.text;
+                });
 
-          Navigator.pop(context);
-        },
-        padding: EdgeInsets.symmetric(horizontal: 50),
-        color: Colors.white,
-        textColor: Colors.blue,
-        child: Text("Confirmar cambios", style: TextStyle(fontSize: 13)),
-      ),
-    ]));
+                if (save == 'Actualizado') {
+                  Navigator.pop(context);
+                }
+
+                Navigator.pop(context);
+              },
+              padding: EdgeInsets.symmetric(horizontal: 50),
+              color: Colors.blue,
+              textColor: Colors.white,
+              child: Text("Confirmar cambios", style: TextStyle(fontSize: 13)),
+            ),
+          ]),
+        ));
   }
 }
 

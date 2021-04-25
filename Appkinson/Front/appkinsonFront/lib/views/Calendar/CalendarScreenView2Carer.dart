@@ -196,12 +196,32 @@ class _Calendar extends State<CalendarScreenView2Carer> {
                                       icon: Icon(Icons.help_outlined,
                                           color: Colors.grey[500]),
                                       tooltip:
-                                          'son trastornos del movimiento que se caracterizan por un exceso de movimientos o por movimientos anormales e involuntarios')
+                                          'Son trastornos del movimiento que se caracterizan por un exceso de movimientos o por movimientos anormales e involuntarios')
                                 ],
                               ),
                               Text(q2),
                               Divider(
                                 thickness: 1,
+                              ),
+                              Row(
+                                children: [
+                                  Text('Desface:',
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.bold)),
+                                  IconButton(
+                                      icon: Icon(Icons.help_outlined,
+                                          color: Colors.grey[500]),
+                                      tooltip:
+                                          'Esta opción es para escoger cuánto tiempo después de la hora indicada se tomó el medicamento. Si fue a la hora establecida, puede continuar sin escoger nada.')
+                                ],
+                              ),
+                              Text(desface.toString() +
+                                  ' minuntos de desfase en la toma de medicamento'),
+                              Divider(
+                                thickness: 1,
+                              ),
+                              SizedBox(
+                                height: 20,
                               ),
                               FlatButton(
                                 shape: RoundedRectangleBorder(
@@ -225,8 +245,8 @@ class _Calendar extends State<CalendarScreenView2Carer> {
                                               VideoScreenCarer()));
                                 },
 
-                                color: Colors.teal[200],
-                                //textColor: Colors.white,
+                                color: Colors.blue[500],
+                                textColor: Colors.white,
                                 child: Text('ver video'),
                                 /*() => {
                         //print(cont);
@@ -234,18 +254,6 @@ class _Calendar extends State<CalendarScreenView2Carer> {
                       },*/
                                 // Text("Registrarse ", style:  TextStyle(fontSize: 15)),
                               ),
-                              Row(
-                                children: [
-                                  Text('Desface:'),
-                                  IconButton(
-                                      icon: Icon(Icons.announcement_rounded,
-                                          color: Colors.yellow[900]),
-                                      tooltip:
-                                          'Esta opcion es para escoger cuanto tiempo depués de la hora indicada se tomo el medicamento. Si fue a la hora establecida, puede continur sin escoger nada.')
-                                ],
-                              ),
-                              Text(desface.toString() +
-                                  ' min de desface en la toma de medicamento'),
                             ])),
                         actions: <Widget>[
                           FlatButton(
@@ -306,173 +314,182 @@ class _Calendar extends State<CalendarScreenView2Carer> {
                       return AlertDialog(
                         title: Text("llenado:"),
                         content: Form(
-                            child: Column(
-                                mainAxisSize: MainAxisSize.min,
-                                children: [
-                              FlatButton(
-                                shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(18.0)),
-                                //   side: BorderSide(color: Color.fromRGBO(0, 160, 227, 1))),
+                            child: SingleChildScrollView(
+                          child:
+                              Column(mainAxisSize: MainAxisSize.min, children: [
+                            Row(
+                              children: [
+                                Text('Estado:',
+                                    style:
+                                        TextStyle(fontWeight: FontWeight.bold)),
+                                IconButton(
+                                    icon: Icon(Icons.help_outlined,
+                                        color: Colors.grey[500]),
+                                    tooltip:
+                                        'Son cambios del estado del paciente a lo largo del día. En fase o periodo ON hay un control satisfactorio de los síntomas y es posible una actividad motora normal. En cambio, en las fases OFF reaparecen los síntomas con una función motora alterada.')
+                              ],
+                            ),
+                            FlatButton(
+                              height: 35,
+                              minWidth: 220,
+                              shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(18.0)),
+                              //   side: BorderSide(color: Color.fromRGBO(0, 160, 227, 1))),
 
-                                padding: EdgeInsets.symmetric(horizontal: 30),
+                              padding: EdgeInsets.symmetric(horizontal: 30),
 
-                                //onPressed: _incrementColorIndex,
-                                onPressed: () {
-                                  setState(() {
-                                    _incrementColorIndex();
-                                  });
-                                },
+                              //onPressed: _incrementColorIndex,
+                              onPressed: () {
+                                setState(() {
+                                  _incrementColorIndex();
+                                });
+                              },
 
-                                color: _colors[cont],
-                                //textColor: Colors.white,
-                                child: Text(_onOff[cont]),
-                                /*() => {
+                              color: _colors[cont],
+                              //textColor: Colors.white,
+                              child: Text(_onOff[cont]),
+                              /*() => {
                         //print(cont);
                         _incrementColorIndex()
                       },*/
-                                // Text("Registrarse ", style:  TextStyle(fontSize: 15)),
-                              ),
-                              Row(
-                                children: [
-                                  Text('Disquinesias:'),
-                                  IconButton(
-                                      icon: Icon(Icons.announcement_rounded,
-                                          color: Colors.yellow[900]),
-                                      tooltip:
-                                          'son trastornos del movimiento que se caracterizan por un exceso de movimientos o por movimientos anormales e involuntarios')
-                                ],
-                              ),
-                              TextFormField(
-                                controller: _disqui,
-                                validator: (value) {
-                                  return value.isNotEmpty ? null : "Invalido";
-                                },
-                                decoration: InputDecoration(
-                                    hintText:
-                                        "Ej: 'hoy tuve un movimiento raro"),
-                              ),
-                              FlatButton(
-                                shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(18.0)),
-                                //   side: BorderSide(color: Color.fromRGBO(0, 160, 227, 1))),
+                              // Text("Registrarse ", style:  TextStyle(fontSize: 15)),
+                            ),
+                            Divider(thickness: 1),
+                            Row(
+                              children: [
+                                Text('Disquinesias:',
+                                    style:
+                                        TextStyle(fontWeight: FontWeight.bold)),
+                                IconButton(
+                                    icon: Icon(Icons.help_outlined,
+                                        color: Colors.grey[500]),
+                                    tooltip:
+                                        'son trastornos del movimiento que se caracterizan por un exceso de movimientos o por movimientos anormales e involuntarios')
+                              ],
+                            ),
+                            TextFormField(
+                              controller: _disqui,
+                              validator: (value) {
+                                return value.isNotEmpty ? null : "Invalido";
+                              },
+                              decoration: InputDecoration(
+                                  hintText: "Ej: 'hoy tuve un movimiento raro"),
+                            ),
+                            Divider(thickness: 1),
+                            FlatButton(
+                              shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(18.0)),
+                              //   side: BorderSide(color: Color.fromRGBO(0, 160, 227, 1))),
 
-                                padding: EdgeInsets.symmetric(horizontal: 30),
+                              padding: EdgeInsets.symmetric(horizontal: 30),
 
-                                //onPressed: _incrementColorIndex,
-                                onPressed: () {
-                                  Navigator.push(
-                                      context,
-                                      new MaterialPageRoute(
-                                          builder: (context) =>
-                                              SymptomsFormPatientQ5ON()));
-                                },
-
-                                color: Colors.teal[200],
-                                //textColor: Colors.white,
-                                child: Text('hacer video(opcional)'),
-                                /*() => {
+                              //onPressed: _incrementColorIndex,
+                              onPressed: () {
+                                Navigator.push(
+                                    context,
+                                    new MaterialPageRoute(
+                                        builder: (context) =>
+                                            SymptomsFormPatientQ5ON()));
+                              },
+                              minWidth: 220,
+                              color: Colors.blue[500],
+                              //textColor: Colors.white,
+                              child: Text('hacer video(opcional)'),
+                              /*() => {
                         //print(cont);
                         _incrementColorIndex()
                       },*/
-                                // Text("Registrarse ", style:  TextStyle(fontSize: 15)),
-                              ),
-                              Row(children: [
-                                SizedBox(
-                                  width: 20,
-                                ),
-                                FlatButton(
-                                  shape: RoundedRectangleBorder(
-                                      borderRadius:
-                                          BorderRadius.circular(18.0)),
-                                  //   side: BorderSide(color: Color.fromRGBO(0, 160, 227, 1))),
+                              // Text("Registrarse ", style:  TextStyle(fontSize: 15)),
+                            ),
+                            FlatButton(
+                              minWidth: 225,
+                              shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(18.0)),
+                              //   side: BorderSide(color: Color.fromRGBO(0, 160, 227, 1))),
 
-                                  padding: EdgeInsets.symmetric(horizontal: 50),
+                              padding: EdgeInsets.symmetric(horizontal: 50),
 
-                                  //onPressed: _incrementColorIndex,
-                                  onPressed: () {
-                                    valueHour = '0';
-                                    showDialog(
-                                        context: context,
-                                        builder: (BuildContext context) {
-                                          return StatefulBuilder(
-                                              builder: (context, setState) {
-                                            currentMeeting = null;
-                                            return AlertDialog(
-                                                title: Text(
-                                                    "Cuanto tiempo después se tomo el medicamento?"),
-                                                content: Container(
-                                                    height: 350.0,
-                                                    width: 350.0,
-                                                    child: Column(
-                                                        mainAxisSize:
-                                                            MainAxisSize.min,
-                                                        children: <Widget>[
-                                                          Expanded(
-                                                            child:
-                                                                CupertinoTimerPicker(
-                                                              // initialTimerDuration: ,
-                                                              mode:
-                                                                  CupertinoTimerPickerMode
-                                                                      .hm,
-                                                              onTimerDurationChanged:
-                                                                  (value) {
-                                                                setState(() {
-                                                                  this.valueHour = value
+                              //onPressed: _incrementColorIndex,
+                              onPressed: () {
+                                valueHour = '0';
+                                showDialog(
+                                    context: context,
+                                    builder: (BuildContext context) {
+                                      return StatefulBuilder(
+                                          builder: (context, setState) {
+                                        currentMeeting = null;
+                                        return AlertDialog(
+                                            title: Text(
+                                                "¿Cuánto tiempo después se tomó el medicamento?"),
+                                            content: Container(
+                                                height: 350.0,
+                                                width: 350.0,
+                                                child: Column(
+                                                    mainAxisSize:
+                                                        MainAxisSize.min,
+                                                    children: <Widget>[
+                                                      Expanded(
+                                                        child:
+                                                            CupertinoTimerPicker(
+                                                          // initialTimerDuration: ,
+                                                          mode:
+                                                              CupertinoTimerPickerMode
+                                                                  .hm,
+                                                          onTimerDurationChanged:
+                                                              (value) {
+                                                            setState(() {
+                                                              this.valueHour =
+                                                                  value
                                                                       .inMinutes
                                                                       .toString();
-                                                                });
-                                                              },
-                                                            ),
-                                                          ),
-                                                          FlatButton(
-                                                            shape: RoundedRectangleBorder(
-                                                                borderRadius:
-                                                                    BorderRadius
-                                                                        .circular(
-                                                                            18.0)),
-                                                            //   side: BorderSide(color: Color.fromRGBO(0, 160, 227, 1))),
+                                                            });
+                                                          },
+                                                        ),
+                                                      ),
+                                                      FlatButton(
+                                                        shape: RoundedRectangleBorder(
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        18.0)),
+                                                        //   side: BorderSide(color: Color.fromRGBO(0, 160, 227, 1))),
 
-                                                            padding: EdgeInsets
-                                                                .symmetric(
-                                                                    horizontal:
-                                                                        30),
+                                                        padding: EdgeInsets
+                                                            .symmetric(
+                                                                horizontal: 30),
 
-                                                            //onPressed: _incrementColorIndex,
-                                                            onPressed: () {
-                                                              print(this
-                                                                  .valueHour);
-                                                              RoutesGeneral()
-                                                                  .toPop(
-                                                                      context);
-                                                            },
+                                                        //onPressed: _incrementColorIndex,
+                                                        onPressed: () {
+                                                          print(this.valueHour);
+                                                          RoutesGeneral()
+                                                              .toPop(context);
+                                                        },
 
-                                                            color: Colors
-                                                                .teal[200],
-                                                            //textColor: Colors.white,
-                                                            child:
-                                                                Text('Listo'),
-                                                          ),
-                                                        ])));
-                                          });
-                                        });
-                                  },
+                                                        color: Colors.blue[500],
+                                                        textColor: Colors.white,
+                                                        child: Text('Listo'),
+                                                      ),
+                                                    ])));
+                                      });
+                                    });
+                              },
 
-                                  color: Colors.teal[200],
-                                  //textColor: Colors.white,
-                                  child: Text('desface '),
-                                  /*() => {
+                              color: Colors.blue[500],
+                              //textColor: Colors.white,
+                              child: Text('         Desfase          '),
+                              /*() => {
                         //print(cont);
                         _incrementColorIndex()
                       },*/
-                                  // Text("Registrarse ", style:  TextStyle(fontSize: 15)),
-                                ),
-                                IconButton(
-                                    icon: Icon(Icons.announcement_rounded,
-                                        color: Colors.yellow[900]),
-                                    tooltip:
-                                        'Esta opcion es para escoger cuanto tiempo depués de la hora indicada se tomo el medicamento. Si fue a la hora establecida, puede continur sin escoger nada.')
-                              ])
-                            ])),
+                              // Text("Registrarse ", style:  TextStyle(fontSize: 15)),
+                            ),
+                            IconButton(
+                                icon: Icon(Icons.help_outlined,
+                                    color: Colors.grey[500]),
+                                tooltip:
+                                    'Esta opción es para escoger cuánto tiempo depués de la hora indicada se tomó el medicamento. Si fue a la hora establecida, puede continuar sin escoger nada.')
+                          ]),
+                        )),
                         actions: <Widget>[
                           !isLoading
                               ? FlatButton(

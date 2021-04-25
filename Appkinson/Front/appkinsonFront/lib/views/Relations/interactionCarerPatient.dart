@@ -8,7 +8,6 @@ import 'package:appkinsonFront/views/sideMenus/CustomDrawerMenu.dart';
 import 'package:flutter/material.dart';
 import 'package:foldable_sidebar/foldable_sidebar.dart';
 
-
 class InteractionCarerPatient extends StatelessWidget {
   final int idPatient;
 
@@ -116,7 +115,22 @@ class InteractionCarerPatient extends StatelessWidget {
                         ],
                       ),*/
                 ],
-              )
+              ),
+              SizedBox(
+                height: 30,
+              ),
+              Column(
+                children: <Widget>[
+                  ButtonGoFormFeelsFromCarer(),
+                  Text(
+                    "Formulario Sintomas \nno motores",
+                    style: TextStyle(
+                        color: Colors.blue[900],
+                        fontSize: 15,
+                        fontFamily: "Raleway2"),
+                  )
+                ],
+              ),
             ],
           ),
         ),

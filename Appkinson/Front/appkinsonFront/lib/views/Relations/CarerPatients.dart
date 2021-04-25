@@ -201,8 +201,8 @@ class CarerPatientsCustom extends State<CarerPatients> {
               },
               separatorBuilder: (context, index) {
                 return Divider(
-                    thickness: 2,
-                    color: Colors.blue[700],
+                    thickness: 1,
+                    color: Colors.grey[350],
                     indent: 10,
                     endIndent: 10);
               },

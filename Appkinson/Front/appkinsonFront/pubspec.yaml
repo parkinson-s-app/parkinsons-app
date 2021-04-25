@@ -120,6 +120,7 @@ flutter:
      - assets/images/logostep.png
      - assets/images/news.png
      - assets/images/parkinson.png
+     - assets/images/parkinsonHand.png
      - assets/images/medicines.png
      - assets/images/reporter.png
      - assets/images/game.png
@@ -127,7 +128,12 @@ flutter:
      - assets/images/pedometer.png
      - assets/images/puzzle.png
      - assets/images/perfil2.png
-     - assets/images/
+     - assets/images/pie-chart.png
+     - assets/images/bar-graph.png
+     - assets/images/output-onlinepngtools (1).png
+     - assets/images/output-onlinepngtools (2).png
+     - assets/images/representation.png
+     - assets/images/output-onlinepngtools (3).png
 
 
 

@@ -707,7 +707,7 @@ class _CalendarScreenView2 extends State<CalendarScreenView2> {
                                       icon: Icon(Icons.help_outlined,
                                           color: Colors.grey[500]),
                                       tooltip:
-                                          'Esta opción es para escoger cuánto tiempo depués de la hora indicada se tomó el medicamento. Si fue a la hora establecida, puede continur sin escoger nada.')
+                                          'Esta opción es para escoger cuánto tiempo depués de la hora indicada se tomó el medicamento. Si fue a la hora establecida, puede continuar sin escoger nada.')
                                 ]),
                           )),
                           actions: <Widget>[

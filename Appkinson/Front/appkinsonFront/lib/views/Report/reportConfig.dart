@@ -108,7 +108,7 @@ class _ReportConfigPageState extends State<ReportConfigPage> {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
-            Container(
+            /*Container(
               width: 300,
               height: 60,
               child: FlatButton(
@@ -121,7 +121,7 @@ class _ReportConfigPageState extends State<ReportConfigPage> {
             ),
             Divider(
               thickness: 1,
-            ),
+            ),*/
             Text(selecteddataList.join(" , ")),
             Padding(
               padding: EdgeInsets.all(30.0),
@@ -141,11 +141,16 @@ class _ReportConfigPageState extends State<ReportConfigPage> {
                 onPressed: () => _showReportDialogPeriocity(),
               ),
             ),
+            SizedBox(
+              height: 10,
+            ),
             Container(
               width: 290,
               height: 60,
               child: FlatButton(
-                  color: Colors.deepOrangeAccent,
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(18.0)),
+                  color: Colors.grey[350],
                   onPressed: () async {
                     print("Entraaa");
                     if (picked.isNotEmpty) {
@@ -166,19 +171,25 @@ class _ReportConfigPageState extends State<ReportConfigPage> {
             Padding(
               padding: EdgeInsets.all(100.0),
             ),
-            FlatButton(
-              onPressed: () {
-                print(picked[0]);
-                print(picked[1]);
-                if (!picked.isEmpty) {
-                  RoutesDoctor().toListReportPage(context, idPatient, picked);
-                } else {
-                  print("Agregar pop up de que debe seleccionar fechas");
-                }
-              },
-              child: Text("Generar reporte"),
-              color: Colors.blueAccent,
-              textColor: Colors.white,
+            Container(
+              width: 290,
+              height: 60,
+              child: FlatButton(
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(18.0)),
+                onPressed: () {
+                  print(picked[0]);
+                  print(picked[1]);
+                  if (!picked.isEmpty) {
+                    RoutesDoctor().toListReportPage(context, idPatient, picked);
+                  } else {
+                    print("Agregar pop up de que debe seleccionar fechas");
+                  }
+                },
+                child: Text("Generar reporte"),
+                color: Colors.blueAccent,
+                textColor: Colors.white,
+              ),
             )
           ],
         ),

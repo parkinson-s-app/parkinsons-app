@@ -269,16 +269,14 @@ class ProfileListItem extends StatelessWidget {
             if (text == 'Ayuda & soporte') {
               RoutesGeneral().toAboutUs(context);
             }
-            if (text == 'Editar') {
-              RoutesCarer().toCarerEditProfile(context);
-            }
-            if(text == 'Cerrar Sesión') {
+
+            if (text == 'Cerrar Sesión') {
               debugPrint("Tapped Log Out....");
               SharedPreferences prefs = await SharedPreferences.getInstance();
-              prefs?.clear(); 
+              prefs?.clear();
               await Utils().removeBackgroundTask();
               Navigator.pushReplacement(context,
-                MaterialPageRoute(builder: (BuildContext ctx) => HomePage()));
+                  MaterialPageRoute(builder: (BuildContext ctx) => HomePage()));
             }
           },
           child: Row(
