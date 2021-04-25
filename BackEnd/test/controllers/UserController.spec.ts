@@ -21,16 +21,15 @@ describe('UserController',() => {
     afterEach(() => {
         sinon.restore();
     });
-    it('registro should save the new user', (done) => {
+
+    it('registro should save the new user patient', (done) => {
         const poolStub = {
             getConnection: sinon.stub().returnsThis(),
             query: sinon.stub().returnsThis(),
             release: sinon.stub(),
         };
         const createPoolStub = sinon.stub(mysql, 'createPool').returns(poolStub);
-        sqlMock.returns((): Promise<any> => {
-            return Promise.resolve(saveUserResponse);
-        });
+        sqlMock.returns(saveUserResponse);
         chai.request(app)
             .post('/api/registro')
             .set({
@@ -39,7 +38,8 @@ describe('UserController',() => {
             .send({
                 email: "veraele2@javeriana.edu.co",
                 password: "hola1234",
-                type: "Paciente"
+                type: "Paciente",
+                name: "nombre"
             })
             .end((err, response) => {
 
@@ -50,6 +50,60 @@ describe('UserController',() => {
             });
     });
 
+    it('registro should save the new user carer', (done) => {
+        const poolStub = {
+            getConnection: sinon.stub().returnsThis(),
+            query: sinon.stub().returnsThis(),
+            release: sinon.stub(),
+        };
+        const createPoolStub = sinon.stub(mysql, 'createPool').returns(poolStub);
+        sqlMock.returns(saveUserResponse);
+        chai.request(app)
+            .post('/api/registro')
+            .set({
+                'Content-Type': 'application/json'
+            })
+            .send({
+                email: "veraele2@javeriana.edu.co",
+                password: "hola1234",
+                type: "Cuidador",
+                name: "nombre"
+            })
+            .end((err, response) => {
+
+                console.log(response.text);
+                expect(response.text).to.equals("Guardado");
+                expect(response.status).to.equals(200);
+                done();
+            });
+    });
+
+    it('registro should save the new user doctor', (done) => {
+        const poolStub = {
+            getConnection: sinon.stub().returnsThis(),
+            query: sinon.stub().returnsThis(),
+            release: sinon.stub(),
+        };
+        const createPoolStub = sinon.stub(mysql, 'createPool').returns(poolStub);
+        sqlMock.returns(saveUserResponse);
+        chai.request(app)
+            .post('/api/registro')
+            .set({
+                'Content-Type': 'application/json'
+            })
+            .send({
+                email: "veraele2@javeriana.edu.co",
+                password: "hola1234",
+                type: "Doctor"
+            })
+            .end((err, response) => {
+
+                console.log(response.text);
+                expect(response.text).to.equals("Guardado");
+                expect(response.status).to.equals(200);
+                done();
+            });
+    });
 
     it('registro should fail to save the new user, null executeSQL', (done) => {
         const poolStub = {
@@ -117,7 +171,7 @@ describe('UserController',() => {
         // savePersonResponseDuplicate.json
         const responseFile = path.join(__dirname, '../resources/savePersonResponseDuplicate.json');
         const response = fs.readFileSync(responseFile, 'utf8').toString();
-        sqlMock.returns(response);
+        sqlMock.throws(new Error(response));
         chai.request(app)
             .post('/api/registro')
             .set({
@@ -130,9 +184,9 @@ describe('UserController',() => {
             })
             .end((err, response) => {
 
-                console.log(response.body);
+                console.log(response.text);
                 // expect(response.body.status).to.equals(500);
-                // expect(response.body.error).to.equals("An error has ocurred");
+                expect(response.text).to.equals("Existe");
                 expect(response.status).to.equals(400);
                 done();
             });

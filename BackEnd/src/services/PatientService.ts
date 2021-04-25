@@ -375,13 +375,17 @@ export default class PatientService {
             let acum = 0;
             let average = 0;
             const size = listJSON.length;
+            let elementsInvalid = 0;
             debug('size :%s', size);
             for (let index = 0; index < size; index++) {
-                acum += listJSON[index].Q1;
-                acum += listJSON[index].Q2;
+                if(listJSON[index].Q1 !== -1 && listJSON[index].Q2 !== -1) {
+                    acum += Number(((listJSON[index].Q1 + listJSON[index].Q2)/2).toFixed(1));
+                } else {
+                    elementsInvalid++;
+                }
             }
             if (size !== 0) {
-                average = Number((acum/(size)).toFixed(1));
+                average = Number((acum/(size-elementsInvalid)).toFixed(1));
             }
             const finalResponse = {
                 Mes: 'null',
