@@ -499,8 +499,6 @@ async function montlyReport(idPatient: number, initDate: string, endDate: string
             report = await PatientService.getReportDiskineciaTwoDates(idPatient, initDate, endDate);
         } else if(reportType === 'DISCREPANCY') {
             report = await PatientService.getReportDiscrepancyTwoDates(idPatient, initDate, endDate);
-        } else if(reportType === 'NOMOTOR') {
-            report = await PatientService.getReportNoMotorTwoDates(idPatient, initDate, endDate);
         }
         report.mes = (before.getMonth()+1);
         report.Mes = (before.getMonth()+1);
@@ -526,16 +524,19 @@ async function twoWeeklyReport(idPatient: number, initDate: string, endDate: str
             initDate = (before.toJSON()).toString();
             endDate = (last.toJSON()).toString();
         }
-        if(reportType === 'SYMPTOMS') {
-            report = await PatientService.getReportSymptomsTwoDates(idPatient, initDate, endDate);
-        } else if(reportType === 'GAME') {
-            report = await PatientService.getReportGameTwoDates(idPatient, initDate, endDate);
-        } else if(reportType === 'EMOTIONAL') {
-            report = await PatientService.getReportEmotionalSymptomsTwoDates(idPatient, initDate, endDate);
-        } else if(reportType === 'DYSKINECIA') {
-            report = await PatientService.getReportDiskineciaTwoDates(idPatient, initDate, endDate);
-        } else if(reportType === 'DISCREPANCY') {
-            report = await PatientService.getReportDiscrepancyTwoDates(idPatient, initDate, endDate);
+        // if(reportType === 'SYMPTOMS') {
+        //     report = await PatientService.getReportSymptomsTwoDates(idPatient, initDate, endDate);
+        // } else if(reportType === 'GAME') {
+        //     report = await PatientService.getReportGameTwoDates(idPatient, initDate, endDate);
+        // } else if(reportType === 'EMOTIONAL') {
+        //     report = await PatientService.getReportEmotionalSymptomsTwoDates(idPatient, initDate, endDate);
+        // } else if(reportType === 'DYSKINECIA') {
+        //     report = await PatientService.getReportDiskineciaTwoDates(idPatient, initDate, endDate);
+        // } else if(reportType === 'DISCREPANCY') {
+        //     report = await PatientService.getReportDiscrepancyTwoDates(idPatient, initDate, endDate);
+        // } else
+        if(reportType === 'NOMOTOR') {
+            report = await PatientService.getReportNoMotorTwoDates(idPatient, initDate, endDate);
         }
         report.Week = week;
         week++;
