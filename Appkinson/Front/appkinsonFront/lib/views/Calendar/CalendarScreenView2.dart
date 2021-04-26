@@ -104,7 +104,7 @@ class _CalendarScreenView2 extends State<CalendarScreenView2> {
 
   Widget buildLoading() {
     return AlertDialog(
-      title: Text("Subiendo el video "),
+      title: Text("Subiendo Registro "),
       content: Form(
           child: Column(mainAxisSize: MainAxisSize.min, children: [
         new CircularProgressIndicator(

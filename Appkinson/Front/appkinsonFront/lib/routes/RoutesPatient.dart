@@ -10,6 +10,7 @@ import 'package:appkinsonFront/views/HomeDifferentUsers/Patient/PatientHomePage.
 
 import 'package:appkinsonFront/views/Notifications/PatientNotifications.dart';
 import 'package:appkinsonFront/views/SymptomsFormDoctor/symptomsFormQ.dart';
+import 'package:appkinsonFront/views/ToolBox/AboutParkinson/Buttons/Information.dart';
 import 'package:appkinsonFront/views/ToolBox/ToolBoxInitial.dart';
 import 'package:appkinsonFront/views/profiles/Patient/PatientProfile.dart';
 import 'package:appkinsonFront/views/profiles/Patient/profileEdition/ProfileEditionPatient.dart';
@@ -66,6 +67,11 @@ class RoutesPatient {
   toPatientProfile(BuildContext context) {
     Navigator.push(
         context, new MaterialPageRoute(builder: (context) => MyHomePage1()));
+  }
+
+  toAboutParkinson(BuildContext context) {
+    Navigator.push(
+        context, new MaterialPageRoute(builder: (context) => Information()));
   }
 
   toPatientEditProfile(BuildContext context) {

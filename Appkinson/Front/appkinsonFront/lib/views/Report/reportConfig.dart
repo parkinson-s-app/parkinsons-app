@@ -144,7 +144,7 @@ class _ReportConfigPageState extends State<ReportConfigPage> {
             SizedBox(
               height: 10,
             ),
-            Container(
+            /* Container(
               width: 290,
               height: 60,
               child: FlatButton(
@@ -167,7 +167,7 @@ class _ReportConfigPageState extends State<ReportConfigPage> {
                     print(picked[1]);
                   },
                   child: new Text("Seleccionar fechas")),
-            ),
+            ),*/
             Padding(
               padding: EdgeInsets.all(100.0),
             ),

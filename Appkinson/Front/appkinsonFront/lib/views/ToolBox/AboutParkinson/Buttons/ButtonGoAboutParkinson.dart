@@ -1,3 +1,4 @@
+import 'package:appkinsonFront/routes/RoutesPatient.dart';
 import 'package:flutter/material.dart';
 
 //import '../../Register/RegisterPage.dart';
@@ -14,7 +15,7 @@ class ButtonGoAboutParkinson extends StatelessWidget {
           shape: CircleBorder(),
           //   side: BorderSide(color: Color.fromRGBO(0, 160, 227, 1))),
           onPressed: () {
-            //RoutesPatient().toCalendar(context);
+            RoutesPatient().toAboutParkinson(context);
           },
           padding: EdgeInsets.symmetric(horizontal: 10),
           color: Colors.grey[50],

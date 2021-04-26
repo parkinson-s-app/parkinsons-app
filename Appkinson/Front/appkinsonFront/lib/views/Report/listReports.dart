@@ -49,7 +49,6 @@ String descriptionMedicines =
 String descriptionNoMotors =
     "Esta gráfica  construida dividiendo el intervalo de tiempo escogido por semanas, posteriormente se calcula el promedio del puntaje obtenido el el fomulario de síntomas no motores de dichas semanas. Las semanas se cuentan desde el inicio del intervalo escogido";
 
-
 //CONSTRUCCIÓN DE DESCRIPCIÓN DE DATOS DE GRÁFICAS DE SERIE
 String dataDescriptionSymptomsByMonth = "";
 String dataDescriptionAverageGame = "";
@@ -89,7 +88,9 @@ class _ListReportPage extends State<ListReportPage> {
       //Construyendo la gráfica del promedio de síntomas por cada mes - Gráfica de barras
       var averageSymtomsByMonthResponseDecode =
           json.decode(averageSymptomsByMonth);
-      if(dataDescriptionSymptomsByMonth != ""){dataDescriptionSymptomsByMonth = "";}
+      if (dataDescriptionSymptomsByMonth != "") {
+        dataDescriptionSymptomsByMonth = "";
+      }
       for (int i = 0; i < averageSymtomsByMonthResponseDecode.length; i++) {
         dataDescriptionSymptomsByMonth = dataDescriptionSymptomsByMonth +
             toMonthString(averageSymtomsByMonthResponseDecode[i]['mes']) +
@@ -108,7 +109,9 @@ class _ListReportPage extends State<ListReportPage> {
 
       //Construyendo la gráfica de promedio de puntaje obtenido en el juego por mes - Gráfica de barras
       var averageGameResponseDecode = json.decode(averageGameScore);
-      if(dataDescriptionAverageGame != ""){dataDescriptionAverageGame = "";}
+      if (dataDescriptionAverageGame != "") {
+        dataDescriptionAverageGame = "";
+      }
       for (int i = 0; i < averageGameResponseDecode.length; i++) {
         dataDescriptionAverageGame = dataDescriptionAverageGame +
             toMonthString(averageGameResponseDecode[i]['mes']) +
@@ -124,7 +127,9 @@ class _ListReportPage extends State<ListReportPage> {
       //Construyeno la gráfica de porcentaje de disquinecias por meses - Gráfica de pie
       var averageDyskineciasDecode =
           json.decode(averageDyskineciasWithoutMonth);
-      if(dataDescriptionAverageDyskinecias != ""){dataDescriptionAverageDyskinecias = "";}
+      if (dataDescriptionAverageDyskinecias != "") {
+        dataDescriptionAverageDyskinecias = "";
+      }
       for (int i = 0; i < averageDyskineciasDecode.length; i++) {
         dataDescriptionAverageDyskinecias = dataDescriptionAverageDyskinecias +
             toMonthString(averageDyskineciasDecode[i]['mes']) +
@@ -138,7 +143,9 @@ class _ListReportPage extends State<ListReportPage> {
       //Construyendo la gráfica de promedio de puntaje del formulario emocional por meses
       var averageEmotionalSymptomsDecode =
           json.decode(averageEmotionalSymptoms);
-      if(dataDescriptionAverageEmotional != ""){dataDescriptionAverageEmotional = "";}
+      if (dataDescriptionAverageEmotional != "") {
+        dataDescriptionAverageEmotional = "";
+      }
       for (int i = 0; i < averageEmotionalSymptomsDecode.length; i++) {
         dataDescriptionAverageEmotional = dataDescriptionAverageEmotional +
             toMonthString(averageEmotionalSymptomsDecode[i]['mes']) +
@@ -177,7 +184,7 @@ class _ListReportPage extends State<ListReportPage> {
         await EndPoints().getAverageEmotionalSymptoms(idPatient, lastDate, now);
     dataDisrepancy =
         await EndPoints().getDiscrepancyData(idPatient, lastDate, now);
-    dataNoMotors=
+    dataNoMotors =
         await EndPoints().getAverageMotorsSymptoms(idPatient, lastDate, now);
   }
 
@@ -191,7 +198,7 @@ class _ListReportPage extends State<ListReportPage> {
         body: new ListView(children: [
           new Container(
             width: 80,
-            height: 750,
+            height: 1200,
             child: Expanded(
               child: Column(
                 children: [
@@ -201,46 +208,66 @@ class _ListReportPage extends State<ListReportPage> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
-                      RaisedButton(
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(18.0)),
-                        onPressed: () {
-                          RoutesDoctor().toReportChartPie(
-                              context,
-                              "idquemado",
-                              piedata,
-                              "Porcentaje de los síntomas del paciente \n",
-                              descripcionSymptoms);
-                        },
-                        child: Image.asset(
-                          "assets/images/representation.png",
-                          height: size.height * 0.08,
+                      Column(children: [
+                        RaisedButton(
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(18.0)),
+                          onPressed: () {
+                            RoutesDoctor().toReportChartPie(
+                                context,
+                                "idquemado",
+                                piedata,
+                                "Porcentaje de los síntomas del paciente \n",
+                                descripcionSymptoms);
+                          },
+                          child: Image.asset(
+                            "assets/images/representation.png",
+                            height: size.height * 0.08,
+                          ),
+                          color: Colors.grey[50],
+                          textColor: Colors.white,
                         ),
-                        color: Colors.grey[50],
-                        textColor: Colors.white,
-                      ),
-                      RaisedButton(
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(18.0)),
-                        onPressed: () {
-                          RoutesDoctor().toReportChartSerie(
-                              context,
-                              idsSymptomsAverage,
-                              seriedata,
-                              "Promedio de los síntomas del paciente por meses \n \n",
-                              colorsSintomasPorMeses,
-                              "Mes",
-                              "Promedio de Síntomas",
-                              descriptionSymptomsByMonth,
-                              dataDescriptionSymptomsByMonth);
-                        },
-                        child: Image.asset(
-                          "assets/images/output-onlinepngtools (1).png",
-                          height: size.height * 0.08,
+                        Text(
+                          "Porcentaje\n de los\n síntomas del\n paciente \n",
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                              color: Colors.blue[900],
+                              fontSize: 17,
+                              fontFamily: "Raleway2"),
+                        )
+                      ]),
+                      Column(children: [
+                        RaisedButton(
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(18.0)),
+                          onPressed: () {
+                            RoutesDoctor().toReportChartSerie(
+                                context,
+                                idsSymptomsAverage,
+                                seriedata,
+                                "Promedio de los síntomas del paciente por meses \n \n",
+                                colorsSintomasPorMeses,
+                                "Mes",
+                                "Promedio de Síntomas",
+                                descriptionSymptomsByMonth,
+                                dataDescriptionSymptomsByMonth);
+                          },
+                          child: Image.asset(
+                            "assets/images/output-onlinepngtools (1).png",
+                            height: size.height * 0.08,
+                          ),
+                          color: Colors.grey[50],
+                          textColor: Colors.white,
                         ),
-                        color: Colors.grey[50],
-                        textColor: Colors.white,
-                      ),
+                        Text(
+                          "Promedio\n de los\n síntomas del\n paciente \npor meses",
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                              color: Colors.blue[900],
+                              fontSize: 17,
+                              fontFamily: "Raleway2"),
+                        )
+                      ]),
                     ],
                   ),
                   SizedBox(
@@ -249,72 +276,53 @@ class _ListReportPage extends State<ListReportPage> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
-                      RaisedButton(
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(18.0)),
-                        onPressed: () {
-                          RoutesDoctor().toReportChartSerie(
-                              context,
-                              idsAverageGame,
-                              seriedataGameAverage,
-                              "Promedio de destreza en el juego \n \n",
-                              colorsSintomasPorMeses,
-                              "Mes",
-                              "Promedio del puntaje",
-                              descriptionAverageGame,
-                              dataDescriptionAverageGame);
-                        },
-                        child: Image.asset(
-                          "assets/images/output-onlinepngtools (2).png",
-                          height: size.height * 0.08,
-                        ),
-                        color: Colors.grey[50],
-                        textColor: Colors.white,
-                      ),
-                      RaisedButton(
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(18.0)),
-                        onPressed: () {
-                          RoutesDoctor().toReportChartSerie(
-                              context,
-                              idsDyskineciasAverage,
-                              serieDataDiskineias,
-                              "Porcentaje de disquinecias en meses  \n \n",
-                              colorsSintomasPorMeses,
-                              "Mes",
-                              "Porcentaje de disquinecias (%)",
-                              descriptionDysquinecias,
-                              dataDescriptionAverageDyskinecias);
-                        },
-                        child: Image.asset(
-                          "assets/images/bar-graph.png",
-                          height: size.height * 0.08,
-                        ),
-                        color: Colors.grey[50],
-                        textColor: Colors.white,
-                      ),
-                    ],
-                  ),
-                  SizedBox(
-                    height: 100,
-                  ),
-                  Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
+                      Column(children: [
                         RaisedButton(
                           shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(18.0)),
                           onPressed: () {
                             RoutesDoctor().toReportChartSerie(
                                 context,
-                                idsEmotionalAverage,
-                                seriesDataEmotional,
-                                "Promedio del puntaje del estado de ánimo del paciente \n \n",
+                                idsAverageGame,
+                                seriedataGameAverage,
+                                "Promedio de destreza en el juego \n \n",
                                 colorsSintomasPorMeses,
-                                "Meses",
-                                "Promedio del puntaje del estado de ánimo",
-                                descriptionEmotional,
-                                dataDescriptionAverageEmotional);
+                                "Mes",
+                                "Promedio del puntaje",
+                                descriptionAverageGame,
+                                dataDescriptionAverageGame);
+                          },
+                          child: Image.asset(
+                            "assets/images/output-onlinepngtools (2).png",
+                            height: size.height * 0.08,
+                          ),
+                          color: Colors.grey[50],
+                          textColor: Colors.white,
+                        ),
+                        Text(
+                          "Promedio de \ndestreza \n en el\n juego \n",
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                              color: Colors.blue[900],
+                              fontSize: 17,
+                              fontFamily: "Raleway2"),
+                        )
+                      ]),
+                      Column(children: [
+                        RaisedButton(
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(18.0)),
+                          onPressed: () {
+                            RoutesDoctor().toReportChartSerie(
+                                context,
+                                idsDyskineciasAverage,
+                                serieDataDiskineias,
+                                "Porcentaje de disquinecias en meses  \n \n",
+                                colorsSintomasPorMeses,
+                                "Mes",
+                                "Porcentaje de disquinecias (%)",
+                                descriptionDysquinecias,
+                                dataDescriptionAverageDyskinecias);
                           },
                           child: Image.asset(
                             "assets/images/bar-graph.png",
@@ -323,54 +331,122 @@ class _ListReportPage extends State<ListReportPage> {
                           color: Colors.grey[50],
                           textColor: Colors.white,
                         ),
-                        RaisedButton(
-                          shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(18.0)),
-                          onPressed: () {
-                            RoutesDoctor().toReportChartLine(
-                                context,
-                                idsMedicinesAverage,
-                                lineDataMedicinesDiscrepacy,
-                                "Desfase en la toma de medicamentos \n \n",
-                                "Meses",
-                                "Desfase",
-                                descriptionMedicines);
-                          },
-                          child: Image.asset(
-                            "assets/images/output-onlinepngtools (3).png",
-                            height: size.height * 0.08,
-                          ),
-                          color: Colors.grey[50],
-                          textColor: Colors.white,
-                        ),
+                        Text(
+                          "Porcentaje de \ndisquinecias \n en\nmeses \n",
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                              color: Colors.blue[900],
+                              fontSize: 17,
+                              fontFamily: "Raleway2"),
+                        )
                       ]),
-                       SizedBox(
+                    ],
+                  ),
+                  SizedBox(
                     height: 100,
                   ),
                   Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
-                        RaisedButton(
-                          shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(18.0)),
-                          onPressed: () {
-                             RoutesDoctor().toReportChartLine(
-                                context,
-                                idsNoMotorsAverage,
-                                lineDataNoMotors,
-                                "Promedio de los puntajes en los síntomas no motores \n \n",
-                                "Semanas",
-                                "Promedio",
-                                descriptionNoMotors);
-                          },
-                          child: Image.asset(
-                            "assets/images/output-onlinepngtools (3).png",
-                            height: size.height * 0.08,
+                        Column(children: [
+                          RaisedButton(
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(18.0)),
+                            onPressed: () {
+                              RoutesDoctor().toReportChartSerie(
+                                  context,
+                                  idsEmotionalAverage,
+                                  seriesDataEmotional,
+                                  "Promedio del puntaje del estado de ánimo del paciente \n \n",
+                                  colorsSintomasPorMeses,
+                                  "Meses",
+                                  "Promedio del puntaje del estado de ánimo",
+                                  descriptionEmotional,
+                                  dataDescriptionAverageEmotional);
+                            },
+                            child: Image.asset(
+                              "assets/images/bar-graph.png",
+                              height: size.height * 0.08,
+                            ),
+                            color: Colors.grey[50],
+                            textColor: Colors.white,
                           ),
-                          color: Colors.grey[50],
-                          textColor: Colors.white,
-                        ),
-                        
+                          Text(
+                            "Promedio del \npuntaje del \n estado de\n ánimo del\n paciente ",
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                                color: Colors.blue[900],
+                                fontSize: 17,
+                                fontFamily: "Raleway2"),
+                          )
+                        ]),
+                        Column(children: [
+                          RaisedButton(
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(18.0)),
+                            onPressed: () {
+                              RoutesDoctor().toReportChartLine(
+                                  context,
+                                  idsMedicinesAverage,
+                                  lineDataMedicinesDiscrepacy,
+                                  "Desfase en la toma de medicamentos \n \n",
+                                  "Meses",
+                                  "Desfase",
+                                  descriptionMedicines);
+                            },
+                            child: Image.asset(
+                              "assets/images/output-onlinepngtools (3).png",
+                              height: size.height * 0.08,
+                            ),
+                            color: Colors.grey[50],
+                            textColor: Colors.white,
+                          ),
+                          Text(
+                            "Desfase \nen la \ntoma de\nmedicamentos\n ",
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                                color: Colors.blue[900],
+                                fontSize: 17,
+                                fontFamily: "Raleway2"),
+                          )
+                        ]),
+                      ]),
+                  SizedBox(
+                    height: 100,
+                  ),
+                  Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        Column(children: [
+                          RaisedButton(
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(18.0)),
+                            onPressed: () {
+                              RoutesDoctor().toReportChartLine(
+                                  context,
+                                  idsNoMotorsAverage,
+                                  lineDataNoMotors,
+                                  "Promedio de los puntajes en los síntomas no motores \n \n",
+                                  "Semanas",
+                                  "Promedio",
+                                  descriptionNoMotors);
+                            },
+                            child: Image.asset(
+                              "assets/images/output-onlinepngtools (3).png",
+                              height: size.height * 0.08,
+                            ),
+                            color: Colors.grey[50],
+                            textColor: Colors.white,
+                          ),
+                          Text(
+                            "Promedio \nde los \n puntajes\n en los\n síntomas \n no motores ",
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                                color: Colors.blue[900],
+                                fontSize: 17,
+                                fontFamily: "Raleway2"),
+                          )
+                        ]),
                       ]),
                 ],
               ),
@@ -499,7 +575,6 @@ returnDataLineMotors(int length, var motorsDataDecode) {
 
   return allData;
 }
-
 
 returnDataSeries(int length, var averageSymtomsByMonthResponseDecode) {
   //GRÁFICA PROMEDIO DE LOS SÍNTOMAS DEL PACIENTE POR MES, HAY QUE PASAR EL TÍTULO DE L GRÁFICA POR PARÁMETRO

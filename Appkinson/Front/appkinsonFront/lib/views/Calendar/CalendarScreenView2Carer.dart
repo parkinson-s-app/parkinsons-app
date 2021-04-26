@@ -69,7 +69,7 @@ class _Calendar extends State<CalendarScreenView2Carer> {
 
   Widget buildLoading() {
     return AlertDialog(
-      title: Text("Subiendo el video "),
+      title: Text("Subiendo Registro "),
       content: Form(
           child: Column(mainAxisSize: MainAxisSize.min, children: [
         new CircularProgressIndicator(
