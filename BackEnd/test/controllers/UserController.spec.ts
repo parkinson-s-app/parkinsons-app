@@ -479,7 +479,7 @@ describe('UserController update user by id',() => {
             .post(`/api/users/${id}`)
             .set({
                 'Content-Type': 'application/json',
-                'Authorization': 'Bearer eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InZlcmFlbGUxQGphdmVyaWFuYS5lZHUuY28iLCJ0eXBlIjoiUGFjaWVudGUiLCJpZCI6NDgsImlhdCI6MTYxOTM2NjA3OH0.2_pwP5tKJOAWIwNwDcE-3XsDBrc7COfcxjeJov43u4nWvOjrbtYB79tS_IbSiCtsKjvz4z3_vpSeoMZaykQvsw'
+                'Authorization': 'Bearer bearer'
             })
             .send({
                 NAME: "nuevo nombre"

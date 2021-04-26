@@ -115,7 +115,7 @@ export default class PatientService {
             emotionalFormData.id_patient=id;
             debug('saveEmotionalForm to person: %j, id: %s', emotionalFormData, id);
             const res = await executeSQL('INSERT INTO emotionalformxpatient SET ?',[emotionalFormData]);
-            debug('saveEmotionalForm saved and returned: %j', res);
+            debug('saveEmotionalForm saved');
             return res;
         }  catch (error) {
             debug('saveEmotionalForm Error: %j', error);
@@ -128,7 +128,7 @@ export default class PatientService {
             noMotorFormData.id_patient=id;
             debug('saveEmotionalForm to person: %j, id: %s', noMotorFormData, id);
             const res = await executeSQL('INSERT INTO nomotorsymptomsformpatient SET ?',[noMotorFormData]);
-            debug('saveEmotionalForm saved and returned: %j', res);
+            debug('saveEmotionalForm saved');
             return res;
         }  catch (error) {
             debug('saveEmotionalForm Error: %j', error);
@@ -146,7 +146,7 @@ export default class PatientService {
             const query = 'SELECT * FROM emotionalformxpatient WHERE ID_PATIENT=? and ( date BETWEEN ? AND ?)';
             debug('getEmotionalForms to patient id: %s', id);
             const res = await executeSQL(query,[id, dateStart, dateEnd]);
-            debug('getEmotionalForms saved and returned: %j', res);
+            debug('getEmotionalForms saved');
             return res[0];
         }  catch (error) {
             debug('getEmotionalForms Error: %j', error);
@@ -165,7 +165,7 @@ export default class PatientService {
             const query = 'SELECT * FROM nomotorsymptomsformpatient WHERE ID_PATIENT=? and ( date BETWEEN ? AND ?)';
             debug('getNoMotorForms to patient id: %s', id);
             const res = await executeSQL(query,[id, dateStart, dateEnd]);
-            debug('getNoMotorForms saved and returned: %j', res);
+            debug('getNoMotorForms saved');
             return res[0];
         }  catch (error) {
             debug('getNoMotorForms Error: %j', error);
@@ -194,7 +194,7 @@ export default class PatientService {
             WHERE ID_PATIENT= ?`;
             debug('getMedicineAlarmsById to patient id: %s', id);
             const res = await executeSQL(query,[id]);
-            debug('getMedicineAlarmsById executed and returned: %j', res[0]);
+            debug('getMedicineAlarmsById executed');
             return res[0];
         }  catch (error) {
             debug('getMedicineAlarmsById Error: %j', error);
@@ -208,7 +208,7 @@ export default class PatientService {
             medicineAlarms.ID_PATIENT = id;
             debug('saveMedicineAlarms medicine alarms to save: %j', medicineAlarms);
             const res = await executeSQL('INSERT INTO medicinealarmpatient SET ?',[medicineAlarms]);
-            debug('saveMedicineAlarms saved and returned: %j', res);
+            debug('saveMedicineAlarms saved');
             return res;
         }  catch (error) {
             debug('saveMedicineAlarms Error: %j', error);
@@ -224,7 +224,7 @@ export default class PatientService {
             const resDeletion = await executeSQL(
                 'DELETE FROM medicinealarmpatient WHERE ID_PATIENT  = ? AND id = ?',
                 [idPatient, id]);
-            debug('deleteMedicineAlarms saved and returned: %j', resDeletion);
+            debug('deleteMedicineAlarms saved');
             return resDeletion;
         }  catch (error) {
             debug('deleteMedicineAlarms Error: %j', error);
@@ -244,7 +244,7 @@ export default class PatientService {
             AND formdate BETWEEN ? AND ?`;
             debug('getReportSymptomsTwoDates to patient id: %s', idPatient);
             const res = await executeSQL(query,[idPatient, initDate, endDate]);
-            debug('getReportSymptomsTwoDates executed and returned: %j', res[0]);
+            debug('getReportSymptomsTwoDates executed');
             debug('query reslt response :%j', res[0]);
             const listJSON = JSON.parse(JSON.stringify(res[0]));
             debug('query response as a list :%j', res[0]);
@@ -292,7 +292,7 @@ export default class PatientService {
             debug('saveGameScore get into');
             debug('saveGameScore to save: %j', gameScore);
             const res = await executeSQL('INSERT INTO touchgamexpatient SET ?',[gameScore]);
-            debug('saveGameScore saved and returned: %j', res);
+            debug('saveGameScore saved');
             return res;
         }  catch (error) {
             debug('saveGameScore Error: %j', error);
@@ -305,7 +305,7 @@ export default class PatientService {
             debug('saveStepRecord get into');
             debug('saveStepRecord to save: %j', stepRecord);
             const res = await executeSQL('INSERT INTO stepsxpatient SET ?',[stepRecord]);
-            debug('saveStepRecord saved and returned: %j', res);
+            debug('saveStepRecord saved');
             return res;
         }  catch (error) {
             debug('saveGameScore Error: %j', error);
@@ -325,10 +325,9 @@ export default class PatientService {
             AND gameDate BETWEEN ? AND ?`;
             debug('getReportGameTwoDates to patient id: %s', idPatient);
             const res = await executeSQL(query,[idPatient, initDate, endDate]);
-            debug('getReportGameTwoDates executed and returned: %j', res[0]);
-            debug('query game result response :%j', res[0]);
+            debug('getReportGameTwoDates executed');
             const listJSON = JSON.parse(JSON.stringify(res[0]));
-            debug('query game response as a list :%j', res[0]);
+            debug('query game response as a list with size:%j', listJSON.length);
             const on = 0;
             let acum = 0;
             let average = 0;
@@ -367,10 +366,9 @@ export default class PatientService {
             AND date BETWEEN ? AND ?`;
             debug('getReportEmotionalSymptomsTwoDates to patient id: %s', idPatient);
             const res = await executeSQL(query,[idPatient, initDate, endDate]);
-            debug('getReportEmotionalSymptomsTwoDates executed and returned: %j', res[0]);
-            debug('query emotional symptoms result response :%j', res[0]);
+            debug('getReportEmotionalSymptomsTwoDates executed');
             const listJSON = JSON.parse(JSON.stringify(res[0]));
-            debug('query emotional symptoms response as a list :%j', res[0]);
+            debug('query emotional symptoms response as a list with size:%j', listJSON.length);
             const on = 0;
             let acum = 0;
             let average = 0;
@@ -412,10 +410,9 @@ export default class PatientService {
             AND formdate BETWEEN ? AND ?`;
             debug('getReportDiskineciaTwoDates to patient id: %s', idPatient);
             const res = await executeSQL(query,[idPatient, initDate, endDate]);
-            debug('getReportDiskineciaTwoDates executed and returned: %j', res[0]);
-            debug('query dyskinecia result response :%j', res[0]);
+            debug('getReportDiskineciaTwoDates executed');
             const listJSON = JSON.parse(JSON.stringify(res[0]));
-            debug('query dyskinecia response as a list :%j', res[0]);
+            debug('query dyskinecia response as a list with size:%j', listJSON.length);
             let acum = 0;
             let average = 0;
             const size = listJSON.length;
@@ -452,10 +449,9 @@ export default class PatientService {
             AND formdate BETWEEN ? AND ?`;
             debug('getReportDiscrepancyTwoDates to patient id: %s', idPatient);
             const res = await executeSQL(query,[idPatient, initDate, endDate]);
-            debug('getReportDiscrepancyTwoDates executed and returned: %j', res[0]);
-            debug('query discrepancy result response :%j', res[0]);
+            debug('getReportDiscrepancyTwoDates executed ');
             const listJSON = JSON.parse(JSON.stringify(res[0]));
-            debug('query discrepancy response as a list :%j', res[0]);
+            debug('query discrepancy response as a list with size:%j', listJSON.length);
             let acum = 0;
             let cant = 0;
             let average = 0;
@@ -478,6 +474,71 @@ export default class PatientService {
             return finalResponse;
         }  catch (error) {
             debug('getReportDiscrepancyTwoDates Error: %j', error);
+            throw error;
+        }
+    }
+
+    public static async getReportNoMotorTwoDates(idPatient: number, initDate: string, endDate: string): Promise<any> {
+        try {
+            debug('getting no motor report by two dates First: %s Second: %s', initDate, endDate);
+            const query = `
+            SELECT
+                *
+            FROM
+                nomotorsymptomsformpatient
+            WHERE ID_PATIENT= ?
+            AND date BETWEEN ? AND ?`;
+            debug('getReportNoMotorTwoDates to patient id: %s', idPatient);
+            const res = await executeSQL(query,[idPatient, initDate, endDate]);
+            debug('getReportNoMotorTwoDates executed ');
+            const listJSON = JSON.parse(JSON.stringify(res[0]));
+            debug('query discrepancy response as a list with size:%j', listJSON.length);
+            let acum = 0;
+            let average = 0;
+            const size = listJSON.length;
+            for (let index = 0; index < size; index++) {
+                acum += listJSON[index].Q1;
+                acum += listJSON[index].Q2;
+                acum += listJSON[index].Q3;
+                acum += listJSON[index].Q4;
+                acum += listJSON[index].Q5;
+                acum += listJSON[index].Q6;
+                acum += listJSON[index].Q7;
+                acum += listJSON[index].Q8;
+                acum += listJSON[index].Q9;
+                acum += listJSON[index].Q10;
+                acum += listJSON[index].Q11;
+                acum += listJSON[index].Q12;
+                acum += listJSON[index].Q13;
+                acum += listJSON[index].Q14;
+                acum += listJSON[index].Q15;
+                acum += listJSON[index].Q16;
+                acum += listJSON[index].Q17;
+                acum += listJSON[index].Q18;
+                acum += listJSON[index].Q19;
+                acum += listJSON[index].Q20;
+                acum += listJSON[index].Q21;
+                acum += listJSON[index].Q22;
+                acum += listJSON[index].Q23;
+                acum += listJSON[index].Q24;
+                acum += listJSON[index].Q25;
+                acum += listJSON[index].Q26;
+                acum += listJSON[index].Q27;
+                acum += listJSON[index].Q28;
+                acum += listJSON[index].Q29;
+                acum += listJSON[index].Q30;
+            }
+            if (size !== 0) {
+                average = Number((acum/(size)).toFixed(1));
+            }
+            const finalResponse = {
+                Promedio: average,
+                Cantidad: size
+            };
+            debug('response no motor report final :%j', finalResponse);
+            return finalResponse;
+        }  catch (error) {
+            debug('getReportNoMotorTwoDates Error: %j', error);
             throw error;
         }
     }

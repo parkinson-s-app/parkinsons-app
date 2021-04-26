@@ -452,6 +452,28 @@ PatientController.get('/patient/:id/discrepancy/report', verifyToken, async (req
     }
 });
 
+PatientController.get('/patient/:id/noMotorSymptoms/report', verifyToken, async (req: Request, res: Response) => {
+    debug('getting discrepancy report');
+    let status;
+    const idPatient = +req.params.id;
+    const initDate = req.query.start as string;
+    const endDate = req.query.end as string;
+    debug('Start get discrepancy report Dates: %s to %s', initDate, endDate);
+
+    try {
+        let response;
+        response = await twoWeeklyReport(idPatient, initDate, endDate, 'NOMOTOR');
+        debug('Patient getting discrepancy report. Items: %j', response);
+        status = constants.HTTP_STATUS_OK;
+        res.status(status).send(response);
+    } catch (error) {
+        debug('Patient getting discrepancy report failed, error: %j', error);
+        status = constants.HTTP_STATUS_INTERNAL_SERVER_ERROR;
+        const responseError = { status, error: 'An error has ocurred'};
+        res.status(status).send(responseError);
+    }
+});
+
 
 async function montlyReport(idPatient: number, initDate: string, endDate: string, reportType: string) {
     let before = new Date(initDate);
@@ -477,6 +499,8 @@ async function montlyReport(idPatient: number, initDate: string, endDate: string
             report = await PatientService.getReportDiskineciaTwoDates(idPatient, initDate, endDate);
         } else if(reportType === 'DISCREPANCY') {
             report = await PatientService.getReportDiscrepancyTwoDates(idPatient, initDate, endDate);
+        } else if(reportType === 'NOMOTOR') {
+            report = await PatientService.getReportNoMotorTwoDates(idPatient, initDate, endDate);
         }
         report.mes = (before.getMonth()+1);
         report.Mes = (before.getMonth()+1);
@@ -486,6 +510,40 @@ async function montlyReport(idPatient: number, initDate: string, endDate: string
     return resp;
 }
 
+async function twoWeeklyReport(idPatient: number, initDate: string, endDate: string, reportType: string) {
+    let before = new Date(initDate);
+    const last = new Date(endDate);
+    const resp = [];
+    let week = 1;
+    while(before.getTime() < last.getTime()) {
+        let report: any;
+        let nDate = new Date(before.getTime() );
+        nDate.setDate(nDate.getDate() +14);
+        if(nDate.getTime() < last.getTime()){
+            initDate = (before.toJSON()).toString();
+            endDate = (nDate.toJSON()).toString();
+        } else {
+            initDate = (before.toJSON()).toString();
+            endDate = (last.toJSON()).toString();
+        }
+        if(reportType === 'SYMPTOMS') {
+            report = await PatientService.getReportSymptomsTwoDates(idPatient, initDate, endDate);
+        } else if(reportType === 'GAME') {
+            report = await PatientService.getReportGameTwoDates(idPatient, initDate, endDate);
+        } else if(reportType === 'EMOTIONAL') {
+            report = await PatientService.getReportEmotionalSymptomsTwoDates(idPatient, initDate, endDate);
+        } else if(reportType === 'DYSKINECIA') {
+            report = await PatientService.getReportDiskineciaTwoDates(idPatient, initDate, endDate);
+        } else if(reportType === 'DISCREPANCY') {
+            report = await PatientService.getReportDiscrepancyTwoDates(idPatient, initDate, endDate);
+        }
+        report.Week = week;
+        week++;
+        before.setDate(before.getDate() + 14 );
+        resp.push(report);
+    }
+    return resp;
+}
 
 PatientController.get('/patient/alarms/today', verifyToken, async (req: Request, res: Response) => {
     debug('getting alarms today');
