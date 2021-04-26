@@ -12,7 +12,7 @@ class ListNews extends StatefulWidget {
   _ListNewsState createState() => _ListNewsState();
 }
 
-List<ItemToolbox> news = List<ItemToolbox>();
+List<ItemToolbox> news = [];
 var id = 0;
 
 class _ListNewsState extends State<ListNews> {
