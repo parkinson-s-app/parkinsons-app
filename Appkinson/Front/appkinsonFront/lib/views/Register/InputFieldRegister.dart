@@ -146,5 +146,7 @@ class metod {
 
 cleanRegister(){
   emailController = new TextEditingController();
+  nameController = new TextEditingController();
   password = new TextEditingController();
+  passwordv = new TextEditingController();
 }
