@@ -8,7 +8,12 @@ import 'package:flutter/material.dart';
 
 //import '../../Register/RegisterPage.dart';
 
-class ButtonGoProfile extends StatelessWidget {
+class ButtonGoProfile extends StatefulWidget {
+  @override
+  _ButtonGoProfileState createState() => _ButtonGoProfileState();
+}
+
+class _ButtonGoProfileState extends State<ButtonGoProfile> {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -20,21 +25,23 @@ class ButtonGoProfile extends StatelessWidget {
             RoundedRectangleBorder(borderRadius: BorderRadius.circular(18.0)),
         //   side: BorderSide(color: Color.fromRGBO(0, 160, 227, 1))),
         onPressed: () async {
-          var token = await Utils().getToken();
-          //print(token + 'hey');
-          //var patient = await EndPoints().getUserName(token);
+          String token = await Utils().getToken();
+          print(token);
+          var patientPhoto = await EndPoints().getUserName(token);
+          var patient = await Utils().getFromToken('nombre');
+          var email = await Utils().getFromToken('email');
 
-          //var codeList = json.decode(patient);
+          var codeList = json.decode(patientPhoto);
           //namePatient
           //print('hey' + codeList[0]['NAME']);
-          //nameCarer = codeList[0]['NAME'];
-          //emailCarer = codeList[0]['EMAIL'];
+          nameCarer = codeList[0]['NAME'];
+          emailCarer = email;
 
-          /* var res =
+          var res =
               await EndPoints().getPhotoUser(token, codeList[0]['PHOTOPATH']);
           this.setState(() {
-            imageFilePatient = res;
-          });*/
+            imageFileCarer = res;
+          });
 
           //print(imageFilePatient.uri.toFilePath());
 

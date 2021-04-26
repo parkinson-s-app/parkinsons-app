@@ -17,7 +17,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 const bla = Colors.white;
 const kSpacingUnit = 10;
-File imageFile;
+File imageFileCarer;
 var nameCarer = "";
 var emailCarer = "";
 
@@ -41,9 +41,9 @@ class DoctorProfileScreenP extends State<CarerProfileScreen> {
   openGallery(BuildContext context) async {
     var picture = await ImagePicker.pickImage(source: ImageSource.gallery);
     this.setState(() {
-      imageFile = picture;
+      imageFileCarer = picture;
     });
-    var newUser = new User(photo: imageFile);
+    var newUser = new User(photo: imageFileCarer);
     String id = await Utils().getFromToken('id');
     String token = await Utils().getToken();
     String save = await EndPoints().modifyUsersPhoto(newUser, id, token);
@@ -53,9 +53,9 @@ class DoctorProfileScreenP extends State<CarerProfileScreen> {
   openCamera(BuildContext context) async {
     var picture = await ImagePicker.pickImage(source: ImageSource.camera);
     this.setState(() {
-      imageFile = picture;
+      imageFileCarer = picture;
     });
-    var newUser = new User(photo: imageFile);
+    var newUser = new User(photo: imageFileCarer);
     String id = await Utils().getFromToken('id');
     String token = await Utils().getToken();
     String save = await EndPoints().modifyUsersPhoto(newUser, id, token);
@@ -91,11 +91,11 @@ class DoctorProfileScreenP extends State<CarerProfileScreen> {
   }
 
   Widget decideImageView() {
-    if (imageFile == null) {
+    if (imageFileCarer == null) {
       return Icon(LineAwesomeIcons.question);
     } else {
       return Image.file(
-        imageFile,
+        imageFileCarer,
         fit: BoxFit.cover,
         height: 100,
         width: 100,

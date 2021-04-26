@@ -12,8 +12,8 @@ class ButtonGoPatientList extends StatelessWidget {
       height: 90,
       margin: EdgeInsets.symmetric(horizontal: 20),
       child: RaisedButton(
-        shape:
-            RoundedRectangleBorder(borderRadius: BorderRadius.circular(18.0)),
+        shape: CircleBorder(),
+        // RoundedRectangleBorder(borderRadius: BorderRadius.circular(18.0)),
         //   side: BorderSide(color: Color.fromRGBO(0, 160, 227, 1))),
         onPressed: () {
           RoutesCarer().toPatientList(context);
@@ -22,7 +22,7 @@ class ButtonGoPatientList extends StatelessWidget {
         color: Colors.grey[50],
         //textColor: Colors.white,
         child: Image.asset(
-          "assets/images/pacientes.png",
+          "assets/images/15-PACIENTES.png",
           height: size.height * 0.08,
         ),
         // Text("Registrarse ", style:  TextStyle(fontSize: 15)),
