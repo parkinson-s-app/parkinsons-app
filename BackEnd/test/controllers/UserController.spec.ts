@@ -302,7 +302,7 @@ describe('UserController post login',() => {
         //sqlMock.throws(new Error(response));
         sqlMock.returns(response);
         bcryptMock.returns(Promise.resolve(true));
-        const token = "eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InZlcmFlbGUxQGphdmVyaWFuYS5lZHUuY28iLCJ0eXBlIjoiUGFjaWVudGUiLCJpZCI6NDgsImlhdCI6MTYxOTM5Mjk4OH0.DeG53aT5UYT7vsHQBY49Ibx0Nv14XnBYrmDOpn2qPkXVbdsjZhk8T9cwOIVSuLLtAYjrpbS7xm7sbEw9tx_QxQ";
+        //const token = "token";
         // jwtMock.callsFake((err: any, tk: any) => {
         //     tk=token;
         //     return tk;
@@ -469,7 +469,7 @@ describe('UserController update user by id',() => {
         //sqlMock.throws(new Error(response));
         sqlMock.returns(response);
         bcryptMock.returns(Promise.resolve(true));
-        const token = "eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InZlcmFlbGUxQGphdmVyaWFuYS5lZHUuY28iLCJ0eXBlIjoiUGFjaWVudGUiLCJpZCI6NDgsImlhdCI6MTYxOTM5Mjk4OH0.DeG53aT5UYT7vsHQBY49Ibx0Nv14XnBYrmDOpn2qPkXVbdsjZhk8T9cwOIVSuLLtAYjrpbS7xm7sbEw9tx_QxQ";
+        // const token = "token";
         jwtMock.returns({success: 'Token is valid'});
         //     tk=token;
         //     return tk;
