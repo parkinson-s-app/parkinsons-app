@@ -102,7 +102,7 @@ class _ListReportPage extends State<ListReportPage> {
 
       //Construyendo la gráfica de promedio de puntaje obtenido en el juego por mes - Gráfica de barras
       var averageGameResponseDecode = json.decode(averageGameScore);
-      if(averageGameResponseDecode != ""){averageGameResponseDecode = "";}
+      if(dataDescriptionAverageGame != ""){dataDescriptionAverageGame = "";}
       for (int i = 0; i < averageGameResponseDecode.length; i++) {
         dataDescriptionAverageGame = dataDescriptionAverageGame +
             toMonthString(averageGameResponseDecode[i]['mes']) +
@@ -118,7 +118,7 @@ class _ListReportPage extends State<ListReportPage> {
       //Construyeno la gráfica de porcentaje de disquinecias por meses - Gráfica de pie
       var averageDyskineciasDecode =
           json.decode(averageDyskineciasWithoutMonth);
-      if(averageDyskineciasDecode != ""){averageDyskineciasDecode = "";}
+      if(dataDescriptionAverageDyskinecias != ""){dataDescriptionAverageDyskinecias = "";}
       for (int i = 0; i < averageDyskineciasDecode.length; i++) {
         dataDescriptionAverageDyskinecias = dataDescriptionAverageDyskinecias +
             toMonthString(averageDyskineciasDecode[i]['mes']) +
@@ -164,7 +164,6 @@ class _ListReportPage extends State<ListReportPage> {
         .getAverageDyskineciasWithoutMonths(idPatient, lastDate, now);
     averageEmotionalSymptoms =
         await EndPoints().getAverageEmotionalSymptoms(idPatient, lastDate, now);
-    print("nuevaa");
     dataDisrepancy =
         await EndPoints().getDiscrepancyData(idPatient, lastDate, now);
   }
@@ -172,7 +171,6 @@ class _ListReportPage extends State<ListReportPage> {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    print("Entraaaaa");
     Size size = MediaQuery.of(context).size;
 
     return Scaffold(
@@ -457,7 +455,7 @@ returnDataSeries(int length, var averageSymtomsByMonthResponseDecode) {
   for (int i = 0; i < length; i++) {
     //Este ciclo recoge todos los ON
     data1.add(new Animo(
-        averageSymtomsByMonthResponseDecode[i]['on'].toInt(),
+        averageSymtomsByMonthResponseDecode[i]['on'].toDouble(),
         toMonthString(averageSymtomsByMonthResponseDecode[i]
             ['mes']))); // el més debemos pasarlo a String
   }
@@ -466,7 +464,7 @@ returnDataSeries(int length, var averageSymtomsByMonthResponseDecode) {
   for (int j = 0; j < length; j++) {
     //Este ciclo recoge todos los On buenos
     data2.add(new Animo(
-        averageSymtomsByMonthResponseDecode[j]['onG'].toInt(),
+        averageSymtomsByMonthResponseDecode[j]['onG'].toDouble(),
         toMonthString(averageSymtomsByMonthResponseDecode[j]
             ['mes']))); // el més debemos pasarlo a String
   }
@@ -475,7 +473,7 @@ returnDataSeries(int length, var averageSymtomsByMonthResponseDecode) {
   for (int i = 0; i < length; i++) {
     //Este ciclo recoge todos los ff
     data3.add(new Animo(
-        averageSymtomsByMonthResponseDecode[i]['off'].toInt(),
+        averageSymtomsByMonthResponseDecode[i]['off'].toDouble(),
         toMonthString(averageSymtomsByMonthResponseDecode[i]
             ['mes']))); // el més debemos pasarlo a String
   }
@@ -483,7 +481,7 @@ returnDataSeries(int length, var averageSymtomsByMonthResponseDecode) {
   for (int i = 0; i < length; i++) {
     //Este ciclo recoge todos los ON
     data4.add(new Animo(
-        averageSymtomsByMonthResponseDecode[i]['offB'].toInt(),
+        averageSymtomsByMonthResponseDecode[i]['offB'].toDouble(),
         toMonthString(averageSymtomsByMonthResponseDecode[i]
             ['mes']))); // el més debemos pasarlo a String
   }
@@ -498,26 +496,23 @@ returnDataSeriesGameAverage(int length, var averageGameResponseDecode) {
   var allData = [];
   List<Animo> data1 = []; //Promedio del puntaje por cada mes
   List<Animo> data2 = []; //Cantidad Jugada por cada mes
-
   for (int i = 0; i < length; i++) {
     //Este ciclo recoge el promedio de puntaje jugado por mes
     data1.add(new Animo(
-        averageGameResponseDecode[i]['Promedio'],
+        averageGameResponseDecode[i]['Promedio'].toDouble(),
         toMonthString(averageGameResponseDecode[i]
             ['mes']))); // el més debemos pasarlo a String
   }
   allData.add(data1);
 
-  for (int j = 0; j < length; j++) {
-    print(averageGameResponseDecode[j]['Cantidad']);
+  /*for (int j = 0; j < length; j++) {
     //Este ciclo recoge la cantidad de veces jugada por mes
     data2.add(new Animo(
-        averageGameResponseDecode[j]['Cantidad'],
+        averageGameResponseDecode[j]['Cantidad'].toDouble(),
         toMonthString(averageGameResponseDecode[j]
             ['mes']))); // el més debemos pasarlo a String
-  }
+  }*/
   allData.add(data2);
-
   return allData;
 }
 
@@ -529,7 +524,7 @@ returnDataPieAverageDiskinecias(
   for (int i = 0; i < length; i++) {
     //Este ciclo recoge el promedio de puntaje de disquinecias por mes
     data1.add(new Animo(
-        averageDiskineciasResponseDecode[i]['Promedio'].toInt(),
+        averageDiskineciasResponseDecode[i]['Promedio'].toDouble(),
         toMonthString(averageDiskineciasResponseDecode[i]
             ['mes']))); // el més debemos pasarlo a String
   }
@@ -547,7 +542,7 @@ returnDataSeriesEmotionalAverage(int length, var averageGameResponseDecode) {
   for (int i = 0; i < length; i++) {
     //Este ciclo recoge el promedio de puntaje del formulario emocional por mes
     data1.add(new Animo(
-        averageGameResponseDecode[i]['Promedio'].toInt(),
+        averageGameResponseDecode[i]['Promedio'].toDouble(),
         toMonthString(averageGameResponseDecode[i]
             ['mes']))); // el més debemos pasarlo a String
   }

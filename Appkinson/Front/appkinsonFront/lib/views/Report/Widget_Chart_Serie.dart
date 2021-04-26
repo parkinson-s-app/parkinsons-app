@@ -176,7 +176,7 @@ _buildDataDescription(dataSerie){
 } 
 
 class Animo {
-  int estadoDeAnimo;
+  double estadoDeAnimo;
   String mes;
 
   Animo(this.estadoDeAnimo, this.mes);
