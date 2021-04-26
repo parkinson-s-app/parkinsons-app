@@ -83,6 +83,7 @@ class _ListReportPage extends State<ListReportPage> {
       //Construyendo la gráfica del promedio de síntomas por cada mes - Gráfica de barras
       var averageSymtomsByMonthResponseDecode =
           json.decode(averageSymptomsByMonth);
+      if(dataDescriptionSymptomsByMonth != ""){dataDescriptionSymptomsByMonth = "";}
       for (int i = 0; i < averageSymtomsByMonthResponseDecode.length; i++) {
         dataDescriptionSymptomsByMonth = dataDescriptionSymptomsByMonth +
             toMonthString(averageSymtomsByMonthResponseDecode[i]['mes']) +
@@ -101,6 +102,7 @@ class _ListReportPage extends State<ListReportPage> {
 
       //Construyendo la gráfica de promedio de puntaje obtenido en el juego por mes - Gráfica de barras
       var averageGameResponseDecode = json.decode(averageGameScore);
+      if(averageGameResponseDecode != ""){averageGameResponseDecode = "";}
       for (int i = 0; i < averageGameResponseDecode.length; i++) {
         dataDescriptionAverageGame = dataDescriptionAverageGame +
             toMonthString(averageGameResponseDecode[i]['mes']) +
@@ -116,7 +118,7 @@ class _ListReportPage extends State<ListReportPage> {
       //Construyeno la gráfica de porcentaje de disquinecias por meses - Gráfica de pie
       var averageDyskineciasDecode =
           json.decode(averageDyskineciasWithoutMonth);
-
+      if(averageDyskineciasDecode != ""){averageDyskineciasDecode = "";}
       for (int i = 0; i < averageDyskineciasDecode.length; i++) {
         dataDescriptionAverageDyskinecias = dataDescriptionAverageDyskinecias +
             toMonthString(averageDyskineciasDecode[i]['mes']) +
@@ -130,7 +132,7 @@ class _ListReportPage extends State<ListReportPage> {
       //Construyendo la gráfica de promedio de puntaje del formulario emocional por meses
       var averageEmotionalSymptomsDecode =
           json.decode(averageEmotionalSymptoms);
-
+      if(dataDescriptionAverageEmotional != ""){dataDescriptionAverageEmotional = "";}
       for (int i = 0; i < averageEmotionalSymptomsDecode.length; i++) {
         dataDescriptionAverageEmotional = dataDescriptionAverageEmotional +
             toMonthString(averageEmotionalSymptomsDecode[i]['mes']) +
@@ -247,7 +249,7 @@ class _ListReportPage extends State<ListReportPage> {
                               "Promedio de destreza en el juego \n \n",
                               colorsSintomasPorMeses,
                               "Mes",
-                              "Promedio del puentaje",
+                              "Promedio del puntaje",
                               descriptionAverageGame,
                               dataDescriptionAverageGame);
                         },
@@ -266,10 +268,10 @@ class _ListReportPage extends State<ListReportPage> {
                               context,
                               idsDyskineciasAverage,
                               serieDataDiskineias,
-                              "Porcentaje de disquinecias en meses \n \n",
+                              "Porcentaje de disquinecias en meses  \n \n",
                               colorsSintomasPorMeses,
                               "Mes",
-                              "Porcentaje de disquinecias",
+                              "Porcentaje de disquinecias (%)",
                               descriptionDysquinecias,
                               dataDescriptionAverageDyskinecias);
                         },
@@ -304,7 +306,7 @@ class _ListReportPage extends State<ListReportPage> {
                                 dataDescriptionAverageEmotional);
                           },
                           child: Image.asset(
-                            "assets/images/pie-chart.png",
+                            "assets/images/bar-graph.png",
                             height: size.height * 0.08,
                           ),
                           color: Colors.grey[50],
