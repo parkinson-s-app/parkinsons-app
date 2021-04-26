@@ -27,7 +27,7 @@ class DoctorPatientsCustomAdd extends State<DoctorPatientsAdd> {
   List<User> patientsAddAux = [];
   List<User> _patientsAdd = [];
   List<User> items = [];
-
+  bool isSearching = false;
   @override
   void initState() {
     getPatientsAdd();
@@ -90,7 +90,43 @@ class DoctorPatientsCustomAdd extends State<DoctorPatientsAdd> {
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
-          title: Text('Pacientes no agregados'),
+          toolbarHeight: 70,
+          title: !isSearching ? Text('Pacientes no agregados'): TextField(
+            onChanged: (value) {
+              filterSearchResults(value);
+            },
+            controller: editingController2,
+            style: TextStyle(color: Colors.white),
+            decoration: InputDecoration(
+                hintText: "Buscar",
+                hintStyle: TextStyle(color: Colors.white),
+                focusedBorder: OutlineInputBorder(
+                    borderSide: BorderSide(color: Colors.white, width: 3.0),
+                ),
+                enabledBorder: OutlineInputBorder(
+                    borderSide: BorderSide(color: Colors.grey[400], width: 2.0),
+                ),
+                ),
+              ),
+          actions: <Widget> [
+            !isSearching ?
+            IconButton(
+              icon: Icon(Icons.search), 
+              onPressed: (){
+                setState(() {
+                  this.isSearching = !this.isSearching;
+                });
+              },
+              ):
+            IconButton(
+              icon: Icon(Icons.cancel), 
+              onPressed: (){
+                setState(() {
+                  this.isSearching = !this.isSearching;
+                });
+              },
+              )
+          ],
         ),
         body: SingleChildScrollView(
             //physics: ScrollPhysics(),
@@ -98,20 +134,7 @@ class DoctorPatientsCustomAdd extends State<DoctorPatientsAdd> {
                 child: Column(
           key: UniqueKey(),
           children: <Widget>[
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: TextField(
-                onChanged: (value) {
-                  filterSearchResults(value);
-                },
-                controller: editingController2,
-                decoration: InputDecoration(
-                    hintText: "Buscar",
-                    prefixIcon: Icon(Icons.search),
-                    border: OutlineInputBorder(
-                        borderRadius: BorderRadius.all(Radius.circular(25.0)))),
-              ),
-            ),
+            
             ListView.separated(
               //scrollDirection: Axis.horizontal,
               physics: NeverScrollableScrollPhysics(),

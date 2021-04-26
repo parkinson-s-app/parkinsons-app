@@ -18,7 +18,10 @@ class InteractionCarerPatient extends StatelessWidget {
     //print('patient pantalla intermedia ${idPatient.toString()}');
     Size size = MediaQuery.of(context).size;
     return Scaffold(
-        body: Column(
+        resizeToAvoidBottomInset: false,
+        
+      body: Column(
+          
       children: <Widget>[
         ClipPath(
           clipper: MyClipper(),
@@ -62,7 +65,7 @@ class InteractionCarerPatient extends StatelessWidget {
         SizedBox(
           height: 10,
         ),
-        Container(
+        SingleChildScrollView(
           child: Column(
             children: <Widget>[
               Row(

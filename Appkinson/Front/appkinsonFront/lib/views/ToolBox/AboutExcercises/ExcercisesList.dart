@@ -77,7 +77,7 @@ class _ListExcercisesState extends State<ListExcercises> {
   }
 
   void removeItem(int index) {
-    EndPoints().deleteAlarm(index.toString(), getToken(), getId());
+    //EndPoints().deleteAlarm(index.toString(), getToken(), getId());
     final item = items.removeAt(index);
 
     key.currentState.removeItem(

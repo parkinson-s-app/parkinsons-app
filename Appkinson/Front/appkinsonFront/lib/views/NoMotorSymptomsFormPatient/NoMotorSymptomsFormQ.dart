@@ -51,11 +51,46 @@ class _NoMotorSymptomsFormQ extends State<NoMotorSymptomsFormQ> {
 
   @override
   Widget build(BuildContext context) {
+    bool shouldPop = true;
     SystemChrome.setPreferredOrientations([
       DeviceOrientation.portraitUp,
       DeviceOrientation.portraitDown,
     ]);
-    return Scaffold(
+    return WillPopScope(
+        onWillPop: () async {
+        RestartQ1().setTile();
+        RestartQ2().setTile();
+        RestartQ3().setTile();
+        RestartQ4().setTile();
+        RestartQ5().setTile();
+        RestartQ6().setTile();
+        RestartQ7().setTile();
+        RestartQ8().setTile();
+        RestartQ9().setTile();
+        RestartQ10().setTile();
+        RestartQ11().setTile();
+        RestartQ12().setTile();
+        RestartQ13().setTile();
+        RestartQ14().setTile();
+        RestartQ15().setTile();
+        RestartQ16().setTile();
+        RestartQ17().setTile();
+        RestartQ18().setTile();
+        RestartQ19().setTile();
+        RestartQ20().setTile();
+        RestartQ21().setTile();
+        RestartQ22().setTile();
+        RestartQ23().setTile();
+        RestartQ24().setTile();
+        RestartQ25().setTile();
+        RestartQ26().setTile();
+        RestartQ27().setTile();
+        RestartQ28().setTile();
+        RestartQ29().setTile();
+        RestartQ30().setTile();
+          return shouldPop;
+        },
+      child: Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
         title: Text(
@@ -106,6 +141,7 @@ class _NoMotorSymptomsFormQ extends State<NoMotorSymptomsFormQ> {
           ),
         ],
       ),
-    );
+    ),
+  );
   }
 }

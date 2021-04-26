@@ -16,9 +16,11 @@ class ButtonLogout extends StatelessWidget {
         //   side: BorderSide(color: Color.fromRGBO(0, 160, 227, 1))),
         onPressed: () async {
           debugPrint("Tapped Log Out....");
+          SharedPreferences prefs = await SharedPreferences.getInstance();
+          prefs?.clear();
           cleanLogin();
-          Navigator.push(context,
-              MaterialPageRoute(builder: (context){ return HomePage();}));
+          Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (context) =>
+            HomePage()), (Route<dynamic> route) => false);
         },
         padding: EdgeInsets.symmetric(horizontal: 30),
         color: Colors.grey[50],

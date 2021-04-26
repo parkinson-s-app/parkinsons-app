@@ -233,7 +233,7 @@ class ListAlarmsAndMedicine extends State<ListAlarmsAndMedicinePatient> {
                 var token = await Utils().getToken();
                 //Navigator.pop(context);
                 items = await EndPoints().getMedicinesAlarms(idPatient, token);
-                RoutesPatient().toScheduleMedicines(context, idPatient);
+                Navigator.pop(context);
               },
               color: Colors.blue,
               textColor: Colors.white,

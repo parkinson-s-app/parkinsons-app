@@ -6,14 +6,12 @@ class NoMotorSymptomsFormQ21 extends StatefulWidget {
 }
 
 enum SigningCharacter { Si, No, Nada }
-SigningCharacter _character;
+SigningCharacter _character21;
 int selectedStateRadioQ21 = 0;
 
 class _NoMotorSymptomsFormQ21 extends State<NoMotorSymptomsFormQ21> {
   void initState() {
     super.initState();
-    _character = SigningCharacter.Nada;
-    selectedStateRadioQ21 = 0;
   }
 
   @override
@@ -51,10 +49,10 @@ class _NoMotorSymptomsFormQ21 extends State<NoMotorSymptomsFormQ21> {
                   ),
                 ),
                 value: SigningCharacter.Si,
-                groupValue: _character,
+                groupValue: _character21,
                 onChanged: (SigningCharacter value) {
                   setState(() {
-                    _character = value;
+                    _character21 = value;
                     selectedStateRadioQ21 = 1;
                   });
                 },
@@ -70,10 +68,10 @@ class _NoMotorSymptomsFormQ21 extends State<NoMotorSymptomsFormQ21> {
                   ),
                 ),
                 value: SigningCharacter.No,
-                groupValue: _character,
+                groupValue: _character21,
                 onChanged: (SigningCharacter value) {
                   setState(() {
-                    _character = value;
+                    _character21 = value;
                     selectedStateRadioQ21 = 2;
                   });
                 },
@@ -96,5 +94,10 @@ class _NoMotorSymptomsFormQ21 extends State<NoMotorSymptomsFormQ21> {
 class BringAnswer21 {
   int send() {
     return selectedStateRadioQ21;
+  }
+}
+class RestartQ21 {
+  void setTile(){
+    _character21 = SigningCharacter.Nada;
   }
 }

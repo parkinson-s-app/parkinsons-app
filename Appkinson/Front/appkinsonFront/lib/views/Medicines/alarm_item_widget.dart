@@ -21,17 +21,17 @@ class AlarmItemWidget extends StatelessWidget {
           margin: EdgeInsets.all(8),
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(12),
-            color: Colors.white,
+            color: Colors.blue[100],
           ),
           child: ListTile(
             contentPadding: EdgeInsets.symmetric(vertical: 12, horizontal: 16),
             leading: CircleAvatar(
               radius: 32,
-              child: Icon(Icons.alarm, color: Colors.amber, size: 45),
+              child: Icon(Icons.alarm, color: Colors.white, size: 45),
             ),
             title: Text(item.idMedicine, style: TextStyle(fontSize: 20)),
             trailing: IconButton(
-              icon: Icon(Icons.delete, color: Colors.red, size: 32),
+              icon: Icon(Icons.delete, color: Colors.blue[800], size: 32),
               onPressed: onClicked,
             ),
           ),
