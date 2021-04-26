@@ -205,7 +205,7 @@ class _Calendar extends State<CalendarScreenView2Carer> {
                               ),
                               Row(
                                 children: [
-                                  Text('Desface:',
+                                  Text('Desfase:',
                                       style: TextStyle(
                                           fontWeight: FontWeight.bold)),
                                   IconButton(

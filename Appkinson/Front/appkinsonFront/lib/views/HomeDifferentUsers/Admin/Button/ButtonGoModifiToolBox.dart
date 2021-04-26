@@ -9,13 +9,12 @@ class ButtonGoModifiToolBox extends StatelessWidget {
       height: 150,
       margin: EdgeInsets.symmetric(horizontal: 10),
       child: RaisedButton(
-        shape:
-            RoundedRectangleBorder(borderRadius: BorderRadius.circular(18.0)),
+        shape: CircleBorder(),
         //   side: BorderSide(color: Color.fromRGBO(0, 160, 227, 1))),
         onPressed: () {
           RoutesAdmin().toFormAddItem(context);
         },
-        padding: EdgeInsets.symmetric(horizontal: 30),
+        padding: EdgeInsets.symmetric(horizontal: 10),
         color: Colors.grey[100],
         //textColor: Colors.white,
         child: Image.asset(

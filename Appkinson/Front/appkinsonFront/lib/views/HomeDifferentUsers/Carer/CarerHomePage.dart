@@ -90,7 +90,7 @@ class CarerHomePage extends StatelessWidget {
                         children: <Widget>[
                           ButtonGoToolBox(),
                           Text(
-                            "ToolBox \n",
+                            "Información \n",
                             style: TextStyle(
                                 color: Colors.blue[900],
                                 fontSize: 20,

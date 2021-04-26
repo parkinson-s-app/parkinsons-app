@@ -79,7 +79,7 @@ class AdminHomePage extends StatelessWidget {
                         children: <Widget>[
                           ButtonGoCheckItems(),
                           Text(
-                            "Ítems",
+                            "Ítems \n",
                             style: TextStyle(
                                 color: Colors.blue[900],
                                 fontSize: 20,
@@ -91,7 +91,7 @@ class AdminHomePage extends StatelessWidget {
                         children: <Widget>[
                           ButtonLogout(),
                           Text(
-                            "Cerrar Sesión",
+                            "Cerrar Sesión \n",
                             style: TextStyle(
                                 color: Colors.blue[900],
                                 fontSize: 20,
