@@ -125,7 +125,7 @@ UserController.post('/users/:id', multer.single('photo'), verifyToken, async (re
     debug('Users UpdateById');
     const id = +req.params.id;
     const updatedUserData = req.body as IPersonalDataDto;
-    console.log("entras");
+    
     
     try {
         // verificando si la actualizacion tiene foto

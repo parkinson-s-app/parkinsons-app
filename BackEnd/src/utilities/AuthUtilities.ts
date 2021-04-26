@@ -15,17 +15,17 @@ export function verifyToken(req: Request, res: Response, next: any) {
     if( bearerHeader !== undefined ) {
         const bearerToken = bearerHeader.split(' ')[1];
         const token = bearerToken;
-        console.log("Llega prro");
+        // console.log("Llega prro");
         try {
             const verifying = jwt.verify(token, secretKey, { algorithms: ['HS512'] }); //, (error, authData) => {
             debug('Verifytoken successful');
             next();
         } catch(error) {
-            console.log("error");
-            console.log(error);
+            //console.log("error");
+            //console.log(error);
             debug('Verifytoken error: %j', error);
             status = constants.HTTP_STATUS_UNAUTHORIZED;
-            console.log("pailas mi so");
+            //console.log("pailas mi so");
             res.status(status).send({error});
         }
         //     if (error) {

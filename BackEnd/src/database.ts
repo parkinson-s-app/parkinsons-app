@@ -8,7 +8,6 @@ const debug = debugLib('AppKinson:DatabaseConnection');
  */
 export async function connect () {
     try {
-        console.log("llega");
         const connection = createPool({
             host: config.host,
             user: config.user,
