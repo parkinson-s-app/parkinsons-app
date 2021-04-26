@@ -512,7 +512,7 @@ async function twoWeeklyReport(idPatient: number, initDate: string, endDate: str
     let before = new Date(initDate);
     const last = new Date(endDate);
     const resp = [];
-    let week = 1;
+    let week = 2;
     while(before.getTime() < last.getTime()) {
         let report: any;
         let nDate = new Date(before.getTime() );
@@ -539,7 +539,7 @@ async function twoWeeklyReport(idPatient: number, initDate: string, endDate: str
             report = await PatientService.getReportNoMotorTwoDates(idPatient, initDate, endDate);
         }
         report.Week = week;
-        week++;
+        week+=2;
         before.setDate(before.getDate() + 14 );
         resp.push(report);
     }
@@ -556,7 +556,7 @@ PatientController.get('/patient/alarms/today', verifyToken, async (req: Request,
             let response;
             response = 'ok';
             debug('Patient getting alarms by id: %s', id);
-            // response = PatientService.getAlarmsTodfonnayById(id);
+            response = PatientService.getAlarmsTodayById(id);
             status = constants.HTTP_STATUS_OK;
             res.status(status).send(response);
         } catch (error) {

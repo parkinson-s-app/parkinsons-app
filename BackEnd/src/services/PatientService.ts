@@ -542,4 +542,50 @@ export default class PatientService {
             throw error;
         }
     }
+
+    public static async getAlarmsTodayById(id: number): Promise<any> {
+        try {
+            debug('getting alarms today for patient: %s', id);
+            const query = `
+            SELECT
+                NAME as Name,
+                alarmTime as AlarmTime,
+                periodicityQuantity as PeriodicityQuantity,
+                periodicityType as PeriodicityType
+            FROM
+                medicine
+                INNER JOIN
+                alarmandmedicinepatient
+                ON medicine.ID =alarmandmedicinepatient.idMedicine
+            WHERE ID_PATIENT= ?`;
+            debug('getReportDiscrepancyTwoDates to patient id: %s', id);
+            const res = await executeSQL(query,[id]);
+            debug('getReportDiscrepancyTwoDates executed ');
+            const listJSON = JSON.parse(JSON.stringify(res[0]));
+            debug('query discrepancy response as a list with size:%j', listJSON.length);
+            let acum = 0;
+            let cant = 0;
+            let average = 0;
+            const size = listJSON.length;
+            for (let index = 0; index < size; index++) {
+                if(listJSON[index].discrepancy !== 0){
+                    acum += listJSON[index].discrepancy;
+                    cant += 1;
+                }
+            }
+            if (size !== 0) {
+                average = Number((acum/(cant)).toFixed(1));
+            }
+            const finalResponse = {
+                Mes: 'null',
+                Promedio: average,
+                Cantidad: cant
+            };
+            debug('response discrepancy report final :%j', finalResponse);
+            return finalResponse;
+        }  catch (error) {
+            debug('getReportDiscrepancyTwoDates Error: %j', error);
+            throw error;
+        }
+    }
 }
