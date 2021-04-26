@@ -2,6 +2,7 @@ import 'package:appkinsonFront/views/Calendar/CalendarScreenView2Carer.dart';
 import 'package:appkinsonFront/views/HomeDifferentUsers/Carer/CarerHomePage.dart';
 import 'package:appkinsonFront/views/Relations/CarerPatients.dart';
 import 'package:appkinsonFront/views/Relations/interactionCarerPatient.dart';
+import 'package:appkinsonFront/views/ToolBox/ToolBoxInitial.dart';
 import 'package:appkinsonFront/views/ToolBox/ToolBoxInitialCarer.dart';
 import 'package:appkinsonFront/views/profiles/Carer/CarerProfle.dart';
 import 'package:appkinsonFront/views/profiles/Carer/profileEdition/ProfileEditionCarer.dart';
@@ -53,6 +54,6 @@ class RoutesCarer {
 
   toToolbox(BuildContext context) {
     Navigator.push(
-        context, new MaterialPageRoute(builder: (context) => toolboxCuidador()));
+        context, new MaterialPageRoute(builder: (context) => toolbox()));
   }
 }

@@ -1,5 +1,6 @@
 import 'dart:math';
 
+import 'package:appkinsonFront/utils/Utils.dart';
 import 'package:appkinsonFront/views/Toolbox/AboutExcercises/Buttons/ButtonGoAboutExcercises.dart';
 import 'package:appkinsonFront/views/Toolbox/AboutFood/Buttons/ButtonGoAboutFood.dart';
 import 'package:appkinsonFront/views/Toolbox/AboutNews/Buttons/ButtonGoAboutNews.dart';
@@ -23,6 +24,7 @@ class toolboxCuidador extends StatefulWidget {
   _toolboxCuidador0 createState() => _toolboxCuidador0();
 }
 
+String tipe;
 class _toolboxCuidador0 extends State<toolboxCuidador> {
   // double percent=0.1;
 
