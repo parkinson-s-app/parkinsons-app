@@ -24,6 +24,10 @@ var items;
 var id = 0;
 
 class _MedicinesState extends State<Medicines> {
+  @override
+  void initState() {
+    super.initState();
+  }
   final key = GlobalKey<AnimatedListState>();
   final int idPatient;
   _MedicinesState(this.idPatient);
@@ -35,10 +39,9 @@ class _MedicinesState extends State<Medicines> {
 
   @override
   Widget build(BuildContext context) => Scaffold(
-        backgroundColor: Colors.grey[100],
+        backgroundColor: Colors.white,
         appBar: AppBar(
           title: Text("Alarmas de Medicamentos"),
-          actions: <Widget>[],
         ),
         body: Column(
           children: [
@@ -68,7 +71,6 @@ class _MedicinesState extends State<Medicines> {
             color: Colors.white,
           ),
           onPressed: () {
-            //addUser();
             print('otro idp ${idPatient.toString()}');
             RoutesDoctor().toPatientAlarmAndMedicine(context, idPatient);
           },
@@ -103,22 +105,13 @@ class _MedicinesState extends State<Medicines> {
   }
 
   void removeItem(int index) {
-    EndPoints().deleteAlarm(index.toString(), getToken(), getId());
+    //EndPoints().deleteAlarm(index.toString(), getToken(), getId());
+    print("id: " + items[index].id.toString());
+    EndPoints().deleteAlarm(items[index].id.toString(), idPatient);
     final item = items.removeAt(index);
-
     key.currentState.removeItem(
       index,
       (context, animation) => buildItem(item, index, animation),
     );
   }
-}
-
-getId() async {
-  String id = await Utils().getFromToken('id');
-  return id;
-}
-
-getToken() async {
-  String token = await Utils().getToken();
-  return token;
 }

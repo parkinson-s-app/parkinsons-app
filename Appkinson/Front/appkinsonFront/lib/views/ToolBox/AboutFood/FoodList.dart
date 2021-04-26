@@ -73,7 +73,7 @@ class _ListFoodState extends State<ListFood> {
   }*/
 
   void removeItem(int index) {
-    EndPoints().deleteAlarm(index.toString(), getToken(), getId());
+    //EndPoints().deleteAlarm(index.toString(), getToken(), getId());
     final item = food.removeAt(index);
 
     key.currentState.removeItem(

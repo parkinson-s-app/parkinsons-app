@@ -563,7 +563,7 @@ class EndPoints {
     List<AlarmAndMedicine> alarms = [];
     for (var a = 0; a < codeList.length; a++) {
       AlarmAndMedicine alarm = new AlarmAndMedicine();
-      //alarm.id = codeList[a]['id'];
+      alarm.id = codeList[a]['IdMedicine'];
       alarm.title = codeList[a]['Title'];
       alarm.idMedicine = codeList[a]['Medicine'];
 
@@ -641,7 +641,11 @@ class EndPoints {
     return response.statusMessage;
   }
 
-  Future<String> deleteAlarm(String id, var token, var tokenID) async {
+  Future<String> deleteAlarm(String id, int tokenID) async {
+    //tokenID paciente
+    //id index
+    String token = await Utils().getToken();
+    print("eliminando medicina id: " + id + " paciente id:" + tokenID.toString());
     http.Response response = await http.post(
         endpointBack + '/api/patient/$tokenID/medicineAlarm/delete/$id',
         headers: {HttpHeaders.authorizationHeader: jwtkey + token});
@@ -649,7 +653,7 @@ class EndPoints {
     String i = response.body;
     return i;
   }
-
+  
   Future<List<RelationRequest>> getRelationRequest(var token) async {
     http.Response lista = await http.get(
         endpointBack + '/api/patient/relationRequest',

@@ -73,7 +73,7 @@ class _ListNewsState extends State<ListNews> {
   }*/
 
   void removeItem(int index) {
-    EndPoints().deleteAlarm(index.toString(), getToken(), getId());
+    //EndPoints().deleteAlarm(index.toString(), getToken(), getId());
     final item = news.removeAt(index);
 
     key.currentState.removeItem(
