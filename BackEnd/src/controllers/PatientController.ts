@@ -517,11 +517,11 @@ async function twoWeeklyReport(idPatient: number, initDate: string, endDate: str
         Promedio: 0,
         Cantidad: 0
     });
-    let week = 2;
+    let week = 1;
     while(before.getTime() < last.getTime()) {
         let report: any;
         let nDate = new Date(before.getTime() );
-        nDate.setDate(nDate.getDate() +14);
+        nDate.setDate(nDate.getDate() +7);
         if(nDate.getTime() < last.getTime()){
             initDate = (before.toJSON()).toString();
             endDate = (nDate.toJSON()).toString();
@@ -544,8 +544,8 @@ async function twoWeeklyReport(idPatient: number, initDate: string, endDate: str
             report = await PatientService.getReportNoMotorTwoDates(idPatient, initDate, endDate);
         }
         report.Week = week;
-        week+=2;
-        before.setDate(before.getDate() + 14 );
+        week++;
+        before.setDate(before.getDate() + 7);
         resp.push(report);
     }
     return resp;
