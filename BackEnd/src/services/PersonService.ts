@@ -58,6 +58,7 @@ export default class PersonService {
         try {
             debug('getPeople bd connected');
             const people = await executeSQL('SELECT ID as Id, EMAIL as Email, TYPE as Type FROM users');
+            debug('getPeople response complete db: %j', people)
             debug('getPeople response db: %j', people[0]);
             return people[0];
         } catch (error) {
@@ -73,6 +74,7 @@ export default class PersonService {
         debug('getPersonByEmail email: %s', email);
         try {
             const person =  await executeSQL('SELECT * FROM users WHERE EMAIL = ?',[email]);
+            debug('getPersonByEmail response complete: %j', person);
             return person[0];
         } catch (error) {
             debug('getPersonByEmail failed. Error: %j', error);

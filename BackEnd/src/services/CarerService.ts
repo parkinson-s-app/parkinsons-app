@@ -111,9 +111,9 @@ export default class CarerService {
         try {
             const person =  await executeSQL(
                 `SELECT EMAIL, NAME, PHOTOPATH
-                FROM doctors
+                FROM carers
                 LEFT JOIN users
-                ON users.ID = doctors.ID_USER
+                ON users.ID = carers.ID_USER
                 WHERE users.ID = ? `,[id]);
             debug('result search carer by id: %j', person[0]);
             return person[0];

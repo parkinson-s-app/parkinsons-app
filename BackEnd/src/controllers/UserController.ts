@@ -73,6 +73,7 @@ UserController.get('/users', async (req: Request, res: Response) => {
 
 UserController.post('/login', async (req: Request, res: Response) => {
     debug('Login user entry: %j', req.body.email);
+    
     const credentials = req.body as IPersonDto;
     try {
         const responseDB = await PersonService.getPersonByEmail(credentials.email);
@@ -124,6 +125,8 @@ UserController.post('/users/:id', multer.single('photo'), verifyToken, async (re
     debug('Users UpdateById');
     const id = +req.params.id;
     const updatedUserData = req.body as IPersonalDataDto;
+    console.log("entras");
+    
     try {
         // verificando si la actualizacion tiene foto
         if(req.file) {

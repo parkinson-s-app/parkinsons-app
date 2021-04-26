@@ -15,16 +15,39 @@ export function verifyToken(req: Request, res: Response, next: any) {
     if( bearerHeader !== undefined ) {
         const bearerToken = bearerHeader.split(' ')[1];
         const token = bearerToken;
-        jwt.verify(token, secretKey, { algorithms: ['HS512'] }, (error, authData) => {
-            if (error) {
-                debug('Verifytoken error: %j', error);
-                status = constants.HTTP_STATUS_UNAUTHORIZED;
-                res.status(status).send({error});
-            } else {
-                debug('Verifytoken successful');
-                next();
-            }
-        });
+        console.log("Llega prro");
+        try {
+            const verifying = jwt.verify(token, secretKey, { algorithms: ['HS512'] }); //, (error, authData) => {
+            debug('Verifytoken successful');
+            next();
+        } catch(error) {
+            console.log("error");
+            console.log(error);
+            debug('Verifytoken error: %j', error);
+            status = constants.HTTP_STATUS_UNAUTHORIZED;
+            console.log("pailas mi so");
+            res.status(status).send({error});
+        }
+        //     if (error) {
+        //         debug('Verifytoken error: %j', error);
+        //         status = constants.HTTP_STATUS_UNAUTHORIZED;
+        //         console.log("pailas mi so");
+                
+        //         res.status(status).send({error});
+        //     } else {
+        //         console.log("re bien");
+                
+        //         debug('Verifytoken successful');
+        //         next();
+        //     }
+        // });
+        /*
+        UPDATE symptomsformpatient SET Q2='hey'
+WHERE ID_PATIENT IN (
+    SELECT ID_PATIENT FROM ( SELECT ID_PATIENT FROM symptomsformpatient ORDER BY formdate ASC  
+        LIMIT 0, 10) tmp
+)
+        */
     } else {
         debug('Verifytoken unauthorized');
         status = constants.HTTP_STATUS_UNAUTHORIZED;

@@ -390,7 +390,7 @@ export default class PatientService {
             const finalResponse = {
                 Mes: 'null',
                 Promedio:  average,
-                Cantidad: size
+                Cantidad: (size-elementsInvalid)
             };
             debug('response emotional symptoms report final :%j', finalResponse);
             return finalResponse;
