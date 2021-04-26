@@ -563,26 +563,28 @@ export default class PatientService {
             debug('getReportDiscrepancyTwoDates executed ');
             const listJSON = JSON.parse(JSON.stringify(res[0]));
             debug('query discrepancy response as a list with size:%j', listJSON.length);
-            let acum = 0;
-            let cant = 0;
-            let average = 0;
             const size = listJSON.length;
+            let response = [];
             for (let index = 0; index < size; index++) {
-                if(listJSON[index].discrepancy !== 0){
-                    acum += listJSON[index].discrepancy;
-                    cant += 1;
+                if(listJSON[index].Name === 'levodopa' || listJSON[index].Name === 'Levodopa' || listJSON[index].Name === 'LEVODOPA' ){
+                    const today = new Date();
+                    const hour = listJSON[index].AlarmTime;
+                    let initialHour = new Date(`${today.getFullYear()}-${today.getMonth()+1}-${today.getDate()} ${hour}:00.000Z`);
+                    const limit = new Date(`${initialHour.getFullYear()}-${initialHour.getMonth()+1}-${initialHour.getDate()} 21:00:00.000Z`);
+                    const periodicity = listJSON[index].PeriodicityQuantity;
+                    const periodicityType = listJSON[index].PeriodicityType;
+                    if(periodicityType === 'Hora(s)') {
+                        while(initialHour.getTime() < limit.getTime()) {
+                            response.push(`${initialHour.getHours()}:${initialHour.getMinutes()}:00`);
+                            initialHour.setHours(initialHour.getHours() + periodicity);
+                        }
+                    } else {
+                        response.push(hour);
+                    }
                 }
             }
-            if (size !== 0) {
-                average = Number((acum/(cant)).toFixed(1));
-            }
-            const finalResponse = {
-                Mes: 'null',
-                Promedio: average,
-                Cantidad: cant
-            };
-            debug('response discrepancy report final :%j', finalResponse);
-            return finalResponse;
+            debug('response alarms today response:%j', response);
+            return response;
         }  catch (error) {
             debug('getReportDiscrepancyTwoDates Error: %j', error);
             throw error;

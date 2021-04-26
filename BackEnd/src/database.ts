@@ -29,7 +29,7 @@ export async function executeSQL(sqlQuery: string, values?: any) {
         conn = await connect();
         debug('response connection: %j', conn);
         const result = (values) ? await conn.query(sqlQuery, values) : await conn.query(sqlQuery);
-        debug('Query executed. Result: %j', result[0]);
+        debug('Query executed.');
         conn.end();
         return result;
     } catch (error) {
