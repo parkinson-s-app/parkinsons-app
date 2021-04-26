@@ -222,7 +222,7 @@ export default class PatientService {
             debug('deleteMedicineAlarms get into');
             debug('deleteMedicineAlarms medicine alarm id: %s, id patient: %s', id, idPatient);
             const resDeletion = await executeSQL(
-                'DELETE FROM medicinealarmpatient WHERE ID_PATIENT  = ? AND id = ?',
+                'DELETE FROM medicinealarmpatient WHERE ID_PATIENT  = ? AND idMedicine = ?',
                 [idPatient, id]);
             debug('deleteMedicineAlarms saved');
             return resDeletion;
