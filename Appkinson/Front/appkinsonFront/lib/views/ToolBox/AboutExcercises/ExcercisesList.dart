@@ -16,7 +16,7 @@ class ListExcercises extends StatefulWidget {
   _ListExcercisesState createState() => _ListExcercisesState();
 }
 
-List<ItemToolbox> items = List<ItemToolbox>();
+List<ItemToolbox> items = [];
 var id = 0;
 
 class _ListExcercisesState extends State<ListExcercises> {

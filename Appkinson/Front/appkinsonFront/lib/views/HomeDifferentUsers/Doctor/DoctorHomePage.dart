@@ -12,7 +12,8 @@ class DoctorHomePage extends StatelessWidget {
           return shouldPop;
         },
         child: Scaffold(
-            body: Column(
+            body: Container(
+          child: Column(
           children: <Widget>[
             ClipPath(
               clipper: MyClipper(),
@@ -91,7 +92,7 @@ class DoctorHomePage extends StatelessWidget {
               ),
             ),
           ],
-        )));
+        ))));
   }
 }
 

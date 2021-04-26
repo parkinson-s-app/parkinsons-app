@@ -29,7 +29,6 @@ class ButtonGoAboutNews extends StatelessWidget {
             news.clear();
             for (int i = 0; i < itemsByType.length; i++) {
               itemToolbox = itemsByType[i];
-              print(itemToolbox.type.compareTo('NOTICIA'));
               if (itemToolbox.type.compareTo('NOTICIA') == 0) {
                 print("No entra");
                 news.add(itemToolbox);

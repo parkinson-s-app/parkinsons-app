@@ -23,12 +23,12 @@ var emailCarer = "";
 
 final kTitleTextStyle = TextStyle(
   fontFamily: "Raleway",
-  fontSize: ScreenUtil().setSp(kSpacingUnit * 1.7),
+  fontSize: ScreenUtil().setSp(kSpacingUnit * 2),
   fontWeight: FontWeight.w600,
 );
 
 final kCaptionTextStyle = TextStyle(
-  fontSize: ScreenUtil().setSp(kSpacingUnit * 1.3),
+  fontSize: ScreenUtil().setSp(kSpacingUnit * 2),
   fontWeight: FontWeight.w100,
   //fontFamily: "Raleway"
 );

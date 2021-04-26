@@ -12,7 +12,7 @@ class ListFood extends StatefulWidget {
   _ListFoodState createState() => _ListFoodState();
 }
 
-List<ItemToolbox> food = List<ItemToolbox>();
+List<ItemToolbox> food = [];
 var id = 0;
 
 class _ListFoodState extends State<ListFood> {

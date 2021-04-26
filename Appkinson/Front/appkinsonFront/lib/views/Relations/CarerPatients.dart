@@ -27,8 +27,11 @@ class CarerPatientsCustom extends State<CarerPatients> {
       new TextEditingController();
   final TextEditingController editingController = new TextEditingController();
   final GlobalKey<FormState> _keyDialogForm = new GlobalKey<FormState>();
+  TextEditingController editingController2 = TextEditingController();
+  List<User> items = [];
   List<User> patients = [];
-
+  List<User> patientsAdd = [];
+  bool isSearching = false;
   @override
   void initState() {
     super.initState();
@@ -76,6 +79,12 @@ class CarerPatientsCustom extends State<CarerPatients> {
       patient.id = codeListPatients[a]['ID_USER'];
       _patients.add(patient);
     }
+    setState(() {
+      items = _patients;
+    });
+    setState(() {
+      patientsAdd = _patients;
+    });
     /*
     for (var a = 0; a < patientsAux.length; a++) {
       User u = new User();
@@ -95,32 +104,75 @@ class CarerPatientsCustom extends State<CarerPatients> {
       patients = _patients;
     });
   }
+  void filterSearchResults(String query) {
+    List<User> dummySearchList = List<User>();
+    dummySearchList.addAll(patientsAdd);
+    if (query.isNotEmpty) {
+      List<User> dummyListData = List<User>();
+      dummySearchList.forEach((item) {
+        if (item.email.contains(query)) {
+          dummyListData.add(item);
+        }
+      });
+      setState(() {
+        patients = dummyListData;
+      });
+      return;
+    } else {
+      setState(() {
+        patients = patientsAdd;
+      });
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
+
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
-          title: Text('Pacientes'),
+          toolbarHeight: 70,
+          title: !isSearching ? Text('Pacientes no agregados'): TextField(
+            onChanged: (value) {
+              filterSearchResults(value);
+            },
+            controller: editingController2,
+            style: TextStyle(color: Colors.white),
+            decoration: InputDecoration(
+                hintText: "Buscar",
+                hintStyle: TextStyle(color: Colors.white),
+                focusedBorder: OutlineInputBorder(
+                    borderSide: BorderSide(color: Colors.white, width: 3.0),
+                ),
+                enabledBorder: OutlineInputBorder(
+                    borderSide: BorderSide(color: Colors.grey[400], width: 2.0),
+                ),
+                ),
+              ),
+          actions: <Widget> [
+            !isSearching ?
+            IconButton(
+              icon: Icon(Icons.search), 
+              onPressed: (){
+                setState(() {
+                  this.isSearching = !this.isSearching;
+                });
+              },
+              ):
+            IconButton(
+              icon: Icon(Icons.cancel), 
+              onPressed: (){
+                setState(() {
+                  this.isSearching = !this.isSearching;
+                });
+              },
+              )
+          ],
         ),
         body: SingleChildScrollView(
             child: Column(
           key: UniqueKey(),
           children: <Widget>[
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: TextField(
-                onChanged: (value) {
-                  //filterSearchResults(value);
-                },
-                controller: editingController,
-                decoration: InputDecoration(
-                    hintText: "Buscar",
-                    prefixIcon: Icon(Icons.search),
-                    border: OutlineInputBorder(
-                        borderRadius: BorderRadius.all(Radius.circular(25.0)))),
-              ),
-            ),
             ListView.separated(
               shrinkWrap: true,
               physics: NeverScrollableScrollPhysics(),

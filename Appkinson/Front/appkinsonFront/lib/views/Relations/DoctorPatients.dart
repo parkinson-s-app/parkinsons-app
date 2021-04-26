@@ -77,6 +77,9 @@ class DoctorPatientsCustom extends State<DoctorPatients> {
       debugPrint(patient.email);
     }
     setState(() {
+      items = _patients;
+    });
+    setState(() {
       patients = _patients;
     });
   }
@@ -92,12 +95,12 @@ class DoctorPatientsCustom extends State<DoctorPatients> {
         }
       });
       setState(() {
-        items = dummyListData;
+        patients = dummyListData;
       });
       return;
     } else {
       setState(() {
-        items = patientsAdd;
+        patients = patientsAdd;
       });
     }
   }
