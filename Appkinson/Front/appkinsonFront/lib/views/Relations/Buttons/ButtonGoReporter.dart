@@ -13,8 +13,7 @@ class ButtonGoReporter extends StatelessWidget {
       height: 90,
       margin: EdgeInsets.symmetric(horizontal: 20),
       child: RaisedButton(
-        shape:
-            RoundedRectangleBorder(borderRadius: BorderRadius.circular(18.0)),
+        shape: CircleBorder(),
         //   side: BorderSide(color: Color.fromRGBO(0, 160, 227, 1))),
         onPressed: () {
           RoutesDoctor().toReportConfigPage(context, idPatient);
@@ -23,7 +22,7 @@ class ButtonGoReporter extends StatelessWidget {
         color: Colors.grey[50],
         //textColor: Colors.white,
         child: Image.asset(
-          "assets/images/reporter.png",
+          "assets/images/14-LISTA.png",
           height: size.height * 0.08,
         ),
         // Text("Registrarse ", style:  TextStyle(fontSize: 15)),

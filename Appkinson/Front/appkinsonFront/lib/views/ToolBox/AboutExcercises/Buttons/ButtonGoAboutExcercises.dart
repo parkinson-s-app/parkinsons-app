@@ -19,8 +19,7 @@ class ButtonGoAboutExcercises extends StatelessWidget {
       margin: EdgeInsets.symmetric(horizontal: 20),
       child: Column(children: [
         RaisedButton(
-          shape:
-              RoundedRectangleBorder(borderRadius: BorderRadius.circular(18.0)),
+          shape: CircleBorder(),
           //   side: BorderSide(color: Color.fromRGBO(0, 160, 227, 1))),
 
           onPressed: () async {
@@ -45,8 +44,8 @@ class ButtonGoAboutExcercises extends StatelessWidget {
           color: Colors.grey[50],
           //textColor: Colors.white,
           child: Image.asset(
-            "assets/images/ejercicio.png",
-            height: size.height * 0.08,
+            "assets/images/12-EJERCICIOS.png",
+            height: size.height * 0.11,
           ),
           // Text("Registrarse ", style:  TextStyle(fontSize: 15)),
         ),

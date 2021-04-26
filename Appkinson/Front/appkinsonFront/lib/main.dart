@@ -31,7 +31,8 @@ import 'views/Calendar/CalendarScreen.dart';
 import 'model/User.dart';
 import 'constants/Constant.dart';
 
-final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
+final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
+    FlutterLocalNotificationsPlugin();
 /*
 List<User> patients = [];
 
@@ -102,7 +103,7 @@ void callbackDispatcher() {
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  
+
   var initializationSettingsAndroid =
       AndroidInitializationSettings('@mipmap/ic_launcher');
   var initializationSettingsIOS = IOSInitializationSettings(
@@ -136,26 +137,28 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
- 
   String token;
   final String type;
   _MyAppState(this.type);
   @override
   Widget build(BuildContext context) {
-    
     if (type == 'Cuidador') {
-      return MaterialApp(debugShowCheckedModeBanner: false, home: CarerHomePage());
+      return MaterialApp(
+          debugShowCheckedModeBanner: false, home: CarerHomePage());
     } else if (type == 'Doctor') {
-      return MaterialApp(debugShowCheckedModeBanner: false, home: DoctorHomePage());
+      return MaterialApp(
+          debugShowCheckedModeBanner: false, home: DoctorHomePage());
     } else if (type == 'Paciente') {
-      return MaterialApp(debugShowCheckedModeBanner: false, home: PatientHomePage());
+      return MaterialApp(
+          debugShowCheckedModeBanner: false, home: PatientHomePage());
     } else if (type == 'Admin') {
-      return MaterialApp(debugShowCheckedModeBanner: false, home: AdminHomePage());
+      return MaterialApp(
+          debugShowCheckedModeBanner: false, home: AdminHomePage());
     } else {
-       
-      return new MaterialApp(debugShowCheckedModeBanner: false, home: HomePage());
+      return new MaterialApp(
+          debugShowCheckedModeBanner: false, home: HomePage());
     }
-    
+
     // return new MaterialApp(debugShowCheckedModeBanner: false, home: AlarmAndMedicinePage( idPatient: 0,));
     //return new MaterialApp(debugShowCheckedModeBanner: false, home: CalendarScreenView2());
     //  return new MaterialApp(debugShowCheckedModeBanner: false, home: CountDownTimer());

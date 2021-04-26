@@ -60,7 +60,7 @@ class InteractionCarerPatient extends StatelessWidget {
           ),
         ),
         SizedBox(
-          height: 30,
+          height: 10,
         ),
         Container(
           child: Column(
@@ -77,13 +77,13 @@ class InteractionCarerPatient extends StatelessWidget {
                         "Calendario",
                         style: TextStyle(
                             color: Colors.blue[900],
-                            fontSize: 20,
+                            fontSize: 17,
                             fontFamily: "Raleway2"),
                       )
                     ],
                   ),
                   SizedBox(
-                    width: 30,
+                    width: 15,
                   ),
                   Column(
                     children: <Widget>[
@@ -94,7 +94,7 @@ class InteractionCarerPatient extends StatelessWidget {
                         "Sentimientos",
                         style: TextStyle(
                             color: Colors.blue[900],
-                            fontSize: 20,
+                            fontSize: 17,
                             fontFamily: "Raleway2"),
                       )
                     ],
@@ -130,7 +130,7 @@ class InteractionCarerPatient extends StatelessWidget {
                         "Medicamentos \n",
                         style: TextStyle(
                             color: Colors.blue[900],
-                            fontSize: 20,
+                            fontSize: 17,
                             fontFamily: "Raleway2"),
                       )
                     ],
@@ -143,11 +143,11 @@ class InteractionCarerPatient extends StatelessWidget {
                       idPatient: this.idPatient,
                     ),
                     Text(
-                      "Formulario Síntomas \nno motores",
+                      "Formulario Síntomas \nNo Motores",
                       textAlign: TextAlign.center,
                       style: TextStyle(
                           color: Colors.blue[900],
-                          fontSize: 20,
+                          fontSize: 17,
                           fontFamily: "Raleway2"),
                     )
                   ])

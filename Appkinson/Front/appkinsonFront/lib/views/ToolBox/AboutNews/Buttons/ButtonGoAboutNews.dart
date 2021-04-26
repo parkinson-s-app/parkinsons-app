@@ -18,8 +18,7 @@ class ButtonGoAboutNews extends StatelessWidget {
       margin: EdgeInsets.symmetric(horizontal: 20),
       child: Column(children: [
         RaisedButton(
-          shape:
-              RoundedRectangleBorder(borderRadius: BorderRadius.circular(18.0)),
+          shape: CircleBorder(),
           //   side: BorderSide(color: Color.fromRGBO(0, 160, 227, 1))),
           onPressed: () async {
             ItemToolbox itemToolbox = new ItemToolbox();
@@ -43,8 +42,8 @@ class ButtonGoAboutNews extends StatelessWidget {
           color: Colors.grey[50],
           //textColor: Colors.white,
           child: Image.asset(
-            "assets/images/news.png",
-            height: size.height * 0.08,
+            "assets/images/10-NOTICIAS.png",
+            height: size.height * 0.11,
           ),
           // Text("Registrarse ", style:  TextStyle(fontSize: 15)),
         ),

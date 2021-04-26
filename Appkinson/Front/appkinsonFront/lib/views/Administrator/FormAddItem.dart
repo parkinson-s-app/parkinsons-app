@@ -11,7 +11,8 @@ class ItemToolbox {
   String descripcion;
   String enlace;
   String type;
-  ItemToolbox({this.idItem, this.titulo,this.descripcion,this.enlace, this.type});
+  ItemToolbox(
+      {this.idItem, this.titulo, this.descripcion, this.enlace, this.type});
 }
 
 class FormItemToolboxPage extends StatefulWidget {
@@ -28,6 +29,7 @@ class _FormItemToolboxPageState extends State {
   void initState() {
     super.initState();
   }
+
   final _formKey = GlobalKey();
   final _ItemToolbox = ItemToolbox();
   String dropdownValue = 'EJERCICIO';
@@ -36,102 +38,139 @@ class _FormItemToolboxPageState extends State {
     return Scaffold(
         appBar: AppBar(title: Text('Agregar ítem')),
         body: Container(
-            padding: const EdgeInsets.symmetric(vertical: 16.0, horizontal: 16.0),
+            padding:
+                const EdgeInsets.symmetric(vertical: 16.0, horizontal: 16.0),
             child: SingleChildScrollView(
-            child: Builder(
-                builder: (context) => Form(
-                    key: _formKey,
-                    child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.stretch,
-                        children: [
-                          TextFormField(
-                            controller: titleController,
-                            decoration: InputDecoration(labelText: 'Título'),
-                            validator: (value) {
-                              if (value.isEmpty) {
-                                return 'Por favor ingrese un título';
-                              }
-                            },
-                          ),
-                          TextFormField(
-                            controller: linkController,
-                              decoration:
-                              InputDecoration(labelText: 'Enlace'),
-                              validator: (value) {
-                                if (value.isEmpty) {
-                                  return 'Por favor ingrese el enlace del ítem';
-                                }
-                              },),
-                          TextFormField(
-                            controller: descripController,
-                            decoration: InputDecoration(labelText: 'Descripción'),
-                            validator: (value) {
-                              if (value.isEmpty) {
-                                return 'Por favor ingrese una breve descripción';
-                              }
-                            },
-                          ),
-                          Container(
-                            padding: const EdgeInsets.fromLTRB(0, 50, 0, 20),
-                            child: Text('Tipo de ítem a agregar'),
-                          ),
-                          DropdownButton<String>(
-                            value: dropdownValue,
-                            icon: const Icon(Icons.arrow_downward),
-                            iconSize: 24,
-                            elevation: 16,
-                            style: const TextStyle(color: Colors.deepPurple),
-                            underline: Container(
-                              height: 2,
-                              color: Colors.deepPurpleAccent,
-                            ),
-                            onChanged: (String newValue) {
-                              setState(() {
-                                dropdownValue = newValue;
-                              });
-                            },
-                            items: <String>['EJERCICIO', 'NOTICIA', 'COMIDA']
-                                .map<DropdownMenuItem<String>>((String value) {
-                              return DropdownMenuItem<String>(
-                                value: value,
-                                child: Text(value),
-                              );
-                            }).toList(),
-                          ),
+                child: Builder(
+                    builder: (context) => Form(
+                        key: _formKey,
+                        child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.stretch,
+                            children: [
+                              SizedBox(
+                                height: 20,
+                              ),
+                              TextFormField(
+                                controller: titleController,
+                                decoration: new InputDecoration(
+                                    labelText: "Título",
+                                    contentPadding:
+                                        EdgeInsets.symmetric(horizontal: 10),
+                                    border: OutlineInputBorder()),
+                                validator: (value) {
+                                  if (value.isEmpty) {
+                                    return 'Por favor ingrese un título';
+                                  }
+                                },
+                              ),
+                              SizedBox(
+                                height: 20,
+                              ),
+                              TextFormField(
+                                controller: linkController,
+                                decoration: new InputDecoration(
+                                    labelText: "Enlace",
+                                    contentPadding:
+                                        EdgeInsets.symmetric(horizontal: 10),
+                                    border: OutlineInputBorder()),
+                                validator: (value) {
+                                  if (value.isEmpty) {
+                                    return 'Por favor ingrese el enlace del ítem';
+                                  }
+                                },
+                              ),
+                              SizedBox(
+                                height: 20,
+                              ),
+                              TextFormField(
+                                controller: descripController,
+                                decoration: new InputDecoration(
+                                    labelText: "Descripción",
+                                    contentPadding:
+                                        EdgeInsets.symmetric(horizontal: 10),
+                                    border: OutlineInputBorder()),
+                                validator: (value) {
+                                  if (value.isEmpty) {
+                                    return 'Por favor ingrese una breve descripción';
+                                  }
+                                },
+                              ),
+                              Container(
+                                padding:
+                                    const EdgeInsets.fromLTRB(0, 50, 0, 20),
+                                child: Text(
+                                  'Tipo de Ítem a Agregar: ',
+                                ),
+                              ),
+                              DropdownButton<String>(
+                                value: dropdownValue,
+                                icon: const Icon(Icons.arrow_downward),
+                                iconSize: 24,
+                                elevation: 16,
+                                style:
+                                    const TextStyle(color: Colors.deepPurple),
+                                underline: Container(
+                                  height: 2,
+                                  color: Colors.deepPurpleAccent,
+                                ),
+                                onChanged: (String newValue) {
+                                  setState(() {
+                                    dropdownValue = newValue;
+                                  });
+                                },
+                                items: <String>[
+                                  'EJERCICIO',
+                                  'NOTICIA',
+                                  'COMIDA'
+                                ].map<DropdownMenuItem<String>>((String value) {
+                                  return DropdownMenuItem<String>(
+                                    value: value,
+                                    child: Text(value),
+                                  );
+                                }).toList(),
+                              ),
+                              Container(
+                                  padding: const EdgeInsets.symmetric(
+                                      vertical: 16.0, horizontal: 16.0),
+                                  child: RaisedButton(
+                                      onPressed: () async {
+                                        if (await canLaunch(
+                                            linkController.text)) {
+                                          debugPrint(titleController.text);
+                                          debugPrint("");
+                                          debugPrint(descripController.text);
+                                          debugPrint("");
+                                          debugPrint(linkController.text);
+                                          debugPrint(dropdownValue);
+                                          String token =
+                                              await Utils().getToken();
+                                          EndPoints().sendItemToolbox(
+                                              titleController.text.toString(),
+                                              descripController.text.toString(),
+                                              linkController.text.toString(),
+                                              dropdownValue,
+                                              token);
+                                          cleanData();
+                                          Navigator.pop(context);
+                                        } else {
+                                          showDialog(
+                                            context: context,
+                                            builder: (BuildContext context) =>
+                                                _buildPopupDialog(context),
+                                          );
+                                        }
+                                      },
+                                      child: Text('Guardar'))),
+                            ]))))));
+  }
 
-                          Container(
-                              padding: const EdgeInsets.symmetric(
-                                  vertical: 16.0, horizontal: 16.0),
-                              child: RaisedButton(
-                                  onPressed: () async{
-                                    if(await canLaunch(linkController.text)){
-                                      debugPrint(titleController.text);
-                                      debugPrint("");
-                                      debugPrint(descripController.text);
-                                      debugPrint("");
-                                      debugPrint(linkController.text);
-                                      debugPrint(dropdownValue);
-                                      String token = await Utils().getToken();
-                                      EndPoints().sendItemToolbox(titleController.text.toString(), descripController.text.toString(), linkController.text.toString(), dropdownValue, token);
-                                      cleanData();
-                                      Navigator.pop(context);
-                                    }else{
-                                      showDialog(
-                                        context: context,
-                                        builder: (BuildContext context) =>
-                                            _buildPopupDialog(context),
-                                      );
-                                    }
-                                  },
-                                  child: Text('Guardar'))),
-                        ]))))));
-  }  _showDialog(BuildContext context) {
+  _showDialog(BuildContext context) {
     Scaffold.of(context)
         .showSnackBar(SnackBar(content: Text('Agregando ítem')));
   }
 }
 
-cleanData(){
+cleanData() {
   titleController = new TextEditingController();
   descripController = new TextEditingController();
   linkController = new TextEditingController();

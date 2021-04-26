@@ -4,16 +4,13 @@ import 'package:appkinsonFront/views/Relations/Buttons/ButtonGoReporter.dart';
 import 'package:flutter/material.dart';
 
 class InteractionDoctorPatient extends StatelessWidget {
-
   final int idPatient;
 
   const InteractionDoctorPatient({Key key, this.idPatient}) : super(key: key);
-  
-
 
   @override
   Widget build(BuildContext context) {
-     print('patient pantalla intermedia ${idPatient.toString()}');
+    print('patient pantalla intermedia ${idPatient.toString()}');
     Size size = MediaQuery.of(context).size;
     return Scaffold(
         body: Column(
@@ -58,7 +55,7 @@ class InteractionDoctorPatient extends StatelessWidget {
           ),
         ),
         SizedBox(
-          height: 30,
+          height: 120,
         ),
         Container(
           child: Column(
@@ -67,7 +64,7 @@ class InteractionDoctorPatient extends StatelessWidget {
                 children: <Widget>[
                   Column(
                     children: <Widget>[
-                    ButtonGoCalendarFromDoctor(),
+                      ButtonGoCalendarFromDoctor(),
                       Text(
                         "Calendario",
                         style: TextStyle(
@@ -79,7 +76,7 @@ class InteractionDoctorPatient extends StatelessWidget {
                   ),
                   Column(
                     children: <Widget>[
-                    ButtonGoReporter(idPatient: this.idPatient),
+                      ButtonGoReporter(idPatient: this.idPatient),
                       Text(
                         "Reporte",
                         style: TextStyle(
@@ -89,9 +86,11 @@ class InteractionDoctorPatient extends StatelessWidget {
                       )
                     ],
                   ),
-                 Column(
+                  Column(
                     children: <Widget>[
-                      ButtonGoMedicinesFromDoctor(idPatient: this.idPatient,),
+                      ButtonGoMedicinesFromDoctor(
+                        idPatient: this.idPatient,
+                      ),
                       Text(
                         "Medicinas",
                         style: TextStyle(

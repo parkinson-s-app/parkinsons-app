@@ -12,8 +12,7 @@ class ButtonGoFormNoMotoresFromCarer extends StatelessWidget {
       height: 130,
       margin: EdgeInsets.symmetric(horizontal: 7),
       child: RaisedButton(
-        shape:
-            RoundedRectangleBorder(borderRadius: BorderRadius.circular(18.0)),
+        shape: CircleBorder(),
         //   side: BorderSide(color: Color.fromRGBO(0, 160, 227, 1))),
         onPressed: () {
           RoutesPatient().toNoMotorSymptoms(context, idPatient);

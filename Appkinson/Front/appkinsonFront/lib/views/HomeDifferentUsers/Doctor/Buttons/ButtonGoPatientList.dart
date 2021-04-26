@@ -11,8 +11,7 @@ class ButtonGoPatientList extends StatelessWidget {
       height: 150,
       margin: EdgeInsets.symmetric(horizontal: 10),
       child: RaisedButton(
-        shape:
-            RoundedRectangleBorder(borderRadius: BorderRadius.circular(18.0)),
+        shape: CircleBorder(),
         //   side: BorderSide(color: Color.fromRGBO(0, 160, 227, 1))),
         onPressed: () async {
           //items = await EndPoints().getMedicinesAlarms( currentUser['id'].toString(), token);
@@ -22,7 +21,7 @@ class ButtonGoPatientList extends StatelessWidget {
         color: Colors.grey[50],
         //textColor: Colors.white,
         child: Image.asset(
-          "assets/images/pacientes.png",
+          "assets/images/15-PACIENTES.png",
           height: size.height * 0.15,
         ),
         // Text("Registrarse ", style:  TextStyle(fontSize: 15)),

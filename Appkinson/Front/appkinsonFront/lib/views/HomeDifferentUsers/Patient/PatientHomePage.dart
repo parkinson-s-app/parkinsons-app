@@ -88,7 +88,7 @@ class PatientHomePage extends StatelessWidget {
                               textAlign: TextAlign.center,
                               style: TextStyle(
                                   color: Colors.blue[900],
-                                  fontSize: 20,
+                                  fontSize: 17,
                                   fontFamily: "Raleway2"),
                             )
                           ],
@@ -101,7 +101,7 @@ class PatientHomePage extends StatelessWidget {
                               textAlign: TextAlign.center,
                               style: TextStyle(
                                   color: Colors.blue[900],
-                                  fontSize: 20,
+                                  fontSize: 17,
                                   fontFamily: "Raleway2"),
                             )
                           ],
@@ -114,7 +114,7 @@ class PatientHomePage extends StatelessWidget {
                               textAlign: TextAlign.center,
                               style: TextStyle(
                                   color: Colors.blue[900],
-                                  fontSize: 20,
+                                  fontSize: 17,
                                   fontFamily: "Raleway2"),
                             )
                           ],
@@ -140,7 +140,7 @@ class PatientHomePage extends StatelessWidget {
                               textAlign: TextAlign.center,
                               style: TextStyle(
                                   color: Colors.blue[900],
-                                  fontSize: 20,
+                                  fontSize: 17,
                                   fontFamily: "Raleway2"),
                             )
                           ],
@@ -166,7 +166,7 @@ class PatientHomePage extends StatelessWidget {
                               textAlign: TextAlign.center,
                               style: TextStyle(
                                   color: Colors.blue[900],
-                                  fontSize: 20,
+                                  fontSize: 17,
                                   fontFamily: "Raleway2"),
                             )
                           ],

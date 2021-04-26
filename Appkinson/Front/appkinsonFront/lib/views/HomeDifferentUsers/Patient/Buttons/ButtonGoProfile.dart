@@ -22,8 +22,7 @@ class _ButtonGoProfileState extends State<ButtonGoProfile> {
       height: 90,
       margin: EdgeInsets.symmetric(horizontal: 20),
       child: RaisedButton(
-        shape:
-            RoundedRectangleBorder(borderRadius: BorderRadius.circular(18.0)),
+        shape: CircleBorder(),
         //   side: BorderSide(color: Color.fromRGBO(0, 160, 227, 1))),
         onPressed: () async {
           String token = await Utils().getToken();

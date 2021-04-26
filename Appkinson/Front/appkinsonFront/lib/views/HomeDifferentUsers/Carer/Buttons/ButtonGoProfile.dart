@@ -21,8 +21,7 @@ class _ButtonGoProfileState extends State<ButtonGoProfile> {
       height: 90,
       margin: EdgeInsets.symmetric(horizontal: 20),
       child: RaisedButton(
-        shape:
-            RoundedRectangleBorder(borderRadius: BorderRadius.circular(18.0)),
+        shape: CircleBorder(),
         //   side: BorderSide(color: Color.fromRGBO(0, 160, 227, 1))),
         onPressed: () async {
           String token = await Utils().getToken();
@@ -53,7 +52,7 @@ class _ButtonGoProfileState extends State<ButtonGoProfile> {
         color: Colors.grey[50],
         //textColor: Colors.white,
         child: Image.asset(
-          "assets/images/obrero.png",
+          "assets/images/4-PERFIL.png",
           height: size.height * 0.08,
         ),
         // Text("Registrarse ", style:  TextStyle(fontSize: 15)),

@@ -15,7 +15,7 @@ class ButtonGoRelationsRequest extends StatelessWidget {
       height: 60,
       margin: EdgeInsets.symmetric(horizontal: 20),
       child: FlatButton(
-        //shape:
+        shape: CircleBorder(),
         //RoundedRectangleBorder(borderRadius: BorderRadius.circular(18.0)),
         //   side: BorderSide(color: Color.fromRGBO(0, 160, 227, 1))),
         onPressed: () async {
@@ -26,10 +26,10 @@ class ButtonGoRelationsRequest extends StatelessWidget {
           RoutesPatient().toRelationsRequest(context);
         },
         padding: EdgeInsets.symmetric(horizontal: 10),
-        color: Colors.transparent,
+        //color: Colors.transparent,
         //textColor: Colors.white,
         child: Image.asset(
-          "assets/images/relationRequest.png",
+          "assets/images/7-ALERTA.png",
           height: size.height * 0.08,
         ),
       ),
