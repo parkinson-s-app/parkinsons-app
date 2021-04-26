@@ -478,7 +478,7 @@ PatientController.get('/patient/:id/noMotorSymptoms/report', verifyToken, async 
 async function montlyReport(idPatient: number, initDate: string, endDate: string, reportType: string) {
     let before = new Date(initDate);
     const last = new Date(endDate);
-    const resp = [];
+    let resp = [];
     while(before.getTime() < last.getTime()) {
         let report: any;
         const nDate = new Date(before.getFullYear(), before.getMonth()+1, 0 );
@@ -511,7 +511,12 @@ async function montlyReport(idPatient: number, initDate: string, endDate: string
 async function twoWeeklyReport(idPatient: number, initDate: string, endDate: string, reportType: string) {
     let before = new Date(initDate);
     const last = new Date(endDate);
-    const resp = [];
+    let resp = [];
+    resp.push({
+        Week: 0,
+        Promedio: 0,
+        Cantidad: 0
+    });
     let week = 2;
     while(before.getTime() < last.getTime()) {
         let report: any;
