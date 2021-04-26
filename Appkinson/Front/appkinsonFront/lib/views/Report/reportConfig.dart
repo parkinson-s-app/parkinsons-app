@@ -22,8 +22,8 @@ class _ReportConfigPageState extends State<ReportConfigPage> {
     "Última semana",
     "Último mes",
     "Ultimos tres meses",
-  //  "Últimos seis meses",
-  //  "Último año"
+    "Últimos seis meses",
+    "Último año"
   ];
 
   void getPeriocity(String periocity) {

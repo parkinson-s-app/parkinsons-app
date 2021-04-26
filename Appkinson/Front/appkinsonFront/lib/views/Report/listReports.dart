@@ -12,6 +12,7 @@ String averageGameScore;
 String averageDyskineciasWithoutMonth;
 String averageEmotionalSymptoms;
 String dataDisrepancy;
+String dataNoMotors;
 
 var piedata; //Gráfica promedio de sintomas
 var seriedata; //Gráfica promedio de sintomas por mes
@@ -19,6 +20,7 @@ var seriedataGameAverage; //Gráfica promedio de veces y puntaje jugado por mes
 var serieDataDiskineias; //Gráfica de porcentaje de diskinecias entre meses
 var seriesDataEmotional; //Gráfica de promedio de puntaje del formulario emocional por meses
 var lineDataMedicinesDiscrepacy; //Gráfica de discrepancia del tiempo de toma de médicamento
+var lineDataNoMotors; //Gráfica de sintomas no motores
 
 //COLORES
 var colorsSintomasPorMeses = _generateColorsSyntomsChart();
@@ -29,6 +31,7 @@ var idsAverageGame = ['PUNTAJE', 'CANTIDAD JUGADA'];
 var idsDyskineciasAverage = ['DISQUINECIAS'];
 var idsEmotionalAverage = ['ÁNIMO'];
 var idsMedicinesAverage = ['LEVODOPA'];
+var idsNoMotorsAverage = ['SÍNTOMAS NO MOTORES'];
 
 //DESCRIPCIONES
 String descripcionSymptoms =
@@ -43,6 +46,9 @@ String descriptionEmotional =
     "Esta gráfica fue construida dividiendo el intervalo de tiempo escogido por meses, posteriormente se calcula el puntaje promedio obtenido en cada mes";
 String descriptionMedicines =
     "Esta gráfica  construida dividiendo el intervalo de tiempo escogido por meses, posteriormente se calcula el promedio de tiempo en minutos que tuvo de desfase en la toma del médicamento";
+String descriptionNoMotors =
+    "Esta gráfica  construida dividiendo el intervalo de tiempo escogido por semanas, posteriormente se calcula el promedio del puntaje obtenido el el fomulario de síntomas no motores de dichas semanas. Las semanas se cuentan desde el inicio del intervalo escogido";
+
 
 //CONSTRUCCIÓN DE DESCRIPCIÓN DE DATOS DE GRÁFICAS DE SERIE
 String dataDescriptionSymptomsByMonth = "";
@@ -148,6 +154,11 @@ class _ListReportPage extends State<ListReportPage> {
       var discrepandyDataDecode = json.decode(dataDisrepancy);
       lineDataMedicinesDiscrepacy =
           returnDataLine(discrepandyDataDecode.length, discrepandyDataDecode);
+
+      //Construyendo la gráfica del puntaje promedio de los sintomas no motores
+      var noMotorsDataDecode = json.decode(dataNoMotors);
+      lineDataNoMotors =
+          returnDataLineMotors(noMotorsDataDecode.length, noMotorsDataDecode);
     });
 
     super.initState();
@@ -166,6 +177,8 @@ class _ListReportPage extends State<ListReportPage> {
         await EndPoints().getAverageEmotionalSymptoms(idPatient, lastDate, now);
     dataDisrepancy =
         await EndPoints().getDiscrepancyData(idPatient, lastDate, now);
+    dataNoMotors=
+        await EndPoints().getAverageMotorsSymptoms(idPatient, lastDate, now);
   }
 
   // This widget is the root of your application.
@@ -331,6 +344,34 @@ class _ListReportPage extends State<ListReportPage> {
                           textColor: Colors.white,
                         ),
                       ]),
+                       SizedBox(
+                    height: 100,
+                  ),
+                  Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        RaisedButton(
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(18.0)),
+                          onPressed: () {
+                             RoutesDoctor().toReportChartLine(
+                                context,
+                                idsNoMotorsAverage,
+                                lineDataNoMotors,
+                                "Promedio de los puntajes en los síntomas no motores \n \n",
+                                "Semanas",
+                                "Promedio",
+                                descriptionNoMotors);
+                          },
+                          child: Image.asset(
+                            "assets/images/output-onlinepngtools (3).png",
+                            height: size.height * 0.08,
+                          ),
+                          color: Colors.grey[50],
+                          textColor: Colors.white,
+                        ),
+                        
+                      ]),
                 ],
               ),
             ),
@@ -444,6 +485,22 @@ returnDataLine(int length, var discrepancyaDataDecode) {
   return allData;
 }
 
+returnDataLineMotors(int length, var motorsDataDecode) {
+  //Gráfica de discrepancia del tiempo en la toma de médicamentos
+  var allData = [];
+  List<dataLineSerie> data = [];
+  for (int i = 0; i < length; i++) {
+    data.add(new dataLineSerie(
+        motorsDataDecode[i]['Week'],
+        motorsDataDecode[i]['Promedio']
+            .toInt())); // mes y promedio en tiempo del desfase calculado
+  }
+  allData.add(data);
+
+  return allData;
+}
+
+
 returnDataSeries(int length, var averageSymtomsByMonthResponseDecode) {
   //GRÁFICA PROMEDIO DE LOS SÍNTOMAS DEL PACIENTE POR MES, HAY QUE PASAR EL TÍTULO DE L GRÁFICA POR PARÁMETRO
 
@@ -529,7 +586,6 @@ returnDataPieAverageDiskinecias(
             ['mes']))); // el més debemos pasarlo a String
   }
   allData.add(data1);
-
   return allData;
 }
 
