@@ -106,7 +106,9 @@ class AdminHomePage extends StatelessWidget {
           ),
         ),
       ],
-    )));
+    )
+    )
+    );
   }
 }
 

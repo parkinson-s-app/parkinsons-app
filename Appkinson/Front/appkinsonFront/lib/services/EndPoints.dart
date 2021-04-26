@@ -628,17 +628,14 @@ class EndPoints {
     debugPrint(tokenID);
     Map<String, dynamic> data2 = {
       "gameDate": recordDate.toString(),
-      "score": stepsQuantity,
+      "score": stepsQuantity.toString(),
     };
 
-    FormData formData = new FormData.fromMap(data2);
-    Dio dio = new Dio();
-    dio.options.headers["authorization"] = jwtkey + token;
-    Response response = await dio.post(
+    http.Response response = await http.post(
         endpointBack + '/api/patient/$tokenID/newGameScore',
-        data: formData);
-    debugPrint(response.statusMessage);
-    return response.statusMessage;
+        body: data2,
+        headers: {HttpHeaders.authorizationHeader: jwtkey + token});
+    return response.body;
   }
 
   Future<String> deleteAlarm(String id, int tokenID) async {
