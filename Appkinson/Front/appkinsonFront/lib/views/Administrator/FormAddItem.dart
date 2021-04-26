@@ -107,11 +107,11 @@ class _FormItemToolboxPageState extends State {
                                 icon: const Icon(Icons.arrow_downward),
                                 iconSize: 24,
                                 elevation: 16,
-                                style:
-                                    const TextStyle(color: Colors.deepPurple),
+                                isExpanded: true,
+                                style: const TextStyle(color: Colors.blue),
                                 underline: Container(
                                   height: 2,
-                                  color: Colors.deepPurpleAccent,
+                                  color: Colors.blue[500],
                                 ),
                                 onChanged: (String newValue) {
                                   setState(() {
@@ -133,6 +133,9 @@ class _FormItemToolboxPageState extends State {
                                   padding: const EdgeInsets.symmetric(
                                       vertical: 16.0, horizontal: 16.0),
                                   child: RaisedButton(
+                                      shape: RoundedRectangleBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(18.0)),
                                       onPressed: () async {
                                         if (await canLaunch(
                                             linkController.text)) {
@@ -160,6 +163,8 @@ class _FormItemToolboxPageState extends State {
                                           );
                                         }
                                       },
+                                      color: Colors.blue,
+                                      textColor: Colors.white,
                                       child: Text('Guardar'))),
                             ]))))));
   }

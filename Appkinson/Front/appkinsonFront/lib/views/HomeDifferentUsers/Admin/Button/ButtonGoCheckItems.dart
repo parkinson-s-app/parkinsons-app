@@ -25,7 +25,7 @@ class ButtonGoCheckItems extends StatelessWidget {
         color: Colors.grey[50],
         //textColor: Colors.white,
         child: Image.asset(
-          "assets/images/formulario.png",
+          "assets/images/14-LISTA.png",
           height: size.height * 0.08,
         ),
         // Text("Registrarse ", style:  TextStyle(fontSize: 15)),

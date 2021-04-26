@@ -16,10 +16,10 @@ class ButtonGoModifiToolBox extends StatelessWidget {
           RoutesAdmin().toFormAddItem(context);
         },
         padding: EdgeInsets.symmetric(horizontal: 30),
-        color: Colors.grey[50],
+        color: Colors.grey[100],
         //textColor: Colors.white,
         child: Image.asset(
-          "assets/images/abrir-caja.png",
+          "assets/images/5-TOOLBOX-PROACTIVIDAD.png",
           height: size.height * 0.08,
         ),
         // Text("Registrarse ", style:  TextStyle(fontSize: 15)),
