@@ -6,14 +6,12 @@ class NoMotorSymptomsFormQ12 extends StatefulWidget {
 }
 
 enum SigningCharacter { Si, No, Nada }
-SigningCharacter _character;
+SigningCharacter _character12;
 int selectedStateRadioQ12 = 0;
 
 class _NoMotorSymptomsFormQ12 extends State<NoMotorSymptomsFormQ12> {
   void initState() {
     super.initState();
-    _character = SigningCharacter.Nada;
-    selectedStateRadioQ12 = 0;
   }
 
   @override
@@ -26,12 +24,12 @@ class _NoMotorSymptomsFormQ12 extends State<NoMotorSymptomsFormQ12> {
             child: Container(
               color: Colors.grey[350],
               padding: EdgeInsets.all(15.0),
-              alignment: Alignment.center,
+              alignment: Alignment.topCenter,
               child: Text(
                 "Problemas para recordar cosas que han pasado recientemente o dificultad para acordarse de cosas que tenía que hacer",
                 textAlign: TextAlign.center,
                 style: TextStyle(
-                  fontSize: 30.0,
+                  fontSize: 28.0,
                   fontFamily: "Ralewaybold",
                 ),
               ),
@@ -51,10 +49,10 @@ class _NoMotorSymptomsFormQ12 extends State<NoMotorSymptomsFormQ12> {
                   ),
                 ),
                 value: SigningCharacter.Si,
-                groupValue: _character,
+                groupValue: _character12,
                 onChanged: (SigningCharacter value) {
                   setState(() {
-                    _character = value;
+                    _character12 = value;
                     selectedStateRadioQ12 = 1;
                   });
                 },
@@ -70,10 +68,10 @@ class _NoMotorSymptomsFormQ12 extends State<NoMotorSymptomsFormQ12> {
                   ),
                 ),
                 value: SigningCharacter.No,
-                groupValue: _character,
+                groupValue: _character12,
                 onChanged: (SigningCharacter value) {
                   setState(() {
-                    _character = value;
+                    _character12 = value;
                     selectedStateRadioQ12 = 2;
                   });
                 },
@@ -96,5 +94,10 @@ class _NoMotorSymptomsFormQ12 extends State<NoMotorSymptomsFormQ12> {
 class BringAnswer12 {
   int send() {
     return selectedStateRadioQ12;
+  }
+}
+class RestartQ12 {
+  void setTile(){
+    _character12 = SigningCharacter.Nada;
   }
 }

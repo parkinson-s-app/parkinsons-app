@@ -6,15 +6,15 @@ class EmotionalFormQ1 extends StatefulWidget {
 }
 
 enum SigningCharacter { Cero, Uno, Dos, Tres, Nada }
-SigningCharacter _character;
-int selectedStateRadioQ1 = -1;
+SigningCharacter _character = SigningCharacter.Nada;
+int selectedStateRadioQ1;
 
 class _EmotionalFormQ1 extends State<EmotionalFormQ1> {
   void initState() {
     super.initState();
 
-    _character = SigningCharacter.Nada;
-    selectedStateRadioQ1 = -1;
+    //_character = SigningCharacter.Nada;
+    //selectedStateRadioQ1 = 0;
   }
 
   @override
@@ -135,5 +135,11 @@ class _EmotionalFormQ1 extends State<EmotionalFormQ1> {
 class BringAnswer1 {
   int send() {
     return selectedStateRadioQ1;
+  }
+}
+
+class RestartListTile {
+  void setTile1(){
+    _character = SigningCharacter.Nada;
   }
 }

@@ -44,7 +44,7 @@ class NoMotorSymptomsFormQ30 extends StatefulWidget {
 }
 
 enum SigningCharacter { Si, No, Nada }
-SigningCharacter _character;
+SigningCharacter _character30;
 int selectedStateRadioQ30 = 0;
 
 class _NoMotorSymptomsFormQ30 extends State<NoMotorSymptomsFormQ30> {
@@ -52,8 +52,6 @@ class _NoMotorSymptomsFormQ30 extends State<NoMotorSymptomsFormQ30> {
   _NoMotorSymptomsFormQ30(this.idPatient);
   void initState() {
     super.initState();
-    _character = SigningCharacter.Nada;
-    selectedStateRadioQ30 = 0;
   }
 
   @override
@@ -91,10 +89,10 @@ class _NoMotorSymptomsFormQ30 extends State<NoMotorSymptomsFormQ30> {
                   ),
                 ),
                 value: SigningCharacter.Si,
-                groupValue: _character,
+                groupValue: _character30,
                 onChanged: (SigningCharacter value) {
                   setState(() {
-                    _character = value;
+                    _character30 = value;
                     selectedStateRadioQ30 = 1;
                   });
                 },
@@ -110,10 +108,10 @@ class _NoMotorSymptomsFormQ30 extends State<NoMotorSymptomsFormQ30> {
                   ),
                 ),
                 value: SigningCharacter.No,
-                groupValue: _character,
+                groupValue: _character30,
                 onChanged: (SigningCharacter value) {
                   setState(() {
-                    _character = value;
+                    _character30 = value;
                     selectedStateRadioQ30 = 2;
                   });
                 },
@@ -170,6 +168,36 @@ class _NoMotorSymptomsFormQ30 extends State<NoMotorSymptomsFormQ30> {
 
                   //var savedEmotional2 = await EndPoints().getNoMotorSymptomsForm( id, token, new DateTime.utc(2021, 02, 20) , patientForm.date);
                   debugPrint("formulario enviado");
+                  RestartQ1().setTile();
+                  RestartQ2().setTile();
+                  RestartQ3().setTile();
+                  RestartQ4().setTile();
+                  RestartQ5().setTile();
+                  RestartQ6().setTile();
+                  RestartQ7().setTile();
+                  RestartQ8().setTile();
+                  RestartQ9().setTile();
+                  RestartQ10().setTile();
+                  RestartQ11().setTile();
+                  RestartQ12().setTile();
+                  RestartQ13().setTile();
+                  RestartQ14().setTile();
+                  RestartQ15().setTile();
+                  RestartQ16().setTile();
+                  RestartQ17().setTile();
+                  RestartQ18().setTile();
+                  RestartQ19().setTile();
+                  RestartQ20().setTile();
+                  RestartQ21().setTile();
+                  RestartQ22().setTile();
+                  RestartQ23().setTile();
+                  RestartQ24().setTile();
+                  RestartQ25().setTile();
+                  RestartQ26().setTile();
+                  RestartQ27().setTile();
+                  RestartQ28().setTile();
+                  RestartQ29().setTile();
+                  RestartQ30().setTile();
                   RoutesGeneral().toPop(context);
                 },
               ),
@@ -188,5 +216,10 @@ class _NoMotorSymptomsFormQ30 extends State<NoMotorSymptomsFormQ30> {
 class BringAnswer30 {
   int send() {
     return selectedStateRadioQ30;
+  }
+}
+class RestartQ30 {
+  void setTile(){
+    _character30 = SigningCharacter.Nada;
   }
 }
