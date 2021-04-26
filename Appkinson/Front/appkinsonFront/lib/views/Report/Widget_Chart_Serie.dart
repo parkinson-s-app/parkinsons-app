@@ -99,6 +99,7 @@ _buildDataDescription(dataSerie){
           ),
            body:  TabBarView(
             children: [
+      
         Container(
         padding: EdgeInsets.all(30),
         color: Colors.white,
@@ -176,7 +177,7 @@ _buildDataDescription(dataSerie){
 } 
 
 class Animo {
-  int estadoDeAnimo;
+  double estadoDeAnimo;
   String mes;
 
   Animo(this.estadoDeAnimo, this.mes);

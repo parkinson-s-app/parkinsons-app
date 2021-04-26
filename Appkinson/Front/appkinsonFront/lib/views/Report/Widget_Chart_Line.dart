@@ -31,7 +31,7 @@ _buildDataDescription(dataLine){
   String finalData = "";
   for(int i = 0; i<dataLine.length; i++){
     for(int j = 0; j< dataLine[i].length; j++){
-      finalData = finalData + dataLine[i][j].yearval.toString() + " mes : " +  dataLine[i][j].dataLineSerieval.toString() + " minutos de desfase \n";
+      finalData = finalData + dataLine[i][j].yearval.toString() + " : " +  dataLine[i][j].dataLineSerieval.toString() + " \n";
     }
     print(finalData);
     return finalData;
@@ -143,7 +143,7 @@ _buildDataDescription(dataLine){
           ),
         ),
       ),
-          Container(
+          new Container(
           padding: EdgeInsets.all(40),
           decoration: BoxDecoration(
            // borderRadius: BorderRadius.circular(13),
@@ -162,10 +162,9 @@ _buildDataDescription(dataLine){
               color: Colors.black26)),
               TextSpan(text: _buildDataDescription(dataLine), style: TextStyle(fontSize: 15.0, fontWeight: FontWeight.bold, 
               color: Colors.black26)),
-            ],
-          ),
-        )
-           
+              ],
+            ),
+          )    
         ),
             ],
           ),

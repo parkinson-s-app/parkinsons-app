@@ -124,7 +124,7 @@ class NotificationPlugin {
   }
 
   Future<void> showDailyAtTime() async {
-    var time = Time(12, 41, 0);
+    var time = Time(8, 0, 0);
     var androidChannelSpecifics = AndroidNotificationDetails(
       'CHANNEL_ID 4',
       'CHANNEL_NAME 4',
@@ -146,7 +146,7 @@ class NotificationPlugin {
   }
 
   Future<void> showWeeklyAtDayTime() async {
-    var time = Time(12, 43, 0);
+    var time = Time(8, 0, 0);
     var androidChannelSpecifics = AndroidNotificationDetails(
       'CHANNEL_ID 5',
       'CHANNEL_NAME 5',
@@ -161,7 +161,7 @@ class NotificationPlugin {
       0,
       'Test Title at ${time.hour}:${time.minute}.${time.second}',
       'Test', //null
-      Day.Monday,
+      Day.Sunday,
       time,
       platformChannelSpecifics,
       payload: 'Test Payload',
