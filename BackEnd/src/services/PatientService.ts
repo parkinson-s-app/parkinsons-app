@@ -590,4 +590,63 @@ export default class PatientService {
             throw error;
         }
     }
+
+    public static async  getReportSymptomsDaily(idPatient: number, initDate: string, endDate: string) {
+        try {
+            debug('getting report daily First: %s Second: %s', initDate, endDate);
+            const query = `
+            SELECT
+                Q1,
+                formdate
+            FROM
+                symptomsformpatient
+            WHERE ID_PATIENT= ?
+            AND formdate BETWEEN ? AND ? ORDER BY formdate ASC`;
+            debug('getReportSymptomsDaily to patient id: %s', idPatient);
+            const res = await executeSQL(query,[idPatient, initDate, endDate]);
+            debug('getReportSymptomsDaily executed');
+            debug('query reslt response :%j', res[0]);
+            const listJSON = JSON.parse(JSON.stringify(res[0]));
+            debug('query daily response as a list :%j', res[0]);
+            let on = 0;
+            let onG = 0;
+            let off = 0;
+            let offB = 0;
+            const size = listJSON.length;
+            const init = new Date(initDate);
+            const end = new Date(endDate);
+
+            let before = new Date(init);
+            let after = new Date(init);
+
+            while(before.getTime() < end.getTime()) {
+                after.setHours(after.getHours()+1);
+                console.log((before.toJSON()).toString());
+                console.log((after.toJSON()).toString());
+                
+
+                before.setHours(before.getHours() + 1);
+            }
+            let result = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0];
+            for (let index = 0; index < size; index++) {
+
+                const hour = new Date(listJSON[index].formdate); 
+                if(listJSON[index].Q1 === 'on') {
+                    result[hour.getHours()] = 3;
+                } else if (listJSON[index].Q1 === 'on bueno') {
+                    result[hour.getHours()] = 4;
+                } else if (listJSON[index].Q1 === 'off malo') {
+                    result[hour.getHours()] = 1;
+                } else if (listJSON[index].Q1 === 'off') {
+                    result[hour.getHours()] = 2;
+                }
+            }
+            
+            debug('response daily final :%j', result);
+            return result;
+        }  catch (error) {
+            debug('getReportSymptomsDaily Error: %j', error);
+            throw error;
+        }
+    }
 }

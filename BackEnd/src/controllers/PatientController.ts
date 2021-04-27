@@ -565,13 +565,42 @@ PatientController.get('/patient/alarms/today', verifyToken, async (req: Request,
             status = constants.HTTP_STATUS_OK;
             res.status(status).send(response);
         } catch (error) {
-            debug('Patient getting dyskinecia report failed, error: %j', error);
+            debug('Patient getting alarms failed, error: %j', error);
             status = constants.HTTP_STATUS_INTERNAL_SERVER_ERROR;
             const responseError = { status, error: 'An error has ocurred'};
             res.status(status).send(responseError);
         }
     } else {
         debug('Request Error getting authorization header alarms');
+        status = constants.HTTP_STATUS_BAD_REQUEST;
+        res.status(status).send('Bad request');
+    }
+});
+
+PatientController.get('/patient/:id/report/daily', verifyToken, async (req: Request, res: Response) => {
+    debug('getting daily report');
+    let status;
+    const bearerHeader = req.headers.authorization;
+    if( bearerHeader !== undefined ) {
+        const id = getIdFromToken(bearerHeader);
+        try {
+            let response;
+            const idPatient = +req.params.id;
+            const initDate = req.query.start as string;
+            const endDate = req.query.end as string;
+            response = 'ok';
+            debug('Patient getting daily report by id: %s', id);
+            response = PatientService.getReportSymptomsDaily(idPatient, initDate, endDate);
+            status = constants.HTTP_STATUS_OK;
+            res.status(status).send(response);
+        } catch (error) {
+            debug('Patientdaily report report failed, error: %j', error);
+            status = constants.HTTP_STATUS_INTERNAL_SERVER_ERROR;
+            const responseError = { status, error: 'An error has ocurred'};
+            res.status(status).send(responseError);
+        }
+    } else {
+        debug('daily report Request Error getting authorization header alarms');
         status = constants.HTTP_STATUS_BAD_REQUEST;
         res.status(status).send('Bad request');
     }
