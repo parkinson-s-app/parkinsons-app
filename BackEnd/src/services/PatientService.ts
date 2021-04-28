@@ -621,10 +621,6 @@ export default class PatientService {
 
             while(before.getTime() < end.getTime()) {
                 after.setHours(after.getHours()+1);
-                console.log((before.toJSON()).toString());
-                console.log((after.toJSON()).toString());
-                
-
                 before.setHours(before.getHours() + 1);
             }
             let result = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0];
@@ -642,7 +638,7 @@ export default class PatientService {
                 }
             }
             
-            debug('response daily final :%j', result);
+            debug('response daily final :%j', result.toString());
             return result;
         }  catch (error) {
             debug('getReportSymptomsDaily Error: %j', error);

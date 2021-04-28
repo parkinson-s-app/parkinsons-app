@@ -589,7 +589,7 @@ PatientController.get('/patient/:id/report/daily', verifyToken, async (req: Requ
             const initDate = req.query.start as string;
             const endDate = req.query.end as string;
             response = 'ok';
-            debug('Patient getting daily report by id: %s', id);
+            debug('Patient getting daily report by id: %s start: %s end: %s', id, initDate, endDate);
             response = PatientService.getReportSymptomsDaily(idPatient, initDate, endDate);
             status = constants.HTTP_STATUS_OK;
             res.status(status).send(response);
@@ -600,7 +600,7 @@ PatientController.get('/patient/:id/report/daily', verifyToken, async (req: Requ
             res.status(status).send(responseError);
         }
     } else {
-        debug('daily report Request Error getting authorization header alarms');
+        debug('daily report Request Error getting authorization header');
         status = constants.HTTP_STATUS_BAD_REQUEST;
         res.status(status).send('Bad request');
     }
