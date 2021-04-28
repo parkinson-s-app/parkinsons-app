@@ -608,10 +608,6 @@ export default class PatientService {
             debug('query reslt response :%j', res[0]);
             const listJSON = JSON.parse(JSON.stringify(res[0]));
             debug('query daily response as a list :%j', res[0]);
-            let on = 0;
-            let onG = 0;
-            let off = 0;
-            let offB = 0;
             const size = listJSON.length;
             const init = new Date(initDate);
             const end = new Date(endDate);
@@ -638,8 +634,8 @@ export default class PatientService {
                 }
             }
             
-            debug('response daily final :%j', result.toString());
-            return result;
+            debug('response daily final :%j', JSON.stringify(result));
+            return JSON.stringify(result);
         }  catch (error) {
             debug('getReportSymptomsDaily Error: %j', error);
             throw error;
