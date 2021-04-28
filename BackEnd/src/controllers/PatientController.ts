@@ -592,6 +592,7 @@ PatientController.get('/patient/:id/report/daily', verifyToken, async (req: Requ
             debug('Patient getting daily report by id: %s start: %s end: %s', id, initDate, endDate);
             response = PatientService.getReportSymptomsDaily(idPatient, initDate, endDate);
             status = constants.HTTP_STATUS_OK;
+            debug('Response repost daily %j', response);
             res.status(status).send(response);
         } catch (error) {
             debug('Patientdaily report report failed, error: %j', error);
