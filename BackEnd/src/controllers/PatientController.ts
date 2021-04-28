@@ -529,17 +529,6 @@ async function twoWeeklyReport(idPatient: number, initDate: string, endDate: str
             initDate = (before.toJSON()).toString();
             endDate = (last.toJSON()).toString();
         }
-        // if(reportType === 'SYMPTOMS') {
-        //     report = await PatientService.getReportSymptomsTwoDates(idPatient, initDate, endDate);
-        // } else if(reportType === 'GAME') {
-        //     report = await PatientService.getReportGameTwoDates(idPatient, initDate, endDate);
-        // } else if(reportType === 'EMOTIONAL') {
-        //     report = await PatientService.getReportEmotionalSymptomsTwoDates(idPatient, initDate, endDate);
-        // } else if(reportType === 'DYSKINECIA') {
-        //     report = await PatientService.getReportDiskineciaTwoDates(idPatient, initDate, endDate);
-        // } else if(reportType === 'DISCREPANCY') {
-        //     report = await PatientService.getReportDiscrepancyTwoDates(idPatient, initDate, endDate);
-        // } else
         if(reportType === 'NOMOTOR') {
             report = await PatientService.getReportNoMotorTwoDates(idPatient, initDate, endDate);
         }
@@ -561,7 +550,7 @@ PatientController.get('/patient/alarms/today', verifyToken, async (req: Request,
             let response;
             response = 'ok';
             debug('Patient getting alarms by id: %s', id);
-            response = PatientService.getAlarmsTodayById(id);
+            response = await PatientService.getAlarmsTodayById(id);
             status = constants.HTTP_STATUS_OK;
             res.status(status).send(response);
         } catch (error) {

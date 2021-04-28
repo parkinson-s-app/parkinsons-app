@@ -639,7 +639,12 @@ export default class PatientService {
                     Hora: index,
                     Estado: result[index]
                 }
+                const item2 = {
+                    Hora: index+0.9,
+                    Estado: result[index]
+                }
                 resp.push(item);
+                resp.push(item2);
             }
             debug('response daily final :%j', resp);
             return resp;
