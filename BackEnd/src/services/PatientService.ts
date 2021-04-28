@@ -619,6 +619,7 @@ export default class PatientService {
                 after.setHours(after.getHours()+1);
                 before.setHours(before.getHours() + 1);
             }
+            
             let result: any = {
                 0:0,
                 1:0,
