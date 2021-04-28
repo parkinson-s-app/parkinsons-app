@@ -634,7 +634,7 @@ export default class PatientService {
                 }
             }
             let resp = [];
-            for (let index = 0; index < size; index++) {
+            for (let index = 0; index < 24; index++) {
                 const item = {
                     Hora: index,
                     Estado: result[index]
