@@ -619,14 +619,9 @@ export default class PatientService {
                 after.setHours(after.getHours()+1);
                 before.setHours(before.getHours() + 1);
             }
-            
-            let result: any = {
-                0:0,
-                1:0,
-                2:0,
-                3:0,4:0,5:0,6:0,7:0,8:0,9:0,10:0,11:0,12:0,13:0,14:0,15:0,16:0,17:0,18:0,19:0,20:0,21:0,22:0,23:0 };
-            for (let index = 0; index < size; index++) {
 
+            let result: any = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0];
+            for (let index = 0; index < size; index++) {
                 const hour = new Date(listJSON[index].formdate); 
                 if(listJSON[index].Q1 === 'on') {
                     result[hour.getHours()] = 3;
@@ -638,9 +633,16 @@ export default class PatientService {
                     result[hour.getHours()] = 2;
                 }
             }
-            
-            debug('response daily final :%j', result);
-            return result;
+            let resp = [];
+            for (let index = 0; index < size; index++) {
+                const item = {
+                    Hora: index,
+                    Estado: result[index]
+                }
+                resp.push(item);
+            }
+            debug('response daily final :%j', resp);
+            return resp;
         }  catch (error) {
             debug('getReportSymptomsDaily Error: %j', error);
             throw error;
