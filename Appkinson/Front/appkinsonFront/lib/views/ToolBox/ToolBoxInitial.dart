@@ -12,7 +12,7 @@ import 'package:foldable_sidebar/foldable_sidebar.dart';
 import 'dart:async';
 import 'package:percent_indicator/circular_percent_indicator.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:pedometer/pedometer.dart';
+//import 'package:pedometer/pedometer.dart';
 import 'package:decimal/decimal.dart';
 
 import 'Buttons/ButtonGoGame.dart';
@@ -41,14 +41,14 @@ class _toolbox0 extends State<toolbox> {
   void initState() {
     super.initState();
     //initPlatformState();
-    setUpPedometer();
+    // setUpPedometer();
   }
 
-  void setUpPedometer() {
+  /*void setUpPedometer() {
     Pedometer pedometer = new Pedometer();
     _subscription = pedometer.stepCountStream.listen(_onData,
         onError: _onError, onDone: _onDone, cancelOnError: true);
-  }
+  }*/
 
   void _onData(int stepCountValue) async {
     // print(stepCountValue);

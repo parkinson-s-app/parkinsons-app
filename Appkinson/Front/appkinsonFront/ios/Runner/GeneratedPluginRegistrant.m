@@ -28,12 +28,6 @@
 @import flutter_local_notifications;
 #endif
 
-#if __has_include(<image_cropper/FLTImageCropperPlugin.h>)
-#import <image_cropper/FLTImageCropperPlugin.h>
-#else
-@import image_cropper;
-#endif
-
 #if __has_include(<image_picker/FLTImagePickerPlugin.h>)
 #import <image_picker/FLTImagePickerPlugin.h>
 #else
@@ -50,18 +44,6 @@
 #import <path_provider/FLTPathProviderPlugin.h>
 #else
 @import path_provider;
-#endif
-
-#if __has_include(<pedometer/PedometerPlugin.h>)
-#import <pedometer/PedometerPlugin.h>
-#else
-@import pedometer;
-#endif
-
-#if __has_include(<permission_handler/PermissionHandlerPlugin.h>)
-#import <permission_handler/PermissionHandlerPlugin.h>
-#else
-@import permission_handler;
 #endif
 
 #if __has_include(<shared_preferences/FLTSharedPreferencesPlugin.h>)
@@ -95,12 +77,9 @@
   [BackgroundFetchPlugin registerWithRegistrar:[registry registrarForPlugin:@"BackgroundFetchPlugin"]];
   [FlutterDownloaderPlugin registerWithRegistrar:[registry registrarForPlugin:@"FlutterDownloaderPlugin"]];
   [FlutterLocalNotificationsPlugin registerWithRegistrar:[registry registrarForPlugin:@"FlutterLocalNotificationsPlugin"]];
-  [FLTImageCropperPlugin registerWithRegistrar:[registry registrarForPlugin:@"FLTImageCropperPlugin"]];
   [FLTImagePickerPlugin registerWithRegistrar:[registry registrarForPlugin:@"FLTImagePickerPlugin"]];
   [NovaAlarmPlugin registerWithRegistrar:[registry registrarForPlugin:@"NovaAlarmPlugin"]];
   [FLTPathProviderPlugin registerWithRegistrar:[registry registrarForPlugin:@"FLTPathProviderPlugin"]];
-  [PedometerPlugin registerWithRegistrar:[registry registrarForPlugin:@"PedometerPlugin"]];
-  [PermissionHandlerPlugin registerWithRegistrar:[registry registrarForPlugin:@"PermissionHandlerPlugin"]];
   [FLTSharedPreferencesPlugin registerWithRegistrar:[registry registrarForPlugin:@"FLTSharedPreferencesPlugin"]];
   [SqflitePlugin registerWithRegistrar:[registry registrarForPlugin:@"SqflitePlugin"]];
   [FLTURLLauncherPlugin registerWithRegistrar:[registry registrarForPlugin:@"FLTURLLauncherPlugin"]];

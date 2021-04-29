@@ -17,7 +17,7 @@ import 'package:foldable_sidebar/foldable_sidebar.dart';
 import 'dart:async';
 import 'package:percent_indicator/circular_percent_indicator.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:pedometer/pedometer.dart';
+//import 'package:pedometer/pedometer.dart';
 import 'package:decimal/decimal.dart';
 
 import 'Buttons/ButtonGoGame.dart';
