@@ -5,9 +5,6 @@ import 'package:appkinsonFront/routes/RoutesDoctor.dart';
 import 'package:appkinsonFront/routes/RoutesPatient.dart';
 import 'package:appkinsonFront/services/EndPoints.dart';
 import 'package:appkinsonFront/views/Calendar/CalendarScreenView2Carer.dart';
-//import 'package:appkinsonFront/views/Calendar/CalendarScreenView2.dart';
-//import 'package:appkinsonFront/views/Calendar/CalendarScreenView2Doctor.dart';
-//import 'package:appkinsonFront/views/Login/Buttons/ButtonLogin.dart';
 import 'package:appkinsonFront/routes/RoutesPatient.dart';
 import 'package:appkinsonFront/services/EndPoints.dart';
 import 'package:appkinsonFront/utils/Utils.dart';
@@ -388,24 +385,6 @@ class CarerPatientsCustom extends State<CarerPatients> {
             if (_keyDialogForm.currentState.validate()) {
               _keyDialogForm.currentState.save();
               debugPrint(addPatientController.text);
-              /*
-              var lista = token.split(".");
-              var payload = lista[1];
-
-              switch (payload.length % 4) {
-                case 1:
-                  break; // this case can't be handled well, because 3 padding chars is illeagal.
-                case 2:
-                  payload = payload + "==";
-                  break;
-                case 3:
-                  payload = payload + "=";
-                  break;
-              }
-              */
-
-              //var decoded = utf8.decode(base64.decode(payload));
-              // currentUser = json.decode(decoded);
               String token = await Utils().getToken();
               String id = await Utils().getFromToken('id');
               // debugPrint(currentUser['id'].toString());

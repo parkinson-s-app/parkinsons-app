@@ -3,8 +3,17 @@ import 'package:appkinsonFront/views/HomeDifferentUsers/Admin/Button/ButtonGoMod
 import 'package:appkinsonFront/views/HomeDifferentUsers/Admin/Button/ButtonLogout.dart';
 import 'package:flutter/material.dart';
 
-class AdminHomePage extends StatelessWidget {
+class AdminHomePage extends StatefulWidget {
+  @override
+  _AdminHomePage createState() => _AdminHomePage();
+}
+
+class _AdminHomePage extends State<AdminHomePage>{
   bool shouldPop = false;
+  @override
+  void initState() {
+    super.initState();
+  }
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;

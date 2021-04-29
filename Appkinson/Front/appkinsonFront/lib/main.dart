@@ -34,46 +34,15 @@ import 'constants/Constant.dart';
 
 final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
     FlutterLocalNotificationsPlugin();
-/*
-List<User> patients = [];
 
-void callbackDispatcher() {
-  Workmanager.executeTask((taskName, inputData) async {
-    LocalNotification.Initializer();
-    LocalNotification.ShowOneTimeNotification(DateTime.now());
-    // var response = await EndPoints().getRelationRequest(token);
-    // print(response);
-
-    // var responseJSON = json.decode(response);
-    // var resquests = json.decode(responseJSON);
-    //for (var a = 0; a < resquests.length; a++) {
-    // patients.add(codeList[a]['EMAIL']);
-    // }
-    //   showNotification('tienes notificaciones pendientes', flp);
-    // if (resquests != null && resquests.length > 0) {
-    //   if (resquests.length > 1) {
-    LocalNotification.ShowOneTimeNotification(DateTime.now());
-    //   } else if (resquests.length == 1) {
-    //     LocalNotification.ShowOneTimeNotification(DateTime.now());
-    //   } else {
-    //     print("no hay mensaje");
-    //   }
-    // }
-    return Future.value(true);
-  });
-}
-*/
 void callbackDispatcher() {
   Workmanager.executeTask((task, inputData) async {
-    // print("Native called background task: $backgroundTask"); //simpleTask will be emitted here.
     switch (task) {
       case TASK_SET_ALARMS:
         print("$TASK_SET_ALARMS was executed. inputData = $inputData");
         var tokenID = await Utils().getFromToken('id');
         List<AlarmAndMedicine> alarms =
             await EndPoints().getMedicinesAndAlarms(tokenID);
-
-        // print('Lista: ${lista.body}');
         var dateTime = new DateTime.now();
         for (var alarm in alarms) {
           int hour = alarm.alarmTime.hour;
@@ -159,13 +128,5 @@ class _MyAppState extends State<MyApp> {
       return new MaterialApp(
           debugShowCheckedModeBanner: false, home: HomePage());
     }
-
-    // return new MaterialApp(debugShowCheckedModeBanner: false, home: AlarmAndMedicinePage( idPatient: 0,));
-    //return new MaterialApp(debugShowCheckedModeBanner: false, home: CalendarScreenView2());
-    //  return new MaterialApp(debugShowCheckedModeBanner: false, home: CountDownTimer());
-    //return new MaterialApp(debugShowCheckedModeBanner: false, home: relationRequest());
-    //return new MaterialApp(debugShowCheckedModeBanner: false, home: ReportScreen());
-    // return new MaterialApp(
-    //     debugShowCheckedModeBanner: false, home: SymptomsFormPatient());
   }
 }

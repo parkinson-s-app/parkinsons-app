@@ -8,7 +8,6 @@ class RegisterPage extends StatelessWidget {
     return Scaffold(
         resizeToAvoidBottomInset: false,
         body: Container(
-          width: double.infinity,
           decoration: BoxDecoration(
               gradient: LinearGradient(
                   begin: Alignment.topCenter,
@@ -17,6 +16,7 @@ class RegisterPage extends StatelessWidget {
             SizedBox(
               height: 30,
             ),
+
             HeaderRegister(),
             Expanded(
                 child: Container(
