@@ -24,10 +24,10 @@ class _NoMotorSymptomsFormQ16 extends State<NoMotorSymptomsFormQ16> {
             child: Container(
               color: Colors.grey[350],
               padding: EdgeInsets.all(15.0),
-              alignment: Alignment.center,
+              alignment: Alignment.topCenter,
               child: Text(
                 "Sentirse triste, bajo/a de ánimo o decaído",
-                textAlign: TextAlign.center,
+                textAlign: TextAlign.justify,
                 style: TextStyle(
                   fontSize: 30.0,
                   fontFamily: "Ralewaybold",

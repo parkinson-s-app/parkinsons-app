@@ -30,8 +30,8 @@ class ButtonGoAboutFood extends StatelessWidget {
             food.clear();
             for (int i = 0; i < itemsByType.length; i++) {
               itemToolbox = itemsByType[i];
-              print(itemToolbox.type.compareTo('COMIDA'));
-              if (itemToolbox.type.compareTo('COMIDA') == 0) {
+              print(itemToolbox.type.compareTo('ALIMENTACION'));
+              if (itemToolbox.type.compareTo('ALIMENTACION') == 0) {
                 food.add(itemToolbox);
               }
             }

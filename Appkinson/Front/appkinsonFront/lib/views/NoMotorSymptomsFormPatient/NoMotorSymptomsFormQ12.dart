@@ -27,7 +27,7 @@ class _NoMotorSymptomsFormQ12 extends State<NoMotorSymptomsFormQ12> {
               alignment: Alignment.topCenter,
               child: Text(
                 "Problemas para recordar cosas que han pasado recientemente o dificultad para acordarse de cosas que tenía que hacer",
-                textAlign: TextAlign.center,
+                textAlign: TextAlign.justify,
                 style: TextStyle(
                   fontSize: 28.0,
                   fontFamily: "Ralewaybold",

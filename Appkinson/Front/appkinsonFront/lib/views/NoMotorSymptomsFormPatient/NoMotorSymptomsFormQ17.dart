@@ -24,10 +24,10 @@ class _NoMotorSymptomsFormQ17 extends State<NoMotorSymptomsFormQ17> {
             child: Container(
               color: Colors.grey[350],
               padding: EdgeInsets.all(15.0),
-              alignment: Alignment.center,
+              alignment: Alignment.topCenter,
               child: Text(
                 "Sentimientos de ansiedad, miedo o pánico",
-                textAlign: TextAlign.center,
+                textAlign: TextAlign.justify,
                 style: TextStyle(
                   fontSize: 30.0,
                   fontFamily: "Ralewaybold",

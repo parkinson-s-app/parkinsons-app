@@ -217,7 +217,7 @@ class PatientsListItem extends ListTile {
 
 Widget _buildPopupDialog(BuildContext context, String email) {
   return new AlertDialog(
-    title: Text("Agregar a " + email),
+    title: Text("Enviar petición a " + email),
     actions: <Widget>[
       new FlatButton(
         onPressed: () async {
@@ -227,7 +227,7 @@ Widget _buildPopupDialog(BuildContext context, String email) {
           Navigator.of(context).pop();
         },
         textColor: Theme.of(context).primaryColor,
-        child: const Text('Aceptar'),
+        child: const Text('Enviar'),
       ),
       new FlatButton(
         onPressed: () {

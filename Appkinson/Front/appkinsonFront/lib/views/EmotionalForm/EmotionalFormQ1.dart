@@ -30,7 +30,7 @@ class _EmotionalFormQ1 extends State<EmotionalFormQ1> {
               alignment: Alignment.center,
               child: Text(
                 "Poco interés o placer en hacer cosas",
-                textAlign: TextAlign.center,
+                textAlign: TextAlign.justify,
                 style: TextStyle(
                   fontSize: 30.0,
                   fontFamily: "Ralewaybold",

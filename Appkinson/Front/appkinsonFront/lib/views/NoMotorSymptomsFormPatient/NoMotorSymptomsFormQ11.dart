@@ -24,10 +24,10 @@ class _NoMotorSymptomsFormQ11 extends State<NoMotorSymptomsFormQ11> {
             child: Container(
               color: Colors.grey[350],
               padding: EdgeInsets.all(15.0),
-              alignment: Alignment.center,
+              alignment: Alignment.topCenter,
               child: Text(
                 "Cambio de peso sin causa aparente (no debido a un régimen o dieta",
-                textAlign: TextAlign.center,
+                textAlign: TextAlign.justify,
                 style: TextStyle(
                   fontSize: 30.0,
                   fontFamily: "Ralewaybold",

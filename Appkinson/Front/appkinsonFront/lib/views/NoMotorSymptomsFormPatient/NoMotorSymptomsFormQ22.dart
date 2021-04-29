@@ -24,10 +24,10 @@ class _NoMotorSymptomsFormQ22 extends State<NoMotorSymptomsFormQ22> {
             child: Container(
               color: Colors.grey[350],
               padding: EdgeInsets.all(15.0),
-              alignment: Alignment.center,
+              alignment: Alignment.topCenter,
               child: Text(
                 "Dificultad para mantenerse despierto/a mientras realiza actividades como trabajar, conducir o comer",
-                textAlign: TextAlign.center,
+                textAlign: TextAlign.justify,
                 style: TextStyle(
                   fontSize: 30.0,
                   fontFamily: "Ralewaybold",

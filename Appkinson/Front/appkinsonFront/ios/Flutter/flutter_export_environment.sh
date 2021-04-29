@@ -1,7 +1,7 @@
 #!/bin/sh
 # This is a generated file; do not edit or check into version control.
-export "FLUTTER_ROOT=C:\src\flutter_windows_1.22.5-stable\flutter"
-export "FLUTTER_APPLICATION_PATH=C:\Users\sebas\OneDrive\Documentos\parkinsons-app\Appkinson\Front\appkinsonFront"
+export "FLUTTER_ROOT=C:\src\flutter"
+export "FLUTTER_APPLICATION_PATH=C:\Users\danju\OneDrive\Documentos\GitHub\parkinsons-app\Appkinson\Front\appkinsonFront"
 export "FLUTTER_TARGET=lib\main.dart"
 export "FLUTTER_BUILD_DIR=build"
 export "SYMROOT=${SOURCE_ROOT}/../build\ios"

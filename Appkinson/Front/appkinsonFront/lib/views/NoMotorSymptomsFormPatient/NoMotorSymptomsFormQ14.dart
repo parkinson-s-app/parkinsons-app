@@ -24,10 +24,10 @@ class _NoMotorSymptomsFormQ14 extends State<NoMotorSymptomsFormQ14> {
             child: Container(
               color: Colors.grey[350],
               padding: EdgeInsets.all(15.0),
-              alignment: Alignment.center,
+              alignment: Alignment.topCenter,
               child: Text(
                 "Ver u oír cosas que sabe o que otras personas le dicen que no están ahí",
-                textAlign: TextAlign.center,
+                textAlign: TextAlign.justify,
                 style: TextStyle(
                   fontSize: 30.0,
                   fontFamily: "Ralewaybold",
