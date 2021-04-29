@@ -21,7 +21,7 @@ class _PatientHomePage extends State<PatientHomePage> {
   String token;
   var id;
   @override
-  Future<void> initState() {
+  void initState() {
     _obtenerToken();
     super.initState();
   }

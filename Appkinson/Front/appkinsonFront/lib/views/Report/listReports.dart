@@ -51,7 +51,7 @@ String descriptionMedicines =
 String descriptionNoMotors =
     "Esta gráfica  construida dividiendo el intervalo de tiempo escogido por semanas, posteriormente se calcula el promedio del puntaje obtenido el el fomulario de síntomas no motores de dichas semanas. Las semanas se cuentan desde el inicio del intervalo escogido";
 String descriptionSymptomsByDay =
-    "En esta gráfica se muestran cada una de las horas del día y el estado registrado en dicha hora";
+    "En esta gráfica se muestran cada una de las horas del día y el estado registrado en dicha hora. Cada estado es gráficado bajo los siguientes números: [0,1,2,3] representando 0 = OFF MUY MALO , 1 = OFF, 2 = ON , 3 = ON MUY BUENO";
 
 
 //CONSTRUCCIÓN DE DESCRIPCIÓN DE DATOS DE GRÁFICAS DE SERIE
@@ -59,6 +59,7 @@ String dataDescriptionSymptomsByMonth = "";
 String dataDescriptionAverageGame = "";
 String dataDescriptionAverageDyskinecias = "";
 String dataDescriptionAverageEmotional = "";
+String dataDescriptionSymptomsDay = "";
 
 class ListReportPage extends StatefulWidget {
   final int idPatient;
