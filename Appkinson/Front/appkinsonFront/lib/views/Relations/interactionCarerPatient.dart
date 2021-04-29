@@ -57,6 +57,7 @@ class InteractionCarerPatient extends StatelessWidget {
                             fontSize: 30,
                             fontFamily: "Raleway2"),
                       )),
+                   ButtonGoReporter(idPatient: this.idPatient),
                 ],
               ),
             ),
