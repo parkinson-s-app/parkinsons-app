@@ -1,13 +1,9 @@
 import 'package:appkinsonFront/views/Relations/Buttons/ButtonGoCalendarFromCarer.dart';
-import 'package:appkinsonFront/views/Relations/Buttons/ButtonGoCalendarFromDoctor.dart';
 import 'package:appkinsonFront/views/Relations/Buttons/ButtonGoFormFeelsFromCarer.dart';
 import 'package:appkinsonFront/views/Relations/Buttons/ButtonGoFormNoMotoresFromCarer.dart';
 import 'package:appkinsonFront/views/Relations/Buttons/ButtonGoMedicinesFromCarer.dart';
-import 'package:appkinsonFront/views/Relations/Buttons/ButtonGoMedicinesFromDoctor.dart';
 import 'package:appkinsonFront/views/Relations/Buttons/ButtonGoReporter.dart';
-import 'package:appkinsonFront/views/sideMenus/CustomDrawerMenu.dart';
 import 'package:flutter/material.dart';
-import 'package:foldable_sidebar/foldable_sidebar.dart';
 
 class InteractionCarerPatient extends StatelessWidget {
   final int idPatient;
@@ -103,12 +99,14 @@ class InteractionCarerPatient extends StatelessWidget {
                       ),
                       /* Column(
                         children: <Widget>[
-                          ButtonGoMedicinesFromDoctor(idPatient: this.idPatient,),
+                          ButtonGoMedicinesFromCarer(
+                            idPatient: this.idPatient,
+                          ),
                           Text(
-                            "Medicamentos",
+                            "Medicamentos \n",
                             style: TextStyle(
                                 color: Colors.blue[900],
-                                fontSize: 20,
+                                fontSize: 17,
                                 fontFamily: "Raleway2"),
                           )
                         ],

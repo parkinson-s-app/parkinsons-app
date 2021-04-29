@@ -13,6 +13,7 @@ String averageDyskineciasWithoutMonth;
 String averageEmotionalSymptoms;
 String dataDisrepancy;
 String dataNoMotors;
+String dataSymptomsByDay;
 
 var piedata; //Gráfica promedio de sintomas
 var seriedata; //Gráfica promedio de sintomas por mes
@@ -21,6 +22,7 @@ var serieDataDiskineias; //Gráfica de porcentaje de diskinecias entre meses
 var seriesDataEmotional; //Gráfica de promedio de puntaje del formulario emocional por meses
 var lineDataMedicinesDiscrepacy; //Gráfica de discrepancia del tiempo de toma de médicamento
 var lineDataNoMotors; //Gráfica de sintomas no motores
+var lineDataSymptomsDay; //Gráfica de síntomas por día
 
 //COLORES
 var colorsSintomasPorMeses = _generateColorsSyntomsChart();
@@ -32,7 +34,7 @@ var idsDyskineciasAverage = ['DISQUINECIAS'];
 var idsEmotionalAverage = ['ÁNIMO'];
 var idsMedicinesAverage = ['LEVODOPA'];
 var idsNoMotorsAverage = ['SÍNTOMAS NO MOTORES'];
-
+var idsSymptomsDaily = ['COMPORTAMIENTO DIARIO'];
 //DESCRIPCIONES
 String descripcionSymptoms =
     "Esta gráfica fue construida sumando la cantidad de registros existentes en el intervalo de tiempo escogido y sacando el porcentaje de cada uno de los síntomas sobre dicho total";
@@ -48,12 +50,15 @@ String descriptionMedicines =
     "Esta gráfica  construida dividiendo el intervalo de tiempo escogido por meses, posteriormente se calcula el promedio de tiempo en minutos que tuvo de desfase en la toma del médicamento";
 String descriptionNoMotors =
     "Esta gráfica  construida dividiendo el intervalo de tiempo escogido por semanas, posteriormente se calcula el promedio del puntaje obtenido el el fomulario de síntomas no motores de dichas semanas. Las semanas se cuentan desde el inicio del intervalo escogido";
+String descriptionSymptomsByDay =
+    "En esta gráfica se muestran cada una de las horas del día y el estado registrado en dicha hora. Cada estado es gráficado bajo los siguientes números: [0,1,2,3] representando 0 = OFF MUY MALO , 1 = OFF, 2 = ON , 3 = ON MUY BUENO";
 
 //CONSTRUCCIÓN DE DESCRIPCIÓN DE DATOS DE GRÁFICAS DE SERIE
 String dataDescriptionSymptomsByMonth = "";
 String dataDescriptionAverageGame = "";
 String dataDescriptionAverageDyskinecias = "";
 String dataDescriptionAverageEmotional = "";
+String dataDescriptionSymptomsDay = "";
 
 class ListReportPage extends StatefulWidget {
   final int idPatient;
@@ -166,7 +171,16 @@ class _ListReportPage extends State<ListReportPage> {
       var noMotorsDataDecode = json.decode(dataNoMotors);
       lineDataNoMotors =
           returnDataLineMotors(noMotorsDataDecode.length, noMotorsDataDecode);
+
+      //Construyendo la gráfica de los sintomas por día
+      var symptomsByDayDataDecode = json.decode(dataSymptomsByDay);
+      lineDataSymptomsDay = returnDataLineSymptomsByDay(
+          symptomsByDayDataDecode.length, symptomsByDayDataDecode);
+      print("___S_--------------------");
+      print(lineDataSymptomsDay);
     });
+    print(lastDate);
+    print(now);
 
     super.initState();
   }
@@ -186,6 +200,8 @@ class _ListReportPage extends State<ListReportPage> {
         await EndPoints().getDiscrepancyData(idPatient, lastDate, now);
     dataNoMotors =
         await EndPoints().getAverageMotorsSymptoms(idPatient, lastDate, now);
+    dataSymptomsByDay =
+        await EndPoints().getAverageSymptomsByDay(idPatient, lastDate, now);
   }
 
   // This widget is the root of your application.
@@ -415,6 +431,115 @@ class _ListReportPage extends State<ListReportPage> {
                   height: 100,
                 ),
                 Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    Column(children: [
+                      RaisedButton(
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(18.0)),
+                        onPressed: () {
+                          RoutesDoctor().toReportChartLine(
+                              context,
+                              idsNoMotorsAverage,
+                              lineDataNoMotors,
+                              "Promedio de los puntajes en los síntomas no motores \n \n",
+                              "Semanas",
+                              "Promedio",
+                              descriptionNoMotors);
+                        },
+                        child: Image.asset(
+                          "assets/images/output-onlinepngtools (3).png",
+                          height: size.height * 0.08,
+                        ),
+                        color: Colors.grey[50],
+                        textColor: Colors.white,
+                      ),
+                      Text(
+                        "Promedio \nde los \n Puntajes\n en los\n Síntomas \n No Motores ",
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                            color: Colors.blue[900],
+                            fontSize: 17,
+                            fontFamily: "Raleway2"),
+                      )
+                    ]),
+                  ],
+                ),
+                SizedBox(
+                  height: 100,
+                ),
+                Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      Column(children: [
+                        RaisedButton(
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(18.0)),
+                          onPressed: () {
+                            RoutesDoctor().toReportChartSerie(
+                                context,
+                                idsEmotionalAverage,
+                                seriesDataEmotional,
+                                "Promedio del puntaje del estado de ánimo del paciente \n \n",
+                                colorsSintomasPorMeses,
+                                "Meses",
+                                "Promedio del puntaje del estado de ánimo",
+                                descriptionEmotional,
+                                dataDescriptionAverageEmotional);
+                          },
+                          child: Image.asset(
+                            "assets/images/bar-graph.png",
+                            height: size.height * 0.08,
+                          ),
+                          color: Colors.grey[50],
+                          textColor: Colors.white,
+                        ),
+                        Text(
+                          "Promedio del \npuntaje del \n estado de\n ánimo del\n paciente ",
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                              color: Colors.blue[900],
+                              fontSize: 17,
+                              fontFamily: "Raleway2"),
+                        )
+                      ]),
+                      Column(children: [
+                        RaisedButton(
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(18.0)),
+                          onPressed: () {
+                            RoutesDoctor().toReportChartSerie(
+                                context,
+                                idsMedicinesAverage,
+                                lineDataMedicinesDiscrepacy,
+                                "Desfase en la toma de medicamentos \n \n",
+                                colorsSintomasPorMeses,
+                                "Meses",
+                                "Desfase (Min)",
+                                descriptionMedicines,
+                                dataDescriptionAverageEmotional);
+                          },
+                          child: Image.asset(
+                            "assets/images/bar-graph.png",
+                            height: size.height * 0.08,
+                          ),
+                          color: Colors.grey[50],
+                          textColor: Colors.white,
+                        ),
+                        Text(
+                          "Desfase \nen la \ntoma de\nmedicamentos\n ",
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                              color: Colors.blue[900],
+                              fontSize: 17,
+                              fontFamily: "Raleway2"),
+                        )
+                      ]),
+                    ]),
+                SizedBox(
+                  height: 100,
+                ),
+                Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
                       Column(children: [
@@ -439,7 +564,37 @@ class _ListReportPage extends State<ListReportPage> {
                           textColor: Colors.white,
                         ),
                         Text(
-                          "Promedio \nde los \n Puntajes\n en los\n Síntomas \n No Motores ",
+                          "Promedio \n síntomas no motores ",
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                              color: Colors.blue[900],
+                              fontSize: 17,
+                              fontFamily: "Raleway2"),
+                        )
+                      ]),
+                      Column(children: [
+                        RaisedButton(
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(18.0)),
+                          onPressed: () {
+                            RoutesDoctor().toReportChartLine(
+                                context,
+                                idsSymptomsDaily,
+                                lineDataSymptomsDay,
+                                "Síntomas diario \n \n \n \n",
+                                "Hora",
+                                "Estado",
+                                descriptionSymptomsByDay);
+                          },
+                          child: Image.asset(
+                            "assets/images/output-onlinepngtools (3).png",
+                            height: size.height * 0.08,
+                          ),
+                          color: Colors.grey[50],
+                          textColor: Colors.white,
+                        ),
+                        Text(
+                          "Sintomas \n por día",
                           textAlign: TextAlign.center,
                           style: TextStyle(
                               color: Colors.blue[900],
@@ -450,9 +605,10 @@ class _ListReportPage extends State<ListReportPage> {
                     ]),
               ],
             ),
-            //  ),
+          ),
+          //  ),
 
-            /*    FlatButton(
+          /*    FlatButton(
                 onPressed: () {
                   RoutesDoctor()
                       .toReportChartSerie(context, "idquemado", seriedata);
@@ -480,7 +636,6 @@ class _ListReportPage extends State<ListReportPage> {
                 color: Colors.blueAccent,
                 textColor: Colors.white,
               ),*/
-          )
         ]));
   }
 }
@@ -546,15 +701,29 @@ returnDataPie(List<double> datos) {
   return linealdata;
 }
 
-returnDataLine(int length, var discrepancyaDataDecode) {
-  //Gráfica de discrepancia del tiempo en la toma de médicamentos
+returnDataLineSymptomsByDay(int length, var symptomsDay) {
   var allData = [];
   List<dataLineSerie> data = [];
   for (int i = 0; i < length; i++) {
     data.add(new dataLineSerie(
-        discrepancyaDataDecode[i]['mes'],
-        discrepancyaDataDecode[i]['Promedio']
-            .toInt())); // mes y promedio en tiempo del desfase calculado
+        symptomsDay[i]['Hora'].toInt(),
+        symptomsDay[i]['Estado']
+            .toDouble())); // mes y promedio en tiempo del desfase calculado
+  }
+  allData.add(data);
+
+  return allData;
+}
+
+returnDataLine(int length, var discrepancyaDataDecode) {
+  //Gráfica de discrepancia del tiempo en la toma de médicamentos
+  var allData = [];
+  List<Animo> data = [];
+  for (int i = 0; i < length; i++) {
+    data.add(new Animo(
+        discrepancyaDataDecode[i]['Promedio'].toDouble(),
+        toMonthString(discrepancyaDataDecode[i]
+            ['mes']))); // mes y promedio en tiempo del desfase calculado
   }
   allData.add(data);
 
@@ -567,9 +736,9 @@ returnDataLineMotors(int length, var motorsDataDecode) {
   List<dataLineSerie> data = [];
   for (int i = 0; i < length; i++) {
     data.add(new dataLineSerie(
-        motorsDataDecode[i]['Week'],
+        motorsDataDecode[i]['Week'].toInt(),
         motorsDataDecode[i]['Promedio']
-            .toInt())); // mes y promedio en tiempo del desfase calculado
+            .toDouble())); // mes y promedio en tiempo del desfase calculado
   }
   allData.add(data);
 

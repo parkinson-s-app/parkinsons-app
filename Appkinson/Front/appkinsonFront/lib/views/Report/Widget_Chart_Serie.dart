@@ -150,7 +150,17 @@ _buildDataDescription(dataSerie){
            // borderRadius: BorderRadius.circular(13),
             color: Colors.white,
           ),
-          child: RichText(
+          child: ClipRRect(
+            borderRadius: BorderRadius.circular(15.0),
+            child: Card(
+            elevation: 2,
+            color:  Colors.white,
+            //color:  Color.fromRGBO(146 , 205, 227, 1),
+            child:
+             ListView(
+            padding: const EdgeInsets.all(8),
+            children: <Widget>[
+            RichText(
           text: TextSpan(
             children: <TextSpan>[
               TextSpan(text: 'Descripción: \n \n', style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold, 
@@ -166,6 +176,11 @@ _buildDataDescription(dataSerie){
             ],
           ),
         )
+            ]
+          ),
+            
+          ),
+          )
            
         ),
             ],

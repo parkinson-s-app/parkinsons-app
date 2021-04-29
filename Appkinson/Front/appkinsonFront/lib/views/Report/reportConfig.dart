@@ -4,6 +4,7 @@ import 'package:date_range_picker/date_range_picker.dart' as DateRangePicker;
 
 List<DateTime> picked = [];
 String selectedChoice = "";
+DateTime selectedDate = DateTime.now();
 
 class ReportConfigPage extends StatefulWidget {
   final int idPatient;
@@ -97,6 +98,23 @@ class _ReportConfigPageState extends State<ReportConfigPage> {
         });
   }
 
+  _openPopup(context) {
+    showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          //Here we will build the content of the dialog
+          return AlertDialog(
+            content: Text("Escoge una fecha para generar los reportes"),
+            actions: <Widget>[
+              FlatButton(
+                child: Text("Aceptar"),
+                onPressed: () => Navigator.of(context).pop(),
+              )
+            ],
+          );
+        });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -130,6 +148,9 @@ class _ReportConfigPageState extends State<ReportConfigPage> {
               "Intervalo de Tiempo: ",
               style: TextStyle(fontSize: 20),
             ),
+            SizedBox(
+              height: 30,
+            ),
             Container(
               width: 290,
               height: 60,
@@ -144,6 +165,22 @@ class _ReportConfigPageState extends State<ReportConfigPage> {
             ),
             SizedBox(
               height: 10,
+            ),
+            Container(
+              width: 290,
+              height: 60,
+              child: FlatButton(
+                child: Text("Escoger fecha"),
+                color: Colors.blue,
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(18.0)),
+                onPressed: () async {
+                  _selectDate(context);
+                  if(picked.isNotEmpty){ picked.clear();}
+                  picked.add(new DateTime(selectedDate.year, selectedDate.month , selectedDate.day, 00 , 00 , 00));
+                  picked.add(new DateTime(selectedDate.year, selectedDate.month , selectedDate.day, 23 , 59 , 59));
+                },
+              ),
             ),
             /* Container(
               width: 290,
@@ -181,10 +218,11 @@ class _ReportConfigPageState extends State<ReportConfigPage> {
                 onPressed: () {
                   print(picked[0]);
                   print(picked[1]);
-                  if (!picked.isEmpty) {
+                  if (picked.isNotEmpty) {
                     RoutesDoctor().toListReportPage(context, idPatient, picked);
-                  } else {
-                    print("Agregar pop up de que debe seleccionar fechas");
+                  } 
+                  if(picked.isEmpty){
+                    print("ENTRA");
                   }
                 },
                 child: Text("Generar Reporte"),
@@ -197,7 +235,25 @@ class _ReportConfigPageState extends State<ReportConfigPage> {
       ),
     );
   }
+
+  _selectDate(BuildContext context) async {
+  final DateTime picked = await showDatePicker(
+    context: context,
+    initialDate: selectedDate, // Refer step 1
+    firstDate: DateTime(2000),
+    lastDate: DateTime(2025),
+  );
+  if (picked != null && picked != selectedDate)
+    setState(() {
+      selectedDate = picked;
+    });
 }
+
+
+
+}
+
+
 
 class MultiSelectChipOne extends StatefulWidget {
   final List<String> reportList;
