@@ -42,23 +42,23 @@ class _ButtonGoCalendarState extends State<ButtonGoCalendar> {
             final DateTime startTime = DateTime(
                 dateBd.year, dateBd.month, dateBd.day, dateBd.hour, 0, 0);
             final DateTime endTime = startTime.add(const Duration(hours: 1));
-            if (codeList[a]['Q1'] == 'on' || codeList[a]['Q1'] == 'On') {
+            if (codeList[a]['Q1'] == 'on' || codeList[a]['Q1'] == 'ON') {
               meetingPatient
-                  .add(Meeting('on', startTime, endTime, Colors.green, false));
+                  .add(Meeting('ON', startTime, endTime, Colors.green, false));
             }
-            if (codeList[a]['Q1'] == 'off' || codeList[a]['Q1'] == 'Off') {
+            if (codeList[a]['Q1'] == 'off' || codeList[a]['Q1'] == 'OFF') {
               meetingPatient
-                  .add(Meeting('off', startTime, endTime, Colors.red, false));
+                  .add(Meeting('OFF', startTime, endTime, Colors.red, false));
             }
             if (codeList[a]['Q1'] == 'on bueno' ||
                 codeList[a]['Q1'] == 'On Bueno') {
               meetingPatient.add(Meeting(
-                  'on bueno', startTime, endTime, Colors.green[700], false));
+                  'ON Bueno', startTime, endTime, Colors.green[700], false));
             }
             if (codeList[a]['Q1'] == 'off malo' ||
                 codeList[a]['Q1'] == 'Off Malo') {
               meetingPatient.add(Meeting(
-                  'off malo', startTime, endTime, Colors.red[800], false));
+                  'OFF Malo', startTime, endTime, Colors.red[800], false));
             }
           }
           RoutesPatient().toCalendar(context);

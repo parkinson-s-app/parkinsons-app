@@ -196,10 +196,10 @@ class DoctorProfileScreenP extends State<DoctorProfileScreen> {
           SizedBox(
             width: 20,
           ),
-          Icon(
+          /* Icon(
             LineAwesomeIcons.sun,
             size: ScreenUtil().setSp(40),
-          ),
+          ),*/
           SizedBox(
             width: 40,
           ),
@@ -262,20 +262,21 @@ class ProfileListItem extends StatelessWidget {
           shape:
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)),
           color: Colors.grey[100],
-          onPressed: () async{
+          onPressed: () async {
             if (text == 'Editar') {
               RoutesDoctor().toDoctorEditProfile(context);
             }
             if (text == 'Ayuda & soporte') {
               RoutesGeneral().toAboutUs(context);
             }
-            if(text == 'Cerrar Sesión') {
+            if (text == 'Cerrar Sesión') {
               debugPrint("Tapped Log Out....");
               SharedPreferences prefs = await SharedPreferences.getInstance();
-              prefs?.clear(); 
+              prefs?.clear();
               await Utils().removeBackgroundTask();
-              Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (context) =>
-                  HomePage()), (Route<dynamic> route) => false);
+              Navigator.of(context).pushAndRemoveUntil(
+                  MaterialPageRoute(builder: (context) => HomePage()),
+                  (Route<dynamic> route) => false);
             }
           },
           child: Row(

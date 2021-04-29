@@ -104,6 +104,7 @@ class CarerPatientsCustom extends State<CarerPatients> {
       patients = _patients;
     });
   }
+
   void filterSearchResults(String query) {
     List<User> dummySearchList = List<User>();
     dummySearchList.addAll(patientsAdd);
@@ -127,46 +128,48 @@ class CarerPatientsCustom extends State<CarerPatients> {
 
   @override
   Widget build(BuildContext context) {
-
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
           toolbarHeight: 70,
-          title: !isSearching ? Text('Pacientes no agregados'): TextField(
-            onChanged: (value) {
-              filterSearchResults(value);
-            },
-            controller: editingController2,
-            style: TextStyle(color: Colors.white),
-            decoration: InputDecoration(
-                hintText: "Buscar",
-                hintStyle: TextStyle(color: Colors.white),
-                focusedBorder: OutlineInputBorder(
-                    borderSide: BorderSide(color: Colors.white, width: 3.0),
+          title: !isSearching
+              ? Text('Pacientes no agregados')
+              : TextField(
+                  onChanged: (value) {
+                    filterSearchResults(value);
+                  },
+                  controller: editingController2,
+                  style: TextStyle(color: Colors.white),
+                  decoration: InputDecoration(
+                    hintText: "Buscar",
+                    hintStyle: TextStyle(color: Colors.white),
+                    focusedBorder: OutlineInputBorder(
+                      borderSide: BorderSide(color: Colors.white, width: 3.0),
+                    ),
+                    enabledBorder: OutlineInputBorder(
+                      borderSide:
+                          BorderSide(color: Colors.grey[400], width: 2.0),
+                    ),
+                  ),
                 ),
-                enabledBorder: OutlineInputBorder(
-                    borderSide: BorderSide(color: Colors.grey[400], width: 2.0),
-                ),
-                ),
-              ),
-          actions: <Widget> [
-            !isSearching ?
-            IconButton(
-              icon: Icon(Icons.search), 
-              onPressed: (){
-                setState(() {
-                  this.isSearching = !this.isSearching;
-                });
-              },
-              ):
-            IconButton(
-              icon: Icon(Icons.cancel), 
-              onPressed: (){
-                setState(() {
-                  this.isSearching = !this.isSearching;
-                });
-              },
-              )
+          actions: <Widget>[
+            !isSearching
+                ? IconButton(
+                    icon: Icon(Icons.search),
+                    onPressed: () {
+                      setState(() {
+                        this.isSearching = !this.isSearching;
+                      });
+                    },
+                  )
+                : IconButton(
+                    icon: Icon(Icons.cancel),
+                    onPressed: () {
+                      setState(() {
+                        this.isSearching = !this.isSearching;
+                      });
+                    },
+                  )
           ],
         ),
         body: SingleChildScrollView(
@@ -208,23 +211,23 @@ class CarerPatientsCustom extends State<CarerPatients> {
                       final DateTime endTime =
                           startTime.add(const Duration(hours: 1));
                       if (codeList[a]['Q1'] == 'on' ||
-                          codeList[a]['Q1'] == 'On') {
+                          codeList[a]['Q1'] == 'ON') {
                         meetingsCarer.add(Meeting(
-                            'on', startTime, endTime, Colors.green, false));
+                            'ON', startTime, endTime, Colors.green, false));
                       }
                       if (codeList[a]['Q1'] == 'off' ||
-                          codeList[a]['Q1'] == 'Off') {
+                          codeList[a]['Q1'] == 'OFF') {
                         meetingsCarer.add(Meeting(
                             'off', startTime, endTime, Colors.red, false));
                       }
                       if (codeList[a]['Q1'] == 'on bueno' ||
-                          codeList[a]['Q1'] == 'On Bueno') {
-                        meetingsCarer.add(Meeting('on bueno', startTime,
+                          codeList[a]['Q1'] == 'ON Bueno') {
+                        meetingsCarer.add(Meeting('ON Bueno', startTime,
                             endTime, Colors.green[700], false));
                       }
                       if (codeList[a]['Q1'] == 'off malo' ||
-                          codeList[a]['Q1'] == 'Off Malo') {
-                        meetingsCarer.add(Meeting('off malo', startTime,
+                          codeList[a]['Q1'] == 'OFF Malo') {
+                        meetingsCarer.add(Meeting('OFF Malo', startTime,
                             endTime, Colors.red[800], false));
                       }
                     }
@@ -248,7 +251,7 @@ class CarerPatientsCustom extends State<CarerPatients> {
                         patients.remove(patient);
                       });
                     },
-                    child: Icon(Icons.delete_forever, size: 40),
+                    child: Icon(Icons.delete, size: 40),
                   ),
                   contentPadding:
                       EdgeInsets.symmetric(vertical: 16.0, horizontal: 16.0),

@@ -63,7 +63,7 @@ class PatientHomePage extends StatelessWidget {
                               top: 70,
                               left: 200,
                               child: Text(
-                                "¿Qué \nharemos \nhoy?",
+                                "¿Qué \nHaremos \nHoy?",
                                 style: TextStyle(
                                     color: Colors.white,
                                     fontSize: 30,

@@ -64,7 +64,7 @@ class _RelationsRequestState extends State<RelationsRequest> {
   Widget build(BuildContext context) => Scaffold(
         backgroundColor: Colors.grey[100],
         appBar: AppBar(
-          title: Text("Solicitudes de relación"),
+          title: Text("Solicitudes de Relación"),
           actions: <Widget>[
             new IconButton(
                 icon: Icon(Icons.settings),

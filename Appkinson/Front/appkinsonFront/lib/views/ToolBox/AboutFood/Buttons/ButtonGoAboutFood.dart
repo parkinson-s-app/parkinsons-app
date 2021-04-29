@@ -51,7 +51,7 @@ class ButtonGoAboutFood extends StatelessWidget {
           height: 20,
         ),
         Text(
-          "Comidas",
+          "Alimentación",
           textAlign: TextAlign.center,
           style: TextStyle(
               color: Colors.blue[900], fontSize: 20, fontFamily: "Raleway2"),

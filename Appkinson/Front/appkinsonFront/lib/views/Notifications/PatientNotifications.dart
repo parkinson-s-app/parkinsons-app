@@ -9,14 +9,16 @@ class PatientNotifications extends StatefulWidget {
 }
 
 class _PatientNotifications extends State<PatientNotifications> {
-  
   FSBStatus status;
-  
+
   @override
   Widget build(BuildContext context) {
-  return SafeArea(
+    return SafeArea(
       child: Scaffold(
-        body: FoldableSidebarBuilder(status: status , drawer: CustomDrawerMenuPatient(), screenContents: PatientNotifications0()),
+        body: FoldableSidebarBuilder(
+            status: status,
+            drawer: CustomDrawerMenuPatient(),
+            screenContents: PatientNotifications0()),
         floatingActionButton: FloatingActionButton(
             backgroundColor: Colors.blue[800],
             child: Icon(
@@ -29,10 +31,9 @@ class _PatientNotifications extends State<PatientNotifications> {
                     ? FSBStatus.FSB_CLOSE
                     : FSBStatus.FSB_OPEN;
               });
-            }
-        ),
+            }),
       ),
-    ); 
+    );
   }
 }
 
@@ -69,11 +70,11 @@ class _PatientNotifications0 extends State<PatientNotifications0> {
             activeColor: Colors.amberAccent,
             secondary: new Icon(Icons.sick),
             title: new Text(
-              'Sintomas',
+              'Síntomas',
               style: new TextStyle(fontSize: 20.0),
             ),
             subtitle:
-            new Text('¡Recuerda registrar tus síntomas todos los días!'),
+                new Text('¡Recuerde registrar sus síntomas todos los días!'),
           ),
           SizedBox(
             height: 30,
@@ -84,11 +85,11 @@ class _PatientNotifications0 extends State<PatientNotifications0> {
             activeColor: Colors.amberAccent,
             secondary: new Icon(Icons.emoji_emotions_sharp),
             title: new Text(
-              'Estado de ánimo',
+              'Estado de Ánimo',
               style: new TextStyle(fontSize: 20.0),
             ),
             subtitle:
-            new Text('¡Recuerda registrar tu estado de ánimo cada semana!'),
+                new Text('¡Recuerde registrar su estado de ánimo cada semana!'),
           ),
           SizedBox(
             height: 30,
@@ -107,8 +108,7 @@ class _PatientNotifications0 extends State<PatientNotifications0> {
     });
     if (value == true) {
       await notificationPlugin.showDailyAtTime();
-    }
-    else{
+    } else {
       await notificationPlugin.cancelNotification();
     }
   }
@@ -119,8 +119,7 @@ class _PatientNotifications0 extends State<PatientNotifications0> {
     });
     if (value == true) {
       await notificationPlugin.showWeeklyAtDayTime();
-    }
-    else{
+    } else {
       await notificationPlugin.cancelNotification();
     }
   }

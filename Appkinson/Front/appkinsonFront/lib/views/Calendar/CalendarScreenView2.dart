@@ -69,6 +69,7 @@ String listPacientes;
 var conta = 0;
 int hora = 0;
 var cont = 0;
+
 String q2;
 String q1;
 String datePatient;
@@ -86,7 +87,11 @@ List<Color> _colors = <Color>[
 ];
 var contCalendar = 0;
 
-List<String> _onOff = <String>['On', 'On Bueno', 'Off', 'Off Malo'];
+List<String> _onOff = <String>['ON', 'ON Bueno', 'OFF', 'OFF Malo'];
+List<dynamic> _icon = <dynamic>[
+  Icons.calendar_view_day,
+  Icons.calendar_today_rounded
+];
 var currentMeeting;
 
 class _CalendarScreenView2 extends State<CalendarScreenView2> {
@@ -95,6 +100,17 @@ class _CalendarScreenView2 extends State<CalendarScreenView2> {
     setState(() {
       print(cont);
       if (cont < _colors.length - 1) {
+        cont++;
+      } else {
+        cont = 0;
+      }
+    });
+  }
+
+  void _incrementCalendar() {
+    setState(() {
+      print(cont);
+      if (cont < _icon.length - 1) {
         cont++;
       } else {
         cont = 0;
@@ -115,6 +131,7 @@ class _CalendarScreenView2 extends State<CalendarScreenView2> {
   }
 
   CalendarController _controller;
+  var iconCalendar;
   @override
   void initState() {
     super.initState();
@@ -122,6 +139,7 @@ class _CalendarScreenView2 extends State<CalendarScreenView2> {
     valueHour = '0';
     _controller = CalendarController();
     _controller.view = CalendarView.week;
+    iconCalendar = Icons.calendar_today_rounded;
     contCalendar = 0;
     //todos.add("Regular Colors");
     //todos.add("Power Coating");
@@ -139,7 +157,7 @@ class _CalendarScreenView2 extends State<CalendarScreenView2> {
         appBar: AppBar(
           actions: <Widget>[
             new IconButton(
-                icon: Icon(Icons.autorenew_outlined),
+                icon: Icon(_icon[contCalendar]),
                 color: Colors.black45,
                 onPressed: () {
                   setState(() {
@@ -218,7 +236,10 @@ class _CalendarScreenView2 extends State<CalendarScreenView2> {
                     return StatefulBuilder(builder: (context, setState) {
                       currentMeeting = null;
                       return AlertDialog(
-                        title: Text("Detalles:"),
+                        title: Text(
+                          "Detalles",
+                          textAlign: TextAlign.center,
+                        ),
                         content: Form(
                             child: Column(
                                 mainAxisSize: MainAxisSize.min,
@@ -365,7 +386,7 @@ class _CalendarScreenView2 extends State<CalendarScreenView2> {
                       return StatefulBuilder(builder: (context, setState) {
                         currentMeeting = null;
                         return AlertDialog(
-                          title: Text("Llenado:"),
+                          title: Text(""),
                           content: Form(
                               child: Column(
                                   mainAxisSize: MainAxisSize.min,
@@ -517,7 +538,7 @@ class _CalendarScreenView2 extends State<CalendarScreenView2> {
                       return StatefulBuilder(builder: (context, setState) {
                         currentMeeting = null;
                         return AlertDialog(
-                          title: Text("Llenado:"),
+                          title: Text(""),
                           content: Form(
                               child: SingleChildScrollView(
                             child: Column(

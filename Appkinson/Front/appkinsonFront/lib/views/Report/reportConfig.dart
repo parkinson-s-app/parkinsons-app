@@ -83,7 +83,7 @@ class _ReportConfigPageState extends State<ReportConfigPage> {
         builder: (BuildContext context) {
           //Here we will build the content of the dialog
           return AlertDialog(
-            title: Text("Periocidad"),
+            title: Text("Periodicidad"),
             content: MultiSelectChipOne(dataListPeriocity),
             actions: <Widget>[
               FlatButton(
@@ -134,8 +134,9 @@ class _ReportConfigPageState extends State<ReportConfigPage> {
               width: 290,
               height: 60,
               child: FlatButton(
-                child: Text("Periocidad"),
-                color: Colors.grey[350],
+                child: Text("Periodicidad"),
+                color: Colors.blueAccent,
+                textColor: Colors.white,
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(18.0)),
                 onPressed: () => _showReportDialogPeriocity(),

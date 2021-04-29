@@ -23,7 +23,6 @@ class toolbox extends StatefulWidget {
 }
 
 class _toolbox0 extends State<toolbox> {
-
   String muestrePasos = "0";
   String _km = "0";
   String _calories = "0";
@@ -134,7 +133,6 @@ class _toolbox0 extends State<toolbox> {
       body: ListView(
         padding: EdgeInsets.all(2.0),
         children: <Widget>[
-
           new Container(
             width: 80,
             height: 750,
@@ -175,9 +173,9 @@ class _toolbox0 extends State<toolbox> {
                   Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
-                        Expanded(
+                        /* Expanded(
                           child: ButtonGoPedometer(),
-                        ),
+                        ),*/
                         Expanded(
                           child: ButtonGoAboutParkinson(),
                         ),

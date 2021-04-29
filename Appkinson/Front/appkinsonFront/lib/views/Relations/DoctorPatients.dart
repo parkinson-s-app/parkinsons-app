@@ -111,41 +111,44 @@ class DoctorPatientsCustom extends State<DoctorPatients> {
       child: Scaffold(
         appBar: AppBar(
           toolbarHeight: 70,
-          title: !isSearching ? Text('Pacientes no agregados'): TextField(
-            onChanged: (value) {
-              filterSearchResults(value);
-            },
-            controller: editingController2,
-            style: TextStyle(color: Colors.white),
-            decoration: InputDecoration(
-                hintText: "Buscar",
-                hintStyle: TextStyle(color: Colors.white),
-                focusedBorder: OutlineInputBorder(
-                    borderSide: BorderSide(color: Colors.white, width: 3.0),
+          title: !isSearching
+              ? Text('Pacientes no agregados')
+              : TextField(
+                  onChanged: (value) {
+                    filterSearchResults(value);
+                  },
+                  controller: editingController2,
+                  style: TextStyle(color: Colors.white),
+                  decoration: InputDecoration(
+                    hintText: "Buscar",
+                    hintStyle: TextStyle(color: Colors.white),
+                    focusedBorder: OutlineInputBorder(
+                      borderSide: BorderSide(color: Colors.white, width: 3.0),
+                    ),
+                    enabledBorder: OutlineInputBorder(
+                      borderSide:
+                          BorderSide(color: Colors.grey[400], width: 2.0),
+                    ),
+                  ),
                 ),
-                enabledBorder: OutlineInputBorder(
-                    borderSide: BorderSide(color: Colors.grey[400], width: 2.0),
-                ),
-                ),
-              ),
-          actions: <Widget> [
-            !isSearching ?
-            IconButton(
-              icon: Icon(Icons.search), 
-              onPressed: (){
-                setState(() {
-                  this.isSearching = !this.isSearching;
-                });
-              },
-              ):
-            IconButton(
-              icon: Icon(Icons.cancel), 
-              onPressed: (){
-                setState(() {
-                  this.isSearching = !this.isSearching;
-                });
-              },
-              )
+          actions: <Widget>[
+            !isSearching
+                ? IconButton(
+                    icon: Icon(Icons.search),
+                    onPressed: () {
+                      setState(() {
+                        this.isSearching = !this.isSearching;
+                      });
+                    },
+                  )
+                : IconButton(
+                    icon: Icon(Icons.cancel),
+                    onPressed: () {
+                      setState(() {
+                        this.isSearching = !this.isSearching;
+                      });
+                    },
+                  )
           ],
         ),
         body: SingleChildScrollView(
@@ -188,43 +191,43 @@ class DoctorPatientsCustom extends State<DoctorPatients> {
                       final DateTime endTime =
                           startTime.add(const Duration(hours: 1));
                       if (codeList[a]['Q1'] == 'on' ||
-                          codeList[a]['Q1'] == 'On') {
+                          codeList[a]['Q1'] == 'ON') {
                         if (codeList[a]['Q2'] != "") {
-                          meetingsDoctor.add(Meeting('on              ++',
+                          meetingsDoctor.add(Meeting('ON              👋',
                               startTime, endTime, Colors.green, false));
                         } else {
                           meetingsDoctor.add(Meeting(
-                              'on', startTime, endTime, Colors.green, false));
+                              'ON', startTime, endTime, Colors.green, false));
                         }
                       }
                       if (codeList[a]['Q1'] == 'off' ||
-                          codeList[a]['Q1'] == 'Off') {
+                          codeList[a]['Q1'] == 'OFF') {
                         String f = 'hola';
                         if (codeList[a]['Q2'] != "") {
-                          meetingsDoctor.add(Meeting('off              ++',
+                          meetingsDoctor.add(Meeting('OFF              👋',
                               startTime, endTime, Colors.red, false));
                         } else {
                           meetingsDoctor.add(Meeting(
-                              'off', startTime, endTime, Colors.red, false));
+                              'OFF', startTime, endTime, Colors.red, false));
                         }
                       }
                       if (codeList[a]['Q1'] == 'on bueno' ||
-                          codeList[a]['Q1'] == 'On Bueno') {
+                          codeList[a]['Q1'] == 'ON Bueno') {
                         if (codeList[a]['Q2'] != "") {
-                          meetingsDoctor.add(Meeting('on bueno              ++',
+                          meetingsDoctor.add(Meeting('ON Bueno              👋',
                               startTime, endTime, Colors.green[700], false));
                         } else {
-                          meetingsDoctor.add(Meeting('on bueno', startTime,
+                          meetingsDoctor.add(Meeting('ON Bueno', startTime,
                               endTime, Colors.green[700], false));
                         }
                       }
                       if (codeList[a]['Q1'] == 'off malo' ||
-                          codeList[a]['Q1'] == 'Off Malo') {
+                          codeList[a]['Q1'] == 'OFF Malo') {
                         if (codeList[a]['Q2'] != "") {
-                          meetingsDoctor.add(Meeting('off malo              ++',
+                          meetingsDoctor.add(Meeting('OFF Malo              👋',
                               startTime, endTime, Colors.red[800], false));
                         } else {
-                          meetingsDoctor.add(Meeting('off malo', startTime,
+                          meetingsDoctor.add(Meeting('OFF Malo', startTime,
                               endTime, Colors.red[800], false));
                         }
                       }
@@ -253,7 +256,7 @@ class DoctorPatientsCustom extends State<DoctorPatients> {
                         patients.remove(patient);
                       });
                     },
-                    child: Icon(Icons.delete_forever, size: 40),
+                    child: Icon(Icons.delete, size: 40),
                   ),
                   contentPadding:
                       EdgeInsets.symmetric(vertical: 16.0, horizontal: 16.0),

@@ -51,7 +51,11 @@ List<Color> _colors = <Color>[
 
 var contCalendar = 0;
 
-List<String> _onOff = <String>['on', 'on bueno', 'off', 'off malo'];
+List<String> _onOff = <String>['ON', 'ON Bueno', 'OFF', 'OFF Malo'];
+List<dynamic> _icon = <dynamic>[
+  Icons.calendar_view_day,
+  Icons.calendar_today_rounded
+];
 var currentMeeting;
 
 class _Calendar extends State<CalendarScreenView2Carer> {
@@ -103,7 +107,7 @@ class _Calendar extends State<CalendarScreenView2Carer> {
         appBar: AppBar(
           actions: <Widget>[
             new IconButton(
-                icon: Icon(Icons.autorenew_outlined),
+                icon: Icon(_icon[contCalendar]),
                 color: Colors.black45,
                 onPressed: () {
                   setState(() {
@@ -182,7 +186,10 @@ class _Calendar extends State<CalendarScreenView2Carer> {
                     return StatefulBuilder(builder: (context, setState) {
                       currentMeeting = null;
                       return AlertDialog(
-                        title: Text("Detalles:"),
+                        title: Text(
+                          "Detalles",
+                          textAlign: TextAlign.center,
+                        ),
                         content: Form(
                             child: Column(
                                 mainAxisSize: MainAxisSize.min,
@@ -312,7 +319,7 @@ class _Calendar extends State<CalendarScreenView2Carer> {
                     return StatefulBuilder(builder: (context, setState) {
                       currentMeeting = null;
                       return AlertDialog(
-                        title: Text("llenado:"),
+                        title: Text(""),
                         content: Form(
                             child: SingleChildScrollView(
                           child:

@@ -196,10 +196,10 @@ class DoctorProfileScreenP extends State<CarerProfileScreen> {
           SizedBox(
             width: 20,
           ),
-          Icon(
+          /* Icon(
             LineAwesomeIcons.sun,
             size: ScreenUtil().setSp(40),
-          ),
+          ),*/
           SizedBox(
             width: 40,
           ),
@@ -275,8 +275,9 @@ class ProfileListItem extends StatelessWidget {
               SharedPreferences prefs = await SharedPreferences.getInstance();
               prefs?.clear();
               await Utils().removeBackgroundTask();
-              Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (context) =>
-                HomePage()), (Route<dynamic> route) => false);
+              Navigator.of(context).pushAndRemoveUntil(
+                  MaterialPageRoute(builder: (context) => HomePage()),
+                  (Route<dynamic> route) => false);
             }
           },
           child: Row(
