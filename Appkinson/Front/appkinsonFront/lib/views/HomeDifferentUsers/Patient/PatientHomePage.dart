@@ -22,7 +22,7 @@ class _PatientHomePage extends State<PatientHomePage> {
   var id;
   @override
   void initState() {
-    _obtenerToken();
+    //_obtenerToken();
     super.initState();
   }
 
