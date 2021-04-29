@@ -217,7 +217,11 @@ class PatientsListItem extends ListTile {
 
 Widget _buildPopupDialog(BuildContext context, String email) {
   return new AlertDialog(
-    title: Text("Enviar petición a " + email),
+    title: Text("Enviar solicitud a " + email),
+    content: Text(
+        '\nDebe esperar a que el paciente \nacepte la solicitud en el icono\nde la campana'),
+
+    // '\nDebe esperar a que el paciente \nacepte la solicitud en el icono\n de la campana'
     actions: <Widget>[
       new FlatButton(
         onPressed: () async {
