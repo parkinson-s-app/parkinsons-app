@@ -33,7 +33,7 @@ class __FormInputFieldLogin extends State<InputFieldLogin> {
           child: TextField(
             controller: emailController,
             decoration: InputDecoration(
-                hintText: "Ingrese su correo eléctronico",
+                hintText: "Ingrese su Correo Eléctronico",
                 hintStyle: TextStyle(color: Colors.grey),
                 border: InputBorder.none),
           ),
@@ -49,7 +49,7 @@ class __FormInputFieldLogin extends State<InputFieldLogin> {
                 child: TextFormField(
                   controller: password,
                   decoration: const InputDecoration(
-                    hintText: "Ingrese su contraseña",
+                    hintText: "Ingrese su Contraseña",
                   ),
                   obscureText: _obscurePassword,
                 ),

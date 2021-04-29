@@ -8,7 +8,7 @@ class InputFieldRegister extends StatefulWidget {
 
 var lista = ['Paciente', 'Doctor', 'Cuidador'];
 final userSelected = TextEditingController();
-String selectUser = "Seleccione un usuario";
+String selectUser = "Seleccione un Usuario";
 TextEditingController emailController = new TextEditingController();
 TextEditingController nameController = new TextEditingController();
 TextEditingController password = new TextEditingController();
@@ -37,12 +37,13 @@ class InputFieldRegisterCustom extends State<InputFieldRegister> {
           Container(
             child: Row(
               children: <Widget>[
-                SizedBox(width: 20,
-                child: Center(
-                    child: Image.asset(
-                  "assets/images/usuario.png",
-                  height: size.height * 0.03,
-                ))),
+                SizedBox(
+                    width: 20,
+                    child: Center(
+                        child: Image.asset(
+                      "assets/images/usuario.png",
+                      height: size.height * 0.03,
+                    ))),
                 SizedBox(width: 20),
                 Expanded(
                     child: DropdownButton(
@@ -67,7 +68,7 @@ class InputFieldRegisterCustom extends State<InputFieldRegister> {
             child: TextFormField(
               controller: emailController,
               decoration: InputDecoration(
-                  hintText: "Ingrese su correo eléctronico",
+                  hintText: "Ingrese su Correo Eléctronico",
                   hintStyle: TextStyle(color: Colors.grey),
                   border: InputBorder.none),
             ),
@@ -79,7 +80,7 @@ class InputFieldRegisterCustom extends State<InputFieldRegister> {
             child: TextFormField(
               controller: nameController,
               decoration: InputDecoration(
-                  hintText: "Ingrese su nombre",
+                  hintText: "Ingrese su Nombre",
                   hintStyle: TextStyle(color: Colors.grey),
                   border: InputBorder.none),
             ),
@@ -95,7 +96,7 @@ class InputFieldRegisterCustom extends State<InputFieldRegister> {
                   child: TextFormField(
                     controller: password,
                     decoration: const InputDecoration(
-                      hintText: "Ingrese su contraseña",
+                      hintText: "Ingrese su Contraseña",
                     ),
                     obscureText: _obscurePassword,
                   ),
@@ -121,7 +122,7 @@ class InputFieldRegisterCustom extends State<InputFieldRegister> {
                   child: TextFormField(
                     controller: passwordv,
                     decoration: const InputDecoration(
-                      hintText: "Vuelva a Ingresar su contraseña",
+                      hintText: "Vuelva a Ingresar su Contraseña",
                     ),
                     obscureText: _obscurePassword,
                   ),
@@ -138,13 +139,17 @@ class InputFieldRegisterCustom extends State<InputFieldRegister> {
 class metod {
   Future<User> send() async {
     var newUser = new User(
-        email: emailController.text, name: nameController.text, password: password.text, passwordVerify: passwordv.text, type: selectUser);
+        email: emailController.text,
+        name: nameController.text,
+        password: password.text,
+        passwordVerify: passwordv.text,
+        type: selectUser);
     debugPrint(newUser.password);
     return newUser;
   }
 }
 
-cleanRegister(){
+cleanRegister() {
   emailController = new TextEditingController();
   nameController = new TextEditingController();
   password = new TextEditingController();

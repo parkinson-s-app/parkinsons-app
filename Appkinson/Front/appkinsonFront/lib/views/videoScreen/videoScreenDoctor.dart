@@ -54,7 +54,7 @@ class _symptomsFormQ29 extends State<VideoScreenDoctor> {
                 ),
                 const SizedBox(height: 24),
                 RaisedButton(
-                  child: Text('volver'),
+                  child: Text('Volver'),
                   shape: StadiumBorder(),
                   //onPressed: () => save(),
                   color: Theme.of(context).primaryColor,

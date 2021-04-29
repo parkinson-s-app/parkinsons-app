@@ -18,7 +18,7 @@
 
     <application
         android:name="io.flutter.app.FlutterApplication"
-        android:label="appkinsonFront"
+        android:label="AppKinson"
         android:icon="@mipmap/ic_launcher"
         android:usesCleartextTraffic="true">
 

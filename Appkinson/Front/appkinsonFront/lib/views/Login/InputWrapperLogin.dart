@@ -28,7 +28,7 @@ class InputWrapper extends StatelessWidget {
                   print('hey');
                   RoutesGeneral().toChangePassword(context);
                 },
-                child: Text('¿Olvidó la contraseña?')),
+                child: Text('¿Olvidó la Contraseña?')),
             SizedBox(
               height: 40,
             ),

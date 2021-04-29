@@ -54,7 +54,7 @@ class _CarerHomePage extends State<CarerHomePage> {
                         top: 70,
                         left: 200,
                         child: Text(
-                          "¿A quién \nCuidaremos \nHoy?",
+                          "¿A Quién \nCuidaremos \nHoy?",
                           style: TextStyle(
                               color: Colors.white,
                               fontSize: 30,
@@ -78,6 +78,7 @@ class _CarerHomePage extends State<CarerHomePage> {
                           ButtonGoPatientList(),
                           Text(
                             "Lista \nPacientes",
+                            textAlign: TextAlign.center,
                             style: TextStyle(
                                 color: Colors.blue[900],
                                 fontSize: 20,

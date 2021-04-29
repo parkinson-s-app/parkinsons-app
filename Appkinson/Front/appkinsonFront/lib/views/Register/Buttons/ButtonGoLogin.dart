@@ -19,7 +19,7 @@ class ButtonGoLogin extends StatelessWidget {
         padding: EdgeInsets.symmetric(horizontal: 50),
         color: Colors.white,
         textColor: Colors.blue,
-        child: Text("¿Ya tienes una cuenta? ", style: TextStyle(fontSize: 13)),
+        child: Text("¿Ya Tiene una Cuenta? ", style: TextStyle(fontSize: 13)),
       ),
     );
   }

@@ -202,7 +202,7 @@ class DoctorProfileScreenP extends State<DoctorProfileScreen> {
             size: ScreenUtil().setSp(40),
           ),*/
           SizedBox(
-            width: 40,
+            width: 80,
           ),
         ]);
 
@@ -226,7 +226,7 @@ class DoctorProfileScreenP extends State<DoctorProfileScreen> {
                   ),
                   ProfileListItem(
                     icon: LineAwesomeIcons.helping_hands,
-                    text: 'Ayuda & soporte',
+                    text: 'Ayuda & Soporte',
                   ),
                   ProfileListItem(
                     icon: Icons.exit_to_app,

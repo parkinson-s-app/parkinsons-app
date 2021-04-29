@@ -23,7 +23,7 @@ class __ProfileEdition extends State<ProfileEditionDoctor> {
     ]);
     return Scaffold(
         appBar: AppBar(
-          title: Text("Cambio de nombre"),
+          title: Text("Cambio de Nombre"),
         ),
         body: SingleChildScrollView(
           padding: EdgeInsets.all(32),
@@ -38,7 +38,7 @@ class __ProfileEdition extends State<ProfileEditionDoctor> {
               child: TextField(
                 controller: nameControllerDoctor,
                 decoration: InputDecoration(
-                    hintText: "Ingrese su nombre",
+                    hintText: "Ingrese su Nombre",
                     hintStyle: TextStyle(color: Colors.grey),
                     border: InputBorder.none),
               ),

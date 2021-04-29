@@ -101,7 +101,7 @@ class _ReportConfigPageState extends State<ReportConfigPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Configuración del reporte"),
+        title: Text("Configuración del Reporte"),
       ),
       body: Center(
         child: Column(
@@ -127,7 +127,7 @@ class _ReportConfigPageState extends State<ReportConfigPage> {
               padding: EdgeInsets.all(30.0),
             ),
             Text(
-              "Intervalo de tiempo: ",
+              "Intervalo de Tiempo: ",
               style: TextStyle(fontSize: 20),
             ),
             Container(
@@ -187,7 +187,7 @@ class _ReportConfigPageState extends State<ReportConfigPage> {
                     print("Agregar pop up de que debe seleccionar fechas");
                   }
                 },
-                child: Text("Generar reporte"),
+                child: Text("Generar Reporte"),
                 color: Colors.blueAccent,
                 textColor: Colors.white,
               ),

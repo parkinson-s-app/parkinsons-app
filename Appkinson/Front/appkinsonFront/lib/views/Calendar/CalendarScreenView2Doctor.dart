@@ -236,7 +236,7 @@ class _Calendar extends State<CalendarScreenView2Doctor> {
 
                                 color: Colors.blue[500],
                                 textColor: Colors.white,
-                                child: Text('ver video'),
+                                child: Text('Ver Video'),
                               ),
                               Divider(
                                 thickness: 1,
@@ -254,7 +254,7 @@ class _Calendar extends State<CalendarScreenView2Doctor> {
                                 ],
                               ),
                               Text(desface.toString() +
-                                  ' minuntos de desfase en la toma de medicamento'),
+                                  ' minutos de desfase en la toma de medicamento'),
                             ])),
                         /*actions: <Widget>[
                       FlatButton(

@@ -36,7 +36,7 @@ class _symptomsFormQ extends State<symptomsFormQ> {
       appBar: AppBar(
         centerTitle: true,
         title: Text(
-          "Formulario de sintomas",
+          "Formulario de Síntomas",
         ),
         backgroundColor: Colors.blue,
         actions: <Widget>[

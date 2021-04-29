@@ -226,7 +226,7 @@ class DoctorProfileScreenP extends State<CarerProfileScreen> {
                   ),
                   ProfileListItem(
                     icon: LineAwesomeIcons.helping_hands,
-                    text: 'Ayuda & soporte',
+                    text: 'Ayuda & Soporte',
                   ),
                   ProfileListItem(
                     icon: Icons.exit_to_app,
@@ -267,7 +267,7 @@ class ProfileListItem extends StatelessWidget {
             if (text == 'Editar') {
               RoutesCarer().toCarerEditProfile(context);
             }
-            if (text == 'Ayuda & soporte') {
+            if (text == 'Ayuda & Soporte') {
               RoutesGeneral().toAboutUs(context);
             }
 

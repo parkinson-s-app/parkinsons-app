@@ -152,7 +152,7 @@ class ListAlarmsAndMedicine extends State<ListAlarmsAndMedicinePatient> {
             Row(
               children: [
                 Text(
-                  "Tipo de periocidad: ",
+                  "Tipo de Periocidad: ",
                   style: TextStyle(
                       color: Colors.black,
                       fontSize: 18,
@@ -167,7 +167,7 @@ class ListAlarmsAndMedicine extends State<ListAlarmsAndMedicinePatient> {
                     style: TextStyle(color: Colors.grey, fontSize: 18),
                     underline: SizedBox(),
                     value: periodicityType,
-                    items: <String>['Hora(s)', 'Dia(s)'].map((String value) {
+                    items: <String>['Hora(s)', 'Día(s)'].map((String value) {
                       return new DropdownMenuItem<String>(
                         value: value,
                         child: new Text(value),
@@ -313,7 +313,7 @@ class ListAlarmsAndMedicine extends State<ListAlarmsAndMedicinePatient> {
     med1.name = "Paracetamol";
     med2.idMedicine = 2;
     med2.name = "aspirina";
-    med3.name = "Seleccione una medicina";
+    med3.name = "Seleccione una Medicina";
     med3.idMedicine = 0;
     _medicines.add(med1);
     _medicines.add(med2);
@@ -327,7 +327,7 @@ class ListAlarmsAndMedicine extends State<ListAlarmsAndMedicinePatient> {
   fillMedicines() async {
     print(" llenando medicinas");
     List<Medicine> _medicines = <Medicine>[];
-    Medicine med0 = new Medicine.filled("Seleccione una medicina", 0);
+    Medicine med0 = new Medicine.filled("Seleccione una Medicina", 0);
     _medicines.add(med0);
     // Medicine med0, med2, med3;
     var token = await Utils().getToken();

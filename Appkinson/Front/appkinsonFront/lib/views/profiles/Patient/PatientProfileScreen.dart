@@ -260,7 +260,7 @@ class PatientProfileScreenP extends State<PatientProfileScreen> {
             size: ScreenUtil().setSp(40),
           ),*/
           SizedBox(
-            width: 40,
+            width: 80,
           ),
         ]);
 
@@ -284,7 +284,7 @@ class PatientProfileScreenP extends State<PatientProfileScreen> {
                   ),
                   ProfileListItem(
                     icon: LineAwesomeIcons.helping_hands,
-                    text: 'Ayuda & soporte',
+                    text: 'Ayuda & Soporte',
                   ),
                   ProfileListItem(
                     icon: Icons.exit_to_app,
@@ -325,7 +325,7 @@ class ProfileListItem extends StatelessWidget {
             if (text == 'Editar') {
               RoutesPatient().toPatientEditProfile(context);
             }
-            if (text == 'Ayuda & soporte') {
+            if (text == 'Ayuda & Soporte') {
               RoutesGeneral().toAboutUs(context);
             }
             if (text == 'Cerrar Sesión') {

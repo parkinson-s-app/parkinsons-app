@@ -171,7 +171,7 @@ class _FormItemToolboxPageState extends State {
 
   _showDialog(BuildContext context) {
     Scaffold.of(context)
-        .showSnackBar(SnackBar(content: Text('Agregando ítem')));
+        .showSnackBar(SnackBar(content: Text('Agregando Ítem')));
   }
 }
 
@@ -183,7 +183,7 @@ cleanData() {
 
 Widget _buildPopupDialog(BuildContext context) {
   return new AlertDialog(
-    title: Text("Enlace invalido"),
+    title: Text("Enlace Invalido"),
     actions: <Widget>[
       new FlatButton(
         onPressed: () {

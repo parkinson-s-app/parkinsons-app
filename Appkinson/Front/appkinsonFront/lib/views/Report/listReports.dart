@@ -217,7 +217,7 @@ class _ListReportPage extends State<ListReportPage> {
                               context,
                               "idquemado",
                               piedata,
-                              "Porcentaje de los síntomas del paciente \n",
+                              "Porcentaje de los Síntomas del Paciente \n",
                               descripcionSymptoms);
                         },
                         child: Image.asset(
@@ -228,7 +228,7 @@ class _ListReportPage extends State<ListReportPage> {
                         textColor: Colors.white,
                       ),
                       Text(
-                        "Porcentaje\n de los\n síntomas del\n paciente \n",
+                        "Porcentaje\n de los\n Síntomas del\n Paciente \n",
                         textAlign: TextAlign.center,
                         style: TextStyle(
                             color: Colors.blue[900],
@@ -245,7 +245,7 @@ class _ListReportPage extends State<ListReportPage> {
                               context,
                               idsSymptomsAverage,
                               seriedata,
-                              "Promedio de los síntomas del paciente por meses \n \n",
+                              "Promedio de los Síntomas del Paciente por Meses \n \n",
                               colorsSintomasPorMeses,
                               "Mes",
                               "Promedio de Síntomas",
@@ -260,7 +260,7 @@ class _ListReportPage extends State<ListReportPage> {
                         textColor: Colors.white,
                       ),
                       Text(
-                        "Promedio\n de los\n síntomas del\n paciente \npor meses",
+                        "Promedio\n de los\n Síntomas del\n Paciente \npor Meses",
                         textAlign: TextAlign.center,
                         style: TextStyle(
                             color: Colors.blue[900],
@@ -285,7 +285,7 @@ class _ListReportPage extends State<ListReportPage> {
                               context,
                               idsAverageGame,
                               seriedataGameAverage,
-                              "Promedio de destreza en el juego \n \n",
+                              "Promedio de Destreza en el Juego \n \n",
                               colorsSintomasPorMeses,
                               "Mes",
                               "Promedio del puntaje",
@@ -300,7 +300,7 @@ class _ListReportPage extends State<ListReportPage> {
                         textColor: Colors.white,
                       ),
                       Text(
-                        "Promedio de \ndestreza \n en el\n juego \n",
+                        "Promedio de \nDestreza \n en el\n Juego \n",
                         textAlign: TextAlign.center,
                         style: TextStyle(
                             color: Colors.blue[900],
@@ -332,7 +332,7 @@ class _ListReportPage extends State<ListReportPage> {
                         textColor: Colors.white,
                       ),
                       Text(
-                        "Porcentaje de \ndisquinecias \n en\nmeses \n",
+                        "Porcentaje de \nDisquinecias \n en\nMeses \n",
                         textAlign: TextAlign.center,
                         style: TextStyle(
                             color: Colors.blue[900],
@@ -372,7 +372,7 @@ class _ListReportPage extends State<ListReportPage> {
                           textColor: Colors.white,
                         ),
                         Text(
-                          "Promedio del \npuntaje del \n estado de\n ánimo del\n paciente ",
+                          "Promedio del \nPuntaje del \n Estado de\n Ánimo del\n Paciente ",
                           textAlign: TextAlign.center,
                           style: TextStyle(
                               color: Colors.blue[900],
@@ -402,7 +402,7 @@ class _ListReportPage extends State<ListReportPage> {
                           textColor: Colors.white,
                         ),
                         Text(
-                          "Desfase \nen la \ntoma de\nmedicamentos\n ",
+                          "Desfase \nen la \nToma de\nMedicamentos\n ",
                           textAlign: TextAlign.center,
                           style: TextStyle(
                               color: Colors.blue[900],
@@ -439,7 +439,7 @@ class _ListReportPage extends State<ListReportPage> {
                           textColor: Colors.white,
                         ),
                         Text(
-                          "Promedio \nde los \n puntajes\n en los\n síntomas \n no motores ",
+                          "Promedio \nde los \n Puntajes\n en los\n Síntomas \n No Motores ",
                           textAlign: TextAlign.center,
                           style: TextStyle(
                               color: Colors.blue[900],

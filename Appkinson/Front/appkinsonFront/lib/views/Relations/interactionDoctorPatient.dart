@@ -31,7 +31,7 @@ class InteractionDoctorPatient extends StatelessWidget {
                 )),
             // child: Expanded(
             child: Stack(
-              fit: StackFit.expand,
+              // fit: StackFit.expand,
               children: <Widget>[
                 Image.asset(
                   "assets/images/coronadr.png",

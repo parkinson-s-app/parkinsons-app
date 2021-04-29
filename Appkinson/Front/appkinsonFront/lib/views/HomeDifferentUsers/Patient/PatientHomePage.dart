@@ -122,7 +122,7 @@ class _PatientHomePage extends State<PatientHomePage> {
                             children: <Widget>[
                               ButtonGoNoMotorSymptoms(),
                               Text(
-                                "Formulario \nNo motores",
+                                "Formulario \nNo Motores",
                                 textAlign: TextAlign.center,
                                 style: TextStyle(
                                     color: Colors.blue[900],

@@ -8,12 +8,13 @@ class AdminHomePage extends StatefulWidget {
   _AdminHomePage createState() => _AdminHomePage();
 }
 
-class _AdminHomePage extends State<AdminHomePage>{
+class _AdminHomePage extends State<AdminHomePage> {
   bool shouldPop = false;
   @override
   void initState() {
     super.initState();
   }
+
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -78,6 +79,7 @@ class _AdminHomePage extends State<AdminHomePage>{
                           ButtonGoModifiToolBox(),
                           Text(
                             "Agregar \nActividades",
+                            textAlign: TextAlign.center,
                             style: TextStyle(
                                 color: Colors.blue[900],
                                 fontSize: 20,

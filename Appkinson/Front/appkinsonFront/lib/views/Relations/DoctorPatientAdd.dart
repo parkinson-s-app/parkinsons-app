@@ -91,41 +91,44 @@ class DoctorPatientsCustomAdd extends State<DoctorPatientsAdd> {
       child: Scaffold(
         appBar: AppBar(
           toolbarHeight: 70,
-          title: !isSearching ? Text('Pacientes no agregados'): TextField(
-            onChanged: (value) {
-              filterSearchResults(value);
-            },
-            controller: editingController2,
-            style: TextStyle(color: Colors.white),
-            decoration: InputDecoration(
-                hintText: "Buscar",
-                hintStyle: TextStyle(color: Colors.white),
-                focusedBorder: OutlineInputBorder(
-                    borderSide: BorderSide(color: Colors.white, width: 3.0),
+          title: !isSearching
+              ? Text('Pacientes No Agregados')
+              : TextField(
+                  onChanged: (value) {
+                    filterSearchResults(value);
+                  },
+                  controller: editingController2,
+                  style: TextStyle(color: Colors.white),
+                  decoration: InputDecoration(
+                    hintText: "Buscar",
+                    hintStyle: TextStyle(color: Colors.white),
+                    focusedBorder: OutlineInputBorder(
+                      borderSide: BorderSide(color: Colors.white, width: 3.0),
+                    ),
+                    enabledBorder: OutlineInputBorder(
+                      borderSide:
+                          BorderSide(color: Colors.grey[400], width: 2.0),
+                    ),
+                  ),
                 ),
-                enabledBorder: OutlineInputBorder(
-                    borderSide: BorderSide(color: Colors.grey[400], width: 2.0),
-                ),
-                ),
-              ),
-          actions: <Widget> [
-            !isSearching ?
-            IconButton(
-              icon: Icon(Icons.search), 
-              onPressed: (){
-                setState(() {
-                  this.isSearching = !this.isSearching;
-                });
-              },
-              ):
-            IconButton(
-              icon: Icon(Icons.cancel), 
-              onPressed: (){
-                setState(() {
-                  this.isSearching = !this.isSearching;
-                });
-              },
-              )
+          actions: <Widget>[
+            !isSearching
+                ? IconButton(
+                    icon: Icon(Icons.search),
+                    onPressed: () {
+                      setState(() {
+                        this.isSearching = !this.isSearching;
+                      });
+                    },
+                  )
+                : IconButton(
+                    icon: Icon(Icons.cancel),
+                    onPressed: () {
+                      setState(() {
+                        this.isSearching = !this.isSearching;
+                      });
+                    },
+                  )
           ],
         ),
         body: SingleChildScrollView(
@@ -134,7 +137,6 @@ class DoctorPatientsCustomAdd extends State<DoctorPatientsAdd> {
                 child: Column(
           key: UniqueKey(),
           children: <Widget>[
-            
             ListView.separated(
               //scrollDirection: Axis.horizontal,
               physics: NeverScrollableScrollPhysics(),

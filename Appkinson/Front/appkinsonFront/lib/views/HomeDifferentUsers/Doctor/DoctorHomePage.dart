@@ -6,12 +6,14 @@ class DoctorHomePage extends StatefulWidget {
   @override
   _DoctorHomePage createState() => _DoctorHomePage();
 }
-class _DoctorHomePage extends State<DoctorHomePage>{
+
+class _DoctorHomePage extends State<DoctorHomePage> {
   bool shouldPop = false;
   @override
   void initState() {
     super.initState();
   }
+
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -51,7 +53,7 @@ class _DoctorHomePage extends State<DoctorHomePage>{
                         top: 70,
                         left: 200,
                         child: Text(
-                          "¿A quién \ncuidaremos \nhoy?",
+                          "¿A Quién \nCuidaremos \nHoy?",
                           style: TextStyle(
                               color: Colors.white,
                               fontSize: 30,
@@ -75,6 +77,7 @@ class _DoctorHomePage extends State<DoctorHomePage>{
                           ButtonGoPatientList(),
                           Text(
                             "Lista de \nPacientes",
+                            textAlign: TextAlign.center,
                             style: TextStyle(
                                 color: Colors.blue[900],
                                 fontSize: 20,

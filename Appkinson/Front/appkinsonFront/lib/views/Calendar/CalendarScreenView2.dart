@@ -273,7 +273,7 @@ class _CalendarScreenView2 extends State<CalendarScreenView2> {
                                 ],
                               ),
                               Text(desface.toString() +
-                                  ' minuntos de desfase en la toma de medicamento'),
+                                  ' minutos de desfase en la toma de medicamento'),
                               Divider(
                                 thickness: 1,
                               ),
@@ -304,7 +304,7 @@ class _CalendarScreenView2 extends State<CalendarScreenView2> {
 
                                 color: Colors.blue[500],
                                 textColor: Colors.white,
-                                child: Text('Ver video'),
+                                child: Text('Ver Video'),
                                 /*() => {
                         //print(cont);
                         _incrementColorIndex()
@@ -457,7 +457,7 @@ class _CalendarScreenView2 extends State<CalendarScreenView2> {
 
                                   color: Colors.teal[200],
                                   //textColor: Colors.white,
-                                  child: Text('hacer video(opcional)'),
+                                  child: Text('Hacer Video(Opcional)'),
                                   /*() => {
                         //print(cont);
                         _incrementColorIndex()
