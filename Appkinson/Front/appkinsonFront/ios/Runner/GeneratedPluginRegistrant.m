@@ -4,18 +4,6 @@
 
 #import "GeneratedPluginRegistrant.h"
 
-#if __has_include(<animated_theme_switcher/AnimatedThemeSwitcherPlugin.h>)
-#import <animated_theme_switcher/AnimatedThemeSwitcherPlugin.h>
-#else
-@import animated_theme_switcher;
-#endif
-
-#if __has_include(<background_fetch/BackgroundFetchPlugin.h>)
-#import <background_fetch/BackgroundFetchPlugin.h>
-#else
-@import background_fetch;
-#endif
-
 #if __has_include(<flutter_downloader/FlutterDownloaderPlugin.h>)
 #import <flutter_downloader/FlutterDownloaderPlugin.h>
 #else
@@ -91,8 +79,6 @@
 @implementation GeneratedPluginRegistrant
 
 + (void)registerWithRegistry:(NSObject<FlutterPluginRegistry>*)registry {
-  [AnimatedThemeSwitcherPlugin registerWithRegistrar:[registry registrarForPlugin:@"AnimatedThemeSwitcherPlugin"]];
-  [BackgroundFetchPlugin registerWithRegistrar:[registry registrarForPlugin:@"BackgroundFetchPlugin"]];
   [FlutterDownloaderPlugin registerWithRegistrar:[registry registrarForPlugin:@"FlutterDownloaderPlugin"]];
   [FlutterLocalNotificationsPlugin registerWithRegistrar:[registry registrarForPlugin:@"FlutterLocalNotificationsPlugin"]];
   [FLTImageCropperPlugin registerWithRegistrar:[registry registrarForPlugin:@"FLTImageCropperPlugin"]];
