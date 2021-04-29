@@ -2,8 +2,16 @@ import 'package:flutter/material.dart';
 import 'Buttons/ButtonGoPatientList.dart';
 import 'Buttons/ButtonGoProfile.dart';
 
-class DoctorHomePage extends StatelessWidget {
+class DoctorHomePage extends StatefulWidget {
+  @override
+  _DoctorHomePage createState() => _DoctorHomePage();
+}
+class _DoctorHomePage extends State<DoctorHomePage>{
   bool shouldPop = false;
+  @override
+  void initState() {
+    super.initState();
+  }
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;

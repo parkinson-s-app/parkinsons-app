@@ -284,12 +284,16 @@ class EndPoints {
   Future<String> unlinkedPatient(String idPatient) async {
     String i;
     String token = await Utils().getToken();
-    debugPrint("elimino");
-    //http.Response respuesta = await http.delete('/api/doctor/patients/$idPatient');
-    final request = http.delete(
+    String tipe = await Utils().getFromToken('type');
+    if (tipe == 'Cuidador') {
+      final request = http.delete(
+        endpointBack + '/api/carer/patients/$idPatient',
+        headers: {HttpHeaders.authorizationHeader: jwtkey + token});
+    } else if (tipe == 'Doctor') {
+      final request = http.delete(
         endpointBack + '/api/doctor/patients/$idPatient',
         headers: {HttpHeaders.authorizationHeader: jwtkey + token});
-
+    }
     return i;
   }
 

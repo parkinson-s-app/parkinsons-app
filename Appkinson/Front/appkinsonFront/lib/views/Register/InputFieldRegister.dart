@@ -37,12 +37,12 @@ class InputFieldRegisterCustom extends State<InputFieldRegister> {
           Container(
             child: Row(
               children: <Widget>[
-                //SvgPicture.asset("assets/icons/usuarioAzul.svg"),
-                Positioned(
+                SizedBox(width: 20,
+                child: Center(
                     child: Image.asset(
                   "assets/images/usuario.png",
                   height: size.height * 0.03,
-                )),
+                ))),
                 SizedBox(width: 20),
                 Expanded(
                     child: DropdownButton(

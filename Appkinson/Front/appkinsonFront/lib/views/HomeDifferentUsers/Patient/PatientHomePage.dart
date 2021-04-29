@@ -9,8 +9,18 @@ import 'Buttons/ButtonGoMedicinesSchedule.dart';
 import 'Buttons/ButtonGoToolBox.dart';
 import 'Buttons/ButtonGoWeeklyForm.dart';
 
-class PatientHomePage extends StatelessWidget {
+class PatientHomePage extends StatefulWidget {
+  @override
+  _PatientHomePage createState() => _PatientHomePage();
+}
+
+class _PatientHomePage extends State<PatientHomePage> {
   bool shouldPop = false;
+  @override
+  void initState() {
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;

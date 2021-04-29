@@ -332,8 +332,8 @@ class ProfileListItem extends StatelessWidget {
               SharedPreferences prefs = await SharedPreferences.getInstance();
               prefs?.clear();
               await Utils().removeBackgroundTask();
-              Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (context) =>
-                  HomePage()), (Route<dynamic> route) => false);
+              Navigator.popUntil(context,(Route<dynamic> route) => false);
+              Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (context) => HomePage()), (Route<dynamic> route) => false);
             }
           },
           child: Row(

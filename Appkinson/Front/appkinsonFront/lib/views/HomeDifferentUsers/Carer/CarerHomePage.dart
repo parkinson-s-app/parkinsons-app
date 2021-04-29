@@ -3,8 +3,18 @@ import 'Buttons/ButtonGoPatientList.dart';
 import 'Buttons/ButtonGoProfile.dart';
 import 'Buttons/ButtonGoToolBox.dart';
 
-class CarerHomePage extends StatelessWidget {
+class CarerHomePage extends StatefulWidget {
+  @override
+  _CarerHomePage createState() => _CarerHomePage();
+}
+
+class _CarerHomePage extends State<CarerHomePage> {
   bool shouldPop = false;
+  @override
+  void initState() {
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
