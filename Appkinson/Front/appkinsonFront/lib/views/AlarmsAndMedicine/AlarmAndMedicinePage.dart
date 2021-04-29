@@ -18,6 +18,7 @@ class AlarmAndMedicine {
   String dose; //mg pastilla
   int id;
   String medicine;
+  String dropdownValue = 'Inserte el Tipo de Dosis';
   /**
    * preguntas: todos los dias las dosis?
    * dosis como mg o ml son un dropdown o un input text?
@@ -56,6 +57,7 @@ class AlarmAndMedicinePage extends StatelessWidget {
 class ListAlarmsAndMedicine extends State<ListAlarmsAndMedicinePatient> {
   static List<AlarmAndMedicine> alarms;
   static List<String> medicinesString;
+  //String dropdownValue = 'Inserte el Tipo de Dosis';
   TimeOfDay _time = TimeOfDay.now();
   String hora = 'Escoja la Hora';
   List<Medicine> medicines = <Medicine>[];
@@ -65,10 +67,11 @@ class ListAlarmsAndMedicine extends State<ListAlarmsAndMedicinePatient> {
   String title; // levodopa
   TextEditingController periodicityQuantity = new TextEditingController(); // 8
   TextEditingController quantity = new TextEditingController(); // 1 or 2 dose 1
-  String periodicityType = 'Hora(s)'; // hour or day
+  String periodicityType = 'Hora(s)';
+  String dose = 'mg'; // hour or day
   // String idMedicine;
   // TimeOfDay alarmTime;
-  TextEditingController dose = new TextEditingController(); //mg pastilla
+  TextEditingController dose2 = new TextEditingController(); //mg pastilla
   int id;
 
   ListAlarmsAndMedicine(this.idPatient);
@@ -134,7 +137,7 @@ class ListAlarmsAndMedicine extends State<ListAlarmsAndMedicinePatient> {
             SizedBox(
               height: 30,
             ),
-            new TextField(
+            /*new TextField(
               decoration: new InputDecoration(
                   labelText: "Inserte el Tipo de Dosis",
                   hintText: 'mg',
@@ -142,7 +145,64 @@ class ListAlarmsAndMedicine extends State<ListAlarmsAndMedicinePatient> {
                   border: OutlineInputBorder()),
               keyboardType: TextInputType.text, // Only numbers can be entered
               controller: dose,
+            ),*/
+            Text(
+              "Inserte el Tipo de Dosis: ",
+              style: TextStyle(
+                  color: Colors.black,
+                  fontSize: 18,
+                  fontFamily: "Raleway2",
+                  fontWeight: FontWeight.bold),
             ),
+            SizedBox(
+              height: 10,
+            ),
+            Container(
+              decoration: BoxDecoration(
+                  border: Border.all(color: Colors.grey, width: 1),
+                  borderRadius: BorderRadius.circular(15)),
+              child: DropdownButton<String>(
+                isExpanded: true,
+                style: TextStyle(color: Colors.grey, fontSize: 18),
+                underline: SizedBox(),
+                value: dose,
+                items: <String>['mg', 'g'].map((String value) {
+                  return new DropdownMenuItem<String>(
+                    value: value,
+                    child: new Text(value),
+                  );
+                }).toList(),
+                onChanged: (selected) {
+                  setState(() {
+                    dose = selected;
+                  });
+                },
+              ),
+            ),
+            /*  DropdownButton<String>(
+              value: dropdownValue,
+              icon: const Icon(Icons.arrow_downward),
+              iconSize: 24,
+              elevation: 16,
+              isExpanded: true,
+              style: const TextStyle(color: Colors.blue),
+              underline: Container(
+                height: 2,
+                color: Colors.blue[500],
+              ),
+              onChanged: (String newValue) {
+                setState(() {
+                  dropdownValue = newValue;
+                });
+              },
+              items: <String>['EJERCICIO', 'NOTICIA', 'COMIDA']
+                  .map<DropdownMenuItem<String>>((String value) {
+                return DropdownMenuItem<String>(
+                  value: value,
+                  child: Text(value),
+                );
+              }).toList(),
+            ),*/
             SizedBox(
               height: 30,
             ),
@@ -214,14 +274,14 @@ class ListAlarmsAndMedicine extends State<ListAlarmsAndMedicinePatient> {
                 print('Dosis: text ${quantity.text} !');
                 print('Tipo period. $periodicityType');
                 print('periodicidad  !${periodicityQuantity.text}!');
-                print('Tipo de dosis ${dose.text}');
+                print('Tipo de dosis ${dose}');
                 String per = periodicityQuantity.text;
                 int periodiciyNumb = int.tryParse(per) ?? -1;
                 print('num: $periodiciyNumb!');
                 print('aca1');
                 AlarmAndMedicine alarmAndMedicine = new AlarmAndMedicine();
                 alarmAndMedicine.alarmTime = _time;
-                alarmAndMedicine.dose = dose.text;
+                alarmAndMedicine.dose = dose;
                 alarmAndMedicine.idMedicine = medicineSelected;
                 alarmAndMedicine.periodicityQuantity = periodiciyNumb;
                 alarmAndMedicine.quantity = int.tryParse(quantity.text) ?? (-1);

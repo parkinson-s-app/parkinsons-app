@@ -51,12 +51,12 @@ class _ButtonGoCalendarState extends State<ButtonGoCalendar> {
                   .add(Meeting('OFF', startTime, endTime, Colors.red, false));
             }
             if (codeList[a]['Q1'] == 'on bueno' ||
-                codeList[a]['Q1'] == 'On Bueno') {
+                codeList[a]['Q1'] == 'ON Bueno') {
               meetingPatient.add(Meeting(
                   'ON Bueno', startTime, endTime, Colors.green[700], false));
             }
             if (codeList[a]['Q1'] == 'off malo' ||
-                codeList[a]['Q1'] == 'Off Malo') {
+                codeList[a]['Q1'] == 'OFF Malo') {
               meetingPatient.add(Meeting(
                   'OFF Malo', startTime, endTime, Colors.red[800], false));
             }

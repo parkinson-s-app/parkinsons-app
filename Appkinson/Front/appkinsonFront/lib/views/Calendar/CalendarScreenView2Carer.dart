@@ -136,6 +136,8 @@ class _Calendar extends State<CalendarScreenView2Carer> {
           showNavigationArrow: true,
           headerHeight: 50,
           onTap: (calendarTapDetails) {
+            _disqui = TextEditingController();
+            fileMedia = null;
             var sizeAppo = calendarTapDetails.appointments;
             print(sizeAppo.toString() + 'hola6');
             Meeting calen;
