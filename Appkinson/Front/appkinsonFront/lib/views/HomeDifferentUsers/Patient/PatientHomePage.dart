@@ -37,41 +37,41 @@ class PatientHomePage extends StatelessWidget {
                           image:
                               AssetImage("assets/images/starsBackGround.png"),
                         )),
-                    child: Expanded(
-                      child: Stack(
-                        children: <Widget>[
-                          Positioned(
-                            top: 265,
-                            left: 255,
-                            child: ButtonGoRelationsRequest(),
-                          ),
-                          /*
+                    //  child: Expanded(
+                    child: Stack(
+                      children: <Widget>[
+                        Positioned(
+                          top: 265,
+                          left: 255,
+                          child: ButtonGoRelationsRequest(),
+                        ),
+                        /*
                           Positioned(
                             top: 250,
                             right: 125,
                             child: ButtonGoReminder(),
                           ),
                           */
-                          Image.asset(
-                            "assets/images/coronadr.png",
-                            width: 150,
-                            fit: BoxFit.fitWidth,
-                            height: size.height * 0.4,
-                            alignment: Alignment.bottomLeft,
-                          ),
-                          Positioned(
-                              top: 70,
-                              left: 200,
-                              child: Text(
-                                "¿Qué \nHaremos \nHoy?",
-                                style: TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 30,
-                                    fontFamily: "Raleway2"),
-                              )),
-                        ],
-                      ),
+                        Image.asset(
+                          "assets/images/coronadr.png",
+                          width: 150,
+                          fit: BoxFit.fitWidth,
+                          height: size.height * 0.4,
+                          alignment: Alignment.bottomLeft,
+                        ),
+                        Positioned(
+                            top: 70,
+                            left: 200,
+                            child: Text(
+                              "¿Qué \nHaremos \nHoy?",
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 30,
+                                  fontFamily: "Raleway2"),
+                            )),
+                      ],
                     ),
+                    //  ),
                   ),
                 ),
                 SizedBox(

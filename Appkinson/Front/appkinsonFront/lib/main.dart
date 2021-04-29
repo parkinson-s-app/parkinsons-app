@@ -16,6 +16,7 @@ import 'package:appkinsonFront/views/RelationRequest/relationsRequets.dart';
 import 'package:appkinsonFront/views/Relations/interactionDoctorPatient.dart';
 import 'package:appkinsonFront/views/ToolBox/ToolBoxInitial.dart';
 import 'package:flutter/material.dart';
+//import 'package:flutter_local_notifications/initialization_settings.dart';
 import 'package:nova_alarm_plugin/nova_alarm_plugin.dart';
 import 'views/SymptomsFormPatient/SymptomsFormPatient.dart';
 import 'package:appkinsonFront/local_notifications.dart';

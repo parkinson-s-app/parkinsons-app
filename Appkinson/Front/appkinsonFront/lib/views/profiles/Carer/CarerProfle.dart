@@ -18,12 +18,12 @@ const kSpacingUnit = 10;
 
 final kTitleTextStyle = TextStyle(
   fontFamily: "Raleway",
-  fontSize: ScreenUtil().setSp(kSpacingUnit * 1.7),
+  fontSize: ScreenUtil().setSp(17),
   fontWeight: FontWeight.w600,
 );
 
 final kCaptionTextStyle = TextStyle(
-  fontSize: ScreenUtil().setSp(kSpacingUnit * 1.3),
+  fontSize: ScreenUtil().setSp(13),
   fontWeight: FontWeight.w100,
   //fontFamily: "Raleway"
 );
@@ -129,12 +129,21 @@ class CustomDrawer extends StatelessWidget {
                   Text(
                     ///nameControllerDoctor.text,
                     nameCarer,
-                    style: kTitleTextStyle,
+                    style: TextStyle(
+                      fontSize: 10,
+                      fontWeight: FontWeight.w100,
+                      //fontFamily: "Raleway"
+                    ),
                   ),
                   SizedBox(
                     height: 5,
                   ),
-                  Text(emailCarer, style: kCaptionTextStyle),
+                  Text(emailCarer,
+                      style: TextStyle(
+                        fontSize: 10,
+                        fontWeight: FontWeight.w100,
+                        //fontFamily: "Raleway"
+                      )),
                 ],
               )),
           Divider(

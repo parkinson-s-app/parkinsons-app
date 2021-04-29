@@ -14,7 +14,7 @@ class CarerHomePage extends StatelessWidget {
         },
         child: Scaffold(
             body: Container(
-              child: Column(
+                child: Column(
           children: <Widget>[
             ClipPath(
               clipper: MyClipper(),
@@ -30,29 +30,29 @@ class CarerHomePage extends StatelessWidget {
                     image: DecorationImage(
                       image: AssetImage("assets/images/starsBackGround.png"),
                     )),
-                child: Expanded(
-                  child: Stack(
-                    children: <Widget>[
-                      Image.asset(
-                        "assets/images/coronadr.png",
-                        width: 150,
-                        fit: BoxFit.fitWidth,
-                        height: size.height * 0.4,
-                        alignment: Alignment.bottomLeft,
-                      ),
-                      Positioned(
-                          top: 70,
-                          left: 200,
-                          child: Text(
-                            "¿A quién \ncuidaremos \nhoy?",
-                            style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 30,
-                                fontFamily: "Raleway2"),
-                          ))
-                    ],
-                  ),
+                // child: Expanded(
+                child: Stack(
+                  children: <Widget>[
+                    Image.asset(
+                      "assets/images/coronadr.png",
+                      width: 150,
+                      fit: BoxFit.fitWidth,
+                      height: size.height * 0.4,
+                      alignment: Alignment.bottomLeft,
+                    ),
+                    Positioned(
+                        top: 70,
+                        left: 200,
+                        child: Text(
+                          "¿A quién \nCuidaremos \nHoy?",
+                          style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 30,
+                              fontFamily: "Raleway2"),
+                        ))
+                  ],
                 ),
+                // ),
               ),
             ),
             SizedBox(

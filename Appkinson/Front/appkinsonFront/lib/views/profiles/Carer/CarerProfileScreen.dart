@@ -23,12 +23,12 @@ var emailCarer = "";
 
 final kTitleTextStyle = TextStyle(
   fontFamily: "Raleway",
-  fontSize: ScreenUtil().setSp(kSpacingUnit * 2),
+  fontSize: ScreenUtil().setSp(20),
   fontWeight: FontWeight.w600,
 );
 
 final kCaptionTextStyle = TextStyle(
-  fontSize: ScreenUtil().setSp(kSpacingUnit * 2),
+  fontSize: ScreenUtil().setSp(20),
   fontWeight: FontWeight.w100,
   //fontFamily: "Raleway"
 );
@@ -106,7 +106,7 @@ class DoctorProfileScreenP extends State<CarerProfileScreen> {
   @override
   Widget build(BuildContext context) {
     ScreenUtil.init(context, height: 896, width: 414, allowFontScaling: true);
-    var profileInfo = Expanded(
+    var profileInfo = Container(
         child: Column(
       children: [
         Container(
@@ -196,12 +196,12 @@ class DoctorProfileScreenP extends State<CarerProfileScreen> {
           SizedBox(
             width: 20,
           ),
-          /* Icon(
+          /*Icon(
             LineAwesomeIcons.sun,
             size: ScreenUtil().setSp(40),
           ),*/
           SizedBox(
-            width: 40,
+            width: 80,
           ),
         ]);
 
