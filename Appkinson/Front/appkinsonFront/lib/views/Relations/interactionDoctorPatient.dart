@@ -100,6 +100,20 @@ class InteractionDoctorPatient extends StatelessWidget {
                       )
                     ],
                   ),
+                   Column(
+                    children: <Widget>[
+                      ButtonGoReporter(
+                        idPatient: this.idPatient,
+                      ),
+                      Text(
+                        "Reporte",
+                        style: TextStyle(
+                            color: Colors.blue[900],
+                            fontSize: 20,
+                            fontFamily: "Raleway2"),
+                      )
+                    ],
+                  ),
                 ],
               )
             ],

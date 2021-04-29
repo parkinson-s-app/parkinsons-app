@@ -102,7 +102,7 @@ class InteractionCarerPatient extends StatelessWidget {
                       )
                     ],
                   ),
-                  /* Column(
+                   Column(
                         children: <Widget>[
                           ButtonGoMedicinesFromDoctor(idPatient: this.idPatient,),
                           Text(
@@ -113,7 +113,7 @@ class InteractionCarerPatient extends StatelessWidget {
                                 fontFamily: "Raleway2"),
                           )
                         ],
-                      ),*/
+                      ),
                 ],
               ),
               SizedBox(
