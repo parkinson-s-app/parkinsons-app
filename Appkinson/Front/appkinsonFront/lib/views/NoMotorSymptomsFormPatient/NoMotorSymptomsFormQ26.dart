@@ -27,7 +27,7 @@ class _NoMotorSymptomsFormQ26 extends State<NoMotorSymptomsFormQ26> {
               alignment: Alignment.topCenter,
               child: Text(
                 "Sensaciones desagradables en las piernas por la noche o cuando está descansando, y sensación de que necesita moverlas",
-                textAlign: TextAlign.left,
+                textAlign: TextAlign.justify,
                 style: TextStyle(
                   fontSize: 28.0,
                   fontFamily: "Ralewaybold",

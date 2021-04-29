@@ -27,7 +27,7 @@ class _ListFoodState extends State<ListFood> {
   Widget build(BuildContext context) => Scaffold(
         backgroundColor: Colors.grey[100],
         appBar: AppBar(
-          title: Text("Comida"),
+          title: Text("Alimentación"),
         ),
         body: Column(
           children: [

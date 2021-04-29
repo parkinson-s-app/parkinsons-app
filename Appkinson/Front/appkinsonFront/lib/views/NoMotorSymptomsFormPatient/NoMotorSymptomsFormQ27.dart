@@ -24,10 +24,10 @@ class _NoMotorSymptomsFormQ27 extends State<NoMotorSymptomsFormQ27> {
             child: Container(
               color: Colors.grey[350],
               padding: EdgeInsets.all(15.0),
-              alignment: Alignment.center,
+              alignment: Alignment.topCenter,
               child: Text(
                 "Hinchazón en las piernas.",
-                textAlign: TextAlign.center,
+                textAlign: TextAlign.justify,
                 style: TextStyle(
                   fontSize: 30.0,
                   fontFamily: "Ralewaybold",

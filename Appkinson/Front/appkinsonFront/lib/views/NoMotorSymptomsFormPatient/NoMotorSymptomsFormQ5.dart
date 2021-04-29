@@ -24,10 +24,10 @@ class _NoMotorSymptomsFormQ5 extends State<NoMotorSymptomsFormQ5> {
             child: Container(
               color: Colors.grey[350],
               padding: EdgeInsets.all(15.0),
-              alignment: Alignment.center,
+              alignment: Alignment.topCenter,
               child: Text(
                 "Estreñimiento (hacer del cuerpo de 3 veces a la semana) o tener que hacer esfuerzos para hacer de vientre",
-                textAlign: TextAlign.center,
+                textAlign: TextAlign.justify,
                 style: TextStyle(
                   fontSize: 30.0,
                   fontFamily: "Ralewaybold",

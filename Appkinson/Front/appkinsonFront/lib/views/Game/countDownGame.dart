@@ -193,7 +193,7 @@ class _CountDownTimerState extends State<CountDownTimer>
                                     count = 0;
                                   }
                                 },
-                                label: Text("Jugar"),
+                                label: Text("Empezar"),
                               ),
                             );
                           }),

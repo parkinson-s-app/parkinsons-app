@@ -14,7 +14,6 @@ class HomePage extends StatelessWidget {
     Size size = MediaQuery.of(context).size;
     return WillPopScope(
         onWillPop: () async {
-          SystemNavigator.pop();
           return shouldPop;
         },
         child: Scaffold(

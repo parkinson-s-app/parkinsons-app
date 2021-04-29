@@ -24,10 +24,10 @@ class _NoMotorSymptomsFormQ1 extends State<NoMotorSymptomsFormQ1> {
             child: Container(
               color: Colors.grey[350],
               padding: EdgeInsets.all(15.0),
-              alignment: Alignment.center,
+              alignment: Alignment.topCenter,
               child: Text(
                 "Salivación durante el día",
-                textAlign: TextAlign.center,
+                textAlign: TextAlign.justify,
                 style: TextStyle(
                   fontSize: 30.0,
                   fontFamily: "Ralewaybold",

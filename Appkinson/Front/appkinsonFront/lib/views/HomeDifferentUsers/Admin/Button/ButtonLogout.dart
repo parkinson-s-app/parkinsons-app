@@ -22,7 +22,7 @@ class ButtonLogout extends StatelessWidget {
           prefs?.clear();
           cleanLogin();
           Navigator.of(context).pushAndRemoveUntil(
-              MaterialPageRoute(builder: (context) => LoginPage()),
+              MaterialPageRoute(builder: (context) => HomePage()),
               (Route<dynamic> route) => false);
         },
         padding: EdgeInsets.symmetric(horizontal: 10),

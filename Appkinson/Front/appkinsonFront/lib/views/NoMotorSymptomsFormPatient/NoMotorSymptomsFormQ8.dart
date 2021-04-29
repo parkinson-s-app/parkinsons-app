@@ -24,10 +24,10 @@ class _NoMotorSymptomsFormQ8 extends State<NoMotorSymptomsFormQ8> {
             child: Container(
               color: Colors.grey[350],
               padding: EdgeInsets.all(15.0),
-              alignment: Alignment.center,
+              alignment: Alignment.topCenter,
               child: Text(
                 "Sensación de tener que orinar urgentemente que le obliga a ir rápidamente al baño",
-                textAlign: TextAlign.center,
+                textAlign: TextAlign.justify,
                 style: TextStyle(
                   fontSize: 30.0,
                   fontFamily: "Ralewaybold",

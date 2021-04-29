@@ -276,7 +276,7 @@ class ProfileListItem extends StatelessWidget {
               prefs?.clear();
               await Utils().removeBackgroundTask();
               Navigator.of(context).pushAndRemoveUntil(
-                  MaterialPageRoute(builder: (context) => LoginPage()),
+                  MaterialPageRoute(builder: (context) => HomePage()),
                   (Route<dynamic> route) => false);
             }
           },

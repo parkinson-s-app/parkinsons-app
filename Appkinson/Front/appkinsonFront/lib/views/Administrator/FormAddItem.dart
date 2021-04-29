@@ -121,7 +121,7 @@ class _FormItemToolboxPageState extends State {
                                 items: <String>[
                                   'EJERCICIO',
                                   'NOTICIA',
-                                  'COMIDA'
+                                  'ALIMENTACION'
                                 ].map<DropdownMenuItem<String>>((String value) {
                                   return DropdownMenuItem<String>(
                                     value: value,

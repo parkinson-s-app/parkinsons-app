@@ -24,10 +24,10 @@ class _NoMotorSymptomsFormQ9 extends State<NoMotorSymptomsFormQ9> {
             child: Container(
               color: Colors.grey[350],
               padding: EdgeInsets.all(15.0),
-              alignment: Alignment.center,
+              alignment: Alignment.topCenter,
               child: Text(
                 "Necesidad de levantarse habitualmente por la noche a orinar",
-                textAlign: TextAlign.center,
+                textAlign: TextAlign.justify,
                 style: TextStyle(
                   fontSize: 30.0,
                   fontFamily: "Ralewaybold",

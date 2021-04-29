@@ -24,9 +24,10 @@ class _NoMotorSymptomsFormQ18 extends State<NoMotorSymptomsFormQ18> {
             child: Container(
               color: Colors.grey[350],
               padding: EdgeInsets.all(15.0),
-              alignment: Alignment.center,
+              alignment: Alignment.topCenter,
               child: Text(
                 "Pérdida o aumento del interés por tener relaciones sexuales",
+                textAlign: TextAlign.justify,
                 style: TextStyle(
                   fontSize: 30.0,
                   fontFamily: "Ralewaybold",

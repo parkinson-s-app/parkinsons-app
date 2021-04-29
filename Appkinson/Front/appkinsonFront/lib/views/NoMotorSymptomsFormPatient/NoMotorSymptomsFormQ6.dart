@@ -24,10 +24,10 @@ class _NoMotorSymptomsFormQ6 extends State<NoMotorSymptomsFormQ6> {
             child: Container(
               color: Colors.grey[350],
               padding: EdgeInsets.all(15.0),
-              alignment: Alignment.center,
+              alignment: Alignment.topCenter,
               child: Text(
                 "Incontinencia fecal (se escapan las heces)",
-                textAlign: TextAlign.center,
+                textAlign: TextAlign.justify,
                 style: TextStyle(
                   fontSize: 30.0,
                   fontFamily: "Ralewaybold",

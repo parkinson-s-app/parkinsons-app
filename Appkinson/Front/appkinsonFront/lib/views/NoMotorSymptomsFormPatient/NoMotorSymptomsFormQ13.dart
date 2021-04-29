@@ -24,10 +24,10 @@ class _NoMotorSymptomsFormQ13 extends State<NoMotorSymptomsFormQ13> {
             child: Container(
               color: Colors.grey[350],
               padding: EdgeInsets.all(15.0),
-              alignment: Alignment.center,
+              alignment: Alignment.topCenter,
               child: Text(
                 "Pérdida de interés en lo que pasa a su alrededor o en realizar sus actividades",
-                textAlign: TextAlign.center,
+                textAlign: TextAlign.justify,
                 style: TextStyle(
                   fontSize: 30.0,
                   fontFamily: "Ralewaybold",

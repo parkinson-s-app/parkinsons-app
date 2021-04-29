@@ -24,10 +24,10 @@ class _NoMotorSymptomsFormQ10 extends State<NoMotorSymptomsFormQ10> {
             child: Container(
               color: Colors.grey[350],
               padding: EdgeInsets.all(15.0),
-              alignment: Alignment.center,
+              alignment: Alignment.topCenter,
               child: Text(
                 "Dolores sin causa aparente (no debidos a otras enfermedades, como la artrosis)",
-                textAlign: TextAlign.center,
+                textAlign: TextAlign.justify,
                 style: TextStyle(
                   fontSize: 30.0,
                   fontFamily: "Ralewaybold",

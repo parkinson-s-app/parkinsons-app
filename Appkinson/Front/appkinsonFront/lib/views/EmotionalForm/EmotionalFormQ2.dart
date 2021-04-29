@@ -40,7 +40,7 @@ class _EmotionalFormQ2 extends State<EmotionalFormQ2> {
               alignment: Alignment.center,
               child: Text(
                 " Se ha sentido decaído(a), deprimido(a) o sin esperanzas",
-                textAlign: TextAlign.center,
+                textAlign: TextAlign.justify,
                 style: TextStyle(
                   fontSize: 30.0,
                   fontFamily: "Ralewaybold",
