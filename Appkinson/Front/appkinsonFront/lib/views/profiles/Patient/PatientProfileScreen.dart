@@ -7,6 +7,7 @@ import 'package:appkinsonFront/services/EndPoints.dart';
 import 'package:appkinsonFront/utils/Utils.dart';
 import 'package:appkinsonFront/views/HomeInitial/HomePage.dart';
 import 'package:appkinsonFront/views/Login/InputFieldLogin.dart';
+import 'package:appkinsonFront/views/Login/LoginPage.dart';
 import 'package:appkinsonFront/views/profiles/Patient/profileEdition/ProfileEditionPatient.dart';
 import 'package:flutter/cupertino.dart';
 
@@ -333,7 +334,7 @@ class ProfileListItem extends StatelessWidget {
               prefs?.clear();
               await Utils().removeBackgroundTask();
               Navigator.of(context).pushAndRemoveUntil(
-                  MaterialPageRoute(builder: (context) => HomePage()),
+                  MaterialPageRoute(builder: (context) => LoginPage()),
                   (Route<dynamic> route) => false);
             }
           },

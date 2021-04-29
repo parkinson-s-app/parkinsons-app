@@ -2,6 +2,7 @@ import 'package:appkinsonFront/routes/RoutesAdmin.dart';
 import 'package:appkinsonFront/utils/Utils.dart';
 import 'package:appkinsonFront/views/HomeInitial/HomePage.dart';
 import 'package:appkinsonFront/views/Login/InputFieldLogin.dart';
+import 'package:appkinsonFront/views/Login/LoginPage.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -21,7 +22,7 @@ class ButtonLogout extends StatelessWidget {
           prefs?.clear();
           cleanLogin();
           Navigator.of(context).pushAndRemoveUntil(
-              MaterialPageRoute(builder: (context) => HomePage()),
+              MaterialPageRoute(builder: (context) => LoginPage()),
               (Route<dynamic> route) => false);
         },
         padding: EdgeInsets.symmetric(horizontal: 10),
