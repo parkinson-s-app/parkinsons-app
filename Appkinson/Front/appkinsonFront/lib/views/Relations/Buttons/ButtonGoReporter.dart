@@ -1,13 +1,15 @@
 import 'package:appkinsonFront/routes/RoutesDoctor.dart';
+import 'package:appkinsonFront/utils/Utils.dart';
 import 'package:flutter/material.dart';
 
 class ButtonGoReporter extends StatelessWidget {
-  final int idPatient;
+  int idPatient;
 
   ButtonGoReporter({@required this.idPatient});
 
   @override
   Widget build(BuildContext context) {
+    print("id ppp" + this.idPatient.toString());
     Size size = MediaQuery.of(context).size;
     return Container(
       height: 90,
@@ -15,7 +17,15 @@ class ButtonGoReporter extends StatelessWidget {
       child: RaisedButton(
         shape: CircleBorder(),
         //   side: BorderSide(color: Color.fromRGBO(0, 160, 227, 1))),
-        onPressed: () {
+        onPressed: () async {
+          String type = await Utils().getFromToken("type");
+          if (type == "Paciente") {
+            print("object");
+            var aux = await Utils().getFromToken("id");
+            this.idPatient = int.parse(aux);
+            print("entra pat" + this.idPatient.toString());
+            //RoutesDoctor().toReportConfigPage(context, idPatient);
+          }
           RoutesDoctor().toReportConfigPage(context, idPatient);
         },
         padding: EdgeInsets.symmetric(horizontal: 10),
