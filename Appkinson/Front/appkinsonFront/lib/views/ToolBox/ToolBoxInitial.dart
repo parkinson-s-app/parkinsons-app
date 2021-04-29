@@ -136,53 +136,53 @@ class _toolbox0 extends State<toolbox> {
           new Container(
             width: 80,
             height: 750,
-            child: Expanded(
-              child: Column(
-                children: [
-                  SizedBox(
-                    height: 100,
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      Expanded(
-                        child: ButtonGoAboutExcercises(),
-                      ),
-                      Expanded(
-                        child: ButtonGoAboutFood(),
-                      ),
-                    ],
-                  ),
-                  SizedBox(
-                    height: 30,
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      /*Expanded(
+            // child: Expanded(
+            child: Column(
+              children: [
+                SizedBox(
+                  height: 100,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    Expanded(
+                      child: ButtonGoAboutExcercises(),
+                    ),
+                    Expanded(
+                      child: ButtonGoAboutFood(),
+                    ),
+                  ],
+                ),
+                SizedBox(
+                  height: 30,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    /*Expanded(
                                 child: ButtonGoAboutParkinson(),
                               ),*/
-                      Expanded(
-                        child: ButtonGoGame(),
-                      ),
-                      Expanded(
-                        child: ButtonGoAboutNews(),
-                      ),
-                    ],
-                  ),
-                  Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        /* Expanded(
+                    Expanded(
+                      child: ButtonGoGame(),
+                    ),
+                    Expanded(
+                      child: ButtonGoAboutNews(),
+                    ),
+                  ],
+                ),
+                Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      /* Expanded(
                           child: ButtonGoPedometer(),
                         ),*/
-                        Expanded(
-                          child: ButtonGoAboutParkinson(),
-                        ),
-                      ]),
-                ],
-              ),
+                      Expanded(
+                        child: ButtonGoAboutParkinson(),
+                      ),
+                    ]),
+              ],
             ),
+            // ),
           ),
         ],
       ),

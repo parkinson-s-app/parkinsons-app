@@ -19,90 +19,89 @@ class InteractionCarerPatient extends StatelessWidget {
     Size size = MediaQuery.of(context).size;
     return Scaffold(
         resizeToAvoidBottomInset: false,
-        
-      body: Column(
-          
-      children: <Widget>[
-        ClipPath(
-          clipper: MyClipper(),
-          child: Container(
-            height: 350,
-            width: double.infinity,
-            decoration: BoxDecoration(
-                gradient: LinearGradient(
-                  begin: Alignment.topLeft,
-                  end: Alignment.bottomRight,
-                  colors: [Colors.blue[400], Colors.blue[900]],
+        body: Column(
+          children: <Widget>[
+            ClipPath(
+              clipper: MyClipper(),
+              child: Container(
+                height: 350,
+                width: double.infinity,
+                decoration: BoxDecoration(
+                    gradient: LinearGradient(
+                      begin: Alignment.topLeft,
+                      end: Alignment.bottomRight,
+                      colors: [Colors.blue[400], Colors.blue[900]],
+                    ),
+                    image: DecorationImage(
+                      image: AssetImage("assets/images/starsBackGround.png"),
+                    )),
+                //  child: Expanded(
+                child: Stack(
+                  fit: StackFit.expand,
+                  children: <Widget>[
+                    Image.asset(
+                      "assets/images/coronadr.png",
+                      width: 150,
+                      fit: BoxFit.fitWidth,
+                      height: size.height * 0.4,
+                      alignment: Alignment.bottomLeft,
+                    ),
+                    Positioned(
+                        top: 70,
+                        left: 200,
+                        child: Text(
+                          "¡A cuidar!",
+                          style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 30,
+                              fontFamily: "Raleway2"),
+                        )),
+                  ],
                 ),
-                image: DecorationImage(
-                  image: AssetImage("assets/images/starsBackGround.png"),
-                )),
-            child: Expanded(
-              child: Stack(
-                children: <Widget>[
-                  Image.asset(
-                    "assets/images/coronadr.png",
-                    width: 150,
-                    fit: BoxFit.fitWidth,
-                    height: size.height * 0.4,
-                    alignment: Alignment.bottomLeft,
-                  ),
-                  Positioned(
-                      top: 70,
-                      left: 200,
-                      child: Text(
-                        "¡A cuidar!",
-                        style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 30,
-                            fontFamily: "Raleway2"),
-                      )),
-                ],
+                //),
               ),
             ),
-          ),
-        ),
-        SizedBox(
-          height: 10,
-        ),
-        SingleChildScrollView(
-          child: Column(
-            children: <Widget>[
-              Row(
+            SizedBox(
+              height: 10,
+            ),
+            SingleChildScrollView(
+              child: Column(
                 children: <Widget>[
-                  SizedBox(
-                    width: 10,
-                  ),
-                  Column(
+                  Row(
                     children: <Widget>[
-                      ButtonGoCalendarFromCarer(),
-                      Text(
-                        "Calendario",
-                        style: TextStyle(
-                            color: Colors.blue[900],
-                            fontSize: 17,
-                            fontFamily: "Raleway2"),
-                      )
-                    ],
-                  ),
-                  SizedBox(
-                    width: 15,
-                  ),
-                  Column(
-                    children: <Widget>[
-                      ButtonGoFormFeelsFromCarer(
-                        idPatient: this.idPatient,
+                      SizedBox(
+                        width: 10,
                       ),
-                      Text(
-                        "Sentimientos",
-                        style: TextStyle(
-                            color: Colors.blue[900],
-                            fontSize: 17,
-                            fontFamily: "Raleway2"),
-                      )
-                    ],
-                  ),
-                  /* Column(
+                      Column(
+                        children: <Widget>[
+                          ButtonGoCalendarFromCarer(),
+                          Text(
+                            "Calendario",
+                            style: TextStyle(
+                                color: Colors.blue[900],
+                                fontSize: 17,
+                                fontFamily: "Raleway2"),
+                          )
+                        ],
+                      ),
+                      SizedBox(
+                        width: 15,
+                      ),
+                      Column(
+                        children: <Widget>[
+                          ButtonGoFormFeelsFromCarer(
+                            idPatient: this.idPatient,
+                          ),
+                          Text(
+                            "Sentimientos",
+                            style: TextStyle(
+                                color: Colors.blue[900],
+                                fontSize: 17,
+                                fontFamily: "Raleway2"),
+                          )
+                        ],
+                      ),
+                      /* Column(
                         children: <Widget>[
                           ButtonGoMedicinesFromDoctor(idPatient: this.idPatient,),
                           Text(
@@ -114,53 +113,53 @@ class InteractionCarerPatient extends StatelessWidget {
                           )
                         ],
                       ),*/
-                ],
-              ),
-              SizedBox(
-                height: 30,
-              ),
-              Row(
-                children: <Widget>[
-                  SizedBox(
-                    width: 10,
-                  ),
-                  Column(
-                    children: <Widget>[
-                      ButtonGoMedicinesFromCarer(
-                        idPatient: this.idPatient,
-                      ),
-                      Text(
-                        "Medicamentos \n",
-                        style: TextStyle(
-                            color: Colors.blue[900],
-                            fontSize: 17,
-                            fontFamily: "Raleway2"),
-                      )
                     ],
                   ),
                   SizedBox(
-                    width: 2,
+                    height: 30,
                   ),
-                  Column(children: [
-                    ButtonGoFormNoMotoresFromCarer(
-                      idPatient: this.idPatient,
-                    ),
-                    Text(
-                      "Formulario Síntomas \nNo Motores",
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                          color: Colors.blue[900],
-                          fontSize: 17,
-                          fontFamily: "Raleway2"),
-                    )
-                  ])
+                  Row(
+                    children: <Widget>[
+                      SizedBox(
+                        width: 10,
+                      ),
+                      Column(
+                        children: <Widget>[
+                          ButtonGoMedicinesFromCarer(
+                            idPatient: this.idPatient,
+                          ),
+                          Text(
+                            "Medicamentos \n",
+                            style: TextStyle(
+                                color: Colors.blue[900],
+                                fontSize: 17,
+                                fontFamily: "Raleway2"),
+                          )
+                        ],
+                      ),
+                      SizedBox(
+                        width: 2,
+                      ),
+                      Column(children: [
+                        ButtonGoFormNoMotoresFromCarer(
+                          idPatient: this.idPatient,
+                        ),
+                        Text(
+                          "Formulario Síntomas \nNo Motores",
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                              color: Colors.blue[900],
+                              fontSize: 17,
+                              fontFamily: "Raleway2"),
+                        )
+                      ])
+                    ],
+                  ),
                 ],
               ),
-            ],
-          ),
-        ),
-      ],
-    ));
+            ),
+          ],
+        ));
   }
 }
 

@@ -55,43 +55,43 @@ class _toolboxCuidador0 extends State<toolboxCuidador> {
           new Container(
             width: 80,
             height: 750,
-            child: Expanded(
-              child: Column(
-                children: [
-                  SizedBox(
-                    height: 100,
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      Expanded(
-                        child: ButtonGoAboutExcercises(),
-                      ),
-                      Expanded(
-                        child: ButtonGoAboutFood(),
-                      ),
-                    ],
-                  ),
-                  SizedBox(
-                    height: 30,
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      /*Expanded(
+            // child: Expanded(
+            child: Column(
+              children: [
+                SizedBox(
+                  height: 100,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    Expanded(
+                      child: ButtonGoAboutExcercises(),
+                    ),
+                    Expanded(
+                      child: ButtonGoAboutFood(),
+                    ),
+                  ],
+                ),
+                SizedBox(
+                  height: 30,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    /*Expanded(
                                 child: ButtonGoAboutParkinson(),
                               ),*/
-                      Expanded(
-                        child: ButtonGoAboutParkinson(),
-                      ),
-                      Expanded(
-                        child: ButtonGoAboutNews(),
-                      ),
-                    ],
-                  ),
-                ],
-              ),
+                    Expanded(
+                      child: ButtonGoAboutParkinson(),
+                    ),
+                    Expanded(
+                      child: ButtonGoAboutNews(),
+                    ),
+                  ],
+                ),
+              ],
             ),
+            //  ),
           ),
         ],
       ),
