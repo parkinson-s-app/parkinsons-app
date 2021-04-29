@@ -158,22 +158,51 @@ _buildDataDescription(dataLine){
              ListView(
             padding: const EdgeInsets.all(8),
             children: <Widget>[
-          RichText(
-            text: TextSpan(
-            children: <TextSpan>[
-              TextSpan(text: 'Descripción: \n \n', style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold, 
+             RichText(
+              textAlign: TextAlign.center,
+              text: TextSpan(
+              children: <TextSpan>[
+              TextSpan(text: 'Descripción \n \n', style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold, 
               color: Colors.blue)),
+            ],
+          ),
+        ),
+             RichText(
+              textAlign: TextAlign.justify,
+              text: TextSpan(
+              children: <TextSpan>[
               TextSpan(text: description + '\n \n', style: TextStyle(fontSize: 15.0, fontWeight: FontWeight.bold, 
               color: Colors.black26)),
+            ],
+          ),
+        ),
+            RichText(
+              textAlign: TextAlign.center,
+              text: TextSpan(
+              children: <TextSpan>[
               TextSpan(text: ' Datos: \n \n ', style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold, 
               color: Colors.blue)),
+            ],
+          ),
+        ),
+          RichText(
+              textAlign: TextAlign.justify,
+              text: TextSpan(
+              children: <TextSpan>[
               TextSpan(text: 'A continuación, encuentra los datos que se encuentran graficados: \n\n', style: TextStyle(fontSize: 15.0, fontWeight: FontWeight.bold, 
               color: Colors.black26)),
+            ],
+          ),
+        ),
+          RichText(
+              textAlign: TextAlign.justify,
+              text: TextSpan(
+              children: <TextSpan>[
               TextSpan(text: _buildDataDescription(dataLine), style: TextStyle(fontSize: 15.0, fontWeight: FontWeight.bold, 
               color: colors)),
-              ],
-            ),
+            ],
           ),
+        ),  
             ]
           ),
             
