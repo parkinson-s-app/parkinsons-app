@@ -19,7 +19,7 @@ class _LoginPageState extends State<PasswordChange> {
         appBar: AppBar(
           centerTitle: true,
           title: Text(
-            "Cambiar contraseña",
+            "Cambiar Contraseña",
           ),
           backgroundColor: Colors.blue,
           actions: <Widget>[
@@ -39,7 +39,7 @@ class _LoginPageState extends State<PasswordChange> {
               textInputAction: TextInputAction.done,
               controller: emailRecoverController,
               decoration: InputDecoration(
-                  hintText: "Ingrese su correo eléctronico",
+                  hintText: "Ingrese su Correo Eléctronico",
                   hintStyle: TextStyle(color: Colors.grey),
                   border: OutlineInputBorder()),
             ),
@@ -58,7 +58,7 @@ class _LoginPageState extends State<PasswordChange> {
                   EndPoints().passwordRecover(emailRecoverController.text);
                   RoutesGeneral().toChangePasswordOtm(context);
                 },
-                child: Text('Enviar codigo')),
+                child: Text('Enviar Código')),
           ],
         )));
   }

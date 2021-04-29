@@ -77,10 +77,12 @@ class Utils {
     prefs.remove(TOKEN_KEY);
     Workmanager.cancelAll();
   }
+
   Future<void> logOut() async {
     final prefs = await SharedPreferences.getInstance();
     prefs.remove(TOKEN_KEY);
   }
+
   Future<bool> isSetBackgroundTask() async {
     final prefs = await SharedPreferences.getInstance();
     if (prefs.containsKey(TOKEN_TASK)) {
@@ -94,7 +96,7 @@ class Utils {
     Workmanager.initialize(
         callbackDispatcher, // The top level function, aka callbackDispatcher
         isInDebugMode:
-            true // If enabled it will post a notification whenever the task is running. Handy for debugging tasks
+            false // If enabled it will post a notification whenever the task is running. Handy for debugging tasks
         );
   }
 

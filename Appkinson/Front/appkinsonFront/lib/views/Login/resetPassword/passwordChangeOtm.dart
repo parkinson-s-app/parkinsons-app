@@ -29,7 +29,7 @@ class _LoginPageState extends State<PasswordChangeOtm> {
         appBar: AppBar(
           centerTitle: true,
           title: Text(
-            "Cambiar contraseña",
+            "Cambiar Contraseña",
           ),
           backgroundColor: Colors.blue,
           actions: <Widget>[
@@ -50,7 +50,7 @@ class _LoginPageState extends State<PasswordChangeOtm> {
               textInputAction: TextInputAction.done,
               controller: codController,
               decoration: InputDecoration(
-                  hintText: "Ingresa el codigo enviado a tu correo!",
+                  hintText: "Ingrese el Código Enviado a tu Correo",
                   hintStyle: TextStyle(color: Colors.grey),
                   border: OutlineInputBorder()),
             ),
@@ -68,7 +68,7 @@ class _LoginPageState extends State<PasswordChangeOtm> {
                     child: TextFormField(
                       controller: passwordRecoverController,
                       decoration: const InputDecoration(
-                        hintText: "Ingrese su nueva contraseña",
+                        hintText: "Ingrese su Nueva Contraseña",
                       ),
                       obscureText: _obscurePassword,
                     ),
@@ -90,7 +90,7 @@ class _LoginPageState extends State<PasswordChangeOtm> {
                     child: TextFormField(
                       controller: passwordRecoverController2,
                       decoration: const InputDecoration(
-                        hintText: "Ingrese su contraseña de nuevo",
+                        hintText: "Ingrese su Contraseña de Nuevo",
                       ),
                       obscureText: _obscurePassword,
                     ),
