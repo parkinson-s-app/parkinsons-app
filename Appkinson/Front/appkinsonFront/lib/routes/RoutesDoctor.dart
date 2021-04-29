@@ -6,7 +6,6 @@ import 'package:appkinsonFront/views/Relations/DoctorPatients.dart';
 import 'package:appkinsonFront/views/Relations/interactionDoctorPatient.dart';
 import 'package:appkinsonFront/views/Report/Widget_Chart_Line.dart';
 import 'package:appkinsonFront/views/Report/Widget_Chart_Pie.dart';
-import 'package:appkinsonFront/views/Report/Widget_Chart_lineal.dart';
 import 'package:appkinsonFront/views/Report/listReports.dart';
 import 'package:appkinsonFront/views/Report/reportConfig.dart';
 import 'package:appkinsonFront/views/Report/Widget_Chart_Serie.dart';

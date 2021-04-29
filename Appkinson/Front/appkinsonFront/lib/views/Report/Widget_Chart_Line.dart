@@ -26,6 +26,7 @@ class _WidgetChartLineState extends State<WidgetChartLine> {
   String ejey;
   String description;
   _WidgetChartLineState(this.dataLine, this.id,this.titulo,this.ejex,this.ejey, this.description);
+  Color colors;
 
 _buildDataDescription(dataLine){
   String finalData = "";
@@ -41,24 +42,17 @@ _buildDataDescription(dataLine){
 }
 
   _generateColor() {
-    var colors = [];
-    for (int i = 0; i < dataLine.length; i++) {
-      Color colorItem;
-      colorItem = Color((math.Random().nextDouble() * 0xFFFFFF).toInt() << 0)
+    return Color((math.Random().nextDouble() * 0xFFFFFF).toInt() << 0)
           .withOpacity(1.0);
-      colors.add(colorItem);
-    }
-    return colors;
   }
 
   _generateData() {
-    var colors = _generateColor();
     print(dataLine);
 
     for (int i = 0; i < dataLine.length; i++) {
       _seriesLineData.add(
         charts.Series(
-          colorFn: (__, _) => charts.ColorUtil.fromDartColor(colors[i]),
+          colorFn: (__, _) => charts.ColorUtil.fromDartColor(colors),
           id: id[0],
           data: dataLine[i],
           domainFn: (dataLineSerie dataLineSerie, _) => dataLineSerie.yearval,
@@ -70,9 +64,9 @@ _buildDataDescription(dataLine){
   }
 
   void initState() {
-    // TODO: implement initState
+    
     super.initState();
-
+    colors = _generateColor();
     _seriesLineData = List<charts.Series<dataLineSerie, int>>();
     _generateData();
   }
@@ -149,8 +143,19 @@ _buildDataDescription(dataLine){
            // borderRadius: BorderRadius.circular(13),
             color: Colors.white,
           ),
-          child: RichText(
-          text: TextSpan(
+          
+          child: ClipRRect(
+            borderRadius: BorderRadius.circular(15.0),
+            child: Card(
+            elevation: 2,
+            color:  Colors.white,
+            //color:  Color.fromRGBO(146 , 205, 227, 1),
+            child:
+             ListView(
+            padding: const EdgeInsets.all(8),
+            children: <Widget>[
+          RichText(
+            text: TextSpan(
             children: <TextSpan>[
               TextSpan(text: 'Descripción: \n \n', style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold, 
               color: Colors.blue)),
@@ -161,10 +166,16 @@ _buildDataDescription(dataLine){
               TextSpan(text: 'A continuación, encuentra los datos que se encuentran graficados: \n\n', style: TextStyle(fontSize: 15.0, fontWeight: FontWeight.bold, 
               color: Colors.black26)),
               TextSpan(text: _buildDataDescription(dataLine), style: TextStyle(fontSize: 15.0, fontWeight: FontWeight.bold, 
-              color: Colors.black26)),
+              color: colors)),
               ],
             ),
-          )    
+          ),
+            ]
+          ),
+            
+          ),
+          )  
+             
         ),
             ],
           ),
@@ -176,7 +187,7 @@ _buildDataDescription(dataLine){
 
 class dataLineSerie {
   int yearval;
-  int dataLineSerieval;
+  double dataLineSerieval;
 
   dataLineSerie(this.yearval, this.dataLineSerieval);
 }
