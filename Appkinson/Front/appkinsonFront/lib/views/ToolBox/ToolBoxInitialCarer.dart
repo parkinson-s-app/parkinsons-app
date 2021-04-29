@@ -1,11 +1,15 @@
 import 'dart:math';
 
 import 'package:appkinsonFront/utils/Utils.dart';
-import 'package:appkinsonFront/views/Toolbox/AboutExcercises/Buttons/ButtonGoAboutExcercises.dart';
-import 'package:appkinsonFront/views/Toolbox/AboutFood/Buttons/ButtonGoAboutFood.dart';
-import 'package:appkinsonFront/views/Toolbox/AboutNews/Buttons/ButtonGoAboutNews.dart';
-import 'package:appkinsonFront/views/Toolbox/AboutParkinson/Buttons/ButtonGoAboutParkinson.dart';
-import 'package:appkinsonFront/views/Toolbox/Pedometer/Buttons/ButtonGoPedometer.dart';
+import 'package:appkinsonFront/views/ToolBox/AboutExcercises/Buttons/ButtonGoAboutExcercises.dart';
+import 'package:appkinsonFront/views/ToolBox/AboutFood/Buttons/ButtonGoAboutFood.dart';
+import 'package:appkinsonFront/views/ToolBox/AboutNews/Buttons/ButtonGoAboutNews.dart';
+import 'package:appkinsonFront/views/ToolBox/AboutParkinson/Buttons/ButtonGoAboutParkinson.dart';
+//import 'package:appkinsonFront/views/Toolbox/AboutExcercises/Buttons/ButtonGoAboutExcercises.dart';
+//import 'package:appkinsonFront/views/Toolbox/AboutFood/Buttons/ButtonGoAboutFood.dart';
+//import 'package:appkinsonFront/views/Toolbox/AboutNews/Buttons/ButtonGoAboutNews.dart';
+//import 'package:appkinsonFront/views/Toolbox/AboutParkinson/Buttons/ButtonGoAboutParkinson.dart';
+//import 'package:appkinsonFront/views/Toolbox/Pedometer/Buttons/ButtonGoPedometer.dart';
 import 'package:appkinsonFront/views/sideMenus/CustomDrawerMenu.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -18,13 +22,13 @@ import 'package:decimal/decimal.dart';
 
 import 'Buttons/ButtonGoGame.dart';
 
-
 class toolboxCuidador extends StatefulWidget {
   @override
   _toolboxCuidador0 createState() => _toolboxCuidador0();
 }
 
 String tipe;
+
 class _toolboxCuidador0 extends State<toolboxCuidador> {
   // double percent=0.1;
 
@@ -48,7 +52,6 @@ class _toolboxCuidador0 extends State<toolboxCuidador> {
       body: ListView(
         padding: EdgeInsets.all(2.0),
         children: <Widget>[
-
           new Container(
             width: 80,
             height: 750,
