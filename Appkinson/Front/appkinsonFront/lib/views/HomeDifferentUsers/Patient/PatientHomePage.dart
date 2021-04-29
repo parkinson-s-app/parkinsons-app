@@ -22,13 +22,15 @@ class _PatientHomePage extends State<PatientHomePage> {
   var id;
   var tokenID;
   @override
-  Future<void> initState() async {
-    token = await Utils().getToken();
-    tokenID = await Utils().getFromToken('id');
+  Future<void> initState() {
+    _obtenerToken();
     super.initState();
   }
 
-
+_obtenerToken()  async {
+  token = await Utils().getToken();
+  id = await Utils().getFromToken('id');
+}
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;

@@ -37,8 +37,8 @@ class InteractionCarerPatient extends StatelessWidget {
               child: Stack(
                 children: <Widget>[
                   Positioned(
-                          top: 265,
-                          left: 255,
+                          top: 245,
+                          left: 245,
                           child: ButtonGoReporter(idPatient: this.idPatient),
                         ),
                   Image.asset(
