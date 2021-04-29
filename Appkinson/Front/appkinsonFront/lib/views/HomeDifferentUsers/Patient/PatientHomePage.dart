@@ -20,7 +20,6 @@ class _PatientHomePage extends State<PatientHomePage> {
   bool shouldPop = false;
   String token;
   var id;
-  var tokenID;
   @override
   Future<void> initState() {
     _obtenerToken();
@@ -68,7 +67,7 @@ _obtenerToken()  async {
                         Positioned(
                           top: 265,
                           left: 100,
-                          child: ButtonGoReporter(idPatient: this.tokenID),
+                          child: ButtonGoReporter(idPatient: this.id),
                         ),
                         /*
                           Positioned(
