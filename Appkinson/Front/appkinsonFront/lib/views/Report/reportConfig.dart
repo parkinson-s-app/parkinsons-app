@@ -23,7 +23,7 @@ class _ReportConfigPageState extends State<ReportConfigPage> {
     "Última semana",
     "Último mes",
     "Últimos tres meses",
-    //"Últimos seis meses",
+    "Últimos dos meses",
     //"Último año"
   ];
 
@@ -39,11 +39,11 @@ class _ReportConfigPageState extends State<ReportConfigPage> {
     if (periocity == "Último mes") {
       picked.add(new DateTime(now.year, now.month - 1, now.day));
     }
-    if (periocity == "Ultimos tres meses") {
-      picked.add(new DateTime(now.year, now.month - 3, now.day));
+    if (periocity == "Últimos dos meses") {
+      picked.add(new DateTime(now.year, now.month - 2, now.day));
     }
-    if (periocity == "Últimos seis meses") {
-      picked.add(new DateTime(now.year, now.month - 6, now.day));
+    if (periocity == "Últimos tres meses") {
+      picked.add(new DateTime(now.year, now.month - 3, now.day));
     }
     if (periocity == "Último año") {
       picked.add(new DateTime(now.year - 1, now.month, now.day));
