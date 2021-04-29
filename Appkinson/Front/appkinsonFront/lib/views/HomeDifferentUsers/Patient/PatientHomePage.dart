@@ -1,5 +1,7 @@
+import 'package:appkinsonFront/utils/Utils.dart';
 import 'package:appkinsonFront/views/AlarmsAndMedicine/AlarmAndMedicinePage.dart';
 import 'package:appkinsonFront/views/HomeDifferentUsers/Patient/Buttons/ButtonGoNoMotorSymptoms.dart';
+import 'package:appkinsonFront/views/Relations/Buttons/ButtonGoReporter.dart';
 import 'package:flutter/material.dart';
 import 'Buttons/ButtonGoCalendar.dart';
 import 'Buttons/ButtonGoProfile.dart';
@@ -16,10 +18,16 @@ class PatientHomePage extends StatefulWidget {
 
 class _PatientHomePage extends State<PatientHomePage> {
   bool shouldPop = false;
+  String token;
+  var id;
+  var tokenID;
   @override
-  void initState() {
+  Future<void> initState() async {
+    token = await Utils().getToken();
+    tokenID = await Utils().getFromToken('id');
     super.initState();
   }
+
 
   @override
   Widget build(BuildContext context) {
@@ -54,6 +62,11 @@ class _PatientHomePage extends State<PatientHomePage> {
                           top: 265,
                           left: 255,
                           child: ButtonGoRelationsRequest(),
+                        ),
+                        Positioned(
+                          top: 265,
+                          left: 100,
+                          child: ButtonGoReporter(idPatient: this.tokenID),
                         ),
                         /*
                           Positioned(
