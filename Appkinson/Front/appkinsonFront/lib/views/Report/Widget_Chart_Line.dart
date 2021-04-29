@@ -10,11 +10,13 @@ class WidgetChartLine extends StatefulWidget {
   String ejex;
   String ejey;
   String description;
+  String dataDescription;
   WidgetChartLine({Key key, @required this.dataLine, @required this.id, @required this.titulo,
-   @required this.ejex, @required this.ejey, @required this.description})
+   @required this.ejex, @required this.ejey, @required this.description, @required this.dataDescription})
       : super(key: key);
   _WidgetChartLineState createState() =>
-      _WidgetChartLineState(this.dataLine, this.id,this.titulo,this.ejex,this.ejey,this.description);
+      _WidgetChartLineState(this.dataLine, this.id,this.titulo,this.ejex,this.ejey,this.description,
+      this.dataDescription);
 }
 
 class _WidgetChartLineState extends State<WidgetChartLine> {
@@ -25,7 +27,9 @@ class _WidgetChartLineState extends State<WidgetChartLine> {
   String ejex;
   String ejey;
   String description;
-  _WidgetChartLineState(this.dataLine, this.id,this.titulo,this.ejex,this.ejey, this.description);
+  String dataDescription;
+  _WidgetChartLineState(this.dataLine, this.id,this.titulo,this.ejex,this.ejey, this.description,
+  this.dataDescription);
   Color colors;
 
 _buildDataDescription(dataLine){

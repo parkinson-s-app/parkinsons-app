@@ -67,7 +67,7 @@ class _PatientHomePage extends State<PatientHomePage> {
                           child: ButtonGoRelationsRequest(),
                         ),
                         Positioned(
-                          top: 265,
+                          top: 240,
                           left: 100,
                           child: ButtonGoReporter(idPatient: this.id),
                         ),
