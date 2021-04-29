@@ -437,7 +437,7 @@ class _CalendarScreenView2 extends State<CalendarScreenView2> {
                                   },
                                   decoration: InputDecoration(
                                       hintText:
-                                          "Ej: 'hoy tuve un movimiento raro"),
+                                          "Ej:'Movimento anormal en la mano'"),
                                 ),
                                 Divider(thickness: 1),
                                 FlatButton(
@@ -606,7 +606,7 @@ class _CalendarScreenView2 extends State<CalendarScreenView2> {
                                     },
                                     decoration: InputDecoration(
                                         hintText:
-                                            "Ej: 'hoy tuve un movimiento raro"),
+                                            "Ej:'movimento anormal en la mano'"),
                                   ),
                                   Divider(thickness: 1),
                                   FlatButton(

@@ -382,7 +382,8 @@ class _Calendar extends State<CalendarScreenView2Carer> {
                                 return value.isNotEmpty ? null : "Invalido";
                               },
                               decoration: InputDecoration(
-                                  hintText: "Ej: 'hoy tuve un movimiento raro"),
+                                  hintText:
+                                      "Ej:'Movimento anormal en la mano'"),
                             ),
                             Divider(thickness: 1),
                             FlatButton(
