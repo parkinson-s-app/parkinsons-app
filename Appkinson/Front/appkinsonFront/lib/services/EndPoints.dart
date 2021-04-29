@@ -666,6 +666,7 @@ class EndPoints {
     DateTime recordDate = DateTime.now();
     debugPrint("AQUÍ ESTAMOS");
     debugPrint(tokenID);
+    debugPrint(stepsQuantity.toString());
     Map<String, dynamic> data2 = {
       "gameDate": recordDate.toString(),
       "score": stepsQuantity.toString(),

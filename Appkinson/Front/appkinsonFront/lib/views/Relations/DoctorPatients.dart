@@ -111,9 +111,7 @@ class DoctorPatientsCustom extends State<DoctorPatients> {
       child: Scaffold(
         appBar: AppBar(
           toolbarHeight: 70,
-          title: !isSearching
-              ? Text('Pacientes No Agregados')
-              : TextField(
+          title: !isSearching ? Text('Pacientes No Agregados') : TextField(
                   onChanged: (value) {
                     filterSearchResults(value);
                   },
@@ -131,9 +129,9 @@ class DoctorPatientsCustom extends State<DoctorPatients> {
                     ),
                   ),
                 ),
+                //-------
           actions: <Widget>[
-            !isSearching
-                ? IconButton(
+            !isSearching ? IconButton(
                     icon: Icon(Icons.search),
                     onPressed: () {
                       setState(() {
@@ -150,6 +148,7 @@ class DoctorPatientsCustom extends State<DoctorPatients> {
                     },
                   )
           ],
+          //
         ),
         body: SingleChildScrollView(
             child: Column(
