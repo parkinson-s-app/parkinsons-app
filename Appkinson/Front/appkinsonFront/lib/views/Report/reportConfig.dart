@@ -4,6 +4,7 @@ import 'package:date_range_picker/date_range_picker.dart' as DateRangePicker;
 
 List<DateTime> picked = [];
 String selectedChoice = "";
+DateTime selectedDate = DateTime.now();
 
 class ReportConfigPage extends StatefulWidget {
   final int idPatient;
@@ -83,7 +84,7 @@ class _ReportConfigPageState extends State<ReportConfigPage> {
         builder: (BuildContext context) {
           //Here we will build the content of the dialog
           return AlertDialog(
-            title: Text("Periocidad"),
+            title: Text("Periodicidad"),
             content: MultiSelectChipOne(dataListPeriocity),
             actions: <Widget>[
               FlatButton(
@@ -130,12 +131,15 @@ class _ReportConfigPageState extends State<ReportConfigPage> {
               "Intervalo de tiempo: ",
               style: TextStyle(fontSize: 20),
             ),
+            SizedBox(
+              height: 30,
+            ),
             Container(
               width: 290,
               height: 60,
               child: FlatButton(
-                child: Text("Periocidad"),
-                color: Colors.grey[350],
+                child: Text("Periodicidad"),
+                color: Colors.blue,
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(18.0)),
                 onPressed: () => _showReportDialogPeriocity(),
@@ -143,6 +147,22 @@ class _ReportConfigPageState extends State<ReportConfigPage> {
             ),
             SizedBox(
               height: 10,
+            ),
+            Container(
+              width: 290,
+              height: 60,
+              child: FlatButton(
+                child: Text("Escoger un día"),
+                color: Colors.blue,
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(18.0)),
+                onPressed: () async {
+                  _selectDate(context);
+                  if(picked.isNotEmpty){ picked.clear();}
+                  picked.add(new DateTime(selectedDate.year, selectedDate.month , selectedDate.day, 00 , 00 , 00));
+                  picked.add(new DateTime(selectedDate.year, selectedDate.month , selectedDate.day, 23 , 59 , 59));
+                },
+              ),
             ),
             /* Container(
               width: 290,
@@ -196,7 +216,20 @@ class _ReportConfigPageState extends State<ReportConfigPage> {
       ),
     );
   }
+  _selectDate(BuildContext context) async {
+  final DateTime picked = await showDatePicker(
+    context: context,
+    initialDate: selectedDate, // Refer step 1
+    firstDate: DateTime(2000),
+    lastDate: DateTime(2025),
+  );
+  if (picked != null && picked != selectedDate)
+    setState(() {
+      selectedDate = picked;
+    });
 }
+}
+
 
 class MultiSelectChipOne extends StatefulWidget {
   final List<String> reportList;

@@ -149,8 +149,10 @@ _buildDataDescription(dataLine){
            // borderRadius: BorderRadius.circular(13),
             color: Colors.white,
           ),
-          child: RichText(
-          text: TextSpan(
+          child: Card(
+            color:  Color.fromRGBO(202, 231, 221, 0),
+            child: RichText(
+            text: TextSpan(
             children: <TextSpan>[
               TextSpan(text: 'Descripción: \n \n', style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold, 
               color: Colors.blue)),
@@ -164,6 +166,8 @@ _buildDataDescription(dataLine){
               color: Colors.black26)),
               ],
             ),
+          ),
+
           )    
         ),
             ],
@@ -176,7 +180,7 @@ _buildDataDescription(dataLine){
 
 class dataLineSerie {
   int yearval;
-  int dataLineSerieval;
+  double dataLineSerieval;
 
   dataLineSerie(this.yearval, this.dataLineSerieval);
 }

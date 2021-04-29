@@ -119,28 +119,71 @@ _buildDataDescription(var dataPie){
         ),
       ),
               Container(
-          padding: EdgeInsets.all(40),
+          padding: EdgeInsets.all(30),
           decoration: BoxDecoration(
            // borderRadius: BorderRadius.circular(13),
             color: Colors.white,
           ),
-          child: RichText(
-          text: TextSpan(
-            children: <TextSpan>[
-              TextSpan(text: 'Descripción: \n \n', style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold, 
+          child: ClipRRect(
+            borderRadius: BorderRadius.circular(15.0),
+            child: Card(
+            elevation: 2,
+            color:  Colors.white,
+            //color:  Color.fromRGBO(146 , 205, 227, 1),
+            child:
+             ListView(
+            padding: const EdgeInsets.all(8),
+            children: <Widget>[
+              RichText(
+              textAlign: TextAlign.center,
+              text: TextSpan(
+              children: <TextSpan>[
+              TextSpan(text: 'Descripción \n \n', style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold, 
               color: Colors.blue)),
-              TextSpan(text: descripcion + '\n \n', style: TextStyle(fontSize: 15.0, fontWeight: FontWeight.bold, 
-              color: Colors.black26)),
-              TextSpan(text: ' Datos: \n \n ', style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold, 
-              color: Colors.blue)),
-              TextSpan(text: 'A continuación, encuentra los datos que se encuentran graficados: \n\n', style: TextStyle(fontSize: 15.0, fontWeight: FontWeight.bold, 
-              color: Colors.black26)),
-              TextSpan(text: _buildDataDescription(dataPie), style: TextStyle(fontSize: 15.0, fontWeight: FontWeight.bold, 
+            ],
+          ),
+        ),
+              RichText(
+              textAlign: TextAlign.justify,
+              text: TextSpan(
+              children: <TextSpan>[
+              TextSpan(text: descripcion + '\n', style: TextStyle(fontSize: 15.0, fontWeight: FontWeight.bold, 
               color: Colors.black26)),
             ],
           ),
-        )
-           
+        ),
+        RichText(
+              textAlign: TextAlign.center,
+              text: TextSpan(
+              children: <TextSpan>[
+              TextSpan(text: ' Datos \n ', style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold, 
+              color: Colors.blue)),
+            ],
+          ),
+        ),
+        RichText(
+              textAlign: TextAlign.justify,
+              text: TextSpan(
+              children: <TextSpan>[
+              TextSpan(text: 'A continuación, encuentra los datos que se encuentran graficados: \n\n', style: TextStyle(fontSize: 15.0, fontWeight: FontWeight.bold, 
+              color: Colors.black26)),
+            ],
+          ),
+        ),
+        RichText(
+              textAlign: TextAlign.justify,
+              text: TextSpan(
+              children: <TextSpan>[
+              TextSpan(text: _buildDataDescription(dataPie), style: TextStyle(fontSize: 15.0, fontWeight: FontWeight.bold, 
+              color: Colors.black26)),
+              ],
+             ),
+            )
+            ]
+          ),
+            
+          ),
+          )  
         ),
             ],
           ),

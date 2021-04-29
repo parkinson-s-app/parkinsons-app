@@ -490,6 +490,7 @@ class EndPoints {
         pagePath, '/api/patient/$tokenID/game/report', queryParameters);
     http.Response lista = await http
         .get(uri, headers: {HttpHeaders.authorizationHeader: jwtkey + token});
+    
     String i = lista.body;
     var codeList = json.decode(i);
     debugPrint(i);
@@ -559,6 +560,23 @@ class EndPoints {
     };
     var uri = Uri.http(
         pagePath, '/api/patient/$tokenID/noMotorSymptoms/report', queryParameters);
+    http.Response lista = await http
+        .get(uri, headers: {HttpHeaders.authorizationHeader: jwtkey + token});
+    String i = lista.body;
+    var codeList = json.decode(i);
+    debugPrint(i);
+    return i;
+  }
+
+    Future<String> getAverageSymptomsByDay(
+      var tokenID, DateTime start, DateTime end) async {
+    var token = await Utils().getToken();
+    var queryParameters = {
+      'start': start.toString(),
+      'end': end.toString(),
+    };
+    var uri = Uri.http(
+        pagePath, '/api/patient/$tokenID/report/daily', queryParameters);
     http.Response lista = await http
         .get(uri, headers: {HttpHeaders.authorizationHeader: jwtkey + token});
     String i = lista.body;
