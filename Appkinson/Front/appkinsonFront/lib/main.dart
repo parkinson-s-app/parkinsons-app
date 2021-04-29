@@ -1,34 +1,16 @@
 import 'dart:convert';
 import 'package:appkinsonFront/services/EndPoints.dart';
 import 'package:appkinsonFront/utils/Utils.dart';
-import 'package:appkinsonFront/views/AboutUs/helpSupport.dart';
-import 'package:appkinsonFront/views/Administrator/FormAddItem.dart';
 import 'package:appkinsonFront/views/AlarmsAndMedicine/AlarmAndMedicinePage.dart';
-import 'package:appkinsonFront/views/Calendar/CalendarScreenView2.dart';
-import 'package:appkinsonFront/views/DataAnalisis/ReportScreen.dart';
-import 'package:appkinsonFront/views/Game/countDownGame.dart';
 import 'package:appkinsonFront/views/HomeDifferentUsers/Admin/AdminHomePage.dart';
 import 'package:appkinsonFront/views/HomeDifferentUsers/Carer/CarerHomePage.dart';
 import 'package:appkinsonFront/views/HomeDifferentUsers/Doctor/DoctorHomePage.dart';
 import 'package:appkinsonFront/views/HomeDifferentUsers/Patient/PatientHomePage.dart';
-import 'package:appkinsonFront/views/Medicines/medicines.dart';
-import 'package:appkinsonFront/views/RelationRequest/relationsRequets.dart';
-import 'package:appkinsonFront/views/Relations/interactionDoctorPatient.dart';
-import 'package:appkinsonFront/views/ToolBox/ToolBoxInitial.dart';
 import 'package:flutter/material.dart';
 import 'package:nova_alarm_plugin/nova_alarm_plugin.dart';
-import 'views/SymptomsFormPatient/SymptomsFormPatient.dart';
-import 'package:appkinsonFront/local_notifications.dart';
 import 'package:workmanager/workmanager.dart';
-import 'package:appkinsonFront/views/Login/Buttons/ButtonLogin.dart';
 import 'views/HomeInitial/HomePage.dart';
-import 'views/Notifications/PatientNotifications.dart';
-import 'views/HomeInitial/HomePage.dart';
-import 'views/Login/LoginPage.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
-import 'views/SymptomsFormDoctor/symptomsForm.dart';
-import 'views/Calendar/CalendarScreen.dart';
-import 'model/User.dart';
 import 'constants/Constant.dart';
 
 final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =

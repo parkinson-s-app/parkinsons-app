@@ -613,9 +613,9 @@ returnDataLine(int length, var discrepancyaDataDecode) {
   List<Animo> data = [];
   for (int i = 0; i < length; i++) {
     data.add(new Animo(
-        discrepancyaDataDecode[i]['mes'].toInt(),
-        discrepancyaDataDecode[i]['Promedio']
-            .toDouble())); // mes y promedio en tiempo del desfase calculado
+        discrepancyaDataDecode[i]['Promedio'].toDouble(),
+        toMonthString(discrepancyaDataDecode[i]
+            ['mes']))); // mes y promedio en tiempo del desfase calculado
   }
   allData.add(data);
 
@@ -624,8 +624,6 @@ returnDataLine(int length, var discrepancyaDataDecode) {
 
 returnDataLineMotors(int length, var motorsDataDecode) {
   //Gráfica de discrepancia del tiempo en la toma de médicamentos
-  print("JAPTAA");
-  print(motorsDataDecode);
   var allData = [];
   List<dataLineSerie> data = [];
   for (int i = 0; i < length; i++) {

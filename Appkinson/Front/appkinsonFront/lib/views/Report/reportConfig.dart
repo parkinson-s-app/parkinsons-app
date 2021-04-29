@@ -98,6 +98,23 @@ class _ReportConfigPageState extends State<ReportConfigPage> {
         });
   }
 
+  _openPopup(context) {
+    showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          //Here we will build the content of the dialog
+          return AlertDialog(
+            content: Text("Escoge una fecha para generar los reportes"),
+            actions: <Widget>[
+              FlatButton(
+                child: Text("Aceptar"),
+                onPressed: () => Navigator.of(context).pop(),
+              )
+            ],
+          );
+        });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -152,7 +169,7 @@ class _ReportConfigPageState extends State<ReportConfigPage> {
               width: 290,
               height: 60,
               child: FlatButton(
-                child: Text("Escoger un día"),
+                child: Text("Escoger fecha"),
                 color: Colors.blue,
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(18.0)),
@@ -200,10 +217,11 @@ class _ReportConfigPageState extends State<ReportConfigPage> {
                 onPressed: () {
                   print(picked[0]);
                   print(picked[1]);
-                  if (!picked.isEmpty) {
+                  if (picked.isNotEmpty) {
                     RoutesDoctor().toListReportPage(context, idPatient, picked);
-                  } else {
-                    print("Agregar pop up de que debe seleccionar fechas");
+                  } 
+                  if(picked.isEmpty){
+                    print("ENTRA");
                   }
                 },
                 child: Text("Generar reporte"),
@@ -216,6 +234,7 @@ class _ReportConfigPageState extends State<ReportConfigPage> {
       ),
     );
   }
+
   _selectDate(BuildContext context) async {
   final DateTime picked = await showDatePicker(
     context: context,
@@ -228,7 +247,11 @@ class _ReportConfigPageState extends State<ReportConfigPage> {
       selectedDate = picked;
     });
 }
+
+
+
 }
+
 
 
 class MultiSelectChipOne extends StatefulWidget {
