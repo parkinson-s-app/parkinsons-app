@@ -1,4 +1,5 @@
 import 'package:appkinsonFront/routes/RoutesPatient.dart';
+import 'package:appkinsonFront/views/ToolBox/ToolBoxInitial.dart';
 import 'package:flutter/material.dart';
 
 //import '../../Register/RegisterPage.dart';
@@ -14,6 +15,7 @@ class ButtonGoToolBox extends StatelessWidget {
         shape: CircleBorder(),
         //   side: BorderSide(color: Color.fromRGBO(0, 160, 227, 1))),
         onPressed: () {
+          show = true;
           RoutesPatient().toToolbox(context);
         },
         padding: EdgeInsets.symmetric(horizontal: 10),

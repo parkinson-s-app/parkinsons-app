@@ -23,6 +23,8 @@ class toolbox extends StatefulWidget {
   _toolbox0 createState() => _toolbox0();
 }
 
+bool show;
+
 class _toolbox0 extends State<toolbox> {
   String muestrePasos = "0";
   String _km = "0";
@@ -163,9 +165,11 @@ class _toolbox0 extends State<toolbox> {
                     /*Expanded(
                                 child: ButtonGoAboutParkinson(),
                               ),*/
-
-                    Expanded(
-                      child: ButtonGoGame(),
+                    Visibility(
+                      child: Expanded(
+                        child: ButtonGoGame(),
+                      ),
+                      visible: show,
                     ),
                     Expanded(
                       child: ButtonGoAboutNews(),
