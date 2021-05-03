@@ -11,6 +11,7 @@ class CountDownTimer extends StatefulWidget {
 
 int count = 0;
 bool envio = false;
+bool isPlaying;
 
 class CustomTimerPainter extends CustomPainter {
   CustomTimerPainter({
@@ -30,20 +31,25 @@ class CustomTimerPainter extends CustomPainter {
       ..strokeCap = StrokeCap.butt
       ..style = PaintingStyle.stroke;
 
-    canvas.drawCircle(size.center(Offset.zero), size.width / 2.0, paint);
+    canvas.drawCircle(size.center(Offset.zero), size.width / 2.5, paint);
     paint.color = color;
     double progress = (1.0 - animation.value) * 2 * math.pi;
     //print(progress);
+  
     if (progress > 6.28 && envio == false) {
       envio = true;
       _sendScore();
       print("AQUIIII");
+      _CountDownTimerState().initState();
     }
     canvas.drawArc(Offset.zero & size, math.pi * 1.5, -progress, false, paint);
   }
 
   Future _sendScore() async {
-    await EndPoints().sendGameRecord(count);
+    if(count != 0){
+      await EndPoints().sendGameRecord(count);
+    }
+    
   }
 
   @override
@@ -68,11 +74,13 @@ class _CountDownTimerState extends State<CountDownTimer>
     super.initState();
     count = 0;
     envio = false;
+    isPlaying = true;
     controller = AnimationController(
       vsync: this,
       duration: Duration(seconds: 30),
     );
   }
+
 
   @override
   Widget build(BuildContext context) {
@@ -110,7 +118,7 @@ class _CountDownTimerState extends State<CountDownTimer>
                               children: <Widget>[
                                 Positioned.fill(
                                   child: CustomPaint(
-                                      painter: CustomTimerPainter(
+                                    painter: CustomTimerPainter(
                                     animation: controller,
                                     backgroundColor: Colors.white,
                                     color: themeData.indicatorColor,
@@ -133,7 +141,7 @@ class _CountDownTimerState extends State<CountDownTimer>
                                       Text(
                                         timerString,
                                         style: TextStyle(
-                                            fontSize: 100.0,
+                                            fontSize: 60.0,
                                             color: Colors.white),
                                       ),
                                     ],
@@ -144,34 +152,37 @@ class _CountDownTimerState extends State<CountDownTimer>
                           ),
                         ),
                       ),
-                      SizedBox(
-                        width: 200,
-                        height: 200,
+                      !isPlaying ?
+                      Column(children : [
+                        SizedBox(
+                        width: 250,
+                        height: 250,
                         child: FloatingActionButton(
                           heroTag: "btn1",
                           child: Icon(
                             Icons.fingerprint_rounded,
-                            size: 32,
+                            size: 160,
                           ),
                           backgroundColor: Colors.green,
                           onPressed: () {
                             if (controller.value != 0.0) {
-                              //print(controller.value);
                               setState(() {});
                               count = count + 1;
                             }
                             if (controller.value == 0.0) {
                               print("Se acabó el tiempo");
-                            }
-                            //debugPrint(controller.value.toString());
+                            }   
                           },
                         ),
                       ),
                       Text(
                         '$count',
-                        style: TextStyle(fontSize: 50, color: Colors.blue),
-                      ),
-                      AnimatedBuilder(
+                        style: TextStyle(fontSize: 60, color: Colors.blue),
+                      ),])
+                     : SizedBox(
+                        width: 250,
+                        height: 250,
+                        child: AnimatedBuilder(
                           animation: controller,
                           builder: (context, child) {
                             return SizedBox(
@@ -186,17 +197,23 @@ class _CountDownTimerState extends State<CountDownTimer>
                                           ? 1.0
                                           : controller.value);
                                   if (controller.value == 1.0) {
-                                    print("ENTRAAAAAA");
 
                                     envio = false;
                                     //Aquí llamar el servicio y si es diferente de 0 se guarda el resultado
                                     count = 0;
                                   }
+                                  isPlaying = !isPlaying;
                                 },
-                                label: Text("Empezar"),
+                                label: Text(
+                                  "Empezar",
+                                    style: TextStyle(
+                                            fontSize: 50.0
+                                            ),
+                                  ),
                               ),
                             );
-                          }),
+                          }
+                          ))
                     ],
                   ),
                 ),
@@ -207,3 +224,7 @@ class _CountDownTimerState extends State<CountDownTimer>
   }
 }
 //añadiendo comentario
+
+Widget button(bool isPlaying) {
+
+}
