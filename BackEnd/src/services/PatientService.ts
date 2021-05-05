@@ -502,7 +502,7 @@ export default class PatientService {
             const res = await executeSQL(query,[idPatient, initDate, endDate]);
             debug('getReportNoMotorTwoDates executed ');
             const listJSON = JSON.parse(JSON.stringify(res[0]));
-            debug('query discrepancy response as a list with size:%j', listJSON.length);
+            debug('query getReportNoMotorTwoDates response as a list with size:%j', listJSON.length);
             let acum = 0;
             let average = 0;
             let questions = [];
@@ -696,7 +696,7 @@ export default class PatientService {
             const finalResponse = {
                 Promedio: average,
                 Cantidad: size,
-                Fecha: listJSON[0].date,
+                Fecha: (size !== 0) ? listJSON[0].date: '0000-00-00T00:00:00.000Z',
                 Preguntas: questions
             };
             debug('response no motor report final :%j', finalResponse);
