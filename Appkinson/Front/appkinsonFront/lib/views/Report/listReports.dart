@@ -125,8 +125,11 @@ class _ListReportPage extends State<ListReportPage> {
             averageGameResponseDecode[i]['Promedio'].toString() +
             " en promedio de puntaje jugado y " +
             averageGameResponseDecode[i]['Cantidad'].toString() +
-            " de veces jugadas. \n Puntaje máximo:" + averageGameResponseDecode[i]['Max'].toString() + 
-            ". Puntaje mínimo: " + averageGameResponseDecode[i]['Min'].toString() + " \n";
+            " de veces jugadas. \n Puntaje máximo:" +
+            averageGameResponseDecode[i]['Max'].toString() +
+            ". Puntaje mínimo: " +
+            averageGameResponseDecode[i]['Min'].toString() +
+            " \n";
       }
       seriedataGameAverage = returnDataSeriesGameAverage(
           averageGameResponseDecode.length, averageGameResponseDecode);
@@ -174,15 +177,18 @@ class _ListReportPage extends State<ListReportPage> {
       if (dataDescriptionNoMotores != "") {
         dataDescriptionNoMotores = "";
       }
-      for (int i = 0; i < noMotorsDataDecode.length; i++) {
+      for (int i = 1; i < noMotorsDataDecode.length; i++) {
         dataDescriptionNoMotores = dataDescriptionNoMotores +
-            "Semana " + noMotorsDataDecode[i]['Week'] +
+            "Semana " +
+            noMotorsDataDecode[i]['Week'].toString() +
             " : " +
-            noMotorsDataDecode[i]['Promedio'] +" en promedio. Fecha: " + noMotorsDataDecode[i]['Fecha'] + "\n";     
+            noMotorsDataDecode[i]['Promedio'].toString() +
+            " en promedio. Fecha: " +
+            noMotorsDataDecode[i]['Fecha'] +
+            "\n";
       }
       lineDataNoMotors =
           returnDataLineMotors(noMotorsDataDecode.length, noMotorsDataDecode);
-      
 
       //Construyendo la gráfica de los sintomas por día
       var symptomsByDayDataDecode = json.decode(dataSymptomsByDay);
@@ -192,9 +198,11 @@ class _ListReportPage extends State<ListReportPage> {
       }
       for (int i = 0; i < symptomsByDayDataDecode.length; i++) {
         dataDescriptionSymptomsDay = dataDescriptionSymptomsDay +
-            "Hora " + symptomsByDayDataDecode[i]['Hora'] +
-            " : " +
-            symptomsByDayDataDecode[i]['. Estado : '] +  symptomsByDayDataDecode[i]['Estado'] + "\n";     
+            "Hora " +
+            symptomsByDayDataDecode[i]['Hora'].toString() +
+            '. Estado : ' +
+            symptomsByDayDataDecode[i]['Estado'].toString() +
+            "\n";
       }
 
       lineDataSymptomsDay = returnDataLineSymptomsByDay(
@@ -419,7 +427,7 @@ class _ListReportPage extends State<ListReportPage> {
                         )
                       ]),
                       Column(children: [
-                       /* RaisedButton(
+                        /* RaisedButton(
                           shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(18.0)),
                           onPressed: () {
@@ -447,45 +455,45 @@ class _ListReportPage extends State<ListReportPage> {
                               fontSize: 17,
                               fontFamily: "Raleway2"),
                         )*/
-                          RaisedButton(
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(18.0)),
-                        onPressed: () {
-                          RoutesDoctor().toReportChartLine(
-                              context,
-                              idsNoMotorsAverage,
-                              lineDataNoMotors,
-                              "Promedio de los puntajes en los síntomas no motores \n \n",
-                              "Semanas",
-                              "Promedio",
-                              descriptionNoMotors,
-                              dataDescriptionNoMotores);
-                        },
-                        child: Image.asset(
-                          "assets/images/output-onlinepngtools (3).png",
-                          height: size.height * 0.08,
+                        RaisedButton(
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(18.0)),
+                          onPressed: () {
+                            RoutesDoctor().toReportChartLine(
+                                context,
+                                idsNoMotorsAverage,
+                                lineDataNoMotors,
+                                "Promedio de los puntajes en los síntomas no motores \n \n",
+                                "Semanas",
+                                "Promedio",
+                                descriptionNoMotors,
+                                dataDescriptionNoMotores);
+                          },
+                          child: Image.asset(
+                            "assets/images/output-onlinepngtools (3).png",
+                            height: size.height * 0.08,
+                          ),
+                          color: Colors.grey[50],
+                          textColor: Colors.white,
                         ),
-                        color: Colors.grey[50],
-                        textColor: Colors.white,
-                      ),
-                      Text(
-                        "Promedio \nde los \n Puntajes\n en los\n Síntomas \n No Motores ",
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                            color: Colors.blue[900],
-                            fontSize: 17,
-                            fontFamily: "Raleway2"),
-                      ),
+                        Text(
+                          "Promedio \nde los \n Puntajes\n en los\n Síntomas \n No Motores ",
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                              color: Colors.blue[900],
+                              fontSize: 17,
+                              fontFamily: "Raleway2"),
+                        ),
                       ]),
                     ]),
                 SizedBox(
                   height: 100,
                 ),
-                 Row(
+                Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
                       Column(children: [
-                      RaisedButton(
+                        RaisedButton(
                           shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(18.0)),
                           onPressed: () {
@@ -612,7 +620,7 @@ returnDataPie(List<double> datos) {
     new DataPieChart('OFF MALO', datos[2], Colors.red),
     new DataPieChart('OFF MUY MALO', datos[3], Colors.red[800]),
   ];
-  return linealdata; 
+  return linealdata;
 }
 
 returnDataLineSymptomsByDay(int length, var symptomsDay) {
