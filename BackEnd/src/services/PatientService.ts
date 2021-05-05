@@ -387,7 +387,7 @@ export default class PatientService {
             debug('size :%s', size);
             for (let index = 0; index < size; index++) {
                 if(listJSON[index].Q1 !== -1 && listJSON[index].Q2 !== -1) {
-                    acum += Number(((listJSON[index].Q1 + listJSON[index].Q2)/2).toFixed(1));
+                    acum += Number(((listJSON[index].Q1 + listJSON[index].Q2)).toFixed(1));
                 } else {
                     elementsInvalid++;
                 }
