@@ -506,7 +506,7 @@ export default class PatientService {
             let acum = 0;
             let average = 0;
             const size = listJSON.length;
-            for (let index = 0; index < size; index++) {
+            for (let index = 0; size && (index < 1); index++) {
                 acum += listJSON[index].Q1;
                 acum += listJSON[index].Q2;
                 acum += listJSON[index].Q3;
@@ -543,7 +543,8 @@ export default class PatientService {
             }
             const finalResponse = {
                 Promedio: average,
-                Cantidad: size
+                Cantidad: size,
+                Fecha: listJSON[0].date
             };
             debug('response no motor report final :%j', finalResponse);
             return finalResponse;
