@@ -505,46 +505,199 @@ export default class PatientService {
             debug('query discrepancy response as a list with size:%j', listJSON.length);
             let acum = 0;
             let average = 0;
+            let questions = [];
             const size = listJSON.length;
             for (let index = 0; size && (index < 1); index++) {
-                acum += listJSON[index].Q1;
-                acum += listJSON[index].Q2;
-                acum += listJSON[index].Q3;
-                acum += listJSON[index].Q4;
-                acum += listJSON[index].Q5;
-                acum += listJSON[index].Q6;
-                acum += listJSON[index].Q7;
-                acum += listJSON[index].Q8;
-                acum += listJSON[index].Q9;
-                acum += listJSON[index].Q10;
-                acum += listJSON[index].Q11;
-                acum += listJSON[index].Q12;
-                acum += listJSON[index].Q13;
-                acum += listJSON[index].Q14;
-                acum += listJSON[index].Q15;
-                acum += listJSON[index].Q16;
-                acum += listJSON[index].Q17;
-                acum += listJSON[index].Q18;
-                acum += listJSON[index].Q19;
-                acum += listJSON[index].Q20;
-                acum += listJSON[index].Q21;
-                acum += listJSON[index].Q22;
-                acum += listJSON[index].Q23;
-                acum += listJSON[index].Q24;
-                acum += listJSON[index].Q25;
-                acum += listJSON[index].Q26;
-                acum += listJSON[index].Q27;
-                acum += listJSON[index].Q28;
-                acum += listJSON[index].Q29;
-                acum += listJSON[index].Q30;
+                if(listJSON[index].Q1){
+                    acum += listJSON[index].Q1 - 1;
+                    if(listJSON[index].Q1 === 2){
+                        questions.push('Q1');
+                    }
+                }
+                if(listJSON[index].Q2){
+                    acum += listJSON[index].Q2 - 1;
+                    if(listJSON[index].Q2 === 2){
+                        questions.push('Q2');
+                    }
+                }
+                if(listJSON[index].Q3){
+                    acum += listJSON[index].Q3 - 1;
+                    if(listJSON[index].Q3 === 2){
+                        questions.push('Q3');
+                    }
+                }
+                if(listJSON[index].Q4){
+                    acum += listJSON[index].Q4 - 1;
+                    if(listJSON[index].Q4 === 2){
+                        questions.push('Q4');
+                    }
+                }
+                if(listJSON[index].Q5){
+                    acum += listJSON[index].Q5 - 1;
+                    if(listJSON[index].Q5 === 2){
+                        questions.push('Q5');
+                    }
+                }
+                if(listJSON[index].Q6){
+                    acum += listJSON[index].Q6 - 1;
+                    if(listJSON[index].Q6 === 2){
+                        questions.push('Q6');
+                    }
+                }
+                if(listJSON[index].Q7){
+                    acum += listJSON[index].Q7 - 1;
+                    if(listJSON[index].Q7 === 2){
+                        questions.push('Q7');
+                    }
+                }
+                if(listJSON[index].Q8){
+                    acum += listJSON[index].Q8 - 1;
+                    if(listJSON[index].Q8 === 2){
+                        questions.push('Q8');
+                    }
+                }
+                if(listJSON[index].Q9){
+                    acum += listJSON[index].Q9 - 1;
+                    if(listJSON[index].Q9 === 2){
+                        questions.push('Q9');
+                    }
+                }
+                if(listJSON[index].Q10){
+                    acum += listJSON[index].Q10 - 1;
+                    if(listJSON[index].Q10 === 2){
+                        questions.push('Q10');
+                    }
+                }
+                if(listJSON[index].Q11){
+                    acum += listJSON[index].Q11 - 1;
+                    if(listJSON[index].Q11 === 2){
+                        questions.push('Q11');
+                    }
+                }
+                if(listJSON[index].Q12){
+                    acum += listJSON[index].Q12 - 1;
+                    if(listJSON[index].Q12 === 2){
+                        questions.push('Q12');
+                    }
+                }
+                if(listJSON[index].Q13){
+                    acum += listJSON[index].Q13 - 1;
+                    if(listJSON[index].Q13 === 2){
+                        questions.push('Q13');
+                    }
+                }
+                if(listJSON[index].Q14){
+                    acum += listJSON[index].Q14 - 1;
+                    if(listJSON[index].Q14 === 2){
+                        questions.push('Q14');
+                    }
+                }
+                if(listJSON[index].Q15){
+                    acum += listJSON[index].Q15 - 1;
+                    if(listJSON[index].Q15 === 2){
+                        questions.push('Q15');
+                    }
+                }
+                if(listJSON[index].Q16){
+                    acum += listJSON[index].Q16 - 1;
+                    if(listJSON[index].Q16 === 2){
+                        questions.push('Q16');
+                    }
+                }
+                if(listJSON[index].Q17){
+                    acum += listJSON[index].Q17 - 1;
+                    if(listJSON[index].Q17 === 2){
+                        questions.push('Q17');
+                    }
+                }
+                if(listJSON[index].Q18){
+                    acum += listJSON[index].Q18 - 1;
+                    if(listJSON[index].Q18 === 2){
+                        questions.push('Q18');
+                    }
+                }
+                if(listJSON[index].Q19){
+                    acum += listJSON[index].Q19 - 1;
+                    if(listJSON[index].Q19 === 2){
+                        questions.push('Q19');
+                    }
+                }
+                if(listJSON[index].Q20){
+                    acum += listJSON[index].Q20 - 1;
+                    if(listJSON[index].Q20 === 2){
+                        questions.push('Q20');
+                    }
+                }
+                if(listJSON[index].Q21){
+                    acum += listJSON[index].Q21 - 1;
+                    if(listJSON[index].Q21 === 2){
+                        questions.push('Q21');
+                    }
+                }
+                if(listJSON[index].Q22){
+                    acum += listJSON[index].Q22 - 1;
+                    if(listJSON[index].Q22 === 2){
+                        questions.push('Q22');
+                    }
+                }
+                if(listJSON[index].Q23){
+                    acum += listJSON[index].Q23 - 1;
+                    if(listJSON[index].Q23 === 2){
+                        questions.push('Q23');
+                    }
+                }
+                if(listJSON[index].Q24){
+                    acum += listJSON[index].Q24 - 1;
+                    if(listJSON[index].Q24 === 2){
+                        questions.push('Q24');
+                    }
+                }
+                if(listJSON[index].Q25){
+                    acum += listJSON[index].Q25 - 1;
+                    if(listJSON[index].Q25 === 2){
+                        questions.push('Q25');
+                    }
+                }
+                if(listJSON[index].Q26){
+                    acum += listJSON[index].Q26 - 1;
+                    if(listJSON[index].Q26 === 2){
+                        questions.push('Q26');
+                    }
+                }
+                if(listJSON[index].Q27){
+                    acum += listJSON[index].Q27 - 1;
+                    if(listJSON[index].Q27 === 2){
+                        questions.push('Q27');
+                    }
+                }
+                if(listJSON[index].Q28){
+                    acum += listJSON[index].Q28 - 1;
+                    if(listJSON[index].Q28 === 2){
+                        questions.push('Q28');
+                    }
+                }
+                if(listJSON[index].Q29){
+                    acum += listJSON[index].Q29 - 1;
+                    if(listJSON[index].Q29 === 2){
+                        questions.push('Q29');
+                    }
+                }
+                if(listJSON[index].Q30){
+                    acum += listJSON[index].Q30 - 1;
+                    if(listJSON[index].Q30 === 2){
+                        questions.push('Q30');
+                    }
+                }
             }
+
             if (size !== 0) {
                 average = Number((acum/(size)).toFixed(1));
             }
             const finalResponse = {
                 Promedio: average,
                 Cantidad: size,
-                Fecha: listJSON[0].date
+                Fecha: listJSON[0].date,
+                Preguntas: questions
             };
             debug('response no motor report final :%j', finalResponse);
             return finalResponse;
