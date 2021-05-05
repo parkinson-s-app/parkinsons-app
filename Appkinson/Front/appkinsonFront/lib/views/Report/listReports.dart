@@ -764,3 +764,100 @@ returnDataSeriesEmotionalAverage(int length, var averageGameResponseDecode) {
 
   return allData;
 }
+
+_dataNoMotorsSymptoms(var arregloConPreguntasAfirmativas){
+  var dataFinal = [];
+  for(int i = 0; i<arregloConPreguntasAfirmativas; i++){
+    if(arregloConPreguntasAfirmativas == 'Q1'){
+      dataFinal.add("Salivación durante el día");
+    }
+    if(arregloConPreguntasAfirmativas == 'Q2'){
+      dataFinal.add("Pérdida o alteración en la percepción de sabores u olores");
+    }
+    if(arregloConPreguntasAfirmativas == 'Q3'){
+      dataFinal.add("Dificultad para pasar o deglutir comida o bebidas, o tendencia a atorarse");
+    }
+    if(arregloConPreguntasAfirmativas == 'Q4'){
+      dataFinal.add("Vómitos o náuseas");
+    }
+    if(arregloConPreguntasAfirmativas == 'Q5'){
+      dataFinal.add("Estreñimiento (hacer del cuerpo de 3 veces a la semana) o tener que hacer esfuerzos para hacer de vientre");
+    }
+    if(arregloConPreguntasAfirmativas == 'Q6'){
+      dataFinal.add("Incontinencia fecal (se escapan las heces)");
+    }
+    if(arregloConPreguntasAfirmativas == 'Q7'){
+      dataFinal.add("Sensación de no haber vaciado por completo el vientre después de ir al baño");
+    }
+    if(arregloConPreguntasAfirmativas == 'Q8'){
+      dataFinal.add("Sensación de tener que orinar urgentemente que le obliga a ir rápidamente al baño");
+    }
+    if(arregloConPreguntasAfirmativas == 'Q9'){
+      dataFinal.add("Necesidad de levantarse habitualmente por la noche a orinar");
+    }
+    if(arregloConPreguntasAfirmativas == 'Q10'){
+      dataFinal.add("Dolores sin causa aparente (no debidos a otras enfermedades, como la artrosis)");
+    }
+    if(arregloConPreguntasAfirmativas == 'Q11'){
+      dataFinal.add("Cambio de peso sin causa aparente (no debido a un régimen o dieta)");
+    }
+    if(arregloConPreguntasAfirmativas == 'Q12'){
+      dataFinal.add("Problemas para recordar cosas que han pasado recientemente o dificultad para acordarse de cosas que tenía que hacer");
+    }
+    if(arregloConPreguntasAfirmativas == 'Q13'){
+      dataFinal.add("Pérdida de interés en lo que pasa a su alrededor o en realizar sus actividades");
+    }
+    if(arregloConPreguntasAfirmativas == 'Q14'){
+      dataFinal.add("Ver u oír cosas que sabe o que otras personas le dicen que no están ahí");
+    }
+    if(arregloConPreguntasAfirmativas == 'Q15'){
+      dataFinal.add("Dificultad para concentrarse o mantener la atención");
+    }
+    if(arregloConPreguntasAfirmativas == 'Q16'){
+      dataFinal.add("Sentirse triste, bajo/a de ánimo o decaído");
+    }
+    if(arregloConPreguntasAfirmativas == 'Q17'){
+      dataFinal.add("Sentimientos de ansiedad, miedo o pánico");
+    }
+    if(arregloConPreguntasAfirmativas == 'Q18'){
+      dataFinal.add("Pérdida o aumento del interés por tener relaciones sexuales");
+    }
+    if(arregloConPreguntasAfirmativas == 'Q19'){
+      dataFinal.add("Dificultades en la relación sexual cuando lo intenta");
+    }
+    if(arregloConPreguntasAfirmativas == 'Q20'){
+      dataFinal.add("Sensación de mareo o debilidad al ponerse de pie después de haber estado sentado o acostado");
+    }
+    if(arregloConPreguntasAfirmativas == 'Q21'){
+      dataFinal.add("Caídas");
+    }
+    if(arregloConPreguntasAfirmativas == 'Q22'){
+      dataFinal.add("Dificultad para mantenerse despierto/a mientras realiza actividades como trabajar, conducir o comer");
+    }
+    if(arregloConPreguntasAfirmativas == 'Q23'){
+      dataFinal.add("Dificultad para quedarse o mantenerse dormido por la noche");
+    }
+    if(arregloConPreguntasAfirmativas == 'Q24'){
+      dataFinal.add("Sueños intensos, vívidos o pesadillas");
+    }
+    if(arregloConPreguntasAfirmativas == 'Q25'){
+      dataFinal.add("Hablar o moverse durante el sueño como si lo estuviera viviendo");
+    }
+    if(arregloConPreguntasAfirmativas == 'Q26'){
+      dataFinal.add("Sensaciones desagradables en las piernas por la noche o cuando está descansando, y sensación de que necesita moverlas");
+    }
+    if(arregloConPreguntasAfirmativas == 'Q27'){
+      dataFinal.add("Hinchazón en las piernas");
+    }
+    if(arregloConPreguntasAfirmativas == 'Q28'){
+      dataFinal.add("Sudoración excesiva");
+    }
+    if(arregloConPreguntasAfirmativas == 'Q29'){
+      dataFinal.add("Visión doble");
+    }
+    if(arregloConPreguntasAfirmativas == 'Q30'){
+      dataFinal.add("Creer que le pasan cosas que otras personas le dicen que no son verdad");
+    }
+  }
+
+}
