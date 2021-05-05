@@ -99,7 +99,7 @@ class RoutesDoctor {
   }
 
   toReportChartLine(BuildContext context, var id, var dataLine, String titulo, String ejex, String ejey,
-  String description) {
+  String description, String dataDescription) {
     Navigator.push(
         context,
         new MaterialPageRoute(
@@ -110,6 +110,7 @@ class RoutesDoctor {
                   ejex: ejex,
                   ejey: ejey,
                   description: description,
+                  dataDescription: dataDescription,
                 )));
   }
 

@@ -59,6 +59,7 @@ String dataDescriptionAverageGame = "";
 String dataDescriptionAverageDyskinecias = "";
 String dataDescriptionAverageEmotional = "";
 String dataDescriptionSymptomsDay = "";
+String dataDescriptionNoMotores = "";
 
 class ListReportPage extends StatefulWidget {
   final int idPatient;
@@ -124,7 +125,8 @@ class _ListReportPage extends State<ListReportPage> {
             averageGameResponseDecode[i]['Promedio'].toString() +
             " en promedio de puntaje jugado y " +
             averageGameResponseDecode[i]['Cantidad'].toString() +
-            " de veces jugadas \n ";
+            " de veces jugadas. Puntaje máximo:" + averageGameResponseDecode[i]['Max'].toString() + 
+            ". Puntaje mínimo: " + averageGameResponseDecode[i]['Min'].toString() + " \n";
       }
       seriedataGameAverage = returnDataSeriesGameAverage(
           averageGameResponseDecode.length, averageGameResponseDecode);
@@ -140,7 +142,7 @@ class _ListReportPage extends State<ListReportPage> {
             toMonthString(averageDyskineciasDecode[i]['mes']) +
             " : " +
             averageDyskineciasDecode[i]['Promedio'].toString() +
-            " en porcentaje de disquinecias presentadas en el mes \n ";
+            " en porcentaje de disquinesias presentadas en el mes \n ";
       }
       serieDataDiskineias = returnDataPieAverageDiskinecias(
           averageDyskineciasDecode.length, averageDyskineciasDecode);
@@ -169,14 +171,34 @@ class _ListReportPage extends State<ListReportPage> {
 
       //Construyendo la gráfica del puntaje promedio de los sintomas no motores
       var noMotorsDataDecode = json.decode(dataNoMotors);
+      if (dataDescriptionNoMotores != "") {
+        dataDescriptionNoMotores = "";
+      }
+      for (int i = 0; i < noMotorsDataDecode.length; i++) {
+        dataDescriptionNoMotores = dataDescriptionNoMotores +
+            "Semana " + noMotorsDataDecode[i]['Week'] +
+            " : " +
+            noMotorsDataDecode[i]['Promedio'] +" en promedio. Fecha: " + noMotorsDataDecode[i]['Fecha'] + "\n";     
+      }
       lineDataNoMotors =
           returnDataLineMotors(noMotorsDataDecode.length, noMotorsDataDecode);
+      
 
       //Construyendo la gráfica de los sintomas por día
       var symptomsByDayDataDecode = json.decode(dataSymptomsByDay);
+
+      if (dataDescriptionSymptomsDay != "") {
+        dataDescriptionSymptomsDay = "";
+      }
+      for (int i = 0; i < symptomsByDayDataDecode.length; i++) {
+        dataDescriptionSymptomsDay = dataDescriptionSymptomsDay +
+            "Hora " + symptomsByDayDataDecode[i]['Hora'] +
+            " : " +
+            symptomsByDayDataDecode[i]['. Estado : '] +  symptomsByDayDataDecode[i]['Estado'] + "\n";     
+      }
+
       lineDataSymptomsDay = returnDataLineSymptomsByDay(
           symptomsByDayDataDecode.length, symptomsByDayDataDecode);
-      print("__S--------------------");
       print(lineDataSymptomsDay);
     });
     print(lastDate);
@@ -261,7 +283,7 @@ class _ListReportPage extends State<ListReportPage> {
                               context,
                               idsSymptomsAverage,
                               seriedata,
-                              "Promedio de los síntomas del paciente por meses \n \n",
+                              "Promedio de los Síntomas del Paciente por Meses \n \n",
                               colorsSintomasPorMeses,
                               "Mes",
                               "Promedio de Síntomas",
@@ -301,7 +323,7 @@ class _ListReportPage extends State<ListReportPage> {
                               context,
                               idsAverageGame,
                               seriedataGameAverage,
-                              "Promedio de destreza en el juego \n \n",
+                              "Promedio de Destreza en el Juego \n \n",
                               colorsSintomasPorMeses,
                               "Mes",
                               "Promedio del puntaje",
@@ -333,10 +355,10 @@ class _ListReportPage extends State<ListReportPage> {
                               context,
                               idsDyskineciasAverage,
                               serieDataDiskineias,
-                              "Porcentaje de disquinecias en meses  \n \n",
+                              "Porcentaje de disquinesias en meses  \n \n",
                               colorsSintomasPorMeses,
                               "Mes",
-                              "Porcentaje de disquinecias (%)",
+                              "Porcentaje de disquinesias (%)",
                               descriptionDysquinecias,
                               dataDescriptionAverageDyskinecias);
                         },
@@ -348,7 +370,7 @@ class _ListReportPage extends State<ListReportPage> {
                         textColor: Colors.white,
                       ),
                       Text(
-                        "Porcentaje de \nDisquinecias \n en\nMeses \n",
+                        "Porcentaje de \nDisquinesias \n en\nMeses \n",
                         textAlign: TextAlign.center,
                         style: TextStyle(
                             color: Colors.blue[900],
@@ -397,23 +419,21 @@ class _ListReportPage extends State<ListReportPage> {
                         )
                       ]),
                       Column(children: [
-                        RaisedButton(
+                       /* RaisedButton(
                           shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(18.0)),
                           onPressed: () {
-                            RoutesDoctor().toReportChartSerie(
+                            RoutesDoctor().toReportChartLine(
                                 context,
                                 idsMedicinesAverage,
                                 lineDataMedicinesDiscrepacy,
                                 "Desfase en la toma de medicamentos \n \n",
-                                colorsSintomasPorMeses,
                                 "Meses",
-                                "Desfase (Min)",
-                                descriptionMedicines,
-                                dataDescriptionAverageEmotional);
+                                "Desfase",
+                                descriptionMedicines);
                           },
                           child: Image.asset(
-                            "assets/images/bar-graph.png",
+                            "assets/images/output-onlinepngtools (3).png",
                             height: size.height * 0.08,
                           ),
                           color: Colors.grey[50],
@@ -426,47 +446,37 @@ class _ListReportPage extends State<ListReportPage> {
                               color: Colors.blue[900],
                               fontSize: 17,
                               fontFamily: "Raleway2"),
-                        )
-                      ]),
-                    ]),
-                SizedBox(
-                  height: 100,
-                ),
-                Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      Column(children: [
-                        RaisedButton(
-                          shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(18.0)),
-                          onPressed: () {
-                            RoutesDoctor().toReportChartLine(
-                                context,
-                                idsNoMotorsAverage,
-                                lineDataNoMotors,
-                                "Promedio de los puntajes en los síntomas no motores \n \n",
-                                "Semanas",
-                                "Promedio",
-                                descriptionNoMotors);
-                          },
-                          child: Image.asset(
-                            "assets/images/output-onlinepngtools (3).png",
-                            height: size.height * 0.08,
-                          ),
-                          color: Colors.grey[50],
-                          textColor: Colors.white,
+                        )*/
+                          RaisedButton(
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(18.0)),
+                        onPressed: () {
+                          RoutesDoctor().toReportChartLine(
+                              context,
+                              idsNoMotorsAverage,
+                              lineDataNoMotors,
+                              "Promedio de los puntajes en los síntomas no motores \n \n",
+                              "Semanas",
+                              "Promedio",
+                              descriptionNoMotors,
+                              dataDescriptionNoMotores);
+                        },
+                        child: Image.asset(
+                          "assets/images/output-onlinepngtools (3).png",
+                          height: size.height * 0.08,
                         ),
-                        Text(
-                          "Promedio \n Síntomas \nNo Motores ",
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                              color: Colors.blue[900],
-                              fontSize: 17,
-                              fontFamily: "Raleway2"),
-                        )
-                      ]),
-                      Column(children: [
-                        RaisedButton(
+                        color: Colors.grey[50],
+                        textColor: Colors.white,
+                      ),
+                      Text(
+                        "Promedio \nde los \n Puntajes\n en los\n Síntomas \n No Motores ",
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                            color: Colors.blue[900],
+                            fontSize: 17,
+                            fontFamily: "Raleway2"),
+                      ),
+                          RaisedButton(
                           shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(18.0)),
                           onPressed: () {
@@ -477,7 +487,8 @@ class _ListReportPage extends State<ListReportPage> {
                                 "Síntomas diario \n \n \n \n",
                                 "Hora",
                                 "Estado",
-                                descriptionSymptomsByDay);
+                                descriptionSymptomsByDay,
+                                dataDescriptionSymptomsDay);
                           },
                           child: Image.asset(
                             "assets/images/output-onlinepngtools (3).png",
@@ -487,7 +498,7 @@ class _ListReportPage extends State<ListReportPage> {
                           textColor: Colors.white,
                         ),
                         Text(
-                          "Síntomas \n por \ndía",
+                          "Sintomas \n por día",
                           textAlign: TextAlign.center,
                           style: TextStyle(
                               color: Colors.blue[900],
@@ -496,11 +507,15 @@ class _ListReportPage extends State<ListReportPage> {
                         )
                       ]),
                     ]),
+                SizedBox(
+                  height: 100,
+                ),
               ],
             ),
-            // ),
+          ),
+          //  ),
 
-            /*    FlatButton(
+          /*    FlatButton(
                 onPressed: () {
                   RoutesDoctor()
                       .toReportChartSerie(context, "idquemado", seriedata);
@@ -528,22 +543,21 @@ class _ListReportPage extends State<ListReportPage> {
                 color: Colors.blueAccent,
                 textColor: Colors.white,
               ),*/
-          )
         ]));
   }
 }
 
-//_________DEFINIENDO LOS COLORES DE LAS GRÁFICAS_____-
+//____________________________DEFINIENDO LOS COLORES DE LAS GRÁFICAS______________-
 _generateColorsSyntomsChart() {
   var colorsSintomasPorMeses = [];
-  colorsSintomasPorMeses.add(Color(0xff109618));
+  colorsSintomasPorMeses.add(Colors.green[700]);
   colorsSintomasPorMeses.add(Colors.lightGreen);
-  colorsSintomasPorMeses.add(Color(0xffff9900));
-  colorsSintomasPorMeses.add(Color(0xffdc3912));
+  colorsSintomasPorMeses.add(Colors.red);
+  colorsSintomasPorMeses.add(Colors.red[800]);
   return colorsSintomasPorMeses;
 }
 
-//________FUNCIÓN PARA PASAR LOS MESES DE INT A CADENA______-
+//_________________________FUNCIÓN PARA PASAR LOS MESES DE INT A CADENA_______________-
 String toMonthString(int month) {
   if (month == 1) {
     return "Enero";
