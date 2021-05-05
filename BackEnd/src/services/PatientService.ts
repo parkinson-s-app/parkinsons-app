@@ -331,10 +331,18 @@ export default class PatientService {
             const on = 0;
             let acum = 0;
             let average = 0;
+            let max = 0;
+            let min = 9999;
             const size = listJSON.length;
             debug('size :%s', size);
             for (let index = 0; index < size; index++) {
                 acum += listJSON[index].score;
+                if(listJSON[index].score < min) {
+                    min = listJSON[index].score;
+                }
+                if(listJSON[index].score > max) {
+                    max = listJSON[index].score;
+                }
             }
             if (size !== 0) {
                 average = Number((acum/size).toFixed(1));
@@ -342,7 +350,9 @@ export default class PatientService {
             const finalResponse = {
                 Mes: 'null',
                 Promedio: average,
-                Cantidad: size
+                Cantidad: size,
+                Max: max,
+                Min: min
             };
             debug('response final :%j', finalResponse);
             return finalResponse;
