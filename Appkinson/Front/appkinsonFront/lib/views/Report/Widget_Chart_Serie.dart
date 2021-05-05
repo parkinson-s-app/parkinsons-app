@@ -173,7 +173,7 @@ _buildDataDescription(dataSerie){
               textAlign: TextAlign.justify,
               text: TextSpan(
               children: <TextSpan>[
-              TextSpan(text: description + '\n \n', style: TextStyle(fontSize: 15.0, fontWeight: FontWeight.bold, 
+              TextSpan(text: description + '\n \n', style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold, 
               color: Colors.black26)),
             ],
           ),
