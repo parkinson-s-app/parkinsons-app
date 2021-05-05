@@ -516,7 +516,8 @@ async function twoWeeklyReport(idPatient: number, initDate: string, endDate: str
         Week: 0,
         Promedio: 0,
         Cantidad: 0,
-        Fecha: initDate
+        Fecha: initDate,
+        Preguntas: []
     });
     let week = 1;
     while(before.getTime() < last.getTime()) {
