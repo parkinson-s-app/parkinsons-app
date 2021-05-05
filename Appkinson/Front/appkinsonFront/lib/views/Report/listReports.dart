@@ -185,7 +185,10 @@ class _ListReportPage extends State<ListReportPage> {
             noMotorsDataDecode[i]['Promedio'].toString() +
             " en promedio. Fecha: " +
             noMotorsDataDecode[i]['Fecha'] +
-            "\n";
+            "\n Preguntas en las que respondió 'Sí': \n" +
+            _dataNoMotorsSymptoms(noMotorsDataDecode[i]['Preguntas'])
+            ;
+
       }
       lineDataNoMotors =
           returnDataLineMotors(noMotorsDataDecode.length, noMotorsDataDecode);
@@ -773,99 +776,124 @@ returnDataSeriesEmotionalAverage(int length, var averageGameResponseDecode) {
   return allData;
 }
 
-_dataNoMotorsSymptoms(var arregloConPreguntasAfirmativas){
-  var dataFinal = [];
+String _dataNoMotorsSymptoms(var arregloConPreguntasAfirmativas){
+  String dataFinal = "";
   for(int i = 0; i<arregloConPreguntasAfirmativas; i++){
     if(arregloConPreguntasAfirmativas == 'Q1'){
-      dataFinal.add("Salivación durante el día");
+      dataFinal = dataFinal + "Salivación durante el día \n"; 
     }
     if(arregloConPreguntasAfirmativas == 'Q2'){
-      dataFinal.add("Pérdida o alteración en la percepción de sabores u olores");
+      dataFinal = dataFinal + "Pérdida o alteración en la percepción de sabores u olores \n"; 
+       }
     }
     if(arregloConPreguntasAfirmativas == 'Q3'){
-      dataFinal.add("Dificultad para pasar o deglutir comida o bebidas, o tendencia a atorarse");
+      dataFinal = dataFinal + "Dificultad para pasar o deglutir comida o bebidas, o tendencia a atorarse \n"; 
+      //
     }
     if(arregloConPreguntasAfirmativas == 'Q4'){
-      dataFinal.add("Vómitos o náuseas");
+      dataFinal = dataFinal + "Vómitos o náuseas \n"; 
+      //
     }
     if(arregloConPreguntasAfirmativas == 'Q5'){
-      dataFinal.add("Estreñimiento (hacer del cuerpo de 3 veces a la semana) o tener que hacer esfuerzos para hacer de vientre");
+      dataFinal = dataFinal + "Estreñimiento (hacer del cuerpo de 3 veces a la semana) o tener que hacer esfuerzos para hacer de vientre \n"; 
+      //
     }
     if(arregloConPreguntasAfirmativas == 'Q6'){
-      dataFinal.add("Incontinencia fecal (se escapan las heces)");
+      dataFinal = dataFinal + "Incontinencia fecal (se escapan las heces) \n";
     }
     if(arregloConPreguntasAfirmativas == 'Q7'){
-      dataFinal.add("Sensación de no haber vaciado por completo el vientre después de ir al baño");
+      dataFinal = dataFinal + "Sensación de no haber vaciado por completo el vientre después de ir al baño \n"; 
+      //
     }
     if(arregloConPreguntasAfirmativas == 'Q8'){
-      dataFinal.add("Sensación de tener que orinar urgentemente que le obliga a ir rápidamente al baño");
+      dataFinal = dataFinal + "Sensación de tener que orinar urgentemente que le obliga a ir rápidamente al baño"; 
+      //
     }
     if(arregloConPreguntasAfirmativas == 'Q9'){
-      dataFinal.add("Necesidad de levantarse habitualmente por la noche a orinar");
+      dataFinal = dataFinal + "Necesidad de levantarse habitualmente por la noche a orinar \n"; 
+      //
     }
     if(arregloConPreguntasAfirmativas == 'Q10'){
-      dataFinal.add("Dolores sin causa aparente (no debidos a otras enfermedades, como la artrosis)");
+      dataFinal = dataFinal + "Dolores sin causa aparente (no debidos a otras enfermedades, como la artrosis) \n"; 
+      //
     }
     if(arregloConPreguntasAfirmativas == 'Q11'){
-      dataFinal.add("Cambio de peso sin causa aparente (no debido a un régimen o dieta)");
+      dataFinal = dataFinal + "Cambio de peso sin causa aparente (no debido a un régimen o dieta) \n"; 
+      //
     }
     if(arregloConPreguntasAfirmativas == 'Q12'){
-      dataFinal.add("Problemas para recordar cosas que han pasado recientemente o dificultad para acordarse de cosas que tenía que hacer");
+      dataFinal = dataFinal + "Problemas para recordar cosas que han pasado recientemente o dificultad para acordarse de cosas que tenía que hacer \n"; 
+      //
     }
     if(arregloConPreguntasAfirmativas == 'Q13'){
-      dataFinal.add("Pérdida de interés en lo que pasa a su alrededor o en realizar sus actividades");
+      dataFinal = dataFinal + "Pérdida de interés en lo que pasa a su alrededor o en realizar sus actividades \n"; 
+      //
     }
     if(arregloConPreguntasAfirmativas == 'Q14'){
-      dataFinal.add("Ver u oír cosas que sabe o que otras personas le dicen que no están ahí");
+      dataFinal = dataFinal + "Ver u oír cosas que sabe o que otras personas le dicen que no están ahí \n"; 
+      //
     }
     if(arregloConPreguntasAfirmativas == 'Q15'){
-      dataFinal.add("Dificultad para concentrarse o mantener la atención");
+      dataFinal = dataFinal + "Dificultad para concentrarse o mantener la atención \n"; 
+      //
     }
     if(arregloConPreguntasAfirmativas == 'Q16'){
-      dataFinal.add("Sentirse triste, bajo/a de ánimo o decaído");
+      dataFinal = dataFinal + "Sentirse triste, bajo/a de ánimo o decaído \n"; 
+      //
     }
     if(arregloConPreguntasAfirmativas == 'Q17'){
-      dataFinal.add("Sentimientos de ansiedad, miedo o pánico");
+      dataFinal = dataFinal + "Sentimientos de ansiedad, miedo o pánico \n"; 
+      //
     }
     if(arregloConPreguntasAfirmativas == 'Q18'){
-      dataFinal.add("Pérdida o aumento del interés por tener relaciones sexuales");
+      dataFinal = dataFinal + "Pérdida o aumento del interés por tener relaciones sexuales \n"; 
+      //
     }
     if(arregloConPreguntasAfirmativas == 'Q19'){
-      dataFinal.add("Dificultades en la relación sexual cuando lo intenta");
+      dataFinal = dataFinal + "Dificultades en la relación sexual cuando lo intenta \n"; 
+      //
     }
     if(arregloConPreguntasAfirmativas == 'Q20'){
-      dataFinal.add("Sensación de mareo o debilidad al ponerse de pie después de haber estado sentado o acostado");
+      dataFinal = dataFinal + "Sensación de mareo o debilidad al ponerse de pie después de haber estado sentado o acostado \n"; 
+      //
     }
     if(arregloConPreguntasAfirmativas == 'Q21'){
-      dataFinal.add("Caídas");
+      dataFinal = dataFinal + "Caídas \n"; 
+      //
     }
     if(arregloConPreguntasAfirmativas == 'Q22'){
-      dataFinal.add("Dificultad para mantenerse despierto/a mientras realiza actividades como trabajar, conducir o comer");
+      dataFinal = dataFinal + "Dificultad para mantenerse despierto/a mientras realiza actividades como trabajar, conducir o comer \n"; 
+      //
     }
     if(arregloConPreguntasAfirmativas == 'Q23'){
-      dataFinal.add("Dificultad para quedarse o mantenerse dormido por la noche");
+      dataFinal = dataFinal + "Dificultad para quedarse o mantenerse dormido por la noche \n"; 
+      //
     }
     if(arregloConPreguntasAfirmativas == 'Q24'){
-      dataFinal.add("Sueños intensos, vívidos o pesadillas");
+      dataFinal = dataFinal + "Sueños intensos, vívidos o pesadillas \n"; 
+      //
     }
     if(arregloConPreguntasAfirmativas == 'Q25'){
-      dataFinal.add("Hablar o moverse durante el sueño como si lo estuviera viviendo");
+      dataFinal = dataFinal + "Hablar o moverse durante el sueño como si lo estuviera viviendo \n"; 
+      //
     }
     if(arregloConPreguntasAfirmativas == 'Q26'){
-      dataFinal.add("Sensaciones desagradables en las piernas por la noche o cuando está descansando, y sensación de que necesita moverlas");
+      dataFinal = dataFinal + "Sensaciones desagradables en las piernas por la noche o cuando está descansando, y sensación de que necesita moverlas \n"; 
+      //
     }
     if(arregloConPreguntasAfirmativas == 'Q27'){
-      dataFinal.add("Hinchazón en las piernas");
+      dataFinal = dataFinal + "Hinchazón en las piernas \n"; 
+      //
     }
     if(arregloConPreguntasAfirmativas == 'Q28'){
-      dataFinal.add("Sudoración excesiva");
+      dataFinal = dataFinal + "Sudoración excesiva \n"; 
+      //
     }
     if(arregloConPreguntasAfirmativas == 'Q29'){
-      dataFinal.add("Visión doble");
+      dataFinal = dataFinal + "Visión doble \n"; 
+      //
     }
     if(arregloConPreguntasAfirmativas == 'Q30'){
-      dataFinal.add("Creer que le pasan cosas que otras personas le dicen que no son verdad");
+      dataFinal = dataFinal + "Creer que le pasan cosas que otras personas le dicen que no son verdad \n"; 
+       }
     }
-  }
-
-}
