@@ -182,12 +182,15 @@ class _ReportConfigPageState extends State<ReportConfigPage> {
                     lastDate: DateTime(DateTime.now().year + 1))
                     .then((value) {
                         selectedDate = value;
+                         if(picked.isNotEmpty){ picked.clear();}
+                        picked.add(new DateTime(selectedDate.year, selectedDate.month , selectedDate.day, 00 , 00 , 00));
+                        picked.add(new DateTime(selectedDate.year, selectedDate.month , selectedDate.day, 23 , 59 , 59));
                   });
                   print("PRUEBAAA NUEVAAAAA");
                   print(selectedDate);
-                  if(picked.isNotEmpty){ picked.clear();}
-                  picked.add(new DateTime(selectedDate.year, selectedDate.month , selectedDate.day, 00 , 00 , 00));
-                  picked.add(new DateTime(selectedDate.year, selectedDate.month , selectedDate.day, 23 , 59 , 59));
+                  //if(picked.isNotEmpty){ picked.clear();}
+                  //picked.add(new DateTime(selectedDate.year, selectedDate.month , selectedDate.day, 00 , 00 , 00));
+                  //picked.add(new DateTime(selectedDate.year, selectedDate.month , selectedDate.day, 23 , 59 , 59));
                   print("CONSTRUCCIÓN");
                   print(picked[0]);
                   print(picked[1]);
