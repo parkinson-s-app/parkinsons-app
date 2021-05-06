@@ -171,7 +171,8 @@ class _ReportConfigPageState extends State<ReportConfigPage> {
               height: 60,
               child: FlatButton(
                 child: Text("Escoger fecha"),
-                color: Colors.blue,
+                color: Colors.blueAccent,
+                textColor: Colors.white,
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(18.0)),
                 onPressed: () {
