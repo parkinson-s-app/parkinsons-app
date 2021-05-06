@@ -155,8 +155,7 @@ export default class DoctorService {
                 alarmTime: medicine.alarmTime,
                 idMedicine: medicine.idMedicine,
                 dose: medicine.dose,
-                periodicityType: medicine.periodicityType,
-                quantity: medicine.quantity
+                periodicityType: medicine.periodicityType
             };
             const res = await executeSQL('INSERT INTO alarmandmedicinepatient SET ?',[queryData]);
             return res;
