@@ -160,7 +160,7 @@ CREATE TABLE alarmandmedicinepatient (
     periodicityType VARCHAR(50),
     FOREIGN KEY (ID_PATIENT) REFERENCES patients(ID_USER) ON DELETE CASCADE,
     FOREIGN KEY (idMedicine) REFERENCES medicine(ID) ON DELETE CASCADE,
-    PRIMARY KEY (ID_PATIENT,idMedicine)
+    PRIMARY KEY (ID_PATIENT,idMedicine,alarmTime)
 );
 
 CREATE TABLE toolboxitems (

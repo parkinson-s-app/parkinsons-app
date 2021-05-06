@@ -185,7 +185,6 @@ export default class PatientService {
                 am.periodicityType as PeriodicityType,
                 am.alarmTime as AlarmTime,
                 am.ID_PATIENT as IdPatient,
-                am.quantity as Quantity
             FROM
                 alarmandmedicinepatient am
                 INNER JOIN
