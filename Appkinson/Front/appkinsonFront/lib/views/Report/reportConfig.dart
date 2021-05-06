@@ -188,6 +188,9 @@ class _ReportConfigPageState extends State<ReportConfigPage> {
                   if(picked.isNotEmpty){ picked.clear();}
                   picked.add(new DateTime(selectedDate.year, selectedDate.month , selectedDate.day, 00 , 00 , 00));
                   picked.add(new DateTime(selectedDate.year, selectedDate.month , selectedDate.day, 23 , 59 , 59));
+                  print("CONSTRUCCIÓN");
+                  print(picked[0]);
+                  print(picked[1]);
                 },
               ),
             ),
