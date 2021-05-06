@@ -174,8 +174,17 @@ class _ReportConfigPageState extends State<ReportConfigPage> {
                 color: Colors.blue,
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(18.0)),
-                onPressed: () async {
-                  _selectDate(context);
+                onPressed: () {
+                   showDatePicker(
+                    context: context,
+                    initialDate: DateTime.now(),
+                    firstDate: DateTime(DateTime.now().year - 100),
+                    lastDate: DateTime(DateTime.now().year + 1))
+                    .then((value) {
+                        selectedDate = value;
+                  });
+                  print("PRUEBAAA NUEVAAAAA");
+                  print(selectedDate);
                   if(picked.isNotEmpty){ picked.clear();}
                   picked.add(new DateTime(selectedDate.year, selectedDate.month , selectedDate.day, 00 , 00 , 00));
                   picked.add(new DateTime(selectedDate.year, selectedDate.month , selectedDate.day, 23 , 59 , 59));
@@ -248,8 +257,6 @@ class _ReportConfigPageState extends State<ReportConfigPage> {
       selectedDate = picked;
     });
 }
-
-
 
 }
 

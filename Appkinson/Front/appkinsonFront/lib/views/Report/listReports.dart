@@ -186,7 +186,7 @@ class _ListReportPage extends State<ListReportPage> {
             " en promedio. Fecha: " +
             noMotorsDataDecode[i]['Fecha'] +
             "\n Preguntas en las que respondió 'Sí': \n" +
-            _dataNoMotorsSymptoms(noMotorsDataDecode[i]['Preguntas']);
+            _dataNoMotorsSymptoms(noMotorsDataDecode[i]['Preguntas']) + "\n";
       }
       lineDataNoMotors =
           returnDataLineMotors(noMotorsDataDecode.length, noMotorsDataDecode);
