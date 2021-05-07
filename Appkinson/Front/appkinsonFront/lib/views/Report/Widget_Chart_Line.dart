@@ -198,7 +198,7 @@ _buildDataDescription(dataLine){
               textAlign: TextAlign.justify,
               text: TextSpan(
               children: <TextSpan>[
-              TextSpan(text: _buildDataDescription(dataLine), style: TextStyle(fontSize: 15.0, fontWeight: FontWeight.bold, 
+              TextSpan(text: dataDescription, style: TextStyle(fontSize: 15.0, fontWeight: FontWeight.bold, 
               color: colors)),
             ],
           ),
