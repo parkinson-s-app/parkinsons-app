@@ -66,12 +66,12 @@ class _RelationsRequestState extends State<RelationsRequest> {
         appBar: AppBar(
           title: Text("Solicitudes de Relación"),
           actions: <Widget>[
-            new IconButton(
-                icon: Icon(Icons.settings),
-                color: Colors.black45,
-                onPressed: () {
-                  RoutesPatient().toNotifications(context);
-                }),
+            IconButton(
+              icon: Icon(Icons.contact_support_rounded),
+              color: Colors.white,
+              onPressed: () {
+                information(context);
+              }),
           ],
         ),
         body: Column(
@@ -137,4 +137,21 @@ class _RelationsRequestState extends State<RelationsRequest> {
 getToken() async {
   String token = await Utils().getToken();
   return token;
+}
+
+information(context) {
+  showDialog(
+    context: context,
+    builder: (BuildContext context) =>
+        _buildPopupDialog(context),
+    barrierDismissible: true
+  );
+}
+
+Widget _buildPopupDialog(BuildContext context) {
+  return AlertDialog(
+    title: Text(
+      "En esta pantalla se le mostrará las solicitudes enviadas por los doctores y cuidadores que desean relacionar sus cuentas para poder interactuar con usted"
+      ),
+  );
 }

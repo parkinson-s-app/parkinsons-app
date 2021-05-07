@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-
+import '../NoMotorSymptomsFormPatient/NoMotorSymptomsFormQ0.dart';
 import '../NoMotorSymptomsFormPatient/NoMotorSymptomsFormQ1.dart';
 import '../NoMotorSymptomsFormPatient/NoMotorSymptomsFormQ2.dart';
 import '../NoMotorSymptomsFormPatient/NoMotorSymptomsFormQ3.dart';
@@ -94,19 +94,15 @@ class _NoMotorSymptomsFormQ extends State<NoMotorSymptomsFormQ> {
       backgroundColor: Colors.white,
       appBar: AppBar(
         title: Text(
-          "Formulario Síntomas No Motores",
+          "Síntomas No Motores",
         ),
         backgroundColor: Colors.blue,
-        actions: <Widget>[
-          Padding(
-            padding: const EdgeInsets.all(3.0),
-          ),
-        ],
       ),
       body: PageView(
         controller: controller,
         scrollDirection: Axis.vertical,
         children: [
+          NoMotorSymptomsFormQ0(),
           NoMotorSymptomsFormQ1(),
           NoMotorSymptomsFormQ2(),
           NoMotorSymptomsFormQ3(),

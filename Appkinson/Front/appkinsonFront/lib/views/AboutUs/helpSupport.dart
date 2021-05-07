@@ -21,9 +21,9 @@ class HelpSupport extends StatelessWidget {
             padding: const EdgeInsets.all(20.0),
             child: Text(
               "Somos un grupo conformado por estudiantes y profesores expertos en " +
-                  "construccion de software y neurologia. Estamos comprometidos a mejorar la " +
+                  "construccion de software y neurología. Estamos comprometidos a mejorar la " +
                   "calidad de vida de pacientes diagnosticados con la enfermedad de " +
-                  "parkinson. Si existe algun problema al usar esta aplicacion puede " +
+                  "Parkinson. Si existe algun problema al usar esta aplicación puede " +
                   "contactarnos por medio de este correo vera_l@javeriana.edu.co.",
               textAlign: TextAlign.justify,
               style: TextStyle(fontSize: 15.0, color: Colors.grey[600]),

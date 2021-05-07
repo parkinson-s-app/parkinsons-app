@@ -59,7 +59,7 @@ void callbackDispatcher() {
             clockId,
             title: "title: ${alarm.title}",
             content:
-                "Tomar ${alarm.quantity} ${alarm.dose} de ${alarm.medicine}",
+                "Tomar ${alarm.dose} de  ${alarm.medicine}",
           );
           print(' ${alarm.medicine} time: $time result: ${result.toString()}');
           await Future.delayed(Duration(seconds: 1));

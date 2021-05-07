@@ -14,6 +14,7 @@ import 'package:appkinsonFront/views/AlarmsAndMedicine/AlarmAndMedicinePage.dart
 import 'package:appkinsonFront/views/Medicines/alarm.dart';
 import 'package:appkinsonFront/views/RelationRequest/request.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:path_provider/path_provider.dart';
 import '../model/User.dart';
 import 'package:http/http.dart' as http;
@@ -598,15 +599,23 @@ class EndPoints {
         endpointBack + '/api/patient/$tokenID/medicineAlarm',
         headers: {HttpHeaders.authorizationHeader: jwtkey + token});
     String i = lista.body;
+    debugPrint("flag");
     debugPrint(i.toString());
     var codeList = json.decode(i);
     List<AlarmAndMedicine> alarms = [];
+    String s;
+    final format = DateFormat.jm();
     for (var a = 0; a < codeList.length; a++) {
       AlarmAndMedicine alarm = new AlarmAndMedicine();
       alarm.id = codeList[a]['IdMedicine'];
       alarm.title = codeList[a]['Title'];
       alarm.idMedicine = codeList[a]['Medicine'];
-
+      alarm.dose = codeList[a]['Dose'];
+      s = codeList[a]['AlarmTime'];
+      alarm.alarmTime = TimeOfDay(
+        hour: int.parse(s.split(":")[0]), 
+        minute: int.parse(s.split(":")[1]))
+        ;
       alarms.add(alarm);
     }
     return alarms;
@@ -635,7 +644,6 @@ class EndPoints {
       alarm.periodicityQuantity = medAlarm['PeriodicityQuantity'];
       alarm.periodicityType = medAlarm['PeriodicityType'];
       alarm.id = medAlarm['IdPatient'];
-      alarm.quantity = medAlarm['Quantity'];
       alarms.add(alarm);
     }
     return alarms;
@@ -821,12 +829,10 @@ class EndPoints {
     print('entra');
     Map<String, dynamic> alarmAndMedicineToSave = {
       'periodicityQuantity': alarmAndMedicine.periodicityQuantity,
-      'alarmTime':
-          '${alarmAndMedicine.alarmTime.hour}:${alarmAndMedicine.alarmTime.minute}',
+      'alarmTime': '${alarmAndMedicine.alarmTime.hour}:${alarmAndMedicine.alarmTime.minute}',
       'idMedicine': alarmAndMedicine.idMedicine,
       'dose': alarmAndMedicine.dose,
       'periodicityType': alarmAndMedicine.periodicityType,
-      'quantity': alarmAndMedicine.quantity
     };
     String token = await Utils().getToken();
     print('entra2');
