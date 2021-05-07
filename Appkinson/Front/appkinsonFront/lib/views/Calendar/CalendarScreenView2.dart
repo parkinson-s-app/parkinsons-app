@@ -659,7 +659,7 @@ class _CalendarScreenView2 extends State<CalendarScreenView2> {
                                                 currentMeeting = null;
                                                 return AlertDialog(
                                                     title: Text(
-                                                        "¿Cuánto tiempo después se tomó el medicamento?"),
+                                                        "¿Hace cuánto tiempo se tomó la última dosis del medicamento (levodopa)?"),
                                                     content: Container(
                                                         height: 350.0,
                                                         width: 350.0,
@@ -723,7 +723,7 @@ class _CalendarScreenView2 extends State<CalendarScreenView2> {
                                       color: Colors.blue[500],
                                       textColor: Colors.white,
                                       child: Text(
-                                          '             Desfase             '),
+                                          '           Toma de Levodopa          '),
                                       /*() => {
                         //print(cont);
                         _incrementColorIndex()
