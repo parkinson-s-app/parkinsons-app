@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-
+import '../EmotionalForm/EmotionalFormQ0.dart';
 import '../EmotionalForm/EmotionalFormQ1.dart';
 import '../EmotionalForm/EmotionalFormQ2.dart';
 
@@ -45,7 +45,7 @@ class _EmotionalFormQ extends State<EmotionalFormQ> {
       appBar: AppBar(
         centerTitle: true,
         title: Text(
-          "Formulario emocional",
+          "Estado de ánimo",
         ),
         backgroundColor: Colors.blue,
         actions: <Widget>[
@@ -58,6 +58,7 @@ class _EmotionalFormQ extends State<EmotionalFormQ> {
         controller: controller,
         scrollDirection: Axis.vertical,
         children: [
+          EmotionalFormQ0(),
           EmotionalFormQ1(),
           EmotionalFormQ2(
             idPatient: idPatient,

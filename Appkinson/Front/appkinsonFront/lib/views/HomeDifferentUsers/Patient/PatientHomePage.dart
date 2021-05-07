@@ -125,7 +125,7 @@ class _PatientHomePage extends State<PatientHomePage> {
                             children: <Widget>[
                               ButtonGoMedicinesSchedule(),
                               Text(
-                                "Medicinas \n",
+                                "Medicamentos \n",
                                 textAlign: TextAlign.center,
                                 style: TextStyle(
                                     color: Colors.blue[900],
@@ -138,7 +138,7 @@ class _PatientHomePage extends State<PatientHomePage> {
                             children: <Widget>[
                               ButtonGoNoMotorSymptoms(),
                               Text(
-                                "Formulario \nNo Motores",
+                                "Síntomas \nNo Motores",
                                 textAlign: TextAlign.center,
                                 style: TextStyle(
                                     color: Colors.blue[900],
@@ -190,7 +190,7 @@ class _PatientHomePage extends State<PatientHomePage> {
                             children: <Widget>[
                               ButtonGoWeeklyForm(),
                               Text(
-                                "Formulario \nSentimientos",
+                                "Estado \nde Ánimo",
                                 textAlign: TextAlign.center,
                                 style: TextStyle(
                                     color: Colors.blue[900],

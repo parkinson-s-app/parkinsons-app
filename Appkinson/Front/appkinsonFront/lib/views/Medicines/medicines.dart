@@ -42,6 +42,14 @@ class _MedicinesState extends State<Medicines> {
         backgroundColor: Colors.white,
         appBar: AppBar(
           title: Text("Alarmas de Medicamentos"),
+          actions: <Widget>[
+            IconButton(
+              icon: Icon(Icons.contact_support_rounded),
+              color: Colors.white,
+              onPressed: () {
+                information(context);
+              }),
+          ],
         ),
         body: Column(
           children: [
@@ -70,9 +78,22 @@ class _MedicinesState extends State<Medicines> {
             Icons.add,
             color: Colors.white,
           ),
-          onPressed: () {
+          onPressed: () async {
             print('otro idp ${idPatient.toString()}');
-            RoutesDoctor().toPatientAlarmAndMedicine(context, idPatient);
+            int size = items.length;
+            AlarmAndMedicine result = await Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => AlarmAndMedicinePage(idPatient: idPatient)),
+              );
+              debugPrint("tamaño " + size.toString());
+              if(size!= 0){
+                insertItem(0, result);
+              }else{
+                insertItem(0, result);
+              }
+              
+
+            
           },
         ),
         //  floatingActionButton:  ,
@@ -99,9 +120,9 @@ class _MedicinesState extends State<Medicines> {
       );
 
   void insertItem(int index, AlarmAndMedicine item) {
+    debugPrint("banderita" + item.medicine.toString());
     items.insert(index, item);
     key.currentState.insertItem(index);
-    Navigator.pop(context);
   }
 
   void removeItem(int index) {
@@ -114,4 +135,21 @@ class _MedicinesState extends State<Medicines> {
       (context, animation) => buildItem(item, index, animation),
     );
   }
+}
+
+information(context) {
+  showDialog(
+    context: context,
+    builder: (BuildContext context) =>
+        _buildPopupDialog(context),
+    barrierDismissible: true
+  );
+}
+
+Widget _buildPopupDialog(BuildContext context) {
+  return AlertDialog(
+    title: Text(
+      "El botón “+” sirve para crear una nueva alarma de medicamento",
+      ),
+  );
 }

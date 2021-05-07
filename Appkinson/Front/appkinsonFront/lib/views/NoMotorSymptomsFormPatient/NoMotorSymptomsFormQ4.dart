@@ -72,7 +72,7 @@ class _NoMotorSymptomsFormQ4 extends State<NoMotorSymptomsFormQ4> {
                 onChanged: (SigningCharacter value) {
                   setState(() {
                     _character4 = value;
-                    selectedStateRadioQ4 = 2;
+                    selectedStateRadioQ4 = 0;
                   });
                 },
               ),

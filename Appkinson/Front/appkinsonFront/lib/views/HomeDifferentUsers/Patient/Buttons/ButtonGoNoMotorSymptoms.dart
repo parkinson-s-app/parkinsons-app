@@ -23,7 +23,7 @@ class ButtonGoNoMotorSymptoms extends StatelessWidget {
         color: Colors.grey[50],
         //textColor: Colors.white,
         child: Image.asset(
-          "assets/images/14-LISTA.png",
+          "assets/images/condiciones.png",
           height: size.height * 0.09,
         ),
         // Text("Registrarse ", style:  TextStyle(fontSize: 15)),
