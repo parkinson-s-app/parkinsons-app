@@ -111,7 +111,9 @@ class DoctorPatientsCustom extends State<DoctorPatients> {
       child: Scaffold(
         appBar: AppBar(
           toolbarHeight: 70,
-          title: !isSearching ? Text('Pacientes No Agregados') : TextField(
+          title: !isSearching
+              ? Text('Pacientes No Agregados')
+              : TextField(
                   onChanged: (value) {
                     filterSearchResults(value);
                   },
@@ -129,9 +131,10 @@ class DoctorPatientsCustom extends State<DoctorPatients> {
                     ),
                   ),
                 ),
-                //-------
+          //-------
           actions: <Widget>[
-            !isSearching ? IconButton(
+            !isSearching
+                ? IconButton(
                     icon: Icon(Icons.search),
                     onPressed: () {
                       setState(() {
@@ -190,7 +193,8 @@ class DoctorPatientsCustom extends State<DoctorPatients> {
                       final DateTime endTime =
                           startTime.add(const Duration(hours: 1));
                       if (codeList[a]['Q1'] == 'on' ||
-                          codeList[a]['Q1'] == 'ON') {
+                          codeList[a]['Q1'] == 'ON' ||
+                          codeList[a]['Q1'] == 'ON Bueno') {
                         if (codeList[a]['Q2'] != "") {
                           meetingsDoctor.add(Meeting('ON              👋',
                               startTime, endTime, Colors.green, false));
@@ -200,7 +204,8 @@ class DoctorPatientsCustom extends State<DoctorPatients> {
                         }
                       }
                       if (codeList[a]['Q1'] == 'off' ||
-                          codeList[a]['Q1'] == 'OFF') {
+                          codeList[a]['Q1'] == 'OFF' ||
+                          codeList[a]['Q1'] == 'OFF Malo') {
                         String f = 'hola';
                         if (codeList[a]['Q2'] != "") {
                           meetingsDoctor.add(Meeting('OFF              👋',
@@ -211,7 +216,7 @@ class DoctorPatientsCustom extends State<DoctorPatients> {
                         }
                       }
                       if (codeList[a]['Q1'] == 'on bueno' ||
-                          codeList[a]['Q1'] == 'ON Bueno') {
+                          codeList[a]['Q1'] == 'ON Muy Bueno') {
                         if (codeList[a]['Q2'] != "") {
                           meetingsDoctor.add(Meeting('ON Bueno              👋',
                               startTime, endTime, Colors.green[700], false));
@@ -221,7 +226,7 @@ class DoctorPatientsCustom extends State<DoctorPatients> {
                         }
                       }
                       if (codeList[a]['Q1'] == 'off malo' ||
-                          codeList[a]['Q1'] == 'OFF Malo') {
+                          codeList[a]['Q1'] == 'OFF Muy Malo') {
                         if (codeList[a]['Q2'] != "") {
                           meetingsDoctor.add(Meeting('OFF Malo              👋',
                               startTime, endTime, Colors.red[800], false));

@@ -208,24 +208,46 @@ class CarerPatientsCustom extends State<CarerPatients> {
                       final DateTime endTime =
                           startTime.add(const Duration(hours: 1));
                       if (codeList[a]['Q1'] == 'on' ||
-                          codeList[a]['Q1'] == 'ON') {
-                        meetingsCarer.add(Meeting(
-                            'ON', startTime, endTime, Colors.green, false));
+                          codeList[a]['Q1'] == 'ON' ||
+                          codeList[a]['Q1'] == 'ON Bueno') {
+                        if (codeList[a]['Q2'] != "") {
+                          meetingsCarer.add(Meeting('ON Bueno👋', startTime,
+                              endTime, Colors.green, false));
+                        } else {
+                          meetingsCarer.add(Meeting('ON Bueno', startTime,
+                              endTime, Colors.green, false));
+                        }
                       }
                       if (codeList[a]['Q1'] == 'off' ||
-                          codeList[a]['Q1'] == 'OFF') {
-                        meetingsCarer.add(Meeting(
-                            'off', startTime, endTime, Colors.red, false));
+                          codeList[a]['Q1'] == 'OFF' ||
+                          codeList[a]['Q1'] == 'OFF Malo') {
+                        if (codeList[a]['Q2'] != "") {
+                          meetingsCarer.add(Meeting('OFF Malo👋', startTime,
+                              endTime, Colors.red, false));
+                        } else {
+                          meetingsCarer.add(Meeting('OFF Malo', startTime,
+                              endTime, Colors.red, false));
+                        }
                       }
                       if (codeList[a]['Q1'] == 'on bueno' ||
-                          codeList[a]['Q1'] == 'ON Bueno') {
-                        meetingsCarer.add(Meeting('ON Bueno', startTime,
-                            endTime, Colors.green[700], false));
+                          codeList[a]['Q1'] == 'ON Muy Bueno') {
+                        if (codeList[a]['Q2'] != "") {
+                          meetingsCarer.add(Meeting('ON Muy Bueno👋', startTime,
+                              endTime, Colors.green[700], false));
+                        } else {
+                          meetingsCarer.add(Meeting('ON Muy Bueno', startTime,
+                              endTime, Colors.green[700], false));
+                        }
                       }
                       if (codeList[a]['Q1'] == 'off malo' ||
-                          codeList[a]['Q1'] == 'OFF Malo') {
-                        meetingsCarer.add(Meeting('OFF Malo', startTime,
-                            endTime, Colors.red[800], false));
+                          codeList[a]['Q1'] == 'OFF Muy Malo') {
+                        if (codeList[a]['Q2'] != "") {
+                          meetingsCarer.add(Meeting('OFF Muy Malo👋', startTime,
+                              endTime, Colors.red[800], false));
+                        } else {
+                          meetingsCarer.add(Meeting('OFF Muy Malo', startTime,
+                              endTime, Colors.red[800], false));
+                        }
                       }
                     }
                     RoutesCarer()

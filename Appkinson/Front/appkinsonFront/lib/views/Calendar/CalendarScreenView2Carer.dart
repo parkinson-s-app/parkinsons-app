@@ -51,7 +51,12 @@ List<Color> _colors = <Color>[
 
 var contCalendar = 0;
 
-List<String> _onOff = <String>['ON', 'ON Bueno', 'OFF', 'OFF Malo'];
+List<String> _onOff = <String>[
+  'ON Bueno',
+  'ON Muy Bueno',
+  'OFF Malo',
+  'OFF Muy Malo'
+];
 List<dynamic> _icon = <dynamic>[
   Icons.calendar_view_day,
   Icons.calendar_today_rounded

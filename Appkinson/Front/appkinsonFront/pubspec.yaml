@@ -44,7 +44,7 @@ dependencies:
   
   line_awesome_flutter: ^1.0.1
   flutter_screenutil: ^1.0.2
-  animated_theme_switcher: ^1.0.6
+  #animated_theme_switcher: ^1.0.6
   foldable_sidebar: ^1.0.0
   image_picker: ^0.6.7+11
   #image_cropper: ^1.2.0
