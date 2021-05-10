@@ -130,7 +130,7 @@ class CarerPatientsCustom extends State<CarerPatients> {
         appBar: AppBar(
           toolbarHeight: 70,
           title: !isSearching
-              ? Text('Pacientes No Agregados')
+              ? Text('Pacientes Agregados')
               : TextField(
                   onChanged: (value) {
                     filterSearchResults(value);

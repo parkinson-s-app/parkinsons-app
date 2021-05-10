@@ -31,7 +31,7 @@ class AlarmItemWidget extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           Padding(
-            padding: const EdgeInsets.only(right: 5.0),
+            padding: const EdgeInsets.only(right: 5.0, top: 25.0),
             child: IconButton(
             alignment: Alignment.center,
             icon: Icon(Icons.alarm, color: Colors.white, size: 50),
@@ -47,7 +47,7 @@ class AlarmItemWidget extends StatelessWidget {
             ),
           ),
            Padding(
-            padding: const EdgeInsets.only(right: 5.0),
+            padding: const EdgeInsets.only(right: 15.0, top: 20.0),
             child:IconButton(
             alignment: Alignment.center,
             icon: Icon(Icons.delete, color: Colors.blue[800], size: 50),
@@ -99,7 +99,7 @@ class _Body extends StatelessWidget{
   @override
   Widget build(BuildContext context) { 
       return Padding(
-      padding: const EdgeInsets.fromLTRB(12.0, 0.0, 12.0, 0.0),
+      padding: const EdgeInsets.fromLTRB(12.0, 0.0, 5.0, 0.0),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
@@ -107,7 +107,7 @@ class _Body extends StatelessWidget{
             medicine + " (" + dose + " tab)",
             style: const TextStyle(
               fontWeight: FontWeight.w500,
-              fontSize: 20.0,
+              fontSize: 19.0,
             ),
           ),
           const Padding(padding: EdgeInsets.all(5.0)),
