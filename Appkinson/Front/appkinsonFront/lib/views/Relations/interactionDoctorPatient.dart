@@ -93,7 +93,7 @@ class InteractionDoctorPatient extends StatelessWidget {
                         idPatient: this.idPatient,
                       ),
                       Text(
-                        "Medicinas",
+                        "Medicamentos",
                         style: TextStyle(
                             color: Colors.blue[900],
                             fontSize: 20,

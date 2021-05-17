@@ -89,7 +89,7 @@ class InteractionCarerPatient extends StatelessWidget {
                             idPatient: this.idPatient,
                           ),
                           Text(
-                            "Sentimientos",
+                            "Estado de \nánimo",
                             style: TextStyle(
                                 color: Colors.blue[900],
                                 fontSize: 17,
