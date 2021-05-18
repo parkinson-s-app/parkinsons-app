@@ -3,23 +3,20 @@ import config from './config';
 import debugLib from 'debug';
 
 const debug = debugLib('AppKinson:DatabaseConnection');
-let globalPool: Pool | undefined = undefined;
+let conn: Pool | undefined;
 /**
  * Funcion para crear una conexion con la base de datos
  */
 export async function connect () {
-    if(globalPool) {
-        return globalPool;
-    }
     try {
-        globalPool = createPool({
+        const connection = createPool({
             host: config.host,
             user: config.user,
             password: config.password,
             database: config.database,
             connectionLimit: +config.connectionLimit
         });
-        return globalPool;
+        return connection;
     } catch (error) {
         debug('Error connecting to db, error: %j', error);
         throw error;
@@ -27,19 +24,21 @@ export async function connect () {
 }
 
 export async function executeSQL(sqlQuery: string, values?: any) {
-    let conn: Pool | undefined;
+    
     try {
-        debug(`[DB NEW CONNECTION]`);
-        conn = await connect();
+        if(!conn) {
+            debug(`[DB NEW CONNECTION]`);
+            conn = await connect();
+        }
         debug('response connection: %j', conn);
         const result = (values) ? await conn.query(sqlQuery, values) : await conn.query(sqlQuery);
         debug('Query executed.');
-        conn.end();
+        //conn.end();
         return result;
     } catch (error) {
-        if(conn) {
-            conn.end();
-        }
+        // if(conn) {
+        //     conn.end();
+        // }
         debug('[ERROR-DB]: %s', error);
         throw error;
     }
