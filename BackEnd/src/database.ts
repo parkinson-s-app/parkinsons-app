@@ -3,19 +3,23 @@ import config from './config';
 import debugLib from 'debug';
 
 const debug = debugLib('AppKinson:DatabaseConnection');
+let globalPool: Pool | undefined = undefined;
 /**
  * Funcion para crear una conexion con la base de datos
  */
 export async function connect () {
+    if(globalPool) {
+        return globalPool;
+    }
     try {
-        const connection = createPool({
+        globalPool = createPool({
             host: config.host,
             user: config.user,
             password: config.password,
             database: config.database,
             connectionLimit: +config.connectionLimit
         });
-        return connection;
+        return globalPool;
     } catch (error) {
         debug('Error connecting to db, error: %j', error);
         throw error;
