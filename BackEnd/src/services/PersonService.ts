@@ -58,7 +58,7 @@ export default class PersonService {
         try {
             debug('getPeople bd connected');
             const people = await executeSQL('SELECT ID as Id, EMAIL as Email, TYPE as Type FROM users');
-            debug('getPeople response complete db: %j', people)
+            debug('getPeople response complete db: %j', people);
             debug('getPeople response db: %j', people[0]);
             return people[0];
         } catch (error) {
@@ -102,7 +102,10 @@ export default class PersonService {
         debug('updatePerson id: %s', id);
         try {
             const user = await this.getPersonById(id) as any;
-            debug('updatePerson person to update: %j to %j', user, userUpdated);
+            console.log("Vamoo");
+            console.log(user);
+            
+            debug('updatePerson person to update: %j to %j', user, userUpdated);            
             if( user && user[0] ) {
                 const type = user[0].TYPE;
                 debug('updatePerson person type: %s', type);
@@ -118,9 +121,11 @@ export default class PersonService {
                         person =  await executeSQL('UPDATE carers SET ? WHERE ID_USER = ?',[userUpdated, id]);
                     }
                 debug('updatePerson returning person %j', person);
+                console.log("respMo");
+                console.log(person);
+                
                 return person;
             } else  {
-
                 return null;
             }
         } catch (error) {
@@ -162,7 +167,7 @@ export default class PersonService {
             }
         } catch (error) {
             debug('Unrelated Patients error making query. Error: %s', error);
-            return null;
+            throw error;
         }
     }
 
@@ -232,8 +237,8 @@ export default class PersonService {
                     Type
                 FROM toolboxitems;`;
             const res = await executeSQL(query);
-            debug('getting toolbox items response query %s', res[0]);
             if(res) {
+                debug('getting toolbox items response query %s', res[0]);
                 return res[0];
             } else {
                 return null;

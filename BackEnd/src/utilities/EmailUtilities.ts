@@ -23,12 +23,16 @@ export default class EmailUtilities {
             text // Plain text body
         };
         try {
-            const result = await transport.sendMail(message);
+            const result = await this.sendEmailFinal(transport, message);
             debug('Confirmation sent. Email: %s', email);
             return result;
         } catch (error) {
             debug('Error sending email: %s, error: %j', email, error);
             throw error;
         }
+    }
+
+    public static async sendEmailFinal(transport: any, message: any) {
+        return await transport.sendMail(message);
     }
 }

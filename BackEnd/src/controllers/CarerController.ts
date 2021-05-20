@@ -15,9 +15,8 @@ const headerAuth = 'authorization';
  */
 CarerController.get('/carer/patients/unrelated', verifyToken, async (req: Request, res: Response) => {
     debug('Getting unrelated patients');
-    const bearerHeader = req.headers[headerAuth];
+    const bearerHeader = req.headers[headerAuth] as string;
     let status;
-    if( bearerHeader !== undefined ) {
         const id = getIdFromToken(bearerHeader);
         if( !isNaN(id) ){
             try {
@@ -31,20 +30,14 @@ CarerController.get('/carer/patients/unrelated', verifyToken, async (req: Reques
                 res.status(status).send(responseError);
             }
         }
-    } else {
-        debug('Unrelated Error getting authorization header');
-        status = constants.HTTP_STATUS_BAD_REQUEST;
-        res.status(status).send('Bad request');
-    }
 });
 /**
  * recurso que permite obtener todos los pacientes que un cuidador tiene a su cargo
  */
 CarerController.get('/carer/patients/related', verifyToken, async (req: Request, res: Response) => {
     debug('Getting related patients');
-    const bearerHeader = req.headers[headerAuth];
+    const bearerHeader = req.headers[headerAuth] as string;
     let status;
-    if( bearerHeader !== undefined ) {
         const id = getIdFromToken(bearerHeader);
         if( !isNaN(id) ){
             try {
@@ -58,21 +51,15 @@ CarerController.get('/carer/patients/related', verifyToken, async (req: Request,
                 res.status(status).send(responseError);
             }
         }
-    } else {
-        debug('Related Patients to Carer Error getting authorization header');
-        status = constants.HTTP_STATUS_BAD_REQUEST;
-        res.status(status).send('Bad request');
-    }
 });
 
 /**
  * recurso que permite lanzar la petición de un cuidador a un paciente con el id, para ser su encargado
  */
 CarerController.post('/carer/relate/:idPatient', verifyToken, async (req: Request, res: Response) => {
-    const bearerHeader = req.headers[headerAuth];
+    const bearerHeader = req.headers[headerAuth] as string;
     const idPatient = +req.params.idPatient;
     let status;
-    if( bearerHeader !== undefined ) {
         const id = getIdFromToken(bearerHeader);
         if( !isNaN(id) ){
             try {
@@ -94,20 +81,14 @@ CarerController.post('/carer/relate/:idPatient', verifyToken, async (req: Reques
             status = constants.HTTP_STATUS_BAD_REQUEST;
             res.status(status).send('Bad request');
         }
-    } else {
-        debug('Relate Error getting authorization header');
-        status = constants.HTTP_STATUS_BAD_REQUEST;
-        res.status(status).send('Bad request');
-    }
 });
 /**
  * recurso que permite lanzar la petición de un cuidador a un paciente con el correo de este,
  * para ser su encargado
  */
 CarerController.post('/carer/relate', verifyToken, async (req: Request, res: Response) => {
-    const bearerHeader = req.headers[headerAuth];
+    const bearerHeader = req.headers[headerAuth] as string;
     let status;
-    if( bearerHeader !== undefined ) {
         const id = getIdFromToken(bearerHeader);
         const emailPatient = req.body.Email;
         debug('Relate patient by email. Email: %s, id carer: %s, body: %j', emailPatient, id, req.body);
@@ -151,11 +132,6 @@ CarerController.post('/carer/relate', verifyToken, async (req: Request, res: Res
             status = constants.HTTP_STATUS_BAD_REQUEST;
             res.status(status).send('Bad request');
         }
-    } else {
-        debug('Relate Error getting authorization header');
-        status = constants.HTTP_STATUS_BAD_REQUEST;
-        res.status(status).send('Bad request');
-    }
 });
 
 CarerController.delete('/carer/patients/:idPatient', verifyToken, async (req: Request, res: Response) => {

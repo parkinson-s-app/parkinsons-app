@@ -16,9 +16,8 @@ AdminController.delete('/admin/user/:id', verifyToken, async (req: Request, res:
     const id = +req.params.id;
     debug('Delete Id: %s', id);
     // se obtiene la autenticación para saber si el usuario está con la sesión iniciada
-    const bearerHeader = req.headers[headerAuth];
+    const bearerHeader = req.headers[headerAuth] as string;
     let status;
-    if( bearerHeader !== undefined ) {
         // se verifica el tipo de persona con la sesión iniciada
         const type = getTypeFromToken(bearerHeader);
         if ( type === 'Admin') {
@@ -50,12 +49,6 @@ AdminController.delete('/admin/user/:id', verifyToken, async (req: Request, res:
             // autorizado para la operación
             res.status(status).send('Unauthorized');
         }
-    } else {
-        status =  constants.HTTP_STATUS_UNAUTHORIZED;
-        // si la petición no tiene la autenticación, se indica que no está
-        // autorizado para la operación
-        res.status(status).send('Unauthorized');
-    }
 });
 
 
@@ -81,9 +74,8 @@ AdminController.delete('/admin/toolbox/item/:id', verifyToken, async (req: Reque
     const id = +req.params.id;
     debug('Delete toolbox Id: %s', id);
     // se obtiene la autenticación para saber si el usuario está con la sesión iniciada
-    const bearerHeader = req.headers[headerAuth];
+    const bearerHeader = req.headers[headerAuth] as string;
     let status;
-    if( bearerHeader !== undefined ) {
         // se verifica el tipo de persona con la sesión iniciada
         const type = getTypeFromToken(bearerHeader);
         if ( type === 'Admin') {
@@ -115,12 +107,6 @@ AdminController.delete('/admin/toolbox/item/:id', verifyToken, async (req: Reque
             // autorizado para la operación
             res.status(status).send('Unauthorized');
         }
-    } else {
-        status =  constants.HTTP_STATUS_UNAUTHORIZED;
-        // si la petición no tiene la autenticación, se indica que no está
-        // autorizado para la operación
-        res.status(status).send('Unauthorized');
-    }
 });
 
 export default AdminController;

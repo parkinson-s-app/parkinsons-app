@@ -73,7 +73,6 @@ UserController.get('/users', async (req: Request, res: Response) => {
 
 UserController.post('/login', async (req: Request, res: Response) => {
     debug('Login user entry: %j', req.body.email);
-    
     const credentials = req.body as IPersonDto;
     try {
         const responseDB = await PersonService.getPersonByEmail(credentials.email);
@@ -125,19 +124,16 @@ UserController.post('/users/:id', multer.single('photo'), verifyToken, async (re
     debug('Users UpdateById');
     const id = +req.params.id;
     const updatedUserData = req.body as IPersonalDataDto;
-    
-    
     try {
         // verificando si la actualizacion tiene foto
         if(req.file) {
             updatedUserData.PHOTOPATH = req.file.path;
         }
-
         debug('Users Update user: %j, ID:', updatedUserData, id);
         const response = await PersonService.updatePerson(id, updatedUserData);
         debug('User UpdateById response db: %j', response);
         let status;
-        if(response) {
+        if(response) {        
             status =  constants.HTTP_STATUS_OK;
             res.status(status).send(response);
         } else {
@@ -205,7 +201,6 @@ UserController.delete('/users/:id/symptomsFormPatient', verifyToken, async (req:
     // se obtiene la autenticación para saber si el usuario está con la sesión iniciada
     const bearerHeader = req.headers.authorization;
     let status;
-    if( bearerHeader !== undefined ) {
         debug('Delete symptoms form patient data: %j', date);
         if ( id && date) {
             try {
@@ -236,19 +231,12 @@ UserController.delete('/users/:id/symptomsFormPatient', verifyToken, async (req:
             // autorizado para la operación
             res.status(status).send('Bad request');
         }
-    } else {
-        status =  constants.HTTP_STATUS_UNAUTHORIZED;
-        // si la petición no tiene la autenticación, se indica que no está
-        // autorizado para la operación
-        res.status(status).send('Unauthorized');
-    }
 });
 
 UserController.get('/patient/relationRequest', verifyToken, async (req: Request, res: Response) => {
     debug('Getting requests of a patient');
-    const bearerHeader = req.headers.authorization;
+    const bearerHeader = req.headers.authorization as string;
     let status;
-    if( bearerHeader !== undefined ) {
         const id = getIdFromToken(bearerHeader);
         if( !isNaN(id) ){
             try {
@@ -262,70 +250,34 @@ UserController.get('/patient/relationRequest', verifyToken, async (req: Request,
                 res.status(status).send(responseError);
             }
         }
-    } else {
-        debug('Related Error getting authorization header');
-        status = constants.HTTP_STATUS_BAD_REQUEST;
-        res.status(status).send('Bad request');
-    }
-});
-
-UserController.get('/patients/relationRequest', verifyToken, async (req: Request, res: Response) => {
-    debug('Mock Getting requests of a patient');
-    const bearerHeader = req.headers.authorization;
-    let status;
-    if( bearerHeader !== undefined ) {
-        const id = getIdFromToken(bearerHeader);
-        if( !isNaN(id) ){
-            // try {
-                const requests = 'OK';
-                status = constants.HTTP_STATUS_OK;
-                res.status(status).send(requests);
-            // } catch (error) {
-            //     status = constants.HTTP_STATUS_INTERNAL_SERVER_ERROR;
-            //     const responseError = { status, error};
-            //     res.status(status).send(responseError);
-            // }
-        }
-    } else {
-        debug('Mock Error getting authorization header');
-        status = constants.HTTP_STATUS_BAD_REQUEST;
-        res.status(status).send('Bad request');
-    }
 });
 
 UserController.get('/patients/:id/symptomsFormPatient', verifyToken, async (req: Request, res: Response) => {
     debug('Getting symptoms form');
-    const bearerHeader = req.headers.authorization;
+    const bearerHeader = req.headers.authorization as string;
     const id = +req.params.id;
     debug('Patients form by Id, id: %s', id);
     let status;
-    if( bearerHeader !== undefined ) {
-        const idSender = getIdFromToken(bearerHeader);
-        if( !isNaN(idSender) ){
-            try {
-                const requests = await PersonService.getSymptomsForm(id);
-                debug('Getting symptoms form result %j', requests);
-                status = constants.HTTP_STATUS_OK;
-                res.status(status).send(requests);
-            } catch (error) {
-                debug('Get symptoms form failed. Error: %j', error);
-                status = constants.HTTP_STATUS_INTERNAL_SERVER_ERROR;
-                const responseError = { status, error};
-                res.status(status).send(responseError);
-            }
+    const idSender = getIdFromToken(bearerHeader);
+    if( !isNaN(idSender) ){
+        try {
+            const requests = await PersonService.getSymptomsForm(id);
+            debug('Getting symptoms form result %j', requests);
+            status = constants.HTTP_STATUS_OK;
+            res.status(status).send(requests);
+        } catch (error) {
+            debug('Get symptoms form failed. Error: %j', error);
+            status = constants.HTTP_STATUS_INTERNAL_SERVER_ERROR;
+            const responseError = { status, error};
+            res.status(status).send(responseError);
         }
-    } else {
-        debug('Mock Error getting authorization header');
-        status = constants.HTTP_STATUS_BAD_REQUEST;
-        res.status(status).send('Bad request');
     }
 });
 
 UserController.get('/users/me', verifyToken, async (req: Request, res: Response) => {
     debug('Getting info about user');
-    const bearerHeader = req.headers.authorization;
+    const bearerHeader = req.headers.authorization as string;
     let status;
-    if( bearerHeader !== undefined ) {
         const idSender = getIdFromToken(bearerHeader);
         const type = getTypeFromToken(bearerHeader);
         debug('Getting info about user by Id, id: %s', idSender);
@@ -353,11 +305,6 @@ UserController.get('/users/me', verifyToken, async (req: Request, res: Response)
                 res.status(status).send(responseError);
             }
         }
-    } else {
-        debug('Getting info about use Error getting authorization header');
-        status = constants.HTTP_STATUS_BAD_REQUEST;
-        res.status(status).send('Bad request');
-    }
 });
 
 
@@ -365,19 +312,20 @@ UserController.get('/users/:id', verifyToken, async (req: Request, res: Response
     debug('Users GetByID');
     const id = +req.params.id;
     debug('Users GetById id: ', id);
+    let status;
     try {
         const response = await PersonService.getPersonById(id);
-        debug('User get by id response db: %j', response);
+        debug('User get by id response db: %j', response);       
         if(response) {
-            const status =  constants.HTTP_STATUS_OK;
+            status =  constants.HTTP_STATUS_OK;
             res.status(status).send(response);
         } else {
-            const status =  constants.HTTP_STATUS_INTERNAL_SERVER_ERROR;
+            status =  constants.HTTP_STATUS_INTERNAL_SERVER_ERROR;
             res.status(status).send('Error');
         }
     } catch (error) {
         debug('Get user by Id failed. Error: %j', error);
-        const status = constants.HTTP_STATUS_INTERNAL_SERVER_ERROR;
+        status = constants.HTTP_STATUS_INTERNAL_SERVER_ERROR;
         const responseError = { status, error: 'An error has ocurred'};
         res.status(status).send(responseError);
     }
@@ -386,39 +334,23 @@ UserController.get('/users/:id', verifyToken, async (req: Request, res: Response
 
 UserController.get('/download', verifyToken, async (req: Request, res: Response) => {
     debug('Download file %j', req.query.path);
-    const bearerHeader = req.headers.authorization;
+    const bearerHeader = req.headers.authorization as string;
     let status;
-    if( bearerHeader !== undefined ) {
+    try {
         const idSender = getIdFromToken(bearerHeader);
         const path = req.query.path as string;
-        /**
-         * data = new FormData();
-         */
         debug('Download file, id: %s, file path: %s', idSender, path);
         if( !isNaN(idSender) ){
-            try {
-                if(path) {
-                    res.download(path);
-                } else {
-                    /*
-                    let data = new FormData();
-                    data.append('name', req.body.name)
-                    data.append('phone', req.body.phone)
-                    data.append('email', req.body.email)
-                    data.append('resume', fs.createReadStream(path))*/
-                    res.send('bad');
-                }
-
-            } catch (error) {
-                status = constants.HTTP_STATUS_INTERNAL_SERVER_ERROR;
-                const responseError = { status, error};
-                res.status(status).send(responseError);
-            }
+            if(path) {
+                res.download(path);
+            } else {
+                res.send('bad');
+            }            
         }
-    } else {
-        debug('Getting info about use Error getting authorization header');
-        status = constants.HTTP_STATUS_BAD_REQUEST;
-        res.status(status).send('Bad request');
+    } catch (error) {
+        status = constants.HTTP_STATUS_INTERNAL_SERVER_ERROR;
+        const responseError = { status, error};
+        res.status(status).send(responseError);
     }
 });
 
@@ -503,13 +435,13 @@ UserController.post('/user/resetPassword', async (req: Request, res: Response) =
     }
 });
 function getIdFromToken(token: string) {
-    const dataInToken = token.split('.')[1];
-    debug('getIdFromToken data encoded: %s', dataInToken);
-    const decodedData = Buffer.from(dataInToken, 'base64').toString();
-    debug('getIdFromToken data decoded: %s',decodedData);
-    const dataInJSON = JSON.parse(decodedData);
-    debug('getIdFromToken data in JSON: %j',dataInJSON);
-    return +dataInJSON.id;
+        const dataInToken = token.split('.')[1];
+        debug('getIdFromToken data encoded: %s', dataInToken);
+        const decodedData = Buffer.from(dataInToken, 'base64').toString();
+        debug('getIdFromToken data decoded: %s',decodedData);
+        const dataInJSON = JSON.parse(decodedData);
+        debug('getIdFromToken data in JSON: %j',dataInJSON);
+        return +dataInJSON.id;
 }
 
 function getTypeFromToken(token: string) {

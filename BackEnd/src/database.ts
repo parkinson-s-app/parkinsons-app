@@ -24,7 +24,6 @@ export async function connect () {
 }
 
 export async function executeSQL(sqlQuery: string, values?: any) {
-    
     try {
         if(!conn) {
             debug(`[DB NEW CONNECTION]`);
@@ -33,12 +32,8 @@ export async function executeSQL(sqlQuery: string, values?: any) {
         debug('response connection: %j', conn);
         const result = (values) ? await conn.query(sqlQuery, values) : await conn.query(sqlQuery);
         debug('Query executed.');
-        //conn.end();
         return result;
     } catch (error) {
-        // if(conn) {
-        //     conn.end();
-        // }
         debug('[ERROR-DB]: %s', error);
         throw error;
     }

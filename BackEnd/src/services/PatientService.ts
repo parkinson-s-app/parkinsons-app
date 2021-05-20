@@ -246,6 +246,9 @@ export default class PatientService {
             debug('getReportSymptomsTwoDates executed');
             debug('query reslt response :%j', res[0]);
             const listJSON = JSON.parse(JSON.stringify(res[0]));
+            console.log('vamms');
+            console.log(listJSON);
+            
             debug('query response as a list :%j', res[0]);
             let on = 0;
             let onG = 0;
@@ -279,6 +282,9 @@ export default class PatientService {
                 mes: 'null'
             };
             debug('response final :%j', finalResponse);
+            console.log('respm');
+            console.log(finalResponse);
+            
             return finalResponse;
         }  catch (error) {
             debug('getReportSymptomsTwoDates Error: %j', error);
@@ -325,7 +331,13 @@ export default class PatientService {
             debug('getReportGameTwoDates to patient id: %s', idPatient);
             const res = await executeSQL(query,[idPatient, initDate, endDate]);
             debug('getReportGameTwoDates executed');
+            console.log("repos");
+            console.log(res);
+            
             const listJSON = JSON.parse(JSON.stringify(res[0]));
+            console.log('jsin');
+            console.log(listJSON);
+            
             debug('query game response as a list with size:%j', listJSON.length);
             const on = 0;
             let acum = 0;
@@ -499,12 +511,12 @@ export default class PatientService {
             AND date BETWEEN ? AND ?`;
             debug('getReportNoMotorTwoDates to patient id: %s', idPatient);
             const res = await executeSQL(query,[idPatient, initDate, endDate]);
-            debug('getReportNoMotorTwoDates executed ');
+            debug('getReportNoMotorTwoDates executed ');            
             const listJSON = JSON.parse(JSON.stringify(res[0]));
             debug('query getReportNoMotorTwoDates response as a list with size:%j', listJSON.length);
             let acum = 0;
             let average = 0;
-            let questions = [];
+            const questions = [];
             const size = listJSON.length;
             for (let index = 0; size && (index < 1); index++) {
                 if(listJSON[index].Q1){
@@ -727,12 +739,12 @@ export default class PatientService {
             const listJSON = JSON.parse(JSON.stringify(res[0]));
             debug('query discrepancy response as a list with size:%j', listJSON.length);
             const size = listJSON.length;
-            let response = [];
+            const response = [];
             for (let index = 0; index < size; index++) {
                 if(listJSON[index].Name === 'levodopa' || listJSON[index].Name === 'Levodopa' || listJSON[index].Name === 'LEVODOPA' ){
                     const today = new Date();
                     const hour = listJSON[index].AlarmTime;
-                    let initialHour = new Date(`${today.getFullYear()}-${today.getMonth()+1}-${today.getDate()} ${hour}:00.000Z`);
+                    const initialHour = new Date(`${today.getFullYear()}-${today.getMonth()+1}-${today.getDate()} ${hour}:00.000Z`);
                     const limit = new Date(`${initialHour.getFullYear()}-${initialHour.getMonth()+1}-${initialHour.getDate()} 21:00:00.000Z`);
                     const periodicity = listJSON[index].PeriodicityQuantity;
                     const periodicityType = listJSON[index].PeriodicityType;
@@ -775,17 +787,17 @@ export default class PatientService {
             const init = new Date(initDate);
             const end = new Date(endDate);
 
-            let before = new Date(init);
-            let after = new Date(init);
+            const before = new Date(init);
+            const after = new Date(init);
 
             while(before.getTime() < end.getTime()) {
                 after.setHours(after.getHours()+1);
                 before.setHours(before.getHours() + 1);
             }
 
-            let result: any = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0];
+            const result: any = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0];
             for (let index = 0; index < size; index++) {
-                const hour = new Date(listJSON[index].formdate); 
+                const hour = new Date(listJSON[index].formdate);
                 if(listJSON[index].Q1 === 'on') {
                     result[hour.getHours()] = 3;
                 } else if (listJSON[index].Q1 === 'on bueno') {
@@ -796,12 +808,12 @@ export default class PatientService {
                     result[hour.getHours()] = 2;
                 }
             }
-            let resp = [];
+            const resp = [];
             for (let index = 0; index < 24; index++) {
                 const item = {
                     Hora: index,
                     Estado: result[index]
-                }
+                };
                 resp.push(item);
             }
             debug('response daily final :%j', resp);

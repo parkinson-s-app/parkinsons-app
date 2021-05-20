@@ -17,11 +17,10 @@ const PatientController = Router();
 
 PatientController.post('/patient/answerRequest', verifyToken, async (req: Request, res: Response) => {
     debug('Request to link response patients');
-    const bearerHeader = req.headers.authorization;
+    const bearerHeader = req.headers.authorization as string;
     let status;
-    if( bearerHeader !== undefined ) {
         const id = getIdFromToken(bearerHeader);
-        if( !isNaN(id) ){
+        if( !isNaN(id) ) {
             try {
                 const answer = req.body as IAnswerRequestDto;
                 const patients = await PatientService.answerRequest(id, answer);
@@ -43,18 +42,12 @@ PatientController.post('/patient/answerRequest', verifyToken, async (req: Reques
                 res.status(status).send(responseError);
             }
         }
-    } else {
-        debug('Request Error getting authorization header');
-        status = constants.HTTP_STATUS_BAD_REQUEST;
-        res.status(status).send('Bad request');
-    }
 });
 
 PatientController.get('/patient/request/doctor', verifyToken, async (req: Request, res: Response) => {
     debug('Getting request relation from doctors');
-    const bearerHeader = req.headers.authorization;
+    const bearerHeader = req.headers.authorization as string;
     let status;
-    if( bearerHeader !== undefined ) {
         const id = getIdFromToken(bearerHeader);
         if( !isNaN(id) ){
             try {
@@ -68,18 +61,12 @@ PatientController.get('/patient/request/doctor', verifyToken, async (req: Reques
                 res.status(status).send(responseError);
             }
         }
-    } else {
-        debug('Request relation Patients to Doctor Error getting authorization header');
-        status = constants.HTTP_STATUS_BAD_REQUEST;
-        res.status(status).send('Bad request');
-    }
 });
 
 PatientController.get('/patient/request/carer', verifyToken, async (req: Request, res: Response) => {
     debug('Getting request relation from carers');
-    const bearerHeader = req.headers.authorization;
+    const bearerHeader = req.headers.authorization as string;
     let status;
-    if( bearerHeader !== undefined ) {
         const id = getIdFromToken(bearerHeader);
         if( !isNaN(id) ){
             try {
@@ -93,45 +80,6 @@ PatientController.get('/patient/request/carer', verifyToken, async (req: Request
                 res.status(status).send(responseError);
             }
         }
-    } else {
-        debug('Request relation Patients to Carer Error getting authorization header');
-        status = constants.HTTP_STATUS_BAD_REQUEST;
-        res.status(status).send('Bad request');
-    }
-});
-
-
-PatientController.post('/carer/relate/:idPatient', verifyToken, async (req: Request, res: Response) => {
-    const bearerHeader = req.headers.authorization;
-    const idPatient = +req.params.idPatient;
-    let status;
-    if( bearerHeader !== undefined ) {
-        const id = getIdFromToken(bearerHeader);
-        if( !isNaN(id) ){
-            try {
-                const response = await CarerService.requestRelatePatientToCarer(id, idPatient);
-                if(response) {
-                    status = constants.HTTP_STATUS_OK;
-                    res.status(status).send('Success');
-                } else {
-                    status = constants.HTTP_STATUS_INTERNAL_SERVER_ERROR;
-                    res.status(status).send('An Error had ocurred');
-                }
-            } catch (error) {
-                status = constants.HTTP_STATUS_INTERNAL_SERVER_ERROR;
-                const responseError = { status, error};
-                res.status(status).send(responseError);
-            }
-        } else {
-            debug('Relate Error getting id from token');
-            status = constants.HTTP_STATUS_BAD_REQUEST;
-            res.status(status).send('Bad request');
-        }
-    } else {
-        debug('Relate Error getting authorization header');
-        status = constants.HTTP_STATUS_BAD_REQUEST;
-        res.status(status).send('Bad request');
-    }
 });
 
 PatientController.post('/patient/:id/emotionalFormPatient', verifyToken, async (req: Request, res: Response) => {
@@ -284,10 +232,16 @@ PatientController.get('/patient/:id/symptoms/report', verifyToken, async (req: R
 
     try {
         let response;
+        console.log('simpu');
+        
         if(montly !== 'true'){
+            console.log('nomt');
+            
             response = await PatientService.getReportSymptomsTwoDates(idPatient, initDate, endDate);
 
         } else if (montly && montly === 'true') {
+            console.log('mnhg');
+            
             response = await montlyReport(idPatient, initDate, endDate, 'SYMPTOMS');
         }
         debug('Patient getting symptoms report. Items: %j', response);
@@ -356,7 +310,7 @@ PatientController.get('/patient/:id/game/report', verifyToken, async (req: Reque
     try {
         let response;
         if(montly !== 'true'){
-            response = await PatientService.getReportSymptomsTwoDates(idPatient, initDate, endDate);
+            response = await PatientService.getReportGameTwoDates(idPatient, initDate, endDate);
         } else if (montly && montly === 'true') {
             response = await montlyReport(idPatient, initDate, endDate, 'GAME');
         }
@@ -478,40 +432,50 @@ PatientController.get('/patient/:id/noMotorSymptoms/report', verifyToken, async 
 async function montlyReport(idPatient: number, initDate: string, endDate: string, reportType: string) {
     let before = new Date(initDate);
     const last = new Date(endDate);
-    let resp = [];
-    while(before.getTime() < last.getTime()) {
-        let report: any;
-        const nDate = new Date(before.getFullYear(), before.getMonth()+1, 0 );
-        if(nDate.getTime() < last.getTime()){
-            initDate = (before.toJSON()).toString();
-            endDate = (nDate.toJSON()).toString();
-        } else {
-            initDate = (before.toJSON()).toString();
-            endDate = (last.toJSON()).toString();
+    const resp = [];
+    try {
+        while(before.getTime() < last.getTime()) {
+            let report: any;
+            const nDate = new Date(before.getFullYear(), before.getMonth()+1, 0 );
+            if(nDate.getTime() < last.getTime()){
+                initDate = (before.toJSON()).toString();
+                endDate = (nDate.toJSON()).toString();
+            } else {
+                initDate = (before.toJSON()).toString();
+                endDate = (last.toJSON()).toString();
+            }
+            if(reportType === 'SYMPTOMS') {
+                console.log('bunss');
+                
+                report = await PatientService.getReportSymptomsTwoDates(idPatient, initDate, endDate);
+                console.log('simpre');
+                console.log(report);
+                
+            } else if(reportType === 'GAME') {
+                report = await PatientService.getReportGameTwoDates(idPatient, initDate, endDate);
+            } else if(reportType === 'EMOTIONAL') {
+                report = await PatientService.getReportEmotionalSymptomsTwoDates(idPatient, initDate, endDate);
+            } else if(reportType === 'DYSKINECIA') {
+                report = await PatientService.getReportDiskineciaTwoDates(idPatient, initDate, endDate);
+            } else if(reportType === 'DISCREPANCY') {
+                report = await PatientService.getReportDiscrepancyTwoDates(idPatient, initDate, endDate);
+            }
+            report.mes = (before.getMonth()+1);
+            report.Mes = (before.getMonth()+1);
+            before = new Date(before.getFullYear(), before.getMonth() +1, 1 );
+            resp.push(report);
         }
-        if(reportType === 'SYMPTOMS') {
-            report = await PatientService.getReportSymptomsTwoDates(idPatient, initDate, endDate);
-        } else if(reportType === 'GAME') {
-            report = await PatientService.getReportGameTwoDates(idPatient, initDate, endDate);
-        } else if(reportType === 'EMOTIONAL') {
-            report = await PatientService.getReportEmotionalSymptomsTwoDates(idPatient, initDate, endDate);
-        } else if(reportType === 'DYSKINECIA') {
-            report = await PatientService.getReportDiskineciaTwoDates(idPatient, initDate, endDate);
-        } else if(reportType === 'DISCREPANCY') {
-            report = await PatientService.getReportDiscrepancyTwoDates(idPatient, initDate, endDate);
-        }
-        report.mes = (before.getMonth()+1);
-        report.Mes = (before.getMonth()+1);
-        before = new Date(before.getFullYear(), before.getMonth() +1, 1 );
-        resp.push(report);
+        return resp;
+    } catch (error) {
+        throw error;
     }
-    return resp;
+    
 }
 
 async function twoWeeklyReport(idPatient: number, initDate: string, endDate: string, reportType: string) {
-    let before = new Date(initDate);
+    const before = new Date(initDate);
     const last = new Date(endDate);
-    let resp = [];
+    const resp = [];
     resp.push({
         Week: 0,
         Promedio: 0,
@@ -522,7 +486,7 @@ async function twoWeeklyReport(idPatient: number, initDate: string, endDate: str
     let week = 1;
     while(before.getTime() < last.getTime()) {
         let report: any;
-        let nDate = new Date(before.getTime() );
+        const nDate = new Date(before.getTime() );
         nDate.setDate(nDate.getDate() +7);
         if(nDate.getTime() < last.getTime()){
             initDate = (before.toJSON()).toString();
@@ -545,8 +509,7 @@ async function twoWeeklyReport(idPatient: number, initDate: string, endDate: str
 PatientController.get('/patient/alarms/today', verifyToken, async (req: Request, res: Response) => {
     debug('getting alarms today');
     let status;
-    const bearerHeader = req.headers.authorization;
-    if( bearerHeader !== undefined ) {
+    const bearerHeader = req.headers.authorization as string;
         const id = getIdFromToken(bearerHeader);
         try {
             let response;
@@ -561,18 +524,12 @@ PatientController.get('/patient/alarms/today', verifyToken, async (req: Request,
             const responseError = { status, error: 'An error has ocurred'};
             res.status(status).send(responseError);
         }
-    } else {
-        debug('Request Error getting authorization header alarms');
-        status = constants.HTTP_STATUS_BAD_REQUEST;
-        res.status(status).send('Bad request');
-    }
 });
 
 PatientController.get('/patient/:id/report/daily', verifyToken, async (req: Request, res: Response) => {
     debug('getting daily report');
     let status;
-    const bearerHeader = req.headers.authorization;
-    if( bearerHeader !== undefined ) {
+    const bearerHeader = req.headers.authorization as string;
         const id = getIdFromToken(bearerHeader);
         try {
             let response;
@@ -591,11 +548,6 @@ PatientController.get('/patient/:id/report/daily', verifyToken, async (req: Requ
             const responseError = { status, error: 'An error has ocurred'};
             res.status(status).send(responseError);
         }
-    } else {
-        debug('daily report Request Error getting authorization header');
-        status = constants.HTTP_STATUS_BAD_REQUEST;
-        res.status(status).send('Bad request');
-    }
 });
 
 export default PatientController;
