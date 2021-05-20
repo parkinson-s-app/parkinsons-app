@@ -7,7 +7,7 @@ class HelpSupport extends StatelessWidget {
       appBar: AppBar(
         title: Text(''),
       ),
-      body: SafeArea(
+      body: SafeArea( 
         child: Container(
           child: Column(
             children: <Widget>[
