@@ -7,6 +7,7 @@ import { getIdFromToken, verifyToken } from '../utilities/AuthUtilities';
 
 const debug = debugLib('AppKinson:CarerController');
 const CarerController = Router();
+const headerAuth = 'authorization';
 
 /**
  * recurso que permite obtener los pacientes que aún no están relacionados al cuidador que hace la
@@ -14,9 +15,8 @@ const CarerController = Router();
  */
 CarerController.get('/carer/patients/unrelated', verifyToken, async (req: Request, res: Response) => {
     debug('Getting unrelated patients');
-    const bearerHeader = req.headers['authorization'];
+    const bearerHeader = req.headers[headerAuth] as string;
     let status;
-    if( bearerHeader !== undefined ) {
         const id = getIdFromToken(bearerHeader);
         if( !isNaN(id) ){
             try {
@@ -30,20 +30,14 @@ CarerController.get('/carer/patients/unrelated', verifyToken, async (req: Reques
                 res.status(status).send(responseError);
             }
         }
-    } else {
-        debug('Unrelated Error getting authorization header');
-        status = constants.HTTP_STATUS_BAD_REQUEST;
-        res.status(status).send('Bad request');
-    }
 });
 /**
  * recurso que permite obtener todos los pacientes que un cuidador tiene a su cargo
  */
 CarerController.get('/carer/patients/related', verifyToken, async (req: Request, res: Response) => {
     debug('Getting related patients');
-    const bearerHeader = req.headers['authorization'];
+    const bearerHeader = req.headers[headerAuth] as string;
     let status;
-    if( bearerHeader !== undefined ) {
         const id = getIdFromToken(bearerHeader);
         if( !isNaN(id) ){
             try {
@@ -57,23 +51,17 @@ CarerController.get('/carer/patients/related', verifyToken, async (req: Request,
                 res.status(status).send(responseError);
             }
         }
-    } else {
-        debug('Related Patients to Carer Error getting authorization header');
-        status = constants.HTTP_STATUS_BAD_REQUEST;
-        res.status(status).send('Bad request');
-    }
 });
 
 /**
  * recurso que permite lanzar la petición de un cuidador a un paciente con el id, para ser su encargado
  */
 CarerController.post('/carer/relate/:idPatient', verifyToken, async (req: Request, res: Response) => {
-    const bearerHeader = req.headers['authorization'];
+    const bearerHeader = req.headers[headerAuth] as string;
     const idPatient = +req.params.idPatient;
     let status;
-    if( bearerHeader !== undefined ) {
         const id = getIdFromToken(bearerHeader);
-        if( !isNaN(id) ){     
+        if( !isNaN(id) ){
             try {
                 const response = await CarerService.requestRelatePatientToCarer(id, idPatient);
                 if(response) {
@@ -89,28 +77,22 @@ CarerController.post('/carer/relate/:idPatient', verifyToken, async (req: Reques
                 res.status(status).send(responseError);
             }
         } else {
-            debug('Relate Error getting id from token')
+            debug('Relate Error getting id from token');
             status = constants.HTTP_STATUS_BAD_REQUEST;
             res.status(status).send('Bad request');
         }
-    } else {
-        debug('Relate Error getting authorization header');
-        status = constants.HTTP_STATUS_BAD_REQUEST;
-        res.status(status).send('Bad request');
-    }
 });
 /**
  * recurso que permite lanzar la petición de un cuidador a un paciente con el correo de este,
  * para ser su encargado
  */
 CarerController.post('/carer/relate', verifyToken, async (req: Request, res: Response) => {
-    const bearerHeader = req.headers['authorization'];
+    const bearerHeader = req.headers[headerAuth] as string;
     let status;
-    if( bearerHeader !== undefined ) {
         const id = getIdFromToken(bearerHeader);
         const emailPatient = req.body.Email;
         debug('Relate patient by email. Email: %s, id carer: %s, body: %j', emailPatient, id, req.body);
-        if( !isNaN(id) && emailPatient ){     
+        if( !isNaN(id) && emailPatient ){
             try {
                 const searchIdByEmail = await PatientService.getIdPatientByEmail(emailPatient);
                 const responseSearchJSON = JSON.parse(JSON.stringify(searchIdByEmail));
@@ -121,7 +103,7 @@ CarerController.post('/carer/relate', verifyToken, async (req: Request, res: Res
                         debug('patient to relate is: %s', idPatient);
                         const response = await CarerService.requestRelatePatientToCarer(id, idPatient);
                         if(response) {
-                            debug('request relate patient to carer was successful')
+                            debug('request relate patient to carer was successful');
                             status = constants.HTTP_STATUS_OK;
                             res.status(status).send('Success');
                         } else {
@@ -146,22 +128,21 @@ CarerController.post('/carer/relate', verifyToken, async (req: Request, res: Res
                 res.status(status).send(responseError);
             }
         } else {
-            debug('Relate Error getting id from token')
+            debug('Relate Error getting id from token');
             status = constants.HTTP_STATUS_BAD_REQUEST;
             res.status(status).send('Bad request');
         }
-    } else {
-        debug('Relate Error getting authorization header');
-        status = constants.HTTP_STATUS_BAD_REQUEST;
-        res.status(status).send('Bad request');
-    }
 });
 
+/**
+ * recurso que permite eliminar la relación entre un cuidador y un paciente por el id
+ * con el cuidador con la sesion iniciada
+ */
 CarerController.delete('/carer/patients/:idPatient', verifyToken, async (req: Request, res: Response) => {
     const idPatient = +req.params.idPatient;
     debug('Delete Id: %s', idPatient);
     // se obtiene la autenticación para saber si el usuario está con la sesión iniciada
-    const bearerHeader = req.headers['authorization'];
+    const bearerHeader = req.headers[headerAuth];
     let status;
     if( bearerHeader !== undefined ) {
         // se verifica el tipo de persona con la sesión iniciada
@@ -183,7 +164,7 @@ CarerController.delete('/carer/patients/:idPatient', verifyToken, async (req: Re
                     res.status(status).send('Error');
                 }
             } catch (error) {
-                debug('Deletion Catch Error: %s, %j', error.stack, error)
+                debug('Deletion Catch Error: %s, %j', error.stack, error);
                 status =  constants.HTTP_STATUS_INTERNAL_SERVER_ERROR;
                 // si ocurre algún error y no se puede ejecutar la operación, se devuelve una respuesta
                 // indicando error en el servidor

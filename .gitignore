@@ -191,3 +191,5 @@ Appkinson/Front/appkinsonFront/android/local.properties
 BackEnd/src/db/data
 BackEnd/output.txt
 
+.vscode
+.idea

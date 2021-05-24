@@ -73,6 +73,7 @@ CREATE TABLE symptomsformpatient (
     Q2 VARCHAR(50) NOT NULL,
     formdate DATETIME NOT NULL,
     pathvideo VARCHAR(50),
+    discrepancy INT NOT NULL,
     FOREIGN KEY (ID_PATIENT) REFERENCES patients(ID_USER) ON DELETE CASCADE,
     PRIMARY KEY (ID_PATIENT,formdate)
 );
@@ -83,7 +84,7 @@ CREATE TABLE patientxsymptomsform(
     PRIMARY KEY (DATE_FORM,ID_PATIENT)
 );
 
-CREATE TABLE emotionalformpatient (
+CREATE TABLE nomotorsymptomsformpatient (
     ID_PATIENT INT NOT NULL,
     Q1 INT NOT NULL,
     Q2 INT NOT NULL,
@@ -120,6 +121,15 @@ CREATE TABLE emotionalformpatient (
     PRIMARY KEY (ID_PATIENT,date)
 );
 
+CREATE TABLE emotionalformxpatient (
+    ID_PATIENT INT NOT NULL,
+    Q1 INT NOT NULL,
+    Q2 INT NOT NULL,
+    date DATETIME NOT NULL,
+    FOREIGN KEY (ID_PATIENT) REFERENCES patients(ID_USER) ON DELETE CASCADE,
+    PRIMARY KEY (ID_PATIENT,date)
+);
+
 CREATE TABLE medicinealarmpatient (
     ID_PATIENT INT NOT NULL,
     id VARCHAR(50) NOT NULL,
@@ -137,7 +147,7 @@ CREATE TABLE medicine (
     PRIMARY KEY (ID)
 );
 
-insert into medicine(NAME) values('levodopa'), ('medicina2'),('medicina3');
+#insert into medicine(NAME) values('Levodopa'), ('medicina2'),('medicina3');
 
 
 CREATE TABLE alarmandmedicinepatient (
@@ -147,11 +157,10 @@ CREATE TABLE alarmandmedicinepatient (
     alarmTime TIME NOT NULL,
     idMedicine INT NOT NULL,
     dose VARCHAR(50),
-    quantity INT NOT NULL,
     periodicityType VARCHAR(50),
     FOREIGN KEY (ID_PATIENT) REFERENCES patients(ID_USER) ON DELETE CASCADE,
     FOREIGN KEY (idMedicine) REFERENCES medicine(ID) ON DELETE CASCADE,
-    PRIMARY KEY (ID_PATIENT,idMedicine)
+    PRIMARY KEY (ID_PATIENT,idMedicine,alarmTime)
 );
 
 CREATE TABLE toolboxitems (
@@ -161,4 +170,21 @@ CREATE TABLE toolboxitems (
     URL VARCHAR(2000) NOT NULL,
     Type VARCHAR(20) NOT NULL,
     PRIMARY KEY (ID)
+);
+
+CREATE TABLE stepsxpatient (
+    ID_PATIENT INT,
+    stepDate DATETIME,
+    quantitySteps INT NOT NULL,
+    FOREIGN KEY (ID_PATIENT) REFERENCES patients(ID_USER) ON DELETE CASCADE,
+    PRIMARY KEY (ID_PATIENT,stepDate)
+);
+
+
+CREATE TABLE touchgamexpatient (
+    ID_PATIENT INT,
+    gameDate DATETIME,
+    score INT NOT NULL,
+    FOREIGN KEY (ID_PATIENT) REFERENCES patients(ID_USER) ON DELETE CASCADE,
+    PRIMARY KEY (ID_PATIENT,gameDate)
 );

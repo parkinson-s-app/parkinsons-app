@@ -14,11 +14,17 @@ import ISymptomsFormDto from '../models/ISymptomsFormDto';
 import DoctorService from '../services/DoctorService';
 import CarerService from '../services/CarerService';
 import fs from 'fs';
+import OTPUtilities from '../utilities/OTPUtilities';
+import EmailUtilities from '../utilities/EmailUtilities';
+import IPersonResetDto from '../models/IPersonResetDto';
 
 const debug = debugLib('AppKinson:UserController');
 const UserController = Router();
 const secretKey = config.secretKey;
-
+/**
+ * recurso que permite registrarse a un usuario nuevo
+ * requiere el correo, nombre, contraseña y tipo de usuario
+ */
 UserController.post('/registro', async (req: Request, res: Response) => {
     debug('Register Body: %j', req.body);
     const person = req.body as IPersonDto;
@@ -30,7 +36,7 @@ UserController.post('/registro', async (req: Request, res: Response) => {
             status =  constants.HTTP_STATUS_OK;
             res.status(status).send('Guardado');
         } else {
-            const status =  constants.HTTP_STATUS_INTERNAL_SERVER_ERROR;
+            status =  constants.HTTP_STATUS_INTERNAL_SERVER_ERROR;
             res.status(status).send('Error');
         }
     }  catch (error) {
@@ -38,16 +44,18 @@ UserController.post('/registro', async (req: Request, res: Response) => {
         const errorString: string = error.message;
         let responseError;
         if(errorString.includes('Duplicate entry')) {
-            responseError = "Existe";
+            responseError = 'Existe';
             status = constants.HTTP_STATUS_BAD_REQUEST;
         } else {
             status = constants.HTTP_STATUS_INTERNAL_SERVER_ERROR;
-            responseError = { status, error: "An error has ocurred"};
+            responseError = { status, error: 'An error has ocurred'};
         }
         res.status(status).send(responseError);
     }
 });
-
+/**
+ * recurso que permite obtener un listado con los usuarios de la aplicacion
+ */
 UserController.get('/users', async (req: Request, res: Response) => {
     debug('Users Get');
     try {
@@ -61,13 +69,16 @@ UserController.get('/users', async (req: Request, res: Response) => {
             res.status(status).send('Error');
         }
     } catch (error) {
-        debug("getting users failed. Error: %j", error);
+        debug('getting users failed. Error: %j', error);
         const status =  constants.HTTP_STATUS_INTERNAL_SERVER_ERROR;
-        const responseError = { status, error: "An error has ocurred"};
+        const responseError = { status, error: 'An error has ocurred'};
         res.status(status).send(responseError);
     }
 });
-
+/**
+ * recurso que permite iniciar sesion a los usuarios de la aplicacion
+ * requiere solo email y contraseña
+ */
 UserController.post('/login', async (req: Request, res: Response) => {
     debug('Login user entry: %j', req.body.email);
     const credentials = req.body as IPersonDto;
@@ -110,23 +121,24 @@ UserController.post('/login', async (req: Request, res: Response) => {
             }
         }
     } catch (error) {
-        debug("Login failed. Error: %j", error);
+        debug('Login failed. Error: %j', error);
         const status =  constants.HTTP_STATUS_INTERNAL_SERVER_ERROR;
-        const responseError = { status, error: "An error has ocurred"};
+        const responseError = { status, error: 'An error has ocurred'};
         res.status(status).send(responseError);
     }
 });
-
+/**
+ * recurso que permite actualizar los datos de un usuario
+ */
 UserController.post('/users/:id', multer.single('photo'), verifyToken, async (req: Request, res: Response) => {
     debug('Users UpdateById');
     const id = +req.params.id;
-    let updatedUserData = req.body as IPersonalDataDto;
+    const updatedUserData = req.body as IPersonalDataDto;
     try {
         // verificando si la actualizacion tiene foto
         if(req.file) {
             updatedUserData.PHOTOPATH = req.file.path;
         }
-
         debug('Users Update user: %j, ID:', updatedUserData, id);
         const response = await PersonService.updatePerson(id, updatedUserData);
         debug('User UpdateById response db: %j', response);
@@ -141,16 +153,19 @@ UserController.post('/users/:id', multer.single('photo'), verifyToken, async (re
     } catch (error) {
         debug('Patient symptoms saving failed');
         const status = constants.HTTP_STATUS_INTERNAL_SERVER_ERROR;
-        const responseError = { status, error: "An error has ocurred"};
+        const responseError = { status, error: 'An error has ocurred'};
         res.status(status).send(responseError);
     }
 });
-
+/**
+ * recurso que permite agregar un registro de formulario de sintomas a un paciente por su id
+ * es opcional el video
+ */
 UserController.post('/users/:id/symptomsFormPatient', multer.single('video'), verifyToken, async (req: Request, res: Response) => {
     debug('Patients form by Id');
     const id = +req.params.id;
     debug('Patients Symptoms body: %j, ID: %s',req.body, id);
-    let symptomsFormData = req.body as ISymptomsFormDto;
+    const symptomsFormData = req.body as ISymptomsFormDto;
     let status;
     if(req.file && req.file.path ){
         symptomsFormData.pathvideo = req.file.path;
@@ -168,12 +183,15 @@ UserController.post('/users/:id/symptomsFormPatient', multer.single('video'), ve
         res.status(status).send(responseError);
     }
 });
-
+/**
+ * recurso que permite actualizar un registro de formulario de sintomas a un paciente por su id
+ * es opcional el video
+ */
 UserController.put('/users/:id/symptomsFormPatient', multer.single('video'), verifyToken, async (req: Request, res: Response) => {
     debug('Patients form update by Id');
     const id = +req.params.id;
     debug('Patients update Symptoms body: %j, ID: %s',req.body, id);
-    let symptomsFormData = req.body as ISymptomsFormDto;
+    const symptomsFormData = req.body as ISymptomsFormDto;
     let status;
     if(req.file && req.file.path ){
         symptomsFormData.pathvideo = req.file.path;
@@ -191,16 +209,17 @@ UserController.put('/users/:id/symptomsFormPatient', multer.single('video'), ver
         res.status(status).send(responseError);
     }
 });
-
+/**
+ * recurso que permite eliminar un registro de formulario de sintomas a un paciente por su id
+ */
 UserController.delete('/users/:id/symptomsFormPatient', verifyToken, async (req: Request, res: Response) => {
     const id = +req.params.id;
     const date = req.query.Date as string;
     debug('Delete  sypmtoms formpatient Id: %s', id);
     // se obtiene la autenticación para saber si el usuario está con la sesión iniciada
-    const bearerHeader = req.headers['authorization'];
+    const bearerHeader = req.headers.authorization;
     let status;
-    if( bearerHeader !== undefined ) {
-
+        debug('Delete symptoms form patient data: %j', date);
         if ( id && date) {
             try {
                 // se llama al servicio encargado de eliminar una persona por el id
@@ -218,7 +237,7 @@ UserController.delete('/users/:id/symptomsFormPatient', verifyToken, async (req:
                     res.status(status).send('Error');
                 }
             } catch (error) {
-                debug('Deletion  sypmtoms formpatient Catch Error: %s, %j', error.stack, error)
+                debug('Deletion  sypmtoms formpatient Catch Error: %s, %j', error.stack, error);
                 status =  constants.HTTP_STATUS_INTERNAL_SERVER_ERROR;
                 // si ocurre algún error y no se puede ejecutar la operación, se devuelve una respuesta
                 // indicando error en el servidor
@@ -230,19 +249,15 @@ UserController.delete('/users/:id/symptomsFormPatient', verifyToken, async (req:
             // autorizado para la operación
             res.status(status).send('Bad request');
         }
-    } else {
-        status =  constants.HTTP_STATUS_UNAUTHORIZED;
-        // si la petición no tiene la autenticación, se indica que no está
-        // autorizado para la operación
-        res.status(status).send('Unauthorized');
-    }
 });
-
+/**
+ * recurso que permite agregar una solicitud a un paciente por su id ya sea un medico o un cuidador
+ * es opcional el video
+ */
 UserController.get('/patient/relationRequest', verifyToken, async (req: Request, res: Response) => {
     debug('Getting requests of a patient');
-    const bearerHeader = req.headers['authorization'];
+    const bearerHeader = req.headers.authorization as string;
     let status;
-    if( bearerHeader !== undefined ) {
         const id = getIdFromToken(bearerHeader);
         if( !isNaN(id) ){
             try {
@@ -256,70 +271,39 @@ UserController.get('/patient/relationRequest', verifyToken, async (req: Request,
                 res.status(status).send(responseError);
             }
         }
-    } else {
-        debug('Related Error getting authorization header');
-        status = constants.HTTP_STATUS_BAD_REQUEST;
-        res.status(status).send('Bad request');
-    }
 });
-
-UserController.get('/patients/relationRequest', verifyToken, async (req: Request, res: Response) => {
-    debug('Mock Getting requests of a patient');
-    const bearerHeader = req.headers['authorization'];
-    let status;
-    if( bearerHeader !== undefined ) {
-        const id = getIdFromToken(bearerHeader);
-        if( !isNaN(id) ){
-            // try {
-                const requests = 'OK';
-                status = constants.HTTP_STATUS_OK;
-                res.status(status).send(requests);
-            // } catch (error) {
-            //     status = constants.HTTP_STATUS_INTERNAL_SERVER_ERROR;
-            //     const responseError = { status, error};
-            //     res.status(status).send(responseError);
-            // }
-        }
-    } else {
-        debug('Mock Error getting authorization header');
-        status = constants.HTTP_STATUS_BAD_REQUEST;
-        res.status(status).send('Bad request');
-    }
-});
-
+/**
+ * recurso que permite obtener los registros de formulario de sintomas de un paciente por su id
+ */
 UserController.get('/patients/:id/symptomsFormPatient', verifyToken, async (req: Request, res: Response) => {
     debug('Getting symptoms form');
-    const bearerHeader = req.headers['authorization'];
+    const bearerHeader = req.headers.authorization as string;
     const id = +req.params.id;
     debug('Patients form by Id, id: %s', id);
     let status;
-    if( bearerHeader !== undefined ) {
-        const idSender = getIdFromToken(bearerHeader);
-        if( !isNaN(idSender) ){
-            try {
-                const requests = await PersonService.getSymptomsForm(id);
-                debug('Getting symptoms form result %j', requests);
-                status = constants.HTTP_STATUS_OK;
-                res.status(status).send(requests);
-            } catch (error) {
-                debug("Get symptoms form failed. Error: %j", error);
-                status = constants.HTTP_STATUS_INTERNAL_SERVER_ERROR;
-                const responseError = { status, error};
-                res.status(status).send(responseError);
-            }
+    const idSender = getIdFromToken(bearerHeader);
+    if( !isNaN(idSender) ){
+        try {
+            const requests = await PersonService.getSymptomsForm(id);
+            debug('Getting symptoms form result %j', requests);
+            status = constants.HTTP_STATUS_OK;
+            res.status(status).send(requests);
+        } catch (error) {
+            debug('Get symptoms form failed. Error: %j', error);
+            status = constants.HTTP_STATUS_INTERNAL_SERVER_ERROR;
+            const responseError = { status, error};
+            res.status(status).send(responseError);
         }
-    } else {
-        debug('Mock Error getting authorization header');
-        status = constants.HTTP_STATUS_BAD_REQUEST;
-        res.status(status).send('Bad request');
     }
 });
-
+/**
+ * recurso que permite que el usuario que ha iniciado su sesión,
+ * acceda a los datos de su perfil
+ */
 UserController.get('/users/me', verifyToken, async (req: Request, res: Response) => {
     debug('Getting info about user');
-    const bearerHeader = req.headers['authorization'];
+    const bearerHeader = req.headers.authorization as string;
     let status;
-    if( bearerHeader !== undefined ) {
         const idSender = getIdFromToken(bearerHeader);
         const type = getTypeFromToken(bearerHeader);
         debug('Getting info about user by Id, id: %s', idSender);
@@ -347,76 +331,62 @@ UserController.get('/users/me', verifyToken, async (req: Request, res: Response)
                 res.status(status).send(responseError);
             }
         }
-    } else {
-        debug('Getting info about use Error getting authorization header');
-        status = constants.HTTP_STATUS_BAD_REQUEST;
-        res.status(status).send('Bad request');
-    }
 });
 
-
+/**
+ * recurso que permite obtener los datos básicos de un usuario por su id
+ */
 UserController.get('/users/:id', verifyToken, async (req: Request, res: Response) => {
     debug('Users GetByID');
     const id = +req.params.id;
     debug('Users GetById id: ', id);
+    let status;
     try {
         const response = await PersonService.getPersonById(id);
         debug('User get by id response db: %j', response);
         if(response) {
-            const status =  constants.HTTP_STATUS_OK;
+            status =  constants.HTTP_STATUS_OK;
             res.status(status).send(response);
         } else {
-            const status =  constants.HTTP_STATUS_INTERNAL_SERVER_ERROR;
+            status =  constants.HTTP_STATUS_INTERNAL_SERVER_ERROR;
             res.status(status).send('Error');
         }
     } catch (error) {
         debug('Get user by Id failed. Error: %j', error);
-        const status = constants.HTTP_STATUS_INTERNAL_SERVER_ERROR;
-        const responseError = { status, error: "An error has ocurred"};
+        status = constants.HTTP_STATUS_INTERNAL_SERVER_ERROR;
+        const responseError = { status, error: 'An error has ocurred'};
         res.status(status).send(responseError);
     }
 });
 
-
+/**
+ * recurso que permite descargar la multimedia que hace parte de los registros
+ */
 UserController.get('/download', verifyToken, async (req: Request, res: Response) => {
     debug('Download file %j', req.query.path);
-    const bearerHeader = req.headers['authorization'];
+    const bearerHeader = req.headers.authorization as string;
     let status;
-    if( bearerHeader !== undefined ) {
+    try {
         const idSender = getIdFromToken(bearerHeader);
         const path = req.query.path as string;
-        /**
-         * data = new FormData();
-         */
         debug('Download file, id: %s, file path: %s', idSender, path);
         if( !isNaN(idSender) ){
-            try {
-                if(path) {
-                    res.download(path);
-                } else {
-                    /*
-                   let data = new FormData();
-                    data.append('name', req.body.name)
-                    data.append('phone', req.body.phone)
-                    data.append('email', req.body.email)
-                    data.append('resume', fs.createReadStream(path))*/
-                    res.send('bad');
-                }
-
-            } catch (error) {
-                status = constants.HTTP_STATUS_INTERNAL_SERVER_ERROR;
-                const responseError = { status, error};
-                res.status(status).send(responseError);
+            if(path) {
+                res.download(path);
+            } else {
+                res.send('bad');
             }
         }
-    } else {
-        debug('Getting info about use Error getting authorization header');
-        status = constants.HTTP_STATUS_BAD_REQUEST;
-        res.status(status).send('Bad request');
+    } catch (error) {
+        status = constants.HTTP_STATUS_INTERNAL_SERVER_ERROR;
+        const responseError = { status, error};
+        res.status(status).send(responseError);
     }
 });
 
-
+/**
+ * recurso que permite obtener el listado de los items que hacen parte del toolbox
+ */
 UserController.get('/users/toolbox/items', verifyToken, async (req: Request, res: Response) => {
     debug('getting toolbox items');
     let status;
@@ -428,21 +398,94 @@ UserController.get('/users/toolbox/items', verifyToken, async (req: Request, res
     } catch (error) {
         debug('Patient getting medicine Alarms failed, error: %j', error);
         status = constants.HTTP_STATUS_INTERNAL_SERVER_ERROR;
-        const responseError = { status, error: "An error has ocurred"};
+        const responseError = { status, error: 'An error has ocurred'};
         res.status(status).send(responseError);
     }
 });
 
+/**
+ * recurso que permite a cualquier usuario obtener un código de recuperacion de contraseña
+ */
+UserController.post('/user/forgotPassword', async (req: Request, res: Response) => {
+    debug('Forgot password user entry: %j', req.body.email);
+    const email = req.body.Email;
+    try {
+        const responseDB = await PersonService.getPersonByEmail(email);
+        const responseJSON = JSON.parse(JSON.stringify(responseDB));
+        debug('Forgotten password. User get response db: %j', responseDB);
+        let status;
+        if (responseJSON.length === 0 ) {
+            status =  constants.HTTP_STATUS_NOT_FOUND;
+            res.status(status).send({ message:'Invalid Email' });
+        } else {
+            debug(' Reset password email: %s', email);
+            const otp = await OTPUtilities.generateOTP();
+            const subject = 'Peticion de cambio de contraseña';
+            const text = `Para poder cambiar su contraseña el codigo de verificación es: ${otp}`;
+            const responseSendEmail = await EmailUtilities.sendEmail(email, subject, text);
+            if(responseSendEmail) {
+                status =  constants.HTTP_STATUS_OK;
+                const responseOK = { status, message: 'Email sent'};
+                res.status(status).send(responseOK);
+            }
+        }
+    } catch (error) {
+        debug('Forgotten password failed. Error: %j', error);
+        const status =  constants.HTTP_STATUS_INTERNAL_SERVER_ERROR;
+        const responseError = { status, error: 'An error has ocurred'};
+        res.status(status).send(responseError);
+    }
+});
+/**
+ * recurso que permite la actualización de la contraseña a cualquier usuario
+ */
+UserController.post('/user/resetPassword', async (req: Request, res: Response) => {
+    debug('Reset password user entry: %j', req.body.email);
+    const credentials = req.body as IPersonResetDto;
+    try {
+        debug('Reset password data: %j', credentials);
+        const verified = await OTPUtilities.verifyOtp(credentials.OTP);
+        if(verified){
+            const responseDB = await PersonService.resetPassword(credentials);
+            debug('Resetten password. User get response db: %j', responseDB);
+            let status;
+            if (responseDB) {
+                status =  constants.HTTP_STATUS_OK;
+                res.status(status).send({ message:'Password Reset' });
+            } else {
+                debug('Reset password failed response db.');
+                status =  constants.HTTP_STATUS_INTERNAL_SERVER_ERROR;
+                const responseError = { status, error: 'An error has ocurred'};
+                res.status(status).send(responseError);
+            }
+        } else {
+            const status =  constants.HTTP_STATUS_UNAUTHORIZED;
+            const responseError = { status, error: 'Unauthorized'};
+            res.status(status).send(responseError);
+        }
+    } catch (error) {
+        debug('Reset password failed. Error: %j', error);
+        const status =  constants.HTTP_STATUS_INTERNAL_SERVER_ERROR;
+        const responseError = { status, error: 'An error has ocurred'};
+        res.status(status).send(responseError);
+    }
+});
+/**
+ * método para facilitar la optencion del id desde el token enviado por el usuario
+ */
 function getIdFromToken(token: string) {
-    const dataInToken = token.split('.')[1];
-    debug('getIdFromToken data encoded: %s', dataInToken);
-    const decodedData = Buffer.from(dataInToken, 'base64').toString();
-    debug('getIdFromToken data decoded: %s',decodedData);
-    const dataInJSON = JSON.parse(decodedData);
-    debug('getIdFromToken data in JSON: %j',dataInJSON);
-    return +dataInJSON.id;
+        const dataInToken = token.split('.')[1];
+        debug('getIdFromToken data encoded: %s', dataInToken);
+        const decodedData = Buffer.from(dataInToken, 'base64').toString();
+        debug('getIdFromToken data decoded: %s',decodedData);
+        const dataInJSON = JSON.parse(decodedData);
+        debug('getIdFromToken data in JSON: %j',dataInJSON);
+        return +dataInJSON.id;
 }
-
+/**
+ * método para facilitar la optencion del tipo del usuario desde el token enviado
+ * por este mismo
+ */
 function getTypeFromToken(token: string) {
     const dataInToken = token.split('.')[1];
     debug('getTypeFromToken data encoded: %s', dataInToken);

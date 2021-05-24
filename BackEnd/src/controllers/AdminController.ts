@@ -7,6 +7,7 @@ import IToolboxItemDto from '../models/IToolboxItemDto';
 
 const debug = debugLib('AppKinson:AdminController');
 const AdminController = Router();
+const headerAuth = 'authorization';
 /**
  * recurso que permite la eliminación de un usuario indicando el id, por parte de un administrador
  * con sesion iniciada
@@ -15,9 +16,8 @@ AdminController.delete('/admin/user/:id', verifyToken, async (req: Request, res:
     const id = +req.params.id;
     debug('Delete Id: %s', id);
     // se obtiene la autenticación para saber si el usuario está con la sesión iniciada
-    const bearerHeader = req.headers['authorization'];
+    const bearerHeader = req.headers[headerAuth] as string;
     let status;
-    if( bearerHeader !== undefined ) {
         // se verifica el tipo de persona con la sesión iniciada
         const type = getTypeFromToken(bearerHeader);
         if ( type === 'Admin') {
@@ -37,7 +37,7 @@ AdminController.delete('/admin/user/:id', verifyToken, async (req: Request, res:
                     res.status(status).send('Error');
                 }
             } catch (error) {
-                debug('Deletion Catch Error: %s, %j', error.stack, error)
+                debug('Deletion Catch Error: %s, %j', error.stack, error);
                 status =  constants.HTTP_STATUS_INTERNAL_SERVER_ERROR;
                 // si ocurre algún error y no se puede ejecutar la operación, se devuelve una respuesta
                 // indicando error en el servidor
@@ -49,19 +49,16 @@ AdminController.delete('/admin/user/:id', verifyToken, async (req: Request, res:
             // autorizado para la operación
             res.status(status).send('Unauthorized');
         }
-    } else {
-        status =  constants.HTTP_STATUS_UNAUTHORIZED;
-        // si la petición no tiene la autenticación, se indica que no está
-        // autorizado para la operación
-        res.status(status).send('Unauthorized');
-    }
 });
 
-
+/**
+ * recurso que permite la creación de un item del toolbox, por parte de un administrador
+ * con sesion iniciada
+ */
 AdminController.post('/admin/toolbox/item', verifyToken, async (req: Request, res: Response) => {
     debug('Add toolbox item');
     debug('Body: %j, ID: %s',req.body);
-    let toolboxItem = req.body as IToolboxItemDto;
+    const toolboxItem = req.body as IToolboxItemDto;
     let status;
     try {
         const response = await AdminService.saveToolboxItem(toolboxItem);
@@ -75,14 +72,16 @@ AdminController.post('/admin/toolbox/item', verifyToken, async (req: Request, re
         res.status(status).send(responseError);
     }
 });
-
+/**
+ * recurso que permite la eliminación de un item del toolbox indicando el id, por parte de un administrador
+ * con sesion iniciada
+ */
 AdminController.delete('/admin/toolbox/item/:id', verifyToken, async (req: Request, res: Response) => {
     const id = +req.params.id;
     debug('Delete toolbox Id: %s', id);
     // se obtiene la autenticación para saber si el usuario está con la sesión iniciada
-    const bearerHeader = req.headers['authorization'];
+    const bearerHeader = req.headers[headerAuth] as string;
     let status;
-    if( bearerHeader !== undefined ) {
         // se verifica el tipo de persona con la sesión iniciada
         const type = getTypeFromToken(bearerHeader);
         if ( type === 'Admin') {
@@ -102,7 +101,7 @@ AdminController.delete('/admin/toolbox/item/:id', verifyToken, async (req: Reque
                     res.status(status).send('Error');
                 }
             } catch (error) {
-                debug('Deletion Catch Error: %s, %j', error.stack, error)
+                debug('Deletion Catch Error: %s, %j', error.stack, error);
                 status =  constants.HTTP_STATUS_INTERNAL_SERVER_ERROR;
                 // si ocurre algún error y no se puede ejecutar la operación, se devuelve una respuesta
                 // indicando error en el servidor
@@ -114,12 +113,6 @@ AdminController.delete('/admin/toolbox/item/:id', verifyToken, async (req: Reque
             // autorizado para la operación
             res.status(status).send('Unauthorized');
         }
-    } else {
-        status =  constants.HTTP_STATUS_UNAUTHORIZED;
-        // si la petición no tiene la autenticación, se indica que no está
-        // autorizado para la operación
-        res.status(status).send('Unauthorized');
-    }
 });
 
 export default AdminController;

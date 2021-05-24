@@ -1,0 +1,8 @@
+{
+  "message": "Duplicate entry 'veraele2@javeriana.edu.co' for key 'users.EMAIL'",
+  "code": "ER_DUP_ENTRY",
+  "errno": 1062,
+  "sqlState": "23000",
+  "sqlMessage": "Duplicate entry 'veraele2@javeriana.edu.co' for key 'users.EMAIL'",
+  "stack": "stack"
+}

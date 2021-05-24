@@ -9,9 +9,13 @@ import { getIdFromToken, verifyToken } from '../utilities/AuthUtilities';
 const debug = debugLib('AppKinson:DoctorController');
 const DoctorController = Router();
 
+/**
+ * recurso que permite obtener los pacientes que aún no están relacionados al medico que hace la
+ * petición
+ */
 DoctorController.get('/doctor/patients/unrelated', verifyToken, async (req: Request, res: Response) => {
     debug('Getting unrelated patients');
-    const bearerHeader = req.headers['authorization'];
+    const bearerHeader = req.headers.authorization;
     let status;
     if( bearerHeader !== undefined ) {
         const id = getIdFromToken(bearerHeader);
@@ -33,10 +37,12 @@ DoctorController.get('/doctor/patients/unrelated', verifyToken, async (req: Requ
         res.status(status).send('Bad request');
     }
 });
-
+/**
+ * recurso que permite obtener todos los pacientes que un medico tiene a su cargo
+ */
 DoctorController.get('/doctor/patients/related', verifyToken, async (req: Request, res: Response) => {
     debug('Getting related patients');
-    const bearerHeader = req.headers['authorization'];
+    const bearerHeader = req.headers.authorization;
     let status;
     if( bearerHeader !== undefined ) {
         const id = getIdFromToken(bearerHeader);
@@ -59,15 +65,17 @@ DoctorController.get('/doctor/patients/related', verifyToken, async (req: Reques
     }
 });
 
-
+/**
+ * recurso que permite lanzar la petición de un medico a un paciente con el id, para ser su medico encargado
+ */
 DoctorController.post('/doctor/relate/:idPatient', verifyToken, async (req: Request, res: Response) => {
-    const bearerHeader = req.headers['authorization'];
+    const bearerHeader = req.headers.authorization;
     const idPatient = +req.params.idPatient;
     let status;
     if( bearerHeader !== undefined ) {
         const id = getIdFromToken(bearerHeader);
         debug('Relate patient by id. Id patient: %s, id doctor: %s', idPatient, id);
-        if( !isNaN(id) ){     
+        if( !isNaN(id) ){
             try {
                 const response = await DoctorService.requestRelatePatientToDoctor(id, idPatient);
                 if(response) {
@@ -83,7 +91,7 @@ DoctorController.post('/doctor/relate/:idPatient', verifyToken, async (req: Requ
                 res.status(status).send(responseError);
             }
         } else {
-            debug('Relate Error getting id from token')
+            debug('Relate Error getting id from token');
             status = constants.HTTP_STATUS_BAD_REQUEST;
             res.status(status).send('Bad request');
         }
@@ -93,15 +101,18 @@ DoctorController.post('/doctor/relate/:idPatient', verifyToken, async (req: Requ
         res.status(status).send('Bad request');
     }
 });
-
+/**
+ * recurso que permite lanzar la petición de un medico a un paciente con el correo de este,
+ * para ser su medico encargado
+ */
 DoctorController.post('/doctor/relate', verifyToken, async (req: Request, res: Response) => {
-    const bearerHeader = req.headers['authorization'];
+    const bearerHeader = req.headers.authorization;
     let status;
     if( bearerHeader !== undefined ) {
         const id = getIdFromToken(bearerHeader);
         const emailPatient = req.body.Email;
         debug('Relate patient by email. Email: %s, id doctor: %s, body: %j', emailPatient, id, req.body);
-        if( !isNaN(id) && emailPatient ){     
+        if( !isNaN(id) && emailPatient ){
             try {
                 const searchIdByEmail = await PatientService.getIdPatientByEmail(emailPatient);
                 const responseSearchJSON = JSON.parse(JSON.stringify(searchIdByEmail));
@@ -112,7 +123,7 @@ DoctorController.post('/doctor/relate', verifyToken, async (req: Request, res: R
                         debug('patient to relate is: %s', idPatient);
                             const response = await DoctorService.requestRelatePatientToDoctor(id, idPatient);
                             if(response) {
-                                debug('request relate patient to doctor was successful')
+                                debug('request relate patient to doctor was successful');
                                 status = constants.HTTP_STATUS_OK;
                                 res.status(status).send('Success');
                             } else {
@@ -137,7 +148,7 @@ DoctorController.post('/doctor/relate', verifyToken, async (req: Request, res: R
                 res.status(status).send(responseError);
             }
         } else {
-            debug('Relate Error getting id from token')
+            debug('Relate Error getting id from token');
             status = constants.HTTP_STATUS_BAD_REQUEST;
             res.status(status).send('Bad request');
         }
@@ -148,10 +159,12 @@ DoctorController.post('/doctor/relate', verifyToken, async (req: Request, res: R
     }
 });
 
-
+/**
+ * recurso que permite obtener el listado con el nombre de las medicinas que existen
+ */
 DoctorController.get('/doctor/medicines', verifyToken, async (req: Request, res: Response) => {
     debug('Getting list medicines');
-    const bearerHeader = req.headers['authorization'];
+    const bearerHeader = req.headers.authorization;
     let status;
     if( bearerHeader !== undefined ) {
         const id = getIdFromToken(bearerHeader);
@@ -174,15 +187,18 @@ DoctorController.get('/doctor/medicines', verifyToken, async (req: Request, res:
     }
 });
 
-
+/**
+ * recurso que permite agregarle un medicamento a un paciente
+ * por su id
+ */
 DoctorController.post('/doctor/medicine/:idPatient', verifyToken, async (req: Request, res: Response) => {
-    const bearerHeader = req.headers['authorization'];
+    const bearerHeader = req.headers.authorization;
     const idPatient = +req.params.idPatient;
     let status;
     if( bearerHeader !== undefined ) {
         const id = getIdFromToken(bearerHeader);
         debug('Set medicine patient by id. Id patient: %s, id doctor: %s', idPatient, id);
-        if( !isNaN(id) ){     
+        if( !isNaN(id) ){
             try {
                 const medicine = req.body as IMedicine;
                 debug('body %j', req.body);
@@ -202,7 +218,7 @@ DoctorController.post('/doctor/medicine/:idPatient', verifyToken, async (req: Re
                 res.status(status).send(responseError);
             }
         } else {
-            debug('Set medicine Error getting id from token')
+            debug('Set medicine Error getting id from token');
             status = constants.HTTP_STATUS_BAD_REQUEST;
             res.status(status).send('Bad request');
         }
@@ -213,12 +229,15 @@ DoctorController.post('/doctor/medicine/:idPatient', verifyToken, async (req: Re
     }
 });
 
-
+/**
+ * recurso que permite eliminar la relación entre un medico y un paciente por el id
+ * con el medico con la sesion iniciada
+ */
 DoctorController.delete('/doctor/patients/:idPatient', verifyToken, async (req: Request, res: Response) => {
     const idPatient = +req.params.idPatient;
     debug('Delete patient to doctor Id: %s', idPatient);
     // se obtiene la autenticación para saber si el usuario está con la sesión iniciada
-    const bearerHeader = req.headers['authorization'];
+    const bearerHeader = req.headers.authorization;
     let status;
     if( bearerHeader !== undefined ) {
         // se verifica el tipo de persona con la sesión iniciada
@@ -240,7 +259,7 @@ DoctorController.delete('/doctor/patients/:idPatient', verifyToken, async (req: 
                     res.status(status).send('Error');
                 }
             } catch (error) {
-                debug('Deletion patient to doctor Catch Error: %s, %j', error.stack, error)
+                debug('Deletion patient to doctor Catch Error: %s, %j', error.stack, error);
                 status =  constants.HTTP_STATUS_INTERNAL_SERVER_ERROR;
                 // si ocurre algún error y no se puede ejecutar la operación, se devuelve una respuesta
                 // indicando error en el servidor
