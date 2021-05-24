@@ -1,7 +1,4 @@
 import 'dart:convert';
-
-import 'package:appkinsonFront/routes/RoutesDoctor.dart';
-import 'package:appkinsonFront/routes/RoutesPatient.dart';
 import 'package:appkinsonFront/services/EndPoints.dart';
 import 'package:appkinsonFront/utils/Utils.dart';
 import 'package:appkinsonFront/views/Medicines/medicines.dart';
