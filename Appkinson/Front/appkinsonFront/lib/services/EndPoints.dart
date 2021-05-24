@@ -21,7 +21,11 @@ import 'package:http/http.dart' as http;
 import 'package:path/path.dart' as p;
 import 'package:dio/dio.dart';
 
+// Esta clase en general contiene todos los endpoints que
+// conectan servicios del back-end solicitados por el
+// front-end
 class EndPoints {
+  //Esta función llama a un  http post que agrega un usuario al sistema
   Future<String> addUsers(User newUser) async {
     Map data2 = {
       'email': newUser.email,
@@ -40,6 +44,7 @@ class EndPoints {
     //data = json.decode(response.body);
   }
 
+  //Funcón que modifica la foto de un usuario
   Future<String> modifyUsersPhoto(User newUser, var tokenId, var token) async {
     debugPrint('hola2');
     String fileName = newUser.photo.path.split('/').last;
@@ -67,6 +72,7 @@ class EndPoints {
     //data = json.decode(response.body);
   }
 
+  //Funcion que modifica
   Future<String> modifyUsers(User newUser, var tokenId, var token) async {
     Map data2 = {
       //'email': newUser.email,
@@ -88,6 +94,8 @@ class EndPoints {
     //data = json.decode(response.body);
   }
 
+  //Esta función autentica un usuario para que pueda
+  //acceder a la aplicación
   Future<String> authUser(User authUser) async {
     debugPrint("entro");
     Map data2 = {'email': authUser.email, 'password': authUser.password};
@@ -100,6 +108,8 @@ class EndPoints {
     return body;
   }
 
+  //Esta función acepta una solicitud de relación que se
+  //le manda a un paciente
   Future<String> sendResponseRelation(
       String answer, String type, String requesterId) async {
     Map data2 = {
@@ -161,6 +171,8 @@ class EndPoints {
     return items;
   }
 
+  //Esta función elimina un item agregado como ejercicio
+  //noticia o alimentación
   Future<String> deleteItemToolbox(String index) async {
     String i = " ";
     String token = await Utils().getToken();
@@ -288,12 +300,12 @@ class EndPoints {
     String tipe = await Utils().getFromToken('type');
     if (tipe == 'Cuidador') {
       final request = http.delete(
-        endpointBack + '/api/carer/patients/$idPatient',
-        headers: {HttpHeaders.authorizationHeader: jwtkey + token});
+          endpointBack + '/api/carer/patients/$idPatient',
+          headers: {HttpHeaders.authorizationHeader: jwtkey + token});
     } else if (tipe == 'Doctor') {
       final request = http.delete(
-        endpointBack + '/api/doctor/patients/$idPatient',
-        headers: {HttpHeaders.authorizationHeader: jwtkey + token});
+          endpointBack + '/api/doctor/patients/$idPatient',
+          headers: {HttpHeaders.authorizationHeader: jwtkey + token});
     }
     return i;
   }
@@ -495,7 +507,7 @@ class EndPoints {
         pagePath, '/api/patient/$tokenID/game/report', queryParameters);
     http.Response lista = await http
         .get(uri, headers: {HttpHeaders.authorizationHeader: jwtkey + token});
-    
+
     String i = lista.body;
     var codeList = json.decode(i);
     debugPrint(i);
@@ -556,15 +568,15 @@ class EndPoints {
     return i;
   }
 
-   Future<String> getAverageMotorsSymptoms(
+  Future<String> getAverageMotorsSymptoms(
       var tokenID, DateTime start, DateTime end) async {
     var token = await Utils().getToken();
     var queryParameters = {
       'start': start.toString(),
       'end': end.toString(),
     };
-    var uri = Uri.http(
-        pagePath, '/api/patient/$tokenID/noMotorSymptoms/report', queryParameters);
+    var uri = Uri.http(pagePath, '/api/patient/$tokenID/noMotorSymptoms/report',
+        queryParameters);
     http.Response lista = await http
         .get(uri, headers: {HttpHeaders.authorizationHeader: jwtkey + token});
     String i = lista.body;
@@ -573,7 +585,7 @@ class EndPoints {
     return i;
   }
 
-    Future<String> getAverageSymptomsByDay(
+  Future<String> getAverageSymptomsByDay(
       var tokenID, DateTime start, DateTime end) async {
     var token = await Utils().getToken();
     var queryParameters = {
@@ -613,9 +625,7 @@ class EndPoints {
       alarm.dose = codeList[a]['Dose'];
       s = codeList[a]['AlarmTime'];
       alarm.alarmTime = TimeOfDay(
-        hour: int.parse(s.split(":")[0]), 
-        minute: int.parse(s.split(":")[1]))
-        ;
+          hour: int.parse(s.split(":")[0]), minute: int.parse(s.split(":")[1]));
       alarms.add(alarm);
     }
     return alarms;
@@ -691,7 +701,8 @@ class EndPoints {
     //tokenID paciente
     //id index
     String token = await Utils().getToken();
-    print("eliminando medicina id: " + id + " paciente id:" + tokenID.toString());
+    print(
+        "eliminando medicina id: " + id + " paciente id:" + tokenID.toString());
     http.Response response = await http.post(
         endpointBack + '/api/patient/$tokenID/medicineAlarm/delete/$id',
         headers: {HttpHeaders.authorizationHeader: jwtkey + token});
@@ -699,7 +710,7 @@ class EndPoints {
     String i = response.body;
     return i;
   }
-  
+
   Future<List<RelationRequest>> getRelationRequest(var token) async {
     http.Response lista = await http.get(
         endpointBack + '/api/patient/relationRequest',
@@ -829,7 +840,8 @@ class EndPoints {
     print('entra');
     Map<String, dynamic> alarmAndMedicineToSave = {
       'periodicityQuantity': alarmAndMedicine.periodicityQuantity,
-      'alarmTime': '${alarmAndMedicine.alarmTime.hour}:${alarmAndMedicine.alarmTime.minute}',
+      'alarmTime':
+          '${alarmAndMedicine.alarmTime.hour}:${alarmAndMedicine.alarmTime.minute}',
       'idMedicine': alarmAndMedicine.idMedicine,
       'dose': alarmAndMedicine.dose,
       'periodicityType': alarmAndMedicine.periodicityType,
