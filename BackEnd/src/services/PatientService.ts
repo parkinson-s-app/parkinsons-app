@@ -246,9 +246,6 @@ export default class PatientService {
             debug('getReportSymptomsTwoDates executed');
             debug('query reslt response :%j', res[0]);
             const listJSON = JSON.parse(JSON.stringify(res[0]));
-            console.log('vamms');
-            console.log(listJSON);
-            
             debug('query response as a list :%j', res[0]);
             let on = 0;
             let onG = 0;
@@ -282,9 +279,6 @@ export default class PatientService {
                 mes: 'null'
             };
             debug('response final :%j', finalResponse);
-            console.log('respm');
-            console.log(finalResponse);
-            
             return finalResponse;
         }  catch (error) {
             debug('getReportSymptomsTwoDates Error: %j', error);
@@ -331,13 +325,7 @@ export default class PatientService {
             debug('getReportGameTwoDates to patient id: %s', idPatient);
             const res = await executeSQL(query,[idPatient, initDate, endDate]);
             debug('getReportGameTwoDates executed');
-            console.log("repos");
-            console.log(res);
-            
             const listJSON = JSON.parse(JSON.stringify(res[0]));
-            console.log('jsin');
-            console.log(listJSON);
-            
             debug('query game response as a list with size:%j', listJSON.length);
             const on = 0;
             let acum = 0;
@@ -511,7 +499,7 @@ export default class PatientService {
             AND date BETWEEN ? AND ?`;
             debug('getReportNoMotorTwoDates to patient id: %s', idPatient);
             const res = await executeSQL(query,[idPatient, initDate, endDate]);
-            debug('getReportNoMotorTwoDates executed ');            
+            debug('getReportNoMotorTwoDates executed ');
             const listJSON = JSON.parse(JSON.stringify(res[0]));
             debug('query getReportNoMotorTwoDates response as a list with size:%j', listJSON.length);
             let acum = 0;

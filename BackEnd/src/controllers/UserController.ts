@@ -133,7 +133,7 @@ UserController.post('/users/:id', multer.single('photo'), verifyToken, async (re
         const response = await PersonService.updatePerson(id, updatedUserData);
         debug('User UpdateById response db: %j', response);
         let status;
-        if(response) {        
+        if(response) {
             status =  constants.HTTP_STATUS_OK;
             res.status(status).send(response);
         } else {
@@ -315,7 +315,7 @@ UserController.get('/users/:id', verifyToken, async (req: Request, res: Response
     let status;
     try {
         const response = await PersonService.getPersonById(id);
-        debug('User get by id response db: %j', response);       
+        debug('User get by id response db: %j', response);
         if(response) {
             status =  constants.HTTP_STATUS_OK;
             res.status(status).send(response);
@@ -345,7 +345,7 @@ UserController.get('/download', verifyToken, async (req: Request, res: Response)
                 res.download(path);
             } else {
                 res.send('bad');
-            }            
+            }
         }
     } catch (error) {
         status = constants.HTTP_STATUS_INTERNAL_SERVER_ERROR;

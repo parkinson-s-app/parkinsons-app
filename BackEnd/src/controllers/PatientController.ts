@@ -232,16 +232,9 @@ PatientController.get('/patient/:id/symptoms/report', verifyToken, async (req: R
 
     try {
         let response;
-        console.log('simpu');
-        
         if(montly !== 'true'){
-            console.log('nomt');
-            
             response = await PatientService.getReportSymptomsTwoDates(idPatient, initDate, endDate);
-
         } else if (montly && montly === 'true') {
-            console.log('mnhg');
-            
             response = await montlyReport(idPatient, initDate, endDate, 'SYMPTOMS');
         }
         debug('Patient getting symptoms report. Items: %j', response);
@@ -445,12 +438,7 @@ async function montlyReport(idPatient: number, initDate: string, endDate: string
                 endDate = (last.toJSON()).toString();
             }
             if(reportType === 'SYMPTOMS') {
-                console.log('bunss');
-                
                 report = await PatientService.getReportSymptomsTwoDates(idPatient, initDate, endDate);
-                console.log('simpre');
-                console.log(report);
-                
             } else if(reportType === 'GAME') {
                 report = await PatientService.getReportGameTwoDates(idPatient, initDate, endDate);
             } else if(reportType === 'EMOTIONAL') {
@@ -469,7 +457,7 @@ async function montlyReport(idPatient: number, initDate: string, endDate: string
     } catch (error) {
         throw error;
     }
-    
+
 }
 
 async function twoWeeklyReport(idPatient: number, initDate: string, endDate: string, reportType: string) {

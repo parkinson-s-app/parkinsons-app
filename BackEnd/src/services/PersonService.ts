@@ -102,10 +102,7 @@ export default class PersonService {
         debug('updatePerson id: %s', id);
         try {
             const user = await this.getPersonById(id) as any;
-            console.log("Vamoo");
-            console.log(user);
-            
-            debug('updatePerson person to update: %j to %j', user, userUpdated);            
+            debug('updatePerson person to update: %j to %j', user, userUpdated);
             if( user && user[0] ) {
                 const type = user[0].TYPE;
                 debug('updatePerson person type: %s', type);
@@ -121,9 +118,6 @@ export default class PersonService {
                         person =  await executeSQL('UPDATE carers SET ? WHERE ID_USER = ?',[userUpdated, id]);
                     }
                 debug('updatePerson returning person %j', person);
-                console.log("respMo");
-                console.log(person);
-                
                 return person;
             } else  {
                 return null;
