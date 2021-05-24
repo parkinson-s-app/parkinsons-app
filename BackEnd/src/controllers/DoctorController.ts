@@ -9,6 +9,10 @@ import { getIdFromToken, verifyToken } from '../utilities/AuthUtilities';
 const debug = debugLib('AppKinson:DoctorController');
 const DoctorController = Router();
 
+/**
+ * recurso que permite obtener los pacientes que aún no están relacionados al medico que hace la
+ * petición
+ */
 DoctorController.get('/doctor/patients/unrelated', verifyToken, async (req: Request, res: Response) => {
     debug('Getting unrelated patients');
     const bearerHeader = req.headers.authorization;
@@ -33,7 +37,9 @@ DoctorController.get('/doctor/patients/unrelated', verifyToken, async (req: Requ
         res.status(status).send('Bad request');
     }
 });
-
+/**
+ * recurso que permite obtener todos los pacientes que un medico tiene a su cargo
+ */
 DoctorController.get('/doctor/patients/related', verifyToken, async (req: Request, res: Response) => {
     debug('Getting related patients');
     const bearerHeader = req.headers.authorization;
@@ -59,7 +65,9 @@ DoctorController.get('/doctor/patients/related', verifyToken, async (req: Reques
     }
 });
 
-
+/**
+ * recurso que permite lanzar la petición de un medico a un paciente con el id, para ser su medico encargado
+ */
 DoctorController.post('/doctor/relate/:idPatient', verifyToken, async (req: Request, res: Response) => {
     const bearerHeader = req.headers.authorization;
     const idPatient = +req.params.idPatient;
@@ -93,7 +101,10 @@ DoctorController.post('/doctor/relate/:idPatient', verifyToken, async (req: Requ
         res.status(status).send('Bad request');
     }
 });
-
+/**
+ * recurso que permite lanzar la petición de un medico a un paciente con el correo de este,
+ * para ser su medico encargado
+ */
 DoctorController.post('/doctor/relate', verifyToken, async (req: Request, res: Response) => {
     const bearerHeader = req.headers.authorization;
     let status;
@@ -148,7 +159,9 @@ DoctorController.post('/doctor/relate', verifyToken, async (req: Request, res: R
     }
 });
 
-
+/**
+ * recurso que permite obtener el listado con el nombre de las medicinas que existen
+ */
 DoctorController.get('/doctor/medicines', verifyToken, async (req: Request, res: Response) => {
     debug('Getting list medicines');
     const bearerHeader = req.headers.authorization;
@@ -174,7 +187,10 @@ DoctorController.get('/doctor/medicines', verifyToken, async (req: Request, res:
     }
 });
 
-
+/**
+ * recurso que permite agregarle un medicamento a un paciente
+ * por su id
+ */
 DoctorController.post('/doctor/medicine/:idPatient', verifyToken, async (req: Request, res: Response) => {
     const bearerHeader = req.headers.authorization;
     const idPatient = +req.params.idPatient;
@@ -213,7 +229,10 @@ DoctorController.post('/doctor/medicine/:idPatient', verifyToken, async (req: Re
     }
 });
 
-
+/**
+ * recurso que permite eliminar la relación entre un medico y un paciente por el id
+ * con el medico con la sesion iniciada
+ */
 DoctorController.delete('/doctor/patients/:idPatient', verifyToken, async (req: Request, res: Response) => {
     const idPatient = +req.params.idPatient;
     debug('Delete patient to doctor Id: %s', idPatient);

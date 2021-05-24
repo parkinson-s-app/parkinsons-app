@@ -14,7 +14,10 @@ import INoMotorFormDto from '../models/INoMotorFormDto';
 const debug = debugLib('AppKinson:PatientController');
 const PatientController = Router();
 
-
+/**
+ * recurso que permite responder la solicitud ya se de un médico o un cuidador
+ * para se su encargado, el paciente debe tener la sesion iniciada
+ */
 PatientController.post('/patient/answerRequest', verifyToken, async (req: Request, res: Response) => {
     debug('Request to link response patients');
     const bearerHeader = req.headers.authorization as string;
@@ -43,7 +46,10 @@ PatientController.post('/patient/answerRequest', verifyToken, async (req: Reques
             }
         }
 });
-
+/**
+ * recurso que permite obtener todas las solicitudes de los medicos hacia el paciente
+ * el paciente es quien hace el consumo del recurso
+ */
 PatientController.get('/patient/request/doctor', verifyToken, async (req: Request, res: Response) => {
     debug('Getting request relation from doctors');
     const bearerHeader = req.headers.authorization as string;
@@ -62,7 +68,10 @@ PatientController.get('/patient/request/doctor', verifyToken, async (req: Reques
             }
         }
 });
-
+/**
+ * recurso que permite obtener todas las solicitudes de los cuidadores hacia el paciente
+ * el paciente es quien hace el consumo del recurso
+ */
 PatientController.get('/patient/request/carer', verifyToken, async (req: Request, res: Response) => {
     debug('Getting request relation from carers');
     const bearerHeader = req.headers.authorization as string;
@@ -81,7 +90,9 @@ PatientController.get('/patient/request/carer', verifyToken, async (req: Request
             }
         }
 });
-
+/**
+ * recurso que permite agregar un nuevo registro de formualario emocional por id del paciente
+ */
 PatientController.post('/patient/:id/emotionalFormPatient', verifyToken, async (req: Request, res: Response) => {
     debug('Patients emotional form by Id');
     const id = +req.params.id;
@@ -101,7 +112,9 @@ PatientController.post('/patient/:id/emotionalFormPatient', verifyToken, async (
         res.status(status).send(responseError);
     }
 });
-
+/**
+ * recurso que permite obtener los registros de formualarios emocionales de un paciente por su id
+ */
 PatientController.get('/patient/:id/emotionalFormPatient', verifyToken, async (req: Request, res: Response) => {
     const id = +req.params.id;
     debug('Patients getting emotional form by Id: %s', id);
@@ -120,7 +133,9 @@ PatientController.get('/patient/:id/emotionalFormPatient', verifyToken, async (r
         res.status(status).send(responseError);
     }
 });
-
+/**
+ * recurso que permite agregar un nuevo registro de formualario no motor a un paciente por su id
+ */
 PatientController.post('/patient/:id/noMotorSymptomsFormPatient', verifyToken, async (req: Request, res: Response) => {
     debug('Patients noMotorSymptomsFormPatient by Id');
     const id = +req.params.id;
@@ -140,7 +155,9 @@ PatientController.post('/patient/:id/noMotorSymptomsFormPatient', verifyToken, a
         res.status(status).send(responseError);
     }
 });
-
+/**
+ * recurso que permite obtener los registros de formualarios no motores de un paciente por su id
+ */
 PatientController.get('/patient/:id/noMotorSymptomsFormPatient', verifyToken, async (req: Request, res: Response) => {
     const id = +req.params.id;
     debug('Patients getting no motor form by Id: %s', id);
@@ -159,7 +176,9 @@ PatientController.get('/patient/:id/noMotorSymptomsFormPatient', verifyToken, as
         res.status(status).send(responseError);
     }
 });
-
+/**
+ * recurso que permite agregar las medicinas que debe tomar un paciente por su id y son alarmas
+ */
 PatientController.post('/patient/:id/medicineAlarm', verifyToken, async (req: Request, res: Response) => {
     debug('Patients save Medicine alarms by Id');
     const id = +req.params.id;
@@ -184,7 +203,9 @@ PatientController.post('/patient/:id/medicineAlarm', verifyToken, async (req: Re
         res.status(status).send(responseError);
     }
 });
-
+/**
+ * recurso que permite obtener las medicinas que debe tomar un paciente por su id y son alarmas
+ */
 PatientController.get('/patient/:id/medicineAlarm', verifyToken, async (req: Request, res: Response) => {
     const id = +req.params.id;
     debug('Patients getting medicine Alarms by Id: %s', id);
@@ -201,7 +222,9 @@ PatientController.get('/patient/:id/medicineAlarm', verifyToken, async (req: Req
         res.status(status).send(responseError);
     }
 });
-
+/**
+ * recurso que permite eliminar las medicinas que debe tomar un paciente por su id y son alarmas
+ */
 PatientController.post('/patient/:idPatient/medicineAlarm/delete/:id', verifyToken, async (req: Request, res: Response) => {
     debug('Patients delete Medicine alarms by Id');
     const id = req.params.id;
@@ -220,7 +243,9 @@ PatientController.post('/patient/:idPatient/medicineAlarm/delete/:id', verifyTok
         res.status(status).send(responseError);
     }
 });
-
+/**
+ * recurso que permite obtener los reportes del formulario de sintomas de un paciente por su id
+ */
 PatientController.get('/patient/:id/symptoms/report', verifyToken, async (req: Request, res: Response) => {
     debug('getting symptoms report');
     let status;
@@ -247,7 +272,9 @@ PatientController.get('/patient/:id/symptoms/report', verifyToken, async (req: R
         res.status(status).send(responseError);
     }
 });
-
+/**
+ * recurso que permite agregar una nueva entrada de un score nuevo del juego de un paciente por su id
+ */
 PatientController.post('/patient/:id/newGameScore', verifyToken, async (req: Request, res: Response) => {
     debug('Patients save Game Score by Id');
     const id = +req.params.id;
@@ -268,29 +295,9 @@ PatientController.post('/patient/:id/newGameScore', verifyToken, async (req: Req
         res.status(status).send(responseError);
     }
 });
-
-PatientController.post('/patient/:id/newStepRecord', verifyToken, async (req: Request, res: Response) => {
-    debug('Patients save Step Record by Id');
-    const id = +req.params.id;
-    debug('Patients save Step Record body: %j, ID: %s',req.body, id);
-    const stepRecord: IStepRecord = req.body;
-    stepRecord.ID_PATIENT = id;
-    let status;
-    debug('Patients save Step Record json: %j', stepRecord);
-    try {
-        const response = await PatientService.saveStepRecord(stepRecord);
-        debug('Patients save Step Record result %j, succesful', response);
-        status = constants.HTTP_STATUS_OK;
-        res.status(status).send('Saved');
-    } catch (error) {
-        debug('Patients Step Record saving failed, error: %j', error);
-        status = constants.HTTP_STATUS_INTERNAL_SERVER_ERROR;
-        const responseError = { status, error: 'An error has ocurred'};
-        res.status(status).send(responseError);
-    }
-});
-
-
+/**
+ * recurso que permite obtener los reportes de los puntajes en el juego de un paciente por su id
+ */
 PatientController.get('/patient/:id/game/report', verifyToken, async (req: Request, res: Response) => {
     debug('getting game report');
     let status;
@@ -317,7 +324,12 @@ PatientController.get('/patient/:id/game/report', verifyToken, async (req: Reque
         res.status(status).send(responseError);
     }
 });
-
+/**
+ * recurso que permite obtener los reportes los sintomas emocionales de un paciente por su id
+ * start: fecha inicial del reporte
+ * end: fecha final del reporte
+ * montly: indica si el reporte se quiere por meses
+ */
 PatientController.get('/patient/:id/emotionalsymptoms/report', verifyToken, async (req: Request, res: Response) => {
     debug('getting emotionalsymptoms report');
     let status;
@@ -344,7 +356,12 @@ PatientController.get('/patient/:id/emotionalsymptoms/report', verifyToken, asyn
         res.status(status).send(responseError);
     }
 });
-
+/**
+ * recurso que permite obtener los reportes las disquinecias de un paciente por su id
+ * start: fecha inicial del reporte
+ * end: fecha final del reporte
+ * montly: indica si el reporte se quiere por meses
+ */
 PatientController.get('/patient/:id/dyskinecia/report', verifyToken, async (req: Request, res: Response) => {
     debug('getting dyskinecia report');
     let status;
@@ -371,7 +388,13 @@ PatientController.get('/patient/:id/dyskinecia/report', verifyToken, async (req:
         res.status(status).send(responseError);
     }
 });
-
+/**
+ * recurso que permite obtener los reportes de las discrepancias en la toma de medicamento
+ * de un paciente por su id
+ * start: fecha inicial del reporte
+ * end: fecha final del reporte
+ * montly: indica si el reporte se quiere por meses
+ */
 PatientController.get('/patient/:id/discrepancy/report', verifyToken, async (req: Request, res: Response) => {
     debug('getting discrepancy report');
     let status;
@@ -398,7 +421,12 @@ PatientController.get('/patient/:id/discrepancy/report', verifyToken, async (req
         res.status(status).send(responseError);
     }
 });
-
+/**
+ * recurso que permite obtener los reportes los sintomas no motores de un paciente por su id
+ * start: fecha inicial del reporte
+ * end: fecha final del reporte
+ * montly: indica si el reporte se quiere por meses
+ */
 PatientController.get('/patient/:id/noMotorSymptoms/report', verifyToken, async (req: Request, res: Response) => {
     debug('getting discrepancy report');
     let status;
@@ -421,7 +449,9 @@ PatientController.get('/patient/:id/noMotorSymptoms/report', verifyToken, async 
     }
 });
 
-
+/**
+ * metodo que define los meses que hacen parte del reporte cuando este debe ser mensual
+ */
 async function montlyReport(idPatient: number, initDate: string, endDate: string, reportType: string) {
     let before = new Date(initDate);
     const last = new Date(endDate);
@@ -459,7 +489,10 @@ async function montlyReport(idPatient: number, initDate: string, endDate: string
     }
 
 }
-
+/**
+ * metodo que define las fechas de dos semanas que hacen parte del reporte cuando este
+ * debe ser cada dos semanas
+ */
 async function twoWeeklyReport(idPatient: number, initDate: string, endDate: string, reportType: string) {
     const before = new Date(initDate);
     const last = new Date(endDate);
@@ -493,7 +526,9 @@ async function twoWeeklyReport(idPatient: number, initDate: string, endDate: str
     }
     return resp;
 }
-
+/**
+ * recurso que permite obtener cuales son las alarmas que sonarán en el dia
+ */
 PatientController.get('/patient/alarms/today', verifyToken, async (req: Request, res: Response) => {
     debug('getting alarms today');
     let status;
@@ -513,7 +548,12 @@ PatientController.get('/patient/alarms/today', verifyToken, async (req: Request,
             res.status(status).send(responseError);
         }
 });
-
+/**
+ * recurso que permite obtener los reportes los estados on y off de un paciente por su id,
+ * de forma diaria
+ * start: fecha inicial del reporte
+ * end: fecha final del reporte
+ */
 PatientController.get('/patient/:id/report/daily', verifyToken, async (req: Request, res: Response) => {
     debug('getting daily report');
     let status;

@@ -51,7 +51,10 @@ AdminController.delete('/admin/user/:id', verifyToken, async (req: Request, res:
         }
 });
 
-
+/**
+ * recurso que permite la creación de un item del toolbox, por parte de un administrador
+ * con sesion iniciada
+ */
 AdminController.post('/admin/toolbox/item', verifyToken, async (req: Request, res: Response) => {
     debug('Add toolbox item');
     debug('Body: %j, ID: %s',req.body);
@@ -69,7 +72,10 @@ AdminController.post('/admin/toolbox/item', verifyToken, async (req: Request, re
         res.status(status).send(responseError);
     }
 });
-
+/**
+ * recurso que permite la eliminación de un item del toolbox indicando el id, por parte de un administrador
+ * con sesion iniciada
+ */
 AdminController.delete('/admin/toolbox/item/:id', verifyToken, async (req: Request, res: Response) => {
     const id = +req.params.id;
     debug('Delete toolbox Id: %s', id);

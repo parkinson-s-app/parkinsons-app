@@ -134,6 +134,10 @@ CarerController.post('/carer/relate', verifyToken, async (req: Request, res: Res
         }
 });
 
+/**
+ * recurso que permite eliminar la relación entre un cuidador y un paciente por el id
+ * con el cuidador con la sesion iniciada
+ */
 CarerController.delete('/carer/patients/:idPatient', verifyToken, async (req: Request, res: Response) => {
     const idPatient = +req.params.idPatient;
     debug('Delete Id: %s', idPatient);

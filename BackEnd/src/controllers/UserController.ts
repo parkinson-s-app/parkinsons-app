@@ -21,7 +21,10 @@ import IPersonResetDto from '../models/IPersonResetDto';
 const debug = debugLib('AppKinson:UserController');
 const UserController = Router();
 const secretKey = config.secretKey;
-
+/**
+ * recurso que permite registrarse a un usuario nuevo
+ * requiere el correo, nombre, contraseña y tipo de usuario
+ */
 UserController.post('/registro', async (req: Request, res: Response) => {
     debug('Register Body: %j', req.body);
     const person = req.body as IPersonDto;
@@ -50,7 +53,9 @@ UserController.post('/registro', async (req: Request, res: Response) => {
         res.status(status).send(responseError);
     }
 });
-
+/**
+ * recurso que permite obtener un listado con los usuarios de la aplicacion
+ */
 UserController.get('/users', async (req: Request, res: Response) => {
     debug('Users Get');
     try {
@@ -70,7 +75,10 @@ UserController.get('/users', async (req: Request, res: Response) => {
         res.status(status).send(responseError);
     }
 });
-
+/**
+ * recurso que permite iniciar sesion a los usuarios de la aplicacion
+ * requiere solo email y contraseña
+ */
 UserController.post('/login', async (req: Request, res: Response) => {
     debug('Login user entry: %j', req.body.email);
     const credentials = req.body as IPersonDto;
@@ -119,7 +127,9 @@ UserController.post('/login', async (req: Request, res: Response) => {
         res.status(status).send(responseError);
     }
 });
-
+/**
+ * recurso que permite actualizar los datos de un usuario
+ */
 UserController.post('/users/:id', multer.single('photo'), verifyToken, async (req: Request, res: Response) => {
     debug('Users UpdateById');
     const id = +req.params.id;
@@ -147,7 +157,10 @@ UserController.post('/users/:id', multer.single('photo'), verifyToken, async (re
         res.status(status).send(responseError);
     }
 });
-
+/**
+ * recurso que permite agregar un registro de formulario de sintomas a un paciente por su id
+ * es opcional el video
+ */
 UserController.post('/users/:id/symptomsFormPatient', multer.single('video'), verifyToken, async (req: Request, res: Response) => {
     debug('Patients form by Id');
     const id = +req.params.id;
@@ -170,7 +183,10 @@ UserController.post('/users/:id/symptomsFormPatient', multer.single('video'), ve
         res.status(status).send(responseError);
     }
 });
-
+/**
+ * recurso que permite actualizar un registro de formulario de sintomas a un paciente por su id
+ * es opcional el video
+ */
 UserController.put('/users/:id/symptomsFormPatient', multer.single('video'), verifyToken, async (req: Request, res: Response) => {
     debug('Patients form update by Id');
     const id = +req.params.id;
@@ -193,7 +209,9 @@ UserController.put('/users/:id/symptomsFormPatient', multer.single('video'), ver
         res.status(status).send(responseError);
     }
 });
-
+/**
+ * recurso que permite eliminar un registro de formulario de sintomas a un paciente por su id
+ */
 UserController.delete('/users/:id/symptomsFormPatient', verifyToken, async (req: Request, res: Response) => {
     const id = +req.params.id;
     const date = req.query.Date as string;
@@ -232,7 +250,10 @@ UserController.delete('/users/:id/symptomsFormPatient', verifyToken, async (req:
             res.status(status).send('Bad request');
         }
 });
-
+/**
+ * recurso que permite agregar una solicitud a un paciente por su id ya sea un medico o un cuidador
+ * es opcional el video
+ */
 UserController.get('/patient/relationRequest', verifyToken, async (req: Request, res: Response) => {
     debug('Getting requests of a patient');
     const bearerHeader = req.headers.authorization as string;
@@ -251,7 +272,9 @@ UserController.get('/patient/relationRequest', verifyToken, async (req: Request,
             }
         }
 });
-
+/**
+ * recurso que permite obtener los registros de formulario de sintomas de un paciente por su id
+ */
 UserController.get('/patients/:id/symptomsFormPatient', verifyToken, async (req: Request, res: Response) => {
     debug('Getting symptoms form');
     const bearerHeader = req.headers.authorization as string;
@@ -273,7 +296,10 @@ UserController.get('/patients/:id/symptomsFormPatient', verifyToken, async (req:
         }
     }
 });
-
+/**
+ * recurso que permite que el usuario que ha iniciado su sesión,
+ * acceda a los datos de su perfil
+ */
 UserController.get('/users/me', verifyToken, async (req: Request, res: Response) => {
     debug('Getting info about user');
     const bearerHeader = req.headers.authorization as string;
@@ -307,7 +333,9 @@ UserController.get('/users/me', verifyToken, async (req: Request, res: Response)
         }
 });
 
-
+/**
+ * recurso que permite obtener los datos básicos de un usuario por su id
+ */
 UserController.get('/users/:id', verifyToken, async (req: Request, res: Response) => {
     debug('Users GetByID');
     const id = +req.params.id;
@@ -331,7 +359,9 @@ UserController.get('/users/:id', verifyToken, async (req: Request, res: Response
     }
 });
 
-
+/**
+ * recurso que permite descargar la multimedia que hace parte de los registros
+ */
 UserController.get('/download', verifyToken, async (req: Request, res: Response) => {
     debug('Download file %j', req.query.path);
     const bearerHeader = req.headers.authorization as string;
@@ -354,7 +384,9 @@ UserController.get('/download', verifyToken, async (req: Request, res: Response)
     }
 });
 
-
+/**
+ * recurso que permite obtener el listado de los items que hacen parte del toolbox
+ */
 UserController.get('/users/toolbox/items', verifyToken, async (req: Request, res: Response) => {
     debug('getting toolbox items');
     let status;
@@ -371,7 +403,9 @@ UserController.get('/users/toolbox/items', verifyToken, async (req: Request, res
     }
 });
 
-
+/**
+ * recurso que permite a cualquier usuario obtener un código de recuperacion de contraseña
+ */
 UserController.post('/user/forgotPassword', async (req: Request, res: Response) => {
     debug('Forgot password user entry: %j', req.body.email);
     const email = req.body.Email;
@@ -402,7 +436,9 @@ UserController.post('/user/forgotPassword', async (req: Request, res: Response) 
         res.status(status).send(responseError);
     }
 });
-
+/**
+ * recurso que permite la actualización de la contraseña a cualquier usuario
+ */
 UserController.post('/user/resetPassword', async (req: Request, res: Response) => {
     debug('Reset password user entry: %j', req.body.email);
     const credentials = req.body as IPersonResetDto;
@@ -434,6 +470,9 @@ UserController.post('/user/resetPassword', async (req: Request, res: Response) =
         res.status(status).send(responseError);
     }
 });
+/**
+ * método para facilitar la optencion del id desde el token enviado por el usuario
+ */
 function getIdFromToken(token: string) {
         const dataInToken = token.split('.')[1];
         debug('getIdFromToken data encoded: %s', dataInToken);
@@ -443,7 +482,10 @@ function getIdFromToken(token: string) {
         debug('getIdFromToken data in JSON: %j',dataInJSON);
         return +dataInJSON.id;
 }
-
+/**
+ * método para facilitar la optencion del tipo del usuario desde el token enviado
+ * por este mismo
+ */
 function getTypeFromToken(token: string) {
     const dataInToken = token.split('.')[1];
     debug('getTypeFromToken data encoded: %s', dataInToken);
