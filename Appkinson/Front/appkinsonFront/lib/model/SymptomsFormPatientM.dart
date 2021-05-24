@@ -1,5 +1,5 @@
 import 'dart:io';
-
+//Modelo usado para manejar los datos de formulario de del estado de ánimo ligado a un paciente
 class SymptomsFormPatientM {
   String q1;
   String q2;

@@ -1,5 +1,6 @@
+//Modelo usado para manejar los datos de formulario emocional ligado a un paciente
 class EmotionalForm {
-  int q1;
+  int q1; 
   int q2;
   DateTime date;
 

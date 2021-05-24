@@ -1,5 +1,5 @@
 import 'dart:io';
-
+//Modelo usado para manejar los datos de perfil correspondientes a un usuario
 class User {
   String email;
   String name;

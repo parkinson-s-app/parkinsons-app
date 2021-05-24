@@ -1,3 +1,4 @@
+//Modelo usado para manejar los datos de formulario de sintomas no motores ligado a un paciente
 class NoMotorSymptomsForm {
   int q1;
   int q2;
