@@ -19,41 +19,52 @@ version: 1.0.0+1
 platform: ios, '10.0'
 
 environment:
-  sdk: ">=2.7.0 <3.0.0"
+  sdk: ">=2.10.0 <3.0.0"
 
 dependencies:
   flutter:
     sdk: flutter
-  flutter_svg: ^0.17.4
+  flutter_svg: 
   dropdownfield: ^1.0.3
   cupertino_icons: ^0.1.2
   dio: ^3.0.9
   table_calendar: ^2.3.3
   google_fonts:
-  font_awesome_flutter:
-
+  font_awesome_flutter: ^8.4.0
+  flutter_downloader: ^1.5.2
+  #permission_handler: ^5.0.1
+  network_to_file_image: ^2.3.8
+  sqflite: ^1.3.0
   rxdart: ^0.24.1
-  path_provider: ^1.6.11
+  path_provider: 
   http: ^0.12.1
+  provider: ^4.1.3
   flutter_local_notifications: ^1.4.4+1
-  workmanager: ^0.2.2
-  background_fetch: ^0.5.5
+  workmanager: ^0.2.3
+  
   line_awesome_flutter: ^1.0.1
   flutter_screenutil: ^1.0.2
-  animated_theme_switcher: ^1.0.5
+  #animated_theme_switcher: ^1.0.6
   foldable_sidebar: ^1.0.0
   image_picker: ^0.6.7+11
-  image_cropper: ^1.2.0
+  #image_cropper: ^1.2.0
   swipedetector: ^1.2.0
   video_player: ^0.10.12+4
   syncfusion_flutter_calendar: ^18.4.41
   syncfusion_flutter_charts: ^18.4.41
   decimal: ^0.3.3
-  pedometer: ^0.0.5
+  #pedometer: ^0.0.5
   percent_indicator: ^1.0.14
-  flutter_launcher_icons: ^0.7.0
+  flutter_launcher_icons: 
+  shared_preferences: 
+  nova_alarm_plugin: ^0.1.0
+  email_validator: '^1.0.6'
+  url_launcher: '^5.7.10'
+  
 
-
+  date_range_picker: ^1.0.5
+  charts_flutter:
+  
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
 
@@ -62,7 +73,8 @@ dependencies:
   flutter_localizations:
     sdk: flutter
 
-  intl: ^0.16.1
+  intl: 
+  #intl: ^0.16.1
 
 dev_dependencies:
   flutter_test:
@@ -70,6 +82,10 @@ dev_dependencies:
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
+flutter_icons:
+  image_path: "assets/images/cerebroMovimiento.png"
+  android: true
+  ios: true
 
 # The following section is specific to Flutter.
 flutter:
@@ -89,6 +105,7 @@ flutter:
      - assets/images/starsBackGround.png
      - assets/images/abrir-caja.png
      - assets/images/advertir.png
+     - assets/images/condiciones.png
      - assets/images/calendario.png
      - assets/images/formulario.png
      - assets/images/obrero.png
@@ -109,7 +126,41 @@ flutter:
      - assets/images/logostep.png
      - assets/images/news.png
      - assets/images/parkinson.png
+     - assets/images/parkinsonHand.png
      - assets/images/medicines.png
+     - assets/images/reporter.png
+     - assets/images/game.png
+     - assets/images/cerrar-sesion.png
+     - assets/images/pedometer.png
+     - assets/images/puzzle.png
+     - assets/images/perfil2.png
+     - assets/images/pie-chart.png
+     - assets/images/bar-graph.png
+     - assets/images/output-onlinepngtools (1).png
+     - assets/images/output-onlinepngtools (2).png
+     - assets/images/representation.png
+     - assets/images/output-onlinepngtools (3).png
+     - assets/images/1-CALENDARIO.png
+     - assets/images/2-MEDICINAS.png
+     - assets/images/3-RECORDATORIO.png
+     - assets/images/4-PERFIL.png
+     - assets/images/5-TOOLBOX-PROACTIVIDAD.png
+     - assets/images/6-SENTIMIENTOS.png
+     - assets/images/7-ALERTA.png
+     - assets/images/8-COMIDA.png
+     - assets/images/9-PODOMETRO.png
+     - assets/images/10-NOTICIAS.png
+     - assets/images/11-GAMES-JUEGOS.png
+     - assets/images/12-EJERCICIOS.png
+     - assets/images/13- AÑADIR.png
+     - assets/images/14-LISTA.png
+     - assets/images/15-PACIENTES.png
+     - assets/images/line-chart.png
+     - assets/images/desplazarse.png
+     
+
+
+
 
 
   #   - images/a_dot_ham.jpeg

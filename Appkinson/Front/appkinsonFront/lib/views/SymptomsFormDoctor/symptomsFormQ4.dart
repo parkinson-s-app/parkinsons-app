@@ -50,7 +50,8 @@ class _symptomsFormQ4 extends State<symptomsFormQ4> {
                   height: 20,
                 ),
                 RadioListTile<SigningCharacter>(
-                  title: const Text('1: Mínimo   Cualquiera de los siguientes: a) el ritmo regular se rompe con una o dos interrupciones o titubeos en el movimiento de golpeteo; b) mínimo enlentecimiento; c) la amplitud disminuye cerca del final de los 10 golpeteos.'),
+                  title: const Text(
+                      '1: Mínimo   Cualquiera de los siguientes: a) el ritmo regular se rompe con una o dos interrupciones o titubeos en el movimiento de golpeteo; b) mínimo enlentecimiento; c) la amplitud disminuye cerca del final de los 10 golpeteos.'),
                   value: SigningCharacter.Infrecuente,
                   groupValue: _character,
                   onChanged: (SigningCharacter value) {
@@ -64,7 +65,8 @@ class _symptomsFormQ4 extends State<symptomsFormQ4> {
                   height: 20,
                 ),
                 RadioListTile<SigningCharacter>(
-                  title: const Text('2: Leve   Cualquiera de los siguientes: a) de 3 a 5 interrupciones durante el golpeteo; b) enlentecimiento leve; c) la amplitud disminuye hacia la mitad de la secuencia de 10 golpeteos. '),
+                  title: const Text(
+                      '2: Leve   Cualquiera de los siguientes: a) de 3 a 5 interrupciones durante el golpeteo; b) enlentecimiento leve; c) la amplitud disminuye hacia la mitad de la secuencia de 10 golpeteos. '),
                   value: SigningCharacter.Persistente,
                   groupValue: _character,
                   onChanged: (SigningCharacter value) {
@@ -78,7 +80,8 @@ class _symptomsFormQ4 extends State<symptomsFormQ4> {
                   height: 20,
                 ),
                 RadioListTile<SigningCharacter>(
-                  title: const Text('3: Moderado   Cualquiera de los siguientes: a) más de 5 interrupciones durante el golpeteo o al menos una interrupción más prolongada (congelación) durante el movimiento en curso; b) enlentecimiento moderado; c) la amplitud disminuye después del primer golpeteo.'),
+                  title: const Text(
+                      '3: Moderado   Cualquiera de los siguientes: a) más de 5 interrupciones durante el golpeteo o al menos una interrupción más prolongada (congelación) durante el movimiento en curso; b) enlentecimiento moderado; c) la amplitud disminuye después del primer golpeteo.'),
                   value: SigningCharacter.Mayoria,
                   groupValue: _character,
                   onChanged: (SigningCharacter value) {
@@ -92,14 +95,16 @@ class _symptomsFormQ4 extends State<symptomsFormQ4> {
                   height: 20,
                 ),
                 RadioListTile<SigningCharacter>(
-                  title: const Text('4: Grave   No puede o apenas puede realizar la tarea debido a enlentecimiento, interrupciones o decrementos.'),
+                  title: const Text(
+                      '4: Grave   No puede o apenas puede realizar la tarea debido a enlentecimiento, interrupciones o decrementos.'),
                   value: SigningCharacter.Presente,
-                    onChanged: (SigningCharacter value) {
-                      setState(() {
-                        _character = value;
-                        selectedStateRadioQ4 = 4;
-                      });
-                    },
+                  groupValue: _character,
+                  onChanged: (SigningCharacter value) {
+                    setState(() {
+                      _character = value;
+                      selectedStateRadioQ4 = 4;
+                    });
+                  },
                 ),
               ],
             ),

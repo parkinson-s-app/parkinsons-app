@@ -1,4 +1,5 @@
 import 'package:appkinsonFront/routes/RoutesGeneral.dart';
+import 'package:appkinsonFront/views/Login/LoginPage.dart';
 import 'package:flutter/material.dart';
 
 class ButtonGoLogin extends StatelessWidget {
@@ -12,12 +13,13 @@ class ButtonGoLogin extends StatelessWidget {
             RoundedRectangleBorder(borderRadius: BorderRadius.circular(18.0)),
         //   side: BorderSide(color: Color.fromRGBO(0, 160, 227, 1))),
         onPressed: () {
-          RoutesGeneral().toPop(context);
+          Route route = MaterialPageRoute(builder: (context) => LoginPage());
+          Navigator.pushReplacement(context, route);
         },
         padding: EdgeInsets.symmetric(horizontal: 50),
         color: Colors.white,
         textColor: Colors.blue,
-        child: Text("¿Ya tienes una cuenta? ", style: TextStyle(fontSize: 13)),
+        child: Text("¿Ya Tiene una Cuenta? ", style: TextStyle(fontSize: 13)),
       ),
     );
   }

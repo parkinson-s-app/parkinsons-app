@@ -10,15 +10,15 @@ class ButtonGoReminder extends StatelessWidget {
     return Container(
       height: 90,
       margin: EdgeInsets.symmetric(horizontal: 20),
-      child: FlatButton(
-        shape:
-            RoundedRectangleBorder(borderRadius: BorderRadius.circular(18.0)),
+      child: RaisedButton(
+        //shape:
+        //    RoundedRectangleBorder(borderRadius: BorderRadius.circular(18.0)),
         //   side: BorderSide(color: Color.fromRGBO(0, 160, 227, 1))),
         onPressed: () {
           RoutesPatient().toNotifications(context);
         },
         padding: EdgeInsets.symmetric(horizontal: 10),
-        color: Colors.grey[50],
+        //color: Colors.grey[50],
         //textColor: Colors.white,
         child: Image.asset(
           "assets/images/advertir.png",

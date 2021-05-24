@@ -122,7 +122,11 @@ UserController.post('/users/:id', multer.single('photo'), verifyToken, async (re
     const id = +req.params.id;
     let updatedUserData = req.body as IPersonalDataDto;
     try {
-        updatedUserData.PHOTOPATH = req.file.path;
+        // verificando si la actualizacion tiene foto
+        if(req.file) {
+            updatedUserData.PHOTOPATH = req.file.path;
+        }
+
         debug('Users Update user: %j, ID:', updatedUserData, id);
         const response = await PersonService.updatePerson(id, updatedUserData);
         debug('User UpdateById response db: %j', response);
@@ -145,7 +149,7 @@ UserController.post('/users/:id', multer.single('photo'), verifyToken, async (re
 UserController.post('/users/:id/symptomsFormPatient', multer.single('video'), verifyToken, async (req: Request, res: Response) => {
     debug('Patients form by Id');
     const id = +req.params.id;
-    debug('Patients Symptoms body: %j, ID: %s, file path: %s',req.body, id, req.file.path);
+    debug('Patients Symptoms body: %j, ID: %s',req.body, id);
     let symptomsFormData = req.body as ISymptomsFormDto;
     let status;
     if(req.file && req.file.path ){
@@ -162,6 +166,75 @@ UserController.post('/users/:id/symptomsFormPatient', multer.single('video'), ve
         status = constants.HTTP_STATUS_INTERNAL_SERVER_ERROR;
         const responseError = { status, error};
         res.status(status).send(responseError);
+    }
+});
+
+UserController.put('/users/:id/symptomsFormPatient', multer.single('video'), verifyToken, async (req: Request, res: Response) => {
+    debug('Patients form update by Id');
+    const id = +req.params.id;
+    debug('Patients update Symptoms body: %j, ID: %s',req.body, id);
+    let symptomsFormData = req.body as ISymptomsFormDto;
+    let status;
+    if(req.file && req.file.path ){
+        symptomsFormData.pathvideo = req.file.path;
+        debug('Patients update Symptoms json: %j', symptomsFormData);
+    }
+    try {
+        const response = await PersonService.updateSymptomsForm(id, symptomsFormData);
+        debug('Patient update symptoms save result %j, succesful', response);
+        status = constants.HTTP_STATUS_OK;
+        res.status(status).send('OK');
+    } catch (error) {
+        debug('Patient update symptoms failed. Error: %j', error);
+        status = constants.HTTP_STATUS_INTERNAL_SERVER_ERROR;
+        const responseError = { status, error};
+        res.status(status).send(responseError);
+    }
+});
+
+UserController.delete('/users/:id/symptomsFormPatient', verifyToken, async (req: Request, res: Response) => {
+    const id = +req.params.id;
+    const date = req.query.Date as string;
+    debug('Delete  sypmtoms formpatient Id: %s', id);
+    // se obtiene la autenticación para saber si el usuario está con la sesión iniciada
+    const bearerHeader = req.headers['authorization'];
+    let status;
+    if( bearerHeader !== undefined ) {
+
+        if ( id && date) {
+            try {
+                // se llama al servicio encargado de eliminar una persona por el id
+                const response = await PersonService.deleteSymptomsForm(id, date);
+                debug('Deletion sypmtoms formpatient response db: %j', response);
+                if(response) {
+                    status =  constants.HTTP_STATUS_OK;
+                    // se devuelve una respuesta afirmativa indicando que el usuario ha
+                    // sido eliminado
+                    res.status(status).send('Eliminado');
+                } else {
+                    // si no hay respuesta por parte del servicio, se devuelve una respuesta
+                    // indicando error en el servidor
+                    status =  constants.HTTP_STATUS_INTERNAL_SERVER_ERROR;
+                    res.status(status).send('Error');
+                }
+            } catch (error) {
+                debug('Deletion  sypmtoms formpatient Catch Error: %s, %j', error.stack, error)
+                status =  constants.HTTP_STATUS_INTERNAL_SERVER_ERROR;
+                // si ocurre algún error y no se puede ejecutar la operación, se devuelve una respuesta
+                // indicando error en el servidor
+                res.status(status).send('Error');
+            }
+        } else {
+            status =  constants.HTTP_STATUS_BAD_REQUEST;
+            // si el usuario con la sesión iniciada no es un administrador, se indica que no está
+            // autorizado para la operación
+            res.status(status).send('Bad request');
+        }
+    } else {
+        status =  constants.HTTP_STATUS_UNAUTHORIZED;
+        // si la petición no tiene la autenticación, se indica que no está
+        // autorizado para la operación
+        res.status(status).send('Unauthorized');
     }
 });
 
@@ -340,6 +413,23 @@ UserController.get('/download', verifyToken, async (req: Request, res: Response)
         debug('Getting info about use Error getting authorization header');
         status = constants.HTTP_STATUS_BAD_REQUEST;
         res.status(status).send('Bad request');
+    }
+});
+
+
+UserController.get('/users/toolbox/items', verifyToken, async (req: Request, res: Response) => {
+    debug('getting toolbox items');
+    let status;
+    try {
+        const response = await PersonService.getToolboxItems();
+        debug('Patient getting toolbox items. Items: %j', response);
+        status = constants.HTTP_STATUS_OK;
+        res.status(status).send(response);
+    } catch (error) {
+        debug('Patient getting medicine Alarms failed, error: %j', error);
+        status = constants.HTTP_STATUS_INTERNAL_SERVER_ERROR;
+        const responseError = { status, error: "An error has ocurred"};
+        res.status(status).send(responseError);
     }
 });
 

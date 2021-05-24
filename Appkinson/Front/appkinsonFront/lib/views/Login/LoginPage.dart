@@ -1,19 +1,27 @@
 import 'package:flutter/material.dart';
 import 'InputWrapperLogin.dart';
 import 'HeaderLogin.dart';
+import '../HomeInitial/HomePage.dart';
 
 class LoginPage extends StatelessWidget {
+  bool shouldPop = true;
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        resizeToAvoidBottomPadding: false,
+    return WillPopScope(
+        onWillPop: () async {
+          Navigator.push( context, new MaterialPageRoute(builder: (context) => HomePage()));
+          return shouldPop;
+        },
+        child: Scaffold(
+        resizeToAvoidBottomInset: false,
         body: Container(
           width: double.infinity,
           decoration: BoxDecoration(
               gradient: LinearGradient(
                   begin: Alignment.topCenter,
                   colors: [Colors.yellow[200], Colors.blue, Colors.blue[700]])),
-          child: Column(children: <Widget>[
+          child: Column(
+            children: <Widget>[
             SizedBox(
               height: 80,
             ),
@@ -29,6 +37,6 @@ class LoginPage extends StatelessWidget {
               child: InputWrapper(),
             ))
           ]),
-        ));
+    )));
   }
 }

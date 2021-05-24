@@ -1,5 +1,4 @@
 import 'dart:io';
-
 class SymptomsForm {
   int q1;
   int q2;

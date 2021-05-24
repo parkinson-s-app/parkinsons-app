@@ -4,8 +4,10 @@ import 'package:appkinsonFront/model/User.dart';
 import 'package:appkinsonFront/routes/RoutesGeneral.dart';
 import 'package:appkinsonFront/routes/RoutesPatient.dart';
 import 'package:appkinsonFront/services/EndPoints.dart';
-import 'package:appkinsonFront/views/Login/Buttons/ButtonLogin.dart';
+import 'package:appkinsonFront/utils/Utils.dart';
+import 'package:appkinsonFront/views/HomeInitial/HomePage.dart';
 import 'package:appkinsonFront/views/Login/InputFieldLogin.dart';
+import 'package:appkinsonFront/views/Login/LoginPage.dart';
 import 'package:appkinsonFront/views/profiles/Patient/profileEdition/ProfileEditionPatient.dart';
 import 'package:flutter/cupertino.dart';
 
@@ -15,19 +17,25 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/screenutil.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:line_awesome_flutter/line_awesome_flutter.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 const bla = Colors.white;
 const kSpacingUnit = 10;
-File imageFile;
+File imageFilePatient;
+String namePatient = " ";
+String emailPatient = " ";
+Map currentUser;
+var token = Utils().getToken();
+var tokenId = Utils().getFromToken('id');
 
 final kTitleTextStyle = TextStyle(
   fontFamily: "Raleway",
-  fontSize: ScreenUtil().setSp(kSpacingUnit * 1.7),
+  fontSize: ScreenUtil().setSp(kSpacingUnit * 2),
   fontWeight: FontWeight.w600,
 );
 
 final kCaptionTextStyle = TextStyle(
-  fontSize: ScreenUtil().setSp(kSpacingUnit * 1.3),
+  fontSize: ScreenUtil().setSp(kSpacingUnit * 2),
   fontWeight: FontWeight.w100,
   //fontFamily: "Raleway"
 );
@@ -37,14 +45,23 @@ class PatientProfileScreen extends StatefulWidget {
 }
 
 class PatientProfileScreenP extends State<PatientProfileScreen> {
+  @override
+  void initState() {
+    super.initState();
+
+    //todos.add("Regular Colors");
+    //todos.add("Power Coating");
+  }
+
   openGallery(BuildContext context) async {
     var picture = await ImagePicker.pickImage(source: ImageSource.gallery);
     this.setState(() {
-      imageFile = picture;
+      imageFilePatient = picture;
     });
-    var newUser = new User(photo: imageFile);
-    String save = await EndPoints()
-        .modifyUsersPhoto(newUser, currentUser['id'].toString(), token);
+    var newUser = new User(photo: imageFilePatient);
+    String id = await Utils().getFromToken('id');
+    String token = await Utils().getToken();
+    String save = await EndPoints().modifyUsersPhoto(newUser, id, token);
     RoutesGeneral().toPop(context);
   }
 
@@ -52,12 +69,13 @@ class PatientProfileScreenP extends State<PatientProfileScreen> {
     var picture = await ImagePicker.pickImage(source: ImageSource.camera);
 
     this.setState(() {
-      imageFile = picture;
+      imageFilePatient = picture;
     });
 
-    var newUser = new User(photo: imageFile);
-    String save = await EndPoints()
-        .modifyUsersPhoto(newUser, currentUser['id'].toString(), token);
+    var newUser = new User(photo: imageFilePatient);
+    String id = await Utils().getFromToken('id');
+    String token = await Utils().getToken();
+    String save = await EndPoints().modifyUsersPhoto(newUser, id, token);
     RoutesGeneral().toPop(context);
   }
 
@@ -83,7 +101,7 @@ class PatientProfileScreenP extends State<PatientProfileScreen> {
                     openCamera(context);
                     var m = new metod3();
                     //var user =  m.send();
-                    var newUser = new User(photo: imageFile);
+                    var newUser = new User(photo: imageFilePatient);
                     /*
                     debugPrint(user.name);
                     var lista = token.split(".");
@@ -104,11 +122,14 @@ class PatientProfileScreenP extends State<PatientProfileScreen> {
                     currentUser = json.decode(decoded);
                     debugPrint(currentUser['id'].toString());
                     */
+
                     debugPrint('aqui');
-                    /*
-                    String save = await EndPoints().modifyUsersPhoto(
-                        newUser, currentUser['id'].toString(), token);
-                        */
+                    currentUser = Utils().tokenDecoder(token);
+                    print(currentUser.toString());
+
+                    String save = await EndPoints()
+                        .modifyUsersPhoto(newUser, tokenId, token);
+
                     //debugPrint('aqui' + save);
                   },
                 )
@@ -119,11 +140,11 @@ class PatientProfileScreenP extends State<PatientProfileScreen> {
   }
 
   Widget decideImageView() {
-    if (imageFile == null) {
+    if (imageFilePatient == null) {
       return Icon(LineAwesomeIcons.question);
     } else {
       return Image.file(
-        imageFile,
+        imageFilePatient,
         fit: BoxFit.cover,
         height: 100,
         width: 100,
@@ -185,17 +206,21 @@ class PatientProfileScreenP extends State<PatientProfileScreen> {
           height: 20,
         ),
         Text(
-          //currentUser['EMAIL'],
-          nameController.text,
+          // currentUser['EMAIL'],
+          //"nombre",
+          namePatient,
           style: kTitleTextStyle,
         ),
         SizedBox(
           height: 5,
         ),
         Text(
-            //currentUser['EMAIL']
+            //currentUser['EMAIL'],
             //"h@gamil.com",
-            emailController.text,
+            //"email",
+            //emailPatient
+            emailPatient,
+            //emailPatient,
             style: kCaptionTextStyle),
         SizedBox(),
       ],
@@ -230,12 +255,12 @@ class PatientProfileScreenP extends State<PatientProfileScreen> {
           SizedBox(
             width: 20,
           ),
-          Icon(
+          /* Icon(
             LineAwesomeIcons.sun,
             size: ScreenUtil().setSp(40),
-          ),
+          ),*/
           SizedBox(
-            width: 40,
+            width: 80,
           ),
         ]);
 
@@ -259,19 +284,7 @@ class PatientProfileScreenP extends State<PatientProfileScreen> {
                   ),
                   ProfileListItem(
                     icon: LineAwesomeIcons.helping_hands,
-                    text: 'Ayuda & soporte',
-                  ),
-                  ProfileListItem(
-                    icon: LineAwesomeIcons.question,
-                    text: 'Acerca de nosotros',
-                  ),
-                  ProfileListItem(
-                    icon: LineAwesomeIcons.comment,
-                    text: 'Comentarios',
-                  ),
-                  ProfileListItem(
-                    icon: LineAwesomeIcons.star,
-                    text: 'Califícanos',
+                    text: 'Ayuda & Soporte',
                   ),
                   ProfileListItem(
                     icon: Icons.exit_to_app,
@@ -308,9 +321,21 @@ class ProfileListItem extends StatelessWidget {
           shape:
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)),
           color: Colors.grey[100],
-          onPressed: () {
+          onPressed: () async {
             if (text == 'Editar') {
               RoutesPatient().toPatientEditProfile(context);
+            }
+            if (text == 'Ayuda & Soporte') {
+              RoutesGeneral().toAboutUs(context);
+            }
+            if (text == 'Cerrar Sesión') {
+              debugPrint("Tapped Log Out....");
+              SharedPreferences prefs = await SharedPreferences.getInstance();
+              prefs?.clear();
+              await Utils().removeBackgroundTask();
+              Navigator.of(context).pushAndRemoveUntil(
+                  MaterialPageRoute(builder: (context) => HomePage()),
+                  (Route<dynamic> route) => false);
             }
           },
           child: Row(
@@ -339,7 +364,7 @@ class ProfileListItem extends StatelessWidget {
 
 class metod3 {
   Future<User> send() async {
-    var newUser = new User(photo: imageFile);
+    var newUser = new User(photo: imageFilePatient);
     debugPrint(newUser.name);
     return newUser;
   }

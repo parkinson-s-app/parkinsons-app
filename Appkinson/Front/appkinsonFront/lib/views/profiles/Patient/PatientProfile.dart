@@ -1,11 +1,18 @@
 import 'package:appkinsonFront/routes/RoutesPatient.dart';
+import 'package:appkinsonFront/utils/Utils.dart';
+import 'package:appkinsonFront/views/HomeDifferentUsers/Patient/PatientHomePage.dart';
+import 'package:appkinsonFront/views/HomeInitial/HomePage.dart';
+import 'package:appkinsonFront/views/RelationRequest/relationsRequets.dart';
 import 'package:appkinsonFront/views/profiles/Patient/PatientProfileScreen.dart';
 import 'package:appkinsonFront/views/profiles/Patient/profileEdition/ProfileEditionPatient.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/screenutil.dart';
 import 'package:line_awesome_flutter/line_awesome_flutter.dart';
 import 'package:foldable_sidebar/foldable_sidebar.dart';
 import 'package:swipedetector/swipedetector.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:path_provider/path_provider.dart';
 
 const bla = Colors.white;
 const kSpacingUnit = 10;
@@ -18,10 +25,11 @@ final kTitleTextStyle = TextStyle(
 );
 
 final kCaptionTextStyle = TextStyle(
-  fontSize: ScreenUtil().setSp(kSpacingUnit * 1.3),
-  fontWeight: FontWeight.w100,
-  //fontFamily: "Raleway"
-);
+    fontSize: ScreenUtil().setSp(kSpacingUnit * 1.3),
+    fontWeight: FontWeight.w100,
+    color: Colors.green
+    //fontFamily: "Raleway"
+    );
 
 class MyHomePage1 extends StatefulWidget {
   @override
@@ -83,7 +91,7 @@ class CustomDrawer extends StatelessWidget {
   const CustomDrawer({Key key, this.closeDrawer}) : super(key: key);
 
   Widget decideImage() {
-    if (imageFile == null) {
+    if (imageFilePatient == null) {
       return Image.asset(
         "assets/images/user.png",
         width: 100,
@@ -91,7 +99,7 @@ class CustomDrawer extends StatelessWidget {
       );
     } else {
       return Image.file(
-        imageFile,
+        imageFilePatient,
         fit: BoxFit.cover,
         height: 100,
         width: 100,
@@ -101,6 +109,10 @@ class CustomDrawer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    SystemChrome.setPreferredOrientations([
+      DeviceOrientation.portraitUp,
+      DeviceOrientation.portraitDown,
+    ]);
     MediaQueryData mediaQuery = MediaQuery.of(context);
     return Container(
       color: Colors.blue,
@@ -121,7 +133,15 @@ class CustomDrawer extends StatelessWidget {
                   SizedBox(
                     height: 10,
                   ),
-                  Text(nameController.text)
+                  Text(
+                    ///nameControllerDoctor.text,
+                    namePatient,
+                    style: kTitleTextStyle,
+                  ),
+                  SizedBox(
+                    height: 5,
+                  ),
+                  Text(emailPatient, style: kCaptionTextStyle),
                 ],
               )),
           Divider(
@@ -131,6 +151,10 @@ class CustomDrawer extends StatelessWidget {
           ListTile(
             onTap: () {
               debugPrint("Tapped Profile");
+              Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(
+                      builder: (BuildContext ctx) => PatientProfileScreen()));
             },
             leading: Icon(Icons.person),
             title: Text(
@@ -143,19 +167,11 @@ class CustomDrawer extends StatelessWidget {
           ),
           ListTile(
             onTap: () {
-              debugPrint("Tapped settings");
-            },
-            leading: Icon(Icons.settings),
-            title: Text("Ajustes"),
-          ),
-          Divider(
-            height: 1,
-            color: Colors.white,
-          ),
-          ListTile(
-            onTap: () {
               debugPrint("Tapped Payments");
-              RoutesPatient().toPatientHome(context);
+              Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(
+                      builder: (BuildContext ctx) => PatientHomePage()));
             },
             leading: Icon(Icons.home),
             title: Text("Ir al Home"),
@@ -164,24 +180,18 @@ class CustomDrawer extends StatelessWidget {
             height: 1,
             color: Colors.white,
           ),
-          ListTile(
+          /* ListTile(
             onTap: () {
               debugPrint("Tapped Notifications");
+              debugPrint("Tapped Notifications");
+              Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(
+                      builder: (BuildContext ctx) => RelationsRequest()));
             },
             leading: Icon(Icons.notifications),
             title: Text("Notificaciones"),
-          ),
-          Divider(
-            height: 1,
-            color: Colors.white,
-          ),
-          ListTile(
-            onTap: () {
-              debugPrint("Tapped Log Out");
-            },
-            leading: Icon(Icons.exit_to_app),
-            title: Text("Cerrar Sesión"),
-          ),
+          ),*/
         ],
       ),
     );

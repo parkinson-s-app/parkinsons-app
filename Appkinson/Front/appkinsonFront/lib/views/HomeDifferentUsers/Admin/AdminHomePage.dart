@@ -1,93 +1,123 @@
+import 'package:appkinsonFront/views/HomeDifferentUsers/Admin/Button/ButtonGoCheckItems.dart';
+import 'package:appkinsonFront/views/HomeDifferentUsers/Admin/Button/ButtonGoModifiToolBox.dart';
+import 'package:appkinsonFront/views/HomeDifferentUsers/Admin/Button/ButtonLogout.dart';
 import 'package:flutter/material.dart';
-import 'Button/ButtonGoPatientList.dart';
-import 'Button/ButtonGoProfile.dart';
 
-class AdminHomePage extends StatelessWidget {
+class AdminHomePage extends StatefulWidget {
+  @override
+  _AdminHomePage createState() => _AdminHomePage();
+}
+
+class _AdminHomePage extends State<AdminHomePage> {
+  bool shouldPop = false;
+  @override
+  void initState() {
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-    return Scaffold(
-        body: Column(
-      children: <Widget>[
-        ClipPath(
-          clipper: MyClipper(),
-          child: Container(
-            height: 350,
-            width: double.infinity,
-            decoration: BoxDecoration(
-              gradient: LinearGradient(
-                begin: Alignment.topLeft,
-                end: Alignment.bottomRight,
-                colors: [Colors.blue[400], Colors.blue[900]],
+    return WillPopScope(
+        onWillPop: () async {
+          return shouldPop;
+        },
+        child: Scaffold(
+            body: Container(
+                child: Column(
+          children: <Widget>[
+            ClipPath(
+              clipper: MyClipper(),
+              child: Container(
+                height: 350,
+                width: double.infinity,
+                decoration: BoxDecoration(
+                    gradient: LinearGradient(
+                      begin: Alignment.topLeft,
+                      end: Alignment.bottomRight,
+                      colors: [Colors.blue[400], Colors.blue[900]],
+                    ),
+                    image: DecorationImage(
+                      image: AssetImage("assets/images/starsBackGround.png"),
+                    )),
+                //child: Expanded(
+                child: Stack(
+                  children: <Widget>[
+                    Image.asset(
+                      "assets/images/ingenieria.png",
+                      width: 150,
+                      fit: BoxFit.fitWidth,
+                      height: size.height * 0.4,
+                      alignment: Alignment.bottomLeft,
+                    ),
+                    Positioned(
+                        top: 70,
+                        left: 200,
+                        child: Text(
+                          "  \nAdministrador \n",
+                          style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 30,
+                              fontFamily: "Raleway2"),
+                        ))
+                  ],
+                ),
+                //),
               ),
-              // image: DecorationImage(
-              //image: AssetImage("assets/images/toolsBack.png"),
-              // )
             ),
-            child: Expanded(
-              child: Stack(
+            SizedBox(
+              height: 100,
+            ),
+            Container(
+              child: Wrap(
                 children: <Widget>[
-                  Image.asset(
-                    "assets/images/ingenieria.png",
-                    width: 150,
-                    fit: BoxFit.fitWidth,
-                    height: size.height * 0.4,
-                    alignment: Alignment.bottomLeft,
-                  ),
-                  Positioned(
-                      top: 70,
-                      left: 150,
-                      child: Text(
-                        "  \nAdministrador \n",
-                        style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 30,
-                            fontFamily: "Raleway"),
-                      ))
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: <Widget>[
+                      Column(
+                        children: <Widget>[
+                          ButtonGoModifiToolBox(),
+                          Text(
+                            "Agregar \nActividades",
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                                color: Colors.blue[900],
+                                fontSize: 20,
+                                fontFamily: "Raleway2"),
+                          )
+                        ],
+                      ),
+                      Column(
+                        children: <Widget>[
+                          ButtonGoCheckItems(),
+                          Text(
+                            "Ítems \n",
+                            style: TextStyle(
+                                color: Colors.blue[900],
+                                fontSize: 20,
+                                fontFamily: "Raleway2"),
+                          )
+                        ],
+                      ),
+                      Column(
+                        children: <Widget>[
+                          ButtonLogout(),
+                          Text(
+                            "Cerrar Sesión \n",
+                            style: TextStyle(
+                                color: Colors.blue[900],
+                                fontSize: 20,
+                                fontFamily: "Raleway2"),
+                          )
+                        ],
+                      ),
+                    ],
+                  )
                 ],
               ),
             ),
-          ),
-        ),
-        SizedBox(
-          height: 100,
-        ),
-        Container(
-          child: Column(
-            children: <Widget>[
-              Row(
-                children: <Widget>[
-                  Column(
-                    children: <Widget>[
-                      ButtonGoModifiToolBox(),
-                      Text(
-                        "ToolBox",
-                        style: TextStyle(
-                            color: Colors.blue[900],
-                            fontSize: 20,
-                            fontFamily: "Raleway2"),
-                      )
-                    ],
-                  ),
-                  Column(
-                    children: <Widget>[
-                      ButtonGoCheckUsers(),
-                      Text(
-                        "Autorizar \nUsuarios",
-                        style: TextStyle(
-                            color: Colors.blue[900],
-                            fontSize: 20,
-                            fontFamily: "Raleway2"),
-                      )
-                    ],
-                  ),
-                ],
-              )
-            ],
-          ),
-        ),
-      ],
-    ));
+          ],
+        ))));
   }
 }
 

@@ -18,6 +18,12 @@ class ButtonLogin extends StatefulWidget {
 
 class _FormButtonLogin extends State<ButtonLogin> {
   @override
+  void initState() {
+    super.initState();
+    Utils().initWorkmanager();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Container(
       height: 50,
@@ -34,63 +40,41 @@ class _FormButtonLogin extends State<ButtonLogin> {
           debugPrint(user.password);
           debugPrint("------");
 
-          /*
-            parte del decodificado del token y 
-            ontención del payload. Posteriormente
-            obtención del tipo de usuario para 
-            dirijirlo a la pantalla correspondiente
-          */
+      
 
           token = await EndPoints().authUser(user);
-          
+
           debugPrint(token);
           Map responseJson = json.decode(token);
-          if(responseJson["person"] != null){
+          if (responseJson["person"] != null) {
             debugPrint("contraseña invalida");
             invalid(0, context);
-          }else if(responseJson["message"] != null){
+          } else if (responseJson["message"] != null) {
             debugPrint("correo invalido");
             invalid(1, context);
-          }else{
-
-          currentUser = Utils().tokenDecoder(token);
-          /*
-          debugPrint(token);
-          var lista = token.split(".");
-          var payload = lista[1];
-
-          switch (payload.length % 4) {
-            case 1:
-              break; // this case can't be handled well, because 3 padding chars is illeagal.
-            case 2:
-              payload = payload + "==";
-              break;
-            case 3:
-              payload = payload + "=";
-              break;
-          }
-
-          var decoded = utf8.decode(base64.decode(payload));
-          currentUser = json.decode(decoded);
-          */
-          //debugPrint(currentUser['type']);
-          // debugPrint(decoded);
-
-          if (currentUser['type'] == 'Cuidador') {
-            RoutesCarer().toCarerHome(context);
-          }
-          if (currentUser['type'] == 'Paciente') {
-            debugPrint("paciente");
-            //getRelationsRequest();
-            RoutesPatient().toPatientHome(context);
-          }
-          if (currentUser['type'] == 'Doctor') {
-            RoutesDoctor().toDoctorHome(context);
-          }
-          if (currentUser['type'] == 'Admin') {
-            RoutesAdmin().toAdminHome(context);
-          }
-
+          } else {
+            await Utils().saveToken(responseJson['token']);
+            currentUser = Utils().tokenDecoder(token);
+            cleanLogin();
+            if (currentUser['type'] == 'Cuidador') {
+              RoutesCarer().toCarerHome(context);
+            }
+            if (currentUser['type'] == 'Paciente') {
+              bool isSetBackground = await Utils().isSetBackgroundTask();
+              if (isSetBackground) {
+                print('esta seteaada');
+              }
+              await Utils().setTaskGetAlarms();
+              debugPrint("paciente");
+              //getRelationsRequest();
+              RoutesPatient().toPatientHome(context);
+            }
+            if (currentUser['type'] == 'Doctor') {
+              RoutesDoctor().toDoctorHome(context);
+            }
+            if (currentUser['type'] == 'Admin') {
+              RoutesAdmin().toAdminHome(context);
+            }
           }
         },
         color: Colors.blue,

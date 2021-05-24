@@ -1,11 +1,15 @@
 //import 'package:appkinsonFront/views/profiles/Patient/PatientProfileScreen.dart';
 import 'package:appkinsonFront/routes/RoutesDoctor.dart';
+import 'package:appkinsonFront/utils/Utils.dart';
+import 'package:appkinsonFront/views/HomeDifferentUsers/Doctor/DoctorHomePage.dart';
 import 'package:appkinsonFront/views/profiles/Doctor/profileEdition/ProfileEditionDoctor.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/screenutil.dart';
 import 'package:line_awesome_flutter/line_awesome_flutter.dart';
 import 'package:foldable_sidebar/foldable_sidebar.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:swipedetector/swipedetector.dart';
+import '../../HomeInitial/HomePage.dart';
 
 import 'DoctorProfileScreen.dart';
 
@@ -85,7 +89,7 @@ class CustomDrawer extends StatelessWidget {
   const CustomDrawer({Key key, this.closeDrawer}) : super(key: key);
 
   Widget decideImage() {
-    if (imageFile == null) {
+    if (imageFileDoctor == null) {
       return Image.asset(
         "assets/images/user.png",
         width: 100,
@@ -93,7 +97,7 @@ class CustomDrawer extends StatelessWidget {
       );
     } else {
       return Image.file(
-        imageFile,
+        imageFileDoctor,
         fit: BoxFit.cover,
         height: 100,
         width: 100,
@@ -123,7 +127,15 @@ class CustomDrawer extends StatelessWidget {
                   SizedBox(
                     height: 10,
                   ),
-                  Text(nameControllerDoctor.text)
+                  Text(
+                    ///nameControllerDoctor.text,
+                    nameDoctor,
+                    style: kTitleTextStyle,
+                  ),
+                  SizedBox(
+                    height: 5,
+                  ),
+                  Text(emailDoctor, style: kCaptionTextStyle),
                 ],
               )),
           Divider(
@@ -133,6 +145,10 @@ class CustomDrawer extends StatelessWidget {
           ListTile(
             onTap: () {
               debugPrint("Tapped Profile");
+              Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(
+                      builder: (BuildContext ctx) => DoctorProfileScreen()));
             },
             leading: Icon(Icons.person),
             title: Text(
@@ -143,7 +159,7 @@ class CustomDrawer extends StatelessWidget {
             height: 1,
             color: Colors.white,
           ),
-          ListTile(
+          /*ListTile(
             onTap: () {
               debugPrint("Tapped settings");
             },
@@ -153,16 +169,19 @@ class CustomDrawer extends StatelessWidget {
           Divider(
             height: 1,
             color: Colors.white,
-          ),
+          ),*/
           ListTile(
             onTap: () {
               debugPrint("Tapped Payments");
-              RoutesDoctor().toDoctorHome(context);
+              Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(
+                      builder: (BuildContext ctx) => DoctorHomePage()));
             },
             leading: Icon(Icons.home),
             title: Text("Ir al Home"),
           ),
-          Divider(
+          /*Divider(
             height: 1,
             color: Colors.white,
           ),
@@ -178,192 +197,23 @@ class CustomDrawer extends StatelessWidget {
             color: Colors.white,
           ),
           ListTile(
-            onTap: () {
+            onTap: () async {
               debugPrint("Tapped Log Out");
+              SharedPreferences prefs = await SharedPreferences.getInstance();
+              prefs?.clear();
+              await Utils().removeBackgroundTask();
+              Navigator.pushReplacement(context,
+                  MaterialPageRoute(builder: (BuildContext ctx) => HomePage()));
             },
             leading: Icon(Icons.exit_to_app),
             title: Text("Cerrar Sesión"),
           ),
+          ),*/
         ],
       ),
     );
   }
 }
-
-/*class PatientProfile extends StatelessWidget {
-  openGallery() async {
-    imageFile = await ImagePicker.pickImage(source: ImageSource.gallery);
-  }
-
-  openCamera() {}
-
-  Future<void> showChoiceDialog(BuildContext context) {
-    return showDialog(
-        context: context,
-        builder: (BuildContext context) {
-          return AlertDialog(
-            title: Text('Escoge:'),
-            content: SingleChildScrollView(
-                child: ListBody(
-              children: <Widget>[
-                GestureDetector(
-                  child: Text("Galeria"),
-                  onTap: () {
-                    openGallery();
-                  },
-                ),
-                Padding(padding: EdgeInsets.all(6.0)),
-                GestureDetector(
-                  child: Text("Camara"),
-                  onTap: () {
-                    openCamera();
-                  },
-                )
-              ],
-            )),
-          );
-        });
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    ScreenUtil.init(context, height: 896, width: 414, allowFontScaling: true);
-    var profileInfo = Expanded(
-        child: Column(
-      children: [
-        Container(
-          height: 100,
-          width: 100,
-          margin: EdgeInsets.only(top: 50),
-          child: Stack(
-            children: [
-              CircleAvatar(
-                radius: 50,
-                backgroundImage: AssetImage("assets/images/user.png"),
-              ),
-              Align(
-                alignment: Alignment.bottomRight,
-                child: Container(
-                    height: 40,
-                    width: 30,
-                    child: FlatButton(
-                      color: Colors.blue,
-                      child: Stack(
-                        children: <Widget>[
-                          Align(
-                            alignment: Alignment.center,
-                            child: Icon(
-                              LineAwesomeIcons.camera,
-                              //color: Colors.white,
-                              size: ScreenUtil().setSp(25),
-                            ),
-                          )
-                        ],
-                      ),
-                      onPressed: () {
-                        showChoiceDialog(context);
-                      },
-                      padding: EdgeInsets.all(1),
-                      shape: CircleBorder(),
-                    )),
-              ),
-            ],
-          ),
-        ),
-        SizedBox(
-          height: 20,
-        ),
-        Text(
-          'Camilo Hoyos',
-          style: kTitleTextStyle,
-        ),
-        SizedBox(
-          height: 5,
-        ),
-        Text('cami.Hoyos@gmail.com', style: kCaptionTextStyle),
-        SizedBox(),
-      ],
-    ));
-    var header = Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-          SizedBox(
-            width: 10,
-          ),
-          FlatButton(
-            color: Colors.white,
-            child: Stack(
-              children: <Widget>[
-                Align(
-                  alignment: Alignment.center,
-                  child: Icon(
-                    LineAwesomeIcons.arrow_left,
-                    size: ScreenUtil().setSp(40),
-                  ),
-                )
-              ],
-            ),
-            onPressed: () {},
-            // padding: EdgeInsets.all(1),
-            shape: CircleBorder(),
-          ),
-          profileInfo,
-          SizedBox(
-            width: 20,
-          ),
-          Icon(
-            LineAwesomeIcons.sun,
-            size: ScreenUtil().setSp(40),
-          ),
-          SizedBox(
-            width: 40,
-          ),
-        ]);
-
-    return Scaffold(
-        body: Container(
-            color: bla,
-            child: Column(children: <Widget>[
-              SizedBox(
-                height: 20,
-              ),
-              header,
-              SizedBox(
-                height: 30,
-              ),
-              Expanded(
-                  child: ListView(
-                children: <Widget>[
-                  ProfileListItem(
-                    icon: LineAwesomeIcons.pen,
-                    text: 'Editar',
-                  ),
-                  ProfileListItem(
-                    icon: LineAwesomeIcons.helping_hands,
-                    text: 'Ayuda & soporte',
-                  ),
-                  ProfileListItem(
-                    icon: LineAwesomeIcons.question,
-                    text: 'Acerca de nosotros',
-                  ),
-                  ProfileListItem(
-                    icon: LineAwesomeIcons.comment,
-                    text: 'Comentarios',
-                  ),
-                  ProfileListItem(
-                    icon: LineAwesomeIcons.star,
-                    text: 'Calificanos',
-                  ),
-                  ProfileListItem(
-                    icon: Icons.exit_to_app,
-                    text: 'Cerrar Sesión',
-                  ),
-                ],
-              )),
-            ])));
-  }
-}*/
 
 class ProfileListItem extends StatelessWidget {
   final IconData icon;

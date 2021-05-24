@@ -1,37 +1,54 @@
-
+import 'package:appkinsonFront/routes/RoutesDoctor.dart';
+import 'package:appkinsonFront/services/EndPoints.dart';
+import 'package:appkinsonFront/utils/Utils.dart';
+import 'package:appkinsonFront/views/AlarmsAndMedicine/AlarmAndMedicinePage.dart';
 import 'package:appkinsonFront/views/Medicines/alarm.dart';
 import 'package:appkinsonFront/views/Medicines/alarm_item_widget.dart';
-import 'package:appkinsonFront/views/Medicines/dataAlarm.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:intl/intl.dart';
+import 'package:appkinsonFront/main.dart';
 
+import 'package:foldable_sidebar/foldable_sidebar.dart';
+import '../sideMenus/CustomDrawerMenu.dart';
 
 class Medicines extends StatefulWidget {
-  _MedicinesState createState() => _MedicinesState();
+  final int idPatient;
+
+  Medicines({Key key, this.idPatient}) : super(key: key);
+
+  _MedicinesState createState() => _MedicinesState(this.idPatient);
 }
 
+var items;
+var id = 0;
+
 class _MedicinesState extends State<Medicines> {
+  @override
+  void initState() {
+    super.initState();
+  }
   final key = GlobalKey<AnimatedListState>();
-  final items = List.from(Data.alarmas);
+  final int idPatient;
+  _MedicinesState(this.idPatient);
   //List<AlarmInfo> items;
   DateTime _alarmTime;
   String _alarmTimeString;
-  //AlarmInfo alarm;
 
+  //AlarmInfo alarm;
 
   @override
   Widget build(BuildContext context) => Scaffold(
-        backgroundColor: Colors.teal,
+        backgroundColor: Colors.white,
         appBar: AppBar(
-          title: Text("Médicamentos"),
-          actions:<Widget> [
-            new IconButton(
-                icon: Icon(Icons.settings),
-                color: Colors.black45,
-                onPressed: () {
-                  //onSaveAlarm();
-                  //deleteAlarm(alarm.id);
-                }),
+          title: Text("Alarmas de Medicamentos"),
+          actions: <Widget>[
+            IconButton(
+              icon: Icon(Icons.contact_support_rounded),
+              color: Colors.white,
+              onPressed: () {
+                information(context);
+              }),
           ],
         ),
         body: Column(
@@ -44,12 +61,42 @@ class _MedicinesState extends State<Medicines> {
                     buildItem(items[index], index, animation),
               ),
             ),
+            /*
             Container(
               padding: EdgeInsets.all(5),
-              child: buildInsertButton(),
+              child: buildInsertButton(this.idPatient),
             ),
+            */
           ],
         ),
+        floatingActionButton: FloatingActionButton(
+          shape: RoundedRectangleBorder(
+              borderRadius: new BorderRadius.circular(30.0)),
+          //   side: BorderSide(color: Color.fromRGBO(0, 160, 227, 1))),
+          backgroundColor: Colors.blue[800],
+          child: Icon(
+            Icons.add,
+            color: Colors.white,
+          ),
+          onPressed: () async {
+            print('otro idp ${idPatient.toString()}');
+            int size = items.length;
+            AlarmAndMedicine result = await Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => AlarmAndMedicinePage(idPatient: idPatient)),
+              );
+              debugPrint("tamaño " + size.toString());
+              if(size!= 0){
+                insertItem(0, result);
+              }else{
+                insertItem(0, result);
+              }
+              
+
+            
+          },
+        ),
+        //  floatingActionButton:  ,
       );
 
   Widget buildItem(item, int index, Animation<double> animation) =>
@@ -59,104 +106,50 @@ class _MedicinesState extends State<Medicines> {
         onClicked: () => removeItem(index),
       );
 
-
-  Widget buildInsertButton() => RaisedButton(
-        child: Icon(Icons.add, size: 50, color: Colors.lightGreen,),
+  Widget buildInsertButton(int idPatient) => RaisedButton(
+        child: Icon(
+          Icons.add,
+          size: 50,
+          color: Colors.lightGreen,
+        ),
         color: Colors.white,
         onPressed: () {
-         // insertItem(items.length , Data.alarmas.first);
-          _alarmTimeString =
-              DateFormat('HH:mm').format(DateTime.now());
-          showModalBottomSheet(
-            useRootNavigator: true,
-            context: context,
-            clipBehavior: Clip.antiAlias,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.vertical(
-                top: Radius.circular(24),
-              ),
-            ),
-            builder: (context) {
-              return StatefulBuilder(
-                builder: (context, setModalState) {
-                  return Container(
-                    padding: const EdgeInsets.all(32),
-                    child: Column(
-                      children: [
-                        FlatButton(
-                          onPressed: () async {
-                           // alarm.title = DateTime.now().toString();
-                            var selectedTime =
-                            await showTimePicker(
-                              context: context,
-                              initialTime:
-                              TimeOfDay.now(),
-                            );
-                            if (selectedTime != null) {
-                              final now = DateTime.now();
-                              var selectedDateTime =
-                              DateTime(
-                                  now.year,
-                                  now.month,
-                                  now.day,
-                                  selectedTime.hour,
-                                  selectedTime
-                                      .minute);
-                              _alarmTime =
-                                  selectedDateTime;
-                              setModalState(() {
-                                _alarmTimeString =
-                                    DateFormat('HH:mm')
-                                        .format(
-                                        selectedDateTime);
-                                //alarm.title = _alarmTimeString;
-                                //print(alarm.title);
-                              });
-                              //alarm.title = _alarmTimeString;
-                            }
-                          },
-                          child: Text(
-                            _alarmTimeString,
-                            style:
-                            TextStyle(fontSize: 32),
-                          ),
-                        ),
-                        FloatingActionButton.extended(
-                          onPressed: () {
-                           // alarm.title = _alarmTimeString;
-                            insertItem(items.length, Data.alarmas.first, _alarmTimeString );
-
-                            },
-                          icon: Icon(Icons.alarm),
-                          label: Text('Agregar'),
-                        ),
-                      ],
-                    ),
-                  );
-                },
-              );
-            },
-          );
+          print('otro idp ${idPatient.toString()}');
+          RoutesDoctor().toPatientAlarmAndMedicine(context, idPatient);
         },
       );
-  
 
-  void insertItem(int index, AlarmInfo item, String _alarmTimeString) {
-    AlarmInfo alarm;
-    //alarm.title = "Hola";
-   // alarm.title = _alarmTimeString;
-    item.title = _alarmTimeString;
+  void insertItem(int index, AlarmAndMedicine item) {
+    debugPrint("banderita" + item.medicine.toString());
     items.insert(index, item);
     key.currentState.insertItem(index);
-    Navigator.pop(context);
   }
 
   void removeItem(int index) {
+    //EndPoints().deleteAlarm(index.toString(), getToken(), getId());
+    print("id: " + items[index].id.toString());
+    EndPoints().deleteAlarm(items[index].id.toString(), idPatient);
     final item = items.removeAt(index);
-
     key.currentState.removeItem(
       index,
       (context, animation) => buildItem(item, index, animation),
     );
   }
+}
+
+information(context) {
+  showDialog(
+    context: context,
+    builder: (BuildContext context) =>
+        _buildPopupDialog(context),
+    barrierDismissible: true
+  );
+}
+
+Widget _buildPopupDialog(BuildContext context) {
+  return AlertDialog(
+    title: Text(
+      "El botón “+” sirve para crear una nueva alarma de medicamento",
+      ),
+  );
 }

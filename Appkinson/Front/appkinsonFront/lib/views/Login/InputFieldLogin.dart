@@ -1,3 +1,4 @@
+import 'package:appkinsonFront/views/Register/InputFieldRegister.dart';
 import 'package:flutter/material.dart';
 import '../../model/User.dart';
 
@@ -32,7 +33,7 @@ class __FormInputFieldLogin extends State<InputFieldLogin> {
           child: TextField(
             controller: emailController,
             decoration: InputDecoration(
-                hintText: "Ingrese su correo eléctronico",
+                hintText: "Ingrese su Correo Eléctronico",
                 hintStyle: TextStyle(color: Colors.grey),
                 border: InputBorder.none),
           ),
@@ -48,7 +49,7 @@ class __FormInputFieldLogin extends State<InputFieldLogin> {
                 child: TextFormField(
                   controller: password,
                   decoration: const InputDecoration(
-                    hintText: "Ingrese su contraseña",
+                    hintText: "Ingrese su Contraseña",
                   ),
                   obscureText: _obscurePassword,
                 ),
@@ -76,4 +77,9 @@ class metod {
     debugPrint(newUser.password);
     return newUser;
   }
+}
+
+cleanLogin() {
+  emailController = new TextEditingController();
+  password = new TextEditingController();
 }

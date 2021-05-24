@@ -6,6 +6,7 @@ import CarerService from "./CarerService";
 import DoctorService from "./DoctorService";
 import IEmotionalFormDto from "../models/IEmotionalFormDto";
 import { Pool } from "mysql2/promise";
+import IMedicineAlarm from "../models/IMedicineAlarm";
 
 const debug = debugLib('AppKinson:PatientService');
 
@@ -50,18 +51,24 @@ export default class PatientService {
         try {
             if( answer.RequesterType === PersonType.CARER ) {
                 const idCarer = Number(answer.RequesterId);
+
                 if(!Number.isNaN(idCarer)) {
                     return await CarerService.relatePatientToCarer(idCarer, idPatient, answer.Answer);
                 } else {
-                    return 'Error parsing Id Carer';
+                    debug('Error parsing Id Carer. Id: %s', answer.RequesterId);
+                    return null;
                 }
             } else if(answer.RequesterType === PersonType.DOCTOR) {
                 const idDoctor = Number(answer.RequesterId);
                 if(!Number.isNaN(idDoctor)) {
                     return await DoctorService.relatePatientToDoctor(idDoctor, idPatient, answer.Answer)
                 } else {
-                    return 'Error parsing Id Doctor';
+                    debug('Error parsing Id Doctor. Id: %s', answer.RequesterId);
+                    return null;
                 }
+            } else {
+                debug('Error requester type not valid. Type: %s', answer.RequesterType);
+                return null;
             }
         } catch (error) {
             debug('answer request failed. Error: %j', error);
@@ -163,6 +170,83 @@ export default class PatientService {
                 conn.end();
             }
             debug('saveEmotionalForm Error: %j', error);
+            throw error;
+        }
+    }
+
+    public static async getMedicineAlarmsById(id: number) {
+        let conn: Pool | undefined;
+        try {
+            conn = await connect();
+            const query = `
+            SELECT 
+                am.title as Title,
+                m.NAME as Medicine,
+                m.ID as IdMedicine,
+                am.dose as Dose,
+                am.periodicityQuantity as PeriodicityQuantity,
+                am.periodicityType as PeriodicityType,
+                am.alarmTime as AlarmTime,
+                am.ID_PATIENT as IdPatient,
+                am.quantity as Quantity
+            FROM 
+                alarmandmedicinepatient am
+                INNER JOIN
+                medicine m
+                ON m.ID = am.idMedicine
+            WHERE ID_PATIENT= ?`;
+            debug('getMedicineAlarmsById to patient id: %s', id);
+            const res = await conn.query(query,[id]);
+            debug('getMedicineAlarmsById executed and returned: %j', res[0]);
+            conn.end();
+            return res[0];
+        }  catch (error) {
+            if(conn) {
+                conn.end();
+            }
+            debug('getMedicineAlarmsById Error: %j', error);
+            throw error;
+        }
+    }
+
+    public static async saveMedicineAlarms(id: number, medicineAlarms: IMedicineAlarm) {
+        let conn: Pool | undefined;
+        try {
+            debug('saveMedicineAlarms get into');
+            conn = await connect();
+            medicineAlarms.ID_PATIENT = id;
+            debug('saveMedicineAlarms medicine alarms to save: %j', medicineAlarms);
+            const res = await conn.query('INSERT INTO medicinealarmpatient SET ?',[medicineAlarms]);
+            debug('saveMedicineAlarms saved and returned: %j', res);
+            conn.end();
+            return res;
+        }  catch (error) {
+            if(conn) {
+                conn.end();
+            }
+            debug('saveMedicineAlarms Error: %j', error);
+            throw error;
+        }
+    }
+
+
+    public static async deleteMedicineAlarms(id: string, idPatient: number) {
+        let conn: Pool | undefined;
+        try {
+            debug('deleteMedicineAlarms get into');
+            conn = await connect();
+            debug('deleteMedicineAlarms medicine alarm id: %s, id patient: %s', id, idPatient);
+            const resDeletion = await conn.query(
+                'DELETE FROM medicinealarmpatient WHERE ID_PATIENT  = ? AND id = ?',
+                [idPatient, id]);
+            debug('deleteMedicineAlarms saved and returned: %j', resDeletion);
+            conn.end();
+            return resDeletion;
+        }  catch (error) {
+            if(conn) {
+                conn.end();
+            }
+            debug('deleteMedicineAlarms Error: %j', error);
             throw error;
         }
     }

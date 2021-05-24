@@ -2,7 +2,9 @@ import 'package:appkinsonFront/model/User.dart';
 import 'package:appkinsonFront/routes/RoutesCarer.dart';
 import 'package:appkinsonFront/routes/RoutesGeneral.dart';
 import 'package:appkinsonFront/services/EndPoints.dart';
-import 'package:appkinsonFront/views/Login/Buttons/ButtonLogin.dart';
+import 'package:appkinsonFront/utils/Utils.dart';
+import 'package:appkinsonFront/views/HomeInitial/HomePage.dart';
+import 'package:appkinsonFront/views/Login/LoginPage.dart';
 import 'package:appkinsonFront/views/profiles/Carer/profileEdition/ProfileEditionCarer.dart';
 import 'package:flutter/cupertino.dart';
 
@@ -12,19 +14,22 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/screenutil.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:line_awesome_flutter/line_awesome_flutter.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 const bla = Colors.white;
 const kSpacingUnit = 10;
-File imageFile;
+File imageFileCarer;
+var nameCarer = "";
+var emailCarer = "";
 
 final kTitleTextStyle = TextStyle(
   fontFamily: "Raleway",
-  fontSize: ScreenUtil().setSp(kSpacingUnit * 1.7),
+  fontSize: ScreenUtil().setSp(20),
   fontWeight: FontWeight.w600,
 );
 
 final kCaptionTextStyle = TextStyle(
-  fontSize: ScreenUtil().setSp(kSpacingUnit * 1.3),
+  fontSize: ScreenUtil().setSp(20),
   fontWeight: FontWeight.w100,
   //fontFamily: "Raleway"
 );
@@ -37,22 +42,24 @@ class DoctorProfileScreenP extends State<CarerProfileScreen> {
   openGallery(BuildContext context) async {
     var picture = await ImagePicker.pickImage(source: ImageSource.gallery);
     this.setState(() {
-      imageFile = picture;
+      imageFileCarer = picture;
     });
-    var newUser = new User(photo: imageFile);
-    String save = await EndPoints()
-        .modifyUsersPhoto(newUser, currentUser['id'].toString(), token);
+    var newUser = new User(photo: imageFileCarer);
+    String id = await Utils().getFromToken('id');
+    String token = await Utils().getToken();
+    String save = await EndPoints().modifyUsersPhoto(newUser, id, token);
     RoutesGeneral().toPop(context);
   }
 
   openCamera(BuildContext context) async {
     var picture = await ImagePicker.pickImage(source: ImageSource.camera);
     this.setState(() {
-      imageFile = picture;
+      imageFileCarer = picture;
     });
-    var newUser = new User(photo: imageFile);
-    String save = await EndPoints()
-        .modifyUsersPhoto(newUser, currentUser['id'].toString(), token);
+    var newUser = new User(photo: imageFileCarer);
+    String id = await Utils().getFromToken('id');
+    String token = await Utils().getToken();
+    String save = await EndPoints().modifyUsersPhoto(newUser, id, token);
     RoutesGeneral().toPop(context);
   }
 
@@ -85,11 +92,11 @@ class DoctorProfileScreenP extends State<CarerProfileScreen> {
   }
 
   Widget decideImageView() {
-    if (imageFile == null) {
+    if (imageFileCarer == null) {
       return Icon(LineAwesomeIcons.question);
     } else {
       return Image.file(
-        imageFile,
+        imageFileCarer,
         fit: BoxFit.cover,
         height: 100,
         width: 100,
@@ -100,7 +107,7 @@ class DoctorProfileScreenP extends State<CarerProfileScreen> {
   @override
   Widget build(BuildContext context) {
     ScreenUtil.init(context, height: 896, width: 414, allowFontScaling: true);
-    var profileInfo = Expanded(
+    var profileInfo = Container(
         child: Column(
       children: [
         Container(
@@ -151,14 +158,13 @@ class DoctorProfileScreenP extends State<CarerProfileScreen> {
           height: 20,
         ),
         Text(
-          nameControllerCarer.text,
+          nameCarer,
           style: kTitleTextStyle,
         ),
         SizedBox(
           height: 5,
         ),
-        Text('cami.Hoyos@gmail.com', style: kCaptionTextStyle),
-        SizedBox(),
+        Text(emailCarer, style: kCaptionTextStyle),
       ],
     ));
     var header = Row(
@@ -191,12 +197,12 @@ class DoctorProfileScreenP extends State<CarerProfileScreen> {
           SizedBox(
             width: 20,
           ),
-          Icon(
+          /*Icon(
             LineAwesomeIcons.sun,
             size: ScreenUtil().setSp(40),
-          ),
+          ),*/
           SizedBox(
-            width: 40,
+            width: 80,
           ),
         ]);
 
@@ -220,19 +226,7 @@ class DoctorProfileScreenP extends State<CarerProfileScreen> {
                   ),
                   ProfileListItem(
                     icon: LineAwesomeIcons.helping_hands,
-                    text: 'Ayuda & soporte',
-                  ),
-                  ProfileListItem(
-                    icon: LineAwesomeIcons.question,
-                    text: 'Acerca de nosotros',
-                  ),
-                  ProfileListItem(
-                    icon: LineAwesomeIcons.comment,
-                    text: 'Comentarios',
-                  ),
-                  ProfileListItem(
-                    icon: LineAwesomeIcons.star,
-                    text: 'Califícanos',
+                    text: 'Ayuda & Soporte',
                   ),
                   ProfileListItem(
                     icon: Icons.exit_to_app,
@@ -269,9 +263,22 @@ class ProfileListItem extends StatelessWidget {
           shape:
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)),
           color: Colors.grey[100],
-          onPressed: () {
+          onPressed: () async {
             if (text == 'Editar') {
               RoutesCarer().toCarerEditProfile(context);
+            }
+            if (text == 'Ayuda & Soporte') {
+              RoutesGeneral().toAboutUs(context);
+            }
+
+            if (text == 'Cerrar Sesión') {
+              debugPrint("Tapped Log Out....");
+              SharedPreferences prefs = await SharedPreferences.getInstance();
+              prefs?.clear();
+              await Utils().removeBackgroundTask();
+              Navigator.of(context).pushAndRemoveUntil(
+                  MaterialPageRoute(builder: (context) => HomePage()),
+                  (Route<dynamic> route) => false);
             }
           },
           child: Row(
