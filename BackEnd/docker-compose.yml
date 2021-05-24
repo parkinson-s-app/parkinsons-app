@@ -1,0 +1,32 @@
+version: "3.8"
+services: 
+    backend:
+            container_name: appkison_back
+            restart: always
+            build: .
+            image: appkinson_back
+            ports:
+                - "9000:8000"
+            links: 
+                - database
+            volumes: 
+                - .:/app
+            environment: 
+                - 'PASSWORD_DB=pass'
+                - HOST_DB=database
+                - USER_DB=root
+                - PORT=8000
+
+    database:
+            container_name: appkinson_db
+            image: mysql:latest
+            
+            restart: always
+            ports: 
+                - "3307:3306"
+            environment: 
+                - 'MYSQL_ROOT_PASSWORD=pass'
+                - MYSQL_USER=root
+            volumes:
+                - ./src/db/scripts:/docker-entrypoint-initdb.d
+                - ./src/db/data:/var/lib/mysql:rw
