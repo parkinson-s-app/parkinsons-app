@@ -557,7 +557,7 @@ class _CalendarScreenView2 extends State<CalendarScreenView2> {
                                           style: TextStyle(
                                               fontWeight: FontWeight.bold)),
                                       IconButton(
-                                          icon: Icon(Icons.help_outlined,
+                                          icon: Icon(Icons.live_help_outlined,
                                               color: Colors.grey[500]),
                                           tooltip:
                                               'Son cambios del estado del paciente a lo largo del día. En fase o periodo ON hay un control satisfactorio de los síntomas y es posible una actividad motora normal. En cambio, en las fases OFF reaparecen los síntomas con una función motora alterada.')
@@ -596,7 +596,7 @@ class _CalendarScreenView2 extends State<CalendarScreenView2> {
                                           style: TextStyle(
                                               fontWeight: FontWeight.bold)),
                                       IconButton(
-                                          icon: Icon(Icons.help_outlined,
+                                          icon: Icon(Icons.live_help_outlined,
                                               color: Colors.grey[500]),
                                           tooltip:
                                               'son trastornos del movimiento que se caracterizan por un exceso de movimientos o por movimientos anormales e involuntarios')
@@ -638,7 +638,7 @@ class _CalendarScreenView2 extends State<CalendarScreenView2> {
                                   Divider(thickness: 1),
                                   Row(children: [
                                     SizedBox(
-                                      width: 5,
+                                      width: 11,
                                     ),
                                     FlatButton(
                                       shape: RoundedRectangleBorder(
@@ -723,7 +723,7 @@ class _CalendarScreenView2 extends State<CalendarScreenView2> {
                                       color: Colors.blue[500],
                                       textColor: Colors.white,
                                       child: Text(
-                                          '           Toma de Levodopa          '),
+                                          '        Toma de Levodopa       '),
                                       /*() => {
                         //print(cont);
                         _incrementColorIndex()
@@ -731,11 +731,11 @@ class _CalendarScreenView2 extends State<CalendarScreenView2> {
                                       // Text("Registrarse ", style:  TextStyle(fontSize: 15)),
                                     ),
                                   ]),
-                                  IconButton(
+                                  /*IconButton(
                                       icon: Icon(Icons.help_outlined,
                                           color: Colors.grey[500]),
                                       tooltip:
-                                          'Esta opción es para escoger cuánto tiempo depués de la hora indicada se tomó el medicamento. Si fue a la hora establecida, puede continuar sin escoger nada.')
+                                          'Esta opción es para escoger cuánto tiempo depués de la hora indicada se tomó el medicamento. Si fue a la hora establecida, puede continuar sin escoger nada.')*/
                                 ]),
                           )),
                           actions: <Widget>[

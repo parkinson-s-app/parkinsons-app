@@ -184,6 +184,7 @@ class EndPoints {
     return i;
   }
 
+  //
   Future<String> linkUser(String emailUser, var token_type, var token) async {
     Map data2 = {'Email': emailUser};
     //Map data2 = {'email': authUser.email, 'password': authUser.password};
