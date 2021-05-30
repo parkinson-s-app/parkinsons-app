@@ -1,3 +1,5 @@
+import 'package:appkinsonFront/routes/RoutesGeneral.dart';
+import 'package:appkinsonFront/routes/RoutesPatient.dart';
 import 'package:appkinsonFront/services/EndPoints.dart';
 import 'package:flutter/material.dart';
 import 'dart:math' as math;
@@ -12,6 +14,7 @@ class CountDownTimer extends StatefulWidget {
 int count = 0;
 bool envio = false;
 bool isPlaying;
+bool isopen = false;
 
 class CustomTimerPainter extends CustomPainter {
   CustomTimerPainter({
@@ -22,7 +25,6 @@ class CustomTimerPainter extends CustomPainter {
 
   final Animation<double> animation;
   final Color backgroundColor, color;
-
   @override
   void paint(Canvas canvas, Size size) {
     Paint paint = Paint()
@@ -39,8 +41,10 @@ class CustomTimerPainter extends CustomPainter {
     if (progress > 6.28 && envio == false) {
       envio = true;
       _sendScore();
-      print("AQUIIII");
-      _CountDownTimerState().initState();
+      if (count != 0) {
+        _CountDownTimerState().validationIsOpen(false);
+      }
+      //_CountDownTimerState().initState();
     }
     canvas.drawArc(Offset.zero & size, math.pi * 1.5, -progress, false, paint);
   }
@@ -74,10 +78,16 @@ class _CountDownTimerState extends State<CountDownTimer>
     count = 0;
     envio = false;
     isPlaying = true;
+    isopen = false;
     controller = AnimationController(
       vsync: this,
       duration: Duration(seconds: 30),
     );
+  }
+
+  void validationIsOpen(bool changeState) {
+    print("HOLA 2.0");
+    isopen = true;
   }
 
   @override
@@ -93,7 +103,7 @@ class _CountDownTimerState extends State<CountDownTimer>
           animation: controller,
           builder: (context, child) {
             return Stack(
-              children: <Widget>[
+              children: [
                 Align(
                   alignment: Alignment.bottomCenter,
                   child: Container(
@@ -167,6 +177,7 @@ class _CountDownTimerState extends State<CountDownTimer>
                                     if (controller.value != 0.0) {
                                       setState(() {});
                                       count = count + 1;
+                                      print("Se acabó el tiempo");
                                     }
                                     if (controller.value == 0.0) {
                                       print("Se acabó el tiempo");
@@ -199,6 +210,7 @@ class _CountDownTimerState extends State<CountDownTimer>
                                                   : controller.value);
                                           if (controller.value == 1.0) {
                                             envio = false;
+                                            print("Se acabó el tie");
                                             //Aquí llamar el servicio y si es diferente de 0 se guarda el resultado
                                             count = 0;
                                           }
@@ -214,12 +226,51 @@ class _CountDownTimerState extends State<CountDownTimer>
                     ],
                   ),
                 ),
+                if (isopen)
+                  AlertDialog(
+                    title: Text("El juego ha terminado"),
+                    content: Text('Su puntaje fue de $count'),
+                    actions: [
+                      FlatButton(
+                        child: Text("Listo"),
+                        onPressed: () {
+                          isopen = false;
+                          RoutesGeneral().toPop(context);
+                          //RoutesPatient().toToolbox(context);
+                        },
+                      )
+                    ],
+                  )
               ],
             );
           }),
     );
   }
 }
+
+class Alert extends StatelessWidget {
 //añadiendo comentario
+
+  @override
+  Widget build(BuildContext context) {
+    print("hey");
+    // TODO: implement build
+    Widget okButton = FlatButton(
+      child: Text("OK"),
+      onPressed: () {},
+    );
+
+    // set up the AlertDialog
+    return AlertDialog(
+      title: Text("My title"),
+      content: Text("This is my message."),
+      actions: [
+        okButton,
+      ],
+    );
+
+    // show the dialog
+  }
+}
 
 Widget button(bool isPlaying) {}
