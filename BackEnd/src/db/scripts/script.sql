@@ -72,8 +72,8 @@ CREATE TABLE symptomsformpatient (
     Q1 VARCHAR(50) NOT NULL,
     Q2 VARCHAR(50) NOT NULL,
     formdate DATETIME NOT NULL,
-    pathvideo VARCHAR(50),
-    discrepancy INT NOT NULL,
+    pathvideo VARCHAR(255),
+    discrepancy INT,
     FOREIGN KEY (ID_PATIENT) REFERENCES patients(ID_USER) ON DELETE CASCADE,
     PRIMARY KEY (ID_PATIENT,formdate)
 );
@@ -143,7 +143,7 @@ CREATE TABLE medicinealarmpatient (
 
 CREATE TABLE medicine (
     ID INT NOT NULL AUTO_INCREMENT,
-    NAME VARCHAR(50),
+    NAME VARCHAR(100),
     PRIMARY KEY (ID)
 );
 

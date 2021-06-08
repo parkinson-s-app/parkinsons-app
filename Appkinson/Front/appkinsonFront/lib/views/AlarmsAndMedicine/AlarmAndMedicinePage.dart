@@ -53,11 +53,11 @@ class ListAlarmsAndMedicine extends State<ListAlarmsAndMedicinePatient> {
   static List<String> medicinesString;
   //String dropdownValue = 'Inserte el Tipo de Dosis';
   TimeOfDay _time = TimeOfDay.now();
-  String hora = 'Escoja la Hora';
+  String hora = 'Oprima para esoger la hora';
   List<Medicine> medicines = <Medicine>[];
   final int idPatient;
   String medicineSelected;
-  bool isPeriodic =true;
+  bool isPeriodic = true;
   String title; // levodopa
   TextEditingController periodicityQuantity = new TextEditingController(); // 8
   TextEditingController quantity = new TextEditingController(); // 1 or 2 dose 1
@@ -98,23 +98,30 @@ class ListAlarmsAndMedicine extends State<ListAlarmsAndMedicinePatient> {
                   border: Border.all(color: Colors.grey, width: 1),
                   borderRadius: BorderRadius.circular(15)),
               child: DropdownButton<String>(
-                isExpanded: false,
+                isExpanded: true,
                 style: TextStyle(color: Colors.grey, fontSize: 18),
                 underline: SizedBox(),
                 value: dose,
-                items: <String>['1 Uno', '2 Dos' , '3 Tres' , '1/4 Un cuarto', '1/2 Media', '3/4 Tres cuartos'].map((String value) {
+                items: <String>[
+                  '1 Uno',
+                  '2 Dos',
+                  '3 Tres',
+                  '1/4 Un cuarto',
+                  '1/2 Media',
+                  '3/4 Tres cuartos'
+                ].map((String value) {
                   return new DropdownMenuItem<String>(
                     value: value,
                     child: new Text(value),
                   );
                 }).toList(),
                 hint: Align(
-                alignment: Alignment.centerRight,
-                child: Text(
-                  "Inserte la cantidad",
-                  style: TextStyle(color: Colors.grey),
+                  alignment: Alignment.centerLeft,
+                  child: Text(
+                    "Inserte la cantidad",
+                    style: TextStyle(color: Colors.grey),
+                  ),
                 ),
-              ),
                 onChanged: (selected) {
                   setState(() {
                     dose = selected;
@@ -122,46 +129,52 @@ class ListAlarmsAndMedicine extends State<ListAlarmsAndMedicinePatient> {
                 },
               ),
             ),
-            SizedBox(
-              height: 30,
+            Divider(
+              thickness: 2,
             ),
-            Row(
-              children: [
-                Align(
-                  alignment: Alignment.centerLeft,
-                child: ElevatedButton(
-                  child: Text("Escoger por periodicidad"),
-                  
-                  onPressed: () {
-                    setState(() {
-                      this.isPeriodic = false;
-                    });
-                  },
-                  style: ButtonStyle(
+            SizedBox(
+              height: 20,
+            ),
+
+            //Row(
+            // children: [
+            ConstrainedBox(
+              constraints: BoxConstraints.tightFor(width: 400, height: 50),
+              // child: Align(
+              // alignment: Alignment.center,
+              child: ElevatedButton(
+                child: Text("Escoger por periodicidad",
+                    style: TextStyle(fontSize: 18)),
+                onPressed: () {
+                  setState(() {
+                    this.isPeriodic = false;
+                  });
+                },
+                style: ButtonStyle(
                   shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                    RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(18.0),
-                    )
-                  ),
+                      RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(18.0),
+                  )),
                   backgroundColor: MaterialStateProperty.resolveWith<Color>(
                     (Set<MaterialState> states) {
                       if (this.isPeriodic == false) return Colors.blue;
                       return Colors.grey;
                     },
-                    ),
-                    elevation: MaterialStateProperty.all(8),
                   ),
-                
+                  elevation: MaterialStateProperty.all(8),
                 ),
-                ),
-                SizedBox(
-                  width: 10,
-                ),
-                Align(
-                  alignment: Alignment.centerRight,
-                child:  ElevatedButton(
-                  
-                  child: Text("Escoger hora manual"),
+              ),
+              // ),
+            ),
+            SizedBox(
+              height: 20,
+            ),
+            ConstrainedBox(
+                constraints: BoxConstraints.tightFor(width: 400, height: 50),
+
+                //alignment: Alignment.center,
+                child: ElevatedButton(
+                  child: Text("Hora manual", style: TextStyle(fontSize: 18)),
                   onPressed: () {
                     setState(() {
                       this.isPeriodic = true;
@@ -169,162 +182,167 @@ class ListAlarmsAndMedicine extends State<ListAlarmsAndMedicinePatient> {
                   },
                   style: ButtonStyle(
                     shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                    RoundedRectangleBorder(
+                        RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(18.0),
-                    )
-                  ),
-                  backgroundColor: MaterialStateProperty.resolveWith<Color>(
-                    (Set<MaterialState> states) {
-                      if (this.isPeriodic == true) return Colors.blue;
-                      return Colors.grey;
-                    },
+                    )),
+                    backgroundColor: MaterialStateProperty.resolveWith<Color>(
+                      (Set<MaterialState> states) {
+                        if (this.isPeriodic == true) return Colors.blue;
+                        return Colors.grey;
+                      },
                     ),
                     elevation: MaterialStateProperty.all(8),
                   ),
-                )
-                )
-              ],
-            ),
+                )),
+            //  ],
+            // ),
             SizedBox(
               height: 30,
             ),
-            ! isPeriodic ? 
-            Column(
-              children: <Widget>[
-              Row(
-              children: <Widget>[
-                Text(
-                  "Tipo de Periocidad: ",
-                  style: TextStyle(
-                      color: Colors.black,
-                      fontSize: 18,
-                      fontFamily: "Raleway2",
-                      fontWeight: FontWeight.bold),
-                ),
-                Container(
-                  decoration: BoxDecoration(
-                      border: Border.all(color: Colors.grey, width: 1),
-                      borderRadius: BorderRadius.circular(15)),
-                  child: DropdownButton<String>(
-                    isExpanded: false,
-                    style: TextStyle(color: Colors.grey, fontSize: 18),
-                    underline: SizedBox(),
-                    value: periodicityType,
-                    items: <String>['Hora(s)', 'Día(s)'].map((String value) {
-                      return new DropdownMenuItem<String>(
-                        value: value,
-                        child: new Text(value),
-                      );
-                    }).toList(),
-                    onChanged: (selected) {
-                      setState(() {
-                        periodicityType = selected;
-                      });
-                    },
+            !isPeriodic
+                ? Column(children: <Widget>[
+                    Row(
+                      children: <Widget>[
+                        Text(
+                          "Tipo de Periocidad: ",
+                          style: TextStyle(
+                              color: Colors.black,
+                              fontSize: 18,
+                              fontFamily: "Raleway2",
+                              fontWeight: FontWeight.bold),
+                        ),
+                        Container(
+                          decoration: BoxDecoration(
+                              border: Border.all(color: Colors.grey, width: 1),
+                              borderRadius: BorderRadius.circular(15)),
+                          child: DropdownButton<String>(
+                            isExpanded: false,
+                            style: TextStyle(color: Colors.grey, fontSize: 18),
+                            underline: SizedBox(),
+                            value: periodicityType,
+                            items: <String>['Hora(s)', 'Día(s)']
+                                .map((String value) {
+                              return new DropdownMenuItem<String>(
+                                value: value,
+                                child: new Text(value),
+                              );
+                            }).toList(),
+                            onChanged: (selected) {
+                              setState(() {
+                                periodicityType = selected;
+                              });
+                            },
+                          ),
+                        ),
+                      ],
+                    ),
+                    SizedBox(
+                      height: 30,
+                    ),
+                    TextField(
+                      decoration: new InputDecoration(
+                        labelText: "Inserte la Periodicidad",
+                        contentPadding: EdgeInsets.symmetric(horizontal: 2),
+                        border: OutlineInputBorder(),
+                      ),
+                      keyboardType: TextInputType.number,
+                      inputFormatters: <TextInputFormatter>[
+                        FilteringTextInputFormatter.digitsOnly
+                      ], // Only numbers can be entered
+                      controller: periodicityQuantity,
+                    ),
+                    SizedBox(
+                      height: 30,
+                    ),
+
+                    /*Padding(
+                          padding: EdgeInsets.only(left: 20),
+                          child: Text(
+                            "Hora de inicio: ",
+                            style: TextStyle(
+                                color: Colors.black,
+                                fontSize: 18,
+                                fontFamily: "Raleway2",
+                                fontWeight: FontWeight.bold),
+                          ),
+                        ),*/
+                    relojito(size, context)
+                  ])
+                : Column(
+                    children: <Widget>[
+                      Text(
+                        "Agregar hora manualmente : ",
+                        style: TextStyle(
+                            color: Colors.black,
+                            fontSize: 18,
+                            fontFamily: "Raleway2",
+                            fontWeight: FontWeight.bold),
+                      ),
+                      relojito(size, context)
+                    ],
                   ),
-                ),
-              ],
+            Divider(
+              thickness: 2,
             ),
             SizedBox(
-              height: 30,
-            ),
-            TextField(
-                  decoration: new InputDecoration(
-                      labelText: "Inserte la Periodicidad",
-                      contentPadding: EdgeInsets.symmetric(horizontal: 2),
-                      border: OutlineInputBorder()),
-                  keyboardType: TextInputType.number,
-                  inputFormatters: <TextInputFormatter>[
-                    FilteringTextInputFormatter.digitsOnly
-                  ], // Only numbers can be entered
-                  controller: periodicityQuantity,
-                ),
-            SizedBox(
-              height: 30,
-            ),
-            Row(
-              children: [
-                Padding(
-                padding: EdgeInsets.only(left: 20),
-                child: Text(
-                  "Hora de inicio: ",
-                  style: TextStyle(
-                      color: Colors.black,
-                      fontSize: 18,
-                      fontFamily: "Raleway2",
-                      fontWeight: FontWeight.bold),
-                ),),
-                relojito(size, context)
-              ],
-            ), ]): Column(
-                children: <Widget>[
-                  Text(
-                  "Agregar hora manualmente : ",
-                  style: TextStyle(
-                      color: Colors.black,
-                      fontSize: 18,
-                      fontFamily: "Raleway2",
-                      fontWeight: FontWeight.bold),
-                ),
-                relojito(size, context)
-                ],
-                
-            ),
-            SizedBox(
-              height: 30,
+              height: 20,
             ),
 
             Container(
-                //height: 50,
+                height: 50,
+                width: 450,
                 //margin: EdgeInsets.symmetric(horizontal: 50),
                 child: RaisedButton(
-              shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(18.0)),
-              //   side: BorderSide(color: Color.fromRGBO(0, 160, 227, 1))),
-              padding: EdgeInsets.symmetric(horizontal: 50),
-              onPressed: () async {
-                print('medicine: $medicineSelected');
-                print('Hora: ${_time.hour}:${_time.minute}');
-                print('Tipo period. $periodicityType');
-                print('periodicidad  !${periodicityQuantity.text}!');
-                print('Tipo de dosis ${dose}');
-                
-                AlarmAndMedicine alarmAndMedicine = new AlarmAndMedicine();
-                if(isPeriodic){
-                  print("null");
-                  alarmAndMedicine.periodicityQuantity = 0; //perioricidad
-                  alarmAndMedicine.periodicityType = null; 
-                }else{
-                  String per = periodicityQuantity.text;
-                  int periodiciyNumb = int.tryParse(per) ?? -1;
-                  alarmAndMedicine.periodicityQuantity = periodiciyNumb; //perioricidad
-                  alarmAndMedicine.periodicityType = periodicityType; 
-                }
-                alarmAndMedicine.alarmTime = _time; //alarma
-                alarmAndMedicine.dose = dose; // cantidad
-                alarmAndMedicine.idMedicine = medicineSelected; //nombre medicina
-                debugPrint("medicina: ");
-                print("medicina" + alarmAndMedicine.idMedicine);
-                print(alarmAndMedicine.periodicityQuantity);
-                print(alarmAndMedicine.periodicityType);
-                print(alarmAndMedicine.dose);
-                print(alarmAndMedicine.alarmTime);
-                //tipo perioricidad
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(18.0)),
+                  //   side: BorderSide(color: Color.fromRGBO(0, 160, 227, 1))),
+                  padding: EdgeInsets.symmetric(horizontal: 50),
+                  onPressed: () async {
+                    print('medicine: $medicineSelected');
+                    print('Hora: ${_time.hour}:${_time.minute}');
+                    print('Tipo period. $periodicityType');
+                    print('periodicidad  !${periodicityQuantity.text}!');
+                    print('Tipo de dosis ${dose}');
 
-                //Aquí se agrega a la lista
-                String res = await EndPoints()
-                    .saveAlarmsAndMedicines(alarmAndMedicine, idPatient);
-                print('response save medicine: $res');
-                var token = await Utils().getToken();
-                //Navigator.pop(context);
-                items = await EndPoints().getMedicinesAlarms(idPatient, token);
-                AlarmAndMedicine nuevo = items[items.length-1];
-                Navigator.pop(context, nuevo);
-              },
-              color: Colors.blue,
-              textColor: Colors.white,
-              child: Text("Guardar", style: TextStyle(fontSize: 15)),
-            )),
+                    AlarmAndMedicine alarmAndMedicine = new AlarmAndMedicine();
+                    if (isPeriodic) {
+                      print("null");
+                      alarmAndMedicine.periodicityQuantity = 0; //perioricidad
+                      alarmAndMedicine.periodicityType = null;
+                    } else {
+                      String per = periodicityQuantity.text;
+                      int periodiciyNumb = int.tryParse(per) ?? -1;
+                      alarmAndMedicine.periodicityQuantity =
+                          periodiciyNumb; //perioricidad
+                      alarmAndMedicine.periodicityType = periodicityType;
+                    }
+                    alarmAndMedicine.alarmTime = _time; //alarma
+                    alarmAndMedicine.dose = dose; // cantidad
+                    alarmAndMedicine.idMedicine =
+                        medicineSelected; //nombre medicina
+                    debugPrint("medicina: ");
+                    print("medicina" + alarmAndMedicine.idMedicine);
+                    print(alarmAndMedicine.periodicityQuantity);
+                    print(alarmAndMedicine.periodicityType);
+                    print(alarmAndMedicine.dose);
+                    print(alarmAndMedicine.alarmTime);
+                    //tipo perioricidad
+
+                    //Aquí se agrega a la lista
+                    String res = await EndPoints()
+                        .saveAlarmsAndMedicines(alarmAndMedicine, idPatient);
+                    print('response save medicine: $res');
+                    var token = await Utils().getToken();
+                    //Navigator.pop(context);
+                    items =
+                        await EndPoints().getMedicinesAlarms(idPatient, token);
+                    AlarmAndMedicine nuevo = items[items.length - 1];
+                    Navigator.pop(context, nuevo);
+                  },
+                  color: Colors.indigo[600],
+                  textColor: Colors.white,
+                  child: Text("Guardar", style: TextStyle(fontSize: 15)),
+                )),
           ])),
     );
     //}
@@ -334,11 +352,11 @@ class ListAlarmsAndMedicine extends State<ListAlarmsAndMedicinePatient> {
   Widget relojito(Size size, BuildContext context) {
     return Container(
       height: 50,
-      margin: EdgeInsets.all(12),
+      margin: EdgeInsets.all(2),
       child: FlatButton(
-        minWidth: 140,
+        minWidth: 500,
         shape:
-            RoundedRectangleBorder(borderRadius: BorderRadius.circular(25.0)),
+            RoundedRectangleBorder(borderRadius: BorderRadius.circular(18.0)),
         onPressed: () async {
           _time = await showTimePicker(context: context, initialTime: _time);
           debugPrint(_time.toString());
@@ -385,12 +403,12 @@ class ListAlarmsAndMedicine extends State<ListAlarmsAndMedicinePatient> {
             );
           }).toList(),
           hint: Align(
-                alignment: Alignment.centerLeft,
-                child: Text(
-                  "Seleccione un medicamento",
-                  style: TextStyle(color: Colors.grey),
-                ),
-              ),
+            alignment: Alignment.centerLeft,
+            child: Text(
+              "Seleccione un medicamento",
+              style: TextStyle(color: Colors.grey, fontSize: 18),
+            ),
+          ),
         ));
   }
 

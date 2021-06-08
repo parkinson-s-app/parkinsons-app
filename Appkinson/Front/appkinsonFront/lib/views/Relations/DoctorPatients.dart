@@ -247,7 +247,7 @@ class DoctorPatientsCustom extends State<DoctorPatients> {
                   title: Text(patient.email,
                       style: DefaultTextStyle.of(context)
                           .style
-                          .apply(fontSizeFactor: 1.5)),
+                          .apply(fontSizeFactor: 1.0)),
                   //subtitle: Text(user.email),
                   leading: CircleAvatar(
                     child: Icon(Icons.account_circle_outlined),
