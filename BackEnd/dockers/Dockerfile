@@ -1,9 +1,15 @@
-FROM mysql:5.6
+FROM node:14.15.4-slim
 
 LABEL version="1.0"
 
-LABEL Name="appkinsonDB"
+LABEL Name="appkinsonBack"
 
+EXPOSE 8000
 
-# ADD ./src/db/script.sql /docker-entrypoint-initdb.d
+WORKDIR /app
 
+COPY ./ ./
+
+RUN npm ci
+
+CMD ["npm", "run", "rundocker"]

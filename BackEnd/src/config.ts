@@ -1,9 +1,9 @@
 export default {
     apiPath: process.env.API_PATH || '',
-    host: process.env.HOST_DB || 'appkinson-db.cgmd1uulv47n.us-east-2.rds.amazonaws.com',
-    user: process.env.USER_DB || 'admin',
-    password: process.env.PASSWORD_DB || 'appkinson6',
-    database: process.env.NAME_DB || 'AppKinsonDB',
+    host: process.env.HOST_DB || 'hostfake',
+    user: process.env.USER_DB || 'userfake',
+    password: process.env.PASSWORD_DB || 'passwordfake',
+    database: process.env.NAME_DB || 'namefake',
     connectionLimit: process.env.CON_LIMIT || 10,
     port: process.env.PORT || '9000',
     portDB: process.env.PORTDB || 3306,
