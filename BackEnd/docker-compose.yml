@@ -20,6 +20,7 @@ services:
                 - 'PASSWORD_EMAIL=$PASSWORD_EMAIL'
                 - 'SECRET_KEY=$SECRET_KEY'
                 - 'OTP_KEY=$OTP_KEY'
+                - NAME_DB=AppKinsonDB
 
     database:
             container_name: appkinson_db
