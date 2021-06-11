@@ -1,7 +1,7 @@
 version: "3.8"
 services: 
-    backend:
-            container_name: appkison_back
+    back:
+            container_name: back
             restart: always
             build: .
             image: appkinson_back

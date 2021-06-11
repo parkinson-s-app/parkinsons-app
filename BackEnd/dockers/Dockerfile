@@ -10,4 +10,6 @@ WORKDIR /app
 
 COPY ./ ./
 
-RUN npm install --production 
+RUN npm ci
+
+CMD ["npm", "run", "rundocker"]
