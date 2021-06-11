@@ -1,0 +1,8 @@
+USER_EMAIL=email@a.com
+PASSWORD_EMAIL=passw
+SECRET_KEY=secret1
+OTP_KEY=secret2
+HOST_DB=appkinson-db.cgmd1uulv47n.us-east-2.rds.amazonaws.com
+USER_DB=admin
+PASSWORD_DB=appkinson6
+NAME_DB=AppKinsonDB

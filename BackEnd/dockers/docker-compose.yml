@@ -1,0 +1,20 @@
+version: "3.8"
+services: 
+    backend:
+            container_name: appkison_back
+            restart: always
+            build: .
+            image: appkinson_back
+            ports:
+                - "9000:8000"
+            volumes: 
+                - ../:/app
+            environment: 
+                - 'PASSWORD_DB=$MYSQL_ROOT_PASSWORD'
+                - 'HOST_DB=$HOST_DB'
+                - 'USER_DB=$USER_DB'
+                - PORT=8000
+                - 'USER_EMAIL=$USER_EMAIL'
+                - 'PASSWORD_EMAIL=$PASSWORD_EMAIL'
+                - 'SECRET_KEY=$SECRET_KEY'
+                - 'OTP_KEY=$OTP_KEY'

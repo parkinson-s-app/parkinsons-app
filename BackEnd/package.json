@@ -24,7 +24,7 @@
     "restartdb": "sudo rm -r src/db/data",
     "deleteOut": "test -f output.txt && rm output.txt || echo \"doesnt exists\"",
     "rund": "export DEBUG=AppKinson:* && nohup node ./build/bin/www.js >> output.txt 2>&1 &",
-    "rundocker": "export DEBUG=AppKinson:* && node ./build/bin/www.js >> ./output.txt 2>&1 "
+    "rundocker": "npm run build && export DEBUG=AppKinson:* && node ./build/bin/www.js >> ./output.txt 2>&1 "
   },
   "keywords": [],
   "author": "",

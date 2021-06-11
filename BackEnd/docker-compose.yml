@@ -12,21 +12,25 @@ services:
             volumes: 
                 - .:/app
             environment: 
-                - 'PASSWORD_DB=pass'
+                - 'PASSWORD_DB=$MYSQL_ROOT_PASSWORD'
                 - HOST_DB=database
                 - USER_DB=root
                 - PORT=8000
+                - 'USER_EMAIL=$USER_EMAIL'
+                - 'PASSWORD_EMAIL=$PASSWORD_EMAIL'
+                - 'SECRET_KEY=$SECRET_KEY'
+                - 'OTP_KEY=$OTP_KEY'
 
     database:
             container_name: appkinson_db
-            image: mysql:latest
+            image: mysql:8.0.23
             
             restart: always
             ports: 
                 - "3307:3306"
             environment: 
-                - 'MYSQL_ROOT_PASSWORD=pass'
-                - MYSQL_USER=root
+                - 'MYSQL_ROOT_PASSWORD=$MYSQL_ROOT_PASSWORD'
+
             volumes:
                 - ./src/db/scripts:/docker-entrypoint-initdb.d
                 - ./src/db/data:/var/lib/mysql:rw
